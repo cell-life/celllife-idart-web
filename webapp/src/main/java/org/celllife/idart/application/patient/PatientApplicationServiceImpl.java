@@ -1,5 +1,6 @@
 package org.celllife.idart.application.patient;
 
+import org.celllife.idart.application.code.PatientCodeApplicationService;
 import org.celllife.idart.domain.clinic.Clinic;
 import org.celllife.idart.domain.clinic.ClinicIdentifierType;
 import org.celllife.idart.domain.clinic.ClinicRepository;
@@ -9,6 +10,7 @@ import org.celllife.idart.domain.patient.PatientService;
 import org.celllife.idart.framework.logging.LogLevel;
 import org.celllife.idart.framework.logging.Loggable;
 import org.celllife.idart.integration.prehmis.PrehmisPatientService;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,12 @@ public final class PatientApplicationServiceImpl implements PatientApplicationSe
     @Autowired
     private PrehmisPatientService prehmisPatientService;
 
+    @Autowired
+    private PatientCodeApplicationService patientCodeApplicationService;
+
+    @Autowired
+    private Mapper mapper;
+
     @Override
     @Loggable(value = LogLevel.INFO, exception = LogLevel.ERROR)
     public List<Patient> findByIdentifier(String applicationIdentifier,
@@ -59,11 +67,24 @@ public final class PatientApplicationServiceImpl implements PatientApplicationSe
                     Set<Patient> prehmisPatients =
                             prehmisPatientService.findByIdentifier(clinicIdentifierValue, patientIdentifierValue);
 
-                    patientService.save(prehmisPatients);
+                    savePatient(prehmisPatients);
             }
         }
 
         return patientRepository.findByIdentifier(patientIdentifierValue);
     }
 
+    public void savePatient(Iterable<Patient> patients) {
+
+        for (Patient newPatient : patients) {
+            Patient existingPatient = patientService.findByIdentifiers(newPatient.getIdentifiers());
+            if (existingPatient != null) {
+                mapper.map(newPatient, existingPatient);
+                patientRepository.save(existingPatient);
+            } else {
+                newPatient.addIdentifier(patientCodeApplicationService.nextCode(), "iDART Patient Number");
+                patientRepository.save(newPatient);
+            }
+        }
+    }
 }

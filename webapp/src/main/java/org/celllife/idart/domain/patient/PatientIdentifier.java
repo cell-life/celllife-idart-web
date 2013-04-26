@@ -19,13 +19,12 @@ public final class PatientIdentifier implements Serializable {
     @Basic
     private String value;
 
-    @Enumerated(EnumType.STRING)
-    private PatientIdentifierType type;
+    private String type;
 
     public PatientIdentifier() {
     }
 
-    PatientIdentifier(String value, PatientIdentifierType type) {
+    PatientIdentifier(String value, String type) {
         this.value = value;
         this.type = type;
     }
@@ -46,12 +45,32 @@ public final class PatientIdentifier implements Serializable {
         this.value = value;
     }
 
-    public PatientIdentifierType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(PatientIdentifierType type) {
+    public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PatientIdentifier that = (PatientIdentifier) o;
+
+        if (type != that.type) return false;
+        if (!value.equals(that.value)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 
     @Override

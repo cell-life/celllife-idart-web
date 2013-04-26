@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.patient;
 
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,22 +16,7 @@ public final class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    @Autowired
-    private Mapper mapper;
-
-    public Iterable<Patient> save(Iterable<Patient> patients) {
-
-        for (Patient newPatient : patients) {
-            Patient existingPatient = findByIdentifiers(newPatient.getIdentifiers());
-            if (existingPatient != null) {
-                mapper.map(existingPatient, newPatient);
-            }
-        }
-
-        return patientRepository.save(patients);
-    }
-
-    private Patient findByIdentifiers(Set<PatientIdentifier> identifiers) {
+    public Patient findByIdentifiers(Set<PatientIdentifier> identifiers) {
 
         for (PatientIdentifier identifier : identifiers) {
 

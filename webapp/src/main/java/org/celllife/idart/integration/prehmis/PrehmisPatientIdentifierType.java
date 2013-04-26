@@ -7,20 +7,29 @@ package org.celllife.idart.integration.prehmis;
  */
 public enum PrehmisPatientIdentifierType {
 
-    PGWC("pgwc"),
+    PGWC("pgwc", "PGWC Patient Number"),
 
-    PREHMIS("prehmis"),
+    PREHMIS("prehmis", "PREHMIS ID"),
 
-    SAID("said");
+    SAID("said", "National ID Number"),
 
-    private String type;
+    PASSPORT("passport", "Passport Number");
 
-    PrehmisPatientIdentifierType(String type) {
+    private String prehmisType;
 
-        this.type = type;
+    private String idartType;
+
+    PrehmisPatientIdentifierType(String prehmisType, String idartType) {
+
+        this.prehmisType = prehmisType;
+        this.idartType = idartType;
     }
 
-    public String getType() {
-        return type;
+    public String getPrehmisType() {
+        return prehmisType;
+    }
+
+    public String getIdartType() {
+        return idartType;
     }
 }

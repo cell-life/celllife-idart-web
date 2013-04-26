@@ -10,6 +10,11 @@
 
     <name>celllife-idart-web-parent</name>
 
+    <modules>
+        <module>client</module>
+        <module>webapp</module>
+    </modules>
+
     <properties>
         <aspjectj.version>1.7.1</aspjectj.version>
         <java.version>1.7</java.version>
@@ -475,7 +480,4 @@
         </dependencies>
 
     </dependencyManagement>
-  <modules>
-    <module>webapp</module>
-  </modules>
 </project>

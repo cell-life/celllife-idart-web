@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.patient;
 
+import java.util.Set;
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25
@@ -7,6 +9,6 @@ package org.celllife.idart.domain.patient;
  */
 public interface PatientService {
 
-    Iterable<Patient> save(Iterable<Patient> patients);
+    Patient findByIdentifiers(Set<PatientIdentifier> identifiers);
 
 }

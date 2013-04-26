@@ -28,5 +28,5 @@ public interface PatientRepository extends CrudRepository<Patient, Long> {
             "where identifiers.value = :identifierValue " +
             "and identifiers.type = :identifierType")
     Patient findOneByIdentifier(@Param("identifierValue") String identifierValue,
-                                @Param("identifierType") PatientIdentifierType identifierType);
+                                @Param("identifierType") String identifierType);
 }
