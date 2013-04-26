@@ -1,7 +1,5 @@
 package org.celllife.idart.framework.rest
 
-import groovyx.net.http.*
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-04
@@ -9,18 +7,23 @@ import groovyx.net.http.*
  */
 class REST {
 
-    static String contextPath = "/bla"
+    static String contextPath = "/idart"
 
     static String baseUrl = "http://localhost:9000"
 
-    static RESTClient client = new RESTClient(baseUrl)
+    static groovyx.net.http.RESTClient client = new groovyx.net.http.RESTClient(baseUrl)
 
     static {
-        client.auth.basic("internal", "password")
+        client.auth.basic("user@test.cell-life.org", "P@ssw0rd1")
     }
 
     static get(Map<String, ?> args) {
         def response = client.get(args)
+        return response.data
+    }
+
+    static get(Map<String, ?> args, Closure closure) {
+        def response = client.get(args, closure)
         return response.data
     }
 

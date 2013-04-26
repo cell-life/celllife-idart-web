@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
     <mapping map-null="false">
-        <class-a>org.celllife.idart.domain.country.Country</class-a>
-        <class-b>org.celllife.idart.domain.country.Country</class-b>
+        <class-a>org.celllife.idart.domain.patient.Patient</class-a>
+        <class-b>org.celllife.idart.domain.patient.Patient</class-b>
     </mapping>
 
 </mappings>

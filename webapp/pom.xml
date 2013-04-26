@@ -14,7 +14,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>${artifactId}-webapp</name>
+    <name>${project.artifactId}-webapp</name>
 
     <properties>
         <jetty.daemon>true</jetty.daemon>
@@ -159,7 +159,7 @@
                     <stopKey>STOP</stopKey>
                     <stopPort>9001</stopPort>
                     <webAppConfig>
-                        <contextPath>/bla</contextPath>
+                        <contextPath>/idart</contextPath>
                     </webAppConfig>
                     <connectors>
                         <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
