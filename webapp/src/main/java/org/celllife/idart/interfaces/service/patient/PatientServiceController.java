@@ -26,9 +26,9 @@ public final class PatientServiceController {
             method = RequestMethod.GET, produces = "application/json"
     )
     public List<Patient> findByIdentifier(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId,
-                                          @RequestParam("idartClinicIdentifier") String idartClinicIdentifier,
+                                          @RequestParam("clinicIdentifier") String clinicIdentifier,
                                           @RequestParam("patientIdentifier") String patientIdentifier) {
 
-        return patientApplicationService.findByIdentifier(applicationId, idartClinicIdentifier, patientIdentifier);
+        return patientApplicationService.findByIdentifier(applicationId, clinicIdentifier, patientIdentifier);
     }
 }

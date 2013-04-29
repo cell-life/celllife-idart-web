@@ -5,8 +5,8 @@ package org.celllife.idart.application.code;
  * Date: 2013-04-26
  * Time: 16h07
  */
-public interface PatientCodeApplicationService {
+public interface DoctorCodeApplicationService {
 
-    String nextPatientCode();
+    String nextDoctorCode();
 
 }

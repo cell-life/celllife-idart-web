@@ -2,7 +2,6 @@ package org.celllife.idart.application.patient;
 
 import org.celllife.idart.domain.patient.Patient;
 
-import java.security.Principal;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
 public interface PatientApplicationService {
 
     List<Patient> findByIdentifier(String applicationIdentifier,
-                                   String idartClinicIdentifierValue,
-                                   String patientIdentifierValue);
+                                   String clinicIdentifier,
+                                   String patientIdentifier);
 
 }

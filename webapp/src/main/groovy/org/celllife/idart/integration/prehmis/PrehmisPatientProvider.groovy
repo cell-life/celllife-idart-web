@@ -1,22 +1,23 @@
 package org.celllife.idart.integration.prehmis
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
+import org.celllife.idart.application.patient.PatientProvider
 import org.celllife.idart.domain.patient.Patient
+import org.celllife.idart.domain.patient.PatientIdentifierType
 import org.celllife.idart.integration.prehmis.builder.GetPatientRequestBuilder
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
-import static org.celllife.idart.integration.prehmis.builder.IdartPatientBuilder.buildIdartPatient
+import static org.celllife.idart.integration.prehmis.builder.PatientBuilder.buildIdartPatient
 import static org.springframework.util.Assert.notNull
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25
  * Time: 15h17
  */
-@Service("prehmisPatientService")
-class PrehmisPatientServiceImpl implements PrehmisPatientService, InitializingBean {
-
+@Service("prehmisPatientProvider")
+class PrehmisPatientProvider implements PatientProvider, InitializingBean {
 
     @Value('${prehmis.endpoint.url}')
     String prehmisEndpointUrl;
@@ -37,8 +38,9 @@ class PrehmisPatientServiceImpl implements PrehmisPatientService, InitializingBe
 
         Set<Patient> patients = []
 
-        for (PrehmisPatientIdentifierType patientIdentifierType : PrehmisPatientIdentifierType.values()) {
-            def patient = getPatient(clinicIdentifierValue, patientIdentifierValue, patientIdentifierType.getPrehmisType())
+        PatientIdentifierType.values().each { patientIdentifierType ->
+
+            def patient = getPatient(clinicIdentifierValue, patientIdentifierValue, patientIdentifierType)
             if (patient != null) {
                 patients << patient
             }
@@ -47,7 +49,7 @@ class PrehmisPatientServiceImpl implements PrehmisPatientService, InitializingBe
         patients
     }
 
-    Patient getPatient(String clinicIdentifierValue, String patientIdentifierValue, String patientIdentifierType) {
+    Patient getPatient(String clinicIdentifierValue, String patientIdentifierValue, PatientIdentifierType patientIdentifierType) {
 
         String getPatientRequest = new GetPatientRequestBuilder()
                 .setUsername(prehmisUsername)

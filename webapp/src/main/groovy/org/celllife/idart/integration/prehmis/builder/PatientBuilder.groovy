@@ -1,18 +1,15 @@
 package org.celllife.idart.integration.prehmis.builder
-
 import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.domain.patient.PatientBuilder
+import org.celllife.idart.domain.patient.PatientIdentifierType
 import org.celllife.idart.integration.prehmis.PrehmisGender
-import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
 
 import java.text.SimpleDateFormat
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-26
  * Time: 12h33
  */
-class IdartPatientBuilder {
+class PatientBuilder {
 
     static final SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
 
@@ -27,23 +24,23 @@ class IdartPatientBuilder {
 
         def patient = envelope.'soap:Body'.'prehmis:getPatientResponse'.result
 
-        PatientBuilder builder = new PatientBuilder()
+        org.celllife.idart.domain.patient.PatientBuilder builder = new org.celllife.idart.domain.patient.PatientBuilder()
 
         String prehmisId = patient.id.text()
         if (prehmisId == null || prehmisId.isEmpty()) {
             return null
         }
 
-        builder.addIdentifier(prehmisId, PrehmisPatientIdentifierType.PREHMIS.getIdartType())
+        builder.addIdentifier(prehmisId, PatientIdentifierType.PREHMIS)
 
         String pgwcPatientNumber = patient.pgwc_patient_number.text()
         if (pgwcPatientNumber != null && !pgwcPatientNumber.isEmpty()) {
-            builder.addIdentifier(pgwcPatientNumber, PrehmisPatientIdentifierType.PGWC.getIdartType())
+            builder.addIdentifier(pgwcPatientNumber, PatientIdentifierType.PGWC)
         }
 
         String saId = patient.sa_id_number.text()
         if (saId != null && !saId.isEmpty()) {
-            builder.addIdentifier(saId, PrehmisPatientIdentifierType.SAID.getIdartType())
+            builder.addIdentifier(saId, PatientIdentifierType.SAID)
         }
 
         String firstName = patient.first_name.text()

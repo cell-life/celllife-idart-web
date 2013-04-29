@@ -1,31 +1,29 @@
-package org.celllife.idart.domain.patient;
+package org.celllife.idart.domain.doctor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * User: Kevin W. Sewell
- * Date: 2013-04-25
- * Time: 10h43
+ * Date: 2013-04-29
+ * Time: 10h44
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"value", "type"}))
-public final class PatientIdentifier implements Serializable {
+public final class DoctorIdentifier implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @Basic
     private String value;
 
     @Enumerated(EnumType.STRING)
-    private PatientIdentifierType type;
+    private DoctorIdentifierType type;
 
-    public PatientIdentifier() {
+    public DoctorIdentifier() {
     }
 
-    PatientIdentifier(String value, PatientIdentifierType type) {
+    DoctorIdentifier(String value, DoctorIdentifierType type) {
         this.value = value;
         this.type = type;
     }
@@ -46,11 +44,11 @@ public final class PatientIdentifier implements Serializable {
         this.value = value;
     }
 
-    public PatientIdentifierType getType() {
+    public DoctorIdentifierType getType() {
         return type;
     }
 
-    public void setType(PatientIdentifierType type) {
+    public void setType(DoctorIdentifierType type) {
         this.type = type;
     }
 
@@ -59,7 +57,7 @@ public final class PatientIdentifier implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PatientIdentifier that = (PatientIdentifier) o;
+        DoctorIdentifier that = (DoctorIdentifier) o;
 
         if (type != that.type) return false;
         if (!value.equals(that.value)) return false;
@@ -72,14 +70,5 @@ public final class PatientIdentifier implements Serializable {
         int result = value.hashCode();
         result = 31 * result + type.hashCode();
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "PatientIdentifier{" +
-                "id=" + id +
-                ", value='" + value + '\'' +
-                ", type=" + type +
-                '}';
     }
 }

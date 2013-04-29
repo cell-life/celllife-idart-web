@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns1="http://prehmis-qa.capetown.gov.za/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <SOAP-ENV:Header>
+        <ns1:AuthHeaderElement xsi:type="ns1:AuthHeader">
+            <username></username>
+            <password></password>
+            <facility_code></facility_code>
+            <application_key></application_key>
+        </ns1:AuthHeaderElement>
+    </SOAP-ENV:Header>
+    <SOAP-ENV:Body>
+        <ns1:getPractitionerListResponse>
+            <result>
+                <item>
+                    <id>1086</id>
+                    <practitioner_type>Enrolled Nurse</practitioner_type>
+                    <first_name>Berenice</first_name>
+                    <last_name>Carolus</last_name>
+                    <practitioner_code>1159</practitioner_code>
+                </item>
+                <item>
+                    <id>1225</id>
+                    <practitioner_type>Senior Professional Nurse</practitioner_type>
+                    <first_name>Elmarie</first_name>
+                    <last_name>Thumser</last_name>
+                    <practitioner_code>1299</practitioner_code>
+                </item>
+                <item>
+                    <id>1309</id>
+                    <practitioner_type>Medical Officer</practitioner_type>
+                    <first_name>Renay</first_name>
+                    <last_name>Mbaezve</last_name>
+                    <practitioner_code>1500</practitioner_code>
+                </item>
+                <item>
+                    <id>1445</id>
+                    <practitioner_type>Professional Nurse</practitioner_type>
+                    <first_name>Judy</first_name>
+                    <last_name>Ruiters</last_name>
+                    <practitioner_code>2000</practitioner_code>
+                </item>
+                <item>
+                    <id>1542</id>
+                    <practitioner_type>Professional Nurse</practitioner_type>
+                    <first_name>Naboweja</first_name>
+                    <last_name>Bester</last_name>
+                    <practitioner_code>2005</practitioner_code>
+                </item>
+                <item>
+                    <id>1546</id>
+                    <practitioner_type>Professional Nurse</practitioner_type>
+                    <first_name>Beverley</first_name>
+                    <last_name>Williams</last_name>
+                    <practitioner_code>2008</practitioner_code>
+                </item>
+                <item>
+                    <id>1574</id>
+                    <practitioner_type>HIV/TB Counselor</practitioner_type>
+                    <first_name>Michelle</first_name>
+                    <last_name>Arries</last_name>
+                    <practitioner_code>2013</practitioner_code>
+                </item>
+                <item>
+                    <id>1717</id>
+                    <practitioner_type>Professional Nurse</practitioner_type>
+                    <first_name>Nicolette</first_name>
+                    <last_name>Isaacs</last_name>
+                    <practitioner_code>2077</practitioner_code>
+                </item>
+                <item>
+                    <id>538</id>
+                    <practitioner_type>Enrolled Nursing Assistant</practitioner_type>
+                    <first_name>Christina</first_name>
+                    <last_name>Michels</last_name>
+                    <practitioner_code>601</practitioner_code>
+                </item>
+                <item>
+                    <id>544</id>
+                    <practitioner_type>Clinic Manager</practitioner_type>
+                    <first_name>Joeline</first_name>
+                    <last_name>Van Staden</last_name>
+                    <practitioner_code>607</practitioner_code>
+                </item>
+                <item>
+                    <id>619</id>
+                    <practitioner_type>Medical Officer</practitioner_type>
+                    <first_name>Christine</first_name>
+                    <last_name>Maas</last_name>
+                    <practitioner_code>682</practitioner_code>
+                </item>
+                <item>
+                    <id>652</id>
+                    <practitioner_type>Senior Professional Nurse</practitioner_type>
+                    <first_name>Hanlie</first_name>
+                    <last_name>Nel</last_name>
+                    <practitioner_code>715</practitioner_code>
+                </item>
+                <item>
+                    <id>895</id>
+                    <practitioner_type>Senior Professional Nurse</practitioner_type>
+                    <first_name>Le Gracious</first_name>
+                    <last_name>Klein</last_name>
+                    <practitioner_code>966</practitioner_code>
+                </item>
+            </result>
+        </ns1:getPractitionerListResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

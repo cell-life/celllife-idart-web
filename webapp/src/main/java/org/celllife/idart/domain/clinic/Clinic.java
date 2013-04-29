@@ -17,10 +17,8 @@ public final class Clinic implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    private String applicationId;
-
     @JoinColumn(name = "clinic")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ClinicIdentifier> identifiers;
 
     public Clinic() {
@@ -32,14 +30,6 @@ public final class Clinic implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getApplicationIdentifier() {
-        return applicationId;
-    }
-
-    public void setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
     }
 
     public Set<ClinicIdentifier> getIdentifiers() {

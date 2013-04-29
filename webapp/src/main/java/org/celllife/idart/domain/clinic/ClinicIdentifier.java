@@ -16,7 +16,6 @@ public final class ClinicIdentifier implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @Basic
     private String value;
 
     @Enumerated(EnumType.STRING)
@@ -52,5 +51,25 @@ public final class ClinicIdentifier implements Serializable {
 
     public void setType(ClinicIdentifierType type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClinicIdentifier that = (ClinicIdentifier) o;
+
+        if (type != that.type) return false;
+        if (!value.equals(that.value)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 }

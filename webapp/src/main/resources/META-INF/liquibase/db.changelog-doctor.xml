@@ -3,28 +3,29 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-    <changeSet id="clinic-1" author="kevin.sewell">
+    <changeSet id="doctor-1" author="kevin.sewell">
 
-        <createTable tableName="clinic">
+        <createTable tableName="doctor">
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
         </createTable>
 
-        <createTable tableName="clinic_identifier">
+        <createTable tableName="doctor_identifier">
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="value" type="VARCHAR(255)"/>
             <column name="type" type="VARCHAR(255)"/>
-            <column name="clinic" type="BIGINT">
-                <constraints references="clinic(id)" foreignKeyName="clinic_identifier_fk"/>
+            <column name="doctor" type="BIGINT">
+                <constraints references="doctor(id)" foreignKeyName="doctor_identifier_fk"/>
             </column>
         </createTable>
 
-        <addUniqueConstraint tableName="clinic_identifier"
-                             columnNames="value,type"/>
-
+        <addUniqueConstraint tableName="doctor_identifier"
+                             columnNames="value, type"/>
     </changeSet>
 
 </databaseChangeLog>

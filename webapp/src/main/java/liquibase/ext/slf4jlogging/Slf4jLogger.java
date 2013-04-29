@@ -13,12 +13,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
+ */
 
 package liquibase.ext.slf4jlogging;
 
 import liquibase.logging.LogLevel;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,48 +36,48 @@ public final class Slf4jLogger implements liquibase.logging.Logger {
     }
 
     public void setLogLevel(String logLevel, String logFile) {
-    	// ignore
+        // ignore
     }
 
     public void severe(String message) {
-    	logger.error(message);
+        logger.error(message);
     }
 
     public void severe(String message, Throwable e) {
-    	logger.error(message, e);
+        logger.error(message, e);
     }
 
     public void warning(String message) {
-    	logger.warn(message);
+        logger.warn(message);
     }
 
     public void warning(String message, Throwable e) {
-    	logger.warn(message, e);
+        logger.warn(message, e);
     }
 
     public void info(String message) {
-    	logger.info(message);
+        logger.info(message);
     }
 
     public void info(String message, Throwable e) {
-    	logger.info(message, e);
+        logger.info(message, e);
     }
 
     public void debug(String message) {
-    	logger.debug(message);
+        logger.debug(message);
     }
 
     public void debug(String message, Throwable e) {
-    	logger.debug(message, e);
+        logger.debug(message, e);
     }
 
-	public void setLogLevel(String level) {
-	}
+    public void setLogLevel(String level) {
+    }
 
-	public void setLogLevel(LogLevel level) {
-	}
+    public void setLogLevel(LogLevel level) {
+    }
 
-	public LogLevel getLogLevel() {
-		return null;
-	}
+    public LogLevel getLogLevel() {
+        return null;
+    }
 }

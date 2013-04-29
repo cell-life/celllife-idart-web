@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 /**
  * User: Kevin W. Sewell
- * Date: 2013-04-26
- * Time: 16h07
+ * Date: 2013-04-29
+ * Time: 15h59
  */
-@Service("patientCodeApplicationService")
-public class PatientCodeApplicationServiceImpl implements PatientCodeApplicationService {
+@Service("doctorCodeApplicationService")
+public class DoctorCodeApplicationServiceImpl implements DoctorCodeApplicationService {
 
-    private static final String PATIENT_CODE_COUNTER_NAME = "PatientCode";
+    private static final String PATIENT_CODE_COUNTER_NAME = "DoctorCode";
 
     private static final String PATIENT_CODE_FORMAT = "%08d";
 
@@ -20,7 +20,7 @@ public class PatientCodeApplicationServiceImpl implements PatientCodeApplication
     private CounterService counterService;
 
     @Override
-    public String nextPatientCode() {
+    public String nextDoctorCode() {
 
         Integer nextValue = counterService.getNextValue(PATIENT_CODE_COUNTER_NAME);
 

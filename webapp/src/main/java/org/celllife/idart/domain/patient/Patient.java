@@ -19,7 +19,7 @@ public final class Patient implements Serializable {
     private Long id;
 
     @JoinColumn(name = "patient")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<PatientIdentifier> identifiers;
 
     private String firstName;
@@ -53,7 +53,7 @@ public final class Patient implements Serializable {
         this.identifiers = identifiers;
     }
 
-    public void addIdentifier(String value, String type) {
+    public void addIdentifier(String value, PatientIdentifierType type) {
         if (this.identifiers == null) {
             this.identifiers = new HashSet<>();
         }

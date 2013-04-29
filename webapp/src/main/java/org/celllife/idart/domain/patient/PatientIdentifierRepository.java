@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.patient;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.repository.annotation.RestResource;
 
 /**
  * User: Kevin W. Sewell

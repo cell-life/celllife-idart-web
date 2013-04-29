@@ -7,6 +7,8 @@
 
     <include file="db.changelog-hibernate.xml" relativeToChangelogFile="true"/>
 
+    <include file="db.changelog-assignment.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-doctor.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-clinic.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-patient.xml" relativeToChangelogFile="true"/>

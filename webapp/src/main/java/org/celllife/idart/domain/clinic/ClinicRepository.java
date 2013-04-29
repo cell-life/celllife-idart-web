@@ -15,8 +15,7 @@ import java.util.List;
 @RestResource(path = "clinics")
 public interface ClinicRepository extends CrudRepository<Clinic, Long> {
 
-    @Query(
-            "select clinic " +
+    @Query("select clinic " +
             "from Clinic clinic " +
             "join clinic.identifiers identifiers " +
             "where identifiers.value = :identifier"

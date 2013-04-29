@@ -5,6 +5,18 @@
 
     <changeSet id="constraint-1" author="kevin.sewell">
 
+        <addForeignKeyConstraint baseTableName="assignment"
+                                 baseColumnNames="doctor"
+                                 constraintName="assignment_doctor_fk"
+                                 referencedTableName="doctor"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="assignment"
+                                 baseColumnNames="clinic"
+                                 constraintName="assignment_clinic_fk"
+                                 referencedTableName="clinic"
+                                 referencedColumnNames="id"/>
+
     </changeSet>
 
 </databaseChangeLog>

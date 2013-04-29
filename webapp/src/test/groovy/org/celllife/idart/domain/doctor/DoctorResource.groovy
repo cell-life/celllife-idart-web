@@ -1,4 +1,4 @@
-package org.celllife.idart.domain.clinic
+package org.celllife.idart.domain.doctor
 
 import groovyx.net.http.ContentType
 import org.celllife.idart.framework.json.JSON
@@ -10,11 +10,11 @@ import static org.celllife.idart.framework.rest.REST.*
  * Date: 2013-04-25
  * Time: 13h29
  */
-class ClinicResource {
+class DoctorResource {
 
-    static String baseTestDataLocation = "/data/clinic"
+    static String baseTestDataLocation = "/data/doctor"
 
-    static String baseResourceUrl = "${contextPath}/api/clinics"
+    static String baseResourceUrl = "${contextPath}/api/doctors"
 
     static findAll() {
         get(path: baseResourceUrl)
@@ -30,15 +30,15 @@ class ClinicResource {
         }
     }
 
-    static post(Object clinic) {
+    static post(Object doctor) {
         post(
                 path: baseResourceUrl,
-                body: clinic,
+                body: doctor,
                 requestContentType: ContentType.JSON
         )
     }
 
-    static testClinic(String id = "0000") {
+    static testDoctor(String id = "0000") {
         JSON.readFromClasspath("${baseTestDataLocation}/${id}.json")
     }
 

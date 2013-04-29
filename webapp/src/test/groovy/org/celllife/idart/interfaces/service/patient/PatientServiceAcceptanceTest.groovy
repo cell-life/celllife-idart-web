@@ -1,6 +1,8 @@
 package org.celllife.idart.interfaces.service.patient
 
+import org.celllife.idart.domain.assignment.AssignmentResource
 import org.celllife.idart.domain.clinic.ClinicResource
+import org.celllife.idart.domain.doctor.DoctorResource
 import org.celllife.idart.domain.patient.PatientResource
 import org.junit.Before
 import org.junit.Test
@@ -20,6 +22,10 @@ class PatientServiceAcceptanceTest {
 
         PatientResource.clear()
         PatientResource.post(PatientResource.testPatient())
+
+        AssignmentResource.clear()
+
+        DoctorResource.clear()
 
         ClinicResource.clear()
         ClinicResource.post(ClinicResource.testClinic())

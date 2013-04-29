@@ -20,7 +20,7 @@ public final class PatientBuilder {
         return this;
     }
 
-    public PatientBuilder addIdentifier(String value, String type) {
+    public PatientBuilder addIdentifier(String value, PatientIdentifierType type) {
         patient.addIdentifier(value, type);
         return this;
     }
