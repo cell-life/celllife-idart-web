@@ -6,20 +6,21 @@
     <changeSet id="doctor-1" author="kevin.sewell">
 
         <createTable tableName="doctor">
-            <column name="id" type="BIGINT">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="first_name" type="VARCHAR(255)"/>
-            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="active" type="boolean"/>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="doctor_identifier">
-            <column name="id" type="BIGINT">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="value" type="VARCHAR(255)"/>
-            <column name="type" type="VARCHAR(255)"/>
-            <column name="doctor" type="BIGINT">
+            <column name="value" type="varchar(255)"/>
+            <column name="type" type="varchar(255)"/>
+            <column name="doctor" type="bigint">
                 <constraints references="doctor(id)" foreignKeyName="doctor_identifier_fk"/>
             </column>
         </createTable>

@@ -12,6 +12,7 @@
                 <prop key="hibernate.cache.use_query_cache">true</prop>
                 <prop key="hibernate.ejb.naming_strategy">${hibernate.ejb.naming_strategy}</prop>
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>

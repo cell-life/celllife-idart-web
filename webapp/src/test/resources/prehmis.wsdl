@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="api" targetNamespace="http://prehmis-qa.capetown.gov.za/" xmlns:tns="http://prehmis-qa.capetown.gov.za/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+    <wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://prehmis-qa.capetown.gov.za/">
+            <xsd:complexType name="AuthHeader">
+                <xsd:sequence>
+                    <xsd:element name="username" type="xsd:string"/>
+                    <xsd:element name="password" type="xsd:string"/>
+                    <xsd:element name="facility_code" type="xsd:string"/>
+                    <xsd:element name="application_key" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AuthHeaderElement" type="tns:AuthHeader"/>
+            <xsd:complexType name="ApiPatient">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="first_name" type="xsd:string"/>
+                    <xsd:element name="last_name" type="xsd:string"/>
+                    <xsd:element name="date_of_birth" type="xsd:string"/>
+                    <xsd:element name="gender" type="xsd:string"/>
+                    <xsd:element name="cellphone_number" type="xsd:string"/>
+                    <xsd:element name="pgwc_patient_number" type="xsd:int"/>
+                    <xsd:element name="sa_id_number" type="xsd:string"/>
+                    <xsd:element name="passport_number" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiPatientElement" type="tns:ApiPatient"/>
+            <xsd:complexType name="ApiPractitioner">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="practitioner_type" type="xsd:string"/>
+                    <xsd:element name="first_name" type="xsd:string"/>
+                    <xsd:element name="last_name" type="xsd:string"/>
+                    <xsd:element name="practitioner_code" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiPractitionerElement" type="tns:ApiPractitioner"/>
+            <xsd:complexType name="ApiPractitionerArray">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:ApiPractitioner" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiPractitionerArrayElement" type="tns:ApiPractitionerArray"/>
+            <xsd:complexType name="ApiDrug">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="drug_type" type="xsd:string"/>
+                    <xsd:element name="drug_name" type="xsd:string"/>
+                    <xsd:element name="drug_group" type="xsd:string"/>
+                    <xsd:element name="drug_order" type="xsd:int"/>
+                    <xsd:element name="code" type="xsd:string"/>
+                    <xsd:element name="atc_code" type="xsd:string"/>
+                    <xsd:element name="is_deleted" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiDrugElement" type="tns:ApiDrug"/>
+            <xsd:complexType name="ApiDrugArray">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:ApiDrug" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiDrugArrayElement" type="tns:ApiDrugArray"/>
+            <xsd:complexType name="ApiPrescription">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="prehmis_patient_id" type="xsd:int"/>
+                    <xsd:element name="pgwc_patient_number" type="xsd:string"/>
+                    <xsd:element name="patient_sa_id_number" type="xsd:string"/>
+                    <xsd:element name="practitioner_code" type="xsd:string"/>
+                    <xsd:element name="prescription_date" type="xsd:string"/>
+                    <xsd:element name="duration" type="xsd:string"/>
+                    <xsd:element name="end_date" type="xsd:string"/>
+                    <xsd:element name="change_reason" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiPrescriptionElement" type="tns:ApiPrescription"/>
+            <xsd:complexType name="ApiPrescriptionDrug">
+                <xsd:sequence>
+                    <xsd:element name="atc_code" type="xsd:string"/>
+                    <xsd:element name="amount_per_time" type="xsd:int"/>
+                    <xsd:element name="times_per_day" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiPrescriptionDrugElement" type="tns:ApiPrescriptionDrug"/>
+            <xsd:complexType name="ApiPrescriptionDrugArray">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:ApiPrescriptionDrug" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiPrescriptionDrugArrayElement" type="tns:ApiPrescriptionDrugArray"/>
+            <xsd:complexType name="ApiDispensation">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="prehmis_patient_id" type="xsd:int"/>
+                    <xsd:element name="pgwc_patient_number" type="xsd:string"/>
+                    <xsd:element name="patient_sa_id_number" type="xsd:string"/>
+                    <xsd:element name="prescription_id" type="xsd:int"/>
+                    <xsd:element name="dispensing_date" type="xsd:string"/>
+                    <xsd:element name="practitioner_code" type="xsd:string"/>
+                    <xsd:element name="supply_duration" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiDispensationElement" type="tns:ApiDispensation"/>
+            <xsd:complexType name="ApiDispensationDrug">
+                <xsd:sequence>
+                    <xsd:element name="atc_code" type="xsd:string"/>
+                    <xsd:element name="quantity" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiDispensationDrugElement" type="tns:ApiDispensationDrug"/>
+            <xsd:complexType name="ApiDispensationDrugArray">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:ApiDispensationDrug" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiDispensationDrugArrayElement" type="tns:ApiDispensationDrugArray"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:portType name="apiPortType">
+        <wsdl:operation name="apiLogin" parameterOrder="AuthHeader">
+            <wsdl:input message="tns:apiLoginRequest"/>
+            <wsdl:output message="tns:apiLoginResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getPatient" parameterOrder="AuthHeader nr identifier">
+            <wsdl:input message="tns:getPatientRequest"/>
+            <wsdl:output message="tns:getPatientResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getPractitionerList" parameterOrder="AuthHeader">
+            <wsdl:input message="tns:getPractitionerListRequest"/>
+            <wsdl:output message="tns:getPractitionerListResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getDrugList" parameterOrder="AuthHeader">
+            <wsdl:input message="tns:getDrugListRequest"/>
+            <wsdl:output message="tns:getDrugListResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="storePrescription" parameterOrder="AuthHeader prescription prescriptionDrugs">
+            <wsdl:input message="tns:storePrescriptionRequest"/>
+            <wsdl:output message="tns:storePrescriptionResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="storeDispensation" parameterOrder="AuthHeader dispensation dispensationDrugs">
+            <wsdl:input message="tns:storeDispensationRequest"/>
+            <wsdl:output message="tns:storeDispensationResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="apiBinding" type="tns:apiPortType">
+        <soap:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="apiLogin">
+            <soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://prehmis-qa.capetown.gov.za/apiLogin" style="rpc"/>
+            <wsdl:input xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:apiLoginRequest" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="result" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:apiLoginResponse" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="getPatient">
+            <soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://prehmis-qa.capetown.gov.za/getPatient" style="rpc"/>
+            <wsdl:input xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="nr identifier" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:getPatientRequest" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="result" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:getPatientResponse" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="getPractitionerList">
+            <soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://prehmis-qa.capetown.gov.za/getPractitionerList" style="rpc"/>
+            <wsdl:input xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:getPractitionerListRequest" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="result" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:getPractitionerListResponse" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="getDrugList">
+            <soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://prehmis-qa.capetown.gov.za/getDrugList" style="rpc"/>
+            <wsdl:input xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:getDrugListRequest" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="result" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:getDrugListResponse" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="storePrescription">
+            <soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://prehmis-qa.capetown.gov.za/storePrescription" style="rpc"/>
+            <wsdl:input xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="prescription prescriptionDrugs" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:storePrescriptionRequest" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="result" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:storePrescriptionResponse" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="storeDispensation">
+            <soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://prehmis-qa.capetown.gov.za/storeDispensation" style="rpc"/>
+            <wsdl:input xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="dispensation dispensationDrugs" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:storeDispensationRequest" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+                <soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" parts="result" use="literal" namespace="http://prehmis-qa.capetown.gov.za/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                <soap:header xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" message="tns:storeDispensationResponse" part="AuthHeader" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="apiLoginRequest">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+    </wsdl:message>
+    <wsdl:message name="apiLoginResponse">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="result" type="xsd:boolean"/>
+    </wsdl:message>
+    <wsdl:message name="getPatientRequest">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="nr" type="xsd:string"/>
+        <wsdl:part name="identifier" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="getPatientResponse">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="result" type="tns:ApiPatient"/>
+    </wsdl:message>
+    <wsdl:message name="getPractitionerListRequest">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+    </wsdl:message>
+    <wsdl:message name="getPractitionerListResponse">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="result" type="tns:ApiPractitionerArray"/>
+    </wsdl:message>
+    <wsdl:message name="getDrugListRequest">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+    </wsdl:message>
+    <wsdl:message name="getDrugListResponse">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="result" type="tns:ApiDrugArray"/>
+    </wsdl:message>
+    <wsdl:message name="storePrescriptionRequest">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="prescription" type="tns:ApiPrescription"/>
+        <wsdl:part name="prescriptionDrugs" type="tns:ApiPrescriptionDrugArray"/>
+    </wsdl:message>
+    <wsdl:message name="storePrescriptionResponse">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="result" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="storeDispensationRequest">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="dispensation" type="tns:ApiDispensation"/>
+        <wsdl:part name="dispensationDrugs" type="tns:ApiDispensationDrugArray"/>
+    </wsdl:message>
+    <wsdl:message name="storeDispensationResponse">
+        <wsdl:part name="AuthHeader" element="tns:AuthHeaderElement"/>
+        <wsdl:part name="result" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:service xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="apiService">
+        <wsdl:port xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="apiPort" binding="tns:apiBinding">
+            <soap:address xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" location="http://prehmis-qa.capetown.gov.za/api.php"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

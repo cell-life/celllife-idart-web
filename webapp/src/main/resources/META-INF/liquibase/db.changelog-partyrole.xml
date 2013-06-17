@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="partyrole-1" author="kevin.sewell">
+
+        <createTable tableName="party_role">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="party" type="bigint"/>
+            <column name="type" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="thru_date" type="DATE"/>
+        </createTable>
+
+        <createTable tableName="party_role_facilities">
+            <column name="party_role" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="type" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="thru_date" type="DATE"/>
+            <column name="facility" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="udm_patient">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" references="party_role(id)" foreignKeyName="udm_patient_party_role_fk"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="practitioner">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" references="party_role(id)" foreignKeyName="practitioner_party_role_fk"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

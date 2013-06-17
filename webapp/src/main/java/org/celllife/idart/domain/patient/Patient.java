@@ -18,7 +18,7 @@ public final class Patient implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @JoinColumn(name = "patient")
+    @JoinColumn(name = "Patient")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<PatientIdentifier> identifiers;
 

@@ -6,15 +6,13 @@
     <changeSet id="counter-1" author="kevin.sewell">
 
         <createTable tableName="counter">
-            <column name="id" type="BIGINT">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="name" type="varchar(255)">
                 <constraints unique="true"/>
             </column>
-            <column name="value" type="INTEGER">
-                <constraints unique="true"/>
-            </column>
+            <column name="value" type="INTEGER"/>
         </createTable>
 
     </changeSet>

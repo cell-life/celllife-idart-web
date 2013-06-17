@@ -25,7 +25,7 @@ import java.util.Set;
  * Date: 2013-04-29
  * Time: 12h16
  */
-@Service("practitionerApplicationService")
+@Service("doctorApplicationService")
 public final class DoctorApplicationServiceImpl implements DoctorApplicationService {
 
     @Autowired

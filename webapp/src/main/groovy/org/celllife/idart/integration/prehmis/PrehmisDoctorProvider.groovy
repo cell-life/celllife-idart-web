@@ -35,7 +35,7 @@ class PrehmisDoctorProvider implements DoctorProvider, InitializingBean {
     @Override
     Set<Doctor> findAll(String clinicIdentifierValue) {
 
-        String getPractionerListRequest = new GetPractitionerListRequestBuilder()
+        String getPractitionerListRequest = new GetPractitionerListRequestBuilder()
                 .setUsername(prehmisUsername)
                 .setPassword(prehmisPassword)
                 .setApplicationKey(prehmisApplicationKey)
@@ -43,11 +43,11 @@ class PrehmisDoctorProvider implements DoctorProvider, InitializingBean {
                 .build()
 
         def getPractionerListResponse = prehmisRestClient.post(
-                body: getPractionerListRequest,
+                body: getPractitionerListRequest,
                 contentType: ContentType.XML,
                 requestContentType: ContentType.XML,
                 headers: [
-                        SOAPAction: "http://prehmis-qa.capetown.gov.za/getPractionerList"
+                        SOAPAction: "http://prehmis-qa.capetown.gov.za/getPractitionerList"
                 ]
         )
 

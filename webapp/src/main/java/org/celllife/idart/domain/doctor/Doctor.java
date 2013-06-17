@@ -17,7 +17,10 @@ public final class Doctor implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @JoinColumn(name = "doctor")
+    @Column(columnDefinition = "BIT")
+    private Boolean active = true;
+
+    @JoinColumn(name = "Doctor")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<DoctorIdentifier> identifiers;
 
@@ -25,12 +28,23 @@ public final class Doctor implements Serializable {
 
     private String lastName;
 
+    public Doctor() {
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Set<DoctorIdentifier> getIdentifiers() {

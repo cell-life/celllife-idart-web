@@ -7,11 +7,26 @@
 
     <include file="db.changelog-hibernate.xml" relativeToChangelogFile="true"/>
 
+    <!-- Common -->
+
+    <include file="db.changelog-codedconcept.xml" relativeToChangelogFile="true"/>
+
+    <!-- Domains -->
+
     <include file="db.changelog-assignment.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-doctor.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-clinic.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-doctor.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-facility.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-inventoryitem.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-part.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-partclassification.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-party.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-partyclassification.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-partyrole.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-patient.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-prescription.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-product.xml" relativeToChangelogFile="true"/>
 
     <!-- Cross Domain Constraints -->
 

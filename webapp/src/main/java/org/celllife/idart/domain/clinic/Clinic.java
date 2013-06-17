@@ -17,7 +17,7 @@ public final class Clinic implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @JoinColumn(name = "clinic")
+    @JoinColumn(name = "Clinic")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ClinicIdentifier> identifiers;
 

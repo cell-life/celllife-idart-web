@@ -1,0 +1,49 @@
+<preh:storeDispensation xmlns:preh="http://prehmis-qa.capetown.gov.za/">
+    <dispensation>
+        <id>?</id>
+        <prehmis_patient_id>1</prehmis_patient_id>
+        <pgwc_patient_number>?</pgwc_patient_number>
+        <patient_sa_id_number>?</patient_sa_id_number>
+        <prescription_id>?</prescription_id>
+        <dispensing_date>?</dispensing_date>
+        <practitioner_code>?</practitioner_code>
+        <supply_duration>?</supply_duration>
+    </dispensation>
+    <dispensationDrugs>
+        <!--Zero or more repetitions:-->
+        <item>
+            <atc_code>J05AF01</atc_code>
+            <form>SYRUP</form>
+            <strength>
+                <compound>AZT</compound>
+                <value>10</value>
+                <unit_of_measure>mg/ml</unit_of_measure>
+            </strength>
+            <quantity>
+                <value>100</value>
+                <unit_of_measure>ml</unit_of_measure>
+            </quantity>
+        </item>
+    </dispensationDrugs>
+    <prescriptionDrugs>
+        <!--Zero or more repetitions:-->
+        <item>
+            <atc_code>J05AF01</atc_code>
+            <form>SYRUP</form>
+            <strength>
+                <compound>AZT</compound>
+                <value>10</value>
+                <unit_of_measure>mg/ml</unit_of_measure>
+            </strength>
+            <amount_per_time>
+                <value>10</value>
+                <unit_of_measure>ml</unit_of_measure>
+            </amount_per_time>
+            <times_per_period>
+                <value>1</value>
+                <unit_of_measure>day</unit_of_measure>
+            </times_per_period>
+        </item>
+    </prescriptionDrugs>
+</preh:storeDispensation>
+

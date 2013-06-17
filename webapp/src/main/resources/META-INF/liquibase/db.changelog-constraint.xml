@@ -17,6 +17,60 @@
                                  referencedTableName="clinic"
                                  referencedColumnNames="id"/>
 
+        <addForeignKeyConstraint baseTableName="inventory_item"
+                                 baseColumnNames="part"
+                                 constraintName="inventory_item_part_fk"
+                                 referencedTableName="part"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="party_role"
+                                 baseColumnNames="party"
+                                 constraintName="party_role_fk"
+                                 referencedTableName="party"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="good"
+                                 baseColumnNames="finished_good"
+                                 constraintName="good_part_fk"
+                                 referencedTableName="part"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="prescription"
+                                 baseColumnNames="prescriber"
+                                 constraintName="prescription_practitioner_fk"
+                                 referencedTableName="practitioner"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="prescription"
+                                 baseColumnNames="patient"
+                                 constraintName="prescription_patient_fk"
+                                 referencedTableName="udm_patient"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="prescribed_medication"
+                                 baseColumnNames="medication"
+                                 constraintName="prescribed_medication_good_fk"
+                                 referencedTableName="good"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="party_identifiers"
+                                 baseColumnNames="assigner"
+                                 constraintName="party_identifiers_assigner_fk"
+                                 referencedTableName="organisation"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="prescription_identifiers"
+                                 baseColumnNames="assigner"
+                                 constraintName="prescription_identifiers_assigner_fk"
+                                 referencedTableName="organisation"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="good_identifiers"
+                                 baseColumnNames="assigner"
+                                 constraintName="good_identifiers_assigner_fk"
+                                 referencedTableName="organisation"
+                                 referencedColumnNames="id"/>
+
     </changeSet>
 
 </databaseChangeLog>

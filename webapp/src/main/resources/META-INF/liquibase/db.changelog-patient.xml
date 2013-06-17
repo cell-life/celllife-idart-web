@@ -6,23 +6,23 @@
     <changeSet id="patient-1" author="kevin.sewell">
 
         <createTable tableName="patient">
-            <column name="id" type="BIGINT">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="first_name" type="VARCHAR(255)"/>
-            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
             <column name="data_of_birth" type="DATE"/>
-            <column name="gender" type="VARCHAR(255)"/>
-            <column name="mobile_number" type="VARCHAR(255)"/>
+            <column name="gender" type="varchar(255)"/>
+            <column name="mobile_number" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="patient_identifier">
-            <column name="id" type="BIGINT">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="value" type="VARCHAR(255)"/>
-            <column name="type" type="VARCHAR(255)"/>
-            <column name="patient" type="BIGINT">
+            <column name="value" type="varchar(255)"/>
+            <column name="type" type="varchar(255)"/>
+            <column name="patient" type="bigint">
                 <constraints references="patient(id)" foreignKeyName="patient_identifier_fk"/>
             </column>
         </createTable>
