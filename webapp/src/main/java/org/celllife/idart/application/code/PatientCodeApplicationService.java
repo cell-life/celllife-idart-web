@@ -7,6 +7,6 @@ package org.celllife.idart.application.code;
  */
 public interface PatientCodeApplicationService {
 
-    String nextPatientCode();
+    String nextPatientIdentifierValue();
 
 }

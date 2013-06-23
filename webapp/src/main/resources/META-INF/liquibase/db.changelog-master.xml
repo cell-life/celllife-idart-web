@@ -9,12 +9,27 @@
 
     <!-- Common -->
 
-    <include file="db.changelog-codedconcept.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-codes.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-descriptions.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-names.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-identifiers.xml" relativeToChangelogFile="true"/>
 
-    <!-- Domains -->
+    <!-- Codes -->
+
+    <include file="db.changelog-administrationmethod.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-dosageinstruction.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-entrysite.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-form.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-indication.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-lifeevent.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-routeofadministration.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-substitution.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-substitutionreason.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-unitofmeasure.xml" relativeToChangelogFile="true"/>
+
+    <!-- Domain Aggregates -->
 
     <include file="db.changelog-assignment.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-clinic.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-doctor.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-facility.xml" relativeToChangelogFile="true"/>
@@ -24,7 +39,6 @@
     <include file="db.changelog-party.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-partyclassification.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-partyrole.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-patient.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-prescription.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-product.xml" relativeToChangelogFile="true"/>
 

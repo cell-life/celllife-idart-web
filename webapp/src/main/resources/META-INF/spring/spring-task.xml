@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <task:annotation-driven executor="defaultTaskExecutor" scheduler="taskScheduler" />
+    <task:annotation-driven executor="defaultTaskExecutor" scheduler="taskScheduler"/>
 
     <bean id="taskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"/>
 

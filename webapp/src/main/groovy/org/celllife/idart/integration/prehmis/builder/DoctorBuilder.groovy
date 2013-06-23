@@ -1,6 +1,8 @@
 package org.celllife.idart.integration.prehmis.builder
+
 import org.celllife.idart.domain.doctor.Doctor
 import org.celllife.idart.domain.doctor.DoctorIdentifierType
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-26
@@ -39,7 +41,7 @@ class DoctorBuilder {
             return null
         }
 
-        builder.addIdentifier(prehmisPractitionerCode, DoctorIdentifierType.PREHMIS)
+        builder.addIdentifier(DoctorIdentifierType.PREHMIS, prehmisPractitionerCode)
 
         String firstName = prehmisDoctor.first_name.text()
         if (firstName != null && !firstName.isEmpty()) {

@@ -8,6 +8,7 @@ import org.junit.Test
 
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25

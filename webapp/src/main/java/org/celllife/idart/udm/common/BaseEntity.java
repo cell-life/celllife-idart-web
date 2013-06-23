@@ -13,17 +13,17 @@ public abstract class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    private Long pk;
 
     protected BaseEntity() {
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getPk() {
+        return this.pk;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPk(Long pk) {
+        this.pk = pk;
     }
 
 }

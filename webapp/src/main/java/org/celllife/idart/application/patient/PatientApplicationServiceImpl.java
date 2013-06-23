@@ -1,22 +1,14 @@
 package org.celllife.idart.application.patient;
 
 import org.celllife.idart.application.ClinicNotFoundException;
-import org.celllife.idart.application.code.PatientCodeApplicationService;
 import org.celllife.idart.domain.clinic.Clinic;
-import org.celllife.idart.domain.clinic.ClinicIdentifierType;
 import org.celllife.idart.domain.clinic.ClinicRepository;
-import org.celllife.idart.domain.patient.Patient;
-import org.celllife.idart.domain.patient.PatientIdentifierType;
 import org.celllife.idart.domain.patient.PatientRepository;
-import org.celllife.idart.domain.patient.PatientService;
-import org.celllife.idart.framework.logging.LogLevel;
-import org.celllife.idart.framework.logging.Loggable;
-import org.dozer.Mapper;
+import org.celllife.idart.framework.aspectj.LogLevel;
+import org.celllife.idart.framework.aspectj.Loggable;
+import org.celllife.idart.interfaces.service.patient.FindPatientsByIdentifierRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * User: Kevin W. Sewell
@@ -33,65 +25,39 @@ public final class PatientApplicationServiceImpl implements PatientApplicationSe
     private PatientRepository patientRepository;
 
     @Autowired
-    private PatientService patientService;
-
-    @Autowired
-    private PatientProvider prehmisPatientProvider;
-
-    @Autowired
-    private PatientCodeApplicationService patientCodeApplicationService;
-
-    @Autowired
-    private Mapper mapper;
+    private PrehmisPatientApplicationService prehmisPatientApplicationService;
 
     @Override
     @Loggable(value = LogLevel.INFO, exception = LogLevel.ERROR)
-    public List<Patient> findByIdentifier(String applicationIdentifier,
-                                          String clinicIdentifierValue,
-                                          String patientIdentifierValue) {
+    public FindPatientsByIdentifierResponse findByIdentifier(FindPatientsByIdentifierRequest request) {
 
-        Clinic clinic = clinicRepository.findOneByIdentifier(clinicIdentifierValue, ClinicIdentifierType.IDART);
+        String clinicIdentifier = request.getClinicIdentifier();
+
+        Clinic clinic = clinicRepository.findOneByIdentifier("http://www.cell-life.org/idart/facility", clinicIdentifier);
 
         if (clinic == null) {
-            throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifierValue);
+            throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifier);
         }
 
-        lookupAndSyncWithExternalProviders(patientIdentifierValue, clinic);
+        String patientIdentifier = request.getPatientIdentifier();
 
-        return patientRepository.findByIdentifier(patientIdentifierValue);
+        lookupAndSyncWithExternalProviders(patientIdentifier, clinic);
+
+        FindPatientsByIdentifierResponse response = new FindPatientsByIdentifierResponse();
+        response.setPatients(patientRepository.findByIdentifier(patientIdentifier));
+        return response;
     }
 
     private void lookupAndSyncWithExternalProviders(String patientIdentifierValue, Clinic clinic) {
 
-        for (ClinicIdentifierType clinicIdentifierType : clinic.getIdentifierTypes()) {
-            switch (clinicIdentifierType) {
-
-                case PREHMIS:
-                    String clinicIdentifierValue = clinic.getIdentifierValue(clinicIdentifierType);
-                    Set<Patient> prehmisPatients =
-                            prehmisPatientProvider.findByIdentifier(clinicIdentifierValue, patientIdentifierValue);
-                    savePatients(prehmisPatients);
+        for (String identifierSystem : clinic.getIdentifierSystems()) {
+            String clinicIdentifierValue = clinic.getIdentifierValue(identifierSystem);
+            switch (identifierSystem) {
+                case "http://prehmis.capetown.gov.za":
+                    prehmisPatientApplicationService.lookupAndSynchronise(patientIdentifierValue, clinicIdentifierValue);
                     break;
-
                 default:
                     break;
-            }
-        }
-    }
-
-    public void savePatients(Iterable<Patient> patients) {
-
-        for (Patient newPatient : patients) {
-
-            Patient existingPatient = patientService.findByIdentifiers(newPatient.getIdentifiers());
-            if (existingPatient != null) {
-
-                mapper.map(newPatient, existingPatient);
-                patientRepository.save(existingPatient);
-            } else {
-
-                newPatient.addIdentifier(patientCodeApplicationService.nextPatientCode(), PatientIdentifierType.IDART);
-                patientRepository.save(newPatient);
             }
         }
     }

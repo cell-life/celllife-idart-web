@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,7 +9,7 @@
     <title>OHSC</title>
 
     <c:set var="url">${pageContext.request.requestURL}</c:set>
-    <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
+    <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/"/>
 
     <link href="resources/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
@@ -49,7 +49,8 @@
 
     <p>
     <ul>
-        <li><a href="reports/provinces?country=za South Africa (National Government)">Aggregated national ratings report</a></li>
+        <li><a href="reports/provinces?country=za South Africa (National Government)">Aggregated national ratings
+            report</a></li>
         <li>Future Report Here</li>
         <li>Future Report Here</li>
     </ul>
@@ -60,11 +61,11 @@
     <center>
         <h3>Total Clinics Monitored</h3>
 
-			<div class="row-fluid" id="donut"> </div>
-			<script src="http://d3js.org/d3.v3.min.js"></script>
-			<script src="resources/js/donut-graphs.js"></script>
-			
-		</center>
+        <div class="row-fluid" id="donut"></div>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="resources/js/donut-graphs.js"></script>
+
+    </center>
 
     <hr>
 

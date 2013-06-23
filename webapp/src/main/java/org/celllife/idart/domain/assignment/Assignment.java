@@ -1,7 +1,8 @@
 package org.celllife.idart.domain.assignment;
 
-import org.celllife.idart.domain.clinic.Clinic;
+import org.celllife.idart.domain.common.Persistable;
 import org.celllife.idart.domain.doctor.Doctor;
+import org.celllife.idart.domain.clinic.Clinic;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,11 +13,7 @@ import java.io.Serializable;
  * Time: 16h38
  */
 @Entity
-public final class Assignment implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+public final class Assignment implements Persistable, Serializable {
 
     @ManyToOne(cascade = {}, fetch = FetchType.EAGER)
     private Doctor doctor;
@@ -30,14 +27,6 @@ public final class Assignment implements Serializable {
     public Assignment(Doctor doctor, Clinic clinic) {
         this.doctor = doctor;
         this.clinic = clinic;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Doctor getDoctor() {

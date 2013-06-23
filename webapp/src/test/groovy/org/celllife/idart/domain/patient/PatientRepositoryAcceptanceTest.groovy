@@ -4,7 +4,8 @@ import org.celllife.idart.domain.clinic.ClinicResource
 import org.junit.Before
 import org.junit.Test
 
-import static org.junit.Assert.*
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertNotNull
 
 /**
  * User: Kevin W. Sewell

@@ -6,22 +6,12 @@
     <changeSet id="party-1" author="kevin.sewell">
 
         <createTable tableName="party">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-        </createTable>
-
-        <createTable tableName="party_identifiers">
-            <column name="party" type="bigint">
-                <constraints references="party(id)" foreignKeyName="party_identifiers_fk"/>
+            <column name="identifiers" type="bigint">
+                <constraints references="identifiers(pk)" foreignKeyName="party_identifiers_fk"/>
             </column>
-            <column name="number" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="system" type="varchar(40)"/>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
-            <column name="assigner" type="bigint"/>
         </createTable>
 
         <createTable tableName="party_classifications">
@@ -38,8 +28,8 @@
         </createTable>
 
         <createTable tableName="organisation">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="party(id)" foreignKeyName="organisation_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="party(pk)" foreignKeyName="organisation_fk"/>
             </column>
             <column name="name" type="varchar(40)">
                 <constraints nullable="false"/>
@@ -47,8 +37,8 @@
         </createTable>
 
         <createTable tableName="legal_organisation">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="organisation(id)" foreignKeyName="legal_organisation_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="organisation(pk)" foreignKeyName="legal_organisation_fk"/>
             </column>
             <column name="tax_registration_number" type="varchar(40)">
                 <constraints nullable="false"/>
@@ -56,38 +46,35 @@
         </createTable>
 
         <createTable tableName="informal_organisation">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="organisation(id)" foreignKeyName="informal_organisation_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="organisation(pk)" foreignKeyName="informal_organisation_fk"/>
             </column>
         </createTable>
 
         <createTable tableName="person">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="party(id)" foreignKeyName="person_party_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="party(pk)" foreignKeyName="person_party_fk"/>
             </column>
-            <column name="current_lastname" type="varchar(40)"/>
-            <column name="current_first_name" type="varchar(40)"/>
-            <column name="current_middle_name" type="varchar(40)"/>
-            <column name="current_personal_title" type="varchar(40)"/>
-            <column name="current_suffix" type="varchar(40)"/>
-            <column name="current_nickname" type="varchar(40)"/>
+            <column name="last_name" type="varchar(40)"/>
+            <column name="first_name" type="varchar(40)"/>
+            <column name="middle_names" type="varchar(40)"/>
+            <column name="personal_title" type="varchar(40)"/>
+            <column name="suffix" type="varchar(40)"/>
+            <column name="nickname" type="varchar(40)"/>
             <column name="gender" type="varchar(40)"/>
             <column name="birth_date" type="date"/>
             <column name="mothers_maiden_name" type="varchar(40)"/>
             <column name="marital_status" type="varchar(40)"/>
-            <column name="national_identity_number" type="varchar(40)"/>
-            <column name="current_passport_number" type="varchar(40)"/>
-            <column name="current_passport_expire_date" type="date"/>
             <column name="total_years_work_experience" type="integer"/>
             <column name="comment" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="physical_characteristic">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="person" type="bigint">
-                <constraints references="person(id)" foreignKeyName="person_physical_characteristics_fk"/>
+                <constraints references="person(pk)" foreignKeyName="person_physical_characteristics_fk"/>
             </column>
             <column name="from_date" type="date">
                 <constraints nullable="false"/>

@@ -6,7 +6,7 @@
     <changeSet id="partyclassification-1" author="kevin.sewell">
 
         <createTable tableName="party_classification">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(40)">
@@ -15,7 +15,7 @@
             <column name="code" type="varchar(10)"/>
             <column name="description" type="varchar(255)"/>
             <column name="parent" type="bigint">
-                <constraints references="party_classification(id)" foreignKeyName="parent_party_classification_fk"/>
+                <constraints references="party_classification(pk)" foreignKeyName="parent_party_classification_fk"/>
             </column>
         </createTable>
 

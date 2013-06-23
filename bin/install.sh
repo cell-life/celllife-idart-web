@@ -6,4 +6,4 @@ BASE_DIR=`dirname $0`
 
 rm -rf $BASE_DIR/target
 
-mvn clean install -f $BASE_DIR/../pom.xml
+MAVEN_OPTS="-Xmx1024m -Xms1024m -XX:MaxPermSize=512m" mvn clean install -f $BASE_DIR/../pom.xml

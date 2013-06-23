@@ -1,0 +1,64 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/prescription",
+            "value": "00001"
+        }
+    ],
+    "prescriber": {
+        "identifiers": [
+            {
+                "system": "http://www.cell-life.org/idart/practitioner",
+                "value": "00001"
+            }
+        ]
+    },
+    "patient": {
+        "identifiers": [
+            {
+                "system": "http://www.cell-life.org/idart/patient",
+                "value": "00001"
+            }
+        ]
+    },
+    "dateWritten": "2013-01-01",
+    "prescribedMedications": [
+        {
+            "medication": {
+                "codes": [
+                    {
+                        "system": "http://www.cell-life.org/idart/medication",
+                        "value": "00001"
+                    }
+                ]
+            },
+            "dosageInstruction": {
+                "doseQuantity": {
+                    "value": 100,
+                    "unitOfMeasure": {
+                        "codes": [
+                            {
+                                "system": "http://unitsofmeasure.org",
+                                "value": "mg"
+                            }
+                        ]
+                    }
+                },
+                "timing": {
+                    "frequency": 2,
+                    "duration": {
+                        "value": 2,
+                        "unitOfMeasure": {
+                            "codes": [
+                                {
+                                    "system": "http://unitsofmeasure.org",
+                                    "value": "mg"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

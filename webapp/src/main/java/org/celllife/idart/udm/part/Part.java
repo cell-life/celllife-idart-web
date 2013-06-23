@@ -1,8 +1,8 @@
 package org.celllife.idart.udm.part;
 
-import org.celllife.idart.udm.codedconcept.Form;
+import org.celllife.idart.domain.form.Form;
 import org.celllife.idart.udm.common.BaseEntity;
-import org.celllife.idart.udm.codedconcept.UnitOfMeasure;
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

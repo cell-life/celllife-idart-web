@@ -1,6 +1,7 @@
 package org.celllife.idart.integration.prehmis.builder;
 
-import org.celllife.idart.domain.patient.PatientIdentifierType;
+import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -19,10 +20,10 @@ public class GetPatientRequestBuilderTest {
                 .setApplicationKey("idartApplicationKey")
                 .setFacilityCode("idartFacilityCode")
                 .setPatientIdentifierValue("patientIdentifierValue")
-                .setPatientIdentifierType(PatientIdentifierType.PREHMIS)
+                .setPatientIdentifierType(PrehmisPatientIdentifierType.PREHMIS)
                 .build();
 
-        System.out.println(getPatientRequest);
+        Assert.assertNotNull(getPatientRequest);
 
     }
 }

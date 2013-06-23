@@ -1,16 +1,12 @@
 package org.celllife.idart.domain.prescription;
 
-import org.celllife.idart.domain.common.Rate;
 import org.celllife.idart.domain.common.Ratio;
 import org.celllife.idart.domain.common.Schedule;
-import org.celllife.idart.udm.codedconcept.AdministrationMethod;
-import org.celllife.idart.udm.codedconcept.DosageInstructions;
-import org.celllife.idart.udm.codedconcept.EntrySite;
-import org.celllife.idart.udm.codedconcept.RouteOfAdministration;
+import org.celllife.idart.domain.administrationmethod.AdministrationMethod;
+import org.celllife.idart.domain.entrysite.EntrySite;
+import org.celllife.idart.domain.routeofadministration.RouteOfAdministration;
 import org.celllife.idart.udm.common.Quantity;
 
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
@@ -18,103 +14,54 @@ import java.io.Serializable;
  * Date: 2013-06-17
  * Time: 22h29
  */
-@Embeddable
 public final class DosageInstruction implements Serializable {
 
-    private String dosageInstructionsText;
+    /**
+     * Free text dosage instruction
+     */
+    private String text;
 
-    @ManyToOne
-    private DosageInstructions dosageInstructions;
+    /**
+     * Coded dosage instruction
+     */
+    private org.celllife.idart.domain.dosageinstruction.DosageInstruction dosageInstruction;
 
+    /**
+     * Timing
+     */
     private Schedule timing;
 
-    @ManyToOne
+    /**
+     * Location on body
+     */
     private EntrySite site;
 
-    @ManyToOne
+    /**
+     * Route Of Administration
+     */
     private RouteOfAdministration route;
 
-    @ManyToOne
+    /**
+     * Administration Method
+     */
     private AdministrationMethod method;
 
+    /**
+     * Dose Quantity
+     */
     private Quantity doseQuantity;
 
-    private Rate rate;
+    /**
+     * Rate
+     */
+    private Ratio rate;
 
+    /**
+     * Max Dose Per Period
+     */
     private Ratio maxDosePerPeriod;
 
     public DosageInstruction() {
     }
 
-    public String getDosageInstructionsText() {
-        return dosageInstructionsText;
-    }
-
-    public void setDosageInstructionsText(String dosageInstructionsText) {
-        this.dosageInstructionsText = dosageInstructionsText;
-    }
-
-    public DosageInstructions getDosageInstructions() {
-        return dosageInstructions;
-    }
-
-    public void setDosageInstructions(DosageInstructions dosageInstructions) {
-        this.dosageInstructions = dosageInstructions;
-    }
-
-    public Schedule getTiming() {
-        return timing;
-    }
-
-    public void setTiming(Schedule timing) {
-        this.timing = timing;
-    }
-
-    public EntrySite getSite() {
-        return site;
-    }
-
-    public void setSite(EntrySite site) {
-        this.site = site;
-    }
-
-    public RouteOfAdministration getRoute() {
-        return route;
-    }
-
-    public void setRoute(RouteOfAdministration route) {
-        this.route = route;
-    }
-
-    public AdministrationMethod getMethod() {
-        return method;
-    }
-
-    public void setMethod(AdministrationMethod method) {
-        this.method = method;
-    }
-
-    public Quantity getDoseQuantity() {
-        return doseQuantity;
-    }
-
-    public void setDoseQuantity(Quantity doseQuantity) {
-        this.doseQuantity = doseQuantity;
-    }
-
-    public Rate getRate() {
-        return rate;
-    }
-
-    public void setRate(Rate rate) {
-        this.rate = rate;
-    }
-
-    public Ratio getMaxDosePerPeriod() {
-        return maxDosePerPeriod;
-    }
-
-    public void setMaxDosePerPeriod(Ratio maxDosePerPeriod) {
-        this.maxDosePerPeriod = maxDosePerPeriod;
-    }
 }

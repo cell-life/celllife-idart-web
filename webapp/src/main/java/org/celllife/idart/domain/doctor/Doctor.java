@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.doctor;
 
+import org.celllife.idart.domain.common.Persistable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -11,11 +13,7 @@ import java.util.Set;
  * Time: 10h44
  */
 @Entity
-public final class Doctor implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+public final class Doctor implements Persistable, Serializable {
 
     @Column(columnDefinition = "BIT")
     private Boolean active = true;
@@ -29,14 +27,6 @@ public final class Doctor implements Serializable {
     private String lastName;
 
     public Doctor() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Boolean getActive() {
@@ -55,7 +45,7 @@ public final class Doctor implements Serializable {
         this.identifiers = identifiers;
     }
 
-    public void addIdentifier(String value, DoctorIdentifierType type) {
+    public void addIdentifier(DoctorIdentifierType type, String value) {
         if (this.identifiers == null) {
             this.identifiers = new HashSet<>();
         }

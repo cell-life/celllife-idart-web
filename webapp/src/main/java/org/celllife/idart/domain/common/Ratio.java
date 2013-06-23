@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.common;
 
+import org.celllife.idart.udm.common.Quantity;
 import org.celllife.idart.udm.common.ValueObject;
 
 import javax.persistence.Embeddable;
@@ -15,28 +16,26 @@ import java.util.Date;
 @Embeddable
 public final class Ratio implements ValueObject {
 
-    @Temporal(TemporalType.DATE)
-    private Date fromDate;
+    private Quantity numerator;
 
-    @Temporal(TemporalType.DATE)
-    private Date thruDate;
+    private Quantity denominator;
 
     public Ratio() {
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public Quantity getNumerator() {
+        return numerator;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
+    public void setNumerator(Quantity numerator) {
+        this.numerator = numerator;
     }
 
-    public Date getThruDate() {
-        return thruDate;
+    public Quantity getDenominator() {
+        return denominator;
     }
 
-    public void setThruDate(Date thruDate) {
-        this.thruDate = thruDate;
+    public void setDenominator(Quantity denominator) {
+        this.denominator = denominator;
     }
 }

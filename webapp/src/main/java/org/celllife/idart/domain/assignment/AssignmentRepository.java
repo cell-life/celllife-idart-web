@@ -19,7 +19,7 @@ public interface AssignmentRepository extends CrudRepository<Assignment, Long> {
     List<Assignment> findByClinicId(@Param("clinicId") Long clinicId);
 
     @Query("select assignment from Assignment assignment " +
-            "where assignment.doctor.id = :doctorId and assignment.clinic.id = :clinicId")
+            "where assignment.doctor.pk = :doctorId and assignment.clinic.id = :clinicId")
     Assignment findOneByDoctorIdAndClinicId(@Param("doctorId") Long doctorId, @Param("clinicId") Long clinicId);
 
 }

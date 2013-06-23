@@ -4,13 +4,12 @@ import org.celllife.idart.application.ClinicNotFoundException;
 import org.celllife.idart.application.code.DoctorCodeApplicationService;
 import org.celllife.idart.domain.assignment.Assignment;
 import org.celllife.idart.domain.assignment.AssignmentRepository;
-import org.celllife.idart.domain.clinic.Clinic;
-import org.celllife.idart.domain.clinic.ClinicIdentifierType;
-import org.celllife.idart.domain.clinic.ClinicRepository;
 import org.celllife.idart.domain.doctor.Doctor;
 import org.celllife.idart.domain.doctor.DoctorIdentifierType;
 import org.celllife.idart.domain.doctor.DoctorRepository;
 import org.celllife.idart.domain.doctor.DoctorService;
+import org.celllife.idart.domain.clinic.Clinic;
+import org.celllife.idart.domain.clinic.ClinicRepository;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +52,7 @@ public final class DoctorApplicationServiceImpl implements DoctorApplicationServ
     public List<Doctor> findByClinicIdentifier(String applicationId,
                                                String clinicIdentifierValue) {
 
-        Clinic clinic = clinicRepository.findOneByIdentifier(clinicIdentifierValue, ClinicIdentifierType.IDART);
+        Clinic clinic = clinicRepository.findOneByIdentifier("http://www.cell-life.org/idart/facility", clinicIdentifierValue);
 
         if (clinic == null) {
             throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifierValue);
@@ -68,7 +67,7 @@ public final class DoctorApplicationServiceImpl implements DoctorApplicationServ
 
         List<Doctor> doctors = new ArrayList<>();
 
-        for (Assignment assignment : assignmentRepository.findByClinicId(clinic.getId())) {
+        for (Assignment assignment : assignmentRepository.findByClinicId(clinic.getPk())) {
             doctors.add(assignment.getDoctor());
         }
 
@@ -77,11 +76,11 @@ public final class DoctorApplicationServiceImpl implements DoctorApplicationServ
 
     private void lookupAndSyncWithExternalProviders(Clinic clinic) {
 
-        for (ClinicIdentifierType identifierType : clinic.getIdentifierTypes()) {
-            switch (identifierType) {
+        for (String identifierSystem : clinic.getIdentifierSystems()) {
+            switch (identifierSystem) {
 
-                case PREHMIS:
-                    String clinicIdentifierValue = clinic.getIdentifierValue(identifierType);
+                case "http://prehmis.capetown.gov.za":
+                    String clinicIdentifierValue = clinic.getIdentifierValue(identifierSystem);
                     Set<Doctor> prehmisDoctors = prehmisDoctorProvider.findAll(clinicIdentifierValue);
                     Set<Doctor> savedDoctors = saveDoctors(prehmisDoctors);
                     assignDoctorsToClinic(savedDoctors, clinic);
@@ -97,7 +96,7 @@ public final class DoctorApplicationServiceImpl implements DoctorApplicationServ
 
         for (Doctor doctor : doctors) {
 
-            Assignment assignment = assignmentRepository.findOneByDoctorIdAndClinicId(doctor.getId(), clinic.getId());
+            Assignment assignment = assignmentRepository.findOneByDoctorIdAndClinicId(doctor.getPk(), clinic.getPk());
             if (assignment == null) {
                 assignmentRepository.save(new Assignment(doctor, clinic));
             }
@@ -117,7 +116,7 @@ public final class DoctorApplicationServiceImpl implements DoctorApplicationServ
                 savedDoctors.add(doctorRepository.save(existingDoctor));
             } else {
 
-                newDoctor.addIdentifier(doctorCodeApplicationService.nextDoctorCode(), DoctorIdentifierType.IDART);
+                newDoctor.addIdentifier(DoctorIdentifierType.IDART, doctorCodeApplicationService.nextDoctorCode());
                 savedDoctors.add(doctorRepository.save(newDoctor));
             }
         }

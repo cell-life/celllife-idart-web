@@ -1,4 +1,5 @@
 package org.celllife.idart.integration.prehmis
+
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.doctor.DoctorProvider
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service
 
 import static org.celllife.idart.integration.prehmis.builder.DoctorBuilder.buildDoctors
 import static org.springframework.util.Assert.notNull
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-29

@@ -2,6 +2,7 @@ package org.celllife.idart.integration.prehmis;
 
 import org.celllife.idart.application.patient.PatientProvider;
 import org.celllife.idart.domain.patient.Patient;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,7 @@ public class PrehmisPatientServiceIntegrationTest {
     public void testFindByIdentifier() throws Exception {
 
         Set<Patient> patients = patientProvider.findByIdentifier("WES", "72254311");
-        for (Patient patient : patients) {
-            System.out.println(patient);
-        }
+        Assert.assertNotNull(patients);
+        Assert.assertFalse(patients.isEmpty());
     }
 }

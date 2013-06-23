@@ -1,11 +1,14 @@
 package org.celllife.idart.udm;
 
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure;
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureRespository;
 import org.celllife.idart.test.TestConfiguration;
-import org.celllife.idart.udm.codedconcept.UnitOfMeasure;
-import org.celllife.idart.udm.codedconcept.UnitOfMeasureRespository;
-import org.celllife.idart.udm.part.*;
-import org.celllife.idart.udm.product.Good;
-import org.celllife.idart.udm.product.GoodRepository;
+import org.celllife.idart.udm.part.FinishedGood;
+import org.celllife.idart.udm.part.FinishedGoodRepository;
+import org.celllife.idart.udm.part.RawMaterial;
+import org.celllife.idart.udm.part.RawMaterialRepository;
+import org.celllife.idart.domain.product.Good;
+import org.celllife.idart.domain.product.GoodRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

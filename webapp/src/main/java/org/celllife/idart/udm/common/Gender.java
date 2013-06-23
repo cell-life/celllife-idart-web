@@ -6,4 +6,7 @@ package org.celllife.idart.udm.common;
  * Time: 22h13
  */
 public enum  Gender {
+    M,
+    F,
+    U
 }

@@ -17,16 +17,18 @@ public interface ClinicRepository extends CrudRepository<Clinic, Long> {
 
     @Query("select clinic " +
             "from Clinic clinic " +
-            "join clinic.identifiers identifiers " +
-            "where identifiers.value = :identifier"
-    )
-    List<Clinic> findByIdentifier(@Param("identifier") String identifier);
+            "join clinic.identifiers clinicIdentifiers " +
+            "join clinicIdentifiers.identifiers clinicIdentifiersIdentifier " +
+            "where clinicIdentifiersIdentifier.value = :identifierValue")
+    List<Clinic> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 
     @Query("select clinic " +
             "from Clinic clinic " +
-            "join clinic.identifiers identifiers " +
-            "where identifiers.value = :identifierValue " +
-            "and identifiers.type = :identifierType")
-    Clinic findOneByIdentifier(@Param("identifierValue") String identifierValue,
-                               @Param("identifierType") ClinicIdentifierType identifierType);
+            "join clinic.identifiers clinicIdentifiers " +
+            "join clinicIdentifiers.identifiers clinicIdentifiersIdentifier " +
+            "where clinicIdentifiersIdentifier.system = :identifierSystem " +
+            "and clinicIdentifiersIdentifier.value = :identifierValue")
+    Clinic findOneByIdentifier(@Param("identifierSystem") String identifierSystem,
+                               @Param("identifierValue") String identifierValue);
 }

@@ -6,7 +6,7 @@
     <changeSet id="partclassification-1" author="kevin.sewell">
 
         <createTable tableName="part_classification">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(40)">
@@ -15,29 +15,29 @@
             <column name="code" type="varchar(10)"/>
             <column name="description" type="varchar(255)"/>
             <column name="parent" type="bigint">
-                <constraints references="part_classification(id)" foreignKeyName="parent_part_class_fk"/>
+                <constraints references="part_classification(pk)" foreignKeyName="parent_part_class_fk"/>
             </column>
         </createTable>
 
         <createTable tableName="atc_classification">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="part_classification(id)" foreignKeyName="atc_part_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="part_classification(pk)" foreignKeyName="atc_part_fk"/>
             </column>
         </createTable>
 
         <createTable tableName="defined_daily_dose">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="atc_classification" type="bigint">
-                <constraints references="atc_classification(id)" foreignKeyName="ddd_atc_fk"/>
+                <constraints references="atc_classification(pk)" foreignKeyName="ddd_atc_fk"/>
             </column>
             <column name="quantity" type="numeric"/>
             <column name="quantity_uom" type="bigint">
-                <constraints references="coded_concept(id)" foreignKeyName="ddd_qty_uom_coded_concept_fk"/>
+                <constraints references="unit_of_measure(pk)" foreignKeyName="ddd_qty_uom_fk"/>
             </column>
             <column name="route_of_administration" type="bigint">
-                <constraints references="coded_concept(id)" foreignKeyName="ddd_roa_coded_concept_fk"/>
+                <constraints references="route_of_administration(pk)" foreignKeyName="ddd_roa_fk"/>
             </column>
         </createTable>
 

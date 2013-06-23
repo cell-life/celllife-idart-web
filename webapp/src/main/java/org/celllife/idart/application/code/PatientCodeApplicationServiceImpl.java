@@ -20,7 +20,7 @@ public class PatientCodeApplicationServiceImpl implements PatientCodeApplication
     private CounterService counterService;
 
     @Override
-    public String nextPatientCode() {
+    public String nextPatientIdentifierValue() {
 
         Integer nextValue = counterService.getNextValue(PATIENT_CODE_COUNTER_NAME);
 

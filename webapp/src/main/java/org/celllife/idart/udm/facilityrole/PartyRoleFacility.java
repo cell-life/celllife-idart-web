@@ -1,7 +1,7 @@
 package org.celllife.idart.udm.facilityrole;
 
 import org.celllife.idart.udm.common.ValueObject;
-import org.celllife.idart.udm.facility.Facility;
+import org.celllife.idart.domain.facility.Facility;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

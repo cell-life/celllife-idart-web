@@ -6,12 +6,11 @@
     <changeSet id="partyrole-1" author="kevin.sewell">
 
         <createTable tableName="party_role">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="party" type="bigint"/>
-            <column name="type" type="varchar(40)">
-                <constraints nullable="false"/>
+            <column name="identifiers" type="bigint">
+                <constraints references="identifiers(pk)" foreignKeyName="party_role_identifiers_fk"/>
             </column>
             <column name="from_date" type="DATE">
                 <constraints nullable="false"/>
@@ -35,15 +34,23 @@
             </column>
         </createTable>
 
-        <createTable tableName="udm_patient">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="party_role(id)" foreignKeyName="udm_patient_party_role_fk"/>
+        <createTable tableName="person_role">
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="party_role(pk)" foreignKeyName="person_role_party_role_fk"/>
+            </column>
+            <column name="person" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="patient">
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="person_role(pk)" foreignKeyName="patient_person_role_fk"/>
             </column>
         </createTable>
 
         <createTable tableName="practitioner">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="party_role(id)" foreignKeyName="practitioner_party_role_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="person_role(pk)"
+                             foreignKeyName="practitioner_person_role_fk"/>
             </column>
         </createTable>
 

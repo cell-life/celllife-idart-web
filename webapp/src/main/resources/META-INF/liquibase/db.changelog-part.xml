@@ -6,7 +6,7 @@
     <changeSet id="part-1" author="kevin.sewell">
 
         <createTable tableName="part">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(40)">
@@ -16,15 +16,15 @@
                 <constraints nullable="false"/>
             </column>
             <column name="unit_of_measure" type="bigint">
-                <constraints references="coded_concept(id)" foreignKeyName="part_uom_fk"/>
+                <constraints references="unit_of_measure(pk)" foreignKeyName="part_uom_fk"/>
             </column>
             <column name="form" type="bigint">
-                <constraints references="coded_concept(id)" foreignKeyName="part_form_fk"/>
+                <constraints references="form(pk)" foreignKeyName="part_form_fk"/>
             </column>
         </createTable>
 
         <createTable tableName="part_bill_of_materials_item">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(40)"/>
@@ -33,14 +33,14 @@
             </column>
             <column name="thru_date" type="DATE"/>
             <column name="for_part" type="bigint">
-                <constraints references="part(id)" foreignKeyName="part_bom_for_part_fk"/>
+                <constraints references="part(pk)" foreignKeyName="part_bom_for_part_fk"/>
             </column>
             <column name="part" type="bigint">
-                <constraints references="part(id)" foreignKeyName="part_bom_part_fk"/>
+                <constraints references="part(pk)" foreignKeyName="part_bom_part_fk"/>
             </column>
             <column name="quantity_used" type="numeric"/>
             <column name="quantity_used_uom" type="bigint">
-                <constraints references="coded_concept(id)" foreignKeyName="part_bom_qty_used_uom_fk"/>
+                <constraints references="unit_of_measure(pk)" foreignKeyName="part_bom_qty_used_uom_fk"/>
             </column>
             <column name="instructions" type="varchar(2000)"/>
             <column name="comment" type="varchar(255)"/>

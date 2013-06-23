@@ -10,7 +10,7 @@
     <security:authentication-manager id="httpBasicAuthenticationManager">
         <security:authentication-provider>
             <security:user-service>
-                <security:user name="${internal.username}" authorities="SYSTEM" password="${internal.password}" />
+                <security:user name="${internal.username}" authorities="SYSTEM" password="${internal.password}"/>
             </security:user-service>
         </security:authentication-provider>
         <security:authentication-provider user-service-ref="ldapUserDetailsService">

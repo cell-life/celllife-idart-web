@@ -6,7 +6,7 @@
     <changeSet id="inventoryitem-1" author="kevin.sewell">
 
         <createTable tableName="inventory_item">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="part" type="bigint"/>
@@ -14,25 +14,27 @@
 
         <createTable tableName="inventory_item_status">
             <column name="inventory_item" type="bigint">
-                <constraints references="inventory_item(id)" foreignKeyName="inventory_item_status"/>
+                <constraints references="inventory_item(pk)" foreignKeyName="inventory_item_status"/>
             </column>
             <column name="date_time" type="DATETIME"/>
             <column name="status_type" type="varchar(40)"/>
         </createTable>
 
         <createTable tableName="non_serialised_inventory_item">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="inventory_item(id)" foreignKeyName="non_serialised_inventory_item_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="inventory_item(pk)"
+                             foreignKeyName="non_serialised_inventory_item_fk"/>
             </column>
             <column name="quantity_on_hand" type="numeric"/>
             <column name="quantity_on_hand_uom" type="bigint">
-                <constraints references="coded_concept(id)" foreignKeyName="quantity_on_hand_uom_coded_concept_fk"/>
+                <constraints references="unit_of_measure(pk)" foreignKeyName="quantity_on_hand_uom_fk"/>
             </column>
         </createTable>
 
         <createTable tableName="serialised_inventory_item">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="inventory_item(id)" foreignKeyName="serialised_inventory_item_fk"/>
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true" references="inventory_item(pk)"
+                             foreignKeyName="serialised_inventory_item_fk"/>
             </column>
             <column name="serial_number" type="varchar(40)"/>
         </createTable>

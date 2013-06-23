@@ -21,7 +21,7 @@ class PatientServiceAcceptanceTest {
     void setUp() throws Exception {
 
         PatientResource.clear()
-        PatientResource.post(PatientResource.testPatient())
+//        PatientResource.post(PatientResource.testPatient())
 
         AssignmentResource.clear()
 
@@ -33,20 +33,21 @@ class PatientServiceAcceptanceTest {
 
     @Test
     public void shouldFindPatientByIdentifierValue() throws Exception {
-        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311" )
+        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
     }
 
     @Test
     public void shouldFindPatientByIdentifierValueTwice() throws Exception {
-        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311" )
-        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311" )
+        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
+        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
     }
 
     static assertPatientExists(String applicationId, String idartClinicIdentifier, String patientIdentifier) {
 
-        def patients = PatientService.findByIdentifier(applicationId, idartClinicIdentifier, patientIdentifier)
+        def response = PatientService.findByIdentifier(applicationId, idartClinicIdentifier, patientIdentifier)
 
-        assertNotNull patients
-        assertEquals(1, patients.size)
+        assertNotNull response
+        assertNotNull response.patients
+        assertEquals(1, response.patients.size)
     }
 }

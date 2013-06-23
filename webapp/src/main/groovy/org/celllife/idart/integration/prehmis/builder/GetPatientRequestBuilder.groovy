@@ -1,6 +1,8 @@
 package org.celllife.idart.integration.prehmis.builder
+
 import groovy.text.SimpleTemplateEngine
-import org.celllife.idart.domain.patient.PatientIdentifierType
+import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25
@@ -18,7 +20,7 @@ class GetPatientRequestBuilder {
 
     String patientIdentifierValue;
 
-    PatientIdentifierType patientIdentifierType;
+    PrehmisPatientIdentifierType patientIdentifierType;
 
     static String templateFilename = "/templates/prehmis/getPatient.xml"
 
@@ -65,7 +67,7 @@ class GetPatientRequestBuilder {
         this
     }
 
-    GetPatientRequestBuilder setPatientIdentifierType(PatientIdentifierType patientIdentifierType) {
+    GetPatientRequestBuilder setPatientIdentifierType(PrehmisPatientIdentifierType patientIdentifierType) {
         this.patientIdentifierType = patientIdentifierType
         this
     }

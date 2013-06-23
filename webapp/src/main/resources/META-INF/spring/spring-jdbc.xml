@@ -5,9 +5,9 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"/>
 
-    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase"  >
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
         <property name="dataSource" ref="dataSource"/>
-        <property name="changeLog" value="classpath:/META-INF/liquibase/db.changelog-master.xml" />
+        <property name="changeLog" value="classpath:/META-INF/liquibase/db.changelog-master.xml"/>
     </bean>
 
 </beans>

@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ImportResource;
         "classpath:/META-INF/spring/spring-config.xml",
         "classpath:/META-INF/spring/spring-domain.xml",
         "classpath:/META-INF/spring/spring-dozer.xml",
-        "classpath:/META-INF/spring/spring-smooks.xml",
         "classpath:/META-INF/spring/spring-integration-cqm.xml",
         "classpath:/META-INF/spring/spring-integration-dhis.xml",
         "classpath:/META-INF/spring/spring-jdbc.xml",

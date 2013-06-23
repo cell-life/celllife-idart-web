@@ -6,7 +6,7 @@
     <changeSet id="doctor-1" author="kevin.sewell">
 
         <createTable tableName="doctor">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="active" type="boolean"/>
@@ -15,13 +15,13 @@
         </createTable>
 
         <createTable tableName="doctor_identifier">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="value" type="varchar(255)"/>
             <column name="type" type="varchar(255)"/>
             <column name="doctor" type="bigint">
-                <constraints references="doctor(id)" foreignKeyName="doctor_identifier_fk"/>
+                <constraints references="doctor(pk)" foreignKeyName="doctor_identifier_fk"/>
             </column>
         </createTable>
 

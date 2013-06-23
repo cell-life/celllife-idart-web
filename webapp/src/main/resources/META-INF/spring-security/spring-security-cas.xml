@@ -18,7 +18,8 @@
         <property name="sendRenew" value="false"/>
     </bean>
 
-    <bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+    <bean id="casAuthenticationProvider"
+          class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
 
         <property name="key" value="an_id_for_this_auth_provider_only"/>
         <property name="serviceProperties" ref="serviceProperties"/>
@@ -39,11 +40,11 @@
 
     <!-- This filter redirects to the CAS Server to signal Single Logout should be performed -->
     <bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
-      <constructor-arg value="${cas.base.url}/logout"/>
-      <constructor-arg>
-        <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
-      </constructor-arg>
-      <property name="filterProcessesUrl" value="/j_spring_cas_security_logout"/>
+        <constructor-arg value="${cas.base.url}/logout"/>
+        <constructor-arg>
+            <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="/j_spring_cas_security_logout"/>
     </bean>
 
 </beans>

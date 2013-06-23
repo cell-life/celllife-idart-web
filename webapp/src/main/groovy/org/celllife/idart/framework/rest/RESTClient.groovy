@@ -30,6 +30,6 @@ class RESTClient {
         def client = new groovyx.net.http.RESTClient(uri)
         client.auth.basic("internal", "password")
 
-        return client.get(query:query).data
+        return client.get(query: query).data
     }
 }

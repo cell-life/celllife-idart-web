@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.doctor;
 
+import org.celllife.idart.domain.common.Persistable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,11 +11,7 @@ import java.io.Serializable;
  * Time: 10h44
  */
 @Entity
-public final class DoctorIdentifier implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+public final class DoctorIdentifier implements Persistable, Serializable {
 
     private String value;
 
@@ -26,14 +24,6 @@ public final class DoctorIdentifier implements Serializable {
     DoctorIdentifier(String value, DoctorIdentifierType type) {
         this.value = value;
         this.type = type;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getValue() {

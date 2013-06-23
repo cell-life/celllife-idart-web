@@ -13,69 +13,69 @@ import java.io.Serializable;
  * Time: 12h14
  */
 public class MockPagingAndSortingRepository<T, ID extends Serializable> implements PagingAndSortingRepository<T, ID> {
-    
+
     @Override
     public <S extends T> S save(S entity) {
-        return null;  
+        return null;
     }
 
     @Override
     public <S extends T> Iterable<S> save(Iterable<S> entities) {
-        return null;  
+        return null;
     }
 
     @Override
     public T findOne(ID id) {
-        return null;  
+        return null;
     }
 
     @Override
     public boolean exists(ID id) {
-        return false;  
+        return false;
     }
 
     @Override
     public Iterable<T> findAll() {
-        return null;  
+        return null;
     }
 
     @Override
     public Iterable<T> findAll(Iterable<ID> ids) {
-        return null;  
+        return null;
     }
 
     @Override
     public long count() {
-        return 0;  
+        return 0;
     }
 
     @Override
     public void delete(ID id) {
-        
+
     }
 
     @Override
     public void delete(T entity) {
-        
+
     }
 
     @Override
     public void delete(Iterable<? extends T> entities) {
-        
+
     }
 
     @Override
     public void deleteAll() {
-        
+
     }
 
     @Override
     public Iterable<T> findAll(Sort sort) {
-        return null;  
+        return null;
     }
 
     @Override
     public Page<T> findAll(Pageable pageable) {
-        return null;  
+        return null;
     }
 }

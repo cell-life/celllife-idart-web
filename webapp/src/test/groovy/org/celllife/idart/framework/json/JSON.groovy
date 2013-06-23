@@ -1,7 +1,7 @@
 package org.celllife.idart.framework.json
 
 import groovy.json.JsonSlurper
-import junit.framework.Assert
+import org.junit.Assert
 
 /**
  * User: Kevin W. Sewell

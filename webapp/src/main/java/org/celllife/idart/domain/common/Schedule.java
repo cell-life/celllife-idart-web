@@ -1,12 +1,11 @@
 package org.celllife.idart.domain.common;
 
-import org.celllife.idart.udm.codedconcept.LifeEvent;
+import org.celllife.idart.domain.lifeevent.LifeEvent;
 import org.celllife.idart.udm.common.Duration;
 import org.celllife.idart.udm.common.ValueObject;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,12 +23,16 @@ public final class Schedule implements ValueObject {
     private Integer frequency;
 
     @ManyToOne
+    @JoinColumn(name = "when_")
     private LifeEvent when;
 
+    @AttributeOverride(name = "value", column = @Column(name = "duration"))
+    @AssociationOverride(name = "unitOfMeasure", joinColumns = @JoinColumn(name = "durationUom"))
     private Duration duration;
 
     private Integer count;
 
+    @Temporal(TemporalType.DATE)
     private Date end;
 
     public Schedule() {

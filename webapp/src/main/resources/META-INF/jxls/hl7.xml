@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<workbook>
+    <worksheet>
+        <section startRow="0" endRow="3">
+            <mapping cell="B1">codeFile.name</mapping>
+            <mapping cell="B2">codeFile.system</mapping>
+        </section>
+        <loop startRow="6" endRow="6" items="codeFile.codes" var="code"
+              varType="org.celllife.idart.integration.hl7.Code">
+            <section startRow="6" endRow="6">
+                <mapping row="6" col="0">code.code</mapping>
+                <mapping row="6" col="1">code.name</mapping>
+                <mapping row="6" col="2">code.description</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"></cellcheck>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

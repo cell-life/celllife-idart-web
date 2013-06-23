@@ -26,7 +26,7 @@ class DoctorResource {
         items.each {
             item ->
                 def linkToSelf = item.links.find { it.rel == 'self' }
-                delete(path: linkToSelf.href )
+                delete(path: linkToSelf.href)
         }
     }
 

@@ -14,11 +14,11 @@ public final class DoctorBuilder {
     }
 
     public void setId(Long id) {
-        doctor.setId(id);
+        doctor.setPk(id);
     }
 
-    public void addIdentifier(String value, DoctorIdentifierType type) {
-        doctor.addIdentifier(value, type);
+    public void addIdentifier(DoctorIdentifierType type, String value) {
+        doctor.addIdentifier(type, value);
     }
 
     public void setFirstName(String firstName) {

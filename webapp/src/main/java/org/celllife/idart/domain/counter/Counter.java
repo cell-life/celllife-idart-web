@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.counter;
 
+import org.celllife.idart.domain.common.Persistable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,11 +11,7 @@ import java.io.Serializable;
  * Time: 15h59
  */
 @Entity
-public final class Counter implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+public final class Counter implements Persistable, Serializable {
 
     @Column(unique = true)
     private String name;
@@ -26,14 +24,6 @@ public final class Counter implements Serializable {
     public Counter(String name) {
         this.name = name;
         this.value = 0;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

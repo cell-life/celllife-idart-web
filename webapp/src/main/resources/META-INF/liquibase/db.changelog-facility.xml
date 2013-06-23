@@ -6,14 +6,28 @@
     <changeSet id="facility-1" author="kevin.sewell">
 
         <createTable tableName="facility">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(40)"/>
-            <column name="description" type="varchar(255)"/>
+            <column name="identifiers" type="bigint">
+                <constraints references="identifiers(pk)" foreignKeyName="facility_identifiers_fk"/>
+            </column>
+            <column name="names" type="bigint">
+                <constraints references="identifiers(pk)" foreignKeyName="facility_names_fk"/>
+            </column>
+            <column name="descriptions" type="bigint">
+                <constraints references="descriptions(pk)" foreignKeyName="facility_descriptions_fk"/>
+            </column>
             <column name="area" type="numeric"/>
             <column name="area_uom" type="bigint">
-                <constraints references="coded_concept(id)" foreignKeyName="area_uom_coded_concept_fk"/>
+                <constraints references="unit_of_measure(pk)" foreignKeyName="area_uom_fk"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="clinic">
+            <column name="pk" type="bigint">
+                <constraints references="facility(pk)" foreignKeyName="facility_clinic_fk"/>
             </column>
         </createTable>
 

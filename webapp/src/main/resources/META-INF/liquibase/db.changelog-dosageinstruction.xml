@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="dosageinstruction-1" author="kevin.sewell">
+
+        <createTable tableName="dosage_instruction">
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="names" type="bigint">
+                <constraints references="names(pk)" foreignKeyName="dosage_instruction_names_fk"/>
+            </column>
+            <column name="descriptions" type="bigint">
+                <constraints references="descriptions(pk)" foreignKeyName="dosage_instruction_descriptions_fk"/>
+            </column>
+            <column name="codes" type="bigint">
+                <constraints references="codes(pk)" foreignKeyName="dosage_instruction_codes_fk"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,6 +1,7 @@
 package org.celllife.idart.udm.common;
 
-import org.celllife.idart.udm.codedconcept.UnitOfMeasure;
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure;
+import org.celllife.idart.framework.aspectj.InjectCoded;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
@@ -44,6 +45,7 @@ public final class Duration implements ValueObject {
         return unitOfMeasure;
     }
 
+    @InjectCoded
     public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
     }

@@ -1,7 +1,7 @@
 package org.celllife.idart.udm.part;
 
 import org.celllife.idart.udm.common.Quantity;
-import org.celllife.idart.udm.codedconcept.UnitOfMeasure;
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure;
 
 import javax.persistence.*;
 import java.util.Date;

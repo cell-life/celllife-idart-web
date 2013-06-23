@@ -6,7 +6,7 @@
     <changeSet id="counter-1" author="kevin.sewell">
 
         <createTable tableName="counter">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)">

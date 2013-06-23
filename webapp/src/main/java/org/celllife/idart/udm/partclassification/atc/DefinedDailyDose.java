@@ -2,7 +2,7 @@ package org.celllife.idart.udm.partclassification.atc;
 
 import org.celllife.idart.udm.common.Quantity;
 import org.celllife.idart.udm.common.BaseEntity;
-import org.celllife.idart.udm.codedconcept.RouteOfAdministration;
+import org.celllife.idart.domain.routeofadministration.RouteOfAdministration;
 
 import javax.persistence.*;
 

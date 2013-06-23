@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="identifiers-1" author="kevin.sewell">
+
+        <createTable tableName="identifiers">
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="identifiers_identifiers">
+            <column name="identifiers" type="bigint">
+                <constraints references="identifiers(pk)" foreignKeyName="identifiers_identifiers_fk"/>
+            </column>
+            <column name="system" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="identifiers_identifiers"
+                             columnNames="identifiers,system,valid_from_date"/>
+
+    </changeSet>
+
+</databaseChangeLog>

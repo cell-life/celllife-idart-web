@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.patient;
 
+import org.celllife.idart.domain.concept.Identifier;
+
 import java.util.Set;
 
 /**
@@ -9,6 +11,7 @@ import java.util.Set;
  */
 public interface PatientService {
 
-    Patient findByIdentifiers(Set<PatientIdentifier> identifiers);
+    Patient findByIdentifiers(Set<Identifier> identifiers);
 
+    void save(Patient patient);
 }

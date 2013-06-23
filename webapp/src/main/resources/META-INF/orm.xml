@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+    
+    <!-- Facility -->
+
+    <entity class="org.celllife.idart.domain.facility.Facility">
+
+        <inheritance strategy="JOINED" />
+
+        <discriminator-column name="type"/>
+
+        <attributes>
+            <embedded name="area">
+                <attribute-override name="value">
+                    <column name="area"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="area_uom"/>
+                </association-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.clinic.Clinic"/>
+    
+    <!-- Party -->
+
+    <entity class="org.celllife.idart.udm.party.Party">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <element-collection name="classifications" fetch="EAGER"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.person.Person">
+
+        <attributes>
+            <basic name="firstName"/>
+            <basic name="middleNames"/>
+            <basic name="lastName"/>
+            <basic name="personalTitle"/>
+            <basic name="suffix"/>
+            <basic name="nickname"/>
+            <basic name="gender">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="maritalStatus">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="birthDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="comment"/>
+            <basic name="totalYearsWorkExperience"/>
+            <basic name="mothersMaidenName"/>
+
+            <one-to-many name="physicalCharacteristics" fetch="EAGER" orphan-removal="true">
+                <join-column name="person"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.organisation.Organisation">
+
+        <attributes>
+            <basic name="name"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.organisation.InformalOrganisation"/>
+
+    <entity class="org.celllife.idart.domain.organisation.LegalOrganisation">
+
+        <attributes>
+            <basic name="taxRegistrationNumber"/>
+        </attributes>
+
+    </entity>
+
+    <!-- Party Role -->
+
+    <entity class="org.celllife.idart.domain.partyrole.PartyRole">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <element-collection name="facilities" fetch="EAGER"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.partyrole.PersonRole">
+
+        <attributes>
+            <many-to-one name="person"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.patient.Patient"/>
+
+    <entity class="org.celllife.idart.domain.practitioner.Practitioner"/>
+    
+    <!-- Prescription -->
+
+    <entity class="org.celllife.idart.domain.prescription.Prescription">
+
+        <attributes>
+            <basic name="dateWritten">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="prescriber"/>
+            <many-to-one name="patient" optional="false"/>
+            <one-to-many name="prescribedMedications" fetch="EAGER" orphan-removal="true">
+                <join-column name="prescription"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.prescription.PrescribedMedication">
+
+        <table name="prescribed_medication"/>
+
+        <attributes>
+            <basic name="numberOfRepeats"/>
+            <basic name="reasonForPrescribing"/>
+            <many-to-one name="medication" optional="false"/>
+            <many-to-one name="substitution" optional="false"/>
+            <many-to-one name="substitutionReason" optional="false"/>
+            <one-to-many name="indications" fetch="EAGER" orphan-removal="true">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <embedded name="dosageInstruction">
+                <attribute-override name="text">
+                    <column name="dosage_instruction_text"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="expectedSupplyDuration">
+                <attribute-override name="value">
+                    <column name="expected_supply_duration"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="expected_supply_duration_uom"/>
+                </association-override>
+            </embedded>
+            <embedded name="quantity">
+                <attribute-override name="value">
+                    <column name="quantity"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="quantity_uom"/>
+                </association-override>
+            </embedded>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+    <embeddable class="org.celllife.idart.domain.prescription.DosageInstruction">
+
+        <attributes>
+            <basic name="text"/>
+            <many-to-one name="dosageInstruction"/>
+            <many-to-one name="method"/>
+            <many-to-one name="route"/>
+            <many-to-one name="site"/>
+            <embedded name="doseQuantity">
+                <attribute-override name="value">
+                    <column name="dose_quantity"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="dose_quantity_uom"/>
+                </association-override>
+            </embedded>
+            <embedded name="maxDosePerPeriod">
+                <attribute-override name="numerator.value">
+                    <column name="max_dose_per_period_numerator"/>
+                </attribute-override>
+                <attribute-override name="denominator.value">
+                    <column name="max_dose_per_period_denominator"/>
+                </attribute-override>
+                <association-override name="numerator.unitOfMeasure">
+                    <join-column name="max_dose_per_period_numerator_uom"/>
+                </association-override>
+                <association-override name="denominator.unitOfMeasure">
+                    <join-column name="max_dose_per_period_denominator_uom"/>
+                </association-override>
+            </embedded>
+            <embedded name="rate">
+                <attribute-override name="numerator.value">
+                    <column name="rate_numerator"/>
+                </attribute-override>
+                <attribute-override name="denominator.value">
+                    <column name="rate_denominator"/>
+                </attribute-override>
+                <association-override name="numerator.unitOfMeasure">
+                    <join-column name="rate_numerator_uom"/>
+                </association-override>
+                <association-override name="denominator.unitOfMeasure">
+                    <join-column name="rate_denominator_uom"/>
+                </association-override>
+            </embedded>
+            <embedded name="timing"/>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

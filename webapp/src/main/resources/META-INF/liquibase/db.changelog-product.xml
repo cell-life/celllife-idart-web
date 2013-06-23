@@ -6,33 +6,22 @@
     <changeSet id="product-1" author="kevin.sewell">
 
         <createTable tableName="product">
-            <column name="id" type="bigint">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(40)">
-                <constraints nullable="false"/>
+            <column name="names" type="bigint">
+                <constraints references="names(pk)" foreignKeyName="product_names_fk"/>
             </column>
-            <column name="comment" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="good">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" references="product(id)" foreignKeyName="product_good_fk"/>
+            <column name="pk" type="bigint">
+                <constraints references="product(pk)" foreignKeyName="product_good_fk"/>
+            </column>
+            <column name="codes" type="bigint">
+                <constraints references="codes(pk)" foreignKeyName="good_codes_fk"/>
             </column>
             <column name="finished_good" type="bigint"/>
-        </createTable>
-
-        <createTable tableName="good_identifiers">
-            <column name="good" type="bigint">
-                <constraints references="good(id)" foreignKeyName="good_identifiers_fk"/>
-            </column>
-            <column name="number" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="system" type="varchar(40)"/>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
-            <column name="assigner" type="bigint"/>
         </createTable>
 
     </changeSet>

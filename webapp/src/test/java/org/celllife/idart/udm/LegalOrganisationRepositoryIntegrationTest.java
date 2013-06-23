@@ -1,8 +1,8 @@
 package org.celllife.idart.udm;
 
 import org.celllife.idart.test.TestConfiguration;
-import org.celllife.idart.udm.party.LegalOrganisation;
-import org.celllife.idart.udm.party.LegalOrganisationRepository;
+import org.celllife.idart.domain.organisation.LegalOrganisation;
+import org.celllife.idart.domain.organisation.LegalOrganisationRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class LegalOrganisationRepositoryIntegrationTest {
 
         legalOrganisation = legalOrganisationRepository.save(legalOrganisation);
 
-        legalOrganisationRepository.findOne(legalOrganisation.getId());
+        legalOrganisationRepository.findOne(legalOrganisation.getPk());
 
     }
 }

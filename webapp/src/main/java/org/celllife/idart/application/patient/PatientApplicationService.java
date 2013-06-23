@@ -1,8 +1,6 @@
 package org.celllife.idart.application.patient;
 
-import org.celllife.idart.domain.patient.Patient;
-
-import java.util.List;
+import org.celllife.idart.interfaces.service.patient.FindPatientsByIdentifierRequest;
 
 /**
  * User: Kevin W. Sewell
@@ -11,8 +9,6 @@ import java.util.List;
  */
 public interface PatientApplicationService {
 
-    List<Patient> findByIdentifier(String applicationIdentifier,
-                                   String clinicIdentifier,
-                                   String patientIdentifier);
+    FindPatientsByIdentifierResponse findByIdentifier(FindPatientsByIdentifierRequest request);
 
 }
