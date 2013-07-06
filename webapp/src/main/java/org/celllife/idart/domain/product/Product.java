@@ -2,7 +2,6 @@ package org.celllife.idart.domain.product;
 
 import org.celllife.idart.domain.common.Nameable;
 import org.celllife.idart.domain.common.Persistable;
-import org.celllife.idart.udm.common.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;

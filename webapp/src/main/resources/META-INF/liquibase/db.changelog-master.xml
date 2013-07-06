@@ -7,13 +7,6 @@
 
     <include file="db.changelog-hibernate.xml" relativeToChangelogFile="true"/>
 
-    <!-- Common -->
-
-    <include file="db.changelog-codes.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-descriptions.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-names.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-identifiers.xml" relativeToChangelogFile="true"/>
-
     <!-- Codes -->
 
     <include file="db.changelog-administrationmethod.xml" relativeToChangelogFile="true"/>

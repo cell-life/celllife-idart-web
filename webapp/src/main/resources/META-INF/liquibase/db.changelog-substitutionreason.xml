@@ -9,14 +9,41 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="names" type="bigint">
-                <constraints references="names(pk)" foreignKeyName="substitution_reason_names_fk"/>
+        </createTable>
+
+        <createTable tableName="substitution_reason_names">
+            <column name="substitution_reason" type="bigint">
+                <constraints references="substitution_reason(pk)" foreignKeyName="substitution_reason_names_fk"/>
             </column>
-            <column name="descriptions" type="bigint">
-                <constraints references="descriptions(pk)" foreignKeyName="substitution_reason_descriptions_fk"/>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
             </column>
-            <column name="codes" type="bigint">
-                <constraints references="codes(pk)" foreignKeyName="substitution_reason_codes_fk"/>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="substitution_reason_codes">
+            <column name="substitution_reason" type="bigint">
+                <constraints references="substitution_reason(pk)" foreignKeyName="substitution_reason_codes_fk"/>
+            </column>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="substitution_reason_descriptions">
+            <column name="substitution_reason" type="bigint">
+                <constraints references="substitution_reason(pk)" foreignKeyName="substitution_reason_descriptions_fk"/>
+            </column>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
 

@@ -1,10 +1,9 @@
 package org.celllife.idart.domain.common;
 
 import org.celllife.idart.domain.concept.Code;
-import org.celllife.idart.domain.concept.Codes;
-
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,35 +13,72 @@ import java.util.Set;
  */
 privileged aspect CodeableAspect {
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    private Codes Codeable.codes = new Codes();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Code> Codeable.codes = new HashSet<>();
 
-    public Set<String> Codeable.getCodeSystems() {
-        return this.codes.getCodeSystems();
-    }
-
-    public String Codeable.getCodeValue(String system) {
-        return this.codes.getCodeValue(system);
-    }
-
-    public String Codeable.getFirstSystem() {
-        return this.codes.getFirstSystem();
-    }
-
-    public void Codeable.addCode(String system, String code) {
-        this.codes.addCode(system, code);
+    public Set<Code> Codeable.getCodes() {
+        return codes;
     }
 
     public void Codeable.setCodes(Set<Code> codes) {
-        this.codes.setCodes(codes);
+        this.codes = codes;
     }
 
-    public Set<Code> Codeable.getCodes() {
-        return this.codes.getCodes();
+    public void Codeable.addCode(String system, String code) {
+        if (this.codes == null) {
+            this.codes = new HashSet<>();
+        }
+
+        this.codes.add(new Code(system, code));
+    }
+
+    public String Codeable.getFirstSystem() {
+        if (this.codes == null || this.codes.isEmpty()) {
+            return null;
+        }
+
+        return this.codes.iterator().next().getSystem();
+    }
+
+    public String Codeable.getCodeValue(String system) {
+
+        if (system == null) {
+            return null;
+        }
+
+        for (Code code : codes) {
+            if (code.getSystem().equals(system)) {
+                return code.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    public Set<String> Codeable.getCodeSystems() {
+
+        Set<String> systems = new HashSet<>();
+        for (Code code : codes) {
+            systems.add(code.getSystem());
+        }
+
+        return systems;
     }
 
     public void Codeable.mergeCodes(Codeable that) {
-        this.codes.mergeCodes(that.codes);
-    }
 
+        if (!this.getClass().isAssignableFrom(that.getClass())) {
+            throw new RuntimeException(
+                    String.format(
+                            "Incompatible CodedConcept Types: this[%s] that[%s]",
+                            this.getClass(),
+                            that.getClass()
+                    )
+            );
+        }
+
+        for (String system : that.getCodeSystems()) {
+            this.addCode(system, that.getCodeValue(system));
+        }
+    }
 }

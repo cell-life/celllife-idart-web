@@ -9,12 +9,23 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="identifiers" type="bigint">
-                <constraints references="identifiers(pk)" foreignKeyName="prescription_identifiers_fk"/>
-            </column>
             <column name="prescriber" type="bigint"/>
             <column name="patient" type="bigint"/>
             <column name="date_written" type="date"/>
+        </createTable>
+
+        <createTable tableName="prescription_identifiers">
+            <column name="prescription" type="bigint">
+                <constraints references="prescription(pk)" foreignKeyName="prescription_identifiers_fk"/>
+            </column>
+            <column name="system" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
         </createTable>
 
         <createTable tableName="prescribed_medication">

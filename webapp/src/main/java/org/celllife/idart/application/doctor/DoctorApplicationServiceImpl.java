@@ -1,7 +1,6 @@
 package org.celllife.idart.application.doctor;
 
 import org.celllife.idart.application.ClinicNotFoundException;
-import org.celllife.idart.application.code.DoctorCodeApplicationService;
 import org.celllife.idart.domain.assignment.Assignment;
 import org.celllife.idart.domain.assignment.AssignmentRepository;
 import org.celllife.idart.domain.doctor.Doctor;

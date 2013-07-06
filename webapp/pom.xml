@@ -66,65 +66,32 @@
         </testResources>
 
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjrt</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <outxml>true</outxml>
-                    <aspectLibraries>
-                        <aspectLibrary>
-                            <groupId>org.springframework</groupId>
-                            <artifactId>spring-aspects</artifactId>
-                        </aspectLibrary>
-                    </aspectLibraries>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
 
             <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>3.1.5</version>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.5</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>compile</goal>
                             <goal>testCompile</goal>
                         </goals>
-                        <configuration>
-                            <sourceDir>${project.basedir}/src/main/scala</sourceDir>
-                            <scalaVersion>${scala.version}</scalaVersion>
-                        </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>${groovy.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <version>1.5</version>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -187,7 +154,28 @@
                 <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>drop-database</id>
+                        <id>junit-drop-database</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <configuration>
+                            <onError>continue</onError>
+                            <sqlCommand>drop database test;</sqlCommand>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>junit-create-database</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <configuration>
+                            <sqlCommand>create database test;</sqlCommand>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>acceptance-drop-database</id>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -198,7 +186,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>create-database</id>
+                        <id>acceptance-create-database</id>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -649,6 +637,7 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
         </dependency>
 
     </dependencies>

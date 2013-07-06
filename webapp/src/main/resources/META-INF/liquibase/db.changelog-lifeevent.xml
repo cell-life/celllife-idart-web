@@ -9,14 +9,41 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="names" type="bigint">
-                <constraints references="names(pk)" foreignKeyName="life_event_names_fk"/>
+        </createTable>
+
+        <createTable tableName="life_event_names">
+            <column name="life_event" type="bigint">
+                <constraints references="life_event(pk)" foreignKeyName="life_event_names_fk"/>
             </column>
-            <column name="descriptions" type="bigint">
-                <constraints references="descriptions(pk)" foreignKeyName="life_event_descriptions_fk"/>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
             </column>
-            <column name="codes" type="bigint">
-                <constraints references="codes(pk)" foreignKeyName="life_event_codes_fk"/>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="life_event_codes">
+            <column name="life_event" type="bigint">
+                <constraints references="life_event(pk)" foreignKeyName="life_event_codes_fk"/>
+            </column>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="life_event_descriptions">
+            <column name="life_event" type="bigint">
+                <constraints references="life_event(pk)" foreignKeyName="life_event_descriptions_fk"/>
+            </column>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
 

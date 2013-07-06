@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.unitofmeasure;
 
 import org.celllife.idart.domain.common.*;
-import org.celllife.idart.udm.common.BaseEntity;
 
 import javax.persistence.Entity;
 

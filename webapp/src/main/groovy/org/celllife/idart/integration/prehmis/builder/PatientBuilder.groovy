@@ -23,8 +23,7 @@ class PatientBuilder {
 
     static Patient buildIdartPatient(getPatientResponse) {
 
-//        def envelope = getPatientResponse.data
-        def envelope = getPatientResponse
+        def envelope = getPatientResponse.data
         envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
 
         def patient = envelope.'soap:Body'.'prehmis:getPatientResponse'.result

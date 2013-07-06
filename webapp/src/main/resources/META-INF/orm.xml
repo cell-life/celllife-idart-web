@@ -4,6 +4,19 @@
 
     <access>FIELD</access>
     
+    <!-- Assignment -->
+
+    <entity class="org.celllife.idart.domain.assignment.Assignment">
+
+        <attributes>
+            <many-to-one name="clinic" fetch="EAGER"/>
+            <many-to-one name="doctor" fetch="EAGER"/>
+        </attributes>
+
+    </entity>
+
+    <!-- Party -->
+
     <!-- Facility -->
 
     <entity class="org.celllife.idart.domain.facility.Facility">
@@ -26,7 +39,7 @@
     </entity>
 
     <entity class="org.celllife.idart.domain.clinic.Clinic"/>
-    
+
     <!-- Party -->
 
     <entity class="org.celllife.idart.udm.party.Party">

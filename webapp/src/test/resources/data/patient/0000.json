@@ -1,8 +1,12 @@
 {
     "identifiers": [
         {
-            "value": "1234",
-            "type": "SAID"
+            "system": "http://www.dha.gov.za",
+            "value": "1234"
         }
-    ]
+    ],
+    "person" : {
+        "pk" : 1
+    }
+
 }

@@ -17,23 +17,19 @@ public interface PatientRepository extends PagingAndSortingRepository<Patient, L
 
     @Query("select patient " +
             "from Patient patient " +
-            "join patient.identifiers patientIdentifiers " +
-            "join patientIdentifiers.identifiers patientIdentifiersIdentifier " +
-            "join patient.person.identifiers personIdentifiers " +
-            "join personIdentifiers.identifiers personIdentifiersIdentifier " +
-            "where patientIdentifiersIdentifier.value = :identifierValue " +
-            "or personIdentifiersIdentifier.value = :identifierValue")
+            "join patient.identifiers patientIdentifier " +
+            "join patient.person.identifiers personIdentifier " +
+            "where patientIdentifier.value = :identifierValue " +
+            "or personIdentifier.value = :identifierValue")
     List<Patient> findByIdentifier(@Param("identifierValue") String identifierValue);
 
 
     @Query("select patient " +
             "from Patient patient " +
-            "join patient.identifiers patientIdentifiers " +
-            "join patientIdentifiers.identifiers patientIdentifiersIdentifier " +
-            "join patient.person.identifiers personIdentifiers " +
-            "join personIdentifiers.identifiers personIdentifiersIdentifier " +
-            "where (patientIdentifiersIdentifier.system = :identifierSystem and patientIdentifiersIdentifier.value = :identifierValue) " +
-            "or (personIdentifiersIdentifier.system = :identifierSystem and personIdentifiersIdentifier.value = :identifierValue)")
+            "join patient.identifiers patientIdentifier " +
+            "join patient.person.identifiers personIdentifier " +
+            "where (patientIdentifier.system = :identifierSystem and patientIdentifier.value = :identifierValue) " +
+            "or (personIdentifier.system = :identifierSystem and personIdentifier.value = :identifierValue)")
     Patient findOneByIdentifier(@Param("identifierSystem") String identifierSystem,
                                 @Param("identifierValue") String identifierValue);
 

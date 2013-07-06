@@ -1,9 +1,11 @@
 package org.celllife.idart.domain.common;
 
-import org.celllife.idart.domain.concept.Descriptions;
+import org.celllife.idart.domain.concept.LocalisedText;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: Kevin W. Sewell
@@ -12,22 +14,36 @@ import javax.persistence.OneToOne;
  */
 privileged aspect DescribableAspect {
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    private Descriptions Describable.descriptions = new Descriptions();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<LocalisedText> Codeable.descriptions = new HashSet<>();
 
-    public String Describable.getDescription() {
-        return this.descriptions.getDescription();
+    public String Codeable.getDescription() {
+        for (LocalisedText localisedText : descriptions) {
+            if (localisedText.getLocale().equals("en")) {
+                return localisedText.getValue();
+            }
+        }
+        return null;
     }
 
-    public void Describable.setDescription(String description) {
-        this.descriptions.setDescription(description);
+    public void Codeable.setDescription(String description) {
+        this.addDescription(description);
     }
 
-    public void Describable.addDescription(String description) {
-        this.descriptions.addDescription(description);
+    public void Codeable.addDescription(String description) {
+        this.addDescription("en", description);
     }
 
-    public void Describable.addDescription(String locale, String description) {
-        this.descriptions.addDescription(locale, description);
+    public void Codeable.addDescription(String locale, String description) {
+
+        if (description == null) {
+            return;
+        }
+
+        if (this.descriptions == null) {
+            this.descriptions = new HashSet<>();
+        }
+
+        this.descriptions.add(new LocalisedText(locale, description));
     }
 }

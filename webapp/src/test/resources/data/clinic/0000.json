@@ -3,11 +3,11 @@
     "identifiers": [
         {
             "value": "WES",
-            "type": "PREHMIS"
+            "system": "http://prehmis.capetown.gov.za"
         },
         {
             "value": "Green Point Clinic",
-            "type": "IDART"
+            "system": "http://www.cell-life.org/idart"
         }
     ]
 }

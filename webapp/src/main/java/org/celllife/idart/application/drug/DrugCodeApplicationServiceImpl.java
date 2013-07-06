@@ -1,4 +1,4 @@
-package org.celllife.idart.application.code;
+package org.celllife.idart.application.drug;
 
 import org.celllife.idart.domain.counter.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Time: 16h07
  */
 @Service("drugCodeApplicationService")
-public class DrugCodeApplicationServiceImpl implements DrugCodeApplicationService {
+public final class DrugCodeApplicationServiceImpl implements DrugCodeApplicationService {
 
     private static final String DRUG_CODE_COUNTER_NAME = "DrugCode";
 

@@ -1,4 +1,4 @@
-package org.celllife.idart.application.code;
+package org.celllife.idart.application.drug;
 
 /**
  * User: Kevin W. Sewell

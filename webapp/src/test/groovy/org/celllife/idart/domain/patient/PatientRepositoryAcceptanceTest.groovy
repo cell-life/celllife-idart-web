@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.patient
 
 import org.celllife.idart.domain.clinic.ClinicResource
+import org.celllife.idart.domain.person.PersonResource
 import org.junit.Before
 import org.junit.Test
 
@@ -18,6 +19,9 @@ class PatientRepositoryAcceptanceTest {
     void setUp() throws Exception {
 
         PatientResource.clear()
+        PersonResource.clear()
+
+        PersonResource.post(PersonResource.testPerson())
         PatientResource.post(PatientResource.testPatient())
 
         ClinicResource.clear()

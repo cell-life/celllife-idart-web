@@ -1,6 +1,5 @@
 package org.celllife.idart.application.patient;
 
-import org.celllife.idart.application.code.PatientCodeApplicationService;
 import org.celllife.idart.domain.patient.Patient;
 import org.celllife.idart.domain.patient.PatientRepository;
 import org.celllife.idart.domain.patient.PatientService;

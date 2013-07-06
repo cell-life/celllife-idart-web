@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Before;
 import org.celllife.idart.domain.common.Identifiable;
 import org.celllife.idart.domain.common.Persistable;
 import org.celllife.idart.domain.concept.Identifier;
-import org.celllife.idart.domain.concept.Identifiers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -86,12 +85,11 @@ public final class InjectIdentifiedAspect {
 
             CriteriaQuery<? extends Identifiable> query = criteriaBuilder.createQuery(identifierdConceptClass);
             Root<? extends Identifiable> root = query.from(identifierdConceptClass);
-            Join<? extends Identifiable, Identifiers> identifiers = root.join("identifiers");
-            Join<? extends Identifiers, Identifier> identifiersIdentifiers = identifiers.join("identifiers");
+            Join<? extends Identifiable, Identifier> identifiers = root.join("identifiers");
 
             query.where(
-                    criteriaBuilder.equal(identifiersIdentifiers.get("system"), identifierSystem),
-                    criteriaBuilder.equal(identifiersIdentifiers.get("value"), identifierValue)
+                    criteriaBuilder.equal(identifiers.get("system"), identifierSystem),
+                    criteriaBuilder.equal(identifiers.get("value"), identifierValue)
             );
 
 

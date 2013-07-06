@@ -9,8 +9,17 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="names" type="bigint">
-                <constraints references="names(pk)" foreignKeyName="product_names_fk"/>
+        </createTable>
+
+        <createTable tableName="product_names">
+            <column name="product" type="bigint">
+                <constraints references="product(pk)" foreignKeyName="product_names_fk"/>
+            </column>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
 

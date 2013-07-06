@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Before;
 import org.celllife.idart.domain.common.Codeable;
 import org.celllife.idart.domain.common.Persistable;
 import org.celllife.idart.domain.concept.Code;
-import org.celllife.idart.domain.concept.Codes;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -84,12 +83,11 @@ public final class InjectCodedAspect {
 
             CriteriaQuery<? extends Codeable> query = criteriaBuilder.createQuery(codedClass);
             Root<? extends Codeable> root = query.from(codedClass);
-            Join<? extends Codeable, Codes> codes = root.join("codes");
-            Join<? extends Codes, Code> codesCodes = codes.join("codes");
+            Join<? extends Codeable, Code> code = root.join("codes");
 
             query.where(
-                    criteriaBuilder.equal(codesCodes.get("system"), codeSystem),
-                    criteriaBuilder.equal(codesCodes.get("value"), codeValue)
+                    criteriaBuilder.equal(code.get("system"), codeSystem),
+                    criteriaBuilder.equal(code.get("value"), codeValue)
             );
 
             List<? extends Codeable> results = entityManager.createQuery(query).getResultList();

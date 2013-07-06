@@ -1,5 +1,6 @@
 package org.celllife.idart.integration.prehmis
 
+import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.patient.PatientProvider
 import org.celllife.idart.integration.prehmis.builder.GetPatientRequestBuilder
@@ -60,16 +61,16 @@ class PrehmisPatientProvider implements PatientProvider, InitializingBean {
                 .setPatientIdentifierType(patientIdentifierType)
                 .build()
 
-//        def getPatientResponse = prehmisRestClient.post(
-//                body: getPatientRequest,
-//                contentType: ContentType.XML,
-//                requestContentType: ContentType.XML,
-//                headers: [
-//                        SOAPAction: "http://prehmis-qa.capetown.gov.za/getPatient"
-//                ]
-//        )
+        def getPatientResponse = prehmisRestClient.post(
+                body: getPatientRequest,
+                contentType: ContentType.XML,
+                requestContentType: ContentType.XML,
+                headers: [
+                        SOAPAction: "http://prehmis-qa.capetown.gov.za/getPatient"
+                ]
+        )
 
-        return buildIdartPatient(new XmlSlurper().parseText(xml))
+        return buildIdartPatient(getPatientResponse)
     }
 
     @Override

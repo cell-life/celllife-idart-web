@@ -1,10 +1,9 @@
 package org.celllife.idart.domain.common;
 
 import org.celllife.idart.domain.concept.LocalisedText;
-import org.celllife.idart.domain.concept.Names;
-
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,30 +13,43 @@ import java.util.Set;
  */
 privileged aspect NameableAspect {
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    private Names Nameable.names = new Names();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<LocalisedText> Nameable.names = new HashSet<>();
 
     public Set<LocalisedText> Nameable.getNames() {
-        return names.getNames();
+        return names;
     }
 
     public void Nameable.setNames(Set<LocalisedText> names) {
-        this.names.setNames(names);
+        this.names = names;
     }
 
     public String Nameable.getName() {
-        return this.names.getName();
+        for (LocalisedText localisedText : names) {
+            if (localisedText.getLocale().equals("en")) {
+                return localisedText.getValue();
+            }
+        }
+        return null;
     }
 
     public void Nameable.setName(String name) {
-        this.names.setName(name);
+        this.addName(name);
     }
 
     public void Nameable.addName(String name) {
-        this.names.addName(name);
+        this.addName("en", name);
     }
 
     public void Nameable.addName(String locale, String name) {
-        this.names.addName(locale, name);
+
+        if (name == null) {
+            return;
+        }
+
+        if (this.names == null) {
+            this.names = new HashSet<>();
+        }
+        this.names.add(new LocalisedText(locale, name));
     }
 }

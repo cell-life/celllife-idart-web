@@ -1,10 +1,10 @@
 package org.celllife.idart.domain.common;
 
 import org.celllife.idart.domain.concept.Identifier;
-import org.celllife.idart.domain.concept.Identifiers;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,39 +14,84 @@ import java.util.Set;
  */
 privileged aspect IdentifiableAspect {
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    private Identifiers Identifiable.identifiers = new Identifiers();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Identifier> Identifiable.identifiers = new HashSet<>();
 
-    public Set<String> Identifiable.getIdentifierSystems() {
-        return this.identifiers.getIdentifierSystems();
+
+    public Set<Identifier> Identifiable.getIdentifiers() {
+        return identifiers;
     }
 
-    public String Identifiable.getIdentifierValue(String system) {
-        return this.identifiers.getIdentifierValue(system);
-    }
-
-    public String Identifiable.getFirstSystem() {
-        return this.identifiers.getFirstSystem();
+    public void Identifiable.setIdentifiers(Set<Identifier> identifiers) {
+        this.identifiers = identifiers;
     }
 
     public void Identifiable.addIdentifier(String system, String value) {
-        this.identifiers.addIdentifier(system, value);
+        if (this.identifiers == null) {
+            this.identifiers = new HashSet<>();
+        }
+
+        this.identifiers.add(new Identifier(system, value));
     }
 
-    public void Identifiable.setIdentifiers(Set<Identifier> newIdentifiers) {
-        this.identifiers.setIdentifiers(newIdentifiers);
+    public String Identifiable.getFirstSystem() {
+        if (this.identifiers == null || this.identifiers.isEmpty()) {
+            return null;
+        }
+
+        return this.identifiers.iterator().next().getSystem();
     }
 
-    public Set<Identifier> Identifiable.getIdentifiers() {
-        return this.identifiers.getIdentifiers();
+    public String Identifiable.getIdentifierValue(String system) {
+
+        if (system == null) {
+            return null;
+        }
+
+        for (Identifier identifier : identifiers) {
+            if (identifier.getSystem().equals(system)) {
+                return identifier.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    public Set<String> Identifiable.getIdentifierSystems() {
+
+        Set<String> systems = new HashSet<>();
+        for (Identifier identifier : identifiers) {
+            systems.add(identifier.getSystem());
+        }
+
+        return systems;
     }
 
     public boolean Identifiable.hasIdentifierForSystem(String system) {
-        return this.identifiers.hasIdentifierForSystem(system);
+
+        for (Identifier identifier : identifiers) {
+            if (identifier.getSystem().equals(system)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void Identifiable.mergeIdentifiers(Identifiable that) {
-        this.identifiers.mergeIdentifiers(that.identifiers);
-    }
 
+        if (!this.getClass().isAssignableFrom(that.getClass())) {
+            throw new RuntimeException(
+                    String.format(
+                            "Incompatible IdentifiableConcept Types: this[%s] that[%s]",
+                            this.getClass(),
+                            that.getClass()
+                    )
+            );
+        }
+
+        for (String system : that.getIdentifierSystems()) {
+            this.addIdentifier(system, that.getIdentifierValue(system));
+        }
+    }
 }

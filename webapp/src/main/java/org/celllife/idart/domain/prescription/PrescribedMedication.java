@@ -1,10 +1,10 @@
 package org.celllife.idart.domain.prescription;
 
+import org.celllife.idart.domain.common.Persistable;
 import org.celllife.idart.domain.indication.Indication;
 import org.celllife.idart.domain.substitution.Substitution;
 import org.celllife.idart.domain.substitutionreason.SubstitutionReason;
 import org.celllife.idart.domain.common.Period;
-import org.celllife.idart.domain.common.Persistable;
 import org.celllife.idart.domain.product.Good;
 import org.celllife.idart.udm.common.Duration;
 import org.celllife.idart.udm.common.Quantity;

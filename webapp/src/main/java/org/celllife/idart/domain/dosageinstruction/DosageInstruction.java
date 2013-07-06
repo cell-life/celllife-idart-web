@@ -1,10 +1,6 @@
 package org.celllife.idart.domain.dosageinstruction;
 
-import org.celllife.idart.domain.common.Codeable;
-import org.celllife.idart.domain.common.Describable;
-import org.celllife.idart.domain.common.Nameable;
-import org.celllife.idart.domain.common.Persistable;
-import org.celllife.idart.udm.common.BaseEntity;
+import org.celllife.idart.domain.common.*;
 
 import javax.persistence.Entity;
 

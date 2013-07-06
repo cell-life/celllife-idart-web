@@ -1,4 +1,4 @@
-package org.celllife.idart.application.code;
+package org.celllife.idart.application.patient;
 
 import org.celllife.idart.domain.counter.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
