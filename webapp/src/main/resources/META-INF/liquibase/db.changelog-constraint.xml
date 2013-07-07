@@ -6,9 +6,9 @@
     <changeSet id="constraint-1" author="kevin.sewell">
 
         <addForeignKeyConstraint baseTableName="assignment"
-                                 baseColumnNames="doctor"
-                                 constraintName="assignment_doctor_fk"
-                                 referencedTableName="doctor"
+                                 baseColumnNames="practitioner"
+                                 constraintName="assignment_practitioner_fk"
+                                 referencedTableName="practitioner"
                                  referencedColumnNames="pk"/>
 
         <addForeignKeyConstraint baseTableName="assignment"

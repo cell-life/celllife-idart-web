@@ -6,6 +6,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+
     </persistence-unit>
 
 </persistence>

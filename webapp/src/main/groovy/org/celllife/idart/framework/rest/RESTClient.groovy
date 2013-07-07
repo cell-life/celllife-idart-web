@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component
 class RESTClient {
 
     @Value('${internal.username}')
-    String username;
+    String username
 
     @Value('${internal.password}')
-    String password;
+    String password
 
     def get(String uri) {
 

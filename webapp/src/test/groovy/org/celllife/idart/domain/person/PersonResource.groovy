@@ -22,8 +22,8 @@ class PersonResource {
         get(path: baseResourceUrl)
     }
 
-    static findByIdentifier(String identifier) {
-        get(path: findByIdentifierUrl, query: [identifier: identifier])
+    static findByIdentifier(String identifierValue) {
+        get(path: findByIdentifierUrl, query: [identifierValue: identifierValue])
     }
 
     static clear() {

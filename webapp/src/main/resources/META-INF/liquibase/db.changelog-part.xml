@@ -46,6 +46,16 @@
             <column name="comment" type="varchar(255)"/>
         </createTable>
 
+        <createTable tableName="part_bill_of_materials">
+            <column name="part" type="bigint">
+                <constraints references="part(pk)" foreignKeyName="part_bill_of_materials_fk"/>
+            </column>
+            <column name="bill_of_materials" type="bigint">
+                <constraints references="part_bill_of_materials_item(pk)"
+                             foreignKeyName="part_bill_of_materials_item_fk"/>
+            </column>
+        </createTable>
+
     </changeSet>
 
 </databaseChangeLog>

@@ -27,17 +27,18 @@
             <column name="administration_method" type="bigint">
                 <constraints references="administration_method(pk)" foreignKeyName="administration_method_codes_fk"/>
             </column>
-            <column name="locale" type="varchar(10)">
+            <column name="system" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
+            <column name="value" type="varchar(31)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <createTable tableName="administration_method_descriptions">
             <column name="administration_method" type="bigint">
-                <constraints references="administration_method(pk)" foreignKeyName="administration_method_descriptions_fk"/>
+                <constraints references="administration_method(pk)"
+                             foreignKeyName="administration_method_descriptions_fk"/>
             </column>
             <column name="locale" type="varchar(10)">
                 <constraints nullable="false"/>

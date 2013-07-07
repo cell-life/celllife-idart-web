@@ -27,10 +27,19 @@
             <column name="pk" type="bigint">
                 <constraints references="product(pk)" foreignKeyName="product_good_fk"/>
             </column>
-            <column name="codes" type="bigint">
-                <constraints references="codes(pk)" foreignKeyName="good_codes_fk"/>
-            </column>
             <column name="finished_good" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="good_codes">
+            <column name="good" type="bigint">
+                <constraints references="good(pk)" foreignKeyName="good_codes_fk"/>
+            </column>
+            <column name="system" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(31)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
     </changeSet>

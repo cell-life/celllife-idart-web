@@ -9,11 +9,11 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="doctor" type="bigint"/>
+            <column name="practitioner" type="bigint"/>
             <column name="clinic" type="bigint"/>
         </createTable>
 
-        <addUniqueConstraint tableName="assignment" columnNames="doctor, clinic"/>
+        <addUniqueConstraint tableName="assignment" columnNames="practitioner, clinic"/>
 
     </changeSet>
 

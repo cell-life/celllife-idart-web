@@ -21,11 +21,10 @@ public interface ClinicRepository extends CrudRepository<Clinic, Long> {
             "where clinicIdentifier.value = :identifierValue")
     List<Clinic> findByIdentifier(@Param("identifierValue") String identifierValue);
 
-
     @Query("select clinic " +
-            "from Clinic clinic " +
+            "from Clinic clinic  " +
             "join clinic.identifiers clinicIdentifier " +
-            "where clinicIdentifier.system = :identifierSystem " +
+            "where clinicIdentifier.system = :identifierSystem  " +
             "and clinicIdentifier.value = :identifierValue")
     Clinic findOneByIdentifier(@Param("identifierSystem") String identifierSystem,
                                @Param("identifierValue") String identifierValue);

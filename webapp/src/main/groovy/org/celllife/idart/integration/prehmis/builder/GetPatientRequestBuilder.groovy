@@ -10,17 +10,17 @@ import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
  */
 class GetPatientRequestBuilder {
 
-    String username;
+    String username
 
-    String password;
+    String password
 
-    String facilityCode;
+    String facilityCode
 
-    String applicationKey;
+    String applicationKey
 
-    String patientIdentifierValue;
+    String patientIdentifierValue
 
-    PrehmisPatientIdentifierType patientIdentifierType;
+    PrehmisPatientIdentifierType patientIdentifierType
 
     static String templateFilename = "/templates/prehmis/getPatient.xml"
 

@@ -15,11 +15,15 @@ import java.util.List;
 @RestResource(path = "assignments")
 public interface AssignmentRepository extends CrudRepository<Assignment, Long> {
 
-    @Query("select assignment from Assignment assignment where assignment.clinic.id = :clinicId")
+    @Query("select assignment " +
+            "from Assignment assignment " +
+            "where assignment.clinic.id = :clinicId")
     List<Assignment> findByClinicId(@Param("clinicId") Long clinicId);
 
-    @Query("select assignment from Assignment assignment " +
-            "where assignment.doctor.pk = :doctorId and assignment.clinic.id = :clinicId")
-    Assignment findOneByDoctorIdAndClinicId(@Param("doctorId") Long doctorId, @Param("clinicId") Long clinicId);
+    @Query("select assignment " +
+            "from Assignment assignment " +
+            "where assignment.practitioner.pk = :practitionerPk and assignment.clinic.pk = :clinicPk")
+    Assignment findOneByPractitionerPkAndClinicPk(@Param("practitionerPk") Long practitionerPk,
+                                                  @Param("clinicPk") Long clinicPk);
 
 }

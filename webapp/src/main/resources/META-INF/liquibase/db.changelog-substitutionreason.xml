@@ -27,10 +27,10 @@
             <column name="substitution_reason" type="bigint">
                 <constraints references="substitution_reason(pk)" foreignKeyName="substitution_reason_codes_fk"/>
             </column>
-            <column name="locale" type="varchar(10)">
+            <column name="system" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
+            <column name="value" type="varchar(31)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

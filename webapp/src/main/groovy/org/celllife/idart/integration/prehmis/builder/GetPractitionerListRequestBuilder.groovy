@@ -9,13 +9,13 @@ import groovy.text.SimpleTemplateEngine
  */
 class GetPractitionerListRequestBuilder {
 
-    String username;
+    String username
 
-    String password;
+    String password
 
-    String facilityCode;
+    String facilityCode
 
-    String applicationKey;
+    String applicationKey
 
     static String templateFilename = "/templates/prehmis/getPractitionerList.xml"
 

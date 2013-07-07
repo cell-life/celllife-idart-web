@@ -285,7 +285,15 @@
         <persistence strategy="localTempSwap"/>
     </defaultCache>
 
-    <cache name="findTotalClinicsByProvinceName" maxElementsInMemory="10000" eternal="true" overflowToDisk="false"/>
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.hibernate.cache.internal.StandardQueryCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false"/>
 
     <!--
     <defaultCache

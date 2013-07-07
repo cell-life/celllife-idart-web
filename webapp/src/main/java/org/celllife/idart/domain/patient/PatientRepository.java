@@ -18,16 +18,17 @@ public interface PatientRepository extends PagingAndSortingRepository<Patient, L
     @Query("select patient " +
             "from Patient patient " +
             "join patient.identifiers patientIdentifier " +
-            "join patient.person.identifiers personIdentifier " +
+            "left join patient.person person " +
+            "left join person.identifiers personIdentifier " +
             "where patientIdentifier.value = :identifierValue " +
             "or personIdentifier.value = :identifierValue")
     List<Patient> findByIdentifier(@Param("identifierValue") String identifierValue);
 
-
     @Query("select patient " +
             "from Patient patient " +
             "join patient.identifiers patientIdentifier " +
-            "join patient.person.identifiers personIdentifier " +
+            "left join patient.person person " +
+            "left join person.identifiers personIdentifier " +
             "where (patientIdentifier.system = :identifierSystem and patientIdentifier.value = :identifierValue) " +
             "or (personIdentifier.system = :identifierSystem and personIdentifier.value = :identifierValue)")
     Patient findOneByIdentifier(@Param("identifierSystem") String identifierSystem,

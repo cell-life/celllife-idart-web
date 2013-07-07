@@ -1,10 +1,11 @@
 package org.celllife.idart.integration.prehmis.builder
 
-
-import org.celllife.idart.integration.prehmis.PrehmisGender
+import org.celllife.idart.domain.party.Party
+import org.celllife.idart.domain.partyrole.PartyRole
 import org.celllife.idart.domain.patient.Patient
+import org.celllife.idart.domain.person.Person
+import org.celllife.idart.integration.prehmis.PrehmisGender
 import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
-import org.celllife.idart.domain.person.PersonBuilder
 
 import java.text.SimpleDateFormat
 
@@ -26,52 +27,54 @@ class PatientBuilder {
         def envelope = getPatientResponse.data
         envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
 
-        def patient = envelope.'soap:Body'.'prehmis:getPatientResponse'.result
+        def prehmisPatient = envelope.'soap:Body'.'prehmis:getPatientResponse'.result
 
-        org.celllife.idart.domain.patient.PatientBuilder patientBuilder = new org.celllife.idart.domain.patient.PatientBuilder()
-        PersonBuilder personBuilder = new PersonBuilder()
+        Patient patient = new Patient()
+        Person person = new Person()
 
-        String prehmisId = patient.id.text()
+        String prehmisId = prehmisPatient.id.text()
         if (prehmisId == null || prehmisId.isEmpty()) {
             return null
         }
 
-        patientBuilder.addIdentifier(PrehmisPatientIdentifierType.PREHMIS.getSystem(), prehmisId)
+        ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PREHMIS.getSystem(), prehmisId)
 
-        String pgwcPatientNumber = patient.pgwc_patient_number.text()
+        String pgwcPatientNumber = prehmisPatient.pgwc_patient_number.text()
         if (pgwcPatientNumber != null && !pgwcPatientNumber.isEmpty()) {
-            patientBuilder.addIdentifier(PrehmisPatientIdentifierType.PGWC.getSystem(), pgwcPatientNumber)
+            ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PGWC.getSystem(), pgwcPatientNumber)
         }
 
-        String saId = patient.sa_id_number.text()
+        String saId = prehmisPatient.sa_id_number.text()
         if (saId != null && !saId.isEmpty()) {
-            personBuilder.addIdentifier(PrehmisPatientIdentifierType.SAID.getSystem(), saId)
+            ((Party) person).addIdentifier(PrehmisPatientIdentifierType.SAID.getSystem(), saId)
         }
 
-        String firstName = patient.first_name.text()
+        String firstName = prehmisPatient.first_name.text()
         if (firstName != null && !firstName.isEmpty()) {
-            personBuilder.setFirstName(firstName)
+            person.setFirstName(firstName)
         }
 
-        String lastName = patient.last_name.text()
+        String lastName = prehmisPatient.last_name.text()
         if (lastName != null && !lastName.isEmpty()) {
-            personBuilder.setLastName(lastName)
+            person.setLastName(lastName)
         }
 
-        String dateOfBirth = patient.date_of_birth.text()
+        String dateOfBirth = prehmisPatient.date_of_birth.text()
         if (dateOfBirth != null && !dateOfBirth.isEmpty()) {
-            personBuilder.setBirthDate(new SimpleDateFormat(DATA_OF_BIRTH_FORMAT).parse(dateOfBirth))
+            person.setBirthDate(new SimpleDateFormat(DATA_OF_BIRTH_FORMAT).parse(dateOfBirth))
         }
-        String gender = patient.gender.text()
+        String gender = prehmisPatient.gender.text()
         if (gender != null && !gender.isEmpty()) {
-            personBuilder.setGender(PrehmisGender.findByPrehmisCode(gender))
+            person.setGender(PrehmisGender.findByPrehmisCode(gender))
         }
-        String mobileNumber = patient.cellphone_number.text()
+        String mobileNumber = prehmisPatient.cellphone_number.text()
         if (mobileNumber != null && !mobileNumber.isEmpty()) {
-            personBuilder.setMobileNumber(mobileNumber)
+//            Contact Details
+//            person.setMobileNumber(mobileNumber)
         }
 
-        patientBuilder.setPerson(personBuilder.build());
-        patientBuilder.build()
+        patient.setPerson(person)
+
+        patient
     }
 }

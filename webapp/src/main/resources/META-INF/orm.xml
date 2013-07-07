@@ -3,29 +3,87 @@
                  version="2.0">
 
     <access>FIELD</access>
-    
+
+    <!-- Administration Method -->
+
+    <entity class="org.celllife.idart.domain.administrationmethod.AdministrationMethod">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
     <!-- Assignment -->
 
     <entity class="org.celllife.idart.domain.assignment.Assignment">
 
         <attributes>
-            <many-to-one name="clinic" fetch="EAGER"/>
-            <many-to-one name="doctor" fetch="EAGER"/>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <many-to-one name="clinic"/>
+            <many-to-one name="practitioner"/>
         </attributes>
 
     </entity>
 
-    <!-- Party -->
+    <!-- Counter -->
+
+    <entity class="org.celllife.idart.domain.counter.Counter">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="name"/>
+            <basic name="value"/>
+        </attributes>
+    </entity>
+
+    <!-- DosageInstruction -->
+
+    <entity class="org.celllife.idart.domain.dosageinstruction.DosageInstruction">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- EntrySite -->
+
+    <entity class="org.celllife.idart.domain.entrysite.EntrySite">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
 
     <!-- Facility -->
 
     <entity class="org.celllife.idart.domain.facility.Facility">
 
-        <inheritance strategy="JOINED" />
+        <inheritance strategy="JOINED"/>
 
         <discriminator-column name="type"/>
 
         <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="identifiers" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
             <embedded name="area">
                 <attribute-override name="value">
                     <column name="area"/>
@@ -38,48 +96,212 @@
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.clinic.Clinic"/>
+    <entity class="org.celllife.idart.domain.clinic.Clinic">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+        </attributes>
+    </entity>
 
-    <!-- Party -->
+    <!-- Form -->
 
-    <entity class="org.celllife.idart.udm.party.Party">
+    <entity class="org.celllife.idart.domain.form.Form">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
 
-        <inheritance strategy="JOINED"/>
+    <!-- Indication -->
+
+    <entity class="org.celllife.idart.domain.indication.Indication">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- LifeEvent -->
+
+    <entity class="org.celllife.idart.domain.lifeevent.LifeEvent">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- Part -->
+
+    <entity class="org.celllife.idart.domain.part.Part">
+
+        <inheritance/>
+
+        <discriminator-column name="type"/>
 
         <attributes>
-            <element-collection name="classifications" fetch="EAGER"/>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="name"/>
+            <many-to-one name="form"/>
+            <many-to-one name="unitOfMeasure"/>
         </attributes>
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.person.Person">
+    <entity class="org.celllife.idart.domain.part.FinishedGood">
+
+        <discriminator-value>FinishedGood</discriminator-value>
 
         <attributes>
-            <basic name="firstName"/>
-            <basic name="middleNames"/>
-            <basic name="lastName"/>
-            <basic name="personalTitle"/>
-            <basic name="suffix"/>
-            <basic name="nickname"/>
-            <basic name="gender">
-                <enumerated>STRING</enumerated>
-            </basic>
-            <basic name="maritalStatus">
-                <enumerated>STRING</enumerated>
-            </basic>
-            <basic name="birthDate">
-                <temporal>DATE</temporal>
-            </basic>
-            <basic name="comment"/>
-            <basic name="totalYearsWorkExperience"/>
-            <basic name="mothersMaidenName"/>
-
-            <one-to-many name="physicalCharacteristics" fetch="EAGER" orphan-removal="true">
-                <join-column name="person"/>
+            <one-to-many name="billOfMaterials" fetch="EAGER" orphan-removal="true">
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-many>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.part.RawMaterial">
+
+        <discriminator-value>RawMaterial</discriminator-value>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.part.Subassembly">
+
+        <discriminator-value>Subassembly</discriminator-value>
+
+        <attributes>
+            <one-to-many name="billOfMaterials" fetch="EAGER" orphan-removal="true">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+
+    </entity>
+
+    <!-- PartBillOfMaterialsItem -->
+
+    <entity class="org.celllife.idart.domain.part.PartBillOfMaterialsItem">
+
+        <inheritance/>
+
+        <discriminator-column name="type"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="comment"/>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="instructions"/>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="part"/>
+            <embedded name="quantityUsed">
+                <attribute-override name="value">
+                    <column name="quantity_used"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="quantity_used_uom"/>
+                </association-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.part.EngineeringBillOfMaterialsItem">
+
+        <discriminator-value>EngineeringBillOfMaterialsItem</discriminator-value>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.part.ManufacturingBillOfMaterialsItem">
+
+        <discriminator-value>ManufacturingBillOfMaterialsItem</discriminator-value>
+
+    </entity>
+
+    <!-- Part Classification -->
+
+    <entity class="org.celllife.idart.domain.partclassification.PartClassification">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <many-to-one name="parent"/>
+            <element-collection name="codes"/>
+            <element-collection name="descriptions"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.partclassification.AtcClassification">
+
+        <attributes>
+            <one-to-many name="definedDailyDoses" fetch="EAGER" orphan-removal="true">
+                <join-column name="atc_classification"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.partclassification.atc.DefinedDailyDose">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <many-to-one name="routeOfAdministration"/>
+            <embedded name="quantity">
+                <attribute-override name="value">
+                    <column name="quantity"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="quantity_uom"/>
+                </association-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+    <!-- Party -->
+
+    <entity class="org.celllife.idart.domain.party.Party">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="classifications" fetch="EAGER"/>
+            <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
     </entity>
@@ -102,6 +324,33 @@
 
     </entity>
 
+    <!-- Party Classification -->
+
+    <entity class="org.celllife.idart.domain.partyclassification.PartyClassification">
+
+        <inheritance/>
+
+        <discriminator-column name="type"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <many-to-one name="parent"/>
+            <element-collection name="codes"/>
+            <element-collection name="descriptions"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.partyclassification.EmploymentEquityClassification">
+        <discriminator-value>EmploymentEquityClassification</discriminator-value>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.partyclassification.StandardIndustrialClassification">
+        <discriminator-value>StandardIndustrialClassification</discriminator-value>
+    </entity>
+
     <!-- Party Role -->
 
     <entity class="org.celllife.idart.domain.partyrole.PartyRole">
@@ -109,13 +358,22 @@
         <inheritance strategy="JOINED"/>
 
         <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
             <basic name="fromDate">
                 <temporal>DATE</temporal>
             </basic>
             <basic name="thruDate">
                 <temporal>DATE</temporal>
             </basic>
-            <element-collection name="facilities" fetch="EAGER"/>
+            <one-to-many name="facilities" fetch="EAGER">
+                <join-column name="party_role"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
     </entity>
@@ -131,12 +389,105 @@
     <entity class="org.celllife.idart.domain.patient.Patient"/>
 
     <entity class="org.celllife.idart.domain.practitioner.Practitioner"/>
-    
+
+    <!-- Party Role Facility -->
+
+    <entity class="org.celllife.idart.domain.facilityrole.PartyRoleFacility">
+
+        <inheritance/>
+
+        <discriminator-column name="type"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="facility"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.facilityrole.Owner">
+        <discriminator-value>Owner</discriminator-value>
+    </entity>
+
+    <!-- Person -->
+
+    <entity class="org.celllife.idart.domain.person.Person">
+
+        <attributes>
+            <basic name="firstName"/>
+            <basic name="middleNames"/>
+            <basic name="lastName"/>
+            <basic name="personalTitle"/>
+            <basic name="suffix"/>
+            <basic name="nickname"/>
+            <basic name="gender">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="maritalStatus">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="birthDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="comment"/>
+            <basic name="totalYearsWorkExperience"/>
+            <basic name="mothersMaidenName"/>
+            <one-to-many name="physicalCharacteristics" fetch="EAGER" orphan-removal="true">
+                <join-column name="person"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <element-collection name="identifiers" fetch="EAGER"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.person.PhysicalCharacteristic">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.person.Height">
+        <attributes>
+            <embedded name="value"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.person.Weight">
+        <attributes>
+            <embedded name="value"/>
+        </attributes>
+    </entity>
+
     <!-- Prescription -->
 
     <entity class="org.celllife.idart.domain.prescription.Prescription">
 
         <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
             <basic name="dateWritten">
                 <temporal>DATE</temporal>
             </basic>
@@ -148,6 +499,7 @@
                     <cascade-all/>
                 </cascade>
             </one-to-many>
+            <element-collection name="identifiers"/>
         </attributes>
 
     </entity>
@@ -157,6 +509,9 @@
         <table name="prescribed_medication"/>
 
         <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
             <basic name="numberOfRepeats"/>
             <basic name="reasonForPrescribing"/>
             <many-to-one name="medication" optional="false"/>
@@ -198,6 +553,152 @@
             </embedded>
         </attributes>
     </entity>
+
+    <!-- Product -->
+
+    <entity class="org.celllife.idart.domain.product.Product">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.product.Good">
+        <attributes>
+            <many-to-one name="finishedGood" optional="false"/>
+            <element-collection name="codes" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- RouteOfAdministration -->
+
+    <entity class="org.celllife.idart.domain.routeofadministration.RouteOfAdministration">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- Substitution -->
+
+    <entity class="org.celllife.idart.domain.substitution.Substitution">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- SubstitutionReason -->
+
+    <entity class="org.celllife.idart.domain.substitutionreason.SubstitutionReason">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- UnitOfMeasure -->
+
+    <entity class="org.celllife.idart.domain.unitofmeasure.UnitOfMeasure">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
+            <element-collection name="names" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- Code -->
+
+    <embeddable class="org.celllife.idart.domain.concept.Code">
+        <attributes>
+            <basic name="system"/>
+            <basic name="value"/>
+        </attributes>
+    </embeddable>
+
+    <!-- Duration -->
+
+    <embeddable class="org.celllife.idart.domain.common.Duration">
+        <attributes>
+            <basic name="value"/>
+            <many-to-one name="unitOfMeasure"/>
+        </attributes>
+    </embeddable>
+
+    <!-- Identifier -->
+
+    <embeddable class="org.celllife.idart.domain.concept.Identifier">
+        <attributes>
+            <basic name="system"/>
+            <basic name="value"/>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+    <!-- Localized Text -->
+
+    <embeddable class="org.celllife.idart.domain.concept.LocalisedText">
+        <attributes>
+            <basic name="locale"/>
+            <basic name="value"/>
+        </attributes>
+    </embeddable>
+
+    <!-- Party Classification Application -->
+
+    <embeddable class="org.celllife.idart.domain.party.PartyClassificationApplication">
+        <attributes>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="classification"/>
+        </attributes>
+    </embeddable>
+
+    <!-- Period -->
+
+    <embeddable class="org.celllife.idart.domain.concept.Period">
+        <attributes>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <!-- Prescription -->
 
     <embeddable class="org.celllife.idart.domain.prescription.DosageInstruction">
 
@@ -244,6 +745,39 @@
                 </association-override>
             </embedded>
             <embedded name="timing"/>
+        </attributes>
+    </embeddable>
+
+    <!-- Period -->
+
+    <embeddable class="org.celllife.idart.domain.common.Quantity">
+        <attributes>
+            <basic name="value"/>
+            <many-to-one name="unitOfMeasure"/>
+        </attributes>
+    </embeddable>
+
+    <!-- Schedule -->
+
+    <embeddable class="org.celllife.idart.domain.concept.Schedule">
+        <attributes>
+            <basic name="count"/>
+            <basic name="end">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="frequency"/>
+            <many-to-one name="when">
+                <join-column name="when_"/>
+            </many-to-one>
+            <element-collection name="events" fetch="EAGER"/>
+            <embedded name="duration">
+                <attribute-override name="value">
+                    <column name="duration"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="duration_uom"/>
+                </association-override>
+            </embedded>
         </attributes>
     </embeddable>
 

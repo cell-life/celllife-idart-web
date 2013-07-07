@@ -1,11 +1,11 @@
 package org.celllife.idart.framework.aspectj;
 
+import com.google.common.base.Joiner;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,9 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public final class LoggingAspect {
-
-    private ILoggerFactory loggerFactory = LoggerFactory.getILoggerFactory();
+class LoggingAspect {
 
     @Before(value = "@annotation(loggable)", argNames = "joinPoint, loggable")
     public void before(JoinPoint joinPoint, Loggable loggable) {
@@ -50,33 +48,6 @@ public final class LoggingAspect {
         log(clazz, logLevel, logMessage);
     }
 
-    private void log(Class clazz, LogLevel logLevel, String logMessage) {
-        Logger logger = loggerFactory.getLogger(clazz.getName());
-        if (logLevel == LogLevel.DEBUG) {
-            logger.debug(logMessage);
-            return;
-        }
-
-        if (logLevel == LogLevel.ERROR) {
-            logger.error(logMessage);
-            return;
-        }
-
-        if (logLevel == LogLevel.INFO) {
-            logger.info(logMessage);
-            return;
-        }
-
-        if (logLevel == LogLevel.TRACE) {
-            logger.trace(logMessage);
-            return;
-        }
-
-        if (logLevel == LogLevel.WARN) {
-            logger.warn(logMessage);
-        }
-    }
-
     @AfterThrowing(value = "@annotation(loggable)", argNames = "joinPoint, loggable, throwable", throwing = "throwable")
     public void afterThrowing(JoinPoint joinPoint, Loggable loggable, Throwable throwable) {
 
@@ -103,51 +74,55 @@ public final class LoggingAspect {
         }
     }
 
-    private void log(Class clazz, LogLevel logLevel, String logMessage, Throwable throwable) {
-        Logger logger = loggerFactory.getLogger(clazz.getName());
-        if (logLevel == LogLevel.DEBUG) {
-            logger.debug(logMessage, throwable);
-            return;
+    private static void log(Class clazz, LogLevel logLevel, String logMessage) {
+
+        Logger logger = LoggerFactory.getILoggerFactory().getLogger(clazz.getName());
+
+        switch (logLevel) {
+            case DEBUG:
+                logger.debug(logMessage);
+                break;
+            case ERROR:
+                logger.error(logMessage);
+                break;
+            case INFO:
+                logger.info(logMessage);
+                break;
+            case TRACE:
+                logger.trace(logMessage);
+                break;
+            case WARN:
+                logger.warn(logMessage);
+                break;
         }
 
-        if (logLevel == LogLevel.ERROR) {
-            logger.error(logMessage, throwable);
-            return;
-        }
-
-        if (logLevel == LogLevel.INFO) {
-            logger.info(logMessage, throwable);
-            return;
-        }
-
-        if (logLevel == LogLevel.TRACE) {
-            logger.trace(logMessage, throwable);
-            return;
-        }
-
-        if (logLevel == LogLevel.WARN) {
-            logger.warn(logMessage, throwable);
-        }
     }
 
-    private String buildLogMessage(String name, Object[] args) {
+    private static void log(Class clazz, LogLevel logLevel, String logMessage, Throwable throwable) {
 
-        StringBuilder stringBuilder = new StringBuilder(name);
-        stringBuilder.append("(");
+        Logger logger = LoggerFactory.getILoggerFactory().getLogger(clazz.getName());
 
-        if (args != null) {
-            for (int i = 0; i < args.length; i++) {
-
-                stringBuilder.append(args[i]);
-
-                if (i != args.length - 1) {
-                    stringBuilder.append(",");
-                }
-            }
+        switch (logLevel) {
+            case DEBUG:
+                logger.debug(logMessage, throwable);
+                break;
+            case ERROR:
+                logger.error(logMessage, throwable);
+                break;
+            case INFO:
+                logger.info(logMessage, throwable);
+                break;
+            case TRACE:
+                logger.trace(logMessage, throwable);
+                break;
+            case WARN:
+                logger.warn(logMessage, throwable);
+                break;
         }
 
-        stringBuilder.append(")");
+    }
 
-        return stringBuilder.toString();
+    private static String buildLogMessage(String name, Object[] args) {
+        return String.format("%s(%s)", name, Joiner.on(",").join(args));
     }
 }

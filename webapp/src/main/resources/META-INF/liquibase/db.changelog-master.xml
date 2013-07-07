@@ -24,7 +24,6 @@
 
     <include file="db.changelog-assignment.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-doctor.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-facility.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-inventoryitem.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-part.xml" relativeToChangelogFile="true"/>

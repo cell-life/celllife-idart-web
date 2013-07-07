@@ -29,13 +29,11 @@ class PatientRepositoryAcceptanceTest {
     }
 
     @Test
-    public void shouldFindPatientByIdentifierValue() throws Exception {
+    void shouldFindPatientByIdentifierValue() throws Exception {
 
         def patients = PatientResource.findByIdentifier("1234")
 
         assertNotNull patients
         assertEquals(1, patients.content.size)
-
-        println patients
     }
 }

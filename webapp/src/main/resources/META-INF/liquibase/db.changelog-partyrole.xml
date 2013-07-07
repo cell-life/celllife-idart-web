@@ -29,9 +29,12 @@
             <column name="valid_thru_date" type="date"/>
         </createTable>
 
-        <createTable tableName="party_role_facilities">
-            <column name="party_role" type="bigint">
+        <createTable tableName="party_role_facility">
+            <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
+            </column>
+            <column name="party_role" type="bigint">
+                <constraints references="party_role(pk)" foreignKeyName="party_role_facilities_fk"/>
             </column>
             <column name="type" type="varchar(40)">
                 <constraints nullable="false"/>

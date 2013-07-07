@@ -2,8 +2,8 @@ package org.celllife.idart.interfaces.service.patient
 
 import org.celllife.idart.domain.assignment.AssignmentResource
 import org.celllife.idart.domain.clinic.ClinicResource
-import org.celllife.idart.domain.doctor.DoctorResource
 import org.celllife.idart.domain.patient.PatientResource
+import org.celllife.idart.domain.practitioner.PractitionerResource
 import org.junit.Before
 import org.junit.Test
 
@@ -25,19 +25,19 @@ class PatientServiceAcceptanceTest {
 
         AssignmentResource.clear()
 
-        DoctorResource.clear()
+        PractitionerResource.clear()
 
         ClinicResource.clear()
         ClinicResource.post(ClinicResource.testClinic())
     }
 
     @Test
-    public void shouldFindPatientByIdentifierValue() throws Exception {
+    void shouldFindPatientByIdentifierValue() throws Exception {
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
     }
 
     @Test
-    public void shouldFindPatientByIdentifierValueTwice() throws Exception {
+    void shouldFindPatientByIdentifierValueTwice() throws Exception {
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
     }

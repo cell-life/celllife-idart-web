@@ -7,5 +7,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * Date: 2013-06-16
  * Time: 21h34
  */
-public interface LegalOrganisationRepository extends PagingAndSortingRepository<LegalOrganisation, Long>{
+public interface LegalOrganisationRepository extends PagingAndSortingRepository<LegalOrganisation, Long> {
 }
