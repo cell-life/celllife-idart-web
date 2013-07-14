@@ -12,15 +12,42 @@
             <column name="type" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
             <column name="unit_of_measure" type="bigint">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="part_uom_fk"/>
             </column>
             <column name="form" type="bigint">
                 <constraints references="form(pk)" foreignKeyName="part_form_fk"/>
             </column>
+        </createTable>
+
+        <createTable tableName="part_identifiers">
+            <column name="part" type="bigint">
+                <constraints references="part(pk)" foreignKeyName="part_identifiers_fk"/>
+            </column>
+            <column name="system" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="part_classifications">
+            <column name="part" type="bigint">
+                <constraints references="part(pk)" foreignKeyName="part_classifications_fk"/>
+            </column>
+            <column name="type" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="thru_date" type="date"/>
         </createTable>
 
         <createTable tableName="part_bill_of_materials_item">

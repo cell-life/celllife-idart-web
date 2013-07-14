@@ -57,7 +57,7 @@ enum PrehmisPractitionerType {
     UNASSIGNED("Unassigned"),
     UNKNOWN("Unknown")
 
-    private final String description
+    final String description
 
     PrehmisPractitionerType(String description) {
         this.description = description

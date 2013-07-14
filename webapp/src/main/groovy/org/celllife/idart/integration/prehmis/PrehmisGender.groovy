@@ -12,9 +12,9 @@ enum PrehmisGender {
     MALE("male", Gender.M),
     FEMALE("female", Gender.F)
 
-    private final String prehmisCode
+    final String prehmisCode
 
-    private final Gender gender
+    final Gender gender
 
     PrehmisGender(String prehmisCode, Gender gender) {
 

@@ -4,17 +4,21 @@ import org.celllife.idart.domain.common.Quantity
 
 import javax.validation.constraints.NotNull
 
+import static org.celllife.idart.framework.aspectj.InjectIdentified.inject
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 18h34
  */
-abstract class PartBillOfMaterialsItem {
+class PartBillOfMaterialsItem {
 
     /**
      * Persistence Key
      */
     Long pk
+
+    PartBillOfMaterialsType type
 
     @NotNull
     Date fromDate
@@ -30,4 +34,7 @@ abstract class PartBillOfMaterialsItem {
 
     String comment
 
+    void setPart(Part part) {
+        this.part = inject(part)
+    }
 }

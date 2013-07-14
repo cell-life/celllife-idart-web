@@ -17,8 +17,7 @@ import static org.springframework.util.Assert.notNull
  * Date: 2013-04-25
  * Time: 15h17
  */
-@Service("prehmisPatientProvider")
-class PrehmisPatientProvider implements PatientProvider, InitializingBean {
+@Service class PrehmisPatientProvider implements PatientProvider, InitializingBean {
 
     @Value('${prehmis.endpoint.url}')
     String prehmisEndpointUrl
@@ -52,14 +51,14 @@ class PrehmisPatientProvider implements PatientProvider, InitializingBean {
 
     Patient getPatient(String clinicIdentifierValue, String patientIdentifierValue, PrehmisPatientIdentifierType patientIdentifierType) {
 
-        String getPatientRequest = new GetPatientRequestBuilder()
-                .setUsername(prehmisUsername)
-                .setPassword(prehmisPassword)
-                .setApplicationKey(prehmisApplicationKey)
-                .setFacilityCode(clinicIdentifierValue)
-                .setPatientIdentifierValue(patientIdentifierValue)
-                .setPatientIdentifierType(patientIdentifierType)
-                .build()
+        String getPatientRequest = GetPatientRequestBuilder.build(
+                username: prehmisUsername,
+                password: prehmisPassword,
+                applicationKey: prehmisApplicationKey,
+                facilityCode: clinicIdentifierValue,
+                patientIdentifierValue: patientIdentifierValue,
+                patientIdentifierType: patientIdentifierType.toString().toLowerCase()
+        )
 
         def getPatientResponse = prehmisRestClient.post(
                 body: getPatientRequest,

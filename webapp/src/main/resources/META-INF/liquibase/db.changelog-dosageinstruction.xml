@@ -9,42 +9,62 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="dose_quantity" type="numeric"/>
+            <column name="dose_quantity_uom" type="bigint">
+                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_dose_qty_uom_fk"/>
+            </column>
+            <column name="max_dose_per_period_denominator" type="numeric"/>
+            <column name="max_dose_per_period_denominator_uom" type="bigint">
+                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_max_dose_per_period_den_uom_fk"/>
+            </column>
+            <column name="max_dose_per_period_numerator" type="numeric"/>
+            <column name="max_dose_per_period_numerator_uom" type="bigint">
+                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_max_dose_per_period_num_uom_fk"/>
+            </column>
+            <column name="rate_denominator" type="numeric"/>
+            <column name="rate_denominator_uom" type="bigint">
+                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_rate_den_uom_fk"/>
+            </column>
+            <column name="rate_numerator" type="numeric"/>
+            <column name="rate_numerator_uom" type="bigint">
+                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_rate_num_uom_fk"/>
+            </column>
+            <column name="count" type="integer"/>
+            <column name="duration" type="numeric"/>
+            <column name="duration_uom" type="bigint">
+                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_duration_uom_fk"/>
+            </column>
+            <column name="end" type="date"/>
+            <column name="frequency" type="integer"/>
+            <column name="when_" type="bigint">
+                <constraints references="life_event(pk)" foreignKeyName="dos_instr_schedule_when_fk"/>
+            </column>
+            <column name="method" type="bigint">
+                <constraints references="administration_method(pk)" foreignKeyName="dos_instr_dosage_method_fk"/>
+            </column>
+            <column name="route" type="bigint">
+                <constraints references="route_of_administration(pk)" foreignKeyName="dos_instr_dosage_route_fk"/>
+            </column>
+            <column name="site" type="bigint">
+                <constraints references="entry_site(pk)" foreignKeyName="dos_instr_dosage_site_fk"/>
+            </column>
+
         </createTable>
 
-        <createTable tableName="dosage_instruction_names">
+        <createTable tableName="dosage_instruction_events">
             <column name="dosage_instruction" type="bigint">
-                <constraints references="dosage_instruction(pk)" foreignKeyName="dosage_instruction_names_fk"/>
+                <constraints references="dosage_instruction(pk)" foreignKeyName="dos_instr_events_fk"/>
             </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="from_date" type="date"/>
+            <column name="thru_date" type="date"/>
         </createTable>
 
-        <createTable tableName="dosage_instruction_codes">
+        <createTable tableName="dosage_instruction_texts">
             <column name="dosage_instruction" type="bigint">
-                <constraints references="dosage_instruction(pk)" foreignKeyName="dosage_instruction_codes_fk"/>
+                <constraints references="dosage_instruction(pk)" foreignKeyName="dos_instr_texts_fk"/>
             </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="dosage_instruction_descriptions">
-            <column name="dosage_instruction" type="bigint">
-                <constraints references="dosage_instruction(pk)" foreignKeyName="dosage_instruction_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="locale" type="varchar(10)"/>
+            <column name="value" type="varchar(2000)"/>
         </createTable>
 
     </changeSet>

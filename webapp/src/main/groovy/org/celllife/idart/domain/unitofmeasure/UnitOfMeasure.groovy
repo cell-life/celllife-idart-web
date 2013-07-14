@@ -1,18 +1,17 @@
 package org.celllife.idart.domain.unitofmeasure
 
-import org.celllife.idart.domain.common.Codeable
-import org.celllife.idart.domain.common.Describable
-import org.celllife.idart.domain.common.Nameable
-import org.celllife.idart.domain.common.Persistable
-import org.celllife.idart.domain.concept.Code
-import org.celllife.idart.domain.concept.LocalisedText
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+import org.celllife.idart.domain.common.*
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 20h05
  */
-@Mixin([Codeable, Nameable, Describable])
+@ToString
+@EqualsAndHashCode
+@Mixin([Codeable, Nameable])
 class UnitOfMeasure implements Persistable {
 
     /**
@@ -24,7 +23,7 @@ class UnitOfMeasure implements Persistable {
 
     Set<LocalisedText> names = []
 
-    Set<LocalisedText> descriptions = []
+    UnitOfMeasureType type
 
 }
 

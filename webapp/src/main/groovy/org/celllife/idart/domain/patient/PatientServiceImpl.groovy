@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.domain.concept.Identifier
+import org.celllife.idart.domain.common.Identifier
 import org.dozer.Mapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -10,14 +10,11 @@ import org.springframework.stereotype.Service
  * Date: 2013-04-25
  * Time: 12h48
  */
-@Service("patientService")
-class PatientServiceImpl implements PatientService {
+@Service class PatientServiceImpl implements PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository
+    @Autowired PatientRepository patientRepository
 
-    @Autowired
-    private Mapper mapper
+    @Autowired Mapper mapper
 
     Patient findByIdentifiers(Set<Identifier> identifiers) {
 

@@ -1,29 +1,62 @@
 package org.celllife.idart.domain.dosageinstruction
 
-import org.celllife.idart.domain.common.Codeable
-import org.celllife.idart.domain.common.Describable
-import org.celllife.idart.domain.common.Nameable
-import org.celllife.idart.domain.common.Persistable
-import org.celllife.idart.domain.concept.Code
-import org.celllife.idart.domain.concept.LocalisedText
+import org.celllife.idart.domain.administrationmethod.AdministrationMethod
+import org.celllife.idart.domain.common.*
+import org.celllife.idart.domain.entrysite.EntrySite
+import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-17
- * Time: 14h25
+ * Time: 22h29
  */
-@Mixin([Codeable, Nameable, Describable])
 class DosageInstruction implements Persistable {
 
-    /**
-     * Persistence Key
-     */
     Long pk
 
-    Set<Code> codes = []
+    /**
+     * Free text dosage instruction
+     */
+    Set<LocalisedText> texts
 
-    Set<LocalisedText> names = []
+    /**
+     * Coded dosage instruction
+     */
+    // CodedDosageInstructions additionalDosageInstructions
 
-    Set<LocalisedText> descriptions = []
+    /**
+     * Timing
+     */
+    Schedule timing
+
+    /**
+     * Location on body
+     */
+    EntrySite site
+
+    /**
+     * Route Of Administration
+     */
+    RouteOfAdministration route
+
+    /**
+     * Administration Method
+     */
+    AdministrationMethod method
+
+    /**
+     * Dose Quantity
+     */
+    Quantity doseQuantity
+
+    /**
+     * Rate
+     */
+    Ratio rate
+
+    /**
+     * Max Dose Per Period
+     */
+    Ratio maxDosePerPeriod
 
 }

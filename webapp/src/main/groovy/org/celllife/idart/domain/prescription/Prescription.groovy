@@ -1,8 +1,8 @@
 package org.celllife.idart.domain.prescription
 
 import org.celllife.idart.domain.common.Identifiable
+import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.common.Persistable
-import org.celllife.idart.domain.concept.Identifier
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.practitioner.Practitioner
 

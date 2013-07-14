@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+                      xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.4.xsd">
+
+
+    <resource-config selector="/finishedGoods">
+        <resource>org.milyn.delivery.DomModelCreator</resource>
+    </resource-config>
+
+    <!-- Java Beans -->
+
+    <jb:bean beanId="finishedGoods"
+             class="java.util.ArrayList"
+             createOnElement="finishedGoods">
+
+        <jb:wiring beanType="org.celllife.idart.domain.part.FinishedGood"/>
+    </jb:bean>
+
+    <jb:bean beanId="finishedGood"
+             class="org.celllife.idart.domain.part.FinishedGood"
+             createOnElement="finishedGood">
+
+        <jb:wiring beanIdRef="identifiers" setterMethod="setIdentifiers"/>
+
+    </jb:bean>
+
+    <jb:bean beanId="identifiers"
+             class="java.util.ArrayList"
+             createOnElement="identifiers">
+
+        <jb:wiring beanType="org.celllife.idart.domain.common.Identifier"/>
+
+    </jb:bean>
+
+    <jb:bean beanId="identifier"
+             class="org.celllife.idart.domain.common.Identifier"
+             createOnElement="identifier">
+
+        <jb:value property="system" data="system"/>
+        <jb:value property="value" data="value"/>
+
+    </jb:bean>
+
+
+</smooks-resource-list>

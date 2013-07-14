@@ -19,8 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner.class)
 class LegalOrganisationRepositoryIntegrationTest {
 
-    @Autowired
-    private LegalOrganisationRepository legalOrganisationRepository
+    @Autowired LegalOrganisationRepository legalOrganisationRepository
 
     @Test
     void testName() throws Exception {

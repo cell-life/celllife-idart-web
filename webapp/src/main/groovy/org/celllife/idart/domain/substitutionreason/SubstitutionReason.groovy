@@ -1,11 +1,6 @@
 package org.celllife.idart.domain.substitutionreason
 
-import org.celllife.idart.domain.common.Codeable
-import org.celllife.idart.domain.common.Describable
-import org.celllife.idart.domain.common.Nameable
-import org.celllife.idart.domain.common.Persistable
-import org.celllife.idart.domain.concept.Code
-import org.celllife.idart.domain.concept.LocalisedText
+import org.celllife.idart.domain.common.*
 
 /**
  * User: Kevin W. Sewell

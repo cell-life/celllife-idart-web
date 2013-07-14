@@ -74,7 +74,7 @@ class LoggingAspect {
         }
     }
 
-    private static void log(Class clazz, LogLevel logLevel, String logMessage) {
+    static void log(Class clazz, LogLevel logLevel, String logMessage) {
 
         Logger logger = LoggerFactory.getILoggerFactory().getLogger(clazz.getName());
 
@@ -98,7 +98,7 @@ class LoggingAspect {
 
     }
 
-    private static void log(Class clazz, LogLevel logLevel, String logMessage, Throwable throwable) {
+    static void log(Class clazz, LogLevel logLevel, String logMessage, Throwable throwable) {
 
         Logger logger = LoggerFactory.getILoggerFactory().getLogger(clazz.getName());
 
@@ -122,7 +122,7 @@ class LoggingAspect {
 
     }
 
-    private static String buildLogMessage(String name, Object[] args) {
+    static String buildLogMessage(String name, Object[] args) {
         return String.format("%s(%s)", name, Joiner.on(",").join(args));
     }
 }

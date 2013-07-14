@@ -14,16 +14,15 @@ class GetPatientRequestBuilderTest {
     @Test
     void testBuild() throws Exception {
 
-        String getPatientRequest = new GetPatientRequestBuilder()
-                .setUsername("idartUsername")
-                .setPassword("idartPassword")
-                .setApplicationKey("idartApplicationKey")
-                .setFacilityCode("idartFacilityCode")
-                .setPatientIdentifierValue("patientIdentifierValue")
-                .setPatientIdentifierType(PrehmisPatientIdentifierType.PREHMIS)
-                .build()
+        String getPatientRequest = GetPatientRequestBuilder.build(
+                username: "idartUsername",
+                password: "idartPassword",
+                applicationKey: "idartApplicationKey",
+                facilityCode: "idartFacilityCode",
+                patientIdentifierValue: "patientIdentifierValue",
+                patientIdentifierType: PrehmisPatientIdentifierType.PREHMIS
+        )
 
         Assert.assertNotNull(getPatientRequest)
-
     }
 }

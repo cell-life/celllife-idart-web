@@ -1,0 +1,56 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/finishedGood",
+            "value": "Stavudine 30mg"
+        }
+    ],
+    "billOfMaterials": [
+        {
+            "type": "ENGINEERING",
+            "fromDate": "2013-01-01",
+            "part": {
+                "identifiers": [
+                    {
+                        "system": "http://www.who.int/medicines/services/inn",
+                        "value": "Stavudine"
+                    }
+                ]
+            },
+            "quantityUsed": {
+                "unitOfMeasure": {
+                    "codes": [
+                        {
+                            "system": "http://unitsofmeasure.org",
+                            "value": "mg"
+                        }
+                    ]
+                },
+                "value": "30"
+
+            }
+        }
+    ],
+    "classifications": [
+        {
+            "code": "J05AF04",
+            "type": "ATC"
+        }
+    ],
+    "form": {
+        "codes" : [
+            {
+                "system": "2.16.840.1.113883.19.5.3",
+                "value": "CAP"
+            }
+        ]
+    },
+    "unitOfMeasure": {
+        "codes": [
+            {
+                "system": "http://www.cell-life.org/idart/unitOfMeasure",
+                "value": "each"
+            }
+        ]
+    }
+}

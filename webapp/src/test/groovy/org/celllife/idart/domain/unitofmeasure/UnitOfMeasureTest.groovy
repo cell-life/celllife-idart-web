@@ -25,8 +25,8 @@ class UnitOfMeasureTest {
         def idartSystem = "http://www.cell-life.org/idart/unitOfMeasure"
 
         def measure = new UnitOfMeasure()
-        measure.addCode(idartSystem, "EA")
+        measure.addCode(idartSystem, "each")
 
-        Assert.assertEquals("EA", measure.getCodeValue(idartSystem))
+        Assert.assertEquals("each", measure.getCodeValue(idartSystem))
     }
 }

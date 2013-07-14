@@ -1,0 +1,54 @@
+[
+    {
+        "@class": "org.celllife.idart.domain.partclassification.AtcClassification",
+        "firstLevel": "J",
+        "secondLevel": "05",
+        "thirdLevel": "A",
+        "forthLevel": "F",
+        "fifthLevel": "01",
+        "definedDailyDoses": [
+            {
+                "quantity": {
+                    "unitOfMeasure": {
+                        "codes": [
+                            {
+                                "system": "http://unitsofmeasure.org",
+                                "value": "g"
+                            }
+                        ]
+                    },
+                    "value": "0.6"
+                },
+                "route": {
+                    "codes": [
+                        {
+                            "system": "2.16.840.1.113883.5.112",
+                            "value": "PO"
+                        }
+                    ]
+                }
+            },
+            {
+                "quantity": {
+                    "unitOfMeasure": {
+                        "codes": [
+                            {
+                                "system": "http://unitsofmeasure.org",
+                                "value": "g"
+                            }
+                        ]
+                    },
+                    "value": "0.6"
+                },
+                "route": {
+                    "codes": [
+                        {
+                            "system": "2.16.840.1.113883.5.112",
+                            "value": "PARENTINJ"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+]

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.domain.concept.Identifier
+import org.celllife.idart.domain.common.Identifier
 
 /**
  * User: Kevin W. Sewell

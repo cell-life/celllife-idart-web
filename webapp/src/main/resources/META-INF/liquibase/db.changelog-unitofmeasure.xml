@@ -5,9 +5,30 @@
 
     <changeSet id="unitofmeasure-1" author="kevin.sewell">
 
+        <createTable tableName="unit_of_measure_type">
+            <column name="pk" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="unit_of_measure_type_names">
+            <column name="unit_of_measure_type" type="bigint">
+                <constraints references="unit_of_measure_type(pk)" foreignKeyName="unit_of_measure_type_names_fk"/>
+            </column>
+            <column name="locale" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
         <createTable tableName="unit_of_measure">
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
+            </column>
+            <column name="type" type="bigint">
+                <constraints references="unit_of_measure_type(pk)" foreignKeyName="unit_of_measure_type_fk"/>
             </column>
         </createTable>
 
@@ -34,19 +55,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <createTable tableName="unit_of_measure_descriptions">
-            <column name="unit_of_measure" type="bigint">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="unit_of_measure_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
     </changeSet>
 
 </databaseChangeLog>

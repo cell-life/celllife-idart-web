@@ -1,0 +1,46 @@
+{
+    "medication": {
+        "identifiers": [
+            {
+                "system": "http://www.cell-life.org/idart/finishedGood",
+                "value": "Zidovudine 100mg"
+            }
+        ]
+    },
+    "dosageInstruction": {
+        "doseQuantity": {
+            "unitOfMeasure": {
+                "codes": [
+                    {
+                        "system": "http://www.cell-life.org/idart/unitOfMeasure",
+                        "value": "each"
+                    }
+                ]
+            },
+            "value": "1"
+        },
+        "texts": [
+            {
+                "locale": "en",
+                "value": "Take"
+            }
+        ],
+        "timing": {
+            "repeat": {
+                "frequency": "1",
+                "duration": {
+                    "unitOfMeasure": {
+                        "codes": [
+                            {
+                                "system": "http://unitsofmeasure.org",
+                                "value": "d"
+
+                            }
+                        ]
+                    },
+                    "value": "1"
+                }
+            }
+        }
+    }
+}

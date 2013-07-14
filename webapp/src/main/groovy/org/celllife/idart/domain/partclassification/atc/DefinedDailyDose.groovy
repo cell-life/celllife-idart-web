@@ -15,6 +15,6 @@ class DefinedDailyDose implements Persistable {
 
     Quantity quantity
 
-    RouteOfAdministration routeOfAdministration
+    RouteOfAdministration route
 
 }

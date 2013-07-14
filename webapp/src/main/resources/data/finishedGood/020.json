@@ -1,0 +1,48 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/finishedGood",
+            "value": "Tenofovir 300mg (30 Tablets)"
+        }
+    ],
+    "billOfMaterials": [
+        {
+            "type": "ENGINEERING",
+            "fromDate": "2013-01-01",
+            "part": {
+                "identifiers": [
+                    {
+                        "system": "http://www.cell-life.org/idart/finishedGood",
+                        "value": "Tenofovir 300mg"
+                    }
+                ]
+            },
+            "quantityUsed": {
+                "unitOfMeasure": {
+                    "codes": [
+                        {
+                            "system": "http://www.cell-life.org/idart/unitOfMeasure",
+                            "value": "each"
+                        }
+                    ]
+                },
+                "value": "30"
+
+            }
+        }
+    ],
+    "classifications": [
+        {
+            "code": "J05AF07",
+            "type": "ATC"
+        }
+    ],
+    "unitOfMeasure": {
+        "codes": [
+            {
+                "system": "http://www.cell-life.org/idart/unitOfMeasure",
+                "value": "each"
+            }
+        ]
+    }
+}

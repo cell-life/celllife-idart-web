@@ -11,16 +11,18 @@
             </column>
         </createTable>
 
-        <createTable tableName="product_names">
+        <createTable tableName="product_identifiers">
             <column name="product" type="bigint">
-                <constraints references="product(pk)" foreignKeyName="product_names_fk"/>
+                <constraints references="product(pk)" foreignKeyName="product_identifiers_fk"/>
             </column>
-            <column name="locale" type="varchar(10)">
+            <column name="system" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
+            <column name="value" type="varchar(31)">
                 <constraints nullable="false"/>
             </column>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
         </createTable>
 
         <createTable tableName="good">
@@ -29,19 +31,6 @@
             </column>
             <column name="finished_good" type="bigint"/>
         </createTable>
-
-        <createTable tableName="good_codes">
-            <column name="good" type="bigint">
-                <constraints references="good(pk)" foreignKeyName="good_codes_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
     </changeSet>
 
 </databaseChangeLog>

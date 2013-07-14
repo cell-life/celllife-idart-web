@@ -619,6 +619,13 @@
             <version>${scala.version}</version>
         </dependency>
 
+        <!-- Groovy CSV -->
+
+        <dependency>
+            <groupId>com.xlson.groovycsv</groupId>
+            <artifactId>groovycsv</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

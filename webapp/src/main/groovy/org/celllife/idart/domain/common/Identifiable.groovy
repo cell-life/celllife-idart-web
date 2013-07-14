@@ -1,7 +1,4 @@
 package org.celllife.idart.domain.common
-
-import org.celllife.idart.domain.concept.Identifier
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-06
@@ -47,7 +44,7 @@ class Identifiable {
         !hasIdentifierForSystem(system)
     }
 
-    def mergeIdentifiers(Identifiable that) {
+    def mergeIdentifiers(that) {
 
         if (!this.class.isAssignableFrom(that.class)) {
             throw new RuntimeException("Incompatible Identifier Types: this ${this.class} that ${that.class}")

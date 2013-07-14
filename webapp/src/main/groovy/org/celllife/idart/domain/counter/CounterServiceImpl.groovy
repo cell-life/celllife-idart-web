@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service
         }
     }
 
-    private Integer nextValue(String counterName) {
+    Integer nextValue(String counterName) {
 
         Counter counter = counterRepository.findOneByName(counterName)
 

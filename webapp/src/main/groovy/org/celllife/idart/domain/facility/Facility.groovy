@@ -1,8 +1,6 @@
 package org.celllife.idart.domain.facility
 
 import org.celllife.idart.domain.common.*
-import org.celllife.idart.domain.concept.Identifier
-import org.celllife.idart.domain.concept.LocalisedText
 
 /**
  * User: Kevin W. Sewell

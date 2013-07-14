@@ -23,8 +23,7 @@ class AssignmentResource {
     static clear() {
 
         def items = findAll().content
-        items.each {
-            item ->
+        items.each { item ->
                 def linkToSelf = item.links.find { it.rel == 'self' }
                 delete(path: linkToSelf.href)
         }

@@ -61,49 +61,8 @@
 
             <!-- dosage_instructions -->
 
-            <column name="dosage_instruction_text" type="varchar(2000)"/>
-            <column name="dosage_instruction" type="bigint">
-                <constraints references="dosage_instruction(pk)" foreignKeyName="prescribed_med_dosage_instruction_fk"/>
-            </column>
-            <column name="dose_quantity" type="numeric"/>
-            <column name="dose_quantity_uom" type="bigint">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="prescribed_medication_dose_qty_uom_fk"/>
-            </column>
-            <column name="max_dose_per_period_denominator" type="numeric"/>
-            <column name="max_dose_per_period_denominator_uom" type="bigint">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="pre_med_max_dose_per_period_den_uom_fk"/>
-            </column>
-            <column name="max_dose_per_period_numerator" type="numeric"/>
-            <column name="max_dose_per_period_numerator_uom" type="bigint">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="pre_med_max_dose_per_period_num_uom_fk"/>
-            </column>
-            <column name="rate_denominator" type="numeric"/>
-            <column name="rate_denominator_uom" type="bigint">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="pre_med_rate_den_uom_fk"/>
-            </column>
-            <column name="rate_numerator" type="numeric"/>
-            <column name="rate_numerator_uom" type="bigint">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="pre_med_rate_num_uom_fk"/>
-            </column>
-            <column name="count" type="integer"/>
-            <column name="duration" type="numeric"/>
-            <column name="duration_uom" type="bigint">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="pre_med_duration_uom_fk"/>
-            </column>
-            <column name="end" type="date"/>
-            <column name="frequency" type="integer"/>
-            <column name="when_" type="bigint">
-                <constraints references="life_event(pk)" foreignKeyName="pre_med_schedule_when_fk"/>
-            </column>
-            <column name="method" type="bigint">
-                <constraints references="administration_method(pk)" foreignKeyName="pre_med_dosage_method_fk"/>
-            </column>
-            <column name="route" type="bigint">
-                <constraints references="route_of_administration(pk)" foreignKeyName="pre_med_dosage_route_fk"/>
-            </column>
-            <column name="site" type="bigint">
-                <constraints references="entry_site(pk)" foreignKeyName="pre_med_dosage_site_fk"/>
-            </column>
+            <column name="dosage_instruction" type="bigint"/>
+
         </createTable>
 
         <createTable tableName="prescribed_medication_indications">
@@ -114,14 +73,6 @@
             <column name="indications" type="bigint">
                 <constraints references="indication(pk)" foreignKeyName="indications_prescribed_medication_fk"/>
             </column>
-        </createTable>
-
-        <createTable tableName="prescribed_medication_events">
-            <column name="prescribed_medication" type="bigint">
-                <constraints references="prescribed_medication(pk)" foreignKeyName="prescribed_medication_events_fk"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
         </createTable>
 
     </changeSet>

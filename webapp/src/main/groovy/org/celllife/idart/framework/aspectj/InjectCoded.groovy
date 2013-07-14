@@ -2,7 +2,7 @@ package org.celllife.idart.framework.aspectj
 
 import org.celllife.idart.domain.common.Codeable
 import org.celllife.idart.domain.common.Persistable
-import org.celllife.idart.domain.concept.Code
+import org.celllife.idart.domain.common.Code
 import org.springframework.beans.factory.annotation.Autowired
 
 import javax.persistence.EntityManager
@@ -32,6 +32,15 @@ enum InjectCoded {
 
     public void doInject(Object codeable) {
 
+        if (codeable == null) {
+            return
+        }
+
+        if (entityManagerFactory == null) {
+            // Most likely in a unit test
+            return
+        }
+
         Class<? extends Codeable> codedClass = codeable.class as Class<? extends Codeable>
 
         Set<String> codeSystems = codeable.codeSystems
@@ -47,21 +56,25 @@ enum InjectCoded {
             }
 
             EntityManager entityManager = entityManagerFactory.createEntityManager()
-            CriteriaBuilder criteriaBuilder = entityManager.criteriaBuilder
+            try {
+                CriteriaBuilder criteriaBuilder = entityManager.criteriaBuilder
 
-            CriteriaQuery<? extends Codeable> query = criteriaBuilder.createQuery(codedClass)
-            Root<? extends Codeable> root = query.from(codedClass)
-            Join<? extends Codeable, Code> code = root.join("codes")
+                CriteriaQuery<? extends Codeable> query = criteriaBuilder.createQuery(codedClass)
+                Root<? extends Codeable> root = query.from(codedClass)
+                Join<? extends Codeable, Code> code = root.join("codes")
 
-            query.where(
-                    criteriaBuilder.equal(code.get("system"), codeSystem),
-                    criteriaBuilder.equal(code.get("value"), codeValue)
-            )
+                query.where(
+                        criteriaBuilder.equal(code.get("system"), codeSystem),
+                        criteriaBuilder.equal(code.get("value"), codeValue)
+                )
 
-            List<? extends Codeable> results = entityManager.createQuery(query).resultList
-            if (!results.isEmpty()) {
-                ((Persistable) codeable).pk = ((Persistable) results.get(0)).pk
-                return
+                List<? extends Codeable> results = entityManager.createQuery(query).resultList
+                if (!results.isEmpty()) {
+                    ((Persistable) codeable).pk = ((Persistable) results.get(0)).pk
+                    return
+                }
+            } finally {
+                entityManager.close()
             }
         }
     }

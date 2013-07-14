@@ -30,29 +30,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner.class)
 class PrescriptionRepositoryIntegrationTest {
 
-    @Autowired
-    private GoodRepository goodRepository
+    @Autowired GoodRepository goodRepository
 
-    @Autowired
-    private FinishedGoodRepository finishedGoodRepository
+    @Autowired FinishedGoodRepository finishedGoodRepository
 
-    @Autowired
-    private RawMaterialRepository rawMaterialRepository
+    @Autowired RawMaterialRepository rawMaterialRepository
 
-    @Autowired
-    private PrescriptionRepository prescriptionRepository
+    @Autowired PrescriptionRepository prescriptionRepository
 
-    @Autowired
-    private PractitionerRepository practitionerRepository
+    @Autowired PractitionerRepository practitionerRepository
 
-    @Autowired
-    private PatientRepository patientRepository
+    @Autowired PatientRepository patientRepository
 
-    @Autowired
-    private UnitOfMeasureRepository unitOfMeasureRespository
+    @Autowired UnitOfMeasureRepository unitOfMeasureRespository
 
-    @Autowired
-    private ObjectMapper objectMapper
+    @Autowired ObjectMapper objectMapper
 
     @Test
     void shouldUnmarshal() throws Exception {

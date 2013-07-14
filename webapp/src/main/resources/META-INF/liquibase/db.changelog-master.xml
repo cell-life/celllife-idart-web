@@ -10,7 +10,6 @@
     <!-- Codes -->
 
     <include file="db.changelog-administrationmethod.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-dosageinstruction.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-entrysite.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-form.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-indication.xml" relativeToChangelogFile="true"/>
@@ -24,6 +23,8 @@
 
     <include file="db.changelog-assignment.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-defaultdosageinstruction.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-dosageinstruction.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-facility.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-inventoryitem.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-part.xml" relativeToChangelogFile="true"/>

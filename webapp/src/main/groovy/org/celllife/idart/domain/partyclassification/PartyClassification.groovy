@@ -2,7 +2,7 @@ package org.celllife.idart.domain.partyclassification
 
 import org.celllife.idart.domain.common.Codeable
 import org.celllife.idart.domain.common.Describable
-import org.celllife.idart.domain.concept.LocalisedText
+import org.celllife.idart.domain.common.LocalisedText
 
 /**
  * User: Kevin W. Sewell

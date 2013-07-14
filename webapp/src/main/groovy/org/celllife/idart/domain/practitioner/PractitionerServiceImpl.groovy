@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.practitioner
 
-import org.celllife.idart.domain.concept.Identifier
+import org.celllife.idart.domain.common.Identifier
 import org.dozer.Mapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

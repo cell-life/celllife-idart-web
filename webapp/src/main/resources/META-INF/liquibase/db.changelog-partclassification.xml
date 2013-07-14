@@ -17,18 +17,6 @@
             </column>
         </createTable>
 
-        <createTable tableName="part_classification_codes">
-            <column name="part_classification" type="bigint">
-                <constraints references="part_classification(pk)" foreignKeyName="part_classification_codes_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
         <createTable tableName="part_classification_descriptions">
             <column name="part_classification" type="bigint">
                 <constraints references="part_classification(pk)" foreignKeyName="part_classification_descriptions_fk"/>
@@ -36,7 +24,7 @@
             <column name="locale" type="varchar(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
+            <column name="value" type="varchar(2000)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -45,6 +33,11 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true" references="part_classification(pk)" foreignKeyName="atc_part_fk"/>
             </column>
+            <column name="first_level" type="varchar(1)"/>
+            <column name="second_level" type="varchar(2)"/>
+            <column name="third_level" type="varchar(1)"/>
+            <column name="forth_level" type="varchar(1)"/>
+            <column name="fifth_level" type="varchar(2)"/>
         </createTable>
 
         <createTable tableName="defined_daily_dose">
@@ -58,8 +51,8 @@
             <column name="quantity_uom" type="bigint">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="ddd_qty_uom_fk"/>
             </column>
-            <column name="route_of_administration" type="bigint">
-                <constraints references="route_of_administration(pk)" foreignKeyName="ddd_roa_fk"/>
+            <column name="route" type="bigint">
+                <constraints references="route_of_administration(pk)" foreignKeyName="ddd_route_fk"/>
             </column>
         </createTable>
 

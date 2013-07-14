@@ -1,7 +1,4 @@
 package org.celllife.idart.domain.common
-
-import org.celllife.idart.domain.concept.Code
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-06
@@ -39,7 +36,7 @@ class Codeable {
         codes*.system
     }
 
-    def mergeCodes(Codeable that) {
+    def mergeCodes(that) {
 
         if (!this.class.isAssignableFrom(that.class)) {
             throw new RuntimeException("Incompatible CodedConcept Types: this ${this.class} that ${that.class}")

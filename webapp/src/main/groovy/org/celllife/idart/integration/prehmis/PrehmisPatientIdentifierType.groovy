@@ -15,9 +15,9 @@ enum PrehmisPatientIdentifierType {
 
     PASSPORT("http://www.dha.gov.za/passport", "Passport Number")
 
-    private String system
+    final String system
 
-    private String description
+    final String description
 
     PrehmisPatientIdentifierType(String system, String description) {
         this.system = system

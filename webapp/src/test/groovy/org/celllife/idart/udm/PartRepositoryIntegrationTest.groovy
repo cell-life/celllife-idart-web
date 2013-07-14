@@ -25,17 +25,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner.class)
 class PartRepositoryIntegrationTest {
 
-    @Autowired
-    private UnitOfMeasureRepository unitOfMeasureRespository
+    @Autowired UnitOfMeasureRepository unitOfMeasureRespository
 
-    @Autowired
-    private GoodRepository goodRepository
+    @Autowired GoodRepository goodRepository
 
-    @Autowired
-    private FinishedGoodRepository finishedGoodRepository
+    @Autowired FinishedGoodRepository finishedGoodRepository
 
-    @Autowired
-    private RawMaterialRepository rawMaterialRepository
+    @Autowired RawMaterialRepository rawMaterialRepository
 
     @Test
     void testName() throws Exception {
@@ -52,14 +48,17 @@ class PartRepositoryIntegrationTest {
         each.addCode("http://unitsofmeasure.org", "ea")
         unitOfMeasureRespository.save(each)
 
-        RawMaterial abacavirRawMaterial = new RawMaterial(name: "Abacavir", unitOfMeasure: milligrams)
+        RawMaterial abacavirRawMaterial = new RawMaterial(unitOfMeasure: milligrams)
+        abacavirRawMaterial.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
         rawMaterialRepository.save(abacavirRawMaterial)
 
-        FinishedGood abacavir20mg = new FinishedGood(name: "Abacavir 20mg/ml", unitOfMeasure: millilitres)
+        FinishedGood abacavir20mg = new FinishedGood(unitOfMeasure: millilitres)
+        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGood", "Abacavir 20mg/ml")
         abacavir20mg.addEngineeringPart(new Date(), abacavirRawMaterial, 20.0D, milligrams)
         finishedGoodRepository.save(abacavir20mg)
 
-        FinishedGood finishedGood = new FinishedGood(name: "Abacavir 20mg/ml 240ml", unitOfMeasure: each)
+        FinishedGood finishedGood = new FinishedGood(unitOfMeasure: each)
+        finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGood", "Abacavir 20mg/ml 240ml")
         finishedGood.addEngineeringPart(new Date(), abacavir20mg, 240.0D, millilitres)
         finishedGoodRepository.save(finishedGood)
 

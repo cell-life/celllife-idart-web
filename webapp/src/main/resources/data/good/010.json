@@ -1,0 +1,16 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/good",
+            "value": "Tenofovir 300mg (30 Tablets)"
+        }
+    ],
+    "finishedGood": {
+        "identifiers": [
+            {
+                "system": "http://www.cell-life.org/idart/finishedGood",
+                "value": "Tenofovir 300mg (30 Tablets)"
+            }
+        ]
+    }
+}

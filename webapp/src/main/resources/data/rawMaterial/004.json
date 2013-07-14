@@ -1,0 +1,22 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.who.int/medicines/services/inn",
+            "value": "Tenofovir"
+        }
+    ],
+    "unitOfMeasure": {
+        "codes": [
+            {
+                "system": "http://unitsofmeasure.org",
+                "value": "mg"
+            }
+        ]
+    },
+    "classifications": [
+        {
+            "code": "J05AF07",
+            "type": "ATC"
+        }
+    ]
+}

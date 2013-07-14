@@ -32,12 +32,12 @@ import static org.springframework.util.Assert.notNull
     @Override
     Set<Practitioner> findAll(String clinicIdentifierValue) {
 
-        String getPractitionerListRequest = new GetPractitionerListRequestBuilder()
-                .setUsername(prehmisUsername)
-                .setPassword(prehmisPassword)
-                .setApplicationKey(prehmisApplicationKey)
-                .setFacilityCode(clinicIdentifierValue)
-                .build()
+        String getPractitionerListRequest = GetPractitionerListRequestBuilder.build(
+                username: prehmisUsername,
+                password: prehmisPassword,
+                facilityCode: clinicIdentifierValue,
+                applicationKey: prehmisApplicationKey
+        )
 
         def getPractionerListResponse = prehmisRestClient.post(
                 body: getPractitionerListRequest,

@@ -43,7 +43,7 @@ import org.springframework.stereotype.Service
         new FindPatientsByIdentifierResponse(patients: patients)
     }
 
-    private void lookupAndSyncWithExternalProviders(String patientIdentifierValue, Clinic clinic) {
+    void lookupAndSyncWithExternalProviders(String patientIdentifierValue, Clinic clinic) {
 
         for (String identifierSystem : ((Facility) clinic).identifierSystems) {
             String clinicIdentifierValue = ((Facility) clinic).getIdentifierValue(identifierSystem)

@@ -6,8 +6,4 @@ package org.celllife.idart.domain.product
  * Time: 18h14
  */
 class Service extends Product {
-
-    Service() {
-    }
-
 }

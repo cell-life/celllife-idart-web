@@ -14,21 +14,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
  * Date: 2013-04-25
  * Time: 16h00
  */
-@ContextConfiguration([
-"classpath:/META-INF/spring/spring-config.xml",
-"classpath:/META-INF/spring/spring-integration-prehmis.xml"
-])
+@ContextConfiguration(
+        [
+        "classpath:/META-INF/spring/spring-config.xml",
+        "classpath:/META-INF/spring/spring-integration-prehmis.xml"
+        ]
+)
 @RunWith(SpringJUnit4ClassRunner.class)
 class PrehmisPatientServiceIntegrationTest {
 
-    @Autowired
-    private PatientProvider patientProvider
+    @Autowired PatientProvider patientProvider
 
     @Test
     void testFindByIdentifier() throws Exception {
 
         Set<Patient> patients = patientProvider.findByIdentifier("WES", "72254311")
         Assert.assertNotNull(patients)
-        Assert.assertFalse(patients.isEmpty())
+        Assert.assertFalse(patients.empty)
     }
 }

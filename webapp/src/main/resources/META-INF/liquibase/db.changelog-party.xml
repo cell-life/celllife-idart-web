@@ -27,7 +27,7 @@
 
         <createTable tableName="party_classifications">
             <column name="party" type="bigint">
-                <constraints primaryKey="true"/>
+                <constraints references="party(pk)" foreignKeyName="party_classifications_fk"/>
             </column>
             <column name="classification" type="bigint">
                 <constraints nullable="false"/>

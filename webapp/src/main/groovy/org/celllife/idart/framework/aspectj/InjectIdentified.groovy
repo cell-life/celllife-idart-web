@@ -2,7 +2,7 @@ package org.celllife.idart.framework.aspectj
 
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Persistable
-import org.celllife.idart.domain.concept.Identifier
+import org.celllife.idart.domain.common.Identifier
 import org.springframework.beans.factory.annotation.Autowired
 
 import javax.persistence.EntityManager
@@ -32,6 +32,15 @@ enum InjectIdentified {
 
     void doInject(Object identifiable) {
 
+        if (identifiable == null) {
+            return
+        }
+
+        if (entityManagerFactory == null) {
+            // Most likely in a unit test
+            return
+        }
+
         Class<? extends Identifiable> identifiedClass = identifiable.class as Class<? extends Identifiable>
 
         Set<String> identifierSystems = identifiable.getIdentifierSystems()
@@ -48,21 +57,25 @@ enum InjectIdentified {
             }
 
             EntityManager entityManager = entityManagerFactory.createEntityManager()
-            CriteriaBuilder criteriaBuilder = entityManager.criteriaBuilder
+            try {
+                CriteriaBuilder criteriaBuilder = entityManager.criteriaBuilder
 
-            CriteriaQuery<? extends Identifiable> query = criteriaBuilder.createQuery(identifiedClass)
-            Root<? extends Identifiable> root = query.from(identifiedClass)
-            Join<? extends Identifiable, Identifier> identifiers = root.join("identifiers")
+                CriteriaQuery<? extends Identifiable> query = criteriaBuilder.createQuery(identifiedClass)
+                Root<? extends Identifiable> root = query.from(identifiedClass)
+                Join<? extends Identifiable, Identifier> identifiers = root.join("identifiers")
 
-            query.where(
-                    criteriaBuilder.equal(identifiers.get("system"), identifierSystem),
-                    criteriaBuilder.equal(identifiers.get("value"), identifierValue)
-            )
+                query.where(
+                        criteriaBuilder.equal(identifiers.get("system"), identifierSystem),
+                        criteriaBuilder.equal(identifiers.get("value"), identifierValue)
+                )
 
-            List<? extends Identifiable> results = entityManager.createQuery(query).resultList
-            if (!results.empty) {
-                ((Persistable) identifiable).pk = ((Persistable) results.get(0)).pk
-                return
+                List<? extends Identifiable> results = entityManager.createQuery(query).resultList
+                if (!results.empty) {
+                    ((Persistable) identifiable).pk = ((Persistable) results.get(0)).pk
+                    return
+                }
+            } finally {
+                entityManager.close()
             }
         }
     }

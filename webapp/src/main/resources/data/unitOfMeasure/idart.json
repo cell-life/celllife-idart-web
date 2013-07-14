@@ -1,0 +1,16 @@
+[
+    {
+        "codes": [
+            {
+                "system": "http://www.cell-life.org/idart/unitOfMeasure",
+                "value": "each"
+            }
+        ],
+        "names": [
+            {
+                "locale": "en",
+                "value": "Each"
+            }
+        ]
+    }
+]

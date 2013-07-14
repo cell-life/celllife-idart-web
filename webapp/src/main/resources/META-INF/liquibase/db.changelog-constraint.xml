@@ -53,6 +53,24 @@
                                  referencedTableName="good"
                                  referencedColumnNames="pk"/>
 
+        <addForeignKeyConstraint baseTableName="party_classifications"
+                                 baseColumnNames="classification"
+                                 constraintName="party_classification_application_fk"
+                                 referencedTableName="party_classification"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="default_dosage_instruction"
+                                 baseColumnNames="medication"
+                                 constraintName="default_dosage_instruction_medication_fk"
+                                 referencedTableName="part"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="default_dosage_instruction"
+                                 baseColumnNames="dosage_instruction"
+                                 constraintName="default_dosage_instruction_fk"
+                                 referencedTableName="dosage_instruction"
+                                 referencedColumnNames="pk"/>
+
     </changeSet>
 
 </databaseChangeLog>

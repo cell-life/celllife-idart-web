@@ -1,0 +1,16 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/good",
+            "value": "Stavudine 1mg/ml (200 ml)"
+        }
+    ],
+    "finishedGood": {
+        "identifiers": [
+            {
+                "system": "http://www.cell-life.org/idart/finishedGood",
+                "value": "Stavudine 1mg/ml (200 ml)"
+            }
+        ]
+    }
+}

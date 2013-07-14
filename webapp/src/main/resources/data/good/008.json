@@ -1,0 +1,16 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/good",
+            "value": "Abacavir 20mg/ml (240ml)"
+        }
+    ],
+    "finishedGood": {
+        "identifiers": [
+            {
+                "system": "http://www.cell-life.org/idart/finishedGood",
+                "value": "Abacavir 20mg/ml (240ml)"
+            }
+        ]
+    }
+}
