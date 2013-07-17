@@ -31,6 +31,62 @@
 
     </entity>
 
+    <!-- Contact Mechanism -->
+
+    <entity class="org.celllife.idart.domain.contactmechanism.ContactMechanism">
+
+        <inheritance strategy="SINGLE_TABLE"/>
+
+        <discriminator-column name="type"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.ElectronicAddress">
+
+        <discriminator-value>ElectronicAddress</discriminator-value>
+
+        <attributes>
+            <basic name="electronicAddressString"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.PostalAddress">
+
+        <discriminator-value>PostalAddress</discriminator-value>
+
+        <attributes>
+            <basic name="address1"/>
+            <basic name="address2"/>
+            <basic name="directions"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.TelecommunicationsNumber">
+
+        <discriminator-value>TelecommunicationsNumber</discriminator-value>
+
+        <attributes>
+            <basic name="areaCode"/>
+            <basic name="contactNumber"/>
+            <basic name="countryCode"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber">
+
+        <discriminator-value>MobileTelephoneNumber</discriminator-value>
+
+        <attributes>
+            <basic name="contactNumber"/>
+            <basic name="countryCode"/>
+        </attributes>
+    </entity>
+
     <!-- Counter -->
 
     <entity class="org.celllife.idart.domain.counter.Counter">
@@ -398,6 +454,7 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <element-collection name="classifications" fetch="EAGER"/>
+            <element-collection name="contactMechanisms" fetch="EAGER"/>
             <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
@@ -464,12 +521,6 @@
             <basic name="thruDate">
                 <temporal>DATE</temporal>
             </basic>
-            <one-to-many name="facilities" fetch="EAGER">
-                <join-column name="party_role"/>
-                <cascade>
-                    <cascade-all/>
-                </cascade>
-            </one-to-many>
             <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
@@ -487,18 +538,17 @@
 
     <entity class="org.celllife.idart.domain.practitioner.Practitioner"/>
 
-    <!-- Party Role Facility -->
+    <!-- Party Facility -->
 
-    <entity class="org.celllife.idart.domain.facilityrole.PartyRoleFacility">
-
-        <inheritance/>
-
-        <discriminator-column name="type"/>
+    <entity class="org.celllife.idart.domain.partyfacility.PartyFacility">
 
         <attributes>
             <id name="pk">
                 <generated-value strategy="TABLE"/>
             </id>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
             <basic name="fromDate">
                 <temporal>DATE</temporal>
             </basic>
@@ -506,12 +556,9 @@
                 <temporal>DATE</temporal>
             </basic>
             <many-to-one name="facility"/>
+            <many-to-one name="party"/>
         </attributes>
 
-    </entity>
-
-    <entity class="org.celllife.idart.domain.facilityrole.Owner">
-        <discriminator-value>Owner</discriminator-value>
     </entity>
 
     <!-- Person -->
@@ -756,14 +803,12 @@
         <attributes>
             <basic name="system"/>
             <basic name="value"/>
-            <embedded name="valid">
-                <attribute-override name="fromDate">
-                    <column name="valid_from_date"/>
-                </attribute-override>
-                <attribute-override name="thruDate">
-                    <column name="valid_thru_date"/>
-                </attribute-override>
-            </embedded>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
         </attributes>
     </embeddable>
 
@@ -803,6 +848,29 @@
             <basic name="thruDate">
                 <temporal>DATE</temporal>
             </basic>
+        </attributes>
+    </embeddable>
+
+    <!-- Party Classification Application -->
+
+    <embeddable class="org.celllife.idart.domain.party.PartyContactMechanism">
+        <attributes>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="comment"/>
+            <basic name="nonSolicitationIndicator">
+                <column column-definition="bit"/>
+            </basic>
+            <basic name="extension"/>
+            <many-to-one name="contactMechanism">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
         </attributes>
     </embeddable>
 

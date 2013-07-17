@@ -3,7 +3,6 @@ package org.celllife.idart.domain.partyrole
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.common.Persistable
-import org.celllife.idart.domain.facilityrole.PartyRoleFacility
 
 /**
  * User: Kevin W. Sewell
@@ -33,9 +32,14 @@ abstract class PartyRole implements Persistable {
      */
     Date thruDate
 
-    /**
-     * involved in
-     */
-    Set<PartyRoleFacility> facilities
+    def merge(PartyRole that) {
 
+        if (that == null) {
+            return
+        }
+
+        this.mergeIdentifiers(that)
+        this.fromDate = that.fromDate
+        this.thruDate = that.thruDate
+    }
 }

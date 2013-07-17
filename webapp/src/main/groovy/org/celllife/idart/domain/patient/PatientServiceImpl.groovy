@@ -1,9 +1,11 @@
 package org.celllife.idart.domain.patient
 
 import org.celllife.idart.domain.common.Identifier
-import org.dozer.Mapper
+import org.celllife.idart.domain.partyrole.PartyRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+
+import static org.celllife.idart.domain.patient.Patients.*
 
 /**
  * User: Kevin W. Sewell
@@ -14,12 +16,12 @@ import org.springframework.stereotype.Service
 
     @Autowired PatientRepository patientRepository
 
-    @Autowired Mapper mapper
+    @Autowired PatientSequence patientSequence
 
     Patient findByIdentifiers(Set<Identifier> identifiers) {
 
         for (Identifier identifier in identifiers) {
-            Patient patient = patientRepository.findOneByIdentifier(identifier.getSystem(), identifier.getValue())
+            Patient patient = patientRepository.findOneByIdentifier(identifier.system, identifier.value)
             if (patient != null) {
                 return patient
             }
@@ -30,13 +32,21 @@ import org.springframework.stereotype.Service
 
     Patient save(Patient newPatient) {
 
-        Patient existingPatient = findByIdentifiers(newPatient.getIdentifiers())
+        Patient existingPatient = findByIdentifiers(newPatient.identifiers)
+
+        if (requiresIdartIdentifier(newPatient, existingPatient)) {
+            ((PartyRole) newPatient).addIdentifier(IDART_PATIENT_IDENTIFIER_SYSTEM, nextPatientIdentifier())
+        }
 
         if (existingPatient != null) {
-            mapper.map(newPatient, existingPatient)
+            existingPatient.merge(newPatient)
             return patientRepository.save(existingPatient)
         }
 
         return patientRepository.save(newPatient)
+    }
+
+    private String nextPatientIdentifier() {
+        String.format(IDART_PATIENT_IDENTIFIER_FORMAT, patientSequence.nextValue())
     }
 }

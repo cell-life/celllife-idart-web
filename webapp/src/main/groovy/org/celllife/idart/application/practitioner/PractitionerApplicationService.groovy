@@ -10,4 +10,6 @@ import org.celllife.idart.domain.practitioner.Practitioner
 interface PractitionerApplicationService {
 
     List<Practitioner> findByClinicIdentifier(String applicationId, String clinicIdentifierValue)
+
+    Practitioner save(Practitioner newPractitioner)
 }

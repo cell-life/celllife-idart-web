@@ -2,7 +2,7 @@ package org.celllife.idart.domain.partyrole
 
 import org.celllife.idart.domain.person.Person
 
-import static org.celllife.idart.framework.aspectj.InjectIdentified.inject
+import javax.validation.constraints.NotNull
 
 /**
  * User: Kevin W. Sewell
@@ -14,9 +14,11 @@ abstract class PersonRole extends PartyRole {
     /**
      * Acted by
      */
+    @NotNull
     Person person
 
-    void setPerson(Person person) {
-        this.person = inject(person)
+    def merge(PersonRole that) {
+        super.merge(that)
+        this.person = that.person
     }
 }

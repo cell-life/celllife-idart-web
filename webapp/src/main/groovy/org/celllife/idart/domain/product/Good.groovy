@@ -2,8 +2,6 @@ package org.celllife.idart.domain.product
 
 import org.celllife.idart.domain.part.FinishedGood
 
-import static org.celllife.idart.framework.aspectj.InjectIdentified.inject
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
@@ -16,7 +14,4 @@ class Good extends Product {
      */
     FinishedGood finishedGood
 
-    void setFinishedGood(FinishedGood finishedGood) {
-        this.finishedGood = inject(finishedGood)
-    }
 }

@@ -4,8 +4,6 @@ import org.celllife.idart.domain.common.Quantity
 
 import javax.validation.constraints.NotNull
 
-import static org.celllife.idart.framework.aspectj.InjectIdentified.inject
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
@@ -34,7 +32,4 @@ class PartBillOfMaterialsItem {
 
     String comment
 
-    void setPart(Part part) {
-        this.part = inject(part)
-    }
 }

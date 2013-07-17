@@ -9,6 +9,4 @@
 
     <bean class="org.celllife.idart.framework.aspectj.InjectCoded" factory-method="getInstance"/>
 
-    <bean class="org.celllife.idart.framework.aspectj.InjectIdentified" factory-method="getInstance"/>
-
 </beans>

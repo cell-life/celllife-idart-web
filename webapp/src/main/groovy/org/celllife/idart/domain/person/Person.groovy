@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.person
 
+import groovy.transform.EqualsAndHashCode
 import org.celllife.idart.domain.common.Gender
 import org.celllife.idart.domain.common.MaritalStatus
 import org.celllife.idart.domain.party.Party
@@ -75,6 +76,23 @@ class Person extends Party {
     /**
      * having
      */
-    Set<PhysicalCharacteristic> physicalCharacteristics
+    Set<PhysicalCharacteristic> physicalCharacteristics = []
+
+    def merge(Person that) {
+        super.merge(that)
+        this.firstName = that.firstName
+        this.middleNames = that.middleNames
+        this.lastName = that.lastName
+        this.personalTitle = that.personalTitle
+        this.suffix = that.suffix
+        this.nickname = that.nickname
+        this.gender = that.gender
+        this.birthDate = that.birthDate
+        this.mothersMaidenName = that.mothersMaidenName
+        this.maritalStatus = that.maritalStatus
+        this.totalYearsWorkExperience = that.totalYearsWorkExperience
+        this.comment = that.comment
+        that?.physicalCharacteristics?.each { physicalCharacteristic -> this.physicalCharacteristics << physicalCharacteristic }
+    }
 
 }

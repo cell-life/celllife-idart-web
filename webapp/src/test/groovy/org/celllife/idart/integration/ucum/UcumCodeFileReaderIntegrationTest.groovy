@@ -23,14 +23,10 @@ class UcumCodeFileReaderIntegrationTest {
     @Test
     void shouldReadUcumTsv() throws Exception {
 
-        InputStream inputStream = getClass().getResourceAsStream("/data/unitOfMeasure/unitOfMeasure.tsv")
+        InputStream inputStream = getClass().getResourceAsStream("/data/unitOfMeasure/ucum.tsv")
         List<UnitOfMeasure> unitsOfMeasures = ucumCodeFileReader.readFile(inputStream)
 
         Assert.assertNotNull(unitsOfMeasures)
         Assert.assertFalse(unitsOfMeasures.isEmpty())
-
-        unitsOfMeasures.each { unitsOfMeasure ->
-            println unitsOfMeasure
-        }
     }
 }

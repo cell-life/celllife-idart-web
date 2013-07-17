@@ -14,14 +14,13 @@ import org.springframework.stereotype.Service
     @Autowired DefaultDosageInstructionRepository defaultDosageInstructionRepository
 
     @Override
-    void save(DefaultDosageInstruction defaultDosageInstruction) {
+    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
         def existingDefaultDosageInstruction = findOneByIdentifiers(defaultDosageInstruction.medication.identifiers)
 
         if (existingDefaultDosageInstruction == null) {
             existingDefaultDosageInstruction = new DefaultDosageInstruction()
         }
-
         existingDefaultDosageInstruction.medication = defaultDosageInstruction.medication
 
         if (existingDefaultDosageInstruction.dosageInstruction != null) {

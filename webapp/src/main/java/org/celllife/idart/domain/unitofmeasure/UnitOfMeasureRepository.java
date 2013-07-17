@@ -3,12 +3,14 @@ package org.celllife.idart.domain.unitofmeasure;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.repository.annotation.RestResource;
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-17
  * Time: 17h50
  */
+@RestResource(path = "unitOfMeasures")
 public interface UnitOfMeasureRepository extends PagingAndSortingRepository<UnitOfMeasure, Long> {
 
     @Query("select unitOfMeasure " +

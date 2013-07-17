@@ -2,9 +2,12 @@ package org.celllife.idart.domain.patient
 
 import org.celllife.idart.domain.clinic.ClinicResource
 import org.celllife.idart.domain.person.PersonResource
+import org.celllife.idart.interfaces.service.patient.PatientServiceClient
 import org.junit.Before
 import org.junit.Test
 
+import static groovy.json.JsonOutput.prettyPrint
+import static groovy.json.JsonOutput.toJson
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
 
@@ -22,7 +25,7 @@ class PatientRepositoryAcceptanceTest {
         PersonResource.clear()
 
         PersonResource.post(PersonResource.testPerson())
-        PatientResource.post(PatientResource.testPatient())
+        PatientServiceClient.post(PatientResource.testPatient())
 
         ClinicResource.clear()
         ClinicResource.post(ClinicResource.testClinic())
@@ -35,5 +38,6 @@ class PatientRepositoryAcceptanceTest {
 
         assertNotNull patients
         assertEquals(1, patients.content.size)
+
     }
 }

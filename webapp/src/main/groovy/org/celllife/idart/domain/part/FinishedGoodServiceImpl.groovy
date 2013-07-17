@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.part
 
 import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.domain.product.Good
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -14,31 +15,23 @@ import org.springframework.stereotype.Service
     @Autowired FinishedGoodRepository finishedGoodRepository
 
     @Override
-    void save(FinishedGood finishedGood) {
+    FinishedGood save(FinishedGood finishedGood) {
 
-        FinishedGood existingFinishedGood = findOneByIdentifiers(finishedGood.identifiers)
+        FinishedGood existingFinishedGood = findByIdentifiers(finishedGood.identifiers)
         if (existingFinishedGood == null) {
             existingFinishedGood = new FinishedGood()
         }
 
-        merge(finishedGood, existingFinishedGood)
+        existingFinishedGood.merge(finishedGood)
 
         finishedGoodRepository.save(existingFinishedGood)
     }
 
-    static merge(FinishedGood source, FinishedGood target) {
-        target.mergeIdentifiers(source)
-        target.unitOfMeasure = source.unitOfMeasure
-        target.form = source.form
-        target.mergeClassifications(source)
-        target.billOfMaterials = source.billOfMaterials
-    }
-
-    FinishedGood findOneByIdentifiers(Set<Identifier> identifiers) {
+    @Override
+    FinishedGood findByIdentifiers(Set<Identifier> identifiers) {
 
         for (identifier in identifiers) {
-
-            def finishedGood = finishedGoodRepository.findOneByIdentifier(identifier.getSystem(), identifier.getValue())
+            def finishedGood = finishedGoodRepository.findOneByIdentifier(identifier.system, identifier.value)
             if (finishedGood != null) {
                 return finishedGood
             }

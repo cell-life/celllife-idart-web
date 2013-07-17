@@ -21,8 +21,8 @@
             <column name="value" type="varchar(31)">
                 <constraints nullable="false"/>
             </column>
-            <column name="valid_from_date" type="date"/>
-            <column name="valid_thru_date" type="date"/>
+            <column name="from_date" type="date"/>
+            <column name="thru_date" type="date"/>
         </createTable>
 
         <createTable tableName="party_classifications">
@@ -36,6 +36,22 @@
                 <constraints nullable="false"/>
             </column>
             <column name="thru_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="party_contact_mechanisms">
+            <column name="party" type="bigint">
+                <constraints references="party(pk)" foreignKeyName="party_contact_mechanisms_fk"/>
+            </column>
+            <column name="contact_mechanism" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="thru_date" type="date"/>
+            <column name="non_solicitation_indicator" type="bit"/>
+            <column name="extension" type="varchar(10)"/>
+            <column name="comment" type="varchar(2000)"/>
         </createTable>
 
         <createTable tableName="organisation">

@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service
 
     @Autowired UnitOfMeasureRepository unitOfMeasureRespository
 
-    def save(Iterable<UnitOfMeasure> unitOfMeasures) {
-        unitOfMeasures.each { unitOfMeasure -> save(unitOfMeasure) }
+    Iterable<UnitOfMeasure> save(Iterable<UnitOfMeasure> unitOfMeasures) {
+        unitOfMeasures.collect { unitOfMeasure -> save(unitOfMeasure) }
     }
 
-    def save(UnitOfMeasure unitOfMeasure) {
+    UnitOfMeasure save(UnitOfMeasure unitOfMeasure) {
 
         String system = unitOfMeasure.getFirstSystem()
         String code = unitOfMeasure.getCodeValue(system)

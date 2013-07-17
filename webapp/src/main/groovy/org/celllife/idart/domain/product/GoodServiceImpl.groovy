@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service
     @Autowired GoodRepository goodRepository
 
     @Override
-    void save(Good good) {
+    Good save(Good good) {
 
-        Good existingGood = findOneByIdentifiers(good.identifiers)
+        Good existingGood = findByIdentifiers(good.identifiers)
         if (existingGood == null) {
             existingGood = new Good()
         }
@@ -26,12 +26,8 @@ import org.springframework.stereotype.Service
         goodRepository.save(existingGood)
     }
 
-    static merge(Good source, Good target) {
-        target.mergeIdentifiers(source)
-        target.finishedGood = source.finishedGood
-    }
-
-    Good findOneByIdentifiers(Set<Identifier> identifiers) {
+    @Override
+    Good findByIdentifiers(Set<Identifier> identifiers) {
 
         for (identifier in identifiers) {
 
@@ -42,6 +38,11 @@ import org.springframework.stereotype.Service
         }
 
         null
+    }
+
+    static merge(Good source, Good target) {
+        target.mergeIdentifiers(source)
+        target.finishedGood = source.finishedGood
     }
 
 }

@@ -15,16 +15,7 @@ import java.util.List;
 @RestResource(path = "patients")
 public interface PatientRepository extends PagingAndSortingRepository<Patient, Long> {
 
-    @Query("select patient " +
-            "from Patient patient " +
-            "join patient.identifiers patientIdentifier " +
-            "left join patient.person person " +
-            "left join person.identifiers personIdentifier " +
-            "where patientIdentifier.value = :identifierValue " +
-            "or personIdentifier.value = :identifierValue")
-    List<Patient> findByIdentifier(@Param("identifierValue") String identifierValue);
-
-    @Query("select patient " +
+    @Query("select distinct patient " +
             "from Patient patient " +
             "join patient.identifiers patientIdentifier " +
             "left join patient.person person " +

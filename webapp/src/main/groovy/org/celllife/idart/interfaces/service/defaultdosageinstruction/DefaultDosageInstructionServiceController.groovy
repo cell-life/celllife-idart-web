@@ -1,8 +1,9 @@
 package org.celllife.idart.interfaces.service.defaultdosageinstruction
 
+import org.celllife.idart.application.defaultdosageinstruction.DefaultDosageInstructionApplicationService
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
-import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,13 +18,16 @@ import javax.servlet.http.HttpServletResponse
  */
 @Controller class DefaultDosageInstructionServiceController {
 
-    @Autowired DefaultDosageInstructionService defaultDosageInstructionService
+    @Autowired DefaultDosageInstructionApplicationService defaultDosageInstructionApplicationService
+
+    @Value('${external.base.url}') String baseUrl
 
     @RequestMapping(value = "/service/defaultDosageInstructions", method = RequestMethod.POST)
     void save(@RequestBody DefaultDosageInstruction defaultDosageInstruction, HttpServletResponse response) {
 
-        defaultDosageInstructionService.save(defaultDosageInstruction)
+        defaultDosageInstruction = defaultDosageInstructionApplicationService.save(defaultDosageInstruction)
 
+        response.setHeader("Location", "${baseUrl}/service/defaultDosageInstructions/${defaultDosageInstruction.pk}")
         response.setStatus(HttpServletResponse.SC_OK)
     }
 

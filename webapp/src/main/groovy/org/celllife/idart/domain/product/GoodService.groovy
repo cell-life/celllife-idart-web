@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.product
 
+import org.celllife.idart.domain.common.Identifier
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-14
@@ -7,6 +9,7 @@ package org.celllife.idart.domain.product
  */
 public interface GoodService {
 
-    void save(Good good)
+    Good save(Good good)
 
+    Good findByIdentifiers(Set<Identifier> identifiers)
 }

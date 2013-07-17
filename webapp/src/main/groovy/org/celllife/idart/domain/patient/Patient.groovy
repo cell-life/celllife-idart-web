@@ -8,4 +8,8 @@ import org.celllife.idart.domain.partyrole.PersonRole
  * Time: 09h14
  */
 class Patient extends PersonRole {
+
+    def merge(Patient that) {
+        super.merge(that)
+    }
 }

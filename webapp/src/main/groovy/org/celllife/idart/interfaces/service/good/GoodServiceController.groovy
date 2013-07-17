@@ -1,8 +1,9 @@
 package org.celllife.idart.interfaces.service.good
 
+import org.celllife.idart.application.good.GoodApplicationService
 import org.celllife.idart.domain.product.Good
-import org.celllife.idart.domain.product.GoodService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,13 +18,16 @@ import javax.servlet.http.HttpServletResponse
  */
 @Controller class GoodServiceController {
 
-    @Autowired GoodService GoodService
+    @Autowired GoodApplicationService goodApplicationService
+
+    @Value('${external.base.url}') String baseUrl
 
     @RequestMapping(value = "/service/goods", method = RequestMethod.POST)
     void save(@RequestBody Good good, HttpServletResponse response) {
 
-        goodService.save(good)
+        good = goodApplicationService.save(good)
 
+        response.setHeader("Location", "${baseUrl}/service/goods/${good.pk}")
         response.setStatus(HttpServletResponse.SC_OK)
     }
 }

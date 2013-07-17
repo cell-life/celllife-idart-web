@@ -3,14 +3,19 @@ package org.celllife.idart.domain.common
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
+import javax.validation.constraints.NotNull
+
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includes = "system")
 class Identifier {
 
     String system
 
     String value
 
-    Period valid
+    @NotNull
+    Date fromDate = new Date()
+
+    Date thruDate
 
 }

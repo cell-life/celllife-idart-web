@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.domain.common.Identifier
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-14
@@ -7,6 +9,8 @@ package org.celllife.idart.domain.part
  */
 public interface RawMaterialService {
 
-    void save(RawMaterial rawMaterial)
+    RawMaterial save(RawMaterial rawMaterial)
+
+    RawMaterial findByIdentifiers(Set<Identifier> identifiers)
 
 }

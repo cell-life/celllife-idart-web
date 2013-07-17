@@ -6,8 +6,6 @@ import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.practitioner.Practitioner
 
-import static org.celllife.idart.framework.aspectj.InjectIdentified.inject
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-17
@@ -51,11 +49,4 @@ class Prescription implements Persistable {
      */
     Set<PrescribedMedication> prescribedMedications
 
-    void setPrescriber(Practitioner prescriber) {
-        this.prescriber = inject(prescriber)
-    }
-
-    void setPatient(Patient patient) {
-        this.patient = inject(patient)
-    }
 }

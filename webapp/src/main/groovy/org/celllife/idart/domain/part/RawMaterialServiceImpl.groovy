@@ -14,26 +14,20 @@ import org.springframework.stereotype.Service
     @Autowired RawMaterialRepository rawMaterialRepository
 
     @Override
-    void save(RawMaterial rawMaterial) {
+    RawMaterial save(RawMaterial rawMaterial) {
 
-        RawMaterial existingRawMaterial = findOneByIdentifiers(rawMaterial.identifiers)
+        RawMaterial existingRawMaterial = findByIdentifiers(rawMaterial.identifiers)
         if (existingRawMaterial == null) {
             existingRawMaterial = new RawMaterial()
         }
 
-        merge(rawMaterial, existingRawMaterial)
+        existingRawMaterial.merge(rawMaterial)
 
-        rawMaterialRepository.save(existingRawMaterial)
+        return rawMaterialRepository.save(existingRawMaterial)
     }
 
-    static merge(RawMaterial source, RawMaterial target) {
-        target.mergeIdentifiers(source)
-        target.unitOfMeasure = source.unitOfMeasure
-        target.form = target.form
-        target.mergeClassifications(source)
-    }
 
-    RawMaterial findOneByIdentifiers(Set<Identifier> identifiers) {
+    RawMaterial findByIdentifiers(Set<Identifier> identifiers) {
 
         for (identifier in identifiers) {
 

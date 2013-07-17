@@ -36,7 +36,7 @@ class PrehmisDrugProviderIntegrationTest {
             println "drug_name ${it.drug_name}"
             println "drug_group ${it.drug_group}"
             println "drug_order ${it.drug_order}"
-            println "code ${it.code}"
+            println "sequence ${it.code}"
             println "atc_code ${it.atc_code}"
             println "is_deleted ${it.is_deleted}"
             println ""

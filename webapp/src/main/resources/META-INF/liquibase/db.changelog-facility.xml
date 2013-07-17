@@ -26,8 +26,8 @@
             <column name="value" type="varchar(31)">
                 <constraints nullable="false"/>
             </column>
-            <column name="valid_from_date" type="date"/>
-            <column name="valid_thru_date" type="date"/>
+            <column name="from_date" type="date"/>
+            <column name="thru_date" type="date"/>
         </createTable>
 
         <createTable tableName="facility_names">

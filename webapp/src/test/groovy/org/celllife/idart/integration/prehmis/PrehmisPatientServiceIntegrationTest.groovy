@@ -27,7 +27,6 @@ class PrehmisPatientServiceIntegrationTest {
 
     @Test
     void testFindByIdentifier() throws Exception {
-
         Set<Patient> patients = patientProvider.findByIdentifier("WES", "72254311")
         Assert.assertNotNull(patients)
         Assert.assertFalse(patients.empty)

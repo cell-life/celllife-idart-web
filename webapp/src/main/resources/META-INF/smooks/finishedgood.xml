@@ -1,34 +1,18 @@
 <?xml version="1.0"?>
 <smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
-                      xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.4.xsd">
+                      xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.4.xsd"
+                      xmlns:core="http://www.milyn.org/xsd/smooks/smooks-core-1.4.xsd">
 
-
-    <resource-config selector="/finishedGoods">
-        <resource>org.milyn.delivery.DomModelCreator</resource>
-    </resource-config>
+    <core:filterSettings type="SAX" terminateOnException="false"/>
 
     <!-- Java Beans -->
-
-    <jb:bean beanId="finishedGoods"
-             class="java.util.ArrayList"
-             createOnElement="finishedGoods">
-
-        <jb:wiring beanType="org.celllife.idart.domain.part.FinishedGood"/>
-    </jb:bean>
 
     <jb:bean beanId="finishedGood"
              class="org.celllife.idart.domain.part.FinishedGood"
              createOnElement="finishedGood">
 
-        <jb:wiring beanIdRef="identifiers" setterMethod="setIdentifiers"/>
-
-    </jb:bean>
-
-    <jb:bean beanId="identifiers"
-             class="java.util.ArrayList"
-             createOnElement="identifiers">
-
-        <jb:wiring beanType="org.celllife.idart.domain.common.Identifier"/>
+        <jb:wiring setterMethod="addIdentifier" beanIdRef="identifier" />
+        <jb:wiring property="unitOfMeasure" beanIdRef="unitOfMeasure"/>
 
     </jb:bean>
 
@@ -38,6 +22,13 @@
 
         <jb:value property="system" data="system"/>
         <jb:value property="value" data="value"/>
+
+    </jb:bean>
+
+    <jb:bean beanId="unitOfMeasure"
+             class="org.celllife.idart.domain.unitofmeasure.UnitOfMeasure"
+             createOnElement="finishedGood">
+
 
     </jb:bean>
 

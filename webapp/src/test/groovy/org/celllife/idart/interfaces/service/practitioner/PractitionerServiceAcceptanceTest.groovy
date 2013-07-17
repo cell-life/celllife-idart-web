@@ -2,12 +2,14 @@ package org.celllife.idart.interfaces.service.practitioner
 
 import org.celllife.idart.domain.assignment.AssignmentResource
 import org.celllife.idart.domain.clinic.ClinicResource
+import org.celllife.idart.domain.patient.PatientResource
+import org.celllife.idart.domain.person.PersonResource
 import org.celllife.idart.domain.practitioner.PractitionerResource
 import org.junit.Before
 import org.junit.Test
 
-import static org.junit.Assert.assertEquals
-import static org.junit.Assert.assertNotNull
+import static groovy.json.JsonOutput.*
+import static org.junit.Assert.*
 
 /**
  * User: Kevin W. Sewell
@@ -21,7 +23,9 @@ class PractitionerServiceAcceptanceTest {
 
         AssignmentResource.clear()
 
+        PatientResource.clear()
         PractitionerResource.clear()
+        PersonResource.clear()
 
         ClinicResource.clear()
         ClinicResource.post(ClinicResource.testClinic())
@@ -44,6 +48,5 @@ class PractitionerServiceAcceptanceTest {
 
         assertNotNull practitioners
         assertEquals(13, practitioners.size)
-
     }
 }

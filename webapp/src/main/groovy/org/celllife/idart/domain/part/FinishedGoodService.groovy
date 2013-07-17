@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.domain.common.Identifier
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-14
@@ -7,6 +9,7 @@ package org.celllife.idart.domain.part
  */
 public interface FinishedGoodService {
 
-    void save(FinishedGood finishedGood)
+    FinishedGood save(FinishedGood finishedGood)
 
+    FinishedGood findByIdentifiers(Set<Identifier> identifiers)
 }

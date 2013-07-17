@@ -7,8 +7,8 @@ package org.celllife.idart.domain.unitofmeasure
  */
 interface UnitOfMeasureService {
 
-    def save(Iterable<UnitOfMeasure> unitOfMeasures)
+    Iterable<UnitOfMeasure> save(Iterable<UnitOfMeasure> unitOfMeasures)
 
-    def save(UnitOfMeasure unitOfMeasure)
+    UnitOfMeasure save(UnitOfMeasure unitOfMeasure)
 
 }

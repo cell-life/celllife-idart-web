@@ -59,6 +59,12 @@
                                  referencedTableName="party_classification"
                                  referencedColumnNames="pk"/>
 
+        <addForeignKeyConstraint baseTableName="party_contact_mechanisms"
+                                 baseColumnNames="contact_mechanism"
+                                 constraintName="party_contact_mechanisms_fp"
+                                 referencedTableName="contact_mechanism"
+                                 referencedColumnNames="pk"/>
+
         <addForeignKeyConstraint baseTableName="default_dosage_instruction"
                                  baseColumnNames="medication"
                                  constraintName="default_dosage_instruction_medication_fk"
@@ -69,6 +75,18 @@
                                  baseColumnNames="dosage_instruction"
                                  constraintName="default_dosage_instruction_fk"
                                  referencedTableName="dosage_instruction"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="party_facility"
+                                 baseColumnNames="party"
+                                 constraintName="party_facility_party_fk"
+                                 referencedTableName="party"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="party_facility"
+                                 baseColumnNames="facility"
+                                 constraintName="party_facility_facility_fk"
+                                 referencedTableName="facility"
                                  referencedColumnNames="pk"/>
 
     </changeSet>

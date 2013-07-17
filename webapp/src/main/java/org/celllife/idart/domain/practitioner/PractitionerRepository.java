@@ -17,16 +17,21 @@ public interface PractitionerRepository extends PagingAndSortingRepository<Pract
 
     @Query("select practitioner " +
             "from Practitioner practitioner " +
-            "join practitioner.identifiers identifier " +
-            "where identifier.value = :identifier")
-    List<Practitioner> findByIdentifier(@Param("identifier") String identifier);
+            "join practitioner.identifiers practitionerIdentifier " +
+            "left join practitioner.person person " +
+            "left join person.identifiers personIdentifier " +
+            "where practitionerIdentifier.value = :identifierValue " +
+            "or personIdentifier.value = :identifierValue")
+    List<Practitioner> findByIdentifier(@Param("identifierValue") String identifierValue);
 
     @Query("select practitioner " +
             "from Practitioner practitioner " +
-            "join practitioner.identifiers identifier " +
-            "where identifier.value = :identifierValue " +
-            "and identifier.system = :identifierSystem")
-    Practitioner findOneByIdentifier(@Param("identifierValue") String identifierValue,
-                                     @Param("identifierSystem") String identifierSystem);
+            "join practitioner.identifiers practitionerIdentifier " +
+            "left join practitioner.person person " +
+            "left join person.identifiers personIdentifier " +
+            "where (practitionerIdentifier.system = :identifierSystem and practitionerIdentifier.value = :identifierValue) " +
+            "or (personIdentifier.system = :identifierSystem and personIdentifier.value = :identifierValue)")
+    Practitioner findOneByIdentifier(@Param("identifierSystem") String identifierSystem,
+                                     @Param("identifierValue") String identifierValue);
 
 }

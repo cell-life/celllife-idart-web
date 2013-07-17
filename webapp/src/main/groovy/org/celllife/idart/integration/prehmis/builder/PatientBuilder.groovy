@@ -69,8 +69,12 @@ class PatientBuilder {
         }
         String mobileNumber = prehmisPatient.cellphone_number.text()
         if (mobileNumber != null && !mobileNumber.isEmpty()) {
-//            Contact Details
-//            person.setMobileNumber(mobileNumber)
+            mobileNumber = mobileNumber.replaceAll(" ", "")
+            if (mobileNumber.length().equals(11)) {
+                person.addMobileTelephoneNumber(mobileNumber.substring(0,2), "0" + mobileNumber.substring(2))
+            } else {
+                person.addMobileTelephoneNumber("27", mobileNumber)
+            }
         }
 
         patient.setPerson(person)

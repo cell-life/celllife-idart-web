@@ -47,12 +47,14 @@ class Part implements Persistable {
         this.form = inject(form)
     }
 
-    def mergeClassifications(Part that) {
-
-        if (!this.class.isAssignableFrom(that.class)) {
-            throw new RuntimeException("Incompatible Part Types: this ${this.class} that ${that.class}")
+    def merge(Part that) {
+        if (that == null) {
+            return
         }
 
-        that.classifications.each { classification -> this.classifications << classification }
+        this.mergeIdentifiers(that)
+        this.unitOfMeasure = that.unitOfMeasure
+        this.form = that.form
+        that.classifications?.each { classification -> this.classifications << classification }
     }
 }

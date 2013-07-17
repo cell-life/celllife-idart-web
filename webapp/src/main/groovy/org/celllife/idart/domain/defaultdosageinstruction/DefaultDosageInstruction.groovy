@@ -8,8 +8,6 @@ import org.celllife.idart.domain.part.FinishedGood
 
 import javax.validation.constraints.NotNull
 
-import static org.celllife.idart.framework.aspectj.InjectIdentified.inject
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-13
@@ -27,7 +25,4 @@ class DefaultDosageInstruction implements Persistable {
     @NotNull
     DosageInstruction dosageInstruction
 
-    void setMedication(FinishedGood medication) {
-        this.medication = inject(medication)
-    }
 }

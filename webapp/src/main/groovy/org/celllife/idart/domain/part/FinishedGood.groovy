@@ -28,4 +28,14 @@ class FinishedGood extends Part {
                 )
         )
     }
+
+    def merge(FinishedGood that) {
+
+        if (that == null) {
+            return
+        }
+
+        super.merge(that)
+        that.billOfMaterials?.each { billOfMaterial -> this.billOfMaterials << billOfMaterial }
+    }
 }

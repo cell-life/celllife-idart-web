@@ -46,6 +46,10 @@ class Identifiable {
 
     def mergeIdentifiers(that) {
 
+        if (that == null) {
+            return
+        }
+
         if (!this.class.isAssignableFrom(that.class)) {
             throw new RuntimeException("Incompatible Identifier Types: this ${this.class} that ${that.class}")
         }

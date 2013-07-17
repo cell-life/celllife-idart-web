@@ -10,8 +10,6 @@ import org.celllife.idart.domain.product.Good
 import org.celllife.idart.domain.substitution.Substitution
 import org.celllife.idart.domain.substitutionreason.SubstitutionReason
 
-import static org.celllife.idart.framework.aspectj.InjectIdentified.inject
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-17
@@ -74,7 +72,4 @@ class PrescribedMedication implements Persistable {
      */
     DosageInstruction dosageInstruction
 
-    void setMedication(Good medication) {
-        this.medication = inject(medication)
-    }
 }

@@ -25,10 +25,10 @@
     "prescribedMedications": [
         {
             "medication": {
-                "codes": [
+                "identifiers": [
                     {
-                        "system": "http://www.cell-life.org/idart/medication",
-                        "value": "00001"
+                        "system": "http://www.cell-life.org/idart/good",
+                        "value": "Abacavir 20mg/ml 240ml"
                     }
                 ]
             },

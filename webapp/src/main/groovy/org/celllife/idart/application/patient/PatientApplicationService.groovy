@@ -1,6 +1,6 @@
 package org.celllife.idart.application.patient
 
-import org.celllife.idart.interfaces.service.patient.FindPatientsByIdentifierRequest
+import org.celllife.idart.domain.patient.Patient
 
 /**
  * User: Kevin W. Sewell
@@ -9,6 +9,8 @@ import org.celllife.idart.interfaces.service.patient.FindPatientsByIdentifierReq
  */
 interface PatientApplicationService {
 
-    FindPatientsByIdentifierResponse findByIdentifier(FindPatientsByIdentifierRequest request)
+    List<Patient> findByIdentifier(String applicationId, String clinicIdentifier, String patientIdentifier)
+
+    Patient save(Patient patient)
 
 }

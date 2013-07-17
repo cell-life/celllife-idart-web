@@ -13,7 +13,7 @@ class Hl7CodeFileReaderTest {
     @Test
     void shouldReadOrderableDrugFormXls() throws Exception {
 
-        InputStream inputStream = getClass().getResourceAsStream("/data/hl7/OrderableDrugForm.xls")
+        InputStream inputStream = getClass().getResourceAsStream("/data/form/OrderableDrugForm.xls")
         CodeFile codeFile = Hl7CodeFileReader.readFile("HL7v3 MaterialForm", inputStream)
 
         Assert.assertNotNull(codeFile)
@@ -24,7 +24,7 @@ class Hl7CodeFileReaderTest {
     @Test
     void shouldReadRouteOfAdministrationXls() throws Exception {
 
-        InputStream inputStream = getClass().getResourceAsStream("/data/hl7/RouteOfAdministration.xls")
+        InputStream inputStream = getClass().getResourceAsStream("/data/route/RouteOfAdministration.xls")
 
 
         CodeFile codeFile = Hl7CodeFileReader.readFile("HL7v3 RouteOfAdministration", inputStream)

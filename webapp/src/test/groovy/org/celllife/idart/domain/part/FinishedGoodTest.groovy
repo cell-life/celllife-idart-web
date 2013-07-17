@@ -1,8 +1,11 @@
 package org.celllife.idart.domain.part
 
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.Test
+import org.milyn.Smooks
+import org.milyn.payload.JavaResult
+
+import javax.xml.transform.stream.StreamSource
 
 /**
  * User: Kevin W. Sewell
@@ -14,11 +17,21 @@ class FinishedGoodTest {
     @Test
     public void shouldMarshalTestData() throws Exception {
 
-        def inputStream = getClass().getResourceAsStream("/data/drug/finishedGoods-J05AF01.json")
-        def typeReference = new TypeReference<List<FinishedGood>>() {}
-        def finishedGoods = new ObjectMapper().reader(typeReference).readValue(inputStream)
-        finishedGoods.each { finishedGood -> println finishedGood }
+        def inputStream = getClass().getResourceAsStream("/data/finishedGood/001.json")
+
+        def finishedGood = new ObjectMapper().reader(FinishedGood).readValue(inputStream)
+
+        println finishedGood
 
     }
 
+    @Test
+    public void shouldMarshalTestDataFromXml() throws Exception {
+
+        def finishedGood = new XmlSlurper().parse(getClass().getResourceAsStream("/data/drug/finishedGood.xml"))
+
+        println finishedGood.identifier.@value
+
+
+    }
 }

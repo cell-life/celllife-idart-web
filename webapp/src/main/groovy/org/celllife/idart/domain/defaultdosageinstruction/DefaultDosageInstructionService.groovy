@@ -7,6 +7,6 @@ package org.celllife.idart.domain.defaultdosageinstruction
  */
 interface DefaultDosageInstructionService {
 
-    void save(DefaultDosageInstruction defaultDosageInstruction)
+    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction)
 
 }
