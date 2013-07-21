@@ -6,4 +6,7 @@ package org.celllife.idart.client.common;
  * Time: 18h27
  */
 public enum MaritalStatus {
+
+    SINGLE,
+    MARRIED
 }

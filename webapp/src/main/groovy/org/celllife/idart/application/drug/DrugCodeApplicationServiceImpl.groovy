@@ -15,12 +15,10 @@ import static java.lang.String.format
 
     static final String DRUG_CODE_COUNTER_NAME = "DrugCode"
 
-    static final String DRUG_CODE_FORMAT = "%08d"
-
     @Autowired CounterService counterService
 
     @Override
     String nextDrugCode() {
-        format(DRUG_CODE_FORMAT, counterService.getNextValue(DRUG_CODE_COUNTER_NAME))
+        format("%08d", counterService.getNextValue(DRUG_CODE_COUNTER_NAME))
     }
 }

@@ -36,6 +36,12 @@
                                  referencedColumnNames="pk"/>
 
         <addForeignKeyConstraint baseTableName="prescription"
+                                 baseColumnNames="encounter"
+                                 constraintName="prescription_encounter_fk"
+                                 referencedTableName="encounter"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="prescription"
                                  baseColumnNames="prescriber"
                                  constraintName="prescription_practitioner_fk"
                                  referencedTableName="practitioner"

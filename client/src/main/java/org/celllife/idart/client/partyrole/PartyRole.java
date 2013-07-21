@@ -5,6 +5,7 @@ import org.celllife.idart.client.person.Person;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -12,11 +13,11 @@ import java.util.Set;
  * Date: 2013-07-18
  * Time: 18h23
  */
-public class PartyRole implements Serializable {
+public final class PartyRole implements Serializable {
 
     public Person person;
 
-    public Set<Identifier> identifiers;
+    public Set<Identifier> identifiers = new HashSet<Identifier>();
 
     public Date fromDate;
 

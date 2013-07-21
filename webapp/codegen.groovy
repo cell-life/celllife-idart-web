@@ -19,6 +19,8 @@ codeGen.generateHibernateValidator(codeableModels)
 
 def identifiableModels = [
         [entityName: "Clinic"],
+        [entityName: "Dispensation"],
+        [entityName: "Encounter"],
         [entityName: "Patient"],
         [entityName: "Prescription"],
         [entityName: "Practitioner"],

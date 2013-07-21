@@ -4,8 +4,6 @@ import org.celllife.idart.domain.common.Identifier
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-import static org.celllife.idart.domain.prescription.Prescriptions.*
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-15
@@ -62,7 +60,17 @@ import static org.celllife.idart.domain.prescription.Prescriptions.*
     }
 
     String nextPatientIdentifier() {
-        String.format(IDART_PRESCRIPTION_IDENTIFIER_FORMAT, prescriptionSequence.nextValue())
+        String.format("%08d", prescriptionSequence.nextValue())
     }
 
+    static requiresIdartIdentifier(Prescription... prescriptions) {
+
+        for (Prescription prescription in prescriptions) {
+            if (prescription?.hasIdentifierForSystem(Prescription.IDART_SYSTEM)) {
+                return false
+            }
+        }
+
+        return true
+    }
 }

@@ -7,13 +7,13 @@ import java.io.Serializable;
  * Date: 2013-07-18
  * Time: 18h29
  */
-public final class LocalizedText implements Serializable {
+public final class LocalisedText implements Serializable {
 
     public String locale;
 
     public String value;
 
-    public LocalizedText() {
+    public LocalisedText() {
     }
 
     @Override

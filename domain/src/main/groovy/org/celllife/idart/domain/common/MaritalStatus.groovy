@@ -7,6 +7,7 @@ package org.celllife.idart.domain.common
  */
 enum MaritalStatus {
 
-    SINGLE
+    SINGLE,
+    MARRIED
 
 }

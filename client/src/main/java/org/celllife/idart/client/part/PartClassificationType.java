@@ -7,6 +7,8 @@ package org.celllife.idart.client.part;
  */
 public enum PartClassificationType {
 
-    ATC
+    ATC,
+
+    REGIMEN
 
 }

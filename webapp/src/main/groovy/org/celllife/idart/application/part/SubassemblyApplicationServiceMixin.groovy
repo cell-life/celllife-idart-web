@@ -1,11 +1,5 @@
 package org.celllife.idart.application.part
 
-import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.part.Subassembly
-import org.celllife.idart.domain.part.SubassemblyService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
 
 /**

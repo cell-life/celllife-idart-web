@@ -15,6 +15,7 @@ import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.type.TypeReference;
 
 import java.io.IOException;
@@ -67,6 +68,7 @@ public final class IdartClientSingleton implements IdartClient {
 
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
     }
 
     @Override
@@ -283,10 +285,10 @@ public final class IdartClientSingleton implements IdartClient {
         }
     }
 
-    private String mapToJson(Object object) {
+    String mapToJson(Object object) {
 
         try {
-            return objectMapper.writeValueAsString(object);
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

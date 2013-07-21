@@ -25,7 +25,9 @@
     <include file="db.changelog-contactmechanism.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-defaultdosageinstruction.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-dispensation.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-dosageinstruction.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-encounter.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-facility.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-inventoryitem.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-part.xml" relativeToChangelogFile="true"/>

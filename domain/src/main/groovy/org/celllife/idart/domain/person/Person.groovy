@@ -11,6 +11,8 @@ import org.celllife.idart.domain.party.Party
  */
 class Person extends Party {
 
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/people"
+
     /**
      * First Name
      */

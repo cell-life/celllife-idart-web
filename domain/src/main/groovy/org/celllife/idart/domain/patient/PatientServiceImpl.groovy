@@ -5,8 +5,6 @@ import org.celllife.idart.domain.partyrole.PartyRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-import static org.celllife.idart.domain.patient.Patients.*
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25
@@ -61,6 +59,17 @@ import static org.celllife.idart.domain.patient.Patients.*
     }
 
     private String nextPatientIdentifier() {
-        String.format(IDART_PATIENT_IDENTIFIER_FORMAT, patientSequence.nextValue())
+        String.format("%08d", patientSequence.nextValue())
+    }
+
+    static requiresIdartIdentifier(Patient... patients) {
+
+        for (Patient patient in patients) {
+            if (((PartyRole) patient)?.hasIdentifierForSystem(Patient.IDART_SYSTEM)) {
+                return false
+            }
+        }
+
+        return true
     }
 }

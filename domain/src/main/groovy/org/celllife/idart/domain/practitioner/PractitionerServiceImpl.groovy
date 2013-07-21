@@ -5,8 +5,6 @@ import org.celllife.idart.domain.partyrole.PartyRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-import static org.celllife.idart.domain.practitioner.Practitioners.*
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-29
@@ -60,6 +58,17 @@ import static org.celllife.idart.domain.practitioner.Practitioners.*
     }
 
     private String nextPractitionerIdentifier() {
-        String.format(IDART_PRACTITIONER_IDENTIFIER_FORMAT, practitionerSequence.nextValue())
+        String.format("%08d", practitionerSequence.nextValue())
+    }
+
+    static requiresIdartIdentifier(Practitioner... practitioners) {
+
+        for (Practitioner practitioner in practitioners) {
+            if (((PartyRole) practitioner)?.hasIdentifierForSystem(Practitioner.IDART_SYSTEM)) {
+                return false
+            }
+        }
+
+        return true
     }
 }

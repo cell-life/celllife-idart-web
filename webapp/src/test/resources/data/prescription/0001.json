@@ -39,7 +39,7 @@
                         "codes": [
                             {
                                 "system": "http://unitsofmeasure.org",
-                                "value": "mg"
+                                "value": "ml"
                             }
                         ]
                     }
@@ -48,12 +48,12 @@
                     "repeat": {
                         "frequency": 2,
                         "duration": {
-                            "value": 2,
+                            "value": 1,
                             "unitOfMeasure": {
                                 "codes": [
                                     {
                                         "system": "http://unitsofmeasure.org",
-                                        "value": "mg"
+                                        "value": "d"
                                     }
                                 ]
                             }

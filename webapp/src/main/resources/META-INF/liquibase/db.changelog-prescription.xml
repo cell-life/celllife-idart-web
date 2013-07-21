@@ -9,6 +9,7 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="encounter" type="bigint"/>
             <column name="prescriber" type="bigint"/>
             <column name="patient" type="bigint"/>
             <column name="date_written" type="date"/>

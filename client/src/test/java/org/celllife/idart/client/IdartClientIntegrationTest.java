@@ -1,15 +1,21 @@
 package org.celllife.idart.client;
 
-import org.celllife.idart.client.common.LocalizedText;
+import org.celllife.idart.client.common.LocalisedText;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Compound;
 import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.partyrole.PartyRole;
+import org.celllife.idart.client.prescription.Prescription;
+import org.celllife.idart.client.prescription.PrescriptionBuilder;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,7 +114,7 @@ public class IdartClientIntegrationTest {
             Assert.assertNotNull(form.names);
             Assert.assertTrue(form.names.size() != 0);
             if (form.descriptions != null) {
-                for (LocalizedText description : form.descriptions) {
+                for (LocalisedText description : form.descriptions) {
                     Assert.assertNotNull(description);
                     Assert.assertNotNull(description.locale);
                     Assert.assertNotNull(description.value);
@@ -131,12 +137,38 @@ public class IdartClientIntegrationTest {
             Assert.assertNotNull(unitOfMeasure.names);
             Assert.assertTrue(unitOfMeasure.names.size() != 0);
             if (unitOfMeasure.descriptions != null) {
-                for (LocalizedText description : unitOfMeasure.descriptions) {
+                for (LocalisedText description : unitOfMeasure.descriptions) {
                     Assert.assertNotNull(description);
                     Assert.assertNotNull(description.locale);
                     Assert.assertNotNull(description.value);
                 }
             }
         }
+    }
+
+    @Test
+    public void testCreatePrescription() throws Exception {
+
+        Prescription prescription = new PrescriptionBuilder()
+                .setIdentifier("999999", "00000001")
+                .setPatient("http://www.pgwc.gov.za","72254311")
+                .setPrescriber("http://prehmis.capetown.gov.za", "1299")
+                .setDateWritten(new Date())
+                .addPrescribedMedication()
+                    .setMedication("00000001")
+                    .setDosageQuantity(100, "http://www.celllife.org/idart/unitsOfMeasure", "each")
+                    .repeat(2)
+                    .every(1, "http://unitsofmeasure.org", "d")
+                    .finishPrescribedMedication()
+                .addPrescribedMedication()
+                    .setMedication("00000002")
+                    .setDosageQuantity(100, "http://unitsofmeasure.org", "ml")
+                    .repeat(1)
+                    .every(4, "http://unitsofmeasure.org", "h")
+                    .finishPrescribedMedication()
+                .finishPrescription();
+
+        System.out.println(((IdartClientSingleton) idartClient).mapToJson(prescription));
+
     }
 }

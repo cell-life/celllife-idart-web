@@ -1,5 +1,7 @@
 package org.celllife.idart.client.common;
 
+import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -12,6 +14,9 @@ public final class Quantity implements Serializable {
 
     public BigDecimal value;
 
-    public Coded unitOfMeasure;
+    public UnitOfMeasure unitOfMeasure;
 
+    public Quantity() {
+
+    }
 }

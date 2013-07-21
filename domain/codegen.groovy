@@ -16,6 +16,8 @@ codeGen.generateCodeableAggregateRoot([
 
 codeGen.generateIdentifiableAggregateRoot([
         [entityName: "Clinic"],
+        [entityName: "Dispensation"],
+        [entityName: "Encounter"],
         [entityName: "Patient"],
         [entityName: "Prescription"],
         [entityName: "Practitioner"],

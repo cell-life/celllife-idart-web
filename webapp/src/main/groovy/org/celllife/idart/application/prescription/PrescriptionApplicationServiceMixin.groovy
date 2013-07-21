@@ -1,11 +1,5 @@
 package org.celllife.idart.application.prescription
 
-import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.prescription.Prescription
-import org.celllife.idart.domain.prescription.PrescriptionService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
 
 /**

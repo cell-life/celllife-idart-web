@@ -16,6 +16,11 @@ public final class Code implements Serializable {
     public Code() {
     }
 
+    public Code(String system, String value) {
+        this.system = system;
+        this.value = value;
+    }
+
     @Override
     public String toString() {
         return "Coded{" +
