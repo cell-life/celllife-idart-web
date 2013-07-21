@@ -1,5 +1,7 @@
 package $domainPackageName
 
+import org.celllife.idart.domain.common.Code
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -22,27 +24,66 @@ import javax.annotation.Generated
 
     @Override
     ${entityName} save(${entityName} ${lowerCaseEntityName}) {
+        ${lowerCaseEntityName}Repository.save(lookupAndMerge(${lowerCaseEntityName}))
+    }
 
-        String system = ${lowerCaseEntityName}.getFirstSystem()
-        String code = ${lowerCaseEntityName}.getCodeValue(system)
+    def lookupAndMerge(${entityName} ${lowerCaseEntityName}) {
 
-        ${entityName} saved${entityName} = ${lowerCaseEntityName}Repository.findOneByCode(system, code)
+        def (String system, String value) = getLookupCode(${lowerCaseEntityName})
 
-        if (saved${entityName} != null) {
-            saved${entityName}.mergeCodes(${lowerCaseEntityName})
-            return ${lowerCaseEntityName}Repository.save(saved${entityName})
-        } else {
-            return ${lowerCaseEntityName}Repository.save(${lowerCaseEntityName})
+        ${entityName} existing${entityName} = ${lowerCaseEntityName}Repository.findOneByCode(system, value)
+
+        if (existing${entityName} == null) {
+
+            // Ensure that idartCodeValue is always set
+            if (${lowerCaseEntityName}.idartCodeValue == null) {
+                ${lowerCaseEntityName}.addCode(${lowerCaseEntityName}.idartSystem, ${lowerCaseEntityName}.defaultCodeValue)
+            }
+
+            return ${lowerCaseEntityName}
         }
-    }              
-    
+
+        existing${entityName}.mergeCodes(${lowerCaseEntityName})
+        existing${entityName}
+    }
+
+    static getLookupCode(${entityName} ${lowerCaseEntityName}) {
+
+        if (${lowerCaseEntityName}.idartCodeValue == null && ${lowerCaseEntityName}.defaultCodeValue == null) {
+            throw new RuntimeException("No code for default system [\${ ${lowerCaseEntityName}.defaultSystem}] or idart system [\${ ${lowerCaseEntityName}.idartSystem}]")
+        }
+
+        if (${lowerCaseEntityName}.defaultCodeValue != null) {
+            return [${lowerCaseEntityName}.defaultSystem, ${lowerCaseEntityName}.defaultCodeValue]
+        }
+
+        return [${lowerCaseEntityName}.idartSystem, ${lowerCaseEntityName}.idartCodeValue]
+    }
+
     @Override
     Iterable<${entityName}> findAll() {
         ${lowerCaseEntityName}Repository.findAll()
     }
 
     @Override
-    ${entityName} findByIdentifier(String identifier) {
+    ${entityName} findByCode(String code) {
+        ${lowerCaseEntityName}Repository.findOneByCode(${entityName}.IDART_SYSTEM, code)
+    }
+
+    @Override
+    ${entityName} findByCodes(Iterable<Code> codes) {
+
+        if (codes == null) {
+            return null
+        }
+
+        for (code in codes) {
+            def ${lowerCaseEntityName} = ${lowerCaseEntityName}Repository.findOneByCode(code.system, code.value)
+            if (${lowerCaseEntityName} != null) {
+                return ${lowerCaseEntityName}
+            }
+        }
+
         null
     }
 }

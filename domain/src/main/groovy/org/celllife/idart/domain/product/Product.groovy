@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.product
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.common.Persistable
@@ -11,12 +10,12 @@ import org.celllife.idart.domain.common.Persistable
  * Time: 18h13
  */
 @Mixin(Identifiable)
-class Product implements Persistable {
+class Product implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     /**
      * Identified by

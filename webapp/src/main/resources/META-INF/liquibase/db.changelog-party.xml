@@ -116,7 +116,7 @@
                              foreignKeyName="height_physical_characteristic_fk"/>
             </column>
             <column name="value" type="numeric"/>
-            <column name="unit_of_measure" type="bigint">
+            <column name="unit_of_measure" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="height_unit_of_measure_fk"/>
             </column>
         </createTable>
@@ -128,7 +128,7 @@
                              foreignKeyName="weight_physical_characteristic_fk"/>
             </column>
             <column name="value" type="numeric"/>
-            <column name="unit_of_measure" type="bigint">
+            <column name="unit_of_measure" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="weight_unit_of_measure_fk"/>
             </column>
         </createTable>

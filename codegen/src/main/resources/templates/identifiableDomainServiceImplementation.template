@@ -43,8 +43,12 @@ import javax.annotation.Generated
     @Override
     ${entityName} findByIdentifiers(Set<Identifier> identifiers) {
 
+        if (identifiers == null) {
+            return null
+        }
+
         for (Identifier identifier: identifiers) {
-            ${entityName} ${lowerCaseEntityName} = ${lowerCaseEntityName}Repository.findOneByIdentifier(identifier.value, identifier.system)
+            ${entityName} ${lowerCaseEntityName} = ${lowerCaseEntityName}Repository.findOneByIdentifier(identifier.system, identifier.value)
             if (${lowerCaseEntityName} != null) {
                 return ${lowerCaseEntityName}
             }

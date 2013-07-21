@@ -1,8 +1,9 @@
 package org.celllife.idart.application.part
 
-import org.celllife.idart.domain.part.Compound
+import org.celllife.idart.domain.form.FormService
 import org.celllife.idart.domain.part.Drug
 import org.celllife.idart.domain.part.DrugService
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -17,11 +18,30 @@ import org.springframework.stereotype.Service
 
     @Autowired PartApplicationService partApplicationService
 
+    @Autowired UnitOfMeasureService unitOfMeasureService
+
+    @Autowired FormService formService
+
     @Override
     Drug save(Drug drug) {
 
-        drug.billOfMaterials.each { billOfMaterial ->
-            billOfMaterial.part = partApplicationService.findByIdentifiers(billOfMaterial.part.identifiers)
+        drug?.with {
+
+            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+
+            form = formService.findByCodes(form?.codes)
+
+            billOfMaterials?.each { billOfMaterial ->
+
+                billOfMaterial?.with {
+                    quantityUsed?.with {
+                        unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                    }
+
+                    part = partApplicationService.findByIdentifiers(part?.identifiers)
+                }
+
+            }
         }
 
         drugService.save(drug)

@@ -1,0 +1,66 @@
+{
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/999999/prescriptions",
+            "value": "00002"
+        }
+    ],
+    "prescriber": {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "1299"
+            }
+        ]
+    },
+    "patient": {
+        "identifiers": [
+            {
+                "system": "http://www.pgwc.gov.za",
+                "value": "72254311"
+            }
+        ]
+    },
+    "dateWritten": "2013-01-01",
+    "prescribedMedications": [
+        {
+            "medication": {
+                "identifiers": [
+                    {
+                        "system": "http://www.cell-life.org/idart/goods",
+                        "value": "Abacavir 20mg/ml (240ml)"
+                    }
+                ]
+            },
+            "dosageInstruction": {
+                "doseQuantity": {
+                    "value": 100,
+                    "unitOfMeasure": {
+                        "codes": [
+                            {
+                                "system": "http://unitsofmeasure.org",
+                                "value": "mg"
+                            }
+                        ]
+                    }
+                },
+                "timing": {
+                    "repeat": {
+                        "frequency": 2,
+                        "duration": {
+                            "value": 2,
+                            "unitOfMeasure": {
+                                "codes": [
+                                    {
+                                        "system": "http://unitsofmeasure.org",
+                                        "value": "mg"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

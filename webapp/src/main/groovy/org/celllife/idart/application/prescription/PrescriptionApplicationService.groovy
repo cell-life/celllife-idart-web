@@ -9,6 +9,4 @@ import org.celllife.idart.domain.prescription.Prescription
  */
 interface PrescriptionApplicationService {
 
-    def save(Prescription prescription)
-
 }

@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.partyfacility
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.party.Party
@@ -10,12 +9,12 @@ import org.celllife.idart.domain.party.Party
  * Date: 2013-06-16
  * Time: 11h22
  */
-class PartyFacility implements Persistable {
+class PartyFacility implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     /**
      * Type

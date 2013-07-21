@@ -1,6 +1,5 @@
 package org.celllife.idart.application.part
 
-import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.part.RawMaterial
 import org.celllife.idart.domain.part.RawMaterialService
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,7 +10,7 @@ import javax.annotation.Generated
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 01h48
+ * Time: 20h36
  */
 @Service
 @Mixin(RawMaterialApplicationServiceMixin)

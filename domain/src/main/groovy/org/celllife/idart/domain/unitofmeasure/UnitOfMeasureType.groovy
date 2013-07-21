@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.unitofmeasure
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.domain.common.LocalisedText
@@ -15,12 +14,12 @@ import org.celllife.idart.domain.common.Persistable
 @ToString
 @EqualsAndHashCode(excludes = "pk")
 @Mixin([Nameable])
-class UnitOfMeasureType implements Persistable {
+class UnitOfMeasureType implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     Set<LocalisedText> names = []
 

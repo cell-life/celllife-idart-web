@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.unitofmeasure
 
+import org.celllife.idart.domain.common.Code
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -8,7 +10,7 @@ import javax.annotation.Generated
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 03h45
+ * Time: 20h35
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
@@ -22,27 +24,66 @@ import javax.annotation.Generated
 
     @Override
     UnitOfMeasure save(UnitOfMeasure unitOfMeasure) {
+        unitOfMeasureRepository.save(lookupAndMerge(unitOfMeasure))
+    }
 
-        String system = unitOfMeasure.getFirstSystem()
-        String code = unitOfMeasure.getCodeValue(system)
+    def lookupAndMerge(UnitOfMeasure unitOfMeasure) {
 
-        UnitOfMeasure savedUnitOfMeasure = unitOfMeasureRepository.findOneByCode(system, code)
+        def (String system, String value) = getLookupCode(unitOfMeasure)
 
-        if (savedUnitOfMeasure != null) {
-            savedUnitOfMeasure.mergeCodes(unitOfMeasure)
-            return unitOfMeasureRepository.save(savedUnitOfMeasure)
-        } else {
-            return unitOfMeasureRepository.save(unitOfMeasure)
+        UnitOfMeasure existingUnitOfMeasure = unitOfMeasureRepository.findOneByCode(system, value)
+
+        if (existingUnitOfMeasure == null) {
+
+            // Ensure that idartCodeValue is always set
+            if (unitOfMeasure.idartCodeValue == null) {
+                unitOfMeasure.addCode(unitOfMeasure.idartSystem, unitOfMeasure.defaultCodeValue)
+            }
+
+            return unitOfMeasure
         }
-    }              
-    
+
+        existingUnitOfMeasure.mergeCodes(unitOfMeasure)
+        existingUnitOfMeasure
+    }
+
+    static getLookupCode(UnitOfMeasure unitOfMeasure) {
+
+        if (unitOfMeasure.idartCodeValue == null && unitOfMeasure.defaultCodeValue == null) {
+            throw new RuntimeException("No code for default system [${ unitOfMeasure.defaultSystem}] or idart system [${ unitOfMeasure.idartSystem}]")
+        }
+
+        if (unitOfMeasure.defaultCodeValue != null) {
+            return [unitOfMeasure.defaultSystem, unitOfMeasure.defaultCodeValue]
+        }
+
+        return [unitOfMeasure.idartSystem, unitOfMeasure.idartCodeValue]
+    }
+
     @Override
     Iterable<UnitOfMeasure> findAll() {
         unitOfMeasureRepository.findAll()
     }
 
     @Override
-    UnitOfMeasure findByIdentifier(String identifier) {
+    UnitOfMeasure findByCode(String code) {
+        unitOfMeasureRepository.findOneByCode(UnitOfMeasure.IDART_SYSTEM, code)
+    }
+
+    @Override
+    UnitOfMeasure findByCodes(Iterable<Code> codes) {
+
+        if (codes == null) {
+            return null
+        }
+
+        for (code in codes) {
+            def unitOfMeasure = unitOfMeasureRepository.findOneByCode(code.system, code.value)
+            if (unitOfMeasure != null) {
+                return unitOfMeasure
+            }
+        }
+
         null
     }
 }

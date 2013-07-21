@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service
 
     Good save(Good good) {
 
-        good.finishedGood = finishedGoodService.save(good.finishedGood)
+        good?.with {
+            finishedGood = finishedGoodService.findByIdentifiers(finishedGood?.identifiers)
+        }
 
         goodService.save(good)
     }

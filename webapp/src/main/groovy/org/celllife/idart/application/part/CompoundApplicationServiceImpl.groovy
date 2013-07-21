@@ -1,8 +1,9 @@
 package org.celllife.idart.application.part
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.domain.form.FormService
 import org.celllife.idart.domain.part.Compound
 import org.celllife.idart.domain.part.CompoundService
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -17,7 +18,20 @@ class CompoundApplicationServiceImpl implements CompoundApplicationService, Comp
 
     @Autowired CompoundService compoundService
 
+    @Autowired UnitOfMeasureService unitOfMeasureService
+
+    @Autowired FormService formService
+
     Compound save(Compound compound) {
+
+        compound?.with {
+
+            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+
+            form = formService.findByCodes(form?.codes)
+
+        }
+
         compoundService.save(compound)
     }
 

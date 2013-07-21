@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.indication
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.*
 
 /**
@@ -9,12 +8,12 @@ import org.celllife.idart.domain.common.*
  * Time: 20h54
  */
 @Mixin([Codeable, Nameable, Describable])
-class Indication implements Persistable {
+class Indication implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     Set<Code> codes = []
 

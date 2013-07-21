@@ -1,6 +1,5 @@
 package org.celllife.idart.infrastructure.part.json;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -13,9 +12,6 @@ import org.celllife.idart.framework.json.IdentifiableSerializer;
         @JsonSubTypes.Type(name = "engineering", value = EngineeringPartBillOfMaterialsItem.class)
 })
 public interface PartBillOfMaterialsItemMixin {
-
-    @JsonIgnore
-    Long getPk();
 
     @JsonSerialize(using = IdentifiableSerializer.class)
     Part getPart();

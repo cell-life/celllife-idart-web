@@ -1,9 +1,6 @@
 package org.celllife.idart.application.practitioner;
 
-import org.celllife.idart.domain.common.Identifier;
 import org.celllife.idart.domain.practitioner.Practitioner;
-
-import java.util.Set;
 
 import javax.annotation.Generated;
 

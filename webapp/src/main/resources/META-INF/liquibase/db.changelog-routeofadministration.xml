@@ -6,13 +6,13 @@
     <changeSet id="routeofadministration-1" author="kevin.sewell">
 
         <createTable tableName="route_of_administration">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
 
         <createTable tableName="route_of_administration_names">
-            <column name="route_of_administration" type="bigint">
+            <column name="route_of_administration" type="varchar(31)">
                 <constraints references="route_of_administration(pk)"
                              foreignKeyName="route_of_administration_names_fk"/>
             </column>
@@ -25,7 +25,7 @@
         </createTable>
 
         <createTable tableName="route_of_administration_codes">
-            <column name="route_of_administration" type="bigint">
+            <column name="route_of_administration" type="varchar(31)">
                 <constraints references="route_of_administration(pk)"
                              foreignKeyName="route_of_administration_codes_fk"/>
             </column>
@@ -38,7 +38,7 @@
         </createTable>
 
         <createTable tableName="route_of_administration_descriptions">
-            <column name="route_of_administration" type="bigint">
+            <column name="route_of_administration" type="varchar(31)">
                 <constraints references="route_of_administration(pk)"
                              foreignKeyName="route_of_administration_descriptions_fk"/>
             </column>

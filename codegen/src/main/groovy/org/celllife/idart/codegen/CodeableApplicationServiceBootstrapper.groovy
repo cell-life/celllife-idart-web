@@ -28,8 +28,7 @@ class CodeableApplicationServiceBootstrapper {
                 templateReader: "/templates/codeableApplicationServiceInterface.template",
                 model: model,
                 directory: directory,
-                fileName: fileName,
-                overwrite: false
+                fileName: fileName
         )
     }
 
@@ -41,8 +40,7 @@ class CodeableApplicationServiceBootstrapper {
                 templateReader: "/templates/codeableApplicationServiceImplementation.template",
                 model: model,
                 directory: directory,
-                fileName: fileName,
-                overwrite: false
+                fileName: fileName
         )
     }
 

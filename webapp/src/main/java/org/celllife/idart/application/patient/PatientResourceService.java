@@ -1,9 +1,6 @@
 package org.celllife.idart.application.patient;
 
-import org.celllife.idart.domain.common.Identifier;
 import org.celllife.idart.domain.patient.Patient;
-
-import java.util.Set;
 
 import javax.annotation.Generated;
 

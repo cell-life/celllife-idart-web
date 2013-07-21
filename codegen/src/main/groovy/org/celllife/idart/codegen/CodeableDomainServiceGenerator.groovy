@@ -2,15 +2,15 @@ package org.celllife.idart.codegen
 
 class CodeableDomainServiceGenerator {
 
-    static generateCodeableDomainService(String groovySourcesDirectory, String generatedSourcesDirectory, model) {
-        generateCodeableDomainServiceInterface(generatedSourcesDirectory, model)
+    static generateCodeableDomainService(String groovySourcesDirectory, model) {
+        generateCodeableDomainServiceInterface(groovySourcesDirectory, model)
         generateCodeableDomainServiceImplementation(groovySourcesDirectory, model)
     }
 
     static generateCodeableDomainServiceInterface(String baseDirectory, model) {
 
         def directory = baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/")
-        def fileName = model.entityName + "Service.java"
+        def fileName = model.entityName + "Service.groovy"
 
         Output.toFile(
                 templateReader: "/templates/codeableDomainServiceInterface.template",

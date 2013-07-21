@@ -6,13 +6,13 @@
     <changeSet id="form-1" author="kevin.sewell">
 
         <createTable tableName="form">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
 
         <createTable tableName="form_names">
-            <column name="form" type="bigint">
+            <column name="form" type="varchar(31)">
                 <constraints references="form(pk)" foreignKeyName="form_names_fk"/>
             </column>
             <column name="locale" type="varchar(10)">
@@ -24,7 +24,7 @@
         </createTable>
 
         <createTable tableName="form_codes">
-            <column name="form" type="bigint">
+            <column name="form" type="varchar(31)">
                 <constraints references="form(pk)" foreignKeyName="form_codes_fk"/>
             </column>
             <column name="system" type="varchar(255)">
@@ -36,7 +36,7 @@
         </createTable>
 
         <createTable tableName="form_descriptions">
-            <column name="form" type="bigint">
+            <column name="form" type="varchar(31)">
                 <constraints references="form(pk)" foreignKeyName="form_descriptions_fk"/>
             </column>
             <column name="locale" type="varchar(10)">

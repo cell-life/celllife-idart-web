@@ -70,6 +70,13 @@ import org.springframework.stereotype.Service
         def existingPatient = patientService.findByIdentifiers(newPatient.identifiers)
 
         if (existingPatient != null) {
+            if (existingPatient.person == null) {
+                // How did we manage to create a Patient with a Person... very very bad
+                throw new RuntimeException("Something bad happened")
+            }
+
+            // TODO Try out alternative solution
+            // newPatient.person.merge(existingPatient?.person)
             return newPatient.person = personApplicationService.update(newPatient.person, existingPatient.person?.pk)
         }
 

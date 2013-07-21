@@ -5,6 +5,7 @@ import org.celllife.idart.domain.practitioner.PractitionerService
 import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionService
 import org.celllife.idart.domain.product.GoodService
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-15
  * Time: 21h46
  */
-@Service class PrescriptionApplicationServiceImpl implements PrescriptionApplicationService {
+@Service class PrescriptionApplicationServiceImpl implements PrescriptionApplicationService, PrescriptionResourceService {
 
     @Autowired PatientService patientService
 
@@ -23,16 +24,49 @@ import org.springframework.stereotype.Service
 
     @Autowired PrescriptionService prescriptionService
 
-    def save(Prescription prescription) {
+    @Autowired UnitOfMeasureService unitOfMeasureService
 
-        prescription.patient = patientService.save(prescription.patient)
+    Prescription save(Prescription prescription) {
 
-        prescription.prescriber = practitionerService.save(prescription.prescriber)
+        prescription?.with {
 
-        prescription.prescribedMedications.each { prescribedMedication ->
-            prescribedMedication.medication = goodService.save(prescribedMedication.medication)
+            patient = patientService.save(patient)
+
+            prescriber = practitionerService.save(prescriber)
+
+            prescribedMedications.each { prescribedMedication ->
+
+                prescribedMedication?.with {
+                    medication = goodService.findByIdentifiers(medication.identifiers)
+
+                    dosageInstruction?.with {
+
+                        doseQuantity?.with {
+                            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                        }
+
+                        timing?.with {
+                            repeat?.with {
+                                duration?.with {
+                                    unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         prescriptionService.save(prescription)
+    }
+
+    @Override
+    Prescription findByIdentifier(String identifier) {
+        prescriptionService.findByIdentifier(identifier)
+    }
+
+    @Override
+    Iterable<Prescription> findAll() {
+        prescriptionService.findAll()
     }
 }

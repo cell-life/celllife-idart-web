@@ -14,6 +14,14 @@ class Identifiable {
         this.identifiers.add(new Identifier(system: system, value: value))
     }
 
+    def String getIdartIdentifierValue() {
+        getIdentifierValue(this.idartSystem)
+    }
+
+    def String getDefaultIdentifierValue() {
+        getIdentifierValue(this.defaultSystem)
+    }
+
     def String getFirstSystem() {
 
         if (this.identifiers == null || this.identifiers.empty) {

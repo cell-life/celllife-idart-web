@@ -9,7 +9,7 @@ import javax.annotation.Generated
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 03h45
+ * Time: 20h35
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class GoodServiceImpl implements GoodService {
@@ -43,8 +43,12 @@ import javax.annotation.Generated
     @Override
     Good findByIdentifiers(Set<Identifier> identifiers) {
 
+        if (identifiers == null) {
+            return null
+        }
+
         for (Identifier identifier: identifiers) {
-            Good good = goodRepository.findOneByIdentifier(identifier.value, identifier.system)
+            Good good = goodRepository.findOneByIdentifier(identifier.system, identifier.value)
             if (good != null) {
                 return good
             }

@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.party
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.EqualsAndHashCode
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
@@ -14,12 +13,12 @@ import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
  */
 @EqualsAndHashCode(includes = "identifiers")
 @Mixin([Identifiable])
-abstract class Party implements Persistable {
+abstract class Party implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     /**
      * Identified by

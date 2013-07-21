@@ -3,6 +3,7 @@ package org.celllife.idart.application.defaultdosageinstruction
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionService
 import org.celllife.idart.domain.part.FinishedGoodService
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -18,11 +19,30 @@ import org.springframework.stereotype.Service
 
     @Autowired FinishedGoodService finishedGoodService
 
+    @Autowired UnitOfMeasureService unitOfMeasureService
+
     @Override
     DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
-        defaultDosageInstruction.medication = finishedGoodService.save(defaultDosageInstruction.medication)
+        defaultDosageInstruction.with {
 
+            medication = finishedGoodService.save(defaultDosageInstruction.medication)
+
+            dosageInstruction?.with {
+                doseQuantity?.with {
+                    unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                }
+
+                timing?.with {
+                    repeat?.with {
+                        duration?.with {
+                            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                        }
+                    }
+                }
+            }
+        }
+        
         defaultDosageInstructionService.save(defaultDosageInstruction)
     }
 

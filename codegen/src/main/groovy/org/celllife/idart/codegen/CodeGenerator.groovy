@@ -20,8 +20,6 @@ class CodeGenerator {
 
     def javaSourcesDirectory
 
-    def generatedSourcesDirectory
-
     def basePackageName
 
     CodeGenerator(args) {
@@ -29,10 +27,6 @@ class CodeGenerator {
         this.groovySourcesDirectory = args.groovySourcesDirectory
 
         this.javaSourcesDirectory = args.javaSourcesDirectory
-
-        this.generatedSourcesDirectory = args.generatedSourcesDirectory
-
-        new File(generatedSourcesDirectory).mkdirs()
 
         this.basePackageName = args.basePackageName
     }
@@ -45,7 +39,7 @@ class CodeGenerator {
     }
 
     def generateIdentifiableAggregateRoot(models) {
-        models.each { model -> generateIdentifiableAggregateRoot(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model) }
+        models.each { model -> generateIdentifiableAggregateRoot(groovySourcesDirectory, basePackageName, model) }
     }
 
     def generateIdentifiableSpringDataRepositories(models) {
@@ -62,7 +56,7 @@ class CodeGenerator {
     }
 
     def generateCodeableAggregateRoot(models) {
-        models.each { model -> generateCodeableAggregateRoot(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model) }
+        models.each { model -> generateCodeableAggregateRoot(groovySourcesDirectory, basePackageName, model) }
     }
 
     def generateCodeableSpringDataRepositories(models) {

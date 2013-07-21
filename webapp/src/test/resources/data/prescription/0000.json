@@ -1,7 +1,7 @@
 {
     "identifiers": [
         {
-            "system": "http://www.cell-life.org/idart/prescription",
+            "system": "http://www.cell-life.org/idart/prescriptions",
             "value": "00001"
         }
     ],
@@ -27,7 +27,7 @@
             "medication": {
                 "identifiers": [
                     {
-                        "system": "http://www.cell-life.org/idart/good",
+                        "system": "http://www.cell-life.org/idart/goods",
                         "value": "Abacavir 20mg/ml 240ml"
                     }
                 ]
@@ -45,16 +45,18 @@
                     }
                 },
                 "timing": {
-                    "frequency": 2,
-                    "duration": {
-                        "value": 2,
-                        "unitOfMeasure": {
-                            "codes": [
-                                {
-                                    "system": "http://unitsofmeasure.org",
-                                    "value": "mg"
-                                }
-                            ]
+                    "repeat": {
+                        "frequency": 2,
+                        "duration": {
+                            "value": 2,
+                            "unitOfMeasure": {
+                                "codes": [
+                                    {
+                                        "system": "http://unitsofmeasure.org",
+                                        "value": "mg"
+                                    }
+                                ]
+                            }
                         }
                     }
                 }

@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.prescription
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.common.Persistable
@@ -13,12 +12,14 @@ import org.celllife.idart.domain.practitioner.Practitioner
  * Time: 20h49
  */
 @Mixin([Identifiable])
-class Prescription implements Persistable {
+class Prescription implements Persistable<Long> {
+
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescriptions"
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     /**
      * Identified by
@@ -48,6 +49,16 @@ class Prescription implements Persistable {
     /**
      * Contains
      */
-    Set<PrescribedMedication> prescribedMedications
+    Set<PrescribedMedication> prescribedMedications = []
 
+    def merge(Prescription that) {
+        if (that == null) {
+            return
+        }
+        this.mergeIdentifiers(that)
+        this.prescriber = that.prescriber
+        this.patient = that.patient
+        this.dateWritten = that.dateWritten
+        that.prescribedMedications?.each { prescribedMedication -> this.prescribedMedications << prescribedMedication }
+    }
 }

@@ -37,21 +37,22 @@ import static org.celllife.idart.domain.patient.Patients.*
         Patient existingPatient = findByIdentifiers(newPatient.identifiers)
 
         if (requiresIdartIdentifier(newPatient, existingPatient)) {
-            ((PartyRole) newPatient).addIdentifier(IDART_PATIENT_IDENTIFIER_SYSTEM, nextPatientIdentifier())
+            ((PartyRole) newPatient).addIdentifier(Patient.IDART_SYSTEM, nextPatientIdentifier())
         }
 
-        if (existingPatient != null) {
-            existingPatient.merge(newPatient)
-            return patientRepository.save(existingPatient)
+        if (existingPatient == null) {
+            existingPatient = new Patient()
         }
 
-        return patientRepository.save(newPatient)
+        existingPatient.merge(newPatient)
+
+        patientRepository.save(existingPatient)
     }
 
 
     @Override
     Patient findByIdentifier(String identifier) {
-        patientRepository.findOneByIdentifier(IDART_PATIENT_IDENTIFIER_SYSTEM, identifier)
+        patientRepository.findOneByIdentifier(Patient.IDART_SYSTEM, identifier)
     }
 
     @Override

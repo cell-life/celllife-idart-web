@@ -9,14 +9,12 @@ import org.celllife.idart.domain.partyrole.PartyRole
  */
 class Patients {
 
-    static final String IDART_PATIENT_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/patients"
-
     static final String IDART_PATIENT_IDENTIFIER_FORMAT = "%08d"
 
     static requiresIdartIdentifier(Patient... patients) {
 
         for (Patient patient in patients) {
-            if (((PartyRole) patient)?.hasIdentifierForSystem(IDART_PATIENT_IDENTIFIER_SYSTEM)) {
+            if (((PartyRole) patient)?.hasIdentifierForSystem(Patient.IDART_SYSTEM)) {
                 return false
             }
         }

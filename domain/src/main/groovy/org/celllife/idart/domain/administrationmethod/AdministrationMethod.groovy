@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.administrationmethod
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.*
 
 /**
@@ -9,12 +8,16 @@ import org.celllife.idart.domain.common.*
  * Time: 22h10
  */
 @Mixin([Codeable, Nameable, Describable])
-class AdministrationMethod implements Persistable {
+class AdministrationMethod implements Persistable<String> {
+
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/methods"
+
+    static final String DEFAULT_SYSTEM = "2.16.840.1.113883.12.165"
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    String pk
 
     Set<Code> codes = []
 

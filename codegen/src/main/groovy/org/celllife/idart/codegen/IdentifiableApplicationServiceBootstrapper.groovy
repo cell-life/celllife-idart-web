@@ -41,8 +41,7 @@ class IdentifiableApplicationServiceBootstrapper {
                 templateReader: "/templates/identifiableApplicationServiceImplementation.template",
                 model: model,
                 directory: directory,
-                fileName: fileName,
-                overwrite: false
+                fileName: fileName
         )
     }
 
@@ -54,8 +53,7 @@ class IdentifiableApplicationServiceBootstrapper {
                 templateReader: "/templates/identifiableApplicationServiceMixin.template",
                 model: model,
                 directory: directory,
-                fileName: fileName,
-                overwrite: false
+                fileName: fileName
         )
     }
 }

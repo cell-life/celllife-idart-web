@@ -10,28 +10,28 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="dose_quantity" type="numeric"/>
-            <column name="dose_quantity_uom" type="bigint">
+            <column name="dose_quantity_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_dose_qty_uom_fk"/>
             </column>
             <column name="max_dose_per_period_denominator" type="numeric"/>
-            <column name="max_dose_per_period_denominator_uom" type="bigint">
+            <column name="max_dose_per_period_denominator_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_max_dose_per_period_den_uom_fk"/>
             </column>
             <column name="max_dose_per_period_numerator" type="numeric"/>
-            <column name="max_dose_per_period_numerator_uom" type="bigint">
+            <column name="max_dose_per_period_numerator_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_max_dose_per_period_num_uom_fk"/>
             </column>
             <column name="rate_denominator" type="numeric"/>
-            <column name="rate_denominator_uom" type="bigint">
+            <column name="rate_denominator_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_rate_den_uom_fk"/>
             </column>
             <column name="rate_numerator" type="numeric"/>
-            <column name="rate_numerator_uom" type="bigint">
+            <column name="rate_numerator_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_rate_num_uom_fk"/>
             </column>
             <column name="count" type="integer"/>
             <column name="duration" type="numeric"/>
-            <column name="duration_uom" type="bigint">
+            <column name="duration_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_duration_uom_fk"/>
             </column>
             <column name="end" type="date"/>
@@ -39,10 +39,10 @@
             <column name="when_" type="bigint">
                 <constraints references="life_event(pk)" foreignKeyName="dos_instr_schedule_when_fk"/>
             </column>
-            <column name="method" type="bigint">
+            <column name="method" type="varchar(31)">
                 <constraints references="administration_method(pk)" foreignKeyName="dos_instr_dosage_method_fk"/>
             </column>
-            <column name="route" type="bigint">
+            <column name="route" type="varchar(31)">
                 <constraints references="route_of_administration(pk)" foreignKeyName="dos_instr_dosage_route_fk"/>
             </column>
             <column name="site" type="bigint">

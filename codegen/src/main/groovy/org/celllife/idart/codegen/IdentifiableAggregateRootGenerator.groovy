@@ -11,13 +11,11 @@ import static IdentifiableRepositoryGenerator.generateIdentifiableRepository
  */
 class IdentifiableAggregateRootGenerator {
 
-    static generateIdentifiableAggregateRoot(String groovySourcesDirectory, String generatedSourcesDirectory, String basePackageName, model) {
+    static generateIdentifiableAggregateRoot(String groovySourcesDirectory, String basePackageName, model) {
 
         enrichModel(basePackageName, model)
 
-        if (model.skipRepository != null || !model.skipRepository) {
-            generateIdentifiableRepository(generatedSourcesDirectory, model)
-        }
-        generateIdentifiableDomainService(groovySourcesDirectory, generatedSourcesDirectory, model)
+        generateIdentifiableRepository(groovySourcesDirectory, model)
+        generateIdentifiableDomainService(groovySourcesDirectory, model)
     }
 }

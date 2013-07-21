@@ -1,4 +1,7 @@
 package org.celllife.idart.domain.common
+
+import java.beans.Transient
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-06
@@ -6,7 +9,7 @@ package org.celllife.idart.domain.common
  */
 class Codeable {
 
-    def addCode(String system, String value) {
+    void addCode(String system, String value) {
         if (this.codes == null) {
             this.codes = new HashSet<>()
         }
@@ -14,7 +17,15 @@ class Codeable {
         this.codes.add(new Code(system: system, value: value))
     }
 
-    def String getFirstSystem() {
+    String getIdartCodeValue() {
+        getCodeValue(this.idartSystem)
+    }
+
+    String getDefaultCodeValue() {
+        getCodeValue(this.defaultSystem)
+    }
+
+    String getFirstSystem() {
 
         if (this.codes == null || this.codes.empty) {
             return null
@@ -23,25 +34,33 @@ class Codeable {
         this.codes.find().system
     }
 
-    def String getCodeValue(String system) {
+    String getCodeValue(String system) {
 
         if (system == null) {
             return null
         }
 
-        codes.find({ code -> code.system.equals(system) }).value
+        codes.find({ code -> code.system.equals(system) })?.value
     }
 
-    def Set<String> getCodeSystems() {
+    Set<String> getCodeSystems() {
         codes*.system
     }
 
-    def mergeCodes(that) {
+    void mergeCodes(that) {
 
         if (!this.class.isAssignableFrom(that.class)) {
             throw new RuntimeException("Incompatible CodedConcept Types: this ${this.class} that ${that.class}")
         }
 
         that.codeSystems.each { system -> this.addCode(system, that.getCodeValue(system)) }
+    }
+
+    String getDefaultSystem() {
+        DEFAULT_SYSTEM
+    }
+
+    String getIdartSystem() {
+        IDART_SYSTEM
     }
 }

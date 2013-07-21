@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.routeofadministration
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.*
 
 /**
@@ -9,12 +8,16 @@ import org.celllife.idart.domain.common.*
  * Time: 14h25
  */
 @Mixin([Codeable, Nameable, Describable])
-class RouteOfAdministration implements Persistable {
+class RouteOfAdministration implements Persistable<String> {
+
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/routes"
+
+    static final String DEFAULT_SYSTEM = "2.16.840.1.113883.5.112"
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    String pk
 
     Set<Code> codes = []
 

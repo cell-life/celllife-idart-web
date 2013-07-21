@@ -9,7 +9,7 @@ import javax.annotation.Generated
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 03h45
+ * Time: 20h35
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class SubassemblyServiceImpl implements SubassemblyService {
@@ -43,8 +43,12 @@ import javax.annotation.Generated
     @Override
     Subassembly findByIdentifiers(Set<Identifier> identifiers) {
 
+        if (identifiers == null) {
+            return null
+        }
+
         for (Identifier identifier: identifiers) {
-            Subassembly subassembly = subassemblyRepository.findOneByIdentifier(identifier.value, identifier.system)
+            Subassembly subassembly = subassemblyRepository.findOneByIdentifier(identifier.system, identifier.value)
             if (subassembly != null) {
                 return subassembly
             }

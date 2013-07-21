@@ -38,7 +38,8 @@ import static org.celllife.idart.domain.person.People.*
 
     @Override
     Person update(Person newPerson, Long existingPersonPk) {
-        merge(newPerson, personRepository.findOne(existingPersonPk))
+        def existingPerson = personRepository.findOne(existingPersonPk)
+        merge(newPerson, existingPerson)
     }
 
     Person merge(Person newPerson, Person existingPerson) {

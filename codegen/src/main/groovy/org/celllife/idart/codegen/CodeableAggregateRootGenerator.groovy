@@ -11,11 +11,11 @@ import static org.celllife.idart.codegen.ModelEnricher.enrichModel
  */
 class CodeableAggregateRootGenerator {
 
-    static generateCodeableAggregateRoot(String groovySourcesDirectory, String generatedSourcesDirectory, String basePackageName, model) {
+    static generateCodeableAggregateRoot(String groovySourcesDirectory, String basePackageName, model) {
 
         enrichModel(basePackageName, model)
 
-        generateCodeableRepository(generatedSourcesDirectory, model)
-        generateCodeableDomainService(groovySourcesDirectory, generatedSourcesDirectory, model)
+        generateCodeableRepository(groovySourcesDirectory, model)
+        generateCodeableDomainService(groovySourcesDirectory, model)
     }
 }

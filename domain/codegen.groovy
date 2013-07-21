@@ -19,6 +19,7 @@ codeGen.generateCodeableAggregateRoot(codeableModels)
 def identifiableModels = [
         [entityName: "Clinic"],
         [entityPackage: "product", entityName: "Good"],
+        [entityPackage: "organisation", entityName: "LegalOrganisation"],
         [entityPackage: "part", entityName: "Compound"],
         [entityPackage: "part", entityName: "Drug"],
         [entityPackage: "part", entityName: "DrugGroup"],

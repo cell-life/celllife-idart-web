@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.prescription
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Duration
 import org.celllife.idart.domain.common.Period
 import org.celllife.idart.domain.common.Persistable
@@ -16,12 +15,12 @@ import org.celllife.idart.domain.substitutionreason.SubstitutionReason
  * Date: 2013-06-17
  * Time: 20h52
  */
-class PrescribedMedication implements Persistable {
+class PrescribedMedication implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     /**
      * Medication

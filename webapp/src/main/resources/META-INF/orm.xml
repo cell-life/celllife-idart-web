@@ -7,10 +7,13 @@
     <!-- Administration Method -->
 
     <entity class="org.celllife.idart.domain.administrationmethod.AdministrationMethod">
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <element-collection name="codes" fetch="EAGER"/>
             <element-collection name="descriptions" fetch="EAGER"/>
             <element-collection name="names" fetch="EAGER"/>
@@ -126,7 +129,7 @@
             <many-to-one name="method"/>
             <many-to-one name="route"/>
             <many-to-one name="site"/>
-            <element-collection name="texts"/>
+            <element-collection name="texts" fetch="EAGER"/>
             <embedded name="doseQuantity">
                 <attribute-override name="value">
                     <column name="dose_quantity"/>
@@ -216,10 +219,13 @@
     <!-- Form -->
 
     <entity class="org.celllife.idart.domain.form.Form">
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <element-collection name="codes" fetch="EAGER"/>
             <element-collection name="descriptions" fetch="EAGER"/>
             <element-collection name="names" fetch="EAGER"/>
@@ -250,7 +256,7 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <many-to-one name="part"/>
-            <element-collection name="status">
+            <element-collection name="status" fetch="EAGER">
                 <order-by>dateTime</order-by>
             </element-collection>
         </attributes>
@@ -326,20 +332,18 @@
     </entity>
 
     <entity class="org.celllife.idart.domain.part.Compound">
-        <discriminator-value>RawMaterial</discriminator-value>
+        <discriminator-value>Compound</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.part.Drug">
-        <discriminator-value>RawMaterial</discriminator-value>
+        <discriminator-value>Drug</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.part.DrugGroup">
-        <discriminator-value>RawMaterial</discriminator-value>
+        <discriminator-value>DrugGroup</discriminator-value>
     </entity>
 
-    <entity class="org.celllife.idart.domain.part.RawMaterial">
-        <discriminator-value>RawMaterial</discriminator-value>
-    </entity>
+    <entity class="org.celllife.idart.domain.part.RawMaterial"/>
 
     <entity class="org.celllife.idart.domain.part.Subassembly">
 
@@ -403,7 +407,7 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <many-to-one name="parent"/>
-            <element-collection name="descriptions"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
         </attributes>
 
     </entity>
@@ -500,8 +504,8 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <many-to-one name="parent"/>
-            <element-collection name="codes"/>
-            <element-collection name="descriptions"/>
+            <element-collection name="codes" fetch="EAGER"/>
+            <element-collection name="descriptions" fetch="EAGER"/>
         </attributes>
 
     </entity>
@@ -652,7 +656,7 @@
                     <cascade-all/>
                 </cascade>
             </one-to-many>
-            <element-collection name="identifiers"/>
+            <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
     </entity>
@@ -730,10 +734,13 @@
     <!-- RouteOfAdministration -->
 
     <entity class="org.celllife.idart.domain.routeofadministration.RouteOfAdministration">
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <element-collection name="codes" fetch="EAGER"/>
             <element-collection name="descriptions" fetch="EAGER"/>
             <element-collection name="names" fetch="EAGER"/>
@@ -768,11 +775,14 @@
 
     <!-- UnitOfMeasure -->
 
-    <entity class="org.celllife.idart.domain.unitofmeasure.UnitOfMeasure">
+    <entity class="org.celllife.idart.domain.unitofmeasure.UnitOfMeasure" >
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <many-to-one name="type" fetch="EAGER"/>
             <element-collection name="codes" fetch="EAGER"/>
             <element-collection name="names" fetch="EAGER"/>

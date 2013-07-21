@@ -13,5 +13,6 @@
 
     <constraint-mapping>META-INF/constraints-facilityrole.xml</constraint-mapping>
     <constraint-mapping>META-INF/constraints-person.xml</constraint-mapping>
+    <constraint-mapping>META-INF/constraints-prescription.xml</constraint-mapping>
 
 </validation-config>

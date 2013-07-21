@@ -1,22 +1,21 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.celllife.idart.application.part.CompoundResourceService
+import org.celllife.idart.application.part.DrugResourceService
+import org.celllife.idart.application.patient.PatientResourceService
+import org.celllife.idart.application.practitioner.PractitionerResourceService
+import org.celllife.idart.application.product.GoodResourceService
+import org.celllife.idart.application.unitofmeasure.UnitOfMeasureResourceService
 import org.celllife.idart.domain.part.Compound
 import org.celllife.idart.domain.part.Drug
-import org.celllife.idart.domain.part.FinishedGood
-import org.celllife.idart.domain.part.FinishedGoodService
-import org.celllife.idart.domain.part.RawMaterial
-import org.celllife.idart.domain.part.RawMaterialService
 import org.celllife.idart.domain.partyrole.PartyRole
 import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.domain.patient.PatientService
+import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
-import org.celllife.idart.domain.practitioner.PractitionerService
 import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.product.Good
-import org.celllife.idart.domain.product.GoodService
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,73 +32,96 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner.class)
 class PrescriptionApplicationServiceIntegrationTest {
 
-    @Autowired GoodService goodService
+    @Autowired GoodResourceService goodResourceService
 
-    @Autowired FinishedGoodService finishedGoodService
+    @Autowired DrugResourceService drugResourceService
 
-    @Autowired RawMaterialService rawMaterialService
+    @Autowired CompoundResourceService compoundResourceService
 
-    @Autowired PrescriptionApplicationService prescriptionApplicationService
+    @Autowired PrescriptionResourceService prescriptionResourceService
 
-    @Autowired PractitionerService practitionerService
+    @Autowired PractitionerResourceService practitionerResourceService
 
-    @Autowired PatientService patientService
+    @Autowired PatientResourceService patientResourceService
 
-    @Autowired UnitOfMeasureService unitOfMeasureService
+    @Autowired UnitOfMeasureResourceService unitOfMeasureResourceService
 
     @Autowired ObjectMapper objectMapper
 
     @Test
     void shouldUnmarshal() throws Exception {
 
-        UnitOfMeasure milligrams = new UnitOfMeasure()
-        milligrams.setName("Milligrams")
-        milligrams.addCode("http://unitsofmeasure.org", "mg")
-        unitOfMeasureService.save(milligrams)
+        UnitOfMeasure milligrams = createMilligrams()
+        unitOfMeasureResourceService.save(milligrams)
 
         UnitOfMeasure millilitres = new UnitOfMeasure()
         millilitres.setName("Millilitres")
         millilitres.addCode("http://unitsofmeasure.org", "ml")
-        unitOfMeasureService.save(millilitres)
+        unitOfMeasureResourceService.save(millilitres)
 
-        UnitOfMeasure each = new UnitOfMeasure()
-        each.setName("Each")
-        each.addCode("http://unitsofmeasure.org", "ea")
-        unitOfMeasureService.save(each)
+        unitOfMeasureResourceService.save(createEach())
 
-        RawMaterial abacavirRawMaterial = new Compound()
-        abacavirRawMaterial.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
-        abacavirRawMaterial.setUnitOfMeasure(milligrams)
-        abacavirRawMaterial = rawMaterialService.save(abacavirRawMaterial)
+        compoundResourceService.save(createCompound(milligrams))
 
-        FinishedGood abacavir20mg = new Drug()
-        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml")
-        abacavir20mg.setUnitOfMeasure(millilitres)
-        abacavir20mg.addEngineeringPart(new Date(), abacavirRawMaterial, 20.0D, milligrams)
-        abacavir20mg = finishedGoodService.save(abacavir20mg)
+        drugResourceService.save(createDrug(millilitres, createCompound(milligrams), milligrams))
 
-        FinishedGood finishedGood = new Drug()
-        finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
-        finishedGood.setUnitOfMeasure(each)
-        finishedGood.addEngineeringPart(new Date(), abacavir20mg, 240.0D, millilitres)
-        finishedGood = finishedGoodService.save(finishedGood)
+        drugResourceService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
 
-        Good good = new Good(finishedGood: finishedGood)
-        good.addIdentifier("http://www.cell-life.org/idart/good", "Abacavir 20mg/ml 240ml")
-        goodService.save(good)
+        Good good = new Good(finishedGood: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
+        good.addIdentifier("http://www.cell-life.org/idart/goods", "Abacavir 20mg/ml 240ml")
+        goodResourceService.save(good)
 
         Patient patient = new Patient()
         ((PartyRole) patient).addIdentifier("http://www.cell-life.org/idart/patients", "00001")
-        patientService.save(patient)
+        patient.person = new Person()
+        patientResourceService.save(patient)
 
         Practitioner practitioner = new Practitioner()
         ((PartyRole) practitioner).addIdentifier("http://www.cell-life.org/idart/practitioners", "00001")
-        practitionerService.save(practitioner)
+        practitioner.person = new Person()
+        practitionerResourceService.save(practitioner)
 
         InputStream inputStream = getClass().getResourceAsStream("/data/prescription/0000.json")
         Prescription prescription = objectMapper.readValue(inputStream, Prescription.class)
         System.out.println(prescription)
 
-        prescriptionApplicationService.save(prescription)
+        prescriptionResourceService.save(prescription)
+    }
+
+    static UnitOfMeasure createMilligrams() {
+        UnitOfMeasure milligrams = new UnitOfMeasure()
+        milligrams.setName("Milligrams")
+        milligrams.addCode("http://unitsofmeasure.org", "mg")
+        milligrams
+    }
+
+    static UnitOfMeasure createEach() {
+        UnitOfMeasure each = new UnitOfMeasure()
+        each.setName("Each")
+        each.addCode("http://unitsofmeasure.org", "ea")
+        each
+    }
+
+    static Compound createCompound(UnitOfMeasure milligrams) {
+        Compound abacavirRawMaterial = new Compound()
+        abacavirRawMaterial.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
+        abacavirRawMaterial.setUnitOfMeasure(milligrams)
+        abacavirRawMaterial
+    }
+
+    static Drug createDrug(UnitOfMeasure millilitres, Compound abacavirRawMaterial, UnitOfMeasure milligrams) {
+        Drug abacavir20mg = new Drug()
+        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml")
+        abacavir20mg.setUnitOfMeasure(millilitres)
+        abacavir20mg.addEngineeringPart(new Date(), abacavirRawMaterial, 20.0D, milligrams)
+        abacavir20mg
+    }
+
+     static Drug createFinishedDrug(UnitOfMeasure each, Drug abacavir20mg, UnitOfMeasure millilitres) {
+        Drug finishedGood = new Drug()
+        finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
+        finishedGood.setUnitOfMeasure(each)
+        finishedGood.addEngineeringPart(new Date(), abacavir20mg, 240.0D, millilitres)
+        finishedGood
     }
 }

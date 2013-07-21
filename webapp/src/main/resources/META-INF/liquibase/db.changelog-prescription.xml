@@ -41,11 +41,11 @@
             <column name="valid_thru_date" type="date"/>
             <column name="number_of_repeats" type="integer"/>
             <column name="quantity" type="numeric"/>
-            <column name="quantity_uom" type="bigint">
+            <column name="quantity_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="prescribed_medication_qty_uom_fk"/>
             </column>
             <column name="expected_supply_duration" type="numeric"/>
-            <column name="expected_supply_duration_uom" type="bigint">
+            <column name="expected_supply_duration_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="prescribed_medication_duration_uom_fk"/>
             </column>
 

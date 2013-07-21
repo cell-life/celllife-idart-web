@@ -1,6 +1,5 @@
 package $applicationPackageName
 
-import org.celllife.idart.domain.common.Identifier
 import ${domainPackageName}.${entityName}
 import ${domainPackageName}.${entityName}Service
 import org.springframework.beans.factory.annotation.Autowired

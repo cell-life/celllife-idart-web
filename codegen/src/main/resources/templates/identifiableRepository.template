@@ -10,6 +10,14 @@ import javax.annotation.Generated;
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ${entityName}Repository {
 
+    // ${entityName} save(${entityName} ${lowerCaseEntityName});
+
+    // Iterable<${entityName}> save(Iterable<${entityName}> ${lowerCaseEntityNamePlural});
+
+    // ${entityName} findOne(Long pk);
+
+    // Iterable<${entityName}> findAll();
+
     ${entityName} findOneByIdentifier(String identifierSystem, String identifierValue);
 
     Iterable<${entityName}> findByIdentifier(String identifierValue);

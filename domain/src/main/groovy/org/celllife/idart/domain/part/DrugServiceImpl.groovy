@@ -9,7 +9,7 @@ import javax.annotation.Generated
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 03h45
+ * Time: 20h35
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class DrugServiceImpl implements DrugService {
@@ -43,8 +43,12 @@ import javax.annotation.Generated
     @Override
     Drug findByIdentifiers(Set<Identifier> identifiers) {
 
+        if (identifiers == null) {
+            return null
+        }
+
         for (Identifier identifier: identifiers) {
-            Drug drug = drugRepository.findOneByIdentifier(identifier.value, identifier.system)
+            Drug drug = drugRepository.findOneByIdentifier(identifier.system, identifier.value)
             if (drug != null) {
                 return drug
             }

@@ -3,16 +3,12 @@ package org.celllife.idart.infrastructure.part.json;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.celllife.idart.domain.common.Codeable;
-import org.celllife.idart.domain.contactmechanism.ElectronicAddress;
-import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber;
-import org.celllife.idart.domain.contactmechanism.PostalAddress;
-import org.celllife.idart.domain.contactmechanism.TelecommunicationsNumber;
 import org.celllife.idart.domain.form.Form;
-import org.celllife.idart.domain.part.*;
+import org.celllife.idart.domain.part.Compound;
+import org.celllife.idart.domain.part.Drug;
+import org.celllife.idart.domain.part.DrugGroup;
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure;
 import org.celllife.idart.framework.json.CodeableSerializer;
-import org.celllife.idart.framework.json.IdentifiableSerializer;
 
 /**
  * User: Kevin W. Sewell

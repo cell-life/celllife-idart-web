@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.part
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.domain.common.Identifiable
@@ -17,12 +16,12 @@ import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 @ToString
 @EqualsAndHashCode(excludes = "pk")
 @Mixin(Identifiable)
-abstract class Part implements Persistable {
+abstract class Part implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     /**
      * Named as

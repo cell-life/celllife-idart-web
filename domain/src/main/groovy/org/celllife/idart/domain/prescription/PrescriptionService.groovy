@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.prescription
 
+import org.celllife.idart.domain.common.Identifier
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-15
@@ -7,6 +9,12 @@ package org.celllife.idart.domain.prescription
  */
 interface PrescriptionService {
 
-    def save(Prescription prescription)
+    Prescription save(Prescription prescription)
+
+    Prescription findByIdentifier(String identifier)
+
+    Prescription findByIdentifiers(Set<Identifier> identifiers)
+
+    Iterable<Prescription> findAll()
 
 }

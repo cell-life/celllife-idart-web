@@ -1,9 +1,6 @@
 package org.celllife.idart.application.defaultdosageinstruction;
 
-import org.celllife.idart.domain.common.Identifier;
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction;
-
-import java.util.Set;
 
 import javax.annotation.Generated;
 

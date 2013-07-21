@@ -26,7 +26,7 @@
                              foreignKeyName="non_serialised_inventory_item_fk"/>
             </column>
             <column name="quantity_on_hand" type="numeric"/>
-            <column name="quantity_on_hand_uom" type="bigint">
+            <column name="quantity_on_hand_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="quantity_on_hand_uom_fk"/>
             </column>
         </createTable>

@@ -6,13 +6,13 @@
     <changeSet id="administrationmethod-1" author="kevin.sewell">
 
         <createTable tableName="administration_method">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
 
         <createTable tableName="administration_method_names">
-            <column name="administration_method" type="bigint">
+            <column name="administration_method" type="varchar(31)">
                 <constraints references="administration_method(pk)" foreignKeyName="administration_method_names_fk"/>
             </column>
             <column name="locale" type="varchar(10)">
@@ -24,7 +24,7 @@
         </createTable>
 
         <createTable tableName="administration_method_codes">
-            <column name="administration_method" type="bigint">
+            <column name="administration_method" type="varchar(31)">
                 <constraints references="administration_method(pk)" foreignKeyName="administration_method_codes_fk"/>
             </column>
             <column name="system" type="varchar(255)">
@@ -36,7 +36,7 @@
         </createTable>
 
         <createTable tableName="administration_method_descriptions">
-            <column name="administration_method" type="bigint">
+            <column name="administration_method" type="varchar(31)">
                 <constraints references="administration_method(pk)"
                              foreignKeyName="administration_method_descriptions_fk"/>
             </column>

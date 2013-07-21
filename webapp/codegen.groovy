@@ -3,7 +3,6 @@ import org.celllife.idart.codegen.CodeGenerator
 def codeGen = new CodeGenerator(
         groovySourcesDirectory: "${project.basedir}/src/main/groovy",
         javaSourcesDirectory: "${project.basedir}/src/main/java",
-        generatedSourcesDirectory: "${project.basedir}/target/generated-sources/domain",
         basePackageName: project.groupId
 )
 
@@ -20,6 +19,7 @@ codeGen.generateCodeableResources(codeableModels)
 def identifiableModels = [
         [entityName: "Clinic"],
         [entityPackage: "product", entityName: "Good"],
+        [entityPackage: "organisation", entityName: "LegalOrganisation"],
         [entityPackage: "part", entityName: "Compound"],
         [entityPackage: "part", entityName: "Drug"],
         [entityPackage: "part", entityName: "DrugGroup"],
@@ -29,5 +29,5 @@ def identifiableModels = [
         [entityPackage: "part", entityName: "Subassembly"],
 ]
 
-codeGen.generateIdentifiableSpringDataRepositories(codeableModels)
+codeGen.generateIdentifiableSpringDataRepositories(identifiableModels)
 codeGen.generateIdentifiableResources(identifiableModels)

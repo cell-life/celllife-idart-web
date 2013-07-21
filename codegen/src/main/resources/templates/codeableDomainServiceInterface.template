@@ -1,5 +1,7 @@
 package $domainPackageName;
 
+import org.celllife.idart.domain.common.Code;
+
 import javax.annotation.Generated;
 
 /**
@@ -16,6 +18,8 @@ public interface ${entityName}Service {
 
     Iterable<${entityName}> findAll();
 
-    ${entityName} findByIdentifier(String identifier);
+    ${entityName} findByCode(String code);
+
+    ${entityName} findByCodes(Iterable<Code> codes);
 
 }

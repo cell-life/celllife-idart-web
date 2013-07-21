@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.unitofmeasure
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.domain.common.*
@@ -13,19 +12,22 @@ import org.celllife.idart.domain.common.*
 @ToString
 @EqualsAndHashCode(excludes = "pk")
 @Mixin([Codeable, Nameable])
-class UnitOfMeasure implements Persistable {
+class UnitOfMeasure implements Persistable<String> {
+
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/unitsOfMeasure"
+
+    static final String DEFAULT_SYSTEM = "http://unitsofmeasure.org"
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    String pk
 
     Set<Code> codes = []
 
     Set<LocalisedText> names = []
 
     UnitOfMeasureType type
-
 }
 
 

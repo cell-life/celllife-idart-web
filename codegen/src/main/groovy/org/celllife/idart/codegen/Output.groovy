@@ -15,9 +15,13 @@ class Output {
 
         def file = new File("${args.directory}/${args.fileName}")
 
-        if (file.exists() && args.overwrite != null && !args.overwrite) {
+//        println "About to write ${args.directory}/${args.fileName}"
+
+        if (file.exists() && !file.text.contains("@Generated(\"org.celllife.idart.codegen.CodeGenerator\")")) {
             return
         }
+
+//        println "About to writing ${args.directory}/${args.fileName}"
 
         def writer = new FileWriter(file)
 

@@ -14,8 +14,6 @@ import static org.celllife.idart.domain.practitioner.Practitioners.*
  */
 @Service class PractitionerServiceImpl implements PractitionerService {
 
-    static final String IDART_PRACTITIONER_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/practitioners"
-
     @Autowired PractitionerRepository practitionerRepository
 
     @Autowired PractitionerSequence practitionerSequence
@@ -39,20 +37,21 @@ import static org.celllife.idart.domain.practitioner.Practitioners.*
         Practitioner existingPractitioner = findByIdentifiers(newPractitioner.identifiers)
 
         if (requiresIdartIdentifier(newPractitioner, existingPractitioner)) {
-            ((PartyRole) newPractitioner).addIdentifier(IDART_PRACTITIONER_IDENTIFIER_SYSTEM, nextPractitionerIdentifier())
+            ((PartyRole) newPractitioner).addIdentifier(Practitioner.IDART_SYSTEM, nextPractitionerIdentifier())
         }
 
-        if (existingPractitioner != null) {
-            existingPractitioner.merge(newPractitioner)
-            return practitionerRepository.save(existingPractitioner)
+        if (existingPractitioner == null) {
+            existingPractitioner = new Practitioner()
         }
 
-        return practitionerRepository.save(newPractitioner)
+        existingPractitioner.merge(newPractitioner)
+
+        practitionerRepository.save(existingPractitioner)
     }
 
     @Override
     Practitioner findByIdentifier(String identifier) {
-        practitionerRepository.findOneByIdentifier(IDART_PRACTITIONER_IDENTIFIER_SYSTEM, identifier)
+        practitionerRepository.findOneByIdentifier(Practitioner.IDART_SYSTEM, identifier)
     }
 
     @Override
@@ -61,6 +60,6 @@ import static org.celllife.idart.domain.practitioner.Practitioners.*
     }
 
     private String nextPractitionerIdentifier() {
-        String.format("%08d", practitionerSequence.nextValue())
+        String.format(IDART_PRACTITIONER_IDENTIFIER_FORMAT, practitionerSequence.nextValue())
     }
 }

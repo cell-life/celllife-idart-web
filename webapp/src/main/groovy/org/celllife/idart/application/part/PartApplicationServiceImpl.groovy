@@ -24,6 +24,10 @@ import org.springframework.stereotype.Service
     @Override
     Part findByIdentifiers(Set<Identifier> identifiers) {
 
+        if (identifiers == null) {
+            return null
+        }
+
         for (partService in partServices) {
             def part = partService.findByIdentifiers(identifiers)
             if (part != null) {

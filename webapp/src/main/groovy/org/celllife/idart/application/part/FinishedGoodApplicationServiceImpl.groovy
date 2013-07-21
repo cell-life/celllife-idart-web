@@ -1,26 +1,50 @@
 package org.celllife.idart.application.part
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.domain.form.FormService
 import org.celllife.idart.domain.part.FinishedGood
 import org.celllife.idart.domain.part.FinishedGoodService
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-
-import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 01h48
+ * Time: 11h33
  */
 @Service
 @Mixin(FinishedGoodApplicationServiceMixin)
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class FinishedGoodApplicationServiceImpl implements FinishedGoodApplicationService, FinishedGoodResourceService {
+
+    @Autowired PartApplicationService partApplicationService
 
     @Autowired FinishedGoodService finishedGoodService
 
+    @Autowired FormService formService
+
+    @Autowired UnitOfMeasureService unitOfMeasureService
+
     FinishedGood save(FinishedGood finishedGood) {
+
+        finishedGood?.with {
+
+            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+
+            form = formService.findByCodes(form?.codes)
+
+            billOfMaterials?.each { billOfMaterial ->
+
+                billOfMaterial?.with {
+                    quantityUsed?.with {
+                        unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                    }
+
+                    part = partApplicationService.findByIdentifiers(part?.identifiers)
+                }
+
+            }
+        }
+
         finishedGoodService.save(finishedGood)
     }
 

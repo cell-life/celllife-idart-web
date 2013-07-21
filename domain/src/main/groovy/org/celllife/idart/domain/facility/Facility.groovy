@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.facility
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.*
 
 /**
@@ -9,12 +8,12 @@ import org.celllife.idart.domain.common.*
  * Time: 11h03
  */
 @Mixin([Identifiable, Nameable, Describable])
-abstract class Facility implements Persistable {
+abstract class Facility implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     /**
      * Identified by

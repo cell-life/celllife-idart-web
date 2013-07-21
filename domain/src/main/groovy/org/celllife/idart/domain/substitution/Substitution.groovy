@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.substitution
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.*
 
 /**
@@ -9,12 +8,12 @@ import org.celllife.idart.domain.common.*
  * Time: 21h58
  */
 @Mixin([Codeable, Nameable, Describable])
-class Substitution implements Persistable {
+class Substitution implements Persistable<Long> {
 
     /**
      * Persistence Key
      */
-    @JsonIgnore Long pk
+    Long pk
 
     Set<Code> codes = []
 

@@ -5,7 +5,7 @@ class CodeableRepositoryGenerator {
     static generateCodeableRepository(String baseDirectory, model) {
 
         def directory = baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/")
-        def fileName = model.entityName + "Repository.java"
+        def fileName = model.entityName + "Repository.groovy"
 
         Output.toFile(
                 templateReader: "/templates/codeableRepository.template",

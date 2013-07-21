@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull
  */
 @ToString
 @EqualsAndHashCode(excludes = "pk")
-class DefaultDosageInstruction implements Persistable {
+class DefaultDosageInstruction implements Persistable<Long> {
 
     Long pk
 

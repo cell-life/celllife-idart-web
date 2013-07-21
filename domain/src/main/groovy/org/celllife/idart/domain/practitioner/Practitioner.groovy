@@ -9,6 +9,8 @@ import org.celllife.idart.domain.partyrole.PersonRole
  */
 class Practitioner extends PersonRole {
 
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/practitioners"
+
     def merge(Practitioner that) {
         super.merge(that)
     }

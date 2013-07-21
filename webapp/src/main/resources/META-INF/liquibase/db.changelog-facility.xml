@@ -10,7 +10,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="area" type="numeric"/>
-            <column name="area_uom" type="bigint">
+            <column name="area_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="area_uom_fk"/>
             </column>
         </createTable>
