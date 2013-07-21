@@ -9,7 +9,7 @@ import org.celllife.idart.domain.partyrole.PartyRole
  */
 class Practitioners {
 
-    static final String IDART_PRACTITIONER_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/practitioner"
+    static final String IDART_PRACTITIONER_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/practitioners"
 
     static final String IDART_PRACTITIONER_IDENTIFIER_FORMAT = "%08d"
 

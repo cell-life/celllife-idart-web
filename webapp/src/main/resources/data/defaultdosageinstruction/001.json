@@ -1,8 +1,9 @@
 {
     "medication": {
+        "@type": "drug",
         "identifiers": [
             {
-                "system": "http://www.cell-life.org/idart/finishedGood",
+                "system": "http://www.cell-life.org/idart/drug",
                 "value": "Zidovudine 100mg"
             }
         ]
@@ -12,7 +13,7 @@
             "unitOfMeasure": {
                 "codes": [
                     {
-                        "system": "http://www.cell-life.org/idart/unitOfMeasure",
+                        "system": "http://www.cell-life.org/idart/unitsOfMeasure",
                         "value": "each"
                     }
                 ]

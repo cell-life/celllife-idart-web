@@ -2,7 +2,7 @@
     {
         "codes": [
             {
-                "system": "http://www.cell-life.org/idart/unitOfMeasure",
+                "system": "http://www.cell-life.org/idart/unitsOfMeasure",
                 "value": "each"
             }
         ],

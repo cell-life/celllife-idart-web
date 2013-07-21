@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.facility
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.*
 
 /**
@@ -13,7 +14,7 @@ abstract class Facility implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Identified by
@@ -25,5 +26,18 @@ abstract class Facility implements Persistable {
     Set<LocalisedText> descriptions = []
 
     Quantity area
+
+    def merge(Facility that) {
+
+        if (that == null) {
+            return
+        }
+
+        that.identifiers?.each { identifier -> this.identifiers << identifier }
+        that.names?.each { name -> this.names << name }
+        that.descriptions?.each { description -> this.descriptions << description }
+
+        this.area = that.area
+    }
 
 }

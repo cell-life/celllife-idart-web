@@ -22,7 +22,7 @@ class UnitOfMeasureTest {
     @Test
     public void shouldSetCode() throws Exception {
 
-        def idartSystem = "http://www.cell-life.org/idart/unitOfMeasure"
+        def idartSystem = "http://www.cell-life.org/idart/unitsOfMeasure"
 
         def measure = new UnitOfMeasure()
         measure.addCode(idartSystem, "each")

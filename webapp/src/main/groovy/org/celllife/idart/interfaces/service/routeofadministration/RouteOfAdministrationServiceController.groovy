@@ -2,6 +2,7 @@ package org.celllife.idart.interfaces.service.routeofadministration
 
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationService
+
 import org.celllife.idart.integration.hl7.CodeFile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -24,7 +25,7 @@ import static org.celllife.idart.integration.hl7.Hl7CodeFileReader.readFile
 
     @Autowired RouteOfAdministrationService routeOfAdministrationService
 
-    @RequestMapping(value = "/service/routes/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/routes/upload", method = RequestMethod.POST)
     void upload(@RequestParam("structure") String structure,
                 @RequestBody byte[] fileContent,
                 HttpServletResponse response) {

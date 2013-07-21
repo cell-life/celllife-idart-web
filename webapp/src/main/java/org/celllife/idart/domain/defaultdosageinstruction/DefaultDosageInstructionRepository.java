@@ -22,4 +22,11 @@ public interface DefaultDosageInstructionRepository extends CrudRepository<Defau
     DefaultDosageInstruction findOneByMedicationIdentifier(@Param("medicationIdentifierSystem") String medicationIdentifierSystem,
                                                            @Param("medicationIdentifierValue") String medicationIdentifierValue);
 
+    @Query("select defaultDosageInstruction " +
+            "from DefaultDosageInstruction defaultDosageInstruction " +
+            "join defaultDosageInstruction.medication medication " +
+            "join medication.identifiers medicationIdentifier " +
+            "where medicationIdentifier.value = :medicationIdentifierValue")
+    Iterable<DefaultDosageInstruction> findByIdentifier(@Param("medicationIdentifierValue") String medicationIdentifierValue);
+
 }

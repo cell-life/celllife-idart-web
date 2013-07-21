@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.form
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.*
 
 /**
@@ -13,7 +14,7 @@ class Form implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     Set<Code> codes = []
 

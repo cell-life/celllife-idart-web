@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.partyclassification
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Codeable
 import org.celllife.idart.domain.common.Describable
 import org.celllife.idart.domain.common.LocalisedText
@@ -15,7 +16,7 @@ abstract class PartyClassification {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     Set<LocalisedText> codes = []
 

@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.partyrole
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.common.Persistable
@@ -15,7 +16,7 @@ abstract class PartyRole implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Identified by

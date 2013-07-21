@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.prescription
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Duration
 import org.celllife.idart.domain.common.Period
 import org.celllife.idart.domain.common.Persistable
@@ -20,7 +21,7 @@ class PrescribedMedication implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Medication

@@ -6,9 +6,10 @@
         }
     ],
     "finishedGood": {
+        "@type": "drug",
         "identifiers": [
             {
-                "system": "http://www.cell-life.org/idart/finishedGood",
+                "system": "http://www.cell-life.org/idart/drugs",
                 "value": "Zidovudine 10mg/ml (200 ml)"
             }
         ]

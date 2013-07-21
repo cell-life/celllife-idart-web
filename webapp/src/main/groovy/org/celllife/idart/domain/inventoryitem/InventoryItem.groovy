@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.inventoryitem
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.part.Part
 
@@ -15,7 +16,7 @@ abstract class InventoryItem implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * the physical occurrence of

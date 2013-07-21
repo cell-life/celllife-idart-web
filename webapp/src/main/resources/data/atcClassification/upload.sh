@@ -13,7 +13,7 @@ for FILE in `ls *.json`; do
     -u "${CREDENTIALS}" \
     -d @$FILE \
     -H "${CONTENT_TYPE_HEADER}" \
-    http://localhost:9000/idart/service/atcClassifications
+    http://localhost:9000/idart/atcClassifications
   cat /tmp/headers
 done
 

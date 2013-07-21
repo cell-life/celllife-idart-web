@@ -1,0 +1,19 @@
+package $applicationPackageName
+
+import org.celllife.idart.domain.common.Identifier
+import ${domainPackageName}.${entityName}
+import ${domainPackageName}.${entityName}Service
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+
+import javax.annotation.Generated
+
+/**
+ * User: Kevin W. Sewell
+ * Date: ${currentDate}
+ * Time: ${currentTime}
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+class ${entityName}ApplicationServiceMixin {
+
+}

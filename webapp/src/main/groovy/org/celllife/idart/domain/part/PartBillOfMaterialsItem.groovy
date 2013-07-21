@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.part
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Quantity
 
 import javax.validation.constraints.NotNull
@@ -9,14 +10,12 @@ import javax.validation.constraints.NotNull
  * Date: 2013-06-16
  * Time: 18h34
  */
-class PartBillOfMaterialsItem {
+abstract class PartBillOfMaterialsItem {
 
     /**
      * Persistence Key
      */
     Long pk
-
-    PartBillOfMaterialsType type
 
     @NotNull
     Date fromDate

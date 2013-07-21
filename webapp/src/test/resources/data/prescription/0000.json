@@ -8,7 +8,7 @@
     "prescriber": {
         "identifiers": [
             {
-                "system": "http://www.cell-life.org/idart/practitioner",
+                "system": "http://www.cell-life.org/idart/practitioners",
                 "value": "00001"
             }
         ]
@@ -16,7 +16,7 @@
     "patient": {
         "identifiers": [
             {
-                "system": "http://www.cell-life.org/idart/patient",
+                "system": "http://www.cell-life.org/idart/patients",
                 "value": "00001"
             }
         ]

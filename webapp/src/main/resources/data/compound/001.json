@@ -1,0 +1,23 @@
+{
+    "@type": "compound",
+    "identifiers": [
+        {
+            "system": "http://www.who.int/medicines/services/inn",
+            "value": "Zidovudine"
+        }
+    ],
+    "unitOfMeasure": {
+        "codes": [
+            {
+                "system": "http://unitsofmeasure.org",
+                "value": "mg"
+            }
+        ]
+    },
+    "classifications": [
+        {
+            "code": "J05AF01",
+            "type": "ATC"
+        }
+    ]
+}

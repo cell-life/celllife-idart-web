@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.contactmechanism
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Persistable
 
 /**
@@ -12,6 +13,6 @@ abstract class ContactMechanism implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
 }

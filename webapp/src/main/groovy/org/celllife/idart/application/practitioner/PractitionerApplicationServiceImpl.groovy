@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-04-29
  * Time: 12h16
  */
-@Service class PractitionerApplicationServiceImpl implements PractitionerApplicationService {
+@Service class PractitionerApplicationServiceImpl implements PractitionerApplicationService, PractitionerResourceService {
 
     @Autowired ClinicRepository clinicRepository
 
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service
     @Override
     List<Practitioner> findByClinicIdentifier(String applicationId, String clinicIdentifierValue) {
 
-        Clinic clinic = clinicRepository.findOneByIdentifier("http://www.cell-life.org/idart/clinic", clinicIdentifierValue)
+        Clinic clinic = clinicRepository.findOneByIdentifier("http://www.cell-life.org/idart/clinics", clinicIdentifierValue)
 
         if (clinic == null) {
             throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifierValue)
@@ -48,6 +48,16 @@ import org.springframework.stereotype.Service
         newPractitioner.person = updatePerson(newPractitioner)
 
         practitionerService.save(newPractitioner)
+    }
+
+    @Override
+    Practitioner findByIdentifier(String identifier) {
+        return practitionerService.findByIdentifier(identifier)
+    }
+
+    @Override
+    Iterable<Practitioner> findAll() {
+        return practitionerService.findAll()
     }
 
     /**

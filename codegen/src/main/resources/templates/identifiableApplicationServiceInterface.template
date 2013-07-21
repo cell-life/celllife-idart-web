@@ -1,0 +1,13 @@
+package $applicationPackageName;
+
+import javax.annotation.Generated;
+
+/**
+ * User: Kevin W. Sewell
+ * Date: ${currentDate}
+ * Time: ${currentTime}
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+public interface ${entityName}ApplicationService {
+
+}

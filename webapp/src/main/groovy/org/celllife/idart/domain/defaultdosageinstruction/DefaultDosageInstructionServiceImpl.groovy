@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
     @Override
     DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
-        def existingDefaultDosageInstruction = findOneByIdentifiers(defaultDosageInstruction.medication.identifiers)
+        def existingDefaultDosageInstruction = findByIdentifiers(defaultDosageInstruction.medication.identifiers)
 
         if (existingDefaultDosageInstruction == null) {
             existingDefaultDosageInstruction = new DefaultDosageInstruction()
@@ -31,13 +31,24 @@ import org.springframework.stereotype.Service
         defaultDosageInstructionRepository.save(existingDefaultDosageInstruction)
     }
 
+    @Override
+    Iterable<DefaultDosageInstruction> findAll() {
+        defaultDosageInstructionRepository.findAll()
+    }
 
-    DefaultDosageInstruction findOneByIdentifiers(Set<Identifier> identifiers) {
+    @Override
+    DefaultDosageInstruction findByIdentifier(String medicationIdentifier) {
+        defaultDosageInstructionRepository
+                .findOneByMedicationIdentifier("http://www.celllife.org/idart/medications", medicationIdentifier)
+    }
+
+    @Override
+    DefaultDosageInstruction findByIdentifiers(Set<Identifier> identifiers) {
 
         for (identifier in identifiers) {
 
             def defaultDosageInstruction = defaultDosageInstructionRepository
-                    .findOneByMedicationIdentifier(identifier.getSystem(), identifier.getValue())
+                    .findOneByMedicationIdentifier(identifier.system, identifier.value)
 
             if (defaultDosageInstruction != null) {
                 return defaultDosageInstruction

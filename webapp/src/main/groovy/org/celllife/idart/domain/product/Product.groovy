@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.product
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.common.Persistable
@@ -15,11 +16,15 @@ class Product implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Identified by
      */
     Set<Identifier> identifiers = []
+
+    def merge(Product that) {
+        this.mergeIdentifiers(that)
+    }
 
 }

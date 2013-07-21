@@ -18,6 +18,7 @@ import static org.celllife.idart.domain.patient.Patients.*
 
     @Autowired PatientSequence patientSequence
 
+    @Override
     Patient findByIdentifiers(Set<Identifier> identifiers) {
 
         for (Identifier identifier in identifiers) {
@@ -30,6 +31,7 @@ import static org.celllife.idart.domain.patient.Patients.*
         null
     }
 
+    @Override
     Patient save(Patient newPatient) {
 
         Patient existingPatient = findByIdentifiers(newPatient.identifiers)
@@ -44,6 +46,17 @@ import static org.celllife.idart.domain.patient.Patients.*
         }
 
         return patientRepository.save(newPatient)
+    }
+
+
+    @Override
+    Patient findByIdentifier(String identifier) {
+        patientRepository.findOneByIdentifier(IDART_PATIENT_IDENTIFIER_SYSTEM, identifier)
+    }
+
+    @Override
+    Iterable<Patient> findAll() {
+        patientRepository.findAll()
     }
 
     private String nextPatientIdentifier() {

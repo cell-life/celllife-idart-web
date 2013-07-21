@@ -22,9 +22,8 @@ class PatientBuilder {
 
     static final DATA_OF_BIRTH_FORMAT = 'yyyy-MM-dd'
 
-    static Patient buildIdartPatient(getPatientResponse) {
+    static Patient buildIdartPatient(envelope) {
 
-        def envelope = getPatientResponse.data
         envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
 
         def prehmisPatient = envelope.'soap:Body'.'prehmis:getPatientResponse'.result
@@ -33,52 +32,58 @@ class PatientBuilder {
         Person person = new Person()
 
         String prehmisId = prehmisPatient.id.text()
-        if (prehmisId == null || prehmisId.isEmpty()) {
+        if (prehmisId == null || prehmisId.empty) {
             return null
         }
 
-        ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PREHMIS.getSystem(), prehmisId)
+        ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PREHMIS.system, prehmisId)
 
         String pgwcPatientNumber = prehmisPatient.pgwc_patient_number.text()
-        if (pgwcPatientNumber != null && !pgwcPatientNumber.isEmpty()) {
-            ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PGWC.getSystem(), pgwcPatientNumber)
+        if (pgwcPatientNumber != null && !pgwcPatientNumber.empty) {
+            ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PGWC.system, pgwcPatientNumber)
         }
 
         String saId = prehmisPatient.sa_id_number.text()
-        if (saId != null && !saId.isEmpty()) {
-            ((Party) person).addIdentifier(PrehmisPatientIdentifierType.SAID.getSystem(), saId)
+        if (saId != null && !saId.empty) {
+            ((Party) person).addIdentifier(PrehmisPatientIdentifierType.SAID.system, saId)
         }
 
-        String firstName = prehmisPatient.first_name.text()
-        if (firstName != null && !firstName.isEmpty()) {
-            person.setFirstName(firstName)
-        }
+        person.firstName = prehmisPatient.first_name.text()
 
-        String lastName = prehmisPatient.last_name.text()
-        if (lastName != null && !lastName.isEmpty()) {
-            person.setLastName(lastName)
-        }
+        person.lastName = prehmisPatient.last_name.text()
 
-        String dateOfBirth = prehmisPatient.date_of_birth.text()
-        if (dateOfBirth != null && !dateOfBirth.isEmpty()) {
-            person.setBirthDate(new SimpleDateFormat(DATA_OF_BIRTH_FORMAT).parse(dateOfBirth))
-        }
-        String gender = prehmisPatient.gender.text()
-        if (gender != null && !gender.isEmpty()) {
-            person.setGender(PrehmisGender.findByPrehmisCode(gender))
-        }
-        String mobileNumber = prehmisPatient.cellphone_number.text()
-        if (mobileNumber != null && !mobileNumber.isEmpty()) {
-            mobileNumber = mobileNumber.replaceAll(" ", "")
-            if (mobileNumber.length().equals(11)) {
-                person.addMobileTelephoneNumber(mobileNumber.substring(0,2), "0" + mobileNumber.substring(2))
-            } else {
-                person.addMobileTelephoneNumber("27", mobileNumber)
-            }
-        }
+        person.birthDate = getDate(prehmisPatient.date_of_birth.text())
+
+        person.gender = PrehmisGender.findByPrehmisCode(prehmisPatient.gender.text())
+
+        person.addMobileTelephoneNumber(getMobileTelephoneNumber(prehmisPatient.cellphone_number.text()))
 
         patient.setPerson(person)
 
         patient
+    }
+
+    private static Date getDate(String dateOfBirth) {
+        if (dateOfBirth == null || dateOfBirth.empty) {
+            return null
+        }
+
+        new SimpleDateFormat(DATA_OF_BIRTH_FORMAT).parse(dateOfBirth)
+    }
+
+    private static LinkedHashMap<String, String> getMobileTelephoneNumber(String mobileNumber) {
+
+        if (mobileNumber == null || mobileNumber.trim().empty) {
+            return null
+        }
+
+        mobileNumber.replaceAll(" ", "")
+
+        // International Format
+        if (mobileNumber.length().equals(11)) {
+            return [countryCode: mobileNumber.substring(0, 2), contactNumber: "0" + mobileNumber.substring(2)]
+        }
+
+        return [countryCode: "27", contactNumber: mobileNumber]
     }
 }

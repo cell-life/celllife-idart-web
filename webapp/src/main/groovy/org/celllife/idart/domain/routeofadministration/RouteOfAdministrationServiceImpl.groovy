@@ -3,32 +3,46 @@ package org.celllife.idart.domain.routeofadministration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
  * User: Kevin W. Sewell
- * Date: 2013-06-21
- * Time: 20h01
+ * Date: 2013-07-21
+ * Time: 02h48
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class RouteOfAdministrationServiceImpl implements RouteOfAdministrationService {
 
-    @Autowired RouteOfAdministrationRepository routeOfAdministrationRespository
+    @Autowired RouteOfAdministrationRepository routeOfAdministrationRepository
 
-    def save(Iterable<RouteOfAdministration> routeOfAdministrations) {
-        routeOfAdministrations.each { routeOfAdministration -> save(routeOfAdministration) }
+    @Override
+    Iterable<RouteOfAdministration> save(Iterable<RouteOfAdministration> routesOfAdministration) {
+        routesOfAdministration.collect { routeOfAdministration -> (save(routeOfAdministration)) }
     }
 
-    def save(RouteOfAdministration routeOfAdministration) {
+    @Override
+    RouteOfAdministration save(RouteOfAdministration routeOfAdministration) {
 
         String system = routeOfAdministration.getFirstSystem()
         String code = routeOfAdministration.getCodeValue(system)
 
-        RouteOfAdministration savedRouteOfAdministration =
-            routeOfAdministrationRespository.findOneBySystemAndCode(system, code)
+        RouteOfAdministration savedRouteOfAdministration = routeOfAdministrationRepository.findOneByCode(system, code)
 
         if (savedRouteOfAdministration != null) {
             savedRouteOfAdministration.mergeCodes(routeOfAdministration)
-            routeOfAdministrationRespository.save(savedRouteOfAdministration)
+            return routeOfAdministrationRepository.save(savedRouteOfAdministration)
         } else {
-            routeOfAdministrationRespository.save(routeOfAdministration)
+            return routeOfAdministrationRepository.save(routeOfAdministration)
         }
+    }              
+    
+    @Override
+    Iterable<RouteOfAdministration> findAll() {
+        routeOfAdministrationRepository.findAll()
+    }
+
+    @Override
+    RouteOfAdministration findByIdentifier(String identifier) {
+        null
     }
 }

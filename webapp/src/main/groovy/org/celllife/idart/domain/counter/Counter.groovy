@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.counter
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Persistable
 
 /**
@@ -12,7 +13,7 @@ class Counter implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     String name
 

@@ -23,7 +23,7 @@ class PractitionerApplicationServiceIntegrationTest {
     @Ignore
     public void shouldFindByClinicIdentifier() throws Exception {
 
-        practitionerApplicationService.findByClinicIdentifier()
+        practitionerApplicationService.findByClinicIdentifier("", "")
 
     }
 }

@@ -9,7 +9,7 @@ import org.celllife.idart.domain.party.Party
  */
 class People {
 
-    static final String IDART_PERSON_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/person"
+    static final String IDART_PERSON_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/people"
 
     static final String IDART_PERSON_IDENTIFIER_FORMAT = "%08d"
 

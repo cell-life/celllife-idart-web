@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-15
  * Time: 22h10
  */
-@Service class DefaultDosageInstructionApplicationServiceImpl implements DefaultDosageInstructionApplicationService {
+@Service class DefaultDosageInstructionApplicationServiceImpl implements DefaultDosageInstructionApplicationService,
+        DefaultDosageInstructionResourceService{
 
     @Autowired DefaultDosageInstructionService defaultDosageInstructionService
 
@@ -20,9 +21,18 @@ import org.springframework.stereotype.Service
     @Override
     DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
-        defaultDosageInstruction.medication =
-            finishedGoodService.findByIdentifiers(defaultDosageInstruction.medication.identifiers)
+        defaultDosageInstruction.medication = finishedGoodService.save(defaultDosageInstruction.medication)
 
         defaultDosageInstructionService.save(defaultDosageInstruction)
+    }
+
+    @Override
+    DefaultDosageInstruction findByIdentifier(String medicationIdentifier) {
+        return defaultDosageInstructionService.findByIdentifier(medicationIdentifier)
+    }
+
+    @Override
+    Iterable<DefaultDosageInstruction> findAll() {
+        defaultDosageInstructionService.findAll()
     }
 }

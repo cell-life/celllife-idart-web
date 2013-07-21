@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull
  * Time: 17h02
  */
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(excludes = "pk")
 class DefaultDosageInstruction implements Persistable {
 
     Long pk

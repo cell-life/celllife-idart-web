@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.person
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 import javax.validation.constraints.NotNull
 
 /**
@@ -12,7 +14,7 @@ abstract class PhysicalCharacteristic {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     @NotNull
     Date fromDate

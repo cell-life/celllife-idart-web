@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-17
  * Time: 22h24
  */
-@Service class PartApplicationServiceImpl implements PartApplicationService, InitializingBean {
+@Service class PartApplicationServiceImpl implements PartApplicationService, PartResourceService, InitializingBean {
 
     @Autowired FinishedGoodService finishedGoodService
 
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service
 
     def partServices
 
+    @Override
     Part findByIdentifiers(Set<Identifier> identifiers) {
 
         for (partService in partServices) {
@@ -34,7 +35,22 @@ import org.springframework.stereotype.Service
     }
 
     @Override
+    Part save(Part part) {
+        return null
+    }
+
+    @Override
+    Part findByIdentifier(String identifier) {
+        return null
+    }
+
+    @Override
+    Iterable<Part> findAll() {
+        return null
+    }
+
+    @Override
     void afterPropertiesSet() throws Exception {
-       this.partServices = [finishedGoodService, rawMaterialService]
+        this.partServices = [finishedGoodService, rawMaterialService]
     }
 }

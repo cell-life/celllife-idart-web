@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.partyfacility
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.party.Party
@@ -14,7 +15,7 @@ class PartyFacility implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Type

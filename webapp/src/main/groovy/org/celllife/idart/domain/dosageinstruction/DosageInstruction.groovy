@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.dosageinstruction
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.administrationmethod.AdministrationMethod
 import org.celllife.idart.domain.common.*
 import org.celllife.idart.domain.entrysite.EntrySite
@@ -12,7 +13,7 @@ import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
  */
 class DosageInstruction implements Persistable {
 
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Free text dosage instruction

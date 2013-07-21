@@ -5,5 +5,5 @@ package org.celllife.idart.domain.part
  * Date: 2013-06-16
  * Time: 18h19
  */
-class RawMaterial extends Part {
+abstract class RawMaterial extends Part {
 }

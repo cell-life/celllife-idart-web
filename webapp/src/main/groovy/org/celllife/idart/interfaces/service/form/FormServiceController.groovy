@@ -6,9 +6,11 @@ import org.celllife.idart.integration.hl7.CodeFile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.servlet.http.HttpServletResponse
 
@@ -24,7 +26,7 @@ import static org.celllife.idart.integration.hl7.Hl7CodeFileReader.readFile
 
     @Autowired FormService formService
 
-    @RequestMapping(value = "/service/forms/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/forms/upload", method = RequestMethod.POST)
     void upload(@RequestParam("structure") String structure,
                    @RequestBody byte[] fileContent,
                    HttpServletResponse response) {

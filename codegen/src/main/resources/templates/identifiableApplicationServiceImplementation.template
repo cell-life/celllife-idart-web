@@ -1,0 +1,35 @@
+package $applicationPackageName
+
+import org.celllife.idart.domain.common.Identifier
+import ${domainPackageName}.${entityName}
+import ${domainPackageName}.${entityName}Service
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+
+import javax.annotation.Generated
+
+/**
+ * User: Kevin W. Sewell
+ * Date: ${currentDate}
+ * Time: ${currentTime}
+ */
+@Service
+@Mixin(${entityName}ApplicationServiceMixin)
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+class ${entityName}ApplicationServiceImpl implements ${entityName}ApplicationService, ${entityName}ResourceService {
+
+    @Autowired ${entityName}Service ${lowerCaseEntityName}Service
+
+    ${entityName} save(${entityName} ${lowerCaseEntityName}) {
+        ${lowerCaseEntityName}Service.save(${lowerCaseEntityName})
+    }
+
+    ${entityName} findByIdentifier(String identifier) {
+        ${lowerCaseEntityName}Service.findByIdentifier(identifier)
+    }
+
+    Iterable<${entityName}> findAll() {
+        ${lowerCaseEntityName}Service.findAll()
+    }
+
+}

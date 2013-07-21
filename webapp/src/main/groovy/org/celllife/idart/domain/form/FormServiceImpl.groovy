@@ -3,30 +3,46 @@ package org.celllife.idart.domain.form
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
  * User: Kevin W. Sewell
- * Date: 2013-06-21
- * Time: 20h01
+ * Date: 2013-07-21
+ * Time: 02h48
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class FormServiceImpl implements FormService {
 
-    @Autowired FormRepository formRespository
+    @Autowired FormRepository formRepository
 
-    def save(Iterable<Form> forms) {
-        forms.each { form -> save(form) }
+    @Override
+    Iterable<Form> save(Iterable<Form> forms) {
+        forms.collect { form -> (save(form)) }
     }
 
-    def save(Form form) {
+    @Override
+    Form save(Form form) {
 
         String system = form.getFirstSystem()
         String code = form.getCodeValue(system)
 
-        Form savedForm = formRespository.findOneBySystemAndCode(system, code)
+        Form savedForm = formRepository.findOneByCode(system, code)
+
         if (savedForm != null) {
             savedForm.mergeCodes(form)
-            formRespository.save(savedForm)
+            return formRepository.save(savedForm)
         } else {
-            formRespository.save(form)
+            return formRepository.save(form)
         }
+    }              
+    
+    @Override
+    Iterable<Form> findAll() {
+        formRepository.findAll()
+    }
+
+    @Override
+    Form findByIdentifier(String identifier) {
+        null
     }
 }

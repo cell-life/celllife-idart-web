@@ -1,0 +1,21 @@
+package $domainPackageName;
+
+import javax.annotation.Generated;
+
+/**
+ * User: Kevin W. Sewell
+ * Date: ${currentDate}
+ * Time: ${currentTime}
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+public interface ${entityName}Service {
+
+    Iterable<${entityName}> save(Iterable<${entityName}> ${lowerCaseEntityNamePlural});
+
+    ${entityName} save(${entityName} ${lowerCaseEntityName});
+
+    Iterable<${entityName}> findAll();
+
+    ${entityName} findByIdentifier(String identifier);
+
+}

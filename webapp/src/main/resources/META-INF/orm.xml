@@ -186,8 +186,6 @@
 
         <inheritance strategy="JOINED"/>
 
-        <discriminator-column name="type"/>
-
         <attributes>
             <id name="pk">
                 <generated-value strategy="TABLE"/>
@@ -317,8 +315,6 @@
 
     <entity class="org.celllife.idart.domain.part.FinishedGood">
 
-        <discriminator-value>FinishedGood</discriminator-value>
-
         <attributes>
             <one-to-many name="billOfMaterials" fetch="EAGER" orphan-removal="true">
                 <cascade>
@@ -329,10 +325,20 @@
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.part.RawMaterial">
-
+    <entity class="org.celllife.idart.domain.part.Compound">
         <discriminator-value>RawMaterial</discriminator-value>
+    </entity>
 
+    <entity class="org.celllife.idart.domain.part.Drug">
+        <discriminator-value>RawMaterial</discriminator-value>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.part.DrugGroup">
+        <discriminator-value>RawMaterial</discriminator-value>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.part.RawMaterial">
+        <discriminator-value>RawMaterial</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.part.Subassembly">
@@ -355,13 +361,12 @@
 
         <inheritance/>
 
+        <discriminator-column name="type"/>
+
         <attributes>
             <id name="pk">
                 <generated-value strategy="TABLE"/>
             </id>
-            <basic name="type">
-                <enumerated>STRING</enumerated>
-            </basic>
             <basic name="comment"/>
             <basic name="fromDate">
                 <temporal>DATE</temporal>
@@ -381,6 +386,10 @@
             </embedded>
         </attributes>
 
+    </entity>
+
+    <entity class="org.celllife.idart.domain.part.EngineeringPartBillOfMaterialsItem">
+        <discriminator-value>engineering</discriminator-value>
     </entity>
 
     <!-- Part Classification -->

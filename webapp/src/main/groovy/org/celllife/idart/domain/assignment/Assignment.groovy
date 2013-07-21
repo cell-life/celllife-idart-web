@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.assignment
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.practitioner.Practitioner
@@ -14,7 +15,7 @@ class Assignment implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     Practitioner practitioner
 

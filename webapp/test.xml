@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:preh="http://prehmis-qa.capetown.gov.za/">
-    <soapenv:Header>
-        <preh:AuthHeaderElement>
-            <username>idart</username>
-            <password>idart</password>
-            <facility_code>WES</facility_code>
-            <application_key>idart</application_key>
-        </preh:AuthHeaderElement>
-    </soapenv:Header>
-    <soapenv:Body>
-        <preh:getPatient>
-            <AuthHeader/>
-            <nr>72254311</nr>
-            <identifier>PGWC</identifier>
-        </preh:getPatient>
-    </soapenv:Body>
-</soapenv:Envelope>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns1="http://prehmis-qa.capetown.gov.za/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <SOAP-ENV:Header>
+        <ns1:AuthHeaderElement xsi:type="ns1:AuthHeader">
+            <username></username>
+            <password></password>
+            <facility_code></facility_code>
+            <application_key></application_key>
+        </ns1:AuthHeaderElement>
+    </SOAP-ENV:Header>
+    <SOAP-ENV:Body>
+        <ns1:getPatientResponse>
+            <result>
+                <id>1</id>
+                <first_name>AEIGHT</first_name>
+                <last_name>TEST</last_name>
+                <date_of_birth>1981-01-01</date_of_birth>
+                <gender>Male</gender>
+                <cellphone_number/>
+                <pgwc_patient_number>72254311</pgwc_patient_number>
+                <sa_id_number/>
+                <passport_number/>
+            </result>
+        </ns1:getPatientResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

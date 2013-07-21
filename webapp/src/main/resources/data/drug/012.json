@@ -1,0 +1,50 @@
+{
+    "@type": "drug",
+    "identifiers": [
+        {
+            "system": "http://www.cell-life.org/idart/drugs",
+            "value": "Stavudine 20mg (60 Tablets)"
+        }
+    ],
+    "billOfMaterials": [
+        {
+            "@type": "engineering",
+            "fromDate": "2013-01-01",
+            "part": {
+                "@type": "drug",
+                "identifiers": [
+                    {
+                        "system": "http://www.cell-life.org/idart/drugs",
+                        "value": "Stavudine 20mg"
+                    }
+                ]
+            },
+            "quantityUsed": {
+                "unitOfMeasure": {
+                    "codes": [
+                        {
+                            "system": "http://www.cell-life.org/idart/unitsOfMeasure",
+                            "value": "each"
+                        }
+                    ]
+                },
+                "value": "60"
+
+            }
+        }
+    ],
+    "classifications": [
+        {
+            "code": "J05AF04",
+            "type": "ATC"
+        }
+    ],
+    "unitOfMeasure": {
+        "codes": [
+            {
+                "system": "http://www.cell-life.org/idart/unitsOfMeasure",
+                "value": "each"
+            }
+        ]
+    }
+}

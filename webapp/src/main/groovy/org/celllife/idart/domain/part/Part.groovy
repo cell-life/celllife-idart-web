@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.part
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.domain.common.Identifiable
@@ -16,14 +17,14 @@ import static org.celllife.idart.framework.aspectj.InjectCoded.inject
  * Time: 18h17
  */
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(excludes = "pk")
 @Mixin(Identifiable)
-class Part implements Persistable {
+abstract class Part implements Persistable {
 
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Named as

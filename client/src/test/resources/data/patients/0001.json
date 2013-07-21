@@ -1,0 +1,71 @@
+{
+    "identifiers":
+        [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "2",
+                "fromDate": 1374165840355,
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/patients",
+                "value": "00000001",
+                "fromDate": 1374165842743,
+                "thruDate": null
+            },
+            {
+                "system": "http://www.pgwc.gov.za",
+                "value": "17768102",
+                "fromDate": 1374165840355,
+                "thruDate": null
+            }
+        ],
+    "fromDate": 1374165840355,
+    "thruDate": null,
+    "person":
+    {
+        "identifiers":
+            [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000014",
+                    "fromDate": 1374165842729,
+                    "thruDate": null
+                }
+            ],
+        "classifications":
+            [
+            ],
+        "contactMechanisms":
+            [
+                {
+                    "fromDate": 1374165840368,
+                    "thruDate": null,
+                    "nonSolicitationIndicator": null,
+                    "extension": null,
+                    "comment": null,
+                    "contactMechanism":
+                    {
+                        "@type": "mobile",
+                        "contactNumber": "0723222064",
+                        "countryCode": "27"
+                    }
+                }
+            ],
+        "firstName": "MIHLALI",
+        "middleNames": null,
+        "lastName": "PAPU",
+        "personalTitle": null,
+        "suffix": null,
+        "nickname": null,
+        "gender": "F",
+        "birthDate": 1149199200000,
+        "mothersMaidenName": null,
+        "maritalStatus": null,
+        "totalYearsWorkExperience": null,
+        "comment": null,
+        "physicalCharacteristics":
+            [
+            ]
+    }
+}

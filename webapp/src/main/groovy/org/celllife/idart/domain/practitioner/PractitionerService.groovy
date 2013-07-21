@@ -12,4 +12,8 @@ interface PractitionerService {
     Practitioner findByIdentifiers(Set<Identifier> identifiers)
 
     Practitioner save(Practitioner practitioner)
+
+    Practitioner findByIdentifier(String identifier)
+
+    Iterable<Practitioner> findAll()
 }

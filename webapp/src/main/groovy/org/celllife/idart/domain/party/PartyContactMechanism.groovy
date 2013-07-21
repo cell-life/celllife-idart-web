@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.party
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 import org.celllife.idart.domain.contactmechanism.ContactMechanism
 
 /**
@@ -7,6 +9,8 @@ import org.celllife.idart.domain.contactmechanism.ContactMechanism
  * Date: 2013-07-17
  * Time: 23h31
  */
+@ToString
+@EqualsAndHashCode(includes = "contactMechanism")
 class PartyContactMechanism {
 
     Date fromDate = new Date()

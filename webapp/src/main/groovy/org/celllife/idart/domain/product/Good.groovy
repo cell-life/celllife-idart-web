@@ -14,4 +14,8 @@ class Good extends Product {
      */
     FinishedGood finishedGood
 
+    def merge(Good that) {
+        super.merge(that)
+        this.finishedGood = that.finishedGood
+    }
 }

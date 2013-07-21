@@ -1,6 +1,8 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.celllife.idart.domain.part.Compound
+import org.celllife.idart.domain.part.Drug
 import org.celllife.idart.domain.part.FinishedGood
 import org.celllife.idart.domain.part.FinishedGoodService
 import org.celllife.idart.domain.part.RawMaterial
@@ -65,19 +67,19 @@ class PrescriptionApplicationServiceIntegrationTest {
         each.addCode("http://unitsofmeasure.org", "ea")
         unitOfMeasureService.save(each)
 
-        RawMaterial abacavirRawMaterial = new RawMaterial()
+        RawMaterial abacavirRawMaterial = new Compound()
         abacavirRawMaterial.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
         abacavirRawMaterial.setUnitOfMeasure(milligrams)
         abacavirRawMaterial = rawMaterialService.save(abacavirRawMaterial)
 
-        FinishedGood abacavir20mg = new FinishedGood()
-        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGood", "Abacavir 20mg/ml")
+        FinishedGood abacavir20mg = new Drug()
+        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml")
         abacavir20mg.setUnitOfMeasure(millilitres)
         abacavir20mg.addEngineeringPart(new Date(), abacavirRawMaterial, 20.0D, milligrams)
         abacavir20mg = finishedGoodService.save(abacavir20mg)
 
-        FinishedGood finishedGood = new FinishedGood()
-        finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGood", "Abacavir 20mg/ml 240ml")
+        FinishedGood finishedGood = new Drug()
+        finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
         finishedGood.setUnitOfMeasure(each)
         finishedGood.addEngineeringPart(new Date(), abacavir20mg, 240.0D, millilitres)
         finishedGood = finishedGoodService.save(finishedGood)
@@ -87,11 +89,11 @@ class PrescriptionApplicationServiceIntegrationTest {
         goodService.save(good)
 
         Patient patient = new Patient()
-        ((PartyRole) patient).addIdentifier("http://www.cell-life.org/idart/patient", "00001")
+        ((PartyRole) patient).addIdentifier("http://www.cell-life.org/idart/patients", "00001")
         patientService.save(patient)
 
         Practitioner practitioner = new Practitioner()
-        ((PartyRole) practitioner).addIdentifier("http://www.cell-life.org/idart/practitioner", "00001")
+        ((PartyRole) practitioner).addIdentifier("http://www.cell-life.org/idart/practitioners", "00001")
         practitionerService.save(practitioner)
 
         InputStream inputStream = getClass().getResourceAsStream("/data/prescription/0000.json")

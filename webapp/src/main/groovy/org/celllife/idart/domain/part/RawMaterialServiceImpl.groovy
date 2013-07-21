@@ -4,11 +4,14 @@ import org.celllife.idart.domain.common.Identifier
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
  * User: Kevin W. Sewell
- * Date: 2013-07-14
- * Time: 15h26
+ * Date: 2013-07-21
+ * Time: 02h48
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class RawMaterialServiceImpl implements RawMaterialService {
 
     @Autowired RawMaterialRepository rawMaterialRepository
@@ -18,20 +21,30 @@ import org.springframework.stereotype.Service
 
         RawMaterial existingRawMaterial = findByIdentifiers(rawMaterial.identifiers)
         if (existingRawMaterial == null) {
-            existingRawMaterial = new RawMaterial()
+            existingRawMaterial = rawMaterial.class.newInstance()
         }
 
         existingRawMaterial.merge(rawMaterial)
 
-        return rawMaterialRepository.save(existingRawMaterial)
+        rawMaterialRepository.save(existingRawMaterial)
     }
 
 
+    @Override
+    Iterable<RawMaterial> findAll() {
+        rawMaterialRepository.findAll()
+    }
+
+    @Override
+    RawMaterial findByIdentifier(String identifier) {
+        null
+    }
+
+    @Override
     RawMaterial findByIdentifiers(Set<Identifier> identifiers) {
 
-        for (identifier in identifiers) {
-
-            def rawMaterial = rawMaterialRepository.findOneByIdentifier(identifier.getSystem(), identifier.getValue())
+        for (Identifier identifier: identifiers) {
+            RawMaterial rawMaterial = rawMaterialRepository.findOneByIdentifier(identifier.value, identifier.system)
             if (rawMaterial != null) {
                 return rawMaterial
             }

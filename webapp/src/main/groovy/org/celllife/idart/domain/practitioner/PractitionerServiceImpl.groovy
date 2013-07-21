@@ -15,7 +15,7 @@ import static org.celllife.idart.domain.practitioner.Practitioners.*
  */
 @Service class PractitionerServiceImpl implements PractitionerService {
 
-    static final String IDART_PRACTITIONER_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/practitioner"
+    static final String IDART_PRACTITIONER_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/practitioners"
 
     @Autowired PractitionerRepository practitionerRepository
 
@@ -51,6 +51,16 @@ import static org.celllife.idart.domain.practitioner.Practitioners.*
         }
 
         return practitionerRepository.save(newPractitioner)
+    }
+
+    @Override
+    Practitioner findByIdentifier(String identifier) {
+        practitionerRepository.findByIdentifier(IDART_PRACTITIONER_IDENTIFIER_SYSTEM, identifier)
+    }
+
+    @Override
+    Iterable<Practitioner> findAll() {
+        practitionerRepository.findAll()
     }
 
     private String nextPractitionerIdentifier() {

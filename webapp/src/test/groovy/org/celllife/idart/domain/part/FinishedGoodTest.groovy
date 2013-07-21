@@ -17,7 +17,7 @@ class FinishedGoodTest {
     @Test
     public void shouldMarshalTestData() throws Exception {
 
-        def inputStream = getClass().getResourceAsStream("/data/finishedGood/001.json")
+        def inputStream = getClass().getResourceAsStream("/data/drug/001.json")
 
         def finishedGood = new ObjectMapper().reader(FinishedGood).readValue(inputStream)
 
@@ -28,7 +28,7 @@ class FinishedGoodTest {
     @Test
     public void shouldMarshalTestDataFromXml() throws Exception {
 
-        def finishedGood = new XmlSlurper().parse(getClass().getResourceAsStream("/data/drug/finishedGood.xml"))
+        def finishedGood = new XmlSlurper().parse(getClass().getResourceAsStream("/data/drug/drug.xml"))
 
         println finishedGood.identifier.@value
 

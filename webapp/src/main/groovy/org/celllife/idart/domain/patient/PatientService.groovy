@@ -12,4 +12,8 @@ interface PatientService {
     Patient findByIdentifiers(Set<Identifier> identifiers)
 
     Patient save(Patient patient)
+
+    Patient findByIdentifier(String identifier)
+
+    Iterable<Patient> findAll()
 }

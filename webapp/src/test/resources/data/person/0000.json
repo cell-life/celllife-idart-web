@@ -4,7 +4,7 @@
     "lastName": "Vader",
     "identifiers": [
         {
-            "system": "http://www.cell-life.org/idart/person",
+            "system": "http://www.cell-life.org/idart/people",
             "value": "0000001"
         }
     ]

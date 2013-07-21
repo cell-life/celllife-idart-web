@@ -1,0 +1,23 @@
+{
+    "@type": "compound",
+    "identifiers": [
+        {
+            "system": "http://www.who.int/medicines/services/inn",
+            "value": "Stavudine"
+        }
+    ],
+    "unitOfMeasure": {
+        "codes": [
+            {
+                "system": "http://unitsofmeasure.org",
+                "value": "mg"
+            }
+        ]
+    },
+    "classifications": [
+        {
+            "code": "J05AF04",
+            "type": "ATC"
+        }
+    ]
+}

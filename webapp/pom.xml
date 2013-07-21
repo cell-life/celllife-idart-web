@@ -68,11 +68,57 @@
         <plugins>
 
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/domain</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>gmaven-plugin</artifactId>
                 <version>1.5</version>
                 <executions>
                     <execution>
+                        <id>groovy-codegen</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <source>${project.basedir}/codegen.groovy</source>
+                            <classpath>
+                                <classpath>
+                                    <groupId>org.celllife.idart</groupId>
+                                    <artifactId>celllife-idart-web-codegen</artifactId>
+                                </classpath>
+                            </classpath>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>groovy-compile</id>
                         <goals>
                             <goal>compile</goal>
                             <goal>generateStubs</goal>
@@ -89,6 +135,11 @@
                         <groupId>org.codehaus.groovy</groupId>
                         <artifactId>groovy-all</artifactId>
                         <version>${groovy.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant</artifactId>
+                        <version>1.8.3</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -270,6 +321,13 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.celllife.idart</groupId>
+            <artifactId>celllife-idart-web-codegen</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- JodaTime -->
 

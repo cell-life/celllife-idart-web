@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.party
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.EqualsAndHashCode
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
@@ -18,7 +19,7 @@ abstract class Party implements Persistable {
     /**
      * Persistence Key
      */
-    Long pk
+    @JsonIgnore Long pk
 
     /**
      * Identified by
@@ -41,11 +42,16 @@ abstract class Party implements Persistable {
         that?.contactMechanisms?.each { contactMechanism -> this.contactMechanisms << contactMechanism }
     }
 
-    def addMobileTelephoneNumber(String countryCode, String contactNumber) {
+    def addMobileTelephoneNumber(args) {
+
+        if (args == null) {
+            return
+        }
+
         contactMechanisms << new PartyContactMechanism(
                 contactMechanism: new MobileTelephoneNumber(
-                        countryCode: countryCode,
-                        contactNumber: contactNumber
+                        countryCode: args.countryCode,
+                        contactNumber: args.contactNumber
                 )
         )
     }

@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.person
 
-import groovy.transform.EqualsAndHashCode
 import org.celllife.idart.domain.common.Gender
 import org.celllife.idart.domain.common.MaritalStatus
 import org.celllife.idart.domain.party.Party

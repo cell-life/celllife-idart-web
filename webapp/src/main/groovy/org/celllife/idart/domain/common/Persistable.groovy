@@ -8,9 +8,6 @@ interface Persistable {
 
     Long getPk()
 
-    void setPk(/**
-     * Persistence Key
-     */
-            Long pk)
+    void setPk(Long pk)
 
 }

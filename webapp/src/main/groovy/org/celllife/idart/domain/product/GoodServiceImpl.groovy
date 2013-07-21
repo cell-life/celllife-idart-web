@@ -4,11 +4,14 @@ import org.celllife.idart.domain.common.Identifier
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
  * User: Kevin W. Sewell
- * Date: 2013-07-14
- * Time: 15h26
+ * Date: 2013-07-21
+ * Time: 02h48
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class GoodServiceImpl implements GoodService {
 
     @Autowired GoodRepository goodRepository
@@ -18,20 +21,30 @@ import org.springframework.stereotype.Service
 
         Good existingGood = findByIdentifiers(good.identifiers)
         if (existingGood == null) {
-            existingGood = new Good()
+            existingGood = good.class.newInstance()
         }
 
-        merge(good, existingGood)
+        existingGood.merge(good)
 
         goodRepository.save(existingGood)
+    }
+
+
+    @Override
+    Iterable<Good> findAll() {
+        goodRepository.findAll()
+    }
+
+    @Override
+    Good findByIdentifier(String identifier) {
+        null
     }
 
     @Override
     Good findByIdentifiers(Set<Identifier> identifiers) {
 
-        for (identifier in identifiers) {
-
-            def good = goodRepository.findOneByIdentifier(identifier.getSystem(), identifier.getValue())
+        for (Identifier identifier: identifiers) {
+            Good good = goodRepository.findOneByIdentifier(identifier.value, identifier.system)
             if (good != null) {
                 return good
             }
@@ -39,10 +52,4 @@ import org.springframework.stereotype.Service
 
         null
     }
-
-    static merge(Good source, Good target) {
-        target.mergeIdentifiers(source)
-        target.finishedGood = source.finishedGood
-    }
-
 }

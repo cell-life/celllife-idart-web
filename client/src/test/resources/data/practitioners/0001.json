@@ -1,0 +1,601 @@
+[
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "1159",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000003",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953386,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000003",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Berenice",
+            "middleNames": null,
+            "lastName": "Carolus",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "607",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000011",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953388,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000011",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Joeline",
+            "middleNames": null,
+            "lastName": "Van Staden",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "1299",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000002",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953386,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000002",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Elmarie",
+            "middleNames": null,
+            "lastName": "Thumser",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "2005",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000007",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953387,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000007",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Naboweja",
+            "middleNames": null,
+            "lastName": "Bester",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "2000",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000001",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953387,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000001",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Judy",
+            "middleNames": null,
+            "lastName": "Ruiters",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "2077",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000006",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953387,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000006",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Nicolette",
+            "middleNames": null,
+            "lastName": "Isaacs",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "966",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000008",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953388,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000008",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Le Gracious",
+            "middleNames": null,
+            "lastName": "Klein",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "2008",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000005",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953387,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000005",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Beverley",
+            "middleNames": null,
+            "lastName": "Williams",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "601",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000012",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953388,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000012",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Christina",
+            "middleNames": null,
+            "lastName": "Michels",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "1500",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000004",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953387,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000004",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Renay",
+            "middleNames": null,
+            "lastName": "Mbaezve",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "715",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000009",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953388,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000009",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Hanlie",
+            "middleNames": null,
+            "lastName": "Nel",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "682",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000010",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953388,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000010",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Christine",
+            "middleNames": null,
+            "lastName": "Maas",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    },
+    {
+        "identifiers": [
+            {
+                "system": "http://prehmis.capetown.gov.za",
+                "value": "2013",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            },
+            {
+                "system": "http://www.cell-life.org/idart/practitioners",
+                "value": "00000000",
+                "fromDate": "2013-07-18",
+                "thruDate": null
+            }
+        ],
+        "fromDate": 1374166953387,
+        "thruDate": null,
+        "person": {
+            "identifiers": [
+                {
+                    "system": "http://www.cell-life.org/idart/people",
+                    "value": "00000000",
+                    "fromDate": "2013-07-18",
+                    "thruDate": null
+                }
+            ],
+            "classifications": [
+            ],
+            "contactMechanisms": [
+            ],
+            "firstName": "Michelle",
+            "middleNames": null,
+            "lastName": "Arries",
+            "personalTitle": null,
+            "suffix": null,
+            "nickname": null,
+            "gender": null,
+            "birthDate": null,
+            "mothersMaidenName": null,
+            "maritalStatus": null,
+            "totalYearsWorkExperience": null,
+            "comment": null,
+            "physicalCharacteristics": [
+            ]
+        }
+    }
+]
+

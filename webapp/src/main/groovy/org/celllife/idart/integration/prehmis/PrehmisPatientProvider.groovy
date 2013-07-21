@@ -69,7 +69,7 @@ import static org.springframework.util.Assert.notNull
                 ]
         )
 
-        return buildIdartPatient(getPatientResponse)
+        return buildIdartPatient(getPatientResponse.data)
     }
 
     @Override

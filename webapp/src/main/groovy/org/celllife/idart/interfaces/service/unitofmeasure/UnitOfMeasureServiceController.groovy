@@ -1,18 +1,19 @@
 package org.celllife.idart.interfaces.service.unitofmeasure
 
 import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.celllife.idart.domain.form.Form
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureRepository
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.celllife.idart.integration.ucum.UcumTsvFileReader
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.servlet.http.HttpServletResponse
 
@@ -31,7 +32,7 @@ import static javax.servlet.http.HttpServletResponse.SC_OK
 
     @Autowired ObjectMapper objectMapper
 
-    @RequestMapping(value = "/service/unitsOfMeasure/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/unitsOfMeasure/upload", method = RequestMethod.POST)
     void upload(@RequestParam("structure") String structure,
                 @RequestBody byte[] fileContent,
                 HttpServletResponse response) {

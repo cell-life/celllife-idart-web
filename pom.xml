@@ -12,6 +12,7 @@
 
     <modules>
         <module>client</module>
+        <module>codegen</module>
         <module>webapp</module>
     </modules>
 
@@ -26,22 +27,6 @@
         <spring-security.version>3.1.0.RELEASE</spring-security.version>
         <scala.version>2.10.2</scala.version>
     </properties>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.5.1</version>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 
     <distributionManagement>
         <repository>

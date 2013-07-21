@@ -9,7 +9,7 @@ import org.celllife.idart.domain.partyrole.PartyRole
  */
 class Patients {
 
-    static final String IDART_PATIENT_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/patient"
+    static final String IDART_PATIENT_IDENTIFIER_SYSTEM = "http://www.cell-life.org/idart/patients"
 
     static final String IDART_PATIENT_IDENTIFIER_FORMAT = "%08d"
 

@@ -9,7 +9,6 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="type" type="varchar(40)"/>
             <column name="area" type="numeric"/>
             <column name="area_uom" type="bigint">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="area_uom_fk"/>
