@@ -18,6 +18,9 @@ codeGen.generateCodeableResources(codeableModels)
 
 def identifiableModels = [
         [entityName: "Clinic"],
+        [entityName: "Patient"],
+        [entityName: "Prescription"],
+        [entityName: "Practitioner"],
         [entityPackage: "product", entityName: "Good"],
         [entityPackage: "organisation", entityName: "LegalOrganisation"],
         [entityPackage: "part", entityName: "Compound"],

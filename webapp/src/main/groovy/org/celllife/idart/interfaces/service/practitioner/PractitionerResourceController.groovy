@@ -15,7 +15,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 01h42
+ * Time: 22h33
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Controller class PractitionerResourceController {
@@ -24,12 +24,30 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @Value('${external.base.url}') String baseUrl
 
+    @ResponseBody
+    @RequestMapping(
+            value = "/practitioners",
+            method = RequestMethod.GET, produces = "application/json"
+    )
+    Iterable<Practitioner> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+        practitionerResourceService.findAll()
+    }
+
+    @ResponseBody
+    @RequestMapping(
+            value = "/practitioners/{identifier}",
+            method = RequestMethod.GET, produces = "application/json"
+    )
+    Practitioner findByIdentifier(@PathVariable("coidentifierde") String identifier, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+        practitionerResourceService.findByIdentifier(identifier)
+    }
+
     @RequestMapping(value = "/practitioners", method = RequestMethod.POST)
     void save(@RequestBody Practitioner practitioner, HttpServletResponse response) {
 
         practitioner = practitionerResourceService.save(practitioner)
 
-        response.setHeader("Location", "${baseUrl}/practitioners/${practitioner.pk}")
+        response.setHeader("Location", "${baseUrl}/service/practitioners/${practitioner.pk}")
         response.setStatus(SC_CREATED)
     }
 }

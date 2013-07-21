@@ -6,7 +6,7 @@ package $domainPackageName
  * Time: ${currentTime}
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class $entityName {
+class ${entityName} {
 
     String name
 

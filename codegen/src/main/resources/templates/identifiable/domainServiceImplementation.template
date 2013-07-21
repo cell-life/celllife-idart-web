@@ -41,7 +41,7 @@ import javax.annotation.Generated
     }
 
     @Override
-    ${entityName} findByIdentifiers(Set<Identifier> identifiers) {
+    ${entityName} findByIdentifiers(Iterable<Identifier> identifiers) {
 
         if (identifiers == null) {
             return null

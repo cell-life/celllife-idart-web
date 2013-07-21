@@ -1,26 +1,23 @@
-package org.celllife.idart.domain.part;
+package org.celllife.idart.domain.part
 
-import org.celllife.idart.domain.common.Identifier;
+import org.celllife.idart.domain.common.Identifier
 
-import java.util.Set;
-
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface DrugGroupService {
 
-    DrugGroup save(DrugGroup drugGroup);
+    DrugGroup save(DrugGroup drugGroup)
 
-    Iterable<DrugGroup> findAll();
+    Iterable<DrugGroup> findAll()
 
-    DrugGroup findByIdentifier(String identifier);
+    DrugGroup findByIdentifier(String identifier)
 
-    DrugGroup findByIdentifiers(Set<Identifier> identifiers);
-
+    DrugGroup findByIdentifiers(Iterable<Identifier> identifiers)
 
 }

@@ -20,6 +20,15 @@ public interface SpringDataPatientRepository extends PatientRepository, PagingAn
             "join patient.identifiers patientIdentifier " +
             "left join patient.person person " +
             "left join person.identifiers personIdentifier " +
+            "where patientIdentifier.value = :identifierValue " +
+            "or personIdentifier.value = :identifierValue")
+    Iterable<Patient> findByIdentifier(@Param("identifierValue") String identifierValue);
+
+    @Query("select distinct patient " +
+            "from Patient patient " +
+            "join patient.identifiers patientIdentifier " +
+            "left join patient.person person " +
+            "left join person.identifiers personIdentifier " +
             "where (patientIdentifier.system = :identifierSystem and patientIdentifier.value = :identifierValue) " +
             "or (personIdentifier.system = :identifierSystem and personIdentifier.value = :identifierValue)")
     Patient findOneByIdentifier(@Param("identifierSystem") String identifierSystem,

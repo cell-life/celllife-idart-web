@@ -1,8 +1,6 @@
 package org.celllife.idart.codegen
 
-import static IdentifiableDomainServiceGenerator.generateIdentifiableDomainService
 import static org.celllife.idart.codegen.ModelEnricher.enrichModel
-import static IdentifiableRepositoryGenerator.generateIdentifiableRepository
 
 /**
  * User: Kevin W. Sewell
@@ -16,6 +14,64 @@ class IdentifiableAggregateRootGenerator {
         enrichModel(basePackageName, model)
 
         generateIdentifiableRepository(groovySourcesDirectory, model)
-        generateIdentifiableDomainService(groovySourcesDirectory, model)
+        generateIdentifiableSequenceInterface(groovySourcesDirectory, model)
+        generateIdentifiableValidatorInterface(groovySourcesDirectory, model)
+        generateIdentifiableValidationException(groovySourcesDirectory, model)
+        generateIdentifiableDomainServiceInterface(groovySourcesDirectory, model)
+        generateIdentifiableDomainServiceImplementation(groovySourcesDirectory, model)
+    }
+
+    static generateIdentifiableRepository(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/identifiable/repository.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "Repository.groovy"
+        )
+    }
+
+    static generateIdentifiableSequenceInterface(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/sequenceInterface.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "Sequence.groovy"
+        )
+    }
+
+    static generateIdentifiableValidatorInterface(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/validatorInterface.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "Validator.groovy"
+        )
+    }
+
+    static generateIdentifiableValidationException(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/validationException.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ValidationException.groovy"
+        )
+    }
+
+    static generateIdentifiableDomainServiceInterface(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/identifiable/domainServiceInterface.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "Service.groovy"
+        )
+    }
+
+    static generateIdentifiableDomainServiceImplementation(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/identifiable/domainServiceImplementation.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ServiceImpl.groovy"
+        )
     }
 }

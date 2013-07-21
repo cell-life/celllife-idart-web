@@ -18,17 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired
     @Override
     DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
-        def existingDefaultDosageInstruction = findByIdentifiers(defaultDosageInstruction.medication.identifiers)
+        def existingDefaultDosageInstruction = findByIdentifiers(defaultDosageInstruction.identifiers)
 
         if (existingDefaultDosageInstruction == null) {
             existingDefaultDosageInstruction = new DefaultDosageInstruction()
         }
-        existingDefaultDosageInstruction.medication = defaultDosageInstruction.medication
 
-        if (existingDefaultDosageInstruction.dosageInstruction != null) {
-            defaultDosageInstruction.dosageInstruction.pk = existingDefaultDosageInstruction.dosageInstruction.pk
-        }
-        existingDefaultDosageInstruction.dosageInstruction = defaultDosageInstruction.dosageInstruction
+        existingDefaultDosageInstruction.merge(defaultDosageInstruction)
 
         defaultDosageInstructionRepository.save(existingDefaultDosageInstruction)
     }
@@ -41,7 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired
     @Override
     DefaultDosageInstruction findByIdentifier(String medicationIdentifier) {
         defaultDosageInstructionRepository
-                .findOneByMedicationIdentifier("http://www.celllife.org/idart/medications", medicationIdentifier)
+                .findOneByIdentifier("http://www.celllife.org/idart/medications", medicationIdentifier)
     }
 
     @Override
@@ -49,8 +45,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
         for (identifier in identifiers) {
 
-            def defaultDosageInstruction = defaultDosageInstructionRepository
-                    .findOneByMedicationIdentifier(identifier.system, identifier.value)
+            def defaultDosageInstruction = defaultDosageInstructionRepository.findOneByIdentifier(identifier.system, identifier.value)
 
             if (defaultDosageInstruction != null) {
                 return defaultDosageInstruction

@@ -2,11 +2,11 @@ package org.celllife.idart.codegen
 
 import static org.celllife.idart.codegen.CodeableSpringDataRepositoryGenerator.generateCodeableSpringDataRepository
 import static org.celllife.idart.codegen.IdentifiableAggregateRootGenerator.generateIdentifiableAggregateRoot
-import static org.celllife.idart.codegen.IdentifiableApplicationServiceBootstrapper.bootstrapIdentifiableApplicationService
+import static IdentifiableApplicationServiceGenerator.generateIdentifiableApplicationService
 import static org.celllife.idart.codegen.IdentifiableResourceGenerator.generateIdentifiableResource
 import static org.celllife.idart.codegen.CodeableAggregateRootGenerator.generateCodeableAggregateRoot
 import static org.celllife.idart.codegen.CodeableResourceGenerator.generateCodeableResource
-import static org.celllife.idart.codegen.CodeableApplicationServiceBootstrapper.bootstrapCodeableApplicationService
+import static CodeableApplicationServiceGenerator.generateCodeableApplicationService
 import static org.celllife.idart.codegen.IdentifiableSpringDataRepositoryGenerator.generateIdentifiableSpringDataRepository
 
 /**
@@ -34,7 +34,7 @@ class CodeGenerator {
     def generateIdentifiableResources(models) {
         models.each { model ->
             generateIdentifiableResource(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
-            bootstrapIdentifiableApplicationService(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
+            generateIdentifiableApplicationService(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
         }
     }
 
@@ -51,7 +51,7 @@ class CodeGenerator {
     def generateCodeableResources(models) {
         models.each { model ->
             generateCodeableResource(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
-            bootstrapCodeableApplicationService(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
+            generateCodeableApplicationService(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
         }
     }
 

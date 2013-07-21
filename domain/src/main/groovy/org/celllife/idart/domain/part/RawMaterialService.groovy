@@ -1,26 +1,23 @@
-package org.celllife.idart.domain.part;
+package org.celllife.idart.domain.part
 
-import org.celllife.idart.domain.common.Identifier;
+import org.celllife.idart.domain.common.Identifier
 
-import java.util.Set;
-
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface RawMaterialService {
 
-    RawMaterial save(RawMaterial rawMaterial);
+    RawMaterial save(RawMaterial rawMaterial)
 
-    Iterable<RawMaterial> findAll();
+    Iterable<RawMaterial> findAll()
 
-    RawMaterial findByIdentifier(String identifier);
+    RawMaterial findByIdentifier(String identifier)
 
-    RawMaterial findByIdentifiers(Set<Identifier> identifiers);
-
+    RawMaterial findByIdentifiers(Iterable<Identifier> identifiers)
 
 }

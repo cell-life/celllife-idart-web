@@ -1,26 +1,23 @@
-package org.celllife.idart.domain.clinic;
+package org.celllife.idart.domain.clinic
 
-import org.celllife.idart.domain.common.Identifier;
+import org.celllife.idart.domain.common.Identifier
 
-import java.util.Set;
-
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ClinicService {
 
-    Clinic save(Clinic clinic);
+    Clinic save(Clinic clinic)
 
-    Iterable<Clinic> findAll();
+    Iterable<Clinic> findAll()
 
-    Clinic findByIdentifier(String identifier);
+    Clinic findByIdentifier(String identifier)
 
-    Clinic findByIdentifiers(Set<Identifier> identifiers);
-
+    Clinic findByIdentifiers(Iterable<Identifier> identifiers)
 
 }

@@ -1,25 +1,25 @@
-package org.celllife.idart.domain.routeofadministration;
+package org.celllife.idart.domain.routeofadministration
 
-import org.celllife.idart.domain.common.Code;
+import org.celllife.idart.domain.common.Code
 
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface RouteOfAdministrationService {
 
-    Iterable<RouteOfAdministration> save(Iterable<RouteOfAdministration> routesOfAdministration);
+    Iterable<RouteOfAdministration> save(Iterable<RouteOfAdministration> routesOfAdministration)
 
-    RouteOfAdministration save(RouteOfAdministration routeOfAdministration);
+    RouteOfAdministration save(RouteOfAdministration routeOfAdministration)
 
-    Iterable<RouteOfAdministration> findAll();
+    Iterable<RouteOfAdministration> findAll()
 
-    RouteOfAdministration findByCode(String code);
+    RouteOfAdministration findByCode(String code)
 
-    RouteOfAdministration findByCodes(Iterable<Code> codes);
+    RouteOfAdministration findByCodes(Iterable<Code> codes)
 
 }

@@ -1,26 +1,23 @@
-package org.celllife.idart.domain.part;
+package org.celllife.idart.domain.part
 
-import org.celllife.idart.domain.common.Identifier;
+import org.celllife.idart.domain.common.Identifier
 
-import java.util.Set;
-
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PartService {
 
-    Part save(Part part);
+    Part save(Part part)
 
-    Iterable<Part> findAll();
+    Iterable<Part> findAll()
 
-    Part findByIdentifier(String identifier);
+    Part findByIdentifier(String identifier)
 
-    Part findByIdentifiers(Set<Identifier> identifiers);
-
+    Part findByIdentifiers(Iterable<Identifier> identifiers)
 
 }

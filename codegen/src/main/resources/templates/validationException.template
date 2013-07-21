@@ -1,0 +1,20 @@
+package ${domainPackageName}
+
+import javax.validation.ConstraintViolation
+
+import javax.annotation.Generated
+
+/**
+ * User: Kevin W. Sewell
+ * Date: ${currentDate}
+ * Time: ${currentTime}
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+class ${entityName}ValidationException extends RuntimeException {
+
+    Set<ConstraintViolation<${entityName}>> constraintViolations
+
+    ${entityName}ValidationException(Set<ConstraintViolation<${entityName}>> constraintViolations) {
+        this.constraintViolations = constraintViolations
+    }
+}

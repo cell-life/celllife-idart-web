@@ -17,28 +17,20 @@ class IdentifiableResourceGenerator {
     }
 
     static generateIdentifiableController(String baseDirectory, model) {
-
-        def directory = baseDirectory + "/" + model.resourcePackageName.replaceAll("\\.", "/")
-        def fileName = model.entityName + "ResourceController.groovy"
-
         Output.toFile(
-                templateReader: "/templates/identifiableController.template",
+                templateReader: "/templates/identifiable/resourceController.template",
                 model: model,
-                directory: directory,
-                fileName: fileName
+                directory: baseDirectory + "/" + model.resourcePackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ResourceController.groovy"
         )
     }
 
     static generateIdentifiableResourceInterface(String baseDirectory, model) {
-
-        def directory = baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/")
-        def fileName = model.entityName + "ResourceService.java"
-
         Output.toFile(
-                templateReader: "/templates/identifiableResourceServiceInterface.template",
+                templateReader: "/templates/identifiable/resourceServiceInterface.template",
                 model: model,
-                directory: directory,
-                fileName: fileName
+                directory: baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ResourceService.java"
         )
     }
 

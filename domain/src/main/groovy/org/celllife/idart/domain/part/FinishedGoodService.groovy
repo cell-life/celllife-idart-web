@@ -1,26 +1,23 @@
-package org.celllife.idart.domain.part;
+package org.celllife.idart.domain.part
 
-import org.celllife.idart.domain.common.Identifier;
+import org.celllife.idart.domain.common.Identifier
 
-import java.util.Set;
-
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface FinishedGoodService {
 
-    FinishedGood save(FinishedGood finishedGood);
+    FinishedGood save(FinishedGood finishedGood)
 
-    Iterable<FinishedGood> findAll();
+    Iterable<FinishedGood> findAll()
 
-    FinishedGood findByIdentifier(String identifier);
+    FinishedGood findByIdentifier(String identifier)
 
-    FinishedGood findByIdentifiers(Set<Identifier> identifiers);
-
+    FinishedGood findByIdentifiers(Iterable<Identifier> identifiers)
 
 }

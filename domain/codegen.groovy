@@ -7,17 +7,18 @@ def codeGen = new CodeGenerator(
         basePackageName: project.groupId
 )
 
-def codeableModels = [
+codeGen.generateCodeableAggregateRoot([
         [entityName: "AdministrationMethod", resourcePath: "methods"],
         [entityName: "Form"],
         [entityName: "RouteOfAdministration", entityNamePlural: "RoutesOfAdministration", resourcePath: "routes"],
         [entityName: "UnitOfMeasure", entityNamePlural: "UnitsOfMeasure"]
-]
+])
 
-codeGen.generateCodeableAggregateRoot(codeableModels)
-
-def identifiableModels = [
+codeGen.generateIdentifiableAggregateRoot([
         [entityName: "Clinic"],
+        [entityName: "Patient"],
+        [entityName: "Prescription"],
+        [entityName: "Practitioner"],
         [entityPackage: "product", entityName: "Good"],
         [entityPackage: "organisation", entityName: "LegalOrganisation"],
         [entityPackage: "part", entityName: "Compound"],
@@ -27,6 +28,4 @@ def identifiableModels = [
         [entityPackage: "part", entityName: "Part"],
         [entityPackage: "part", entityName: "RawMaterial"],
         [entityPackage: "part", entityName: "Subassembly"],
-]
-
-codeGen.generateIdentifiableAggregateRoot(identifiableModels)
+])

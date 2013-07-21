@@ -25,4 +25,13 @@ class DefaultDosageInstruction implements Persistable<Long> {
     @NotNull
     DosageInstruction dosageInstruction
 
+    def merge(DefaultDosageInstruction that) {
+        this.medication = that.medication
+        this.dosageInstruction = that.dosageInstruction
+    }
+
+    def getIdentifiers() {
+        medication.identifiers
+    }
+
 }

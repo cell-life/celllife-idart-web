@@ -1,7 +1,5 @@
 package org.celllife.idart.codegen
 
-import static org.celllife.idart.codegen.CodeableRepositoryGenerator.generateCodeableRepository
-import static org.celllife.idart.codegen.CodeableDomainServiceGenerator.generateCodeableDomainService
 import static org.celllife.idart.codegen.ModelEnricher.enrichModel
 
 /**
@@ -16,6 +14,56 @@ class CodeableAggregateRootGenerator {
         enrichModel(basePackageName, model)
 
         generateCodeableRepository(groovySourcesDirectory, model)
-        generateCodeableDomainService(groovySourcesDirectory, model)
+        generateCodeableValidatorInterface(groovySourcesDirectory, model)
+        generateCodeableValidationException(groovySourcesDirectory, model)
+        generateCodeableDomainServiceInterface(groovySourcesDirectory, model)
+        generateCodeableDomainServiceImplementation(groovySourcesDirectory, model)
+    }
+
+    static generateCodeableRepository(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/codeable/repository.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "Repository.groovy"
+        )
+    }
+
+    static generateCodeableValidatorInterface(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/validatorInterface.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "Validator.groovy"
+        )
+    }
+
+    static generateCodeableValidationException(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/validationException.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ValidationException.groovy"
+        )
+    }
+
+    static generateCodeableDomainServiceInterface(String baseDirectory, model) {
+
+        Output.toFile(
+                templateReader: "/templates/codeable/domainServiceInterface.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "Service.groovy"
+        )
+    }
+
+    static generateCodeableDomainServiceImplementation(String baseDirectory, model) {
+
+        Output.toFile(
+                templateReader: "/templates/codeable/domainServiceImplementation.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ServiceImpl.groovy"
+        )
     }
 }

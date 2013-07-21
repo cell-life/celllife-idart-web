@@ -40,7 +40,7 @@ import static org.celllife.idart.domain.prescription.Prescriptions.*
     }
 
     @Override
-    Prescription findByIdentifiers(Set<Identifier> identifiers) {
+    Prescription findByIdentifiers(Iterable<Identifier> identifiers) {
         for (identifier in identifiers) {
             def existingPrescription = prescriptionRepository.findOneByIdentifier(identifier.system, identifier.value)
             if (existingPrescription != null) {

@@ -18,27 +18,21 @@ class CodeableResourceGenerator {
 
     static generateCodeableController(String baseDirectory, model) {
 
-        def directory = baseDirectory + "/" + model.resourcePackageName.replaceAll("\\.", "/")
-        def fileName = model.entityName + "ResourceController.groovy"
-
         Output.toFile(
-                templateReader: "/templates/codeableController.template",
+                templateReader: "/templates/codeable/resourceController.template",
                 model: model,
-                directory: directory,
-                fileName: fileName
+                directory: baseDirectory + "/" + model.resourcePackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ResourceController.groovy"
         )
     }
 
     static generateCodeableResourceInterface(String baseDirectory, model) {
 
-        def directory = baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/")
-        def fileName = model.entityName + "ResourceService.java"
-
         Output.toFile(
-                templateReader: "/templates/codeableResourceServiceInterface.template",
+                templateReader: "/templates/codeable/resourceServiceInterface.template",
                 model: model,
-                directory: directory,
-                fileName: fileName
+                directory: baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + "ResourceService.java"
         )
     }
 

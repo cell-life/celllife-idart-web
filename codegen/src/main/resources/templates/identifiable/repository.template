@@ -1,0 +1,24 @@
+package $domainPackageName;
+
+import javax.annotation.Generated;
+
+/**
+ * User: Kevin W. Sewell
+ * Date: ${currentDate}
+ * Time: ${currentTime}
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+public interface ${entityName}Repository {
+
+    ${entityName} save(${entityName} ${lowerCaseEntityName})
+
+    public <S extends ${entityName}> Iterable<S> save(Iterable<S> ${lowerCaseEntityNamePlural})
+
+    ${entityName} findOne(Long pk)
+
+    Iterable<${entityName}> findAll()
+
+    ${entityName} findOneByIdentifier(String identifierSystem, String identifierValue)
+
+    Iterable<${entityName}> findByIdentifier(String identifierValue)
+}

@@ -19,7 +19,7 @@ import static org.celllife.idart.domain.patient.Patients.*
     @Autowired PatientSequence patientSequence
 
     @Override
-    Patient findByIdentifiers(Set<Identifier> identifiers) {
+    Patient findByIdentifiers(Iterable<Identifier> identifiers) {
 
         for (Identifier identifier in identifiers) {
             Patient patient = patientRepository.findOneByIdentifier(identifier.system, identifier.value)

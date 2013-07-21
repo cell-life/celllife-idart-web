@@ -1,25 +1,25 @@
-package org.celllife.idart.domain.administrationmethod;
+package org.celllife.idart.domain.administrationmethod
 
-import org.celllife.idart.domain.common.Code;
+import org.celllife.idart.domain.common.Code
 
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface AdministrationMethodService {
 
-    Iterable<AdministrationMethod> save(Iterable<AdministrationMethod> administrationMethods);
+    Iterable<AdministrationMethod> save(Iterable<AdministrationMethod> administrationMethods)
 
-    AdministrationMethod save(AdministrationMethod administrationMethod);
+    AdministrationMethod save(AdministrationMethod administrationMethod)
 
-    Iterable<AdministrationMethod> findAll();
+    Iterable<AdministrationMethod> findAll()
 
-    AdministrationMethod findByCode(String code);
+    AdministrationMethod findByCode(String code)
 
-    AdministrationMethod findByCodes(Iterable<Code> codes);
+    AdministrationMethod findByCodes(Iterable<Code> codes)
 
 }

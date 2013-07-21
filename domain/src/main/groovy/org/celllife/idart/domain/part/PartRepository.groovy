@@ -5,20 +5,20 @@ import javax.annotation.Generated;
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PartRepository {
 
-    // Part save(Part part);
+    Part save(Part part)
 
-    // Iterable<Part> save(Iterable<Part> parts);
+    public <S extends Part> Iterable<S> save(Iterable<S> parts)
 
-    // Part findOne(Long pk);
+    Part findOne(Long pk)
 
-    // Iterable<Part> findAll();
+    Iterable<Part> findAll()
 
-    Part findOneByIdentifier(String identifierSystem, String identifierValue);
+    Part findOneByIdentifier(String identifierSystem, String identifierValue)
 
-    Iterable<Part> findByIdentifier(String identifierValue);
+    Iterable<Part> findByIdentifier(String identifierValue)
 }

@@ -18,17 +18,17 @@ public interface SpringDataDefaultDosageInstructionRepository extends DefaultDos
     @Query("select defaultDosageInstruction " +
             "from DefaultDosageInstruction defaultDosageInstruction " +
             "join defaultDosageInstruction.medication medication " +
-            "join medication.identifiers medicationIdentifier " +
-            "where medicationIdentifier.system = :medicationIdentifierSystem " +
-            "and medicationIdentifier.value = :medicationIdentifierValue")
-    DefaultDosageInstruction findOneByMedicationIdentifier(@Param("medicationIdentifierSystem") String medicationIdentifierSystem,
-                                                           @Param("medicationIdentifierValue") String medicationIdentifierValue);
+            "join medication.identifiers identifier " +
+            "where identifier.system = :identifierSystem " +
+            "and identifier.value = :identifierValue")
+    DefaultDosageInstruction findOneByIdentifier(@Param("identifierSystem") String identifierSystem,
+                                                 @Param("identifierValue") String identifierValue);
 
     @Query("select defaultDosageInstruction " +
             "from DefaultDosageInstruction defaultDosageInstruction " +
             "join defaultDosageInstruction.medication medication " +
-            "join medication.identifiers medicationIdentifier " +
-            "where medicationIdentifier.value = :medicationIdentifierValue")
-    Iterable<DefaultDosageInstruction> findByIdentifier(@Param("medicationIdentifierValue") String medicationIdentifierValue);
+            "join medication.identifiers identifier " +
+            "where identifier.value = :identifierValue")
+    Iterable<DefaultDosageInstruction> findByIdentifier(@Param("identifierValue") String identifierValue);
 
 }

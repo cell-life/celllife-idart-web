@@ -9,7 +9,7 @@ import javax.annotation.Generated
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class FinishedGoodServiceImpl implements FinishedGoodService {
@@ -41,7 +41,7 @@ import javax.annotation.Generated
     }
 
     @Override
-    FinishedGood findByIdentifiers(Set<Identifier> identifiers) {
+    FinishedGood findByIdentifiers(Iterable<Identifier> identifiers) {
 
         if (identifiers == null) {
             return null

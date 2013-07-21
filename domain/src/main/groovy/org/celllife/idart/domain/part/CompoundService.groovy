@@ -1,26 +1,23 @@
-package org.celllife.idart.domain.part;
+package org.celllife.idart.domain.part
 
-import org.celllife.idart.domain.common.Identifier;
+import org.celllife.idart.domain.common.Identifier
 
-import java.util.Set;
-
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-21
- * Time: 20h35
+ * Time: 22h05
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface CompoundService {
 
-    Compound save(Compound compound);
+    Compound save(Compound compound)
 
-    Iterable<Compound> findAll();
+    Iterable<Compound> findAll()
 
-    Compound findByIdentifier(String identifier);
+    Compound findByIdentifier(String identifier)
 
-    Compound findByIdentifiers(Set<Identifier> identifiers);
-
+    Compound findByIdentifiers(Iterable<Identifier> identifiers)
 
 }

@@ -1,0 +1,15 @@
+package ${domainPackageName}
+
+import javax.annotation.Generated
+
+/**
+ * User: Kevin W. Sewell
+ * Date: ${currentDate}
+ * Time: ${currentTime}
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+interface ${entityName}Sequence {
+
+    Long nextValue()
+
+}

@@ -19,7 +19,7 @@ import static org.celllife.idart.domain.practitioner.Practitioners.*
     @Autowired PractitionerSequence practitionerSequence
 
     @Override
-    Practitioner findByIdentifiers(Set<Identifier> identifiers) {
+    Practitioner findByIdentifiers(Iterable<Identifier> identifiers) {
 
         for (identifier in identifiers) {
             Practitioner practitioner = practitionerRepository.findOneByIdentifier(identifier.system, identifier.value)

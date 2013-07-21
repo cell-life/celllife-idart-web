@@ -33,6 +33,8 @@ class ModelEnricher {
         model.applicationPackageName = basePackageName + ".application." + model.entityPackage
         model.resourcePackageName = basePackageName + ".interfaces.service." + model.entityPackage
         model.springDataPackageName = basePackageName + ".infrastructure.springdata." + model.entityPackage
+        model.validationPackageName = basePackageName + ".infrastructure.validation." + model.entityPackage
+        model.counterPackageName = basePackageName + ".infrastructure.counter." + model.entityPackage
 
         model.currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date())
 

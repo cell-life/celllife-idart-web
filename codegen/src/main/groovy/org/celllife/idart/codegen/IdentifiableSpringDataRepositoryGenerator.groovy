@@ -3,15 +3,11 @@ package org.celllife.idart.codegen
 class IdentifiableSpringDataRepositoryGenerator {
 
     static generateIdentifiableSpringDataRepository(String baseDirectory, model) {
-
-        def directory = baseDirectory + "/" + model.springDataPackageName.replaceAll("\\.", "/")
-        def fileName = "SpringData" + model.entityName + "Repository.java"
-
         Output.toFile(
-                templateReader: "/templates/identifiableSpringDataRepository.template",
+                templateReader: "/templates/identifiable/springDataRepository.template",
                 model: model,
-                directory: directory,
-                fileName: fileName
+                directory: baseDirectory + "/" + model.springDataPackageName.replaceAll("\\.", "/"),
+                fileName: "SpringData" + model.entityName + "Repository.java"
         )
     }
 }

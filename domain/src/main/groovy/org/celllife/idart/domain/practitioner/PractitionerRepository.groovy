@@ -1,14 +1,14 @@
 package org.celllife.idart.domain.practitioner;
 
+import javax.annotation.Generated;
 
 /**
  * User: Kevin W. Sewell
- * Date: 2013-06-23
- * Time: 09h53
+ * Date: 2013-07-21
+ * Time: 22h05
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PractitionerRepository {
-
-    Practitioner findOneByIdentifier(String identifierSystem, String identifierValue);
 
     Practitioner save(Practitioner practitioner)
 
@@ -16,6 +16,9 @@ public interface PractitionerRepository {
 
     Practitioner findOne(Long pk)
 
-    public <S extends Practitioner> Iterable<S> findAll()
+    Iterable<Practitioner> findAll()
 
+    Practitioner findOneByIdentifier(String identifierSystem, String identifierValue)
+
+    Iterable<Practitioner> findByIdentifier(String identifierValue)
 }
