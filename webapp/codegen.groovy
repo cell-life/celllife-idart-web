@@ -15,6 +15,7 @@ def codeableModels = [
 
 codeGen.generateCodeableSpringDataRepositories(codeableModels)
 codeGen.generateCodeableResources(codeableModels)
+codeGen.generateHibernateValidator(codeableModels)
 
 def identifiableModels = [
         [entityName: "Clinic"],
@@ -34,3 +35,4 @@ def identifiableModels = [
 
 codeGen.generateIdentifiableSpringDataRepositories(identifiableModels)
 codeGen.generateIdentifiableResources(identifiableModels)
+codeGen.generateHibernateValidator(identifiableModels)

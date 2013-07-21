@@ -1,6 +1,7 @@
 package org.celllife.idart.codegen
 
 import static org.celllife.idart.codegen.CodeableSpringDataRepositoryGenerator.generateCodeableSpringDataRepository
+
 import static org.celllife.idart.codegen.IdentifiableAggregateRootGenerator.generateIdentifiableAggregateRoot
 import static IdentifiableApplicationServiceGenerator.generateIdentifiableApplicationService
 import static org.celllife.idart.codegen.IdentifiableResourceGenerator.generateIdentifiableResource
@@ -29,6 +30,12 @@ class CodeGenerator {
         this.javaSourcesDirectory = args.javaSourcesDirectory
 
         this.basePackageName = args.basePackageName
+    }
+
+    def generateHibernateValidator(models) {
+        models.each { model ->
+            HibernateValidatorGenerator.generateHibernateValidator(groovySourcesDirectory, model)
+        }
     }
 
     def generateIdentifiableResources(models) {
