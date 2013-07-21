@@ -11,4 +11,5 @@ export JAVA_HOME
 
 mvn clean -f $BASE_DIR/../pom.xml
 mvn install -f $BASE_DIR/../codegen/pom.xml
+mvn install -f $BASE_DIR/../domain/pom.xml
 mvn compile -f $BASE_DIR/../webapp/pom.xml

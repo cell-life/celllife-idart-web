@@ -14,7 +14,7 @@ def codeableModels = [
         [entityName: "UnitOfMeasure", entityNamePlural: "UnitsOfMeasure"]
 ]
 
-codeGen.generateCodeableAggregateRoot(codeableModels)
+codeGen.generateCodeableSpringDataRepositories(codeableModels)
 codeGen.generateCodeableResources(codeableModels)
 
 def identifiableModels = [
@@ -29,5 +29,5 @@ def identifiableModels = [
         [entityPackage: "part", entityName: "Subassembly"],
 ]
 
-codeGen.generateIdentifiableAggregateRoot(identifiableModels)
+codeGen.generateIdentifiableSpringDataRepositories(codeableModels)
 codeGen.generateIdentifiableResources(identifiableModels)

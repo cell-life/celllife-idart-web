@@ -13,6 +13,7 @@
     <modules>
         <module>client</module>
         <module>codegen</module>
+        <module>domain</module>
         <module>webapp</module>
     </modules>
 
@@ -66,6 +67,12 @@
             </dependency>
 
             <!-- Jackson -->
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.1.1</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -527,6 +534,14 @@
                 <groupId>com.xlson.groovycsv</groupId>
                 <artifactId>groovycsv</artifactId>
                 <version>1.0</version>
+            </dependency>
+
+            <!-- Inject -->
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
             </dependency>
 
         </dependencies>

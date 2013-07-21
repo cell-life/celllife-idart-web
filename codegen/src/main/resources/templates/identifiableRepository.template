@@ -1,10 +1,5 @@
 package $domainPackageName;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.repository.annotation.RestResource;
-
 import javax.annotation.Generated;
 
 /**
@@ -12,21 +7,10 @@ import javax.annotation.Generated;
  * Date: ${currentDate}
  * Time: ${currentTime}
  */
-@RestResource(path = "${resourcePath}")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface ${entityName}Repository extends PagingAndSortingRepository<${entityName}, Long> {
+public interface ${entityName}Repository {
 
-    @Query("select ${lowerCaseEntityName} " +
-            "from ${entityName} ${lowerCaseEntityName} " +
-            "join ${lowerCaseEntityName}.identifiers identifier " +
-            "where identifier.system = :identifierSystem " +
-            "and identifier.value = :identifierValue")
-    ${entityName} findOneByIdentifier(@Param("identifierSystem") String identifierSystem,
-                                      @Param("identifierValue") String identifierValue);
+    ${entityName} findOneByIdentifier(String identifierSystem, String identifierValue);
 
-    @Query("select distinct ${lowerCaseEntityName} " +
-            "from ${entityName} ${lowerCaseEntityName} " +
-            "join ${lowerCaseEntityName}.identifiers identifier " +
-            "where identifier.value = :identifierValue")
-    Iterable<${entityName}> findByIdentifier(@Param("identifierValue") String identifierValue);
+    Iterable<${entityName}> findByIdentifier(String identifierValue);
 }
