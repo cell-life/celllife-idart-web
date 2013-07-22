@@ -3,7 +3,7 @@
         "@type": "drug",
         "identifiers": [
             {
-                "system": "http://www.cell-life.org/idart/drug",
+                "system": "http://www.cell-life.org/idart/drugs",
                 "value": "Zidovudine 100mg"
             }
         ]

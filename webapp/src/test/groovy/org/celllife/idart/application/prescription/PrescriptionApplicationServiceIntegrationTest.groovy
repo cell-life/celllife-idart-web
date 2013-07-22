@@ -1,14 +1,14 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.celllife.idart.application.part.CompoundResourceService
-import org.celllife.idart.application.part.DrugResourceService
+import org.celllife.idart.application.compound.CompoundResourceService
+import org.celllife.idart.application.drug.DrugResourceService
 import org.celllife.idart.application.patient.PatientResourceService
 import org.celllife.idart.application.practitioner.PractitionerResourceService
 import org.celllife.idart.application.product.GoodResourceService
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureResourceService
-import org.celllife.idart.domain.part.Compound
-import org.celllife.idart.domain.part.Drug
+import org.celllife.idart.domain.compound.Compound
+import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.partyrole.PartyRole
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person

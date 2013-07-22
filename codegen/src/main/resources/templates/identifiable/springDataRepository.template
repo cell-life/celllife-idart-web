@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 @RestResource(path = "${resourcePath}")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringData${entityName}Repository extends PagingAndSortingRepository<${entityName}, Long>, ${entityName}Repository{
+public interface SpringData${entityName}Repository extends PagingAndSortingRepository<${entityName}, Long>, ${entityName}Repository {
 
     @Query("select ${lowerCaseEntityName} " +
             "from ${entityName} ${lowerCaseEntityName} " +
@@ -30,4 +30,5 @@ public interface SpringData${entityName}Repository extends PagingAndSortingRepos
             "join ${lowerCaseEntityName}.identifiers identifier " +
             "where identifier.value = :identifierValue")
     Iterable<${entityName}> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 }

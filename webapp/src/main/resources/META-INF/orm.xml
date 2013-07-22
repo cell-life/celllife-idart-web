@@ -353,15 +353,15 @@
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.part.Compound">
+    <entity class="org.celllife.idart.domain.compound.Compound">
         <discriminator-value>Compound</discriminator-value>
     </entity>
 
-    <entity class="org.celllife.idart.domain.part.Drug">
+    <entity class="org.celllife.idart.domain.drug.Drug">
         <discriminator-value>Drug</discriminator-value>
     </entity>
 
-    <entity class="org.celllife.idart.domain.part.DrugGroup">
+    <entity class="org.celllife.idart.domain.druggroup.DrugGroup">
         <discriminator-value>DrugGroup</discriminator-value>
     </entity>
 

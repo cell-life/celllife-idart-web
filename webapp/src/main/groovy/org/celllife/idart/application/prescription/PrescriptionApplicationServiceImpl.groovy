@@ -30,9 +30,9 @@ import org.springframework.stereotype.Service
 
         prescription?.with {
 
-            patient = patientService.save(patient)
+            patient = patientService.findByIdentifiers(patient.identifiers)
 
-            prescriber = practitionerService.save(prescriber)
+            prescriber = practitionerService.findByIdentifiers(prescriber.identifiers)
 
             prescribedMedications.each { prescribedMedication ->
 

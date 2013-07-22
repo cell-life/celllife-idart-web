@@ -3,8 +3,10 @@ package org.celllife.idart.application.practitioner
 import org.celllife.idart.application.ClinicNotFoundException
 import org.celllife.idart.application.assignment.AssignmentApplicationService
 import org.celllife.idart.application.person.PersonApplicationService
+import org.celllife.idart.application.person.PersonResourceService
 import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.clinic.ClinicRepository
+import org.celllife.idart.domain.clinic.ClinicService
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service
  */
 @Service class PractitionerApplicationServiceImpl implements PractitionerApplicationService, PractitionerResourceService {
 
-    @Autowired ClinicRepository clinicRepository
+    @Autowired ClinicService clinicService
 
     @Autowired PractitionerProvider prehmisPractitionerProvider
 
@@ -27,12 +29,14 @@ import org.springframework.stereotype.Service
 
     @Autowired PersonApplicationService personApplicationService
 
+    @Autowired PersonResourceService personResourceService
+
     @Autowired AssignmentApplicationService assignmentApplicationService
 
     @Override
     List<Practitioner> findByClinicIdentifier(String applicationId, String clinicIdentifierValue) {
 
-        Clinic clinic = clinicRepository.findOneByIdentifier("http://www.cell-life.org/idart/clinics", clinicIdentifierValue)
+        Clinic clinic = clinicService.findByIdentifier(clinicIdentifierValue)
 
         if (clinic == null) {
             throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifierValue)
@@ -87,7 +91,7 @@ import org.springframework.stereotype.Service
             return personApplicationService.update(newPractitioner.person, existingPractitioner.person?.pk)
         }
 
-        return personApplicationService.save(newPractitioner.person)
+        return personResourceService.save(newPractitioner.person)
     }
 
     Set<Practitioner> lookupAndSyncWithExternalProviders(Clinic clinic) {

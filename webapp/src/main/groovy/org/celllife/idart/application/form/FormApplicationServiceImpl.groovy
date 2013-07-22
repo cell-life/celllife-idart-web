@@ -21,7 +21,7 @@ class FormApplicationServiceImpl implements FormApplicationService, FormResource
     }
 
     Form findByCode(String code) {
-        formService.findByIdentifier(code)
+        formService.findByCode(code)
     }
 
     Iterable<Form> findAll() {

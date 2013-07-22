@@ -21,7 +21,7 @@ class UnitOfMeasureApplicationServiceImpl implements UnitOfMeasureApplicationSer
     }
 
     UnitOfMeasure findByCode(String code) {
-        unitOfMeasureService.findByIdentifier(code)
+        unitOfMeasureService.findByCode(code)
     }
 
     Iterable<UnitOfMeasure> findAll() {

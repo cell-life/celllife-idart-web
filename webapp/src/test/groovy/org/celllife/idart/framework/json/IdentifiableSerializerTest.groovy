@@ -1,8 +1,8 @@
 package org.celllife.idart.framework.json
 
 import com.fasterxml.jackson.core.type.TypeReference
-import org.celllife.idart.domain.part.Compound
-import org.celllife.idart.domain.part.Drug
+import org.celllife.idart.domain.compound.Compound
+import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.part.FinishedGood
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 import org.junit.Test

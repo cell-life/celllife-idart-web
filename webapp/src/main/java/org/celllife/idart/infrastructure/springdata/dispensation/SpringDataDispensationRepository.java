@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 @RestResource(path = "dispensations")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataDispensationRepository extends PagingAndSortingRepository<Dispensation, Long>, DispensationRepository{
+public interface SpringDataDispensationRepository extends PagingAndSortingRepository<Dispensation, Long>, DispensationRepository {
 
     @Query("select dispensation " +
             "from Dispensation dispensation " +
@@ -30,4 +30,5 @@ public interface SpringDataDispensationRepository extends PagingAndSortingReposi
             "join dispensation.identifiers identifier " +
             "where identifier.value = :identifierValue")
     Iterable<Dispensation> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 }

@@ -14,44 +14,64 @@ import javax.annotation.Generated
 
     @Autowired LegalOrganisationRepository legalOrganisationRepository
 
-    @Override
-    LegalOrganisation save(LegalOrganisation legalOrganisation) {
+    @Autowired LegalOrganisationSequence legalOrganisationSequence
 
-        LegalOrganisation existingLegalOrganisation = findByIdentifiers(legalOrganisation.identifiers)
-        if (existingLegalOrganisation == null) {
-            existingLegalOrganisation = legalOrganisation.class.newInstance()
+    @Autowired LegalOrganisationValidator legalOrganisationValidator
+
+    @Override
+    LegalOrganisation save(LegalOrganisation newLegalOrganisation) {
+
+        legalOrganisationValidator.validate(newLegalOrganisation)
+
+        def existingLegalOrganisation = findByIdentifiers(newLegalOrganisation.identifiers)
+
+        if (requiresIdartIdentifier(newLegalOrganisation, existingLegalOrganisation)) {
+            newLegalOrganisation.addIdentifier(LegalOrganisation.IDART_SYSTEM, nextPatientIdentifier())
         }
 
-        existingLegalOrganisation.merge(legalOrganisation)
+        if (existingLegalOrganisation == null) {
+            existingLegalOrganisation = new LegalOrganisation()
+        }
+
+        existingLegalOrganisation.merge(newLegalOrganisation)
 
         legalOrganisationRepository.save(existingLegalOrganisation)
     }
 
+    @Override
+    LegalOrganisation findByIdentifiers(Iterable<Identifier> identifiers) {
+        for (identifier in identifiers) {
+            def existingLegalOrganisation = legalOrganisationRepository.findOneByIdentifier(identifier.system, identifier.value)
+            if (existingLegalOrganisation != null) {
+                return existingLegalOrganisation
+            }
+        }
+
+        null
+    }
+
+    @Override
+    LegalOrganisation findByIdentifier(String identifier) {
+        legalOrganisationRepository.findOneByIdentifier(LegalOrganisation.IDART_SYSTEM, identifier)
+    }
 
     @Override
     Iterable<LegalOrganisation> findAll() {
         legalOrganisationRepository.findAll()
     }
 
-    @Override
-    LegalOrganisation findByIdentifier(String identifier) {
-        null
+    String nextPatientIdentifier() {
+        String.format("%08d", legalOrganisationSequence.nextValue())
     }
 
-    @Override
-    LegalOrganisation findByIdentifiers(Iterable<Identifier> identifiers) {
+    static requiresIdartIdentifier(LegalOrganisation... legalOrganisations) {
 
-        if (identifiers == null) {
-            return null
-        }
-
-        for (Identifier identifier: identifiers) {
-            LegalOrganisation legalOrganisation = legalOrganisationRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (legalOrganisation != null) {
-                return legalOrganisation
+        for (LegalOrganisation legalOrganisation in legalOrganisations) {
+            if (legalOrganisation?.hasIdentifierForSystem(LegalOrganisation.IDART_SYSTEM)) {
+                return false
             }
         }
 
-        null
+        return true
     }
 }

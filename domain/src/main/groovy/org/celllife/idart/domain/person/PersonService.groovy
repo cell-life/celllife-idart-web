@@ -14,4 +14,8 @@ interface PersonService {
     Person save(Person person)
 
     Person update(Person newPerson, Long existingPersonPk)
+
+    Iterable<Person> findAll()
+
+    Person findByIdentifier(String identifier)
 }

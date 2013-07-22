@@ -14,44 +14,64 @@ import javax.annotation.Generated
 
     @Autowired DispensationRepository dispensationRepository
 
-    @Override
-    Dispensation save(Dispensation dispensation) {
+    @Autowired DispensationSequence dispensationSequence
 
-        Dispensation existingDispensation = findByIdentifiers(dispensation.identifiers)
-        if (existingDispensation == null) {
-            existingDispensation = dispensation.class.newInstance()
+    @Autowired DispensationValidator dispensationValidator
+
+    @Override
+    Dispensation save(Dispensation newDispensation) {
+
+        dispensationValidator.validate(newDispensation)
+
+        def existingDispensation = findByIdentifiers(newDispensation.identifiers)
+
+        if (requiresIdartIdentifier(newDispensation, existingDispensation)) {
+            newDispensation.addIdentifier(Dispensation.IDART_SYSTEM, nextPatientIdentifier())
         }
 
-        existingDispensation.merge(dispensation)
+        if (existingDispensation == null) {
+            existingDispensation = new Dispensation()
+        }
+
+        existingDispensation.merge(newDispensation)
 
         dispensationRepository.save(existingDispensation)
     }
 
+    @Override
+    Dispensation findByIdentifiers(Iterable<Identifier> identifiers) {
+        for (identifier in identifiers) {
+            def existingDispensation = dispensationRepository.findOneByIdentifier(identifier.system, identifier.value)
+            if (existingDispensation != null) {
+                return existingDispensation
+            }
+        }
+
+        null
+    }
+
+    @Override
+    Dispensation findByIdentifier(String identifier) {
+        dispensationRepository.findOneByIdentifier(Dispensation.IDART_SYSTEM, identifier)
+    }
 
     @Override
     Iterable<Dispensation> findAll() {
         dispensationRepository.findAll()
     }
 
-    @Override
-    Dispensation findByIdentifier(String identifier) {
-        null
+    String nextPatientIdentifier() {
+        String.format("%08d", dispensationSequence.nextValue())
     }
 
-    @Override
-    Dispensation findByIdentifiers(Iterable<Identifier> identifiers) {
+    static requiresIdartIdentifier(Dispensation... dispensations) {
 
-        if (identifiers == null) {
-            return null
-        }
-
-        for (Identifier identifier: identifiers) {
-            Dispensation dispensation = dispensationRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (dispensation != null) {
-                return dispensation
+        for (Dispensation dispensation in dispensations) {
+            if (dispensation?.hasIdentifierForSystem(Dispensation.IDART_SYSTEM)) {
+                return false
             }
         }
 
-        null
+        return true
     }
 }

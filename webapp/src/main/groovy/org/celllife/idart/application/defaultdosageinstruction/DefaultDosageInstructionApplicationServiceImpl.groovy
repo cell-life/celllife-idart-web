@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service
 
         defaultDosageInstruction.with {
 
-            medication = finishedGoodService.save(defaultDosageInstruction.medication)
+            medication = finishedGoodService.findByIdentifiers(medication.identifiers)
 
             dosageInstruction?.with {
                 doseQuantity?.with {

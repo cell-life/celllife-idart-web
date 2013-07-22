@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 @RestResource(path = "clinics")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataClinicRepository extends PagingAndSortingRepository<Clinic, Long>, ClinicRepository{
+public interface SpringDataClinicRepository extends PagingAndSortingRepository<Clinic, Long>, ClinicRepository {
 
     @Query("select clinic " +
             "from Clinic clinic " +
@@ -30,4 +30,5 @@ public interface SpringDataClinicRepository extends PagingAndSortingRepository<C
             "join clinic.identifiers identifier " +
             "where identifier.value = :identifierValue")
     Iterable<Clinic> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 }

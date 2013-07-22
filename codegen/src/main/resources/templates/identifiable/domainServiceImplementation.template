@@ -1,4 +1,4 @@
-package $domainPackageName
+package ${domainPackageName}
 
 import org.celllife.idart.domain.common.Identifier
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,44 +14,64 @@ import javax.annotation.Generated
 
     @Autowired ${entityName}Repository ${lowerCaseEntityName}Repository
 
-    @Override
-    ${entityName} save(${entityName} ${lowerCaseEntityName}) {
+    @Autowired ${entityName}Sequence ${lowerCaseEntityName}Sequence
 
-        ${entityName} existing${entityName} = findByIdentifiers(${lowerCaseEntityName}.identifiers)
-        if (existing${entityName} == null) {
-            existing${entityName} = ${lowerCaseEntityName}.class.newInstance()
+    @Autowired ${entityName}Validator ${lowerCaseEntityName}Validator
+
+    @Override
+    ${entityName} save(${entityName} new${entityName}) {
+
+        ${lowerCaseEntityName}Validator.validate(new${entityName})
+
+        def existing${entityName} = findByIdentifiers(new${entityName}.identifiers)
+
+        if (requiresIdartIdentifier(new${entityName}, existing${entityName})) {
+            new${entityName}.addIdentifier(${entityName}.IDART_SYSTEM, nextPatientIdentifier())
         }
 
-        existing${entityName}.merge(${lowerCaseEntityName})
+        if (existing${entityName} == null) {
+            existing${entityName} = new ${entityName}()
+        }
+
+        existing${entityName}.merge(new${entityName})
 
         ${lowerCaseEntityName}Repository.save(existing${entityName})
     }
 
+    @Override
+    ${entityName} findByIdentifiers(Iterable<Identifier> identifiers) {
+        for (identifier in identifiers) {
+            def existing${entityName} = ${lowerCaseEntityName}Repository.findOneByIdentifier(identifier.system, identifier.value)
+            if (existing${entityName} != null) {
+                return existing${entityName}
+            }
+        }
+
+        null
+    }
+
+    @Override
+    ${entityName} findByIdentifier(String identifier) {
+        ${lowerCaseEntityName}Repository.findOneByIdentifier(${entityName}.IDART_SYSTEM, identifier)
+    }
 
     @Override
     Iterable<${entityName}> findAll() {
         ${lowerCaseEntityName}Repository.findAll()
     }
 
-    @Override
-    ${entityName} findByIdentifier(String identifier) {
-        null
+    String nextPatientIdentifier() {
+        String.format("%08d", ${lowerCaseEntityName}Sequence.nextValue())
     }
 
-    @Override
-    ${entityName} findByIdentifiers(Iterable<Identifier> identifiers) {
+    static requiresIdartIdentifier(${entityName}... ${lowerCaseEntityNamePlural}) {
 
-        if (identifiers == null) {
-            return null
-        }
-
-        for (Identifier identifier: identifiers) {
-            ${entityName} ${lowerCaseEntityName} = ${lowerCaseEntityName}Repository.findOneByIdentifier(identifier.system, identifier.value)
-            if (${lowerCaseEntityName} != null) {
-                return ${lowerCaseEntityName}
+        for (${entityName} ${lowerCaseEntityName} in ${lowerCaseEntityNamePlural}) {
+            if (${lowerCaseEntityName}?.hasIdentifierForSystem(${entityName}.IDART_SYSTEM)) {
+                return false
             }
         }
 
-        null
+        return true
     }
 }

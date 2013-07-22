@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-15
  * Time: 23h08
  */
-@Service class PersonApplicationServiceImpl implements PersonApplicationService {
+@Service class PersonApplicationServiceImpl implements PersonApplicationService, PersonResourceService {
 
     @Autowired PersonService personService
 
@@ -47,7 +47,17 @@ import org.springframework.stereotype.Service
     }
 
     @Override
-    Person update(Person person, Long existingPersonPk){
+    Person findByIdentifier(String identifier) {
+        personService.findByIdentifier(identifier)
+    }
+
+    @Override
+    Iterable<Person> findAll() {
+        personService.findAll()
+    }
+
+    @Override
+    Person update(Person person, Long existingPersonPk) {
         personService.update(person, existingPersonPk)
     }
 }

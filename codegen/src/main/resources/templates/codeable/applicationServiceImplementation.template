@@ -22,7 +22,7 @@ class ${entityName}ApplicationServiceImpl implements ${entityName}ApplicationSer
     }
 
     ${entityName} findByCode(String code) {
-        ${lowerCaseEntityName}Service.findByIdentifier(code)
+        ${lowerCaseEntityName}Service.findByCode(code)
     }
 
     Iterable<${entityName}> findAll() {

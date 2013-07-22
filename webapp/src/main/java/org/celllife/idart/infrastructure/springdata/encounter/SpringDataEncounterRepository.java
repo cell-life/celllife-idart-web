@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 @RestResource(path = "encounters")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataEncounterRepository extends PagingAndSortingRepository<Encounter, Long>, EncounterRepository{
+public interface SpringDataEncounterRepository extends PagingAndSortingRepository<Encounter, Long>, EncounterRepository {
 
     @Query("select encounter " +
             "from Encounter encounter " +
@@ -30,4 +30,5 @@ public interface SpringDataEncounterRepository extends PagingAndSortingRepositor
             "join encounter.identifiers identifier " +
             "where identifier.value = :identifierValue")
     Iterable<Encounter> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 }

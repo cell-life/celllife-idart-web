@@ -1,8 +1,8 @@
 package org.celllife.idart.domain.party
 
 import org.celllife.idart.application.product.GoodApplicationService
-import org.celllife.idart.domain.part.Compound
-import org.celllife.idart.domain.part.Drug
+import org.celllife.idart.domain.compound.Compound
+import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.part.FinishedGood
 import org.celllife.idart.domain.part.FinishedGoodService
 import org.celllife.idart.domain.part.RawMaterial

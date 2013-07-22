@@ -40,6 +40,16 @@ import org.springframework.stereotype.Service
         merge(newPerson, existingPerson)
     }
 
+    @Override
+    Iterable<Person> findAll() {
+        personRepository.findAll()
+    }
+
+    @Override
+    Person findByIdentifier(String identifier) {
+        personRepository.findOneByIdentifier(Person.IDART_SYSTEM, identifier)
+    }
+
     Person merge(Person newPerson, Person existingPerson) {
 
         if (requiresIdartIdentifier(newPerson, existingPerson)) {

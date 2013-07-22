@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 @RestResource(path = "legalOrganisations")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataLegalOrganisationRepository extends PagingAndSortingRepository<LegalOrganisation, Long>, LegalOrganisationRepository{
+public interface SpringDataLegalOrganisationRepository extends PagingAndSortingRepository<LegalOrganisation, Long>, LegalOrganisationRepository {
 
     @Query("select legalOrganisation " +
             "from LegalOrganisation legalOrganisation " +
@@ -30,4 +30,5 @@ public interface SpringDataLegalOrganisationRepository extends PagingAndSortingR
             "join legalOrganisation.identifiers identifier " +
             "where identifier.value = :identifierValue")
     Iterable<LegalOrganisation> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 }

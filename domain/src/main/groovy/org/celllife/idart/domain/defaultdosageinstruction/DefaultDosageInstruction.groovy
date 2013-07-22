@@ -31,7 +31,6 @@ class DefaultDosageInstruction implements Persistable<Long> {
     }
 
     def getIdentifiers() {
-        medication.identifiers
+        medication?.identifiers
     }
-
 }

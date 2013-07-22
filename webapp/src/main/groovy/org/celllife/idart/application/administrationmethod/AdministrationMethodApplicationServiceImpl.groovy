@@ -21,7 +21,7 @@ class AdministrationMethodApplicationServiceImpl implements AdministrationMethod
     }
 
     AdministrationMethod findByCode(String code) {
-        administrationMethodService.findByIdentifier(code)
+        administrationMethodService.findByCode(code)
     }
 
     Iterable<AdministrationMethod> findAll() {

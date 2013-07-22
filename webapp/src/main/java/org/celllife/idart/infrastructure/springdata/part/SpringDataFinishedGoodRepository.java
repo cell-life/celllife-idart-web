@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 @RestResource(path = "finishedGoods")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataFinishedGoodRepository extends PagingAndSortingRepository<FinishedGood, Long>, FinishedGoodRepository{
+public interface SpringDataFinishedGoodRepository extends PagingAndSortingRepository<FinishedGood, Long>, FinishedGoodRepository {
 
     @Query("select finishedGood " +
             "from FinishedGood finishedGood " +
@@ -30,4 +30,5 @@ public interface SpringDataFinishedGoodRepository extends PagingAndSortingReposi
             "join finishedGood.identifiers identifier " +
             "where identifier.value = :identifierValue")
     Iterable<FinishedGood> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 }

@@ -6,6 +6,8 @@ package org.celllife.idart.domain.organisation
  */
 class LegalOrganisation extends Organisation {
 
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/legalOrganisations"
+
     String taxRegistrationNumber
 
 }

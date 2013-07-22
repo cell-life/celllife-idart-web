@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-17
  * Time: 22h24
  */
-@Service class PartApplicationServiceImpl implements PartApplicationService, PartResourceService, InitializingBean {
+@Service class PartApplicationServiceImpl implements PartApplicationService, InitializingBean {
 
     @Autowired FinishedGoodService finishedGoodService
 
@@ -35,21 +35,6 @@ import org.springframework.stereotype.Service
             }
         }
 
-        return null
-    }
-
-    @Override
-    Part save(Part part) {
-        return null
-    }
-
-    @Override
-    Part findByIdentifier(String identifier) {
-        return null
-    }
-
-    @Override
-    Iterable<Part> findAll() {
         return null
     }
 

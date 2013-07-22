@@ -2,8 +2,10 @@ package org.celllife.idart.application.patient
 
 import org.celllife.idart.application.ClinicNotFoundException
 import org.celllife.idart.application.person.PersonApplicationService
+import org.celllife.idart.application.person.PersonResourceService
 import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.clinic.ClinicRepository
+import org.celllife.idart.domain.clinic.ClinicService
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.patient.PatientSequence
@@ -21,9 +23,11 @@ import org.springframework.stereotype.Service
  */
 @Service class PatientApplicationServiceImpl implements PatientApplicationService, PatientResourceService {
 
-    @Autowired ClinicRepository clinicRepository
+    @Autowired ClinicService clinicService
 
     @Autowired PersonApplicationService personApplicationService
+
+    @Autowired PersonResourceService personResourceService
 
     @Autowired PatientService patientService
 
@@ -35,7 +39,7 @@ import org.springframework.stereotype.Service
     @Loggable(value = LogLevel.INFO, exception = LogLevel.ERROR)
     List<Patient> findByIdentifier(String applicationId, String clinicIdentifier, String patientIdentifier) {
 
-        Clinic clinic = clinicRepository.findOneByIdentifier("http://www.cell-life.org/idart/clinics", clinicIdentifier)
+        Clinic clinic = clinicService.findByIdentifier(clinicIdentifier)
 
         if (clinic == null) {
             throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifier)
@@ -80,7 +84,7 @@ import org.springframework.stereotype.Service
             return newPatient.person = personApplicationService.update(newPatient.person, existingPatient.person?.pk)
         }
 
-        return personApplicationService.save(newPatient.person)
+        return personResourceService.save(newPatient.person)
     }
 
     Set<Patient> lookupFromExternalProviders(String patientIdentifierValue, Clinic clinic) {

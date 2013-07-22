@@ -14,44 +14,64 @@ import javax.annotation.Generated
 
     @Autowired ClinicRepository clinicRepository
 
-    @Override
-    Clinic save(Clinic clinic) {
+    @Autowired ClinicSequence clinicSequence
 
-        Clinic existingClinic = findByIdentifiers(clinic.identifiers)
-        if (existingClinic == null) {
-            existingClinic = clinic.class.newInstance()
+    @Autowired ClinicValidator clinicValidator
+
+    @Override
+    Clinic save(Clinic newClinic) {
+
+        clinicValidator.validate(newClinic)
+
+        def existingClinic = findByIdentifiers(newClinic.identifiers)
+
+        if (requiresIdartIdentifier(newClinic, existingClinic)) {
+            newClinic.addIdentifier(Clinic.IDART_SYSTEM, nextPatientIdentifier())
         }
 
-        existingClinic.merge(clinic)
+        if (existingClinic == null) {
+            existingClinic = new Clinic()
+        }
+
+        existingClinic.merge(newClinic)
 
         clinicRepository.save(existingClinic)
     }
 
+    @Override
+    Clinic findByIdentifiers(Iterable<Identifier> identifiers) {
+        for (identifier in identifiers) {
+            def existingClinic = clinicRepository.findOneByIdentifier(identifier.system, identifier.value)
+            if (existingClinic != null) {
+                return existingClinic
+            }
+        }
+
+        null
+    }
+
+    @Override
+    Clinic findByIdentifier(String identifier) {
+        clinicRepository.findOneByIdentifier(Clinic.IDART_SYSTEM, identifier)
+    }
 
     @Override
     Iterable<Clinic> findAll() {
         clinicRepository.findAll()
     }
 
-    @Override
-    Clinic findByIdentifier(String identifier) {
-        null
+    String nextPatientIdentifier() {
+        String.format("%08d", clinicSequence.nextValue())
     }
 
-    @Override
-    Clinic findByIdentifiers(Iterable<Identifier> identifiers) {
+    static requiresIdartIdentifier(Clinic... clinics) {
 
-        if (identifiers == null) {
-            return null
-        }
-
-        for (Identifier identifier: identifiers) {
-            Clinic clinic = clinicRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (clinic != null) {
-                return clinic
+        for (Clinic clinic in clinics) {
+            if (clinic?.hasIdentifierForSystem(Clinic.IDART_SYSTEM)) {
+                return false
             }
         }
 
-        null
+        return true
     }
 }

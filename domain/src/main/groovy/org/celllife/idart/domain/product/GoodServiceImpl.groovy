@@ -14,44 +14,64 @@ import javax.annotation.Generated
 
     @Autowired GoodRepository goodRepository
 
-    @Override
-    Good save(Good good) {
+    @Autowired GoodSequence goodSequence
 
-        Good existingGood = findByIdentifiers(good.identifiers)
-        if (existingGood == null) {
-            existingGood = good.class.newInstance()
+    @Autowired GoodValidator goodValidator
+
+    @Override
+    Good save(Good newGood) {
+
+        goodValidator.validate(newGood)
+
+        def existingGood = findByIdentifiers(newGood.identifiers)
+
+        if (requiresIdartIdentifier(newGood, existingGood)) {
+            newGood.addIdentifier(Good.IDART_SYSTEM, nextPatientIdentifier())
         }
 
-        existingGood.merge(good)
+        if (existingGood == null) {
+            existingGood = new Good()
+        }
+
+        existingGood.merge(newGood)
 
         goodRepository.save(existingGood)
     }
 
+    @Override
+    Good findByIdentifiers(Iterable<Identifier> identifiers) {
+        for (identifier in identifiers) {
+            def existingGood = goodRepository.findOneByIdentifier(identifier.system, identifier.value)
+            if (existingGood != null) {
+                return existingGood
+            }
+        }
+
+        null
+    }
+
+    @Override
+    Good findByIdentifier(String identifier) {
+        goodRepository.findOneByIdentifier(Good.IDART_SYSTEM, identifier)
+    }
 
     @Override
     Iterable<Good> findAll() {
         goodRepository.findAll()
     }
 
-    @Override
-    Good findByIdentifier(String identifier) {
-        null
+    String nextPatientIdentifier() {
+        String.format("%08d", goodSequence.nextValue())
     }
 
-    @Override
-    Good findByIdentifiers(Iterable<Identifier> identifiers) {
+    static requiresIdartIdentifier(Good... goods) {
 
-        if (identifiers == null) {
-            return null
-        }
-
-        for (Identifier identifier: identifiers) {
-            Good good = goodRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (good != null) {
-                return good
+        for (Good good in goods) {
+            if (good?.hasIdentifierForSystem(Good.IDART_SYSTEM)) {
+                return false
             }
         }
 
-        null
+        return true
     }
 }

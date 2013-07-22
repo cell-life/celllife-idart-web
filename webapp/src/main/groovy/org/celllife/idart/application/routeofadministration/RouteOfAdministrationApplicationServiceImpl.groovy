@@ -21,7 +21,7 @@ class RouteOfAdministrationApplicationServiceImpl implements RouteOfAdministrati
     }
 
     RouteOfAdministration findByCode(String code) {
-        routeOfAdministrationService.findByIdentifier(code)
+        routeOfAdministrationService.findByCode(code)
     }
 
     Iterable<RouteOfAdministration> findAll() {

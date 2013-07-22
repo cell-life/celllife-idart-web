@@ -22,19 +22,23 @@ def identifiableModels = [
         [entityName: "Dispensation"],
         [entityName: "Encounter"],
         [entityName: "Patient"],
+        [entityName: "Person"],
         [entityName: "Prescription"],
         [entityName: "Practitioner"],
         [entityPackage: "product", entityName: "Good"],
         [entityPackage: "organisation", entityName: "LegalOrganisation"],
-        [entityPackage: "part", entityName: "Compound"],
-        [entityPackage: "part", entityName: "Drug"],
-        [entityPackage: "part", entityName: "DrugGroup"],
-        [entityPackage: "part", entityName: "FinishedGood"],
-        [entityPackage: "part", entityName: "Part"],
-        [entityPackage: "part", entityName: "RawMaterial"],
-        [entityPackage: "part", entityName: "Subassembly"],
+        [entityName: "Compound"],
+        [entityName: "Drug"],
+        [entityName: "DrugGroup"]
 ]
 
 codeGen.generateIdentifiableSpringDataRepositories(identifiableModels)
 codeGen.generateIdentifiableResources(identifiableModels)
 codeGen.generateHibernateValidator(identifiableModels)
+codeGen.generateCounterSequence(identifiableModels)
+
+def abstractModels = [
+        [entityPackage: "part", entityName: "FinishedGood"],
+        [entityPackage: "part", entityName: "RawMaterial"],
+]
+codeGen.generateIdentifiableSpringDataRepositories(abstractModels)

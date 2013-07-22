@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 @RestResource(path = "rawMaterials")
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataRawMaterialRepository extends PagingAndSortingRepository<RawMaterial, Long>, RawMaterialRepository{
+public interface SpringDataRawMaterialRepository extends PagingAndSortingRepository<RawMaterial, Long>, RawMaterialRepository {
 
     @Query("select rawMaterial " +
             "from RawMaterial rawMaterial " +
@@ -30,4 +30,5 @@ public interface SpringDataRawMaterialRepository extends PagingAndSortingReposit
             "join rawMaterial.identifiers identifier " +
             "where identifier.value = :identifierValue")
     Iterable<RawMaterial> findByIdentifier(@Param("identifierValue") String identifierValue);
+
 }

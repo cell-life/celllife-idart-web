@@ -32,6 +32,12 @@ class CodeGenerator {
         this.basePackageName = args.basePackageName
     }
 
+    def generateCounterSequence(models) {
+        models.each { model ->
+            CounterSequenceGenerator.generateCounterSequence(groovySourcesDirectory, model)
+        }
+    }
+
     def generateHibernateValidator(models) {
         models.each { model ->
             HibernateValidatorGenerator.generateHibernateValidator(groovySourcesDirectory, model)

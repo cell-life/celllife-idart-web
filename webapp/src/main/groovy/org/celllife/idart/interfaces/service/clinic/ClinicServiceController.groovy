@@ -1,10 +1,10 @@
 package org.celllife.idart.interfaces.service.clinic
 
-import org.celllife.idart.application.part.DrugResourceService
+import org.celllife.idart.application.drug.DrugResourceService
 import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
 import org.celllife.idart.application.prescription.PrescriptionResourceService
-import org.celllife.idart.domain.part.Drug
+import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.domain.prescription.Prescription
