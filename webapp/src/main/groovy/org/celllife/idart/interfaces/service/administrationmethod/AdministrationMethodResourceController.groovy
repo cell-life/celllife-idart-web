@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         administrationMethod = administrationMethodResourceService.save(administrationMethod)
 
-        response.setHeader("Location", "${baseUrl}/service/administrationMethods/${administrationMethod.pk}")
+        response.setHeader("Location", "${baseUrl}/administrationMethods/${administrationMethod.pk}")
         response.setStatus(SC_CREATED)
     }
 }

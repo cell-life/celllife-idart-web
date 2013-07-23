@@ -1,8 +1,4 @@
-package org.celllife.idart.domain.partyfacility;
-
-
-import java.util.List;
-
+package org.celllife.idart.domain.partyfacility
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-23

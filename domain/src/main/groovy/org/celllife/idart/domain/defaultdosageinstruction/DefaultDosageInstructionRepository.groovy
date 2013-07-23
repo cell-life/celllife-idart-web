@@ -1,7 +1,4 @@
 package org.celllife.idart.domain.defaultdosageinstruction
-
-import javax.annotation.Generated;
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-13

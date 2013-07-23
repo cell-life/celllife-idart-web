@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         legalOrganisation = legalOrganisationResourceService.save(legalOrganisation)
 
-        response.setHeader("Location", "${baseUrl}/service/legalOrganisations/${legalOrganisation.pk}")
+        response.setHeader("Location", "${baseUrl}/legalOrganisations/${legalOrganisation.pk}")
         response.setStatus(SC_CREATED)
     }
 }

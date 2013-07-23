@@ -14,7 +14,11 @@ import java.util.Set;
  */
 public final class Medication implements Serializable {
 
+    public static final String IDART_SYSTEM = "http://www.cell-life.org/idart/medications";
+
     public Set<Identifier> identifiers = new HashSet<Identifier>();
+
+    public String name;
 
     public Drug drug;
 

@@ -4,7 +4,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
-import org.celllife.idart.domain.part.FinishedGood
+import org.celllife.idart.domain.drug.Drug
 
 import javax.validation.constraints.NotNull
 
@@ -20,7 +20,7 @@ class DefaultDosageInstruction implements Persistable<Long> {
     Long pk
 
     @NotNull
-    FinishedGood medication
+    Drug medication
 
     @NotNull
     DosageInstruction dosageInstruction

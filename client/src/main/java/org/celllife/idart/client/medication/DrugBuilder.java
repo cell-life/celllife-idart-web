@@ -1,7 +1,10 @@
 package org.celllife.idart.client.medication;
 
+import org.celllife.idart.client.common.Code;
 import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Drug;
+import org.celllife.idart.client.part.PartBillOfMaterialsItem;
 
 /**
  * User: Kevin W. Sewell
@@ -12,34 +15,36 @@ public class DrugBuilder {
 
     private final Drug drug;
 
-    private final MedicationBuilder parent;
-
-    private final Medication medication;
-
-    private final String clinicIdentifier;
-
     private final String clinicDrugsIdentifierSystem;
 
-    public DrugBuilder(MedicationBuilder parent, Medication medication, String clinicIdentifier) {
+    public DrugBuilder(String clinicIdentifier) {
         this.drug = new Drug();
-        this.parent = parent;
-        this.medication = medication;
-        this.clinicIdentifier = clinicIdentifier;
         this.clinicDrugsIdentifierSystem =
-                String.format("http://www.celllife.org/idart/clinics/%s/drugs", clinicIdentifier);
+                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicIdentifier);
     }
 
-    public DrugBuilder setIdentifier(String identifier) {
-        this.drug.identifiers.add(new Identifier(this.clinicDrugsIdentifierSystem, identifier));
+    public DrugBuilder setIdentifier(String identifierValue) {
+        this.drug.identifiers.add(new Identifier(this.clinicDrugsIdentifierSystem, identifierValue));
         return this;
     }
 
-    public MedicationBuilder finishDrug() {
-        medication.drug = drug;
-        return parent;
+    public DrugBuilder setIdentifier(String identifierSystem, String identifierValue) {
+        this.drug.identifiers.add(new Identifier(identifierSystem, identifierValue));
+        return this;
     }
 
-    public BillOfMaterialsItemBuilder createBillOfMaterialsItem() {
-        return new BillOfMaterialsItemBuilder(this, drug, clinicIdentifier);
+    public Drug finishDrug() {
+        return drug;
+    }
+
+    public DrugBuilder addBillOfMaterialsItem(PartBillOfMaterialsItem partBillOfMaterialsItem) {
+        drug.billOfMaterials.add(partBillOfMaterialsItem);
+        return this;
+    }
+
+    public DrugBuilder setForm(String formCodeSystem, String formCodeValue) {
+        this.drug.form = new Form();
+        this.drug.form.codes.add(new Code(formCodeSystem, formCodeValue));
+        return this;
     }
 }

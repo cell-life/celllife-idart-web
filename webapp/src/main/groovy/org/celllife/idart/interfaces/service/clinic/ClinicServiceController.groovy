@@ -1,10 +1,10 @@
 package org.celllife.idart.interfaces.service.clinic
 
-import org.celllife.idart.application.drug.DrugResourceService
+import org.celllife.idart.application.medication.MedicationResourceService
 import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
 import org.celllife.idart.application.prescription.PrescriptionResourceService
-import org.celllife.idart.domain.drug.Drug
+import org.celllife.idart.domain.medication.Medication
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.domain.prescription.Prescription
@@ -30,7 +30,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @Autowired PrescriptionResourceService prescriptionResourceService
 
-    @Autowired DrugResourceService drugResourceService
+    @Autowired MedicationResourceService medicationResourceService
 
     @Value('${external.base.url}') String baseUrl
 
@@ -59,14 +59,19 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         prescription = prescriptionResourceService.save(prescription)
 
-        response.setHeader("Location", "${baseUrl}/service/prescriptions/${prescription.pk}")
+        response.setHeader("Location", "${baseUrl}/prescriptions/${prescription.pk}")
         response.setStatus(SC_CREATED)
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/clinics/{clinicIdentifier}/drugs", method = RequestMethod.GET)
-    Iterable<Drug> listDrugs(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                             @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
-        drugResourceService.findAll()
+    @RequestMapping(value = "/clinics/{clinicIdentifier}/medications", method = RequestMethod.POST)
+    void saveMedication(@PathVariable("clinicIdentifier") String clinicIdentifier,
+                        @RequestHeader("X-IDART_APPLICATION_ID") String applicationId,
+                        @RequestBody Medication medication,
+                        HttpServletResponse response) {
+
+        medication = medicationResourceService.save(medication)
+
+        response.setHeader("Location", "${baseUrl}/medications/${medication.pk}")
+        response.setStatus(SC_CREATED)
     }
 }

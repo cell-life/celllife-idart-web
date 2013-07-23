@@ -8,8 +8,8 @@ import org.celllife.idart.domain.practitioner.PractitionerResource
 import org.junit.Before
 import org.junit.Test
 
-import static groovy.json.JsonOutput.*
-import static org.junit.Assert.*
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertNotNull
 
 /**
  * User: Kevin W. Sewell

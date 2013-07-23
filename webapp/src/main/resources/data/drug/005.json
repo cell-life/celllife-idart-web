@@ -3,7 +3,7 @@
     "identifiers": [
         {
             "system": "http://www.cell-life.org/idart/drugs",
-            "value": "Zidovudine 300mg"
+            "value": "00000005"
         }
     ],
     "billOfMaterials": [
@@ -40,7 +40,7 @@
         }
     ],
     "form": {
-        "codes" : [
+        "codes": [
             {
                 "system": "2.16.840.1.113883.19.5.3",
                 "value": "TAB"

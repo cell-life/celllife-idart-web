@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         ${lowerCaseEntityName} = ${lowerCaseEntityName}ResourceService.save(${lowerCaseEntityName})
 
-        response.setHeader("Location", "\${baseUrl}/service/${lowerCaseEntityName}s/\${${lowerCaseEntityName}.pk}")
+        response.setHeader("Location", "\${baseUrl}/${lowerCaseEntityName}s/\${${lowerCaseEntityName}.pk}")
         response.setStatus(SC_CREATED)
     }
 }

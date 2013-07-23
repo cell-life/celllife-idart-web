@@ -1,11 +1,9 @@
 package org.celllife.idart.application.drug
 
-import org.celllife.idart.application.drug.DrugApplicationService
-import org.celllife.idart.application.drug.DrugResourceService
 import org.celllife.idart.application.part.PartApplicationService
-import org.celllife.idart.domain.form.FormService
 import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.drug.DrugService
+import org.celllife.idart.domain.form.FormService
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -41,7 +39,7 @@ import org.springframework.stereotype.Service
                         unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
                     }
 
-                    part = partApplicationService.findByIdentifiers(part?.identifiers)
+                    part = partApplicationService.save(part)
                 }
 
             }

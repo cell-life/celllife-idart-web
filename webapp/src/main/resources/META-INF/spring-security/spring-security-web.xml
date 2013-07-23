@@ -18,7 +18,7 @@
                    auto-config="true"
                    use-expressions="true"
                    pattern="/**">
-        <security:intercept-url pattern="/service/**" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/**" access="isAuthenticated()"/>
         <security:http-basic/>
         <security:custom-filter position="CAS_FILTER" ref="casFilter"/>
     </security:http>

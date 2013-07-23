@@ -1,10 +1,10 @@
 package org.celllife.idart.application.part
 
-import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.part.FinishedGoodService
+import org.celllife.idart.application.compound.CompoundResourceService
+import org.celllife.idart.application.drug.DrugResourceService
+import org.celllife.idart.domain.compound.Compound
+import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.part.Part
-import org.celllife.idart.domain.part.RawMaterialService
-import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,33 +13,22 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-17
  * Time: 22h24
  */
-@Service class PartApplicationServiceImpl implements PartApplicationService, InitializingBean {
+@Service class PartApplicationServiceImpl implements PartApplicationService {
 
-    @Autowired FinishedGoodService finishedGoodService
+    @Autowired CompoundResourceService compoundResourceService
 
-    @Autowired RawMaterialService rawMaterialService
-
-    def partServices
+    @Autowired DrugResourceService drugResourceService
 
     @Override
-    Part findByIdentifiers(Set<Identifier> identifiers) {
+    Part save(Part part) {
 
-        if (identifiers == null) {
-            return null
+        switch (part) {
+            case Drug:
+                return drugResourceService.save(part as Drug)
+            case Compound:
+                return compoundResourceService.save(part as Compound)
+            default:
+                throw UnsupportedPartException();
         }
-
-        for (partService in partServices) {
-            def part = partService.findByIdentifiers(identifiers)
-            if (part != null) {
-                return part;
-            }
-        }
-
-        return null
-    }
-
-    @Override
-    void afterPropertiesSet() throws Exception {
-        this.partServices = [finishedGoodService, rawMaterialService]
     }
 }

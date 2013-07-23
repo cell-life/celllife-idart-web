@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         routeOfAdministration = routeOfAdministrationResourceService.save(routeOfAdministration)
 
-        response.setHeader("Location", "${baseUrl}/service/routeOfAdministrations/${routeOfAdministration.pk}")
+        response.setHeader("Location", "${baseUrl}/routeOfAdministrations/${routeOfAdministration.pk}")
         response.setStatus(SC_CREATED)
     }
 }

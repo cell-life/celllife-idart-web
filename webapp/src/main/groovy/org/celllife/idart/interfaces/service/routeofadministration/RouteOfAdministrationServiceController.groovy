@@ -2,7 +2,6 @@ package org.celllife.idart.interfaces.service.routeofadministration
 
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationService
-
 import org.celllife.idart.integration.hl7.CodeFile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller

@@ -47,4 +47,19 @@ abstract class Part implements Persistable<Long> {
         this.form = that.form
         that.classifications?.each { classification -> this.classifications << classification }
     }
+
+    def matches(Part that) {
+
+        if (that == null) {
+            return false
+        }
+
+        for (identifierSystem in this.getIdentifierSystems()) {
+            if (this.getIdentifierValue(identifierSystem) == that.getIdentifierValue(identifierSystem)) {
+                return true
+            }
+        }
+
+        return false
+    }
 }

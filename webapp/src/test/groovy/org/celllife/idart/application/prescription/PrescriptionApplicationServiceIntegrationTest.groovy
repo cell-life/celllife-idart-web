@@ -68,7 +68,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         drugResourceService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
 
         Good good = new Good(finishedGood: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
-        good.addIdentifier("http://www.cell-life.org/idart/goods", "Abacavir 20mg/ml 240ml")
+        good.addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")
         goodResourceService.save(good)
 
         Patient patient = new Patient()
@@ -117,7 +117,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         abacavir20mg
     }
 
-     static Drug createFinishedDrug(UnitOfMeasure each, Drug abacavir20mg, UnitOfMeasure millilitres) {
+    static Drug createFinishedDrug(UnitOfMeasure each, Drug abacavir20mg, UnitOfMeasure millilitres) {
         Drug finishedGood = new Drug()
         finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
         finishedGood.setUnitOfMeasure(each)

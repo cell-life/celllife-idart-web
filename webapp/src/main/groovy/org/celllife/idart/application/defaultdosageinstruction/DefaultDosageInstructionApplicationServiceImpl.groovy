@@ -2,7 +2,7 @@ package org.celllife.idart.application.defaultdosageinstruction
 
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionService
-import org.celllife.idart.domain.part.FinishedGoodService
+import org.celllife.idart.domain.drug.DrugService
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service
  * Time: 22h10
  */
 @Service class DefaultDosageInstructionApplicationServiceImpl implements DefaultDosageInstructionApplicationService,
-        DefaultDosageInstructionResourceService{
+        DefaultDosageInstructionResourceService {
 
     @Autowired DefaultDosageInstructionService defaultDosageInstructionService
 
-    @Autowired FinishedGoodService finishedGoodService
+    @Autowired DrugService finishedGoodService
 
     @Autowired UnitOfMeasureService unitOfMeasureService
 
@@ -42,7 +42,7 @@ import org.springframework.stereotype.Service
                 }
             }
         }
-        
+
         defaultDosageInstructionService.save(defaultDosageInstruction)
     }
 

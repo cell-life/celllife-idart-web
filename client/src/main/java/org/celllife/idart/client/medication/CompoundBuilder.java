@@ -3,8 +3,7 @@ package org.celllife.idart.client.medication;
 import org.celllife.idart.client.common.Code;
 import org.celllife.idart.client.common.Identifier;
 import org.celllife.idart.client.form.Form;
-import org.celllife.idart.client.part.Drug;
-import org.celllife.idart.client.part.PartBillOfMaterialsItem;
+import org.celllife.idart.client.part.Compound;
 
 /**
  * User: Kevin W. Sewell
@@ -13,38 +12,33 @@ import org.celllife.idart.client.part.PartBillOfMaterialsItem;
  */
 public class CompoundBuilder {
 
-    private final Drug drug;
+    private final Compound compound;
 
     private final String clinicDrugsIdentifierSystem;
 
     public CompoundBuilder(String clinicIdentifier) {
-        this.drug = new Drug();
+        this.compound = new Compound();
         this.clinicDrugsIdentifierSystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicIdentifier);
+                String.format("http://www.cell-life.org/idart/clinics/%s/compounds", clinicIdentifier);
     }
 
     public CompoundBuilder setIdentifier(String identifierValue) {
-        this.drug.identifiers.add(new Identifier(this.clinicDrugsIdentifierSystem, identifierValue));
+        this.compound.identifiers.add(new Identifier(this.clinicDrugsIdentifierSystem, identifierValue));
         return this;
     }
 
     public CompoundBuilder setIdentifier(String identifierSystem, String identifierValue) {
-        this.drug.identifiers.add(new Identifier(identifierSystem, identifierValue));
+        this.compound.identifiers.add(new Identifier(identifierSystem, identifierValue));
         return this;
     }
 
-    public Drug finishDrug() {
-        return drug;
-    }
-
-    public CompoundBuilder addBillOfMaterialsItem(PartBillOfMaterialsItem partBillOfMaterialsItem) {
-        drug.billOfMaterials.add(partBillOfMaterialsItem);
-        return this;
+    public Compound finishCompound() {
+        return compound;
     }
 
     public CompoundBuilder setForm(String formCodeSystem, String formCodeValue) {
-        this.drug.form = new Form();
-        this.drug.form.codes.add(new Code(formCodeSystem, formCodeValue));
+        this.compound.form = new Form();
+        this.compound.form.codes.add(new Code(formCodeSystem, formCodeValue));
         return this;
     }
 }

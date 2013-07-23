@@ -33,6 +33,25 @@ abstract class FinishedGood extends Part {
         }
 
         super.merge(that)
-        that.billOfMaterials?.each { billOfMaterial -> this.billOfMaterials << billOfMaterial }
+
+        if (that.billOfMaterials != null) {
+            for (thatBillOfMaterial in that.billOfMaterials) {
+                addNewOrMergeExisting(thatBillOfMaterial)
+            }
+        }
+    }
+
+    def addNewOrMergeExisting(PartBillOfMaterialsItem thatBillOfMaterial) {
+
+        for (thisBillOfMaterial in this.billOfMaterials) {
+            if (thisBillOfMaterial.matches(thatBillOfMaterial)) {
+                // Existing bill of materials... merge
+                thisBillOfMaterial.merge(thatBillOfMaterial)
+                return
+            }
+        }
+
+        // Not found in this.billOfMaterials
+        this.billOfMaterials << thatBillOfMaterial
     }
 }

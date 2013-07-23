@@ -1,16 +1,17 @@
 {
     "identifiers": [
         {
-            "system": "http://www.cell-life.org/idart/goods",
-            "value": "Tenofovir 300mg (30 Tablets)"
+            "system": "http://www.cell-life.org/idart/medications",
+            "value": "00000010"
         }
     ],
-    "finishedGood": {
+    "name": "Tenofovir 300mg (30 Tablets)",
+    "drug": {
         "@type": "drug",
         "identifiers": [
             {
                 "system": "http://www.cell-life.org/idart/drugs",
-                "value": "Tenofovir 300mg (30 Tablets)"
+                "value": "00000020"
             }
         ]
     }

@@ -1,16 +1,17 @@
 {
     "identifiers": [
         {
-            "system": "http://www.cell-life.org/idart/goods",
-            "value": "Stavudine 15mg (60 Tablets)"
+            "system": "http://www.cell-life.org/idart/medications",
+            "value": "00000004"
         }
     ],
-    "finishedGood": {
+    "name": "Stavudine 15mg (60 Tablets)",
+    "drug": {
         "@type": "drug",
         "identifiers": [
             {
                 "system": "http://www.cell-life.org/idart/drugs",
-                "value": "Stavudine 15mg (60 Tablets)"
+                "value": "00000008"
             }
         ]
     }

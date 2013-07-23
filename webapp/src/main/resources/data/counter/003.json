@@ -1,4 +1,4 @@
 {
-    "name" : "MedicationIdentifier",
-    "nextValue" : 21
+    "name": "ClinicIdentifier",
+    "nextValue": 21
 }

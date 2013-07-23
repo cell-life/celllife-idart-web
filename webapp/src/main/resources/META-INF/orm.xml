@@ -98,7 +98,7 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <basic name="name"/>
-            <basic name="value"/>
+            <basic name="nextValue"/>
         </attributes>
     </entity>
 
@@ -359,10 +359,6 @@
 
     <entity class="org.celllife.idart.domain.drug.Drug">
         <discriminator-value>Drug</discriminator-value>
-    </entity>
-
-    <entity class="org.celllife.idart.domain.druggroup.DrugGroup">
-        <discriminator-value>DrugGroup</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.part.RawMaterial"/>
@@ -751,6 +747,12 @@
     <entity class="org.celllife.idart.domain.product.Good">
         <attributes>
             <many-to-one name="finishedGood" optional="false"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.medication.Medication">
+        <attributes>
+            <many-to-one name="drug" optional="false"/>
         </attributes>
     </entity>
 

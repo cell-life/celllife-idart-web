@@ -19,7 +19,8 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="allDomainServices" expression="execution(public * org.celllife.idart.domain.*.*ServiceImpl.*(..))"/>
+        <aop:pointcut id="allDomainServices"
+                      expression="execution(public * org.celllife.idart.domain.*.*ServiceImpl.*(..))"/>
         <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allDomainServices"/>
     </aop:config>
 

@@ -1,10 +1,9 @@
 package org.celllife.idart.domain.defaultdosageinstruction
 
 import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.domain.medication.Medication
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-
-import org.springframework.beans.factory.annotation.Autowired
 
 /**
  * User: Kevin W. Sewell
@@ -37,7 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired
     @Override
     DefaultDosageInstruction findByIdentifier(String medicationIdentifier) {
         defaultDosageInstructionRepository
-                .findOneByIdentifier("http://www.celllife.org/idart/medications", medicationIdentifier)
+                .findOneByIdentifier(Medication.IDART_SYSTEM, medicationIdentifier)
     }
 
     @Override
@@ -54,5 +53,5 @@ import org.springframework.beans.factory.annotation.Autowired
 
         null
     }
-    
+
 }

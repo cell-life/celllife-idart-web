@@ -1,7 +1,4 @@
-package org.celllife.idart.domain.assignment;
-
-import java.util.List;
-
+package org.celllife.idart.domain.assignment
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25

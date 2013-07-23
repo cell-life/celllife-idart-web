@@ -6,8 +6,6 @@ import org.celllife.idart.interfaces.service.patient.PatientServiceClient
 import org.junit.Before
 import org.junit.Test
 
-import static groovy.json.JsonOutput.prettyPrint
-import static groovy.json.JsonOutput.toJson
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
 

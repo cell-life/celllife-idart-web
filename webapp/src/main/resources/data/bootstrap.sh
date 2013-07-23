@@ -10,6 +10,7 @@ sh $BASE_DIR/unitOfMeasure/upload.sh
 # Instances
 sh $BASE_DIR/clinic/upload.sh
 sh $BASE_DIR/compound/upload.sh
+sh $BASE_DIR/counter/upload.sh
 sh $BASE_DIR/drug/upload.sh
-sh $BASE_DIR/good/upload.sh
+sh $BASE_DIR/medication/upload.sh
 sh $BASE_DIR/defaultDosageInstruction/upload.sh

@@ -21,15 +21,15 @@ def identifiableModels = [
         [entityName: "Clinic"],
         [entityName: "Dispensation"],
         [entityName: "Encounter"],
+        [entityName: "Medication"],
         [entityName: "Patient"],
-        [entityName: "Person"],
+        [entityName: "Person", entityNamePlural: "People"],
         [entityName: "Prescription"],
         [entityName: "Practitioner"],
         [entityPackage: "product", entityName: "Good"],
         [entityPackage: "organisation", entityName: "LegalOrganisation"],
         [entityName: "Compound"],
-        [entityName: "Drug"],
-        [entityName: "DrugGroup"]
+        [entityName: "Drug"]
 ]
 
 codeGen.generateIdentifiableSpringDataRepositories(identifiableModels)

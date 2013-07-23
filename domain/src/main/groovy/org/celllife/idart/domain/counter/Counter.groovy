@@ -16,9 +16,9 @@ class Counter implements Persistable<Long> {
 
     String name
 
-    Integer value = 0
+    Integer nextValue = 0
 
     def Integer nextValue() {
-        value++
+        nextValue++
     }
 }

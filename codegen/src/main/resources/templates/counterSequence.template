@@ -13,7 +13,7 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class Counter${entityName}Sequence implements ${entityName}Sequence {
 
-    static final String CODE_COUNTER_NAME = "${entityName}Code"
+    static final String CODE_COUNTER_NAME = "${entityName}Identifier"
 
     @Autowired CounterService counterService
 

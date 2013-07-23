@@ -3,7 +3,7 @@
     "identifiers": [
         {
             "system": "http://www.cell-life.org/idart/drugs",
-            "value": "Zidovudine 100mg (100 Tablets)"
+            "value": "00000002"
         }
     ],
     "billOfMaterials": [
@@ -15,7 +15,7 @@
                 "identifiers": [
                     {
                         "system": "http://www.cell-life.org/idart/drugs",
-                        "value": "Zidovudine 100mg"
+                        "value": "00000001"
                     }
                 ]
             },

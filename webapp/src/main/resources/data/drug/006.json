@@ -3,7 +3,7 @@
     "identifiers": [
         {
             "system": "http://www.cell-life.org/idart/drugs",
-            "value": "Zidovudine 300mg (60 Tablets)"
+            "value": "00000006"
         }
     ],
     "billOfMaterials": [
@@ -15,7 +15,7 @@
                 "identifiers": [
                     {
                         "system": "http://www.cell-life.org/idart/drugs",
-                        "value": "Zidovudine 300mg"
+                        "value": "00000005"
                     }
                 ]
             },

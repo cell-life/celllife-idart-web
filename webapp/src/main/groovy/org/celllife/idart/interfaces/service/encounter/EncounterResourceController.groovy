@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         encounter = encounterResourceService.save(encounter)
 
-        response.setHeader("Location", "${baseUrl}/service/encounters/${encounter.pk}")
+        response.setHeader("Location", "${baseUrl}/encounters/${encounter.pk}")
         response.setStatus(SC_CREATED)
     }
 }

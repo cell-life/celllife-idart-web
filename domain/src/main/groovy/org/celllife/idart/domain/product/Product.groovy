@@ -22,6 +22,11 @@ class Product implements Persistable<Long> {
      */
     Set<Identifier> identifiers = []
 
+    /**
+     * Name
+     */
+    String name
+
     def merge(Product that) {
         this.mergeIdentifiers(that)
     }

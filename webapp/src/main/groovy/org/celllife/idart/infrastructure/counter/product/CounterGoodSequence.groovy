@@ -13,7 +13,7 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class CounterGoodSequence implements GoodSequence {
 
-    static final String CODE_COUNTER_NAME = "GoodCode"
+    static final String CODE_COUNTER_NAME = "GoodIdentifier"
 
     @Autowired CounterService counterService
 

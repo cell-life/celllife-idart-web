@@ -5,7 +5,9 @@ import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 
 import javax.annotation.Generated
 import javax.servlet.http.HttpServletResponse
@@ -29,7 +31,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         defaultDosageInstruction = defaultDosageInstructionResourceService.save(defaultDosageInstruction)
 
-        response.setHeader("Location", "${baseUrl}/service/defaultDosageInstructions/${defaultDosageInstruction.pk}")
+        response.setHeader("Location", "${baseUrl}/defaultDosageInstructions/${defaultDosageInstruction.pk}")
         response.setStatus(SC_CREATED)
     }
 }

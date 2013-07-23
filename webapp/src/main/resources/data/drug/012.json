@@ -3,7 +3,7 @@
     "identifiers": [
         {
             "system": "http://www.cell-life.org/idart/drugs",
-            "value": "Stavudine 20mg (60 Tablets)"
+            "value": "00000012"
         }
     ],
     "billOfMaterials": [
@@ -15,7 +15,7 @@
                 "identifiers": [
                     {
                         "system": "http://www.cell-life.org/idart/drugs",
-                        "value": "Stavudine 20mg"
+                        "value": "00000011"
                     }
                 ]
             },

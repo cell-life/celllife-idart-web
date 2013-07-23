@@ -11,7 +11,7 @@
              class="org.celllife.idart.domain.part.FinishedGood"
              createOnElement="finishedGood">
 
-        <jb:wiring setterMethod="addIdentifier" beanIdRef="identifier" />
+        <jb:wiring setterMethod="addIdentifier" beanIdRef="identifier"/>
         <jb:wiring property="unitOfMeasure" beanIdRef="unitOfMeasure"/>
 
     </jb:bean>

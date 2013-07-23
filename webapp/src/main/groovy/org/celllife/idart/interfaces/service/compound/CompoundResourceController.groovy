@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         compound = compoundResourceService.save(compound)
 
-        response.setHeader("Location", "${baseUrl}/service/compounds/${compound.pk}")
+        response.setHeader("Location", "${baseUrl}/compounds/${compound.pk}")
         response.setStatus(SC_CREATED)
     }
 }

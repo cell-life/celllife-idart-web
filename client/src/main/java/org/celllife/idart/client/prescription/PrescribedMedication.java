@@ -1,9 +1,11 @@
 package org.celllife.idart.client.prescription;
 
-import org.celllife.idart.client.common.*;
+import org.celllife.idart.client.common.Duration;
+import org.celllife.idart.client.common.Period;
+import org.celllife.idart.client.common.Quantity;
 import org.celllife.idart.client.dosageinstruction.DosageInstruction;
-import org.celllife.idart.client.good.Medication;
 import org.celllife.idart.client.indication.Indication;
+import org.celllife.idart.client.medication.Medication;
 import org.celllife.idart.client.substitution.Substitution;
 import org.celllife.idart.client.substitutionreason.SubstitutionReason;
 

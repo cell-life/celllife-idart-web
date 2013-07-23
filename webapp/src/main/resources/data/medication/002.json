@@ -1,16 +1,17 @@
 {
     "identifiers": [
         {
-            "system": "http://www.cell-life.org/idart/goods",
-            "value": "Zidovudine 10mg/ml (200 ml)"
+            "system": "http://www.cell-life.org/idart/medications",
+            "value": "00000002"
         }
     ],
-    "finishedGood": {
+    "name": "Zidovudine 10mg/ml (200 ml)",
+    "drug": {
         "@type": "drug",
         "identifiers": [
             {
                 "system": "http://www.cell-life.org/idart/drugs",
-                "value": "Zidovudine 10mg/ml (200 ml)"
+                "value": "00000004"
             }
         ]
     }

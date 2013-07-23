@@ -1,7 +1,4 @@
 package org.celllife.idart.domain.common
-
-import java.beans.Transient
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-06

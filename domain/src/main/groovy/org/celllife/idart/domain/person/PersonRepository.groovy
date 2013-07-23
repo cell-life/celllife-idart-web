@@ -10,7 +10,7 @@ public interface PersonRepository {
 
     Person save(Person person)
 
-    public <S extends Person> Iterable<S> save(Iterable<S> persons)
+    public <S extends Person> Iterable<S> save(Iterable<S> people)
 
     Person findOne(Long pk)
 

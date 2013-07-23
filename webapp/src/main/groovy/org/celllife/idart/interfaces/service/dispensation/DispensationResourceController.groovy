@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         dispensation = dispensationResourceService.save(dispensation)
 
-        response.setHeader("Location", "${baseUrl}/service/dispensations/${dispensation.pk}")
+        response.setHeader("Location", "${baseUrl}/dispensations/${dispensation.pk}")
         response.setStatus(SC_CREATED)
     }
 }

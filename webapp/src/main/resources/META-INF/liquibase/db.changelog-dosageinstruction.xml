@@ -15,11 +15,13 @@
             </column>
             <column name="max_dose_per_period_denominator" type="numeric"/>
             <column name="max_dose_per_period_denominator_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_max_dose_per_period_den_uom_fk"/>
+                <constraints references="unit_of_measure(pk)"
+                             foreignKeyName="dos_instr_max_dose_per_period_den_uom_fk"/>
             </column>
             <column name="max_dose_per_period_numerator" type="numeric"/>
             <column name="max_dose_per_period_numerator_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="dos_instr_max_dose_per_period_num_uom_fk"/>
+                <constraints references="unit_of_measure(pk)"
+                             foreignKeyName="dos_instr_max_dose_per_period_num_uom_fk"/>
             </column>
             <column name="rate_denominator" type="numeric"/>
             <column name="rate_denominator_uom" type="varchar(31)">

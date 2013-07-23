@@ -3,7 +3,7 @@
     "identifiers": [
         {
             "system": "http://www.cell-life.org/idart/drugs",
-            "value": "Abacavir 20mg/ml (240ml)"
+            "value": "00000016"
         }
     ],
     "billOfMaterials": [
@@ -15,7 +15,7 @@
                 "identifiers": [
                     {
                         "system": "http://www.cell-life.org/idart/drugs",
-                        "value": "Abacavir 20mg/ml"
+                        "value": "00000015"
                     }
                 ]
             },

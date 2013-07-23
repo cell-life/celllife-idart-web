@@ -3,10 +3,9 @@ package org.celllife.idart.infrastructure.part.json;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.celllife.idart.domain.form.Form;
 import org.celllife.idart.domain.compound.Compound;
 import org.celllife.idart.domain.drug.Drug;
-import org.celllife.idart.domain.druggroup.DrugGroup;
+import org.celllife.idart.domain.form.Form;
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure;
 import org.celllife.idart.framework.json.CodeableSerializer;
 
@@ -18,7 +17,6 @@ import org.celllife.idart.framework.json.CodeableSerializer;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
         @JsonSubTypes.Type(name = "drug", value = Drug.class),
-        @JsonSubTypes.Type(name = "drugGroup", value = DrugGroup.class),
         @JsonSubTypes.Type(name = "compound", value = Compound.class),
 })
 public interface PartMixin {

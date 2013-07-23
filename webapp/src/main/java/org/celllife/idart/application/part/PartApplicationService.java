@@ -1,9 +1,6 @@
 package org.celllife.idart.application.part;
 
-import org.celllife.idart.domain.common.Identifier;
 import org.celllife.idart.domain.part.Part;
-
-import java.util.Set;
 
 /**
  * User: Kevin W. Sewell
@@ -12,6 +9,6 @@ import java.util.Set;
  */
 public interface PartApplicationService {
 
-    Part findByIdentifiers(Set<Identifier> identifiers);
+    Part save(Part part);
 
 }

@@ -1,8 +1,6 @@
-package org.celllife.idart.domain.contactmechanism;
+package org.celllife.idart.domain.contactmechanism
 
-import org.celllife.idart.domain.clinic.Clinic;
-
-import java.util.List;
+import org.celllife.idart.domain.clinic.Clinic
 
 /**
  * User: Kevin W. Sewell

@@ -24,8 +24,8 @@ class AssignmentResource {
 
         def items = findAll().content
         items.each { item ->
-                def linkToSelf = item.links.find { it.rel == 'self' }
-                delete(path: linkToSelf.href)
+            def linkToSelf = item.links.find { it.rel == 'self' }
+            delete(path: linkToSelf.href)
         }
     }
 

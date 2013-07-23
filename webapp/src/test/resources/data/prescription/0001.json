@@ -1,7 +1,7 @@
 {
     "identifiers": [
         {
-            "system": "http://www.cell-life.org/idart/999999/prescriptions",
+            "system": "http://www.cell-life.org/idart/00000001/prescriptions",
             "value": "00002"
         }
     ],
@@ -27,7 +27,7 @@
             "medication": {
                 "identifiers": [
                     {
-                        "system": "http://www.cell-life.org/idart/goods",
+                        "system": "http://www.cell-life.org/idart/medications",
                         "value": "Abacavir 20mg/ml (240ml)"
                     }
                 ]

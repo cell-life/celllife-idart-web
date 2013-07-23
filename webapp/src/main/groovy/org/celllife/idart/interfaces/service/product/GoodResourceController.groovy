@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         good = goodResourceService.save(good)
 
-        response.setHeader("Location", "${baseUrl}/service/goods/${good.pk}")
+        response.setHeader("Location", "${baseUrl}/goods/${good.pk}")
         response.setStatus(SC_CREATED)
     }
 }

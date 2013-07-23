@@ -1,12 +1,9 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.domain.common.Gender
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 import org.celllife.idart.domain.partyrole.PartyRole
 import org.junit.Assert
 import org.junit.Test
-
-import java.text.SimpleDateFormat
 
 /**
  * User: Kevin W. Sewell

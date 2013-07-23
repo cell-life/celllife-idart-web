@@ -24,7 +24,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/persons",
+            value = "/people",
             method = RequestMethod.GET, produces = "application/json"
     )
     Iterable<Person> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
@@ -33,19 +33,19 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/persons/{identifier}",
+            value = "/people/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
     Person findByIdentifier(@PathVariable("coidentifierde") String identifier, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
         personResourceService.findByIdentifier(identifier)
     }
 
-    @RequestMapping(value = "/persons", method = RequestMethod.POST)
+    @RequestMapping(value = "/people", method = RequestMethod.POST)
     void save(@RequestBody Person person, HttpServletResponse response) {
 
         person = personResourceService.save(person)
 
-        response.setHeader("Location", "${baseUrl}/service/persons/${person.pk}")
+        response.setHeader("Location", "${baseUrl}/persons/${person.pk}")
         response.setStatus(SC_CREATED)
     }
 }

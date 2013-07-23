@@ -13,7 +13,7 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class CounterMedicationSequence implements MedicationSequence {
 
-    static final String CODE_COUNTER_NAME = "MedicationCode"
+    static final String CODE_COUNTER_NAME = "MedicationIdentifier"
 
     @Autowired CounterService counterService
 

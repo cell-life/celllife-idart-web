@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         practitioner = practitionerResourceService.save(practitioner)
 
-        response.setHeader("Location", "${baseUrl}/service/practitioners/${practitioner.pk}")
+        response.setHeader("Location", "${baseUrl}/practitioners/${practitioner.pk}")
         response.setStatus(SC_CREATED)
     }
 }

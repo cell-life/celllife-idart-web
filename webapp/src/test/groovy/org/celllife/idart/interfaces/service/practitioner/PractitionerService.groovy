@@ -14,7 +14,7 @@ class PractitionerService {
 
     static String baseTestDataLocation = "/data/practitioner"
 
-    static String baseResourceUrl = "${contextPath}/service/practitioners"
+    static String baseResourceUrl = "${contextPath}/practitioners"
 
     static String findByClinicIdentifierUrl = "${baseResourceUrl}/search/findByClinicIdentifier"
 

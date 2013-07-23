@@ -9,7 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore
  */
 interface Persistable<T> {
 
-    @JsonIgnore T getPk()
+    @JsonIgnore
+    T getPk()
 
     void setPk(T pk)
 

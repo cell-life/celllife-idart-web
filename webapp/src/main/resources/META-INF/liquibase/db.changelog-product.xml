@@ -9,6 +9,7 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="name" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="product_identifiers">
@@ -30,6 +31,13 @@
                 <constraints references="product(pk)" foreignKeyName="product_good_fk"/>
             </column>
             <column name="finished_good" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="medication">
+            <column name="pk" type="bigint">
+                <constraints references="product(pk)" foreignKeyName="product_medication_fk"/>
+            </column>
+            <column name="drug" type="bigint"/>
         </createTable>
     </changeSet>
 

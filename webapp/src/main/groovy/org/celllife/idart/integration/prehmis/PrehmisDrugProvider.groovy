@@ -31,7 +31,7 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     def findAll(String clinicIdentifierValue) {
-        
+
         String getDrugListRequest = GetDrugListRequestBuilder.build(
                 username: prehmisUsername,
                 password: prehmisPassword,

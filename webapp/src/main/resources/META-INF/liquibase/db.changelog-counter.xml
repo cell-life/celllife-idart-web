@@ -12,7 +12,7 @@
             <column name="name" type="varchar(255)">
                 <constraints unique="true"/>
             </column>
-            <column name="value" type="INTEGER"/>
+            <column name="next_value" type="INTEGER"/>
         </createTable>
 
     </changeSet>

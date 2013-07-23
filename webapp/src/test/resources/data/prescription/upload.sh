@@ -22,6 +22,6 @@ curl -XPOST \
  -d @0001.json \
  -H "${CONTENT_TYPE_HEADER}" \
  -H "${IDART_APPLICATION_ID_HEADER}" \
- http://localhost:9000/idart/clinics/999999/prescriptions
+ http://localhost:9000/idart/clinics/00000001/prescriptions
 
 cat /tmp/headers

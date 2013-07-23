@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         clinic = clinicResourceService.save(clinic)
 
-        response.setHeader("Location", "${baseUrl}/service/clinics/${clinic.pk}")
+        response.setHeader("Location", "${baseUrl}/clinics/${clinic.pk}")
         response.setStatus(SC_CREATED)
     }
 }

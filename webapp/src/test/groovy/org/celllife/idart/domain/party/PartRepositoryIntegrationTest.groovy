@@ -65,7 +65,7 @@ class PartRepositoryIntegrationTest {
         finishedGood = finishedGoodService.save(finishedGood)
 
         Good good = new Good(finishedGood: finishedGood)
-        ((Product) good).addIdentifier("http://www.cell-life.org/idart/goods", "Abacavir 20mg/ml")
+        ((Product) good).addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml")
         goodApplicationService.save(good)
 
     }

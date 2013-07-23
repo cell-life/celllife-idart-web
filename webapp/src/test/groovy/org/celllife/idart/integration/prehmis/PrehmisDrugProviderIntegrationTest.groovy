@@ -40,6 +40,6 @@ class PrehmisDrugProviderIntegrationTest {
             println "atc_code ${it.atc_code}"
             println "is_deleted ${it.is_deleted}"
             println ""
-       }
-   }
+        }
+    }
 }

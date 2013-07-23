@@ -14,7 +14,7 @@ class ExplicitTypeReferenceTest {
     @Test
     public void testName() throws Exception {
 
-        def reference = new TypeReference<List<Integer>>(){}
+        def reference = new TypeReference<List<Integer>>() {}
         println reference
 
     }

@@ -17,7 +17,6 @@ abstract class PartBillOfMaterialsItem implements Persistable<Long> {
      */
     Long pk
 
-    @NotNull
     Date fromDate
 
     Date thruDate
@@ -31,4 +30,29 @@ abstract class PartBillOfMaterialsItem implements Persistable<Long> {
 
     String comment
 
+    def merge(PartBillOfMaterialsItem that) {
+        this.fromDate = that.fromDate
+        this.thruDate = that.thruDate
+        this.part = that.part
+        this.quantityUsed = that.quantityUsed
+        this.instructions = that.instructions
+        this.comment = that.comment
+    }
+
+    def matches(PartBillOfMaterialsItem that) {
+
+        if (that == null) {
+            return false
+        }
+
+        if (this.part == null && that.part == null) {
+            return true
+        }
+
+        if (this.part == null || that.part == null) {
+            return false
+        }
+
+        return this.part.matches(that.part)
+    }
 }

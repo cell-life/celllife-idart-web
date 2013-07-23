@@ -5,7 +5,6 @@ import org.celllife.idart.application.assignment.AssignmentApplicationService
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.application.person.PersonResourceService
 import org.celllife.idart.domain.clinic.Clinic
-import org.celllife.idart.domain.clinic.ClinicRepository
 import org.celllife.idart.domain.clinic.ClinicService
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.person.Person

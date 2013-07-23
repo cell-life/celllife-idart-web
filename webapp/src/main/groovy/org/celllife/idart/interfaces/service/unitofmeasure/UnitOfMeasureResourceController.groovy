@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         unitOfMeasure = unitOfMeasureResourceService.save(unitOfMeasure)
 
-        response.setHeader("Location", "${baseUrl}/service/unitOfMeasures/${unitOfMeasure.pk}")
+        response.setHeader("Location", "${baseUrl}/unitOfMeasures/${unitOfMeasure.pk}")
         response.setStatus(SC_CREATED)
     }
 }

@@ -35,6 +35,12 @@
                                  referencedTableName="part"
                                  referencedColumnNames="pk"/>
 
+        <addForeignKeyConstraint baseTableName="medication"
+                                 baseColumnNames="drug"
+                                 constraintName="medication_part_fk"
+                                 referencedTableName="part"
+                                 referencedColumnNames="pk"/>
+
         <addForeignKeyConstraint baseTableName="prescription"
                                  baseColumnNames="encounter"
                                  constraintName="prescription_encounter_fk"
@@ -56,7 +62,7 @@
         <addForeignKeyConstraint baseTableName="prescribed_medication"
                                  baseColumnNames="medication"
                                  constraintName="prescribed_medication_good_fk"
-                                 referencedTableName="good"
+                                 referencedTableName="medication"
                                  referencedColumnNames="pk"/>
 
         <addForeignKeyConstraint baseTableName="party_classifications"

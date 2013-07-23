@@ -2,6 +2,8 @@ package org.celllife.idart.client.prescription;
 
 import org.celllife.idart.client.common.Identifier;
 import org.celllife.idart.client.partyrole.PartyRole;
+import org.celllife.idart.client.partyrole.Patient;
+import org.celllife.idart.client.partyrole.Practitioner;
 
 import java.util.Date;
 
@@ -14,36 +16,42 @@ public final class PrescriptionBuilder {
 
     private Prescription prescription;
 
-    public PrescriptionBuilder() {
+    private String clinicIdentifier;
+
+    private String clinicPrescriptionIdentifierSystem;
+
+    public PrescriptionBuilder(String clinicIdentifier) {
         this.prescription = new Prescription();
+        this.clinicIdentifier = clinicIdentifier;
+        this.clinicPrescriptionIdentifierSystem =
+                String.format("http://www.cell-life.org/idart/clinics/%s/prescriptions", clinicIdentifier);
     }
 
-    public PrescriptionBuilder setIdentifier(String clinicIdentifier, String prescriptionIdentifier) {
-        String system = String.format("http://www.celllife.org/idart/clinics/%s/prescriptions", clinicIdentifier);
-        this.prescription.identifiers.add(new Identifier(system, prescriptionIdentifier));
+    public PrescriptionBuilder setIdentifier(String prescriptionIdentifier) {
+        this.prescription.identifiers.add(new Identifier(clinicPrescriptionIdentifierSystem, prescriptionIdentifier));
         return this;
     }
 
     public PrescriptionBuilder setPatient(String identifier) {
-        this.prescription.patient = new PartyRole();
-        this.prescription.patient.identifiers.add(new Identifier("http://www.celllife.org/idart/patients", identifier));
+        this.prescription.patient = new Patient();
+        this.prescription.patient.identifiers.add(new Identifier("http://www.cell-life.org/idart/patients", identifier));
         return this;
     }
 
     public PrescriptionBuilder setPatient(String identifierSystem, String identifierValue) {
-        this.prescription.patient = new PartyRole();
+        this.prescription.patient = new Patient();
         this.prescription.patient.identifiers.add(new Identifier(identifierSystem, identifierValue));
         return this;
     }
 
     public PrescriptionBuilder setPrescriber(String identifier) {
-        this.prescription.prescriber = new PartyRole();
-        this.prescription.prescriber.identifiers.add(new Identifier("http://www.celllife.org/idart/practitioner", identifier));
+        this.prescription.prescriber = new Practitioner();
+        this.prescription.prescriber.identifiers.add(new Identifier("http://www.cell-life.org/idart/practitioner", identifier));
         return this;
     }
 
     public PrescriptionBuilder setPrescriber(String identifierSystem, String identifierValue) {
-        this.prescription.prescriber = new PartyRole();
+        this.prescription.prescriber = new Practitioner();
         this.prescription.prescriber.identifiers.add(new Identifier(identifierSystem, identifierValue));
         return this;
     }
@@ -54,7 +62,7 @@ public final class PrescriptionBuilder {
     }
 
     public PrescribedMedicationBuilder addPrescribedMedication() {
-        return new PrescribedMedicationBuilder(this, prescription);
+        return new PrescribedMedicationBuilder(this, prescription, clinicIdentifier);
     }
 
     public Prescription finishPrescription() {

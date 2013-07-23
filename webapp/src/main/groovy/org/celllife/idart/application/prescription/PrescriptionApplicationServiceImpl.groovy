@@ -1,5 +1,6 @@
 package org.celllife.idart.application.prescription
 
+import org.celllife.idart.domain.medication.MedicationService
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.practitioner.PractitionerService
 import org.celllife.idart.domain.prescription.Prescription
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service
 
     @Autowired PractitionerService practitionerService
 
-    @Autowired GoodService goodService
+    @Autowired MedicationService medicationService
 
     @Autowired PrescriptionService prescriptionService
 
@@ -37,7 +38,7 @@ import org.springframework.stereotype.Service
             prescribedMedications.each { prescribedMedication ->
 
                 prescribedMedication?.with {
-                    medication = goodService.findByIdentifiers(medication.identifiers)
+                    medication = medicationService.findByIdentifiers(medication.identifiers)
 
                     dosageInstruction?.with {
 

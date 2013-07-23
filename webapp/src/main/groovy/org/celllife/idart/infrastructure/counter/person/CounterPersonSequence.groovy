@@ -1,7 +1,7 @@
 package org.celllife.idart.infrastructure.counter.person
 
-import org.celllife.idart.domain.person.PersonSequence
 import org.celllife.idart.domain.counter.CounterService
+import org.celllife.idart.domain.person.PersonSequence
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

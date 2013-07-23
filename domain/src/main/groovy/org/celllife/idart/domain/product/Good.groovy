@@ -9,7 +9,7 @@ import org.celllife.idart.domain.part.FinishedGood
  */
 class Good extends Product {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/goods"
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/medications"
 
     /**
      * Offered using

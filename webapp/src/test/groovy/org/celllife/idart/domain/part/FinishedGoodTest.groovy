@@ -2,10 +2,6 @@ package org.celllife.idart.domain.part
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.Test
-import org.milyn.Smooks
-import org.milyn.payload.JavaResult
-
-import javax.xml.transform.stream.StreamSource
 
 /**
  * User: Kevin W. Sewell

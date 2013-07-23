@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service
         person?.with {
 
             physicalCharacteristics.each { physicalCharacteristic ->
-                switch(physicalCharacteristic) {
+                switch (physicalCharacteristic) {
                     case Height:
                         ((Height) physicalCharacteristic)?.with {
                             value?.with {

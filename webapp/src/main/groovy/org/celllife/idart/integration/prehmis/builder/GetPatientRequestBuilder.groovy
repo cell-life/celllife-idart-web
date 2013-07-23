@@ -1,7 +1,6 @@
 package org.celllife.idart.integration.prehmis.builder
 
 import groovy.text.SimpleTemplateEngine
-import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
 
 /**
  * User: Kevin W. Sewell

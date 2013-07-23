@@ -45,7 +45,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         form = formResourceService.save(form)
 
-        response.setHeader("Location", "${baseUrl}/service/forms/${form.pk}")
+        response.setHeader("Location", "${baseUrl}/forms/${form.pk}")
         response.setStatus(SC_CREATED)
     }
 }
