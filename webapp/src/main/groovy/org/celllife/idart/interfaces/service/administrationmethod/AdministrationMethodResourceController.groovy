@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/administrationMethods",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<AdministrationMethod> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<AdministrationMethod> findAll() {
         administrationMethodResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/administrationMethods/{code}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    AdministrationMethod findByCode(@PathVariable("code") String code, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    AdministrationMethod findByCode(@PathVariable("code") String code) {
         administrationMethodResourceService.findByCode(code)
     }
 

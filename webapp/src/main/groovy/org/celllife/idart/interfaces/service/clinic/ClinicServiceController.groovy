@@ -38,7 +38,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
     @RequestMapping(value = "/clinics/{clinicIdentifier}/patients/search/findByIdentifier", method = RequestMethod.GET)
     Iterable<Patient> findByPatientByIdentifier(@PathVariable("clinicIdentifier") String clinicIdentifier,
                                                 @RequestParam("patientIdentifier") String patientIdentifier,
-                                                @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+                                                ) {
 
         patientApplicationService.findByIdentifier(applicationId, clinicIdentifier, patientIdentifier)
     }
@@ -46,14 +46,14 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
     @ResponseBody
     @RequestMapping(value = "/clinics/{clinicIdentifier}/practitioners", method = RequestMethod.GET)
     Iterable<Practitioner> listPractitioners(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                                             @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+                                             ) {
 
         practitionerApplicationService.findByClinicIdentifier(applicationId, clinicIdentifier)
     }
 
     @RequestMapping(value = "/clinics/{clinicIdentifier}/prescriptions", method = RequestMethod.POST)
     void savePrescription(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                          @RequestHeader("X-IDART_APPLICATION_ID") String applicationId,
+                          ,
                           @RequestBody Prescription prescription,
                           HttpServletResponse response) {
 
@@ -65,7 +65,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @RequestMapping(value = "/clinics/{clinicIdentifier}/medications", method = RequestMethod.POST)
     void saveMedication(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                        @RequestHeader("X-IDART_APPLICATION_ID") String applicationId,
+                        ,
                         @RequestBody Medication medication,
                         HttpServletResponse response) {
 

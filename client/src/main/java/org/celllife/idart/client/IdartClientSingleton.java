@@ -52,7 +52,7 @@ public final class IdartClientSingleton implements IdartClient {
 
     public static String idartWebUrl;
 
-    public static String idartApplicationId;
+    public static String idartClinicIdentifier;
 
     public synchronized static IdartClient getInstance() {
 
@@ -100,13 +100,13 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void saveMedication(String clinicIdentifier, Medication medication) {
+    public void saveMedication(Medication medication) {
 
         PostMethod postMedication = new PostMethod(
                 String.format(
                         "%s/clinics/%s/medications",
                         idartWebUrl,
-                        clinicIdentifier
+                        idartClinicIdentifier
                 )
         );
 
@@ -124,13 +124,13 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void savePrescription(String clinicIdentifier, Prescription prescription) {
+    public void savePrescription(Prescription prescription) {
 
         PostMethod postPrescription = new PostMethod(
                 String.format(
                         "%s/clinics/%s/prescriptions",
                         idartWebUrl,
-                        clinicIdentifier
+                        idartClinicIdentifier
                 )
         );
 
@@ -156,13 +156,13 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public List<Patient> getPatients(String clinicIdentifier, String patientIdentifierValue) {
+    public List<Patient> getPatients(String patientIdentifierValue) {
 
         GetMethod getPatients = new GetMethod(
                 String.format(
                         "%s/clinics/%s/patients/search/findByIdentifier?patientIdentifier=%s",
                         idartWebUrl,
-                        clinicIdentifier,
+                        idartClinicIdentifier,
                         patientIdentifierValue
                 )
         );
@@ -182,13 +182,13 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public List<Practitioner> getPractitioners(String clinicIdentifier) {
+    public List<Practitioner> getPractitioners() {
 
         GetMethod getPractitioners = new GetMethod(
                 String.format(
                         "%s/clinics/%s/practitioners",
                         idartWebUrl,
-                        clinicIdentifier
+                        idartClinicIdentifier
                 )
         );
 
@@ -230,12 +230,12 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public List<Drug> getDrugs(String clinicName) {
+    public List<Drug> getDrugs() {
         GetMethod getFinishedGoods = new GetMethod(
                 String.format(
                         "%s/clinics/%s/drugs",
                         idartWebUrl,
-                        clinicName
+                        idartClinicIdentifier
                 )
         );
 
@@ -377,7 +377,6 @@ public final class IdartClientSingleton implements IdartClient {
     private void decorateMethodWithAuth(HttpMethod httpMethod) {
 
         httpMethod.setRequestHeader("Authorization", authenticate);
-        httpMethod.setRequestHeader("X-IDART_APPLICATION_ID", idartApplicationId);
     }
 
     private static void decorateMethodWithAccept(HttpMethod httpMethod) {

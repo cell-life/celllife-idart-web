@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/${resourcePath}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<${entityName}> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<${entityName}> findAll() {
         ${lowerCaseEntityName}ResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/${resourcePath}/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    ${entityName} findByIdentifier(@PathVariable("coidentifierde") String identifier, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    ${entityName} findByIdentifier(@PathVariable("coidentifierde") String identifier) {
         ${lowerCaseEntityName}ResourceService.findByIdentifier(identifier)
     }
 

@@ -5,7 +5,6 @@ import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.medication.Medication;
 import org.celllife.idart.client.part.Compound;
 import org.celllife.idart.client.part.Drug;
-import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
@@ -22,15 +21,15 @@ public interface IdartClient {
 
     void saveClinic(Clinic clinic);
 
-    void saveMedication(String clinicIdentifier, Medication medication);
+    void saveMedication(Medication medication);
 
-    void savePrescription(String clinicIdentifier, Prescription prescription);
+    void savePrescription(Prescription prescription);
 
-    List<Patient> getPatients(String clinicName, String patientIdentifierValue);
+    List<Patient> getPatients(String patientIdentifierValue);
 
-    List<Practitioner> getPractitioners(String clinicName);
+    List<Practitioner> getPractitioners();
 
-    List<Drug> getDrugs(String clinicName);
+    List<Drug> getDrugs();
 
     List<Compound> getCompounds();
 

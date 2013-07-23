@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/encounters",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<Encounter> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<Encounter> findAll() {
         encounterResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/encounters/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Encounter findByIdentifier(@PathVariable("coidentifierde") String identifier, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Encounter findByIdentifier(@PathVariable("coidentifierde") String identifier) {
         encounterResourceService.findByIdentifier(identifier)
     }
 

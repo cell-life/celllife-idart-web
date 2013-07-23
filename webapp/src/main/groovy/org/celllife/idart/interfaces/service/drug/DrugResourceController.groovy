@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/drugs",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<Drug> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<Drug> findAll() {
         drugResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/drugs/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Drug findByIdentifier(@PathVariable("coidentifierde") String identifier, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Drug findByIdentifier(@PathVariable("coidentifierde") String identifier) {
         drugResourceService.findByIdentifier(identifier)
     }
 

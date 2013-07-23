@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/forms",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<Form> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<Form> findAll() {
         formResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/forms/{code}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Form findByCode(@PathVariable("code") String code, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Form findByCode(@PathVariable("code") String code) {
         formResourceService.findByCode(code)
     }
 

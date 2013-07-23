@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/compounds",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<Compound> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<Compound> findAll() {
         compoundResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/compounds/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Compound findByIdentifier(@PathVariable("coidentifierde") String identifier, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Compound findByIdentifier(@PathVariable("coidentifierde") String identifier) {
         compoundResourceService.findByIdentifier(identifier)
     }
 

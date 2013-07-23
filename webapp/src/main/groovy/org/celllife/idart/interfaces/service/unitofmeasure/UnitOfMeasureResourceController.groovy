@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/unitsOfMeasure",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<UnitOfMeasure> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<UnitOfMeasure> findAll() {
         unitOfMeasureResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/unitsOfMeasure/{code}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    UnitOfMeasure findByCode(@PathVariable("code") String code, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    UnitOfMeasure findByCode(@PathVariable("code") String code) {
         unitOfMeasureResourceService.findByCode(code)
     }
 

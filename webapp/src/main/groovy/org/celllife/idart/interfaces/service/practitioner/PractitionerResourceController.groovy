@@ -27,7 +27,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/practitioners",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Iterable<Practitioner> findAll(@RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Iterable<Practitioner> findAll() {
         practitionerResourceService.findAll()
     }
 
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/practitioners/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Practitioner findByIdentifier(@PathVariable("coidentifierde") String identifier, @RequestHeader("X-IDART_APPLICATION_ID") String applicationId) {
+    Practitioner findByIdentifier(@PathVariable("coidentifierde") String identifier) {
         practitionerResourceService.findByIdentifier(identifier)
     }
 

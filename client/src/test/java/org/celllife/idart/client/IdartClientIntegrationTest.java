@@ -33,7 +33,7 @@ public class IdartClientIntegrationTest {
         IdartClientSingleton.idartWebUsername = "user@test.cell-life.org";
         IdartClientSingleton.idartWebPassword = "P@ssw0rd1";
         IdartClientSingleton.idartWebUrl = "http://localhost:9000/idart";
-        IdartClientSingleton.idartApplicationId = "2AEFB796-8501-45C3-A0CE-3818088D338D";
+        IdartClientSingleton.idartClinicIdentifier = "00000001";
     }
 
     private IdartClient idartClient;
@@ -45,7 +45,7 @@ public class IdartClientIntegrationTest {
 
     @Test
     public void testGetPatients() throws Exception {
-        List<Patient> patients = idartClient.getPatients("00000001", "72254311");
+        List<Patient> patients = idartClient.getPatients("72254311");
         Assert.assertNotNull(patients);
         Assert.assertTrue(patients.size() > 0);
 
@@ -60,7 +60,7 @@ public class IdartClientIntegrationTest {
 
     @Test
     public void testGetPractitioners() throws Exception {
-        List<Practitioner> practitioners = idartClient.getPractitioners("00000001");
+        List<Practitioner> practitioners = idartClient.getPractitioners();
         Assert.assertNotNull(practitioners);
         Assert.assertTrue(practitioners.size() > 0);
 
@@ -90,7 +90,7 @@ public class IdartClientIntegrationTest {
     @Test
     public void testGetDrugs() throws Exception {
 
-        List<Drug> drugs = idartClient.getDrugs("00000001");
+        List<Drug> drugs = idartClient.getDrugs();
         Assert.assertNotNull(drugs);
         Assert.assertTrue(drugs.size() > 0);
 
@@ -172,7 +172,7 @@ public class IdartClientIntegrationTest {
                 .finishPrescribedMedication()
                 .finishPrescription();
 
-        idartClient.savePrescription("00000001", prescription);
+        idartClient.savePrescription(prescription);
 
         System.out.println(((IdartClientSingleton) idartClient).mapToJson(prescription));
     }
@@ -220,7 +220,7 @@ public class IdartClientIntegrationTest {
                 .finishDrug()
         );
 
-        idartClient.saveMedication("00000001", medicationBuilder.finishMedication());
+        idartClient.saveMedication(medicationBuilder.finishMedication());
     }
 
     private BillOfMaterialsItemBuilder newBillOfMaterialsItem() {
