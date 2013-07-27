@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-21
  * Time: 01h28
  */
-@Service
-@Mixin(CompoundApplicationServiceMixin)
-class CompoundApplicationServiceImpl implements CompoundApplicationService, CompoundResourceService {
+@Service class CompoundApplicationServiceImpl implements CompoundApplicationService, CompoundResourceService {
 
     @Autowired CompoundService compoundService
 

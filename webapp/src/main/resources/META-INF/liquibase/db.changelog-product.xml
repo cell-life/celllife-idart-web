@@ -6,14 +6,14 @@
     <changeSet id="product-1" author="kevin.sewell">
 
         <createTable tableName="product">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="product_identifiers">
-            <column name="product" type="bigint">
+            <column name="product" type="varchar(31)">
                 <constraints references="product(pk)" foreignKeyName="product_identifiers_fk"/>
             </column>
             <column name="system" type="varchar(255)">
@@ -27,14 +27,14 @@
         </createTable>
 
         <createTable tableName="good">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints references="product(pk)" foreignKeyName="product_good_fk"/>
             </column>
             <column name="finished_good" type="bigint"/>
         </createTable>
 
         <createTable tableName="medication">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints references="product(pk)" foreignKeyName="product_medication_fk"/>
             </column>
             <column name="drug" type="bigint"/>

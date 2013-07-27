@@ -1,12 +1,7 @@
 package org.celllife.idart.application.practitioner
 
-import org.celllife.idart.application.ClinicNotFoundException
-import org.celllife.idart.application.assignment.AssignmentApplicationService
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.application.person.PersonResourceService
-import org.celllife.idart.domain.clinic.Clinic
-import org.celllife.idart.domain.clinic.ClinicService
-import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.domain.practitioner.PractitionerService
@@ -20,32 +15,13 @@ import org.springframework.stereotype.Service
  */
 @Service class PractitionerApplicationServiceImpl implements PractitionerApplicationService, PractitionerResourceService {
 
-    @Autowired ClinicService clinicService
-
-    @Autowired PractitionerProvider prehmisPractitionerProvider
-
     @Autowired PractitionerService practitionerService
 
     @Autowired PersonApplicationService personApplicationService
 
     @Autowired PersonResourceService personResourceService
 
-    @Autowired AssignmentApplicationService assignmentApplicationService
-
     @Override
-    List<Practitioner> findByClinicIdentifier(String applicationId, String clinicIdentifierValue) {
-
-        Clinic clinic = clinicService.findByIdentifier(clinicIdentifierValue)
-
-        if (clinic == null) {
-            throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifierValue)
-        }
-
-        lookupAndSyncWithExternalProviders(clinic)
-                .collect { practitioner -> save(practitioner) }
-                .collect { practitioner -> assignToClinic(practitioner, clinic) }
-    }
-
     Practitioner save(Practitioner newPractitioner) {
 
         newPractitioner.person = updatePerson(newPractitioner)
@@ -91,29 +67,5 @@ import org.springframework.stereotype.Service
         }
 
         return personResourceService.save(newPractitioner.person)
-    }
-
-    Set<Practitioner> lookupAndSyncWithExternalProviders(Clinic clinic) {
-
-        Set<Practitioner> practitioners = []
-
-        ((Facility) clinic).getIdentifierSystems().each { identifierSystem ->
-
-            String clinicIdentifierValue = ((Facility) clinic).getIdentifierValue(identifierSystem)
-            switch (identifierSystem) {
-                case "http://prehmis.capetown.gov.za":
-                    practitioners << prehmisPractitionerProvider.findAll(clinicIdentifierValue)
-                    break
-                default:
-                    break
-            }
-        }
-
-        practitioners.flatten()
-    }
-
-    Practitioner assignToClinic(Practitioner practitioner, Clinic clinic) {
-        assignmentApplicationService.assignPractitionerToClinic(practitioner, clinic)
-        practitioner
     }
 }

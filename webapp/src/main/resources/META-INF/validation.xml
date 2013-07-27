@@ -13,7 +13,6 @@
     <constraint-validator-factory>org.hibernate.validator.engine.ConstraintValidatorFactoryImpl
     </constraint-validator-factory>
 
-    <constraint-mapping>META-INF/constraints-facilityrole.xml</constraint-mapping>
     <constraint-mapping>META-INF/constraints-person.xml</constraint-mapping>
     <constraint-mapping>META-INF/constraints-prescription.xml</constraint-mapping>
 

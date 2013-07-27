@@ -13,14 +13,14 @@ import org.celllife.idart.domain.practitioner.Practitioner
  * Time: 20h49
  */
 @Mixin([Identifiable])
-class Prescription implements Persistable<Long> {
+class Prescription implements Persistable<String> {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescriptions"
 
     /**
      * Persistence Key
      */
-    Long pk
+    String pk
 
     /**
      * Identified by

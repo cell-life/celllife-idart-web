@@ -12,7 +12,6 @@ import javax.annotation.Generated
  */
 @Service
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Mixin(${entityName}ApplicationServiceMixin)
 class ${entityName}ApplicationServiceImpl implements ${entityName}ApplicationService, ${entityName}ResourceService {
 
     @Autowired ${entityName}Service ${lowerCaseEntityName}Service

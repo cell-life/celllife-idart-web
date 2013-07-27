@@ -1,17 +1,59 @@
 package org.celllife.idart.domain.practitioner
 
-import org.celllife.idart.domain.partyrole.PersonRole
+import org.celllife.idart.domain.common.Identifiable
+import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.domain.common.Persistable
+import org.celllife.idart.domain.person.Person
+
+import javax.validation.constraints.NotNull
 
 /**
+ * Party Role -> Person Role -> Practitioner
+ *
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 09h14
  */
-class Practitioner extends PersonRole {
+@Mixin([Identifiable])
+class Practitioner implements Persistable<String> {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/practitioners"
 
+    /**
+     * Persistence Key
+     */
+    String pk
+
+    /**
+     * Identified by
+     */
+    Set<Identifier> identifiers = []
+
+    /**
+     * From date
+     */
+    Date fromDate = new Date()
+
+    /**
+     * Thru date
+     */
+    Date thruDate
+
+    /**
+     * Acted by
+     */
+    @NotNull
+    Person person
+
     def merge(Practitioner that) {
-        super.merge(that)
+
+        if (that == null) {
+            return
+        }
+
+        this.mergeIdentifiers(that)
+        this.fromDate = that.fromDate
+        this.thruDate = that.thruDate
+        this.person = that.person
     }
 }

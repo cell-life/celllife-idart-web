@@ -10,12 +10,12 @@ import org.celllife.idart.domain.common.Persistable
  * Time: 18h13
  */
 @Mixin(Identifiable)
-class Product implements Persistable<Long> {
+class Product implements Persistable<String> {
 
     /**
      * Persistence Key
      */
-    Long pk
+    String pk
 
     /**
      * Identified by
@@ -28,6 +28,7 @@ class Product implements Persistable<Long> {
     String name
 
     def merge(Product that) {
+        this.name = that.name
         this.mergeIdentifiers(that)
     }
 

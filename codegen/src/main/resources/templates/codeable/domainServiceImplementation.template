@@ -25,17 +25,17 @@ import javax.annotation.Generated
         ${lowerCaseEntityName}Repository.save(lookupAndMerge(${lowerCaseEntityName}))
     }
 
-    def lookupAndMerge(${entityName} ${lowerCaseEntityName}) {
+    ${entityName} lookupAndMerge(${entityName} ${lowerCaseEntityName}) {
 
-        def (String system, String value) = getLookupCode(${lowerCaseEntityName})
+        Code code = getLookupCode(${lowerCaseEntityName})
 
-        ${entityName} existing${entityName} = ${lowerCaseEntityName}Repository.findOneByCode(system, value)
+        ${entityName} existing${entityName} = ${lowerCaseEntityName}Repository.findOneByCode(code.system, code.value)
 
         if (existing${entityName} == null) {
 
             // Ensure that idartCodeValue is always set
             if (${lowerCaseEntityName}.idartCodeValue == null) {
-                ${lowerCaseEntityName}.addCode(${lowerCaseEntityName}.idartSystem, ${lowerCaseEntityName}.defaultCodeValue)
+                ${lowerCaseEntityName}.addCode(${entityName}.IDART_SYSTEM, ${lowerCaseEntityName}.defaultCodeValue)
             }
 
             return ${lowerCaseEntityName}
@@ -45,17 +45,17 @@ import javax.annotation.Generated
         existing${entityName}
     }
 
-    static getLookupCode(${entityName} ${lowerCaseEntityName}) {
+    static Code getLookupCode(${entityName} ${lowerCaseEntityName}) {
 
         if (${lowerCaseEntityName}.idartCodeValue == null && ${lowerCaseEntityName}.defaultCodeValue == null) {
-            throw new RuntimeException("No code for default system [\${ ${lowerCaseEntityName}.defaultSystem}] or idart system [\${ ${lowerCaseEntityName}.idartSystem}]")
+            throw new RuntimeException("No code for default system [\${ ${entityName}.DEFAULT_SYSTEM}] or idart system [\${ ${entityName}.IDART_SYSTEM}]")
         }
 
         if (${lowerCaseEntityName}.defaultCodeValue != null) {
-            return [${lowerCaseEntityName}.defaultSystem, ${lowerCaseEntityName}.defaultCodeValue]
+            return new Code(system: ${entityName}.DEFAULT_SYSTEM, value: ${lowerCaseEntityName}.defaultCodeValue)
         }
 
-        return [${lowerCaseEntityName}.idartSystem, ${lowerCaseEntityName}.idartCodeValue]
+        return new Code(system: ${entityName}.IDART_SYSTEM, value: ${lowerCaseEntityName}.idartCodeValue)
     }
 
     @Override

@@ -16,8 +16,6 @@ class IdentifiableApplicationServiceGenerator {
         generateIdentifiableApplicationServiceInterface(javaSourcesDirectory, model)
 
         generateIdentifiableApplicationServiceImplementation(groovySourcesDirectory, model)
-
-        generateIdentifiableApplicationServiceMixin(groovySourcesDirectory, model)
     }
 
     static generateIdentifiableApplicationServiceInterface(String baseDirectory, model) {

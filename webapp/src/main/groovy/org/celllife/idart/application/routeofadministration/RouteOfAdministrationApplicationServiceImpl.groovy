@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-21
  * Time: 01h28
  */
-@Service
-@Mixin(RouteOfAdministrationApplicationServiceMixin)
-class RouteOfAdministrationApplicationServiceImpl implements RouteOfAdministrationApplicationService, RouteOfAdministrationResourceService {
+@Service class RouteOfAdministrationApplicationServiceImpl implements RouteOfAdministrationApplicationService, RouteOfAdministrationResourceService {
 
     @Autowired RouteOfAdministrationService routeOfAdministrationService
 

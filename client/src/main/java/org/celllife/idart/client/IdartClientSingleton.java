@@ -7,6 +7,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.BasicScheme;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.celllife.idart.client.clinic.Clinic;
 import org.celllife.idart.client.form.Form;
@@ -14,7 +15,6 @@ import org.celllife.idart.client.medication.Medication;
 import org.celllife.idart.client.part.Compound;
 import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.part.Part;
-import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
@@ -44,37 +44,35 @@ public final class IdartClientSingleton implements IdartClient {
 
     private final ObjectMapper objectMapper;
 
-    public final static Object LOCK = new Object();
+    private String idartWebUrl;
 
-    public static String idartWebUsername;
+    private String idartClinicIdentifier;
 
-    public static String idartWebPassword;
-
-    public static String idartWebUrl;
-
-    public static String idartClinicIdentifier;
-
-    public synchronized static IdartClient getInstance() {
+    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicIdentifier) {
 
         if (instance == null) {
-            instance = new IdartClientSingleton();
+            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, idartClinicIdentifier);
         }
 
         return instance;
     }
 
-    private IdartClientSingleton() {
+    private IdartClientSingleton(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicIdentifier) {
 
-        httpClient = new HttpClient();
+        this.idartWebUrl = idartWebUrl;
+
+        this.idartClinicIdentifier = idartClinicIdentifier;
+
+        this.httpClient = new HttpClient();
 
         UsernamePasswordCredentials credentials
                 = new UsernamePasswordCredentials(idartWebUsername, idartWebPassword);
 
-        authenticate = BasicScheme.authenticate(credentials, "US-ASCII");
+        this.authenticate = BasicScheme.authenticate(credentials, "US-ASCII");
 
-        objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        this.objectMapper = new ObjectMapper();
+        this.objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
     }
 
     @Override
@@ -100,22 +98,23 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void saveMedication(Medication medication) {
+    public void saveMedication(String medicationIdentifier, Medication medication) {
 
-        PostMethod postMedication = new PostMethod(
+        PutMethod putMedication = new PutMethod(
                 String.format(
-                        "%s/clinics/%s/medications",
+                        "%s/clinics/%s/medications/%s",
                         idartWebUrl,
-                        idartClinicIdentifier
+                        idartClinicIdentifier,
+                        medicationIdentifier
                 )
         );
 
-        postMedication.setRequestEntity(getStringRequestEntity(medication));
+        putMedication.setRequestEntity(getStringRequestEntity(medication));
 
-        decorateMethodWithAuth(postMedication);
-        decorateMethodWithContentType(postMedication);
+        decorateMethodWithAuth(putMedication);
+        decorateMethodWithContentType(putMedication);
 
-        int status = executeMethod(postMedication);
+        int status = executeMethod(putMedication);
 
         if (status != HttpStatus.SC_CREATED) {
             throw new RuntimeException();
@@ -124,22 +123,23 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void savePrescription(Prescription prescription) {
+    public void savePrescription(String prescriptionIdentifier, Prescription prescription) {
 
-        PostMethod postPrescription = new PostMethod(
+        PutMethod putPrescription = new PutMethod(
                 String.format(
-                        "%s/clinics/%s/prescriptions",
+                        "%s/clinics/%s/prescriptions/%s",
                         idartWebUrl,
-                        idartClinicIdentifier
+                        idartClinicIdentifier,
+                        prescriptionIdentifier
                 )
         );
 
-        postPrescription.setRequestEntity(getStringRequestEntity(prescription));
+        putPrescription.setRequestEntity(getStringRequestEntity(prescription));
 
-        decorateMethodWithAuth(postPrescription);
-        decorateMethodWithContentType(postPrescription);
+        decorateMethodWithAuth(putPrescription);
+        decorateMethodWithContentType(putPrescription);
 
-        int status = executeMethod(postPrescription);
+        int status = executeMethod(putPrescription);
 
         if (status != HttpStatus.SC_CREATED) {
             throw new RuntimeException();

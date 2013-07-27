@@ -21,10 +21,10 @@ public class BillOfMaterialsItemBuilder {
         this.engineeringPartBillOfMaterialsItem = new EngineeringPartBillOfMaterialsItem();
     }
 
-    public BillOfMaterialsItemBuilder setQuantity(int quantity, String uomCodeSystem, String uomCodeValue) {
+    public BillOfMaterialsItemBuilder setQuantity(int quantity, String uomCodeValue) {
         this.engineeringPartBillOfMaterialsItem.quantityUsed = new Quantity();
         this.engineeringPartBillOfMaterialsItem.quantityUsed.value = new BigDecimal(quantity);
-        this.engineeringPartBillOfMaterialsItem.quantityUsed.unitOfMeasure = new UnitOfMeasure(uomCodeSystem, uomCodeValue);
+        this.engineeringPartBillOfMaterialsItem.quantityUsed.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
         return this;
     }
 

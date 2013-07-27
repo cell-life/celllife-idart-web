@@ -10,6 +10,4 @@ import java.util.List;
  * Time: 00h48
  */
 public interface PractitionerApplicationService {
-
-    List<Practitioner> findByClinicIdentifier(String applicationId, String clinicIdentifierValue);
 }

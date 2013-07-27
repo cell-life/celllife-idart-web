@@ -5,16 +5,52 @@
 
     <changeSet id="constraint-1" author="kevin.sewell">
 
-        <addForeignKeyConstraint baseTableName="assignment"
+        <addForeignKeyConstraint baseTableName="clinic_medication"
+                                 baseColumnNames="clinic"
+                                 constraintName="clinic_medication_fk"
+                                 referencedTableName="facility"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_medication"
+                                 baseColumnNames="medication"
+                                 constraintName="medication_clinic_fk"
+                                 referencedTableName="medication"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_patient"
+                                 baseColumnNames="clinic"
+                                 constraintName="clinic_patient_fk"
+                                 referencedTableName="facility"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_patient"
+                                 baseColumnNames="patient"
+                                 constraintName="patient_clinic_fk"
+                                 referencedTableName="patient"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_practitioner"
+                                 baseColumnNames="clinic"
+                                 constraintName="clinic_practitioner_fk"
+                                 referencedTableName="facility"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_practitioner"
                                  baseColumnNames="practitioner"
-                                 constraintName="assignment_practitioner_fk"
+                                 constraintName="practitioner_clinic_fk"
                                  referencedTableName="practitioner"
                                  referencedColumnNames="pk"/>
 
-        <addForeignKeyConstraint baseTableName="assignment"
+        <addForeignKeyConstraint baseTableName="clinic_prescription"
                                  baseColumnNames="clinic"
-                                 constraintName="assignment_clinic_fk"
-                                 referencedTableName="clinic"
+                                 constraintName="clinic_prescription_fk"
+                                 referencedTableName="facility"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_prescription"
+                                 baseColumnNames="prescription"
+                                 constraintName="prescription_clinic_fk"
+                                 referencedTableName="prescription"
                                  referencedColumnNames="pk"/>
 
         <addForeignKeyConstraint baseTableName="inventory_item"
@@ -23,9 +59,15 @@
                                  referencedTableName="part"
                                  referencedColumnNames="pk"/>
 
-        <addForeignKeyConstraint baseTableName="person_role"
+        <addForeignKeyConstraint baseTableName="patient"
                                  baseColumnNames="person"
-                                 constraintName="person_role_fk"
+                                 constraintName="patient_person_fk"
+                                 referencedTableName="person"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="practitioner"
+                                 baseColumnNames="person"
+                                 constraintName="practitioner_person_fk"
                                  referencedTableName="person"
                                  referencedColumnNames="pk"/>
 
@@ -87,18 +129,6 @@
                                  baseColumnNames="dosage_instruction"
                                  constraintName="default_dosage_instruction_fk"
                                  referencedTableName="dosage_instruction"
-                                 referencedColumnNames="pk"/>
-
-        <addForeignKeyConstraint baseTableName="party_facility"
-                                 baseColumnNames="party"
-                                 constraintName="party_facility_party_fk"
-                                 referencedTableName="party"
-                                 referencedColumnNames="pk"/>
-
-        <addForeignKeyConstraint baseTableName="party_facility"
-                                 baseColumnNames="facility"
-                                 constraintName="party_facility_facility_fk"
-                                 referencedTableName="facility"
                                  referencedColumnNames="pk"/>
 
     </changeSet>

@@ -1,6 +1,6 @@
 package org.celllife.idart.interfaces.service.patient
 
-import org.celllife.idart.domain.assignment.AssignmentResource
+
 import org.celllife.idart.domain.clinic.ClinicResource
 import org.celllife.idart.domain.patient.PatientResource
 import org.celllife.idart.domain.person.PersonResource
@@ -23,13 +23,9 @@ class PatientServiceAcceptanceTest {
     @Before
     void setUp() throws Exception {
 
-        AssignmentResource.clear()
-
         PatientResource.clear()
         PractitionerResource.clear()
         PersonResource.clear()
-
-        AssignmentResource.clear()
 
         ClinicResource.clear()
         ClinicResource.post(ClinicResource.testClinic())

@@ -1,6 +1,6 @@
 package org.celllife.idart.application.patient
 
-import org.celllife.idart.application.ClinicNotFoundException
+import org.celllife.idart.domain.clinic.ClinicNotFoundException
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.application.person.PersonResourceService
 import org.celllife.idart.domain.clinic.Clinic
@@ -36,7 +36,7 @@ import org.springframework.stereotype.Service
 
     @Override
     @Loggable(value = LogLevel.INFO, exception = LogLevel.ERROR)
-    List<Patient> findByIdentifier(String applicationId, String clinicIdentifier, String patientIdentifier) {
+    List<Patient> findByIdentifier(String clinicIdentifier, String patientIdentifier) {
 
         Clinic clinic = clinicService.findByIdentifier(clinicIdentifier)
 

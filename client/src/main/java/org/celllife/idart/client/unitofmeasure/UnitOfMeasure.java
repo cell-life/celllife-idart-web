@@ -27,7 +27,7 @@ public final class UnitOfMeasure implements Serializable {
     public UnitOfMeasure() {
     }
 
-    public UnitOfMeasure(String codeSystem, String codeValue) {
-        codes.add(new Code(codeSystem, codeValue));
+    public UnitOfMeasure(String codeValue) {
+        codes.add(new Code(IDART_SYSTEM, codeValue));
     }
 }

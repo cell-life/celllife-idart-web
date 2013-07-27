@@ -1,6 +1,5 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.domain.partyrole.PartyRole
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
 
@@ -34,7 +33,7 @@ class PractitionerBuilder {
             return null
         }
 
-        ((PartyRole) practitioner).addIdentifier("http://prehmis.capetown.gov.za", prehmisPractitionerCode)
+        practitioner.addIdentifier("http://prehmis.capetown.gov.za", prehmisPractitionerCode)
 
         Person person = new Person()
 

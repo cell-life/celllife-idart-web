@@ -1,10 +1,15 @@
 package org.celllife.idart.client.prescription;
 
+import org.celllife.idart.client.common.Duration;
 import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Quantity;
+import org.celllife.idart.client.dosageinstruction.DosageInstruction;
 import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
+import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -34,7 +39,7 @@ public final class PrescriptionBuilder {
 
     public PrescriptionBuilder setPatient(String identifier) {
         this.prescription.patient = new Patient();
-        this.prescription.patient.identifiers.add(new Identifier("http://www.cell-life.org/idart/patients", identifier));
+        this.prescription.patient.identifiers.add(new Identifier(Patient.IDART_SYSTEM, identifier));
         return this;
     }
 
@@ -46,7 +51,7 @@ public final class PrescriptionBuilder {
 
     public PrescriptionBuilder setPrescriber(String identifier) {
         this.prescription.prescriber = new Practitioner();
-        this.prescription.prescriber.identifiers.add(new Identifier("http://www.cell-life.org/idart/practitioner", identifier));
+        this.prescription.prescriber.identifiers.add(new Identifier(Practitioner.IDART_SYSTEM, identifier));
         return this;
     }
 

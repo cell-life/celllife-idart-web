@@ -25,17 +25,17 @@ import javax.annotation.Generated
         administrationMethodRepository.save(lookupAndMerge(administrationMethod))
     }
 
-    def lookupAndMerge(AdministrationMethod administrationMethod) {
+    AdministrationMethod lookupAndMerge(AdministrationMethod administrationMethod) {
 
-        def (String system, String value) = getLookupCode(administrationMethod)
+        Code code = getLookupCode(administrationMethod)
 
-        AdministrationMethod existingAdministrationMethod = administrationMethodRepository.findOneByCode(system, value)
+        AdministrationMethod existingAdministrationMethod = administrationMethodRepository.findOneByCode(code.system, code.value)
 
         if (existingAdministrationMethod == null) {
 
             // Ensure that idartCodeValue is always set
             if (administrationMethod.idartCodeValue == null) {
-                administrationMethod.addCode(administrationMethod.idartSystem, administrationMethod.defaultCodeValue)
+                administrationMethod.addCode(AdministrationMethod.IDART_SYSTEM, administrationMethod.defaultCodeValue)
             }
 
             return administrationMethod
@@ -45,17 +45,17 @@ import javax.annotation.Generated
         existingAdministrationMethod
     }
 
-    static getLookupCode(AdministrationMethod administrationMethod) {
+    static Code getLookupCode(AdministrationMethod administrationMethod) {
 
         if (administrationMethod.idartCodeValue == null && administrationMethod.defaultCodeValue == null) {
-            throw new RuntimeException("No code for default system [${ administrationMethod.defaultSystem}] or idart system [${ administrationMethod.idartSystem}]")
+            throw new RuntimeException("No code for default system [${ AdministrationMethod.DEFAULT_SYSTEM}] or idart system [${ AdministrationMethod.IDART_SYSTEM}]")
         }
 
         if (administrationMethod.defaultCodeValue != null) {
-            return [administrationMethod.defaultSystem, administrationMethod.defaultCodeValue]
+            return new Code(system: AdministrationMethod.DEFAULT_SYSTEM, value: administrationMethod.defaultCodeValue)
         }
 
-        return [administrationMethod.idartSystem, administrationMethod.idartCodeValue]
+        return new Code(system: AdministrationMethod.IDART_SYSTEM, value: administrationMethod.idartCodeValue)
     }
 
     @Override

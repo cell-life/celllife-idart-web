@@ -1,7 +1,6 @@
 package org.celllife.idart.integration.prehmis.builder
 
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
-import org.celllife.idart.domain.partyrole.PartyRole
 import org.junit.Assert
 import org.junit.Test
 
@@ -50,7 +49,7 @@ class PractitionerBuilderTest {
 
         Assert.assertEquals("AEIGHT", practitioner.person.firstName)
         Assert.assertEquals("TEST", practitioner.person.lastName)
-        Assert.assertEquals("72254311", ((PartyRole) practitioner).getIdentifierValue("http://prehmis.capetown.gov.za"))
+        Assert.assertEquals("72254311", practitioner.getIdentifierValue("http://prehmis.capetown.gov.za"))
 
         practitioner.person.contactMechanisms.each { contactMechanism ->
             if (contactMechanism.contactMechanism instanceof MobileTelephoneNumber) {

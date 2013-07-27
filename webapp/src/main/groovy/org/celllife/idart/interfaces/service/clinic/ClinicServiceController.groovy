@@ -1,5 +1,8 @@
 package org.celllife.idart.interfaces.service.clinic
 
+import org.celllife.idart.application.clinicmedication.ClinicMedicationResourceService
+import org.celllife.idart.application.clinicpractitioner.ClinicPractitionerResourceService
+import org.celllife.idart.application.clinicprescription.ClinicPrescriptionResourceService
 import org.celllife.idart.application.medication.MedicationResourceService
 import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
@@ -30,48 +33,48 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @Autowired PrescriptionResourceService prescriptionResourceService
 
-    @Autowired MedicationResourceService medicationResourceService
+    @Autowired ClinicMedicationResourceService clinicMedicationResourceService
+
+    @Autowired ClinicPrescriptionResourceService clinicPrescriptionResourceService
+
+    @Autowired ClinicPractitionerResourceService clinicPractitionerResourceService
 
     @Value('${external.base.url}') String baseUrl
 
     @ResponseBody
     @RequestMapping(value = "/clinics/{clinicIdentifier}/patients/search/findByIdentifier", method = RequestMethod.GET)
     Iterable<Patient> findByPatientByIdentifier(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                                                @RequestParam("patientIdentifier") String patientIdentifier,
-                                                ) {
+                                                @RequestParam("patientIdentifier") String patientIdentifier) {
 
-        patientApplicationService.findByIdentifier(applicationId, clinicIdentifier, patientIdentifier)
+        patientApplicationService.findByIdentifier(clinicIdentifier, patientIdentifier)
     }
 
     @ResponseBody
     @RequestMapping(value = "/clinics/{clinicIdentifier}/practitioners", method = RequestMethod.GET)
-    Iterable<Practitioner> listPractitioners(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                                             ) {
+    Iterable<Practitioner> listPractitioners(@PathVariable("clinicIdentifier") String clinicIdentifier) {
 
-        practitionerApplicationService.findByClinicIdentifier(applicationId, clinicIdentifier)
+        clinicPractitionerResourceService.findPractitionersByClinicIdentifier(clinicIdentifier)
     }
 
-    @RequestMapping(value = "/clinics/{clinicIdentifier}/prescriptions", method = RequestMethod.POST)
+    @RequestMapping(value = "/clinics/{clinicIdentifier}/prescriptions/{prescriptionIdentifier}", method = RequestMethod.PUT)
     void savePrescription(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                          ,
+                          @PathVariable("prescriptionIdentifier") String prescriptionIdentifier,
                           @RequestBody Prescription prescription,
                           HttpServletResponse response) {
 
-        prescription = prescriptionResourceService.save(prescription)
+        clinicPrescriptionResourceService.save(clinicIdentifier, prescriptionIdentifier, prescription)
 
-        response.setHeader("Location", "${baseUrl}/prescriptions/${prescription.pk}")
         response.setStatus(SC_CREATED)
     }
 
-    @RequestMapping(value = "/clinics/{clinicIdentifier}/medications", method = RequestMethod.POST)
+    @RequestMapping(value = "/clinics/{clinicIdentifier}/medications/{medicationIdentifier}", method = RequestMethod.PUT)
     void saveMedication(@PathVariable("clinicIdentifier") String clinicIdentifier,
-                        ,
+                        @PathVariable("medicationIdentifier") String medicationIdentifier,
                         @RequestBody Medication medication,
                         HttpServletResponse response) {
 
-        medication = medicationResourceService.save(medication)
+        clinicMedicationResourceService.save(clinicIdentifier, medicationIdentifier, medication)
 
-        response.setHeader("Location", "${baseUrl}/medications/${medication.pk}")
         response.setStatus(SC_CREATED)
     }
 }

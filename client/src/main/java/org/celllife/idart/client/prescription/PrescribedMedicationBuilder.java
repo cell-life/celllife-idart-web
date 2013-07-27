@@ -36,61 +36,68 @@ public final class PrescribedMedicationBuilder implements Serializable {
     }
 
     public PrescribedMedicationBuilder setMedication(String identifier) {
-        prescribedMedication.medication = new Medication();
-        prescribedMedication.medication.identifiers.add(new Identifier(clinicMedicationsIdentifierSystem, identifier));
+        this.prescribedMedication.medication = new Medication();
+        this.prescribedMedication.medication.identifiers.add(new Identifier(clinicMedicationsIdentifierSystem, identifier));
         return this;
     }
 
     public PrescribedMedicationBuilder setReasonForPrescribing(String reasonForPrescribing) {
-        prescribedMedication.reasonForPrescribing = reasonForPrescribing;
+        this.prescribedMedication.reasonForPrescribing = reasonForPrescribing;
         return this;
     }
 
     public PrescribedMedicationBuilder setIndications(Set<Indication> indications) {
-        prescribedMedication.indications = indications;
+        this.prescribedMedication.indications = indications;
         return this;
     }
 
     public PrescribedMedicationBuilder setValid(Period valid) {
-        prescribedMedication.valid = valid;
+        this.prescribedMedication.valid = valid;
         return this;
     }
 
     public PrescribedMedicationBuilder setNumberOfRepeats(Integer numberOfRepeats) {
-        prescribedMedication.numberOfRepeats = numberOfRepeats;
+        this.prescribedMedication.numberOfRepeats = numberOfRepeats;
         return this;
     }
 
     public PrescribedMedicationBuilder setQuantity(Quantity quantity) {
-        prescribedMedication.quantity = quantity;
+        this.prescribedMedication.quantity = quantity;
         return this;
     }
 
     public PrescribedMedicationBuilder setExpectedSupplyDuration(Duration expectedSupplyDuration) {
-        prescribedMedication.expectedSupplyDuration = expectedSupplyDuration;
+        this.prescribedMedication.expectedSupplyDuration = expectedSupplyDuration;
+        return this;
+    }
+
+    public PrescribedMedicationBuilder setExpectedSupplyDuration(int quantity, String uomCodeValue) {
+        this.prescribedMedication.expectedSupplyDuration = new Duration();
+        this.prescribedMedication.expectedSupplyDuration.value = new BigDecimal(quantity);
+        this.prescribedMedication.expectedSupplyDuration.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
         return this;
     }
 
     public PrescribedMedicationBuilder setSubstitution(Substitution substitution) {
-        prescribedMedication.substitution = substitution;
+        this.prescribedMedication.substitution = substitution;
         return this;
     }
 
     public PrescribedMedicationBuilder setSubstitutionReason(SubstitutionReason substitutionReason) {
-        prescribedMedication.substitutionReason = substitutionReason;
+        this.prescribedMedication.substitutionReason = substitutionReason;
         return this;
     }
 
     public PrescribedMedicationBuilder setDosageInstruction(DosageInstruction dosageInstruction) {
-        prescribedMedication.dosageInstruction = dosageInstruction;
+        this.prescribedMedication.dosageInstruction = dosageInstruction;
         return this;
     }
 
-    public PrescribedMedicationBuilder setDosageQuantity(int quantity, String uomCodeSystem, String uomCodeValue) {
+    public PrescribedMedicationBuilder setDosageQuantity(double quantity, String uomCodeValue) {
         DosageInstruction dosageInstruction = getDosageInstructions();
         dosageInstruction.doseQuantity = new Quantity();
         dosageInstruction.doseQuantity.value = new BigDecimal(quantity);
-        dosageInstruction.doseQuantity.unitOfMeasure = new UnitOfMeasure(uomCodeSystem, uomCodeValue);
+        dosageInstruction.doseQuantity.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
         return this;
     }
 
@@ -99,10 +106,10 @@ public final class PrescribedMedicationBuilder implements Serializable {
         return this;
     }
 
-    public PrescribedMedicationBuilder every(int quantity, String uomCodeSystem, String uomCodeValue) {
+    public PrescribedMedicationBuilder every(int quantity, String uomCodeValue) {
         getRepeat().duration = new Duration();
         getRepeat().duration.value = new BigDecimal(quantity);
-        getRepeat().duration.unitOfMeasure = new UnitOfMeasure(uomCodeSystem, uomCodeValue);
+        getRepeat().duration.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
         return this;
     }
 

@@ -2,6 +2,7 @@ package org.celllife.idart.application.clinic
 
 import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.clinic.ClinicService
+import org.celllife.idart.domain.clinicmedication.ClinicMedicationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -10,9 +11,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-18
  * Time: 20h48
  */
-@Service
-@Mixin(ClinicApplicationServiceMixin)
-class ClinicApplicationServiceImpl implements ClinicApplicationService, ClinicResourceService {
+@Service class ClinicApplicationServiceImpl implements ClinicApplicationService, ClinicResourceService {
 
     @Autowired ClinicService clinicService
 

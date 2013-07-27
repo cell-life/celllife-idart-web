@@ -9,7 +9,6 @@ import org.celllife.idart.application.product.GoodResourceService
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureResourceService
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
-import org.celllife.idart.domain.partyrole.PartyRole
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
@@ -72,12 +71,12 @@ class PrescriptionApplicationServiceIntegrationTest {
         goodResourceService.save(good)
 
         Patient patient = new Patient()
-        ((PartyRole) patient).addIdentifier("http://www.cell-life.org/idart/patients", "00001")
+        patient.addIdentifier("http://www.cell-life.org/idart/patients", "00001")
         patient.person = new Person()
         patientResourceService.save(patient)
 
         Practitioner practitioner = new Practitioner()
-        ((PartyRole) practitioner).addIdentifier("http://www.cell-life.org/idart/practitioners", "00001")
+        practitioner.addIdentifier("http://www.cell-life.org/idart/practitioners", "00001")
         practitioner.person = new Person()
         practitionerResourceService.save(practitioner)
 

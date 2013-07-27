@@ -6,17 +6,17 @@
     <changeSet id="prescription-1" author="kevin.sewell">
 
         <createTable tableName="prescription">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="encounter" type="bigint"/>
-            <column name="prescriber" type="bigint"/>
-            <column name="patient" type="bigint"/>
+            <column name="prescriber" type="varchar(31)"/>
+            <column name="patient" type="varchar(31)"/>
             <column name="date_written" type="date"/>
         </createTable>
 
         <createTable tableName="prescription_identifiers">
-            <column name="prescription" type="bigint">
+            <column name="prescription" type="varchar(31)">
                 <constraints references="prescription(pk)" foreignKeyName="prescription_identifiers_fk"/>
             </column>
             <column name="system" type="varchar(255)">
@@ -33,11 +33,11 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="prescription" type="bigint">
+            <column name="prescription" type="varchar(31)">
                 <constraints references="prescription(pk)" foreignKeyName="prescribed_medication_prescription_fk"/>
             </column>
             <column name="reason_for_prescribing" type="varchar(2000)"/>
-            <column name="medication" type="bigint"/>
+            <column name="medication" type="varchar(31)"/>
             <column name="valid_from_date" type="date"/>
             <column name="valid_thru_date" type="date"/>
             <column name="number_of_repeats" type="integer"/>

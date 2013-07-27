@@ -15,11 +15,7 @@ class Identifiable {
     }
 
     def String getIdartIdentifierValue() {
-        getIdentifierValue(this.idartSystem)
-    }
-
-    def String getDefaultIdentifierValue() {
-        getIdentifierValue(this.defaultSystem)
+        getIdentifierValue(IDART_SYSTEM)
     }
 
     def String getFirstSystem() {
@@ -37,11 +33,11 @@ class Identifiable {
             return null
         }
 
-        identifiers.find({ identifier -> identifier.system.equals(system) })?.value
+        this.identifiers.find({ identifier -> identifier.system.equals(system) })?.value
     }
 
     def Set<String> getIdentifierSystems() {
-        identifiers*.system
+        this.identifiers*.system
     }
 
     def Boolean hasIdentifierForSystem(String system) {
@@ -64,4 +60,8 @@ class Identifiable {
 
         that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
     }
+
+//    def getPk() {
+//        idartIdentifierValue
+//    }
 }

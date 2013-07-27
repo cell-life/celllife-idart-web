@@ -25,17 +25,17 @@ import javax.annotation.Generated
         unitOfMeasureRepository.save(lookupAndMerge(unitOfMeasure))
     }
 
-    def lookupAndMerge(UnitOfMeasure unitOfMeasure) {
+    UnitOfMeasure lookupAndMerge(UnitOfMeasure unitOfMeasure) {
 
-        def (String system, String value) = getLookupCode(unitOfMeasure)
+        Code code = getLookupCode(unitOfMeasure)
 
-        UnitOfMeasure existingUnitOfMeasure = unitOfMeasureRepository.findOneByCode(system, value)
+        UnitOfMeasure existingUnitOfMeasure = unitOfMeasureRepository.findOneByCode(code.system, code.value)
 
         if (existingUnitOfMeasure == null) {
 
             // Ensure that idartCodeValue is always set
             if (unitOfMeasure.idartCodeValue == null) {
-                unitOfMeasure.addCode(unitOfMeasure.idartSystem, unitOfMeasure.defaultCodeValue)
+                unitOfMeasure.addCode(UnitOfMeasure.IDART_SYSTEM, unitOfMeasure.defaultCodeValue)
             }
 
             return unitOfMeasure
@@ -45,17 +45,17 @@ import javax.annotation.Generated
         existingUnitOfMeasure
     }
 
-    static getLookupCode(UnitOfMeasure unitOfMeasure) {
+    static Code getLookupCode(UnitOfMeasure unitOfMeasure) {
 
         if (unitOfMeasure.idartCodeValue == null && unitOfMeasure.defaultCodeValue == null) {
-            throw new RuntimeException("No code for default system [${ unitOfMeasure.defaultSystem}] or idart system [${ unitOfMeasure.idartSystem}]")
+            throw new RuntimeException("No code for default system [${ UnitOfMeasure.DEFAULT_SYSTEM}] or idart system [${ UnitOfMeasure.IDART_SYSTEM}]")
         }
 
         if (unitOfMeasure.defaultCodeValue != null) {
-            return [unitOfMeasure.defaultSystem, unitOfMeasure.defaultCodeValue]
+            return new Code(system: UnitOfMeasure.DEFAULT_SYSTEM, value: unitOfMeasure.defaultCodeValue)
         }
 
-        return [unitOfMeasure.idartSystem, unitOfMeasure.idartCodeValue]
+        return new Code(system: UnitOfMeasure.IDART_SYSTEM, value: unitOfMeasure.idartCodeValue)
     }
 
     @Override

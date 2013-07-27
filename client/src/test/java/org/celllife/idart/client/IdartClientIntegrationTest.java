@@ -15,6 +15,7 @@ import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
+import org.celllife.idart.client.unitofmeasure.UnitOfMeasures;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,18 +30,11 @@ import java.util.List;
  */
 public class IdartClientIntegrationTest {
 
-    static {
-        IdartClientSingleton.idartWebUsername = "user@test.cell-life.org";
-        IdartClientSingleton.idartWebPassword = "P@ssw0rd1";
-        IdartClientSingleton.idartWebUrl = "http://localhost:9000/idart";
-        IdartClientSingleton.idartClinicIdentifier = "00000001";
-    }
-
     private IdartClient idartClient;
 
     @Before
     public void setUp() throws Exception {
-        idartClient = IdartClientSingleton.getInstance();
+        idartClient = IdartClientSingleton.getInstance("http://localhost:9000/idart", "user@test.cell-life.org", "P@ssw0rd1", "00000001");
     }
 
     @Test
@@ -160,33 +154,21 @@ public class IdartClientIntegrationTest {
     public void testCreatePrescription() throws Exception {
 
         Prescription prescription = new PrescriptionBuilder("00000001")
-                .setIdentifier("00000001")
                 .setPatient("http://www.pgwc.gov.za", "72254311")
                 .setPrescriber("http://prehmis.capetown.gov.za", "1299")
                 .setDateWritten(new Date())
                 .addPrescribedMedication()
                 .setMedication("00000001")
-                .setDosageQuantity(1, "http://www.cell-life.org/idart/unitsOfMeasure", "each")
+                .setDosageQuantity(1d, UnitOfMeasures.EACH)
                 .repeat(2)
-                .every(1, "http://unitsofmeasure.org", "d")
+                .every(1, UnitOfMeasures.DAY)
                 .finishPrescribedMedication()
                 .finishPrescription();
 
-        idartClient.savePrescription(prescription);
+        idartClient.savePrescription("00000001", prescription);
 
         System.out.println(((IdartClientSingleton) idartClient).mapToJson(prescription));
     }
-
-    /*
-     *
-                .addPrescribedMedication()
-                .setMedication("00000002")
-                .setDosageQuantity(100, "http://unitsofmeasure.org", "ml")
-                .repeat(1)
-                .every(4, "http://unitsofmeasure.org", "h")
-                .finishPrescribedMedication()
-     *
-     */
 
     @Test
     public void testCreateMedication() throws Exception {
@@ -198,15 +180,14 @@ public class IdartClientIntegrationTest {
                 .setName("[ABC] Abacavir 300mg");
 
         medicationBuilder.addDrug(newDrug(clinicIdentifier)
-                .setIdentifier("00000001")
                 .setForm(Form.IDART_SYSTEM, "CAP")
                 .addBillOfMaterialsItem(newBillOfMaterialsItem()
-                        .setQuantity(60, UnitOfMeasure.IDART_SYSTEM, "each")
+                        .setQuantity(60, UnitOfMeasures.EACH)
                         .addPart(newDrug(clinicIdentifier)
                                 .setIdentifier("00000002")
                                 .setForm(Form.IDART_SYSTEM, "CAP")
                                 .addBillOfMaterialsItem(newBillOfMaterialsItem()
-                                        .setQuantity(300, UnitOfMeasure.UCUM_SYSTEM, "mg")
+                                        .setQuantity(300, "mg")
                                         .addPart(newCompound(clinicIdentifier)
                                                 .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
                                                 .finishCompound()
@@ -220,7 +201,7 @@ public class IdartClientIntegrationTest {
                 .finishDrug()
         );
 
-        idartClient.saveMedication(medicationBuilder.finishMedication());
+        idartClient.saveMedication("00000001", medicationBuilder.finishMedication());
     }
 
     private BillOfMaterialsItemBuilder newBillOfMaterialsItem() {

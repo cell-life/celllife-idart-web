@@ -3,6 +3,7 @@ package org.celllife.idart.codegen
 class IdentifiableSpringDataRepositoryGenerator {
 
     static generateIdentifiableSpringDataRepository(String baseDirectory, model) {
+
         Output.toFile(
                 templateReader: "/templates/identifiable/springDataRepository.template",
                 model: model,

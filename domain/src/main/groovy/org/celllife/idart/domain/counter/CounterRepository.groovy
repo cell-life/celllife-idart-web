@@ -7,6 +7,8 @@ package org.celllife.idart.domain.counter;
  */
 public interface CounterRepository {
 
-    Counter findOneByName(String name);
+    Counter save(Counter counter)
+
+    Counter findOneByName(String name)
 
 }

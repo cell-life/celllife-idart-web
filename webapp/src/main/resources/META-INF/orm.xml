@@ -8,7 +8,7 @@
 
     <entity class="org.celllife.idart.domain.administrationmethod.AdministrationMethod">
         <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
                 <pre-persist method-name="setPk"/>
             </entity-listener>
         </entity-listeners>
@@ -20,16 +20,82 @@
         </attributes>
     </entity>
 
-    <!-- Assignment -->
+    <!-- Clinic Medication Relationship -->
 
-    <entity class="org.celllife.idart.domain.assignment.Assignment">
+    <entity class="org.celllife.idart.domain.clinicmedication.ClinicMedication">
 
         <attributes>
             <id name="pk">
                 <generated-value strategy="TABLE"/>
             </id>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="clinic"/>
+            <many-to-one name="medication"/>
+        </attributes>
+
+    </entity>
+
+    <!-- Clinic Patient Relationship -->
+
+    <entity class="org.celllife.idart.domain.clinicpatient.ClinicPatient">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="clinic"/>
+            <many-to-one name="patient"/>
+        </attributes>
+
+    </entity>
+
+    <!-- Clinic Practitioner Relationship -->
+
+    <entity class="org.celllife.idart.domain.clinicpractitioner.ClinicPractitioner">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
             <many-to-one name="clinic"/>
             <many-to-one name="practitioner"/>
+        </attributes>
+
+    </entity>
+
+    <!-- Clinic Prescription Relationship -->
+
+    <entity class="org.celllife.idart.domain.clinicprescription.ClinicPrescription">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="fromDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="clinic"/>
+            <many-to-one name="prescription"/>
         </attributes>
 
     </entity>
@@ -51,7 +117,7 @@
 
     <entity class="org.celllife.idart.domain.contactmechanism.ElectronicAddress">
 
-        <discriminator-value>ElectronicAddress</discriminator-value>
+        <discriminator-value>electronicAddress</discriminator-value>
 
         <attributes>
             <basic name="electronicAddressString"/>
@@ -60,7 +126,7 @@
 
     <entity class="org.celllife.idart.domain.contactmechanism.PostalAddress">
 
-        <discriminator-value>PostalAddress</discriminator-value>
+        <discriminator-value>postalAddress</discriminator-value>
 
         <attributes>
             <basic name="address1"/>
@@ -71,7 +137,7 @@
 
     <entity class="org.celllife.idart.domain.contactmechanism.TelecommunicationsNumber">
 
-        <discriminator-value>TelecommunicationsNumber</discriminator-value>
+        <discriminator-value>telecommunicationsNumber</discriminator-value>
 
         <attributes>
             <basic name="areaCode"/>
@@ -82,7 +148,7 @@
 
     <entity class="org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber">
 
-        <discriminator-value>MobileTelephoneNumber</discriminator-value>
+        <discriminator-value>mobileTelephoneNumber</discriminator-value>
 
         <attributes>
             <basic name="contactNumber"/>
@@ -209,12 +275,16 @@
 
     <entity class="org.celllife.idart.domain.facility.Facility">
 
-        <inheritance strategy="JOINED"/>
+        <discriminator-column name="type"/>
+
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
 
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <element-collection name="descriptions" fetch="EAGER"/>
             <element-collection name="identifiers" fetch="EAGER"/>
             <element-collection name="names" fetch="EAGER"/>
@@ -231,21 +301,19 @@
     </entity>
 
     <entity class="org.celllife.idart.domain.clinic.Clinic">
-        <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-        </attributes>
+        <discriminator-value>clinic</discriminator-value>
     </entity>
 
     <!-- Form -->
 
     <entity class="org.celllife.idart.domain.form.Form">
+
         <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
                 <pre-persist method-name="setPk"/>
             </entity-listener>
         </entity-listeners>
+
         <attributes>
             <id name="pk"/>
             <element-collection name="codes" fetch="EAGER"/>
@@ -354,18 +422,18 @@
     </entity>
 
     <entity class="org.celllife.idart.domain.compound.Compound">
-        <discriminator-value>Compound</discriminator-value>
+        <discriminator-value>compound</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.drug.Drug">
-        <discriminator-value>Drug</discriminator-value>
+        <discriminator-value>drug</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.part.RawMaterial"/>
 
     <entity class="org.celllife.idart.domain.part.Subassembly">
 
-        <discriminator-value>Subassembly</discriminator-value>
+        <discriminator-value>subassembly</discriminator-value>
 
         <attributes>
             <one-to-many name="billOfMaterials" fetch="EAGER" orphan-removal="true">
@@ -529,65 +597,59 @@
     </entity>
 
     <entity class="org.celllife.idart.domain.partyclassification.EmploymentEquityClassification">
-        <discriminator-value>EmploymentEquityClassification</discriminator-value>
+        <discriminator-value>employmentEquityClassification</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.partyclassification.StandardIndustrialClassification">
-        <discriminator-value>StandardIndustrialClassification</discriminator-value>
+        <discriminator-value>standardIndustrialClassification</discriminator-value>
     </entity>
 
-    <!-- Party Role -->
+    <!-- Patient -->
 
-    <entity class="org.celllife.idart.domain.partyrole.PartyRole">
+    <entity class="org.celllife.idart.domain.patient.Patient">
 
-        <inheritance strategy="JOINED"/>
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+                <pre-update method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
 
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <basic name="fromDate">
                 <temporal>DATE</temporal>
             </basic>
             <basic name="thruDate">
                 <temporal>DATE</temporal>
             </basic>
+            <many-to-one name="person"/>
             <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.partyrole.PersonRole">
+    <!-- Practitioner -->
+
+    <entity class="org.celllife.idart.domain.practitioner.Practitioner">
+
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+                <pre-update method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
 
         <attributes>
-            <many-to-one name="person"/>
-        </attributes>
-
-    </entity>
-
-    <entity class="org.celllife.idart.domain.patient.Patient"/>
-
-    <entity class="org.celllife.idart.domain.practitioner.Practitioner"/>
-
-    <!-- Party Facility -->
-
-    <entity class="org.celllife.idart.domain.partyfacility.PartyFacility">
-
-        <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <basic name="type">
-                <enumerated>STRING</enumerated>
-            </basic>
+            <id name="pk"/>
             <basic name="fromDate">
                 <temporal>DATE</temporal>
             </basic>
             <basic name="thruDate">
                 <temporal>DATE</temporal>
             </basic>
-            <many-to-one name="facility"/>
-            <many-to-one name="party"/>
+            <many-to-one name="person"/>
+            <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
     </entity>
@@ -659,10 +721,15 @@
 
     <entity class="org.celllife.idart.domain.prescription.Prescription">
 
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+                <pre-update method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
+
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <basic name="dateWritten">
                 <temporal>DATE</temporal>
             </basic>
@@ -736,10 +803,15 @@
 
         <inheritance strategy="JOINED"/>
 
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+                <pre-update method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
+
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
     </entity>
@@ -759,11 +831,13 @@
     <!-- RouteOfAdministration -->
 
     <entity class="org.celllife.idart.domain.routeofadministration.RouteOfAdministration">
+
         <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
                 <pre-persist method-name="setPk"/>
             </entity-listener>
         </entity-listeners>
+
         <attributes>
             <id name="pk"/>
             <element-collection name="codes" fetch="EAGER"/>
@@ -802,7 +876,7 @@
 
     <entity class="org.celllife.idart.domain.unitofmeasure.UnitOfMeasure">
         <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.CodeableEntityListener">
+            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
                 <pre-persist method-name="setPk"/>
             </entity-listener>
         </entity-listeners>

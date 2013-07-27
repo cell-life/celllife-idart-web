@@ -25,17 +25,17 @@ import javax.annotation.Generated
         formRepository.save(lookupAndMerge(form))
     }
 
-    def lookupAndMerge(Form form) {
+    Form lookupAndMerge(Form form) {
 
-        def (String system, String value) = getLookupCode(form)
+        Code code = getLookupCode(form)
 
-        Form existingForm = formRepository.findOneByCode(system, value)
+        Form existingForm = formRepository.findOneByCode(code.system, code.value)
 
         if (existingForm == null) {
 
             // Ensure that idartCodeValue is always set
             if (form.idartCodeValue == null) {
-                form.addCode(form.idartSystem, form.defaultCodeValue)
+                form.addCode(Form.IDART_SYSTEM, form.defaultCodeValue)
             }
 
             return form
@@ -45,17 +45,17 @@ import javax.annotation.Generated
         existingForm
     }
 
-    static getLookupCode(Form form) {
+    static Code getLookupCode(Form form) {
 
         if (form.idartCodeValue == null && form.defaultCodeValue == null) {
-            throw new RuntimeException("No code for default system [${ form.defaultSystem}] or idart system [${ form.idartSystem}]")
+            throw new RuntimeException("No code for default system [${ Form.DEFAULT_SYSTEM}] or idart system [${ Form.IDART_SYSTEM}]")
         }
 
         if (form.defaultCodeValue != null) {
-            return [form.defaultSystem, form.defaultCodeValue]
+            return new Code(system: Form.DEFAULT_SYSTEM, value: form.defaultCodeValue)
         }
 
-        return [form.idartSystem, form.idartCodeValue]
+        return new Code(system: Form.IDART_SYSTEM, value: form.idartCodeValue)
     }
 
     @Override

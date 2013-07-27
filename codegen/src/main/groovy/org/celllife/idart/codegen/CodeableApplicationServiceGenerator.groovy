@@ -16,8 +16,6 @@ class CodeableApplicationServiceGenerator {
         generateCodeableApplicationServiceInterface(javaSourcesDirectory, model)
 
         generateCodeableApplicationServiceImplementation(groovySourcesDirectory, model)
-
-        generateCodeableApplicationServiceMixin(groovySourcesDirectory, model)
     }
 
     static generateCodeableApplicationServiceInterface(String baseDirectory, model) {

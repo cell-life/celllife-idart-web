@@ -29,39 +29,9 @@ codeGen.generateIdentifiableAggregateRoot([
         [entityName: "Drug"]
 ])
 
-def stereotypes = [
-        [name: "Codeable"],
-        [name: "Describable"],
-        [name: "Identifiable"],
-        [name: "Nameable"],
-        [name: "Persistable"]
-]
-
-def valueObjects = [
-        [name: "Quantity"]
-]
-
-def aggregateRoots =
-    [
-
-            [
-                    aggregateRoot: [
-                            name: "Clinic",
-                            modifiers: [abstract: true],
-                            extendFrom: [name: "Facility"]
-                    ]
-            ],
-            [
-                    aggregateRoot: [
-                            name: "Facility",
-                            stereotypes: ["Describable", "Identifiable", "Nameable"],
-                            attributes: [
-                                    [
-                                            name: "area",
-                                            type: [name: "Quantity"]
-                                    ]
-                            ]
-
-                    ]
-            ]
-    ]
+codeGen.generateRelationshipAggregateRoot([
+        [entities: [[name: "Clinic"], [name: "Medication"]]],
+        [entities: [[name: "Clinic"], [name: "Patient"]]] ,
+        [entities: [[name: "Clinic"], [name: "Practitioner"]]],
+        [entities: [[name: "Clinic"], [name: "Prescription"]]]
+])

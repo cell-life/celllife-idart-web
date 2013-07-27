@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface PatientApplicationService {
 
-    List<Patient> findByIdentifier(String applicationId, String clinicIdentifier, String patientIdentifier);
+    List<Patient> findByIdentifier(String clinicIdentifier, String patientIdentifier);
 
 }

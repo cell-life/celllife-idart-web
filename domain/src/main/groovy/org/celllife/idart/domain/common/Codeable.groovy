@@ -14,12 +14,14 @@ class Codeable {
         this.codes.add(new Code(system: system, value: value))
     }
 
+
     String getIdartCodeValue() {
-        getCodeValue(this.idartSystem)
+        getCodeValue(IDART_SYSTEM)
     }
 
+
     String getDefaultCodeValue() {
-        getCodeValue(this.defaultSystem)
+        getCodeValue(DEFAULT_SYSTEM)
     }
 
     String getFirstSystem() {
@@ -37,11 +39,11 @@ class Codeable {
             return null
         }
 
-        codes.find({ code -> code.system.equals(system) })?.value
+        this.codes.find({ code -> code.system.equals(system) })?.value
     }
 
     Set<String> getCodeSystems() {
-        codes*.system
+        this.codes*.system
     }
 
     void mergeCodes(that) {
@@ -51,13 +53,5 @@ class Codeable {
         }
 
         that.codeSystems.each { system -> this.addCode(system, that.getCodeValue(system)) }
-    }
-
-    String getDefaultSystem() {
-        DEFAULT_SYSTEM
-    }
-
-    String getIdartSystem() {
-        IDART_SYSTEM
     }
 }

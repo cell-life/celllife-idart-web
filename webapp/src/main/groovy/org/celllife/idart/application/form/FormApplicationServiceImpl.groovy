@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service
  * Date: 2013-07-21
  * Time: 01h28
  */
-@Service
-@Mixin(FormApplicationServiceMixin)
-class FormApplicationServiceImpl implements FormApplicationService, FormResourceService {
+@Service class FormApplicationServiceImpl implements FormApplicationService, FormResourceService {
 
     @Autowired FormService formService
 

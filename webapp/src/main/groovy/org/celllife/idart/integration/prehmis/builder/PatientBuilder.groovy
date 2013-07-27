@@ -1,7 +1,6 @@
 package org.celllife.idart.integration.prehmis.builder
 
 import org.celllife.idart.domain.party.Party
-import org.celllife.idart.domain.partyrole.PartyRole
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.integration.prehmis.PrehmisGender
@@ -36,11 +35,11 @@ class PatientBuilder {
             return null
         }
 
-        ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PREHMIS.system, prehmisId)
+        patient.addIdentifier(PrehmisPatientIdentifierType.PREHMIS.system, prehmisId)
 
         String pgwcPatientNumber = prehmisPatient.pgwc_patient_number.text()
         if (pgwcPatientNumber != null && !pgwcPatientNumber.empty) {
-            ((PartyRole) patient).addIdentifier(PrehmisPatientIdentifierType.PGWC.system, pgwcPatientNumber)
+            patient.addIdentifier(PrehmisPatientIdentifierType.PGWC.system, pgwcPatientNumber)
         }
 
         String saId = prehmisPatient.sa_id_number.text()

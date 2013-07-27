@@ -6,9 +6,10 @@
     <changeSet id="facility-1" author="kevin.sewell">
 
         <createTable tableName="facility">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="type" type="varchar(31)"/>
             <column name="area" type="numeric"/>
             <column name="area_uom" type="varchar(31)">
                 <constraints references="unit_of_measure(pk)" foreignKeyName="area_uom_fk"/>
@@ -16,7 +17,7 @@
         </createTable>
 
         <createTable tableName="facility_identifiers">
-            <column name="facility" type="bigint">
+            <column name="facility" type="varchar(31)">
                 <constraints references="facility(pk)" foreignKeyName="facility_identifiers_fk"/>
             </column>
             <column name="system" type="varchar(255)">
@@ -30,7 +31,7 @@
         </createTable>
 
         <createTable tableName="facility_names">
-            <column name="facility" type="bigint">
+            <column name="facility" type="varchar(31)">
                 <constraints references="facility(pk)" foreignKeyName="facility_names_fk"/>
             </column>
             <column name="locale" type="varchar(10)">
@@ -42,7 +43,7 @@
         </createTable>
 
         <createTable tableName="facility_descriptions">
-            <column name="facility" type="bigint">
+            <column name="facility" type="varchar(31)">
                 <constraints references="facility(pk)" foreignKeyName="facility_descriptions_fk"/>
             </column>
             <column name="locale" type="varchar(10)">
@@ -50,12 +51,6 @@
             </column>
             <column name="value" type="varchar(2000)">
                 <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="clinic">
-            <column name="pk" type="bigint">
-                <constraints references="facility(pk)" foreignKeyName="facility_clinic_fk"/>
             </column>
         </createTable>
 

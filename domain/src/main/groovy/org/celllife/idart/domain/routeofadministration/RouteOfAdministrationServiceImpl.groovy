@@ -25,17 +25,17 @@ import javax.annotation.Generated
         routeOfAdministrationRepository.save(lookupAndMerge(routeOfAdministration))
     }
 
-    def lookupAndMerge(RouteOfAdministration routeOfAdministration) {
+    RouteOfAdministration lookupAndMerge(RouteOfAdministration routeOfAdministration) {
 
-        def (String system, String value) = getLookupCode(routeOfAdministration)
+        Code code = getLookupCode(routeOfAdministration)
 
-        RouteOfAdministration existingRouteOfAdministration = routeOfAdministrationRepository.findOneByCode(system, value)
+        RouteOfAdministration existingRouteOfAdministration = routeOfAdministrationRepository.findOneByCode(code.system, code.value)
 
         if (existingRouteOfAdministration == null) {
 
             // Ensure that idartCodeValue is always set
             if (routeOfAdministration.idartCodeValue == null) {
-                routeOfAdministration.addCode(routeOfAdministration.idartSystem, routeOfAdministration.defaultCodeValue)
+                routeOfAdministration.addCode(RouteOfAdministration.IDART_SYSTEM, routeOfAdministration.defaultCodeValue)
             }
 
             return routeOfAdministration
@@ -45,17 +45,17 @@ import javax.annotation.Generated
         existingRouteOfAdministration
     }
 
-    static getLookupCode(RouteOfAdministration routeOfAdministration) {
+    static Code getLookupCode(RouteOfAdministration routeOfAdministration) {
 
         if (routeOfAdministration.idartCodeValue == null && routeOfAdministration.defaultCodeValue == null) {
-            throw new RuntimeException("No code for default system [${ routeOfAdministration.defaultSystem}] or idart system [${ routeOfAdministration.idartSystem}]")
+            throw new RuntimeException("No code for default system [${ RouteOfAdministration.DEFAULT_SYSTEM}] or idart system [${ RouteOfAdministration.IDART_SYSTEM}]")
         }
 
         if (routeOfAdministration.defaultCodeValue != null) {
-            return [routeOfAdministration.defaultSystem, routeOfAdministration.defaultCodeValue]
+            return new Code(system: RouteOfAdministration.DEFAULT_SYSTEM, value: routeOfAdministration.defaultCodeValue)
         }
 
-        return [routeOfAdministration.idartSystem, routeOfAdministration.idartCodeValue]
+        return new Code(system: RouteOfAdministration.IDART_SYSTEM, value: routeOfAdministration.idartCodeValue)
     }
 
     @Override

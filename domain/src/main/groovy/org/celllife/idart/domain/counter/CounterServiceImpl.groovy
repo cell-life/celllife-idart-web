@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service
     @Autowired CounterRepository counterRepository
 
     def Integer getNextValue(String counterName) {
-        synchronized (counterName.intern()) {
-            nextValue(counterName)
-        }
+        nextValue(counterName)
     }
 
     Integer nextValue(String counterName) {

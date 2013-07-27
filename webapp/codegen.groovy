@@ -42,3 +42,12 @@ def abstractModels = [
         [entityPackage: "part", entityName: "RawMaterial"],
 ]
 codeGen.generateIdentifiableSpringDataRepositories(abstractModels)
+
+def relationships = [
+        [entities: [[name: "Clinic"], [name: "Medication"]]],
+        [entities: [[name: "Clinic"], [name: "Patient"]]] ,
+        [entities: [[name: "Clinic"], [name: "Practitioner"]]],
+        [entities: [[name: "Clinic"], [name: "Prescription"]]]
+]
+codeGen.generateRelationshipResources(relationships)
+codeGen.generateRelationshipSpringDataRepositories(relationships)
