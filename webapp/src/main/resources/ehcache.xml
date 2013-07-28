@@ -290,9 +290,115 @@
            eternal="true"
            overflowToDisk="false"/>
 
-    <cache name="org.hibernate.cache.internal.StandardQueryCache"
-           maxElementsInMemory="10000"
-           eternal="true"
+    <cache name="org.hibernate.cache.internal.StandardQueryCache" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.dispensation.Dispensation" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.dispensedmedication.DispensedMedication" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.indication.Indication" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.clinicmedication.ClinicMedication" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.product.Product" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.unitofmeasure.UnitOfMeasure" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.party.Party" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.facility.Facility" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.partyclassification.PartyClassification" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.prescribedmedication.PrescribedMedication" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.partclassification.PartClassification" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.contactmechanism.ContactMechanism" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.part.Part" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.administrationmethod.AdministrationMethod" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.person.PhysicalCharacteristic" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.part.PartBillOfMaterialsItem" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.dosageinstruction.DosageInstruction" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.encounter.Encounter" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.routeofadministration.RouteOfAdministration" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.clinicprescription.ClinicPrescription" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.clinicdispensation.ClinicDispensation" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.patient.Patient" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.prescription.Prescription" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.unitofmeasure.UnitOfMeasureType" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.practitioner.Practitioner" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.entrysite.EntrySite" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.inventoryitem.InventoryItem" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.partclassification.atc.DefinedDailyDose" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.substitutionreason.SubstitutionReason" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction"
+           maxElementsInMemory="10000" eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.clinicpractitioner.ClinicPractitioner" maxElementsInMemory="10000"
+           eternal="true" overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.counter.Counter" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.substitution.Substitution" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.lifeevent.LifeEvent" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.clinicpatient.ClinicPatient" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="false"/>
+
+    <cache name="org.celllife.idart.domain.form.Form" maxElementsInMemory="10000" eternal="true"
            overflowToDisk="false"/>
 
     <!--

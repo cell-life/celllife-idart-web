@@ -26,13 +26,6 @@
             <column name="thru_date" type="date"/>
         </createTable>
 
-        <createTable tableName="good">
-            <column name="pk" type="varchar(31)">
-                <constraints references="product(pk)" foreignKeyName="product_good_fk"/>
-            </column>
-            <column name="finished_good" type="bigint"/>
-        </createTable>
-
         <createTable tableName="medication">
             <column name="pk" type="varchar(31)">
                 <constraints references="product(pk)" foreignKeyName="product_medication_fk"/>

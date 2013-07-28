@@ -9,7 +9,6 @@
         <param-value>
             classpath:/META-INF/spring/spring-*.xml,
             classpath:/META-INF/spring-data/spring-data-*.xml,
-            classpath:/META-INF/spring-integration/spring-integration-*.xml
             classpath:/META-INF/spring-security/spring-security-*.xml
         </param-value>
     </context-param>

@@ -2,7 +2,6 @@ package org.celllife.idart.domain.product
 
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.common.Persistable
 
 /**
  * User: Kevin W. Sewell
@@ -10,7 +9,7 @@ import org.celllife.idart.domain.common.Persistable
  * Time: 18h13
  */
 @Mixin(Identifiable)
-class Product implements Persistable<String> {
+class Product {
 
     /**
      * Persistence Key

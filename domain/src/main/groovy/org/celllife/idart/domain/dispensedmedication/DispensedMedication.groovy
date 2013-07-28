@@ -3,7 +3,6 @@ package org.celllife.idart.domain.dispensedmedication
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
 import org.celllife.idart.domain.common.Period
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.common.Quantity
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 import org.celllife.idart.domain.medication.Medication
@@ -15,7 +14,7 @@ import org.celllife.idart.domain.prescribedmedication.PrescribedMedication
  * Time: 20h52
  */
 @Mixin(Identifiable)
-class DispensedMedication implements Persistable<String> {
+class DispensedMedication {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/dispensedMedications"
 

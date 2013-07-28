@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.inventoryitem
 
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.part.Part
 
 import javax.validation.constraints.NotNull
@@ -10,7 +9,7 @@ import javax.validation.constraints.NotNull
  * Date: 2013-06-16
  * Time: 18h47
  */
-abstract class InventoryItem implements Persistable<Long> {
+abstract class InventoryItem {
 
     /**
      * Persistence Key

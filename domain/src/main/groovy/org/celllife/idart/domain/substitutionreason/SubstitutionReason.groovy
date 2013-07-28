@@ -8,7 +8,7 @@ import org.celllife.idart.domain.common.*
  * Time: 21h58
  */
 @Mixin([Codeable, Nameable, Describable])
-class SubstitutionReason implements Persistable<Long> {
+class SubstitutionReason {
 
     /**
      * Persistence Key

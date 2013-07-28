@@ -1,6 +1,5 @@
 package org.celllife.idart.domain.party
 
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.organisation.LegalOrganisation
 import org.celllife.idart.domain.organisation.LegalOrganisationRepository
 import org.celllife.idart.test.TestConfiguration
@@ -30,6 +29,6 @@ class LegalOrganisationRepositoryIntegrationTest {
 
         legalOrganisation = legalOrganisationRepository.save(legalOrganisation)
 
-        legalOrganisationRepository.findOne(((Persistable) legalOrganisation).pk)
+        legalOrganisationRepository.findOne(legalOrganisation.pk)
     }
 }

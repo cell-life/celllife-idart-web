@@ -8,7 +8,7 @@ import org.celllife.idart.domain.common.*
  * Time: 14h25
  */
 @Mixin([Codeable, Nameable, Describable])
-class Form implements Persistable<String> {
+class Form {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/forms"
 

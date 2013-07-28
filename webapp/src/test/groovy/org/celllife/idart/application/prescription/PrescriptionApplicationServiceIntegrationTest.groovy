@@ -102,25 +102,25 @@ class PrescriptionApplicationServiceIntegrationTest {
     }
 
     static Compound createCompound(UnitOfMeasure milligrams) {
-        Compound abacavirRawMaterial = new Compound()
-        abacavirRawMaterial.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
-        abacavirRawMaterial.setUnitOfMeasure(milligrams)
-        abacavirRawMaterial
+        Compound abacavirCompound = new Compound()
+        abacavirCompound.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
+        abacavirCompound.setUnitOfMeasure(milligrams)
+        abacavirCompound
     }
 
-    static Drug createDrug(UnitOfMeasure millilitres, Compound abacavirRawMaterial, UnitOfMeasure milligrams) {
+    static Drug createDrug(UnitOfMeasure millilitres, Compound abacavirCompound, UnitOfMeasure milligrams) {
         Drug abacavir20mg = new Drug()
-        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml")
+        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
         abacavir20mg.setUnitOfMeasure(millilitres)
-        abacavir20mg.addEngineeringPart(abacavirRawMaterial, 20.0D, milligrams)
+        abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
         abacavir20mg
     }
 
     static Drug createFinishedDrug(UnitOfMeasure each, Drug abacavir20mg, UnitOfMeasure millilitres) {
-        Drug finishedGood = new Drug()
-        finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
-        finishedGood.setUnitOfMeasure(each)
-        finishedGood.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
-        finishedGood
+        Drug drug = new Drug()
+        drug.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
+        drug.setUnitOfMeasure(each)
+        drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
+        drug
     }
 }

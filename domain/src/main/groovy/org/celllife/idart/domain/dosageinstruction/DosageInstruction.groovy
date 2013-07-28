@@ -10,7 +10,7 @@ import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
  * Date: 2013-06-17
  * Time: 22h29
  */
-class DosageInstruction implements Persistable<Long> {
+class DosageInstruction {
 
     Long pk
 

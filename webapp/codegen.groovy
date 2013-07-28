@@ -38,12 +38,6 @@ codeGen.generateIdentifiableResources(identifiableModels)
 codeGen.generateHibernateValidator(identifiableModels)
 codeGen.generateCounterSequence(identifiableModels)
 
-def abstractModels = [
-        [entityPackage: "part", entityName: "FinishedGood"],
-        [entityPackage: "part", entityName: "RawMaterial"],
-]
-codeGen.generateIdentifiableSpringDataRepositories(abstractModels)
-
 def relationships = [
         [entities: [[name: "Clinic"], [name: "Dispensation"]]],
         [entities: [[name: "Clinic"], [name: "Medication"]]],

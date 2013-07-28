@@ -8,7 +8,7 @@ import org.celllife.idart.domain.common.*
  * Time: 11h03
  */
 @Mixin([Identifiable, Nameable, Describable])
-abstract class Facility implements Persistable<String> {
+abstract class Facility {
 
     /**
      * Persistence Key

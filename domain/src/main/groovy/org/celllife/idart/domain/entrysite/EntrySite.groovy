@@ -8,7 +8,7 @@ import org.celllife.idart.domain.common.*
  * Time: 14h25
  */
 @Mixin([Codeable, Nameable, Describable])
-class EntrySite implements Persistable<Long> {
+class EntrySite {
 
     /**
      * Persistence Key

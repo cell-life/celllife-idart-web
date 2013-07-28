@@ -5,7 +5,7 @@
 
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+        <shared-cache-mode>ALL</shared-cache-mode>
 
         <validation-mode>NONE</validation-mode>
 

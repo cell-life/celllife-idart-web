@@ -74,4 +74,9 @@ public final class PrescriptionBuilder {
     public Prescription finishPrescription() {
         return this.prescription;
     }
+
+    public PrescriptionBuilder addIdentifier(String system, String value) {
+        this.prescription.identifiers.add(new Identifier(system, value));
+        return this;
+    }
 }

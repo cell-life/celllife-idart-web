@@ -2,7 +2,6 @@ package org.celllife.idart.domain.partclassification
 
 import org.celllife.idart.domain.common.Describable
 import org.celllife.idart.domain.common.LocalisedText
-import org.celllife.idart.domain.common.Persistable
 
 /**
  * User: Kevin W. Sewell
@@ -10,7 +9,7 @@ import org.celllife.idart.domain.common.Persistable
  * Time: 13h22
  */
 @Mixin([Describable])
-abstract class PartClassification implements Persistable<Long> {
+abstract class PartClassification {
 
     Long pk
 

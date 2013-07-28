@@ -4,7 +4,6 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.domain.common.LocalisedText
 import org.celllife.idart.domain.common.Nameable
-import org.celllife.idart.domain.common.Persistable
 
 /**
  * User: Kevin W. Sewell
@@ -14,7 +13,7 @@ import org.celllife.idart.domain.common.Persistable
 @ToString
 @EqualsAndHashCode(excludes = "pk")
 @Mixin([Nameable])
-class UnitOfMeasureType implements Persistable<Long> {
+class UnitOfMeasureType {
 
     /**
      * Persistence Key

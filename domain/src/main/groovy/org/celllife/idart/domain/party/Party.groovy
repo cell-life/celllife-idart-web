@@ -3,7 +3,6 @@ package org.celllife.idart.domain.party
 import groovy.transform.EqualsAndHashCode
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 
 /**
@@ -13,7 +12,7 @@ import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
  */
 @EqualsAndHashCode(includes = "identifiers")
 @Mixin([Identifiable])
-abstract class Party implements Persistable<String> {
+abstract class Party {
 
     /**
      * Persistence Key

@@ -4,7 +4,6 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.form.Form
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 
@@ -16,7 +15,7 @@ import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 @ToString
 @EqualsAndHashCode(excludes = "pk")
 @Mixin(Identifiable)
-abstract class Part implements Persistable<Long> {
+abstract class Part {
 
     /**
      * Persistence Key

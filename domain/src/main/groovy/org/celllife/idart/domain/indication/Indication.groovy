@@ -8,7 +8,7 @@ import org.celllife.idart.domain.common.*
  * Time: 20h54
  */
 @Mixin([Codeable, Nameable, Describable])
-class Indication implements Persistable<Long> {
+class Indication {
 
     /**
      * Persistence Key

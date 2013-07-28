@@ -486,31 +486,12 @@
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.part.FinishedGood">
-
-        <attributes>
-            <one-to-many name="billOfMaterials" fetch="EAGER" orphan-removal="true">
-                <cascade>
-                    <cascade-all/>
-                </cascade>
-            </one-to-many>
-        </attributes>
-
-    </entity>
-
     <entity class="org.celllife.idart.domain.compound.Compound">
         <discriminator-value>compound</discriminator-value>
     </entity>
 
     <entity class="org.celllife.idart.domain.drug.Drug">
         <discriminator-value>drug</discriminator-value>
-    </entity>
-
-    <entity class="org.celllife.idart.domain.part.RawMaterial"/>
-
-    <entity class="org.celllife.idart.domain.part.Subassembly">
-
-        <discriminator-value>subassembly</discriminator-value>
 
         <attributes>
             <one-to-many name="billOfMaterials" fetch="EAGER" orphan-removal="true">
@@ -519,7 +500,6 @@
                 </cascade>
             </one-to-many>
         </attributes>
-
     </entity>
 
     <!-- PartBillOfMaterialsItem -->

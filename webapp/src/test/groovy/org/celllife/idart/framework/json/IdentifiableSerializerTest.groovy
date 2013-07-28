@@ -3,7 +3,7 @@ package org.celllife.idart.framework.json
 import com.fasterxml.jackson.core.type.TypeReference
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
-import org.celllife.idart.domain.part.FinishedGood
+
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 import org.junit.Test
 
@@ -19,7 +19,7 @@ class IdentifiableSerializerTest {
     @Test
     public void testName() throws Exception {
 
-        List<FinishedGood> sd = new ArrayList<FinishedGood>()
+        List<Drug> sd = new ArrayList<Drug>()
 
         def type = (ParameterizedType) sd.class.genericSuperclass
         type.actualTypeArguments.each { actualTypeArgument ->
@@ -34,22 +34,22 @@ class IdentifiableSerializerTest {
         unitOfMeasure.addCode("s", "Bla")
         unitOfMeasure.addName("en", "Bla")
 
-        def rawMaterial = new Compound()
-        rawMaterial.addIdentifier("bla1", "bla")
-        rawMaterial.addIdentifier("bla", "bla")
-        rawMaterial.unitOfMeasure = unitOfMeasure
+        def compound = new Compound()
+        compound.addIdentifier("bla1", "bla")
+        compound.addIdentifier("bla", "bla")
+        compound.unitOfMeasure = unitOfMeasure
 
-        def finishedGood = new Drug()
-        finishedGood.addIdentifier("bla1", "bla")
-        finishedGood.addIdentifier("bla", "bla")
-        finishedGood.unitOfMeasure = unitOfMeasure
-        finishedGood.addEngineeringPart(rawMaterial, 10.0D, unitOfMeasure)
+        def drug = new Drug()
+        drug.addIdentifier("bla1", "bla")
+        drug.addIdentifier("bla", "bla")
+        drug.unitOfMeasure = unitOfMeasure
+        drug.addEngineeringPart(compound, 10.0D, unitOfMeasure)
 
-        List<FinishedGood> list = [] as ArrayList<FinishedGood>
-        list << finishedGood
+        List<Drug> list = [] as ArrayList<Drug>
+        list << drug
 
         println new IdartObjectMapper()
-                .writerWithType(new TypeReference<List<FinishedGood>>() {})
+                .writerWithType(new TypeReference<List<Drug>>() {})
                 .withDefaultPrettyPrinter()
                 .writeValueAsString(list)
 

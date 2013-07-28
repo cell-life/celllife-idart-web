@@ -2,7 +2,6 @@ package org.celllife.idart.domain.encounter
 
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.common.Persistable
 
 /**
  * User: Kevin W. Sewell
@@ -10,7 +9,7 @@ import org.celllife.idart.domain.common.Persistable
  * Time: 01h03
  */
 @Mixin(Identifiable)
-class Encounter implements Persistable<Long> {
+class Encounter {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/encounters"
 

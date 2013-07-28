@@ -231,7 +231,7 @@ public final class IdartClientSingleton implements IdartClient {
 
     @Override
     public List<Drug> getDrugs() {
-        GetMethod getFinishedGoods = new GetMethod(
+        GetMethod getDrugs = new GetMethod(
                 String.format(
                         "%s/clinics/%s/drugs",
                         idartWebUrl,
@@ -239,12 +239,12 @@ public final class IdartClientSingleton implements IdartClient {
                 )
         );
 
-        decorateMethodWithAuth(getFinishedGoods);
-        decorateMethodWithAccept(getFinishedGoods);
+        decorateMethodWithAuth(getDrugs);
+        decorateMethodWithAccept(getDrugs);
 
-        int status = executeMethod(getFinishedGoods);
+        int status = executeMethod(getDrugs);
 
-        InputStream body = getResponseBodyAsString(getFinishedGoods);
+        InputStream body = getResponseBodyAsString(getDrugs);
 
         if (status != HttpStatus.SC_OK) {
             throw new RuntimeException("" + status);

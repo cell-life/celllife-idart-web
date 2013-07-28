@@ -8,7 +8,7 @@ import org.celllife.idart.domain.common.*
  * Time: 22h10
  */
 @Mixin([Codeable, Nameable, Describable])
-class AdministrationMethod implements Persistable<String> {
+class AdministrationMethod {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/methods"
 

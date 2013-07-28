@@ -2,7 +2,6 @@ package org.celllife.idart.domain.practitioner
 
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.person.Person
 
 import javax.validation.constraints.NotNull
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull
  * Time: 09h14
  */
 @Mixin([Identifiable])
-class Practitioner implements Persistable<String> {
+class Practitioner {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/practitioners"
 

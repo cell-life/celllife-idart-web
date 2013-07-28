@@ -2,7 +2,6 @@ package org.celllife.idart.domain.patient
 
 import org.celllife.idart.domain.common.Identifiable
 import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.person.Person
 
 import javax.validation.constraints.NotNull
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull
  * Time: 09h14
  */
 @Mixin([Identifiable])
-class Patient implements Persistable<String> {
+class Patient {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/patients"
 

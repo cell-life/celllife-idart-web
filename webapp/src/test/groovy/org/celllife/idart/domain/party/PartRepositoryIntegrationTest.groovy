@@ -6,9 +6,7 @@ import org.celllife.idart.application.medication.MedicationResourceService
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.medication.Medication
-import org.celllife.idart.domain.part.FinishedGoodService
-import org.celllife.idart.domain.part.RawMaterial
-import org.celllife.idart.domain.part.RawMaterialService
+
 import org.celllife.idart.domain.product.Product
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
@@ -51,21 +49,21 @@ class PartRepositoryIntegrationTest {
         each.addCode("http://unitsofmeasure.org", "ea")
         each = unitOfMeasureService.save(each)
 
-        Compound abacavirRawMaterial = new Compound(unitOfMeasure: milligrams)
-        abacavirRawMaterial.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
-        abacavirRawMaterial = compoundResourceService.save(abacavirRawMaterial)
+        Compound abacavirCompound = new Compound(unitOfMeasure: milligrams)
+        abacavirCompound.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
+        abacavirCompound = compoundResourceService.save(abacavirCompound)
 
         Drug abacavir20mg = new Drug(unitOfMeasure: millilitres)
-        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml")
-        abacavir20mg.addEngineeringPart(abacavirRawMaterial, 20.0D, milligrams)
+        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
+        abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
         abacavir20mg = drugResourceService.save(abacavir20mg)
 
-        Drug finishedGood = new Drug(unitOfMeasure: each)
-        finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
-        finishedGood.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
-        finishedGood = drugResourceService.save(finishedGood)
+        Drug drug = new Drug(unitOfMeasure: each)
+        drug.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
+        drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
+        drug = drugResourceService.save(drug)
 
-        Medication good = new Medication(drug: finishedGood)
+        Medication good = new Medication(drug: drug)
         ((Product) good).addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml")
         medicationResourceService.save(good)
 

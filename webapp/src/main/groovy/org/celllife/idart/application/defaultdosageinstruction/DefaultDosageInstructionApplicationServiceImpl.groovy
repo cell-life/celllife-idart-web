@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 
     @Autowired DefaultDosageInstructionService defaultDosageInstructionService
 
-    @Autowired DrugService finishedGoodService
+    @Autowired DrugService drugService
 
     @Autowired UnitOfMeasureService unitOfMeasureService
 
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service
 
         defaultDosageInstruction.with {
 
-            medication = finishedGoodService.findByIdentifiers(medication.identifiers)
+            medication = drugService.findByIdentifiers(medication.identifiers)
 
             dosageInstruction?.with {
                 doseQuantity?.with {

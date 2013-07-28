@@ -83,12 +83,6 @@
                                  referencedTableName="person"
                                  referencedColumnNames="pk"/>
 
-        <addForeignKeyConstraint baseTableName="good"
-                                 baseColumnNames="finished_good"
-                                 constraintName="good_part_fk"
-                                 referencedTableName="part"
-                                 referencedColumnNames="pk"/>
-
         <addForeignKeyConstraint baseTableName="medication"
                                  baseColumnNames="drug"
                                  constraintName="medication_part_fk"

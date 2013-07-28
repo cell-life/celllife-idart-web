@@ -8,7 +8,7 @@ import org.celllife.idart.domain.common.*
  * Time: 14h25
  */
 @Mixin([Codeable, Nameable, Describable])
-class RouteOfAdministration implements Persistable<String> {
+class RouteOfAdministration {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/routes"
 

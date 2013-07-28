@@ -2,7 +2,6 @@ package org.celllife.idart.domain.defaultdosageinstruction
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 import org.celllife.idart.domain.drug.Drug
 
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull
  */
 @ToString
 @EqualsAndHashCode(excludes = "pk")
-class DefaultDosageInstruction implements Persistable<Long> {
+class DefaultDosageInstruction {
 
     Long pk
 

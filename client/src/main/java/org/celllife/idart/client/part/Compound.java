@@ -5,7 +5,7 @@ package org.celllife.idart.client.part;
  * Date: 2013-07-20
  * Time: 18h30
  */
-public class Compound extends RawMaterial {
+public class Compound extends Part {
 
     public static final String INN_SYSTEM = "http://www.who.int/medicines/services/inn";
 

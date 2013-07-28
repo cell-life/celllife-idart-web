@@ -12,7 +12,7 @@ import org.celllife.idart.domain.common.*
 @ToString
 @EqualsAndHashCode(excludes = "pk")
 @Mixin([Codeable, Nameable])
-class UnitOfMeasure implements Persistable<String> {
+class UnitOfMeasure {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/unitsOfMeasure"
 

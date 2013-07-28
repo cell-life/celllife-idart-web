@@ -13,7 +13,7 @@ import org.celllife.idart.domain.substitutionreason.SubstitutionReason
  * Time: 20h52
  */
 @Mixin(Identifiable)
-class PrescribedMedication implements Persistable<String> {
+class PrescribedMedication {
 
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescribedMedications"
 
