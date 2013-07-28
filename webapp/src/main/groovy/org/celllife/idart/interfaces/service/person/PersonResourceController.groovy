@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/people/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Person findByIdentifier(@PathVariable("coidentifierde") String identifier) {
+    Person findByIdentifier(@PathVariable("identifier") String identifier) {
         personResourceService.findByIdentifier(identifier)
     }
 

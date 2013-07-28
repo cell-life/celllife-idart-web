@@ -28,7 +28,7 @@ public abstract class Part implements Serializable {
 
     public Form form;
 
-    public Set<PartClassification> classifications;
+    public Set<PartClassification> classifications = new HashSet<PartClassification>();
 
     protected Part() {
     }

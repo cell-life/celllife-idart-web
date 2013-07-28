@@ -4,12 +4,12 @@ import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.practitioner.PractitionerProvider
 import org.celllife.idart.domain.practitioner.Practitioner
-import org.celllife.idart.integration.prehmis.builder.GetPractitionerListRequestBuilder
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 import static org.celllife.idart.integration.prehmis.builder.PractitionerBuilder.buildPractitioners
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetPractitionerListRequest
 import static org.springframework.util.Assert.notNull
 
 /**
@@ -32,7 +32,7 @@ import static org.springframework.util.Assert.notNull
     @Override
     Set<Practitioner> findAll(String clinicIdentifierValue) {
 
-        String getPractitionerListRequest = GetPractitionerListRequestBuilder.build(
+        String getPractitionerListRequest = buildGetPractitionerListRequest(
                 username: prehmisUsername,
                 password: prehmisPassword,
                 facilityCode: clinicIdentifierValue,

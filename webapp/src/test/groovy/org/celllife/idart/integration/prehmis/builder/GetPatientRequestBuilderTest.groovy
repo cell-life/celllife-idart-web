@@ -14,7 +14,7 @@ class GetPatientRequestBuilderTest {
     @Test
     void testBuild() throws Exception {
 
-        String getPatientRequest = GetPatientRequestBuilder.build(
+        String getPatientRequest = PrehmisRequestBuilder.buildGetPatientRequest(
                 username: "idartUsername",
                 password: "idartPassword",
                 applicationKey: "idartApplicationKey",

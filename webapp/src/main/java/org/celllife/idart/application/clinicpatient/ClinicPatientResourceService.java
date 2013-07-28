@@ -11,13 +11,43 @@ import javax.annotation.Generated;
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ClinicPatientResourceService {
 
+    /**
+     *
+     * @param clinicIdentifier
+     * @param patientIdentifier
+     * @param patient
+     * @return
+     */
     void save(String clinicIdentifier, String patientIdentifier, Patient patient);
 
+    /**
+     *
+     * @param clinicIdentifier
+     * @param patient
+     * @return
+     */
     void save(String clinicIdentifier, Patient patient);
 
+    /**
+     *
+     * @param clinicIdentifier
+     * @return
+     */
     Iterable<Patient> findPatientsByClinicIdentifier(String clinicIdentifier);
 
+    /**
+     *
+     * @param clinicIdentifier
+     * @param patientIdentifier
+     * @return
+     */
     Iterable<Patient> findPatientsByClinicIdentifierAndPatientIdentifier(String clinicIdentifier, String patientIdentifier);
 
+    /**
+     *
+     * @param clinicIdentifier
+     * @param patientIdentifier
+     * @return
+     */
     Patient findOnePatientByClinicIdentifierAndPatientIdentifier(String clinicIdentifier, String patientIdentifier);
 }

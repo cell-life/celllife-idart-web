@@ -31,14 +31,14 @@ import org.springframework.stereotype.Service
                                 unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
                             }
                         }
-                        break;
+                        break
                     case Weight:
                         ((Weight) physicalCharacteristic)?.with {
                             value?.with {
                                 unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
                             }
                         }
-                        break;
+                        break
                 }
             }
         }
@@ -54,10 +54,5 @@ import org.springframework.stereotype.Service
     @Override
     Iterable<Person> findAll() {
         personService.findAll()
-    }
-
-    @Override
-    Person update(Person person, Long existingPersonPk) {
-        personService.update(person, existingPersonPk)
     }
 }

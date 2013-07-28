@@ -13,11 +13,5 @@
                 "value": "mg"
             }
         ]
-    },
-    "classifications": [
-        {
-            "code": "J05AF06",
-            "type": "ATC"
-        }
-    ]
+    }
 }

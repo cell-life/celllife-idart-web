@@ -3,17 +3,17 @@ package org.celllife.idart.application.prescription
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.celllife.idart.application.compound.CompoundResourceService
 import org.celllife.idart.application.drug.DrugResourceService
+import org.celllife.idart.application.medication.MedicationResourceService
 import org.celllife.idart.application.patient.PatientResourceService
 import org.celllife.idart.application.practitioner.PractitionerResourceService
-import org.celllife.idart.application.product.GoodResourceService
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureResourceService
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
+import org.celllife.idart.domain.medication.Medication
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.domain.prescription.Prescription
-import org.celllife.idart.domain.product.Good
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Test
@@ -31,7 +31,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner.class)
 class PrescriptionApplicationServiceIntegrationTest {
 
-    @Autowired GoodResourceService goodResourceService
+    @Autowired MedicationResourceService medicationResourceService
 
     @Autowired DrugResourceService drugResourceService
 
@@ -66,9 +66,9 @@ class PrescriptionApplicationServiceIntegrationTest {
 
         drugResourceService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
 
-        Good good = new Good(finishedGood: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
-        good.addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")
-        goodResourceService.save(good)
+        Medication medication = new Medication(drug: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
+        medication.addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")
+        medicationResourceService.save(medication)
 
         Patient patient = new Patient()
         patient.addIdentifier("http://www.cell-life.org/idart/patients", "00001")
@@ -112,7 +112,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         Drug abacavir20mg = new Drug()
         abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml")
         abacavir20mg.setUnitOfMeasure(millilitres)
-        abacavir20mg.addEngineeringPart(new Date(), abacavirRawMaterial, 20.0D, milligrams)
+        abacavir20mg.addEngineeringPart(abacavirRawMaterial, 20.0D, milligrams)
         abacavir20mg
     }
 
@@ -120,7 +120,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         Drug finishedGood = new Drug()
         finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
         finishedGood.setUnitOfMeasure(each)
-        finishedGood.addEngineeringPart(new Date(), abacavir20mg, 240.0D, millilitres)
+        finishedGood.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
         finishedGood
     }
 }

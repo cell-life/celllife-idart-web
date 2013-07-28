@@ -13,12 +13,12 @@ import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
  */
 @EqualsAndHashCode(includes = "identifiers")
 @Mixin([Identifiable])
-abstract class Party implements Persistable<Long> {
+abstract class Party implements Persistable<String> {
 
     /**
      * Persistence Key
      */
-    Long pk
+    String pk
 
     /**
      * Identified by
@@ -36,7 +36,7 @@ abstract class Party implements Persistable<Long> {
     Set<PartyContactMechanism> contactMechanisms = []
 
     def merge(Party that) {
-        this.mergeIdentifiers(that)
+        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
         that?.classifications?.each { classification -> this.classifications << classification }
         that?.contactMechanisms?.each { contactMechanism -> this.contactMechanisms << contactMechanism }
     }

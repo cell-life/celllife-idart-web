@@ -1,13 +1,14 @@
 package org.celllife.idart.domain.party
 
-import org.celllife.idart.application.product.GoodApplicationService
+import org.celllife.idart.application.compound.CompoundResourceService
+import org.celllife.idart.application.drug.DrugResourceService
+import org.celllife.idart.application.medication.MedicationResourceService
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
-import org.celllife.idart.domain.part.FinishedGood
+import org.celllife.idart.domain.medication.Medication
 import org.celllife.idart.domain.part.FinishedGoodService
 import org.celllife.idart.domain.part.RawMaterial
 import org.celllife.idart.domain.part.RawMaterialService
-import org.celllife.idart.domain.product.Good
 import org.celllife.idart.domain.product.Product
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
@@ -29,11 +30,11 @@ class PartRepositoryIntegrationTest {
 
     @Autowired UnitOfMeasureService unitOfMeasureService
 
-    @Autowired GoodApplicationService goodApplicationService
+    @Autowired MedicationResourceService medicationResourceService
 
-    @Autowired FinishedGoodService finishedGoodService
+    @Autowired DrugResourceService drugResourceService
 
-    @Autowired RawMaterialService rawMaterialService
+    @Autowired CompoundResourceService compoundResourceService
 
     @Test
     void testName() throws Exception {
@@ -50,23 +51,23 @@ class PartRepositoryIntegrationTest {
         each.addCode("http://unitsofmeasure.org", "ea")
         each = unitOfMeasureService.save(each)
 
-        RawMaterial abacavirRawMaterial = new Compound(unitOfMeasure: milligrams)
+        Compound abacavirRawMaterial = new Compound(unitOfMeasure: milligrams)
         abacavirRawMaterial.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
-        abacavirRawMaterial = rawMaterialService.save(abacavirRawMaterial)
+        abacavirRawMaterial = compoundResourceService.save(abacavirRawMaterial)
 
-        FinishedGood abacavir20mg = new Drug(unitOfMeasure: millilitres)
+        Drug abacavir20mg = new Drug(unitOfMeasure: millilitres)
         abacavir20mg.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml")
-        abacavir20mg.addEngineeringPart(new Date(), abacavirRawMaterial, 20.0D, milligrams)
-        abacavir20mg = finishedGoodService.save(abacavir20mg)
+        abacavir20mg.addEngineeringPart(abacavirRawMaterial, 20.0D, milligrams)
+        abacavir20mg = drugResourceService.save(abacavir20mg)
 
-        FinishedGood finishedGood = new Drug(unitOfMeasure: each)
+        Drug finishedGood = new Drug(unitOfMeasure: each)
         finishedGood.addIdentifier("http://www.cell-life.org/idart/finishedGoods", "Abacavir 20mg/ml 240ml")
-        finishedGood.addEngineeringPart(new Date(), abacavir20mg, 240.0D, millilitres)
-        finishedGood = finishedGoodService.save(finishedGood)
+        finishedGood.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
+        finishedGood = drugResourceService.save(finishedGood)
 
-        Good good = new Good(finishedGood: finishedGood)
+        Medication good = new Medication(drug: finishedGood)
         ((Product) good).addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml")
-        goodApplicationService.save(good)
+        medicationResourceService.save(good)
 
     }
 }

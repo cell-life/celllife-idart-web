@@ -17,19 +17,21 @@ codeGen.generateCodeableAggregateRoot([
 codeGen.generateIdentifiableAggregateRoot([
         [entityName: "Clinic"],
         [entityName: "Dispensation"],
+        [entityName: "DispensedMedication"],
         [entityName: "Encounter"],
         [entityName: "Medication"],
         [entityName: "Patient"],
         [entityName: "Person", entityNamePlural: "People"],
         [entityName: "Prescription"],
+        [entityName: "PrescribedMedication"],
         [entityName: "Practitioner"],
-        [entityPackage: "product", entityName: "Good"],
         [entityPackage: "organisation", entityName: "LegalOrganisation"],
         [entityName: "Compound"],
         [entityName: "Drug"]
 ])
 
 codeGen.generateRelationshipAggregateRoot([
+        [entities: [[name: "Clinic"], [name: "Dispensation"]]],
         [entities: [[name: "Clinic"], [name: "Medication"]]],
         [entities: [[name: "Clinic"], [name: "Patient"]]] ,
         [entities: [[name: "Clinic"], [name: "Practitioner"]]],

@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/compounds/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Compound findByIdentifier(@PathVariable("coidentifierde") String identifier) {
+    Compound findByIdentifier(@PathVariable("identifier") String identifier) {
         compoundResourceService.findByIdentifier(identifier)
     }
 

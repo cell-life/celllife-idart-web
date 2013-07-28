@@ -13,12 +13,22 @@ class IdentifiableAggregateRootGenerator {
 
         enrichModel(basePackageName, model)
 
+        generateIdentifiableEntity(groovySourcesDirectory, model)
         generateIdentifiableRepository(groovySourcesDirectory, model)
         generateIdentifiableSequenceInterface(groovySourcesDirectory, model)
         generateIdentifiableValidatorInterface(groovySourcesDirectory, model)
         generateIdentifiableValidationException(groovySourcesDirectory, model)
         generateIdentifiableDomainServiceInterface(groovySourcesDirectory, model)
         generateIdentifiableDomainServiceImplementation(groovySourcesDirectory, model)
+    }
+
+    static generateIdentifiableEntity(String baseDirectory, model) {
+        Output.toFile(
+                templateReader: "/templates/identifable/entity.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + ".groovy"
+        )
     }
 
     static generateIdentifiableRepository(String baseDirectory, model) {

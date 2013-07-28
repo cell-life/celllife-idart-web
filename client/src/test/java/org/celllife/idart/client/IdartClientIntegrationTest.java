@@ -2,6 +2,7 @@ package org.celllife.idart.client;
 
 import org.celllife.idart.client.clinic.Clinic;
 import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.client.common.Period;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.medication.BillOfMaterialsItemBuilder;
 import org.celllife.idart.client.medication.CompoundBuilder;
@@ -9,9 +10,11 @@ import org.celllife.idart.client.medication.DrugBuilder;
 import org.celllife.idart.client.medication.MedicationBuilder;
 import org.celllife.idart.client.part.Compound;
 import org.celllife.idart.client.part.Drug;
+import org.celllife.idart.client.part.PartClassificationType;
 import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
+import org.celllife.idart.client.prescription.PrescribedMedicationBuilder;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
@@ -153,16 +156,22 @@ public class IdartClientIntegrationTest {
     @Test
     public void testCreatePrescription() throws Exception {
 
-        Prescription prescription = new PrescriptionBuilder("00000001")
+        String clinicIdentifier = "00000001";
+
+        Prescription prescription = new PrescriptionBuilder(clinicIdentifier)
                 .setPatient("http://www.pgwc.gov.za", "72254311")
                 .setPrescriber("http://prehmis.capetown.gov.za", "1299")
                 .setDateWritten(new Date())
-                .addPrescribedMedication()
-                .setMedication("00000001")
-                .setDosageQuantity(1d, UnitOfMeasures.EACH)
-                .repeat(2)
-                .every(1, UnitOfMeasures.DAY)
-                .finishPrescribedMedication()
+                .addPrescribedMedication(newPrescribedMedication(clinicIdentifier)
+                        .setIdentifier("00000001")
+                        .setMedication("00000001")
+                        .setReasonForPrescribing("Because I said so")
+                        .setValid(null, new Date())
+                        .setExpectedSupplyDuration(4, "wk")
+                        .setDosageQuantity(1d, UnitOfMeasures.EACH)
+                        .repeat(2)
+                        .every(1, UnitOfMeasures.DAY)
+                        .finishPrescribedMedication())
                 .finishPrescription();
 
         idartClient.savePrescription("00000001", prescription);
@@ -176,43 +185,47 @@ public class IdartClientIntegrationTest {
         String clinicIdentifier = "00000001";
 
         MedicationBuilder medicationBuilder = new MedicationBuilder(clinicIdentifier)
-                .setIdentifier("00000001")
-                .setName("[ABC] Abacavir 300mg");
-
-        medicationBuilder.addDrug(newDrug(clinicIdentifier)
-                .setForm(Form.IDART_SYSTEM, "CAP")
-                .addBillOfMaterialsItem(newBillOfMaterialsItem()
-                        .setQuantity(60, UnitOfMeasures.EACH)
-                        .addPart(newDrug(clinicIdentifier)
-                                .setIdentifier("00000002")
-                                .setForm(Form.IDART_SYSTEM, "CAP")
-                                .addBillOfMaterialsItem(newBillOfMaterialsItem()
-                                        .setQuantity(300, "mg")
-                                        .addPart(newCompound(clinicIdentifier)
-                                                .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
-                                                .finishCompound()
+                .setName("[ABC] Abacavir 300mg")
+                .addDrug(newDrug(clinicIdentifier)
+                        .setForm(Form.IDART_SYSTEM, "CAP")
+                        .addClassification(PartClassificationType.ATC, "J05AF06")
+                        .addBillOfMaterialsItem(newBillOfMaterialsItem()
+                                .setQuantity(60, UnitOfMeasures.EACH)
+                                .addPart(newDrug(clinicIdentifier)
+                                        .setIdentifier("00000002")
+                                        .setForm(Form.IDART_SYSTEM, "CAP")
+                                        .addClassification(PartClassificationType.ATC, "J05AF06")
+                                        .addBillOfMaterialsItem(newBillOfMaterialsItem()
+                                                .setQuantity(300, "mg")
+                                                .addPart(newCompound(clinicIdentifier)
+                                                        .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
+                                                        .finishCompound()
+                                                )
+                                                .finishBillOfMaterialsItem()
                                         )
-                                        .finishBillOfMaterialsItem()
+                                        .finishDrug()
                                 )
-                                .finishDrug()
+                                .finishBillOfMaterialsItem()
                         )
-                        .finishBillOfMaterialsItem()
-                )
-                .finishDrug()
-        );
+                        .finishDrug()
+                );
 
         idartClient.saveMedication("00000001", medicationBuilder.finishMedication());
     }
 
-    private BillOfMaterialsItemBuilder newBillOfMaterialsItem() {
+    private static PrescribedMedicationBuilder newPrescribedMedication(String clinicIdentifier) {
+        return new PrescribedMedicationBuilder(clinicIdentifier);
+    }
+
+    private static BillOfMaterialsItemBuilder newBillOfMaterialsItem() {
         return new BillOfMaterialsItemBuilder();
     }
 
-    private DrugBuilder newDrug(String clinicIdentifier) {
+    private static DrugBuilder newDrug(String clinicIdentifier) {
         return new DrugBuilder(clinicIdentifier);
     }
 
-    private CompoundBuilder newCompound(String clinicIdentifier) {
+    private static CompoundBuilder newCompound(String clinicIdentifier) {
         return new CompoundBuilder(clinicIdentifier);
     }
 }

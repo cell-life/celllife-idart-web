@@ -1,17 +1,10 @@
 package org.celllife.idart.application.patient
 
-import org.celllife.idart.domain.clinic.ClinicNotFoundException
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.application.person.PersonResourceService
-import org.celllife.idart.domain.clinic.Clinic
-import org.celllife.idart.domain.clinic.ClinicService
-import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.domain.patient.PatientSequence
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.person.Person
-import org.celllife.idart.framework.aspectj.LogLevel
-import org.celllife.idart.framework.aspectj.Loggable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -22,31 +15,13 @@ import org.springframework.stereotype.Service
  */
 @Service class PatientApplicationServiceImpl implements PatientApplicationService, PatientResourceService {
 
-    @Autowired ClinicService clinicService
-
     @Autowired PersonApplicationService personApplicationService
 
     @Autowired PersonResourceService personResourceService
 
     @Autowired PatientService patientService
 
-    @Autowired PatientProvider prehmisPatientProvider
-
-    @Autowired PatientSequence patientCodeGenerator
-
     @Override
-    @Loggable(value = LogLevel.INFO, exception = LogLevel.ERROR)
-    List<Patient> findByIdentifier(String clinicIdentifier, String patientIdentifier) {
-
-        Clinic clinic = clinicService.findByIdentifier(clinicIdentifier)
-
-        if (clinic == null) {
-            throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifier)
-        }
-
-        lookupFromExternalProviders(patientIdentifier, clinic).collect { patient -> save(patient) }
-    }
-
     Patient save(Patient newPatient) {
 
         newPatient.person = updatePerson(newPatient)
@@ -78,30 +53,11 @@ import org.springframework.stereotype.Service
                 throw new RuntimeException("Something bad happened")
             }
 
-            // TODO Try out alternative solution
-            // newPatient.person.merge(existingPatient?.person)
-            return newPatient.person = personApplicationService.update(newPatient.person, existingPatient.person?.pk)
+            existingPatient.person.merge(newPatient.person)
+            newPatient.person = existingPatient.person
         }
 
         return personResourceService.save(newPatient.person)
-    }
-
-    Set<Patient> lookupFromExternalProviders(String patientIdentifierValue, Clinic clinic) {
-
-        Set<Patient> patients = []
-
-        for (String identifierSystem : ((Facility) clinic).identifierSystems) {
-            String clinicIdentifierValue = ((Facility) clinic).getIdentifierValue(identifierSystem)
-            switch (identifierSystem) {
-                case "http://prehmis.capetown.gov.za":
-                    patients << prehmisPatientProvider.findByIdentifier(clinicIdentifierValue, patientIdentifierValue)
-                    break
-                default:
-                    break
-            }
-        }
-
-        patients.flatten()
     }
 
     @Override

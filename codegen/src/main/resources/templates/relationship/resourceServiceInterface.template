@@ -11,13 +11,43 @@ import javax.annotation.Generated;
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ${className}ResourceService {
 
+    /**
+     *
+     * @param ${entities[0].propertyName}Identifier
+     * @param ${entities[1].propertyName}Identifier
+     * @param ${entities[1].propertyName}
+     * @return
+     */
     void save(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier, ${entities[1].className} ${entities[1].propertyName});
 
+    /**
+     *
+     * @param ${entities[0].propertyName}Identifier
+     * @param ${entities[1].propertyName}
+     * @return
+     */
     void save(String ${entities[0].propertyName}Identifier, ${entities[1].className} ${entities[1].propertyName});
 
+    /**
+     *
+     * @param ${entities[0].propertyName}Identifier
+     * @return
+     */
     Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}Identifier(String ${entities[0].propertyName}Identifier);
 
+    /**
+     *
+     * @param ${entities[0].propertyName}Identifier
+     * @param ${entities[1].propertyName}Identifier
+     * @return
+     */
     Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier);
 
+    /**
+     *
+     * @param ${entities[0].propertyName}Identifier
+     * @param ${entities[1].propertyName}Identifier
+     * @return
+     */
     ${entities[1].className} findOne${entities[1].className}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier);
 }

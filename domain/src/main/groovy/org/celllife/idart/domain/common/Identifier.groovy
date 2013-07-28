@@ -13,8 +13,7 @@ class Identifier {
 
     String value
 
-    @NotNull
-    Date fromDate = new Date()
+    Date fromDate
 
     Date thruDate
 

@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/prescriptions/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Prescription findByIdentifier(@PathVariable("coidentifierde") String identifier) {
+    Prescription findByIdentifier(@PathVariable("identifier") String identifier) {
         prescriptionResourceService.findByIdentifier(identifier)
     }
 

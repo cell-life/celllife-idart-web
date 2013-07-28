@@ -61,9 +61,9 @@ import org.springframework.stereotype.Service
                 // How did we manage to create a Practitioner with a Person... very very bad
                 throw new RuntimeException("Something bad happened")
             }
-            // TODO Try out alternative solution
-            // newPractitioner.person.merge(existingPractitioner?.person)
-            return personApplicationService.update(newPractitioner.person, existingPractitioner.person?.pk)
+
+            existingPractitioner.person.merge(newPractitioner.person)
+            newPractitioner.person = existingPractitioner.person
         }
 
         return personResourceService.save(newPractitioner.person)

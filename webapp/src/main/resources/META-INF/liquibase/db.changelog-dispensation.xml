@@ -6,14 +6,50 @@
     <changeSet id="dispensation-1" author="kevin.sewell">
 
         <createTable tableName="dispensation">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="dispenser" type="varchar(31)"/>
+            <column name="patient" type="varchar(31)"/>
         </createTable>
 
         <createTable tableName="dispensation_identifiers">
-            <column name="dispensation" type="bigint">
+            <column name="dispensation" type="varchar(31)">
                 <constraints references="dispensation(pk)" foreignKeyName="dispensation_identifiers_fk"/>
+            </column>
+            <column name="system" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="date"/>
+            <column name="thru_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="dispensed_medication">
+            <column name="pk" type="varchar(31)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="dispensation" type="varchar(31)">
+                <constraints references="dispensation(pk)" foreignKeyName="dispensation_dispensed_medication_fk"/>
+            </column>
+            <column name="authorizing_prescribed_medication" type="varchar(31)"/>
+            <column name="medication" type="varchar(31)"/>
+            <column name="prepared_from_date" type="date"/>
+            <column name="prepared_thru_date" type="date"/>
+            <column name="handed_over_from_date" type="date"/>
+            <column name="handed_over_thru_date" type="date"/>
+            <column name="quantity" type="numeric"/>
+            <column name="quantity_uom" type="varchar(31)">
+                <constraints references="unit_of_measure(pk)" foreignKeyName="dispensed_medication_qty_uom_fk"/>
+            </column>
+            <column name="dosage_instruction" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="dispensed_medication_identifiers">
+            <column name="dispensed_medication" type="varchar(31)">
+                <constraints references="dispensed_medication(pk)" foreignKeyName="dispensed_medication_identifiers_fk"/>
             </column>
             <column name="system" type="varchar(255)">
                 <constraints nullable="false"/>

@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/dispensations/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Dispensation findByIdentifier(@PathVariable("coidentifierde") String identifier) {
+    Dispensation findByIdentifier(@PathVariable("identifier") String identifier) {
         dispensationResourceService.findByIdentifier(identifier)
     }
 

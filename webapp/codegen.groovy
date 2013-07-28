@@ -20,13 +20,14 @@ codeGen.generateHibernateValidator(codeableModels)
 def identifiableModels = [
         [entityName: "Clinic"],
         [entityName: "Dispensation"],
+        [entityName: "DispensedMedication"],
         [entityName: "Encounter"],
         [entityName: "Medication"],
         [entityName: "Patient"],
         [entityName: "Person", entityNamePlural: "People"],
         [entityName: "Prescription"],
+        [entityName: "PrescribedMedication"],
         [entityName: "Practitioner"],
-        [entityPackage: "product", entityName: "Good"],
         [entityPackage: "organisation", entityName: "LegalOrganisation"],
         [entityName: "Compound"],
         [entityName: "Drug"]
@@ -44,6 +45,7 @@ def abstractModels = [
 codeGen.generateIdentifiableSpringDataRepositories(abstractModels)
 
 def relationships = [
+        [entities: [[name: "Clinic"], [name: "Dispensation"]]],
         [entities: [[name: "Clinic"], [name: "Medication"]]],
         [entities: [[name: "Clinic"], [name: "Patient"]]] ,
         [entities: [[name: "Clinic"], [name: "Practitioner"]]],

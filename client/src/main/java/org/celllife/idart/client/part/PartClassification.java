@@ -20,6 +20,11 @@ public final class PartClassification {
     public PartClassification() {
     }
 
+    public PartClassification(PartClassificationType type, String code) {
+        this.type = type;
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "PartClassification{" +

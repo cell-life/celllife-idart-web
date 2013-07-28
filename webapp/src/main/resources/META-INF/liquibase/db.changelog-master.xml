@@ -21,6 +21,7 @@
 
     <!-- Domain Aggregates -->
 
+    <include file="db.changelog-clinicdispensation.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-clinicmedication.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-clinicpatient.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-clinicpractitioner.xml" relativeToChangelogFile="true"/>

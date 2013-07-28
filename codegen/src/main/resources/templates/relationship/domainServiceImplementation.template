@@ -81,16 +81,22 @@ import javax.annotation.Generated
     @Override
     Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier) {
         ${propertyName}Repository
-                .findBy${entities[0].className}IdentifierAnd${entities[1].className}Identifier(${entities[0].propertyName}Identifier, ${entities[1].propertyName}Identifier)
+                .findBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
+                        ${entities[0].propertyName}Identifier,
+                        ${entities[1].propertyName}Identifier,
+                        new Date()
+                )
                 .collect { ${propertyName} -> ${propertyName}.${entities[1].propertyName} }
     }
          
     @Override
     ${entities[1].className} findOne${entities[1].className}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier) {
-        ${propertyName}Repository.findOneBy${entities[0].className}IdentifierAnd${entities[1].className}Identifier(
-                ${entities[0].propertyName}Identifier,
-                ${entities[1].propertyName}Identifier
-        )?.${entities[1].propertyName}
+        ${propertyName}Repository
+                .findOneBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
+                        ${entities[0].propertyName}Identifier,
+                        ${entities[1].propertyName}Identifier,
+                        new Date()
+                )?.${entities[1].propertyName}
     }
 
     @Override

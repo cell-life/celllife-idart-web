@@ -47,21 +47,4 @@ class Identifiable {
     def Boolean hasNoIdentifierForSystem(String system) {
         !hasIdentifierForSystem(system)
     }
-
-    def mergeIdentifiers(that) {
-
-        if (that == null) {
-            return
-        }
-
-        if (!this.class.isAssignableFrom(that.class)) {
-            throw new RuntimeException("Incompatible Identifier Types: this ${this.class} that ${that.class}")
-        }
-
-        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
-    }
-
-//    def getPk() {
-//        idartIdentifierValue
-//    }
 }

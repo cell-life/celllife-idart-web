@@ -1,6 +1,7 @@
 package org.celllife.idart.interfaces.service.clinic
 
 import org.celllife.idart.application.clinicmedication.ClinicMedicationResourceService
+import org.celllife.idart.application.clinicpatient.ClinicPatientResourceService
 import org.celllife.idart.application.clinicpractitioner.ClinicPractitionerResourceService
 import org.celllife.idart.application.clinicprescription.ClinicPrescriptionResourceService
 import org.celllife.idart.application.medication.MedicationResourceService
@@ -27,17 +28,13 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
  */
 @Controller class ClinicServiceController {
 
-    @Autowired PatientApplicationService patientApplicationService
-
-    @Autowired PractitionerApplicationService practitionerApplicationService
-
-    @Autowired PrescriptionResourceService prescriptionResourceService
-
     @Autowired ClinicMedicationResourceService clinicMedicationResourceService
 
     @Autowired ClinicPrescriptionResourceService clinicPrescriptionResourceService
 
     @Autowired ClinicPractitionerResourceService clinicPractitionerResourceService
+
+    @Autowired ClinicPatientResourceService clinicPatientResourceService
 
     @Value('${external.base.url}') String baseUrl
 
@@ -46,7 +43,8 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
     Iterable<Patient> findByPatientByIdentifier(@PathVariable("clinicIdentifier") String clinicIdentifier,
                                                 @RequestParam("patientIdentifier") String patientIdentifier) {
 
-        patientApplicationService.findByIdentifier(clinicIdentifier, patientIdentifier)
+        clinicPatientResourceService
+                .findPatientsByClinicIdentifierAndPatientIdentifier(clinicIdentifier, patientIdentifier)
     }
 
     @ResponseBody

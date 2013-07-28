@@ -16,8 +16,7 @@ class PartClassification {
 
     String code
 
-    @NotNull
-    Date fromDate = new Date()
+    Date fromDate
 
     Date thruDate
 

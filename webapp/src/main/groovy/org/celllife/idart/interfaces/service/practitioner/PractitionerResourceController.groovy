@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/practitioners/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Practitioner findByIdentifier(@PathVariable("coidentifierde") String identifier) {
+    Practitioner findByIdentifier(@PathVariable("identifier") String identifier) {
         practitionerResourceService.findByIdentifier(identifier)
     }
 

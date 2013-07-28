@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/${resourcePath}/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    ${entityName} findByIdentifier(@PathVariable("coidentifierde") String identifier) {
+    ${entityName} findByIdentifier(@PathVariable("identifier") String identifier) {
         ${lowerCaseEntityName}ResourceService.findByIdentifier(identifier)
     }
 

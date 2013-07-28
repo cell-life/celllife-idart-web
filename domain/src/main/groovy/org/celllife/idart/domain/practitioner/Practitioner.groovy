@@ -32,7 +32,7 @@ class Practitioner implements Persistable<String> {
     /**
      * From date
      */
-    Date fromDate = new Date()
+    Date fromDate
 
     /**
      * Thru date
@@ -51,7 +51,7 @@ class Practitioner implements Persistable<String> {
             return
         }
 
-        this.mergeIdentifiers(that)
+        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
         this.fromDate = that.fromDate
         this.thruDate = that.thruDate
         this.person = that.person

@@ -29,7 +29,7 @@ class Product implements Persistable<String> {
 
     def merge(Product that) {
         this.name = that.name
-        this.mergeIdentifiers(that)
+        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
     }
 
 }

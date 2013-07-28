@@ -11,8 +11,8 @@
             </column>
             <column name="clinic" type="varchar(31)"/>
             <column name="practitioner" type="varchar(31)"/>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+            <column name="from_date" type="datetime"/>
+            <column name="thru_date" type="datetime"/>
         </createTable>
 
     </changeSet>

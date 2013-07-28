@@ -25,37 +25,41 @@ public interface SpringDataClinicPrescriptionRepository
             "from ClinicPrescription clinicPrescription " +
             "where clinicPrescription.clinic = :clinic " +
             "and clinicPrescription.prescription = :prescription " +
-            "and clinicPrescription.fromDate < :dateActive " +
+            "and clinicPrescription.fromDate <= :dateActive " +
             "and ((clinicPrescription.thruDate is not null and clinicPrescription.thruDate > :dateActive) or clinicPrescription.thruDate is null)")
-    ClinicPrescription findByClinicAndPrescriptionAndDateActive(@Param("clinic") Clinic clinic,
-                                                            @Param("prescription") Prescription prescription,
-                                                            @Param("dateActive") Date dateActive);
+    ClinicPrescription findByClinicAndPrescriptionAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("prescription") Prescription prescription,
+                @Param("dateActive") Date dateActive);
 
     @Query("select count(*) " +
             "from ClinicPrescription clinicPrescription " +
             "where clinicPrescription.clinic = :clinic " +
             "and clinicPrescription.prescription = :prescription " +
-            "and clinicPrescription.fromDate < :dateActive " +
+            "and clinicPrescription.fromDate <= :dateActive " +
             "and ((clinicPrescription.thruDate is not null and clinicPrescription.thruDate > :dateActive) or clinicPrescription.thruDate is null)")
-    Long countByClinicAndPrescriptionAndDateActive(@Param("clinic") Clinic clinic,
-                                                 @Param("prescription") Prescription prescription,
-                                                 @Param("dateActive") Date dateActive);
+    Long countByClinicAndPrescriptionAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("prescription") Prescription prescription,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPrescription " +
             "from ClinicPrescription clinicPrescription " +
             "where clinicPrescription.clinic = :clinic " +
-            "and clinicPrescription.fromDate < :dateActive " +
+            "and clinicPrescription.fromDate <= :dateActive " +
             "and ((clinicPrescription.thruDate is not null and clinicPrescription.thruDate > :dateActive) or clinicPrescription.thruDate is null)")
-    Iterable<ClinicPrescription> findByClinicAndDateActive(@Param("clinic") Clinic clinic,
-                                                         @Param("dateActive") Date dateActive);
+    Iterable<ClinicPrescription> findByClinicAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPrescription " +
             "from ClinicPrescription clinicPrescription " +
             "where clinicPrescription.clinic.pk = :clinicIdentifier " +
-            "and clinicPrescription.fromDate < :dateActive " +
+            "and clinicPrescription.fromDate <= :dateActive " +
             "and ((clinicPrescription.thruDate is not null and clinicPrescription.thruDate > :dateActive) or clinicPrescription.thruDate is null)")
-    Iterable<ClinicPrescription> findByClinicIdentifierAndDateActive(@Param("clinicIdentifier") String clinicIdentifier,
-                                                                                 @Param("dateActive") Date dateActive);
+    Iterable<ClinicPrescription> findByClinicIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("dateActive") Date dateActive);
 
 
     @Query("select clinicPrescription " +
@@ -63,26 +67,31 @@ public interface SpringDataClinicPrescriptionRepository
                 "join clinicPrescription.prescription.identifiers prescriptionIdentifier " +
                 "where clinicPrescription.clinic.pk = :clinicIdentifier " +
                 "and prescriptionIdentifier.value = :prescriptionIdentifier " +
-                "and clinicPrescription.fromDate < :dateActive " +
+                "and clinicPrescription.fromDate <= :dateActive " +
                 "and ((clinicPrescription.thruDate is not null and clinicPrescription.thruDate > :dateActive) or clinicPrescription.thruDate is null)")
-    Iterable<ClinicPrescription> findByClinicIdentifierAndPrescriptionIdentifier(@Param("clinicIdentifier") String clinicIdentifier,
-                                                            @Param("prescriptionIdentifier") String prescriptionIdentifier);
+    Iterable<ClinicPrescription> findByClinicIdentifierAndPrescriptionIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("prescriptionIdentifier") String prescriptionIdentifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPrescription " +
                 "from ClinicPrescription clinicPrescription " +
                 "where clinicPrescription.clinic.pk = :clinicIdentifier " +
                 "and clinicPrescription.prescription.pk = :prescriptionIdentifier " +
-                "and clinicPrescription.fromDate < :dateActive " +
+                "and clinicPrescription.fromDate <= :dateActive " +
                 "and ((clinicPrescription.thruDate is not null and clinicPrescription.thruDate > :dateActive) or clinicPrescription.thruDate is null)")
-    ClinicPrescription findOneByClinicIdentifierAndPrescriptionIdentifier(@Param("clinicIdentifier") String clinicIdentifier,
-                                                            @Param("prescriptionIdentifier") String prescriptionIdentifier);
+    ClinicPrescription findOneByClinicIdentifierAndPrescriptionIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("prescriptionIdentifier") String prescriptionIdentifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPrescription " +
             "from ClinicPrescription clinicPrescription " +
             "where clinicPrescription.prescription = :prescription " +
-            "and clinicPrescription.fromDate < :dateActive " +
+            "and clinicPrescription.fromDate <= :dateActive " +
             "and ((clinicPrescription.thruDate is not null and clinicPrescription.thruDate > :dateActive) or clinicPrescription.thruDate is null)")
-    Iterable<ClinicPrescription> findByPrescriptionAndDateActive(@Param("prescription") Prescription prescription,
-                                                              @Param("dateActive") Date dateActive);
+    Iterable<ClinicPrescription> findByPrescriptionAndDateActive(
+                @Param("prescription") Prescription prescription,
+                @Param("dateActive") Date dateActive);
 
 }

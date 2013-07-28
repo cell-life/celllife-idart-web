@@ -2,11 +2,11 @@ package org.celllife.idart.integration.prehmis
 
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
-import org.celllife.idart.integration.prehmis.builder.GetDrugListRequestBuilder
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetDrugListRequest
 import static org.springframework.util.Assert.notNull
 
 /**
@@ -32,7 +32,7 @@ import static org.springframework.util.Assert.notNull
 
     def findAll(String clinicIdentifierValue) {
 
-        String getDrugListRequest = GetDrugListRequestBuilder.build(
+        String getDrugListRequest = buildGetDrugListRequest(
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,

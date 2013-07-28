@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/encounters/{identifier}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Encounter findByIdentifier(@PathVariable("coidentifierde") String identifier) {
+    Encounter findByIdentifier(@PathVariable("identifier") String identifier) {
         encounterResourceService.findByIdentifier(identifier)
     }
 

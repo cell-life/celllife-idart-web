@@ -13,7 +13,7 @@ import org.celllife.idart.domain.contactmechanism.ContactMechanism
 @EqualsAndHashCode(includes = "contactMechanism")
 class PartyContactMechanism {
 
-    Date fromDate = new Date()
+    Date fromDate
 
     Date thruDate
 

@@ -22,6 +22,26 @@
 
     <!-- Clinic Medication Relationship -->
 
+    <entity class="org.celllife.idart.domain.clinicdispensation.ClinicDispensation">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="fromDate">
+                <temporal>TIMESTAMP</temporal>
+            </basic>
+            <basic name="thruDate">
+                <temporal>TIMESTAMP</temporal>
+            </basic>
+            <many-to-one name="clinic"/>
+            <many-to-one name="dispensation"/>
+        </attributes>
+
+    </entity>
+
+    <!-- Clinic Medication Relationship -->
+
     <entity class="org.celllife.idart.domain.clinicmedication.ClinicMedication">
 
         <attributes>
@@ -29,10 +49,10 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <basic name="fromDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <basic name="thruDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <many-to-one name="clinic"/>
             <many-to-one name="medication"/>
@@ -49,10 +69,10 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <basic name="fromDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <basic name="thruDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <many-to-one name="clinic"/>
             <many-to-one name="patient"/>
@@ -69,10 +89,10 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <basic name="fromDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <basic name="thruDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <many-to-one name="clinic"/>
             <many-to-one name="practitioner"/>
@@ -89,10 +109,10 @@
                 <generated-value strategy="TABLE"/>
             </id>
             <basic name="fromDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <basic name="thruDate">
-                <temporal>DATE</temporal>
+                <temporal>TIMESTAMP</temporal>
             </basic>
             <many-to-one name="clinic"/>
             <many-to-one name="prescription"/>
@@ -184,13 +204,70 @@
         </attributes>
     </entity>
 
+    <!-- Dispensed Medication -->
+
+    <entity class="org.celllife.idart.domain.dispensedmedication.DispensedMedication">
+
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
+
+        <attributes>
+            <id name="pk"/>
+            <many-to-one name="medication"/>
+            <many-to-one name="authorizingPrescribedMedication"/>
+            <one-to-one name="dosageInstruction" fetch="EAGER" orphan-removal="true">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <element-collection name="identifiers" fetch="EAGER"/>
+            <embedded name="quantity">
+                <attribute-override name="value">
+                    <column name="quantity"/>
+                </attribute-override>
+                <association-override name="unitOfMeasure">
+                    <join-column name="quantity_uom"/>
+                </association-override>
+            </embedded>
+            <embedded name="handedOver">
+                <attribute-override name="fromDate">
+                    <column name="handed_over_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="handed_over_thru_date"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="prepared">
+                <attribute-override name="fromDate">
+                    <column name="prepared_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="prepared_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
     <!-- Dispensation -->
 
     <entity class="org.celllife.idart.domain.dispensation.Dispensation">
+
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
+
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
+            <many-to-one name="patient"/>
+            <many-to-one name="dispenser"/>
+            <one-to-many name="dispensedMedications" fetch="EAGER" orphan-removal="true">
+                <join-column name="dispensation"/>
+            </one-to-many>
             <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
     </entity>
@@ -548,10 +625,15 @@
 
         <inheritance strategy="JOINED"/>
 
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+                <pre-update method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
+
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <element-collection name="classifications" fetch="EAGER"/>
             <element-collection name="contactMechanisms" fetch="EAGER"/>
             <element-collection name="identifiers" fetch="EAGER"/>
@@ -738,28 +820,27 @@
             <many-to-one name="patient" optional="false"/>
             <one-to-many name="prescribedMedications" fetch="EAGER" orphan-removal="true">
                 <join-column name="prescription"/>
-                <cascade>
-                    <cascade-all/>
-                </cascade>
             </one-to-many>
             <element-collection name="identifiers" fetch="EAGER"/>
         </attributes>
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.prescription.PrescribedMedication">
+    <entity class="org.celllife.idart.domain.prescribedmedication.PrescribedMedication">
 
-        <table name="prescribed_medication"/>
+        <entity-listeners>
+            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
+                <pre-persist method-name="setPk"/>
+            </entity-listener>
+        </entity-listeners>
 
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <id name="pk"/>
             <basic name="numberOfRepeats"/>
             <basic name="reasonForPrescribing"/>
             <many-to-one name="medication" optional="false"/>
-            <many-to-one name="substitution" optional="false"/>
-            <many-to-one name="substitutionReason" optional="false"/>
+            <many-to-one name="substitution"/>
+            <many-to-one name="substitutionReason"/>
             <one-to-many name="indications" fetch="EAGER" orphan-removal="true">
                 <cascade>
                     <cascade-all/>
@@ -770,6 +851,7 @@
                     <cascade-all/>
                 </cascade>
             </one-to-one>
+            <element-collection name="identifiers" fetch="EAGER"/>
             <embedded name="expectedSupplyDuration">
                 <attribute-override name="value">
                     <column name="expected_supply_duration"/>
@@ -813,12 +895,6 @@
         <attributes>
             <id name="pk"/>
             <element-collection name="identifiers" fetch="EAGER"/>
-        </attributes>
-    </entity>
-
-    <entity class="org.celllife.idart.domain.product.Good">
-        <attributes>
-            <many-to-one name="finishedGood" optional="false"/>
         </attributes>
     </entity>
 

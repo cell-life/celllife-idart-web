@@ -5,6 +5,18 @@
 
     <changeSet id="constraint-1" author="kevin.sewell">
 
+        <addForeignKeyConstraint baseTableName="clinic_dispensation"
+                                 baseColumnNames="clinic"
+                                 constraintName="clinic_dispensation_fk"
+                                 referencedTableName="facility"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="clinic_dispensation"
+                                 baseColumnNames="dispensation"
+                                 constraintName="dispensation_clinic_fk"
+                                 referencedTableName="dispensation"
+                                 referencedColumnNames="pk"/>
+
         <addForeignKeyConstraint baseTableName="clinic_medication"
                                  baseColumnNames="clinic"
                                  constraintName="clinic_medication_fk"
@@ -128,6 +140,24 @@
         <addForeignKeyConstraint baseTableName="default_dosage_instruction"
                                  baseColumnNames="dosage_instruction"
                                  constraintName="default_dosage_instruction_fk"
+                                 referencedTableName="dosage_instruction"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="dispensation"
+                                 baseColumnNames="dispenser"
+                                 constraintName="dispensation_dispenser_fk"
+                                 referencedTableName="practitioner"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="dispensation"
+                                 baseColumnNames="patient"
+                                 constraintName="dispensation_patient_fk"
+                                 referencedTableName="patient"
+                                 referencedColumnNames="pk"/>
+
+        <addForeignKeyConstraint baseTableName="dispensed_medication"
+                                 baseColumnNames="dosage_instruction"
+                                 constraintName="dispensed_medication_dosage_instruction_fk"
                                  referencedTableName="dosage_instruction"
                                  referencedColumnNames="pk"/>
 

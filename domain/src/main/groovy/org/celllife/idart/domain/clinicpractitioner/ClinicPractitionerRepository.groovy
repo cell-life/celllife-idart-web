@@ -21,9 +21,9 @@ public interface ClinicPractitionerRepository {
 
     Iterable<ClinicPractitioner> findByClinicIdentifierAndDateActive(String clinicIdentifier, Date dateActive)
 
-    Iterable<ClinicPractitioner> findByClinicIdentifierAndPractitionerIdentifier(String clinicIdentifier, String practitionerIdentifier)
+    Iterable<ClinicPractitioner> findByClinicIdentifierAndPractitionerIdentifierAndDateActive(String clinicIdentifier, String practitionerIdentifier, Date dateActive)
 
-    ClinicPractitioner findOneByClinicIdentifierAndPractitionerIdentifier(String clinicIdentifier, String practitionerIdentifier)
+    ClinicPractitioner findOneByClinicIdentifierAndPractitionerIdentifierAndDateActive(String clinicIdentifier, String practitionerIdentifier, Date dateActive)
 
     Iterable<ClinicPractitioner> findByPractitionerAndDateActive(Practitioner practitioner, Date dateActive)
 

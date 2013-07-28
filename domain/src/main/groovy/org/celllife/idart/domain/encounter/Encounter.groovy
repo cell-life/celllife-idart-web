@@ -30,6 +30,6 @@ class Encounter implements Persistable<Long> {
             return
         }
 
-        this.mergeIdentifiers(that)
+        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
     }
 }

@@ -25,37 +25,41 @@ public interface SpringData${className}Repository
             "from ${className} ${propertyName} " +
             "where ${propertyName}.${entities[0].propertyName} = :${entities[0].propertyName} " +
             "and ${propertyName}.${entities[1].propertyName} = :${entities[1].propertyName} " +
-            "and ${propertyName}.fromDate < :dateActive " +
+            "and ${propertyName}.fromDate <= :dateActive " +
             "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    ${className} findBy${entities[0].className}And${entities[1].className}AndDateActive(@Param("${entities[0].propertyName}") ${entities[0].className} ${entities[0].propertyName},
-                                                            @Param("${entities[1].propertyName}") ${entities[1].className} ${entities[1].propertyName},
-                                                            @Param("dateActive") Date dateActive);
+    ${className} findBy${entities[0].className}And${entities[1].className}AndDateActive(
+                @Param("${entities[0].propertyName}") ${entities[0].className} ${entities[0].propertyName},
+                @Param("${entities[1].propertyName}") ${entities[1].className} ${entities[1].propertyName},
+                @Param("dateActive") Date dateActive);
 
     @Query("select count(*) " +
             "from ${className} ${propertyName} " +
             "where ${propertyName}.${entities[0].propertyName} = :${entities[0].propertyName} " +
             "and ${propertyName}.${entities[1].propertyName} = :${entities[1].propertyName} " +
-            "and ${propertyName}.fromDate < :dateActive " +
+            "and ${propertyName}.fromDate <= :dateActive " +
             "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    Long countBy${entities[0].className}And${entities[1].className}AndDateActive(@Param("${entities[0].propertyName}") ${entities[0].className} ${entities[0].propertyName},
-                                                 @Param("${entities[1].propertyName}") ${entities[1].className} ${entities[1].propertyName},
-                                                 @Param("dateActive") Date dateActive);
+    Long countBy${entities[0].className}And${entities[1].className}AndDateActive(
+                @Param("${entities[0].propertyName}") ${entities[0].className} ${entities[0].propertyName},
+                @Param("${entities[1].propertyName}") ${entities[1].className} ${entities[1].propertyName},
+                @Param("dateActive") Date dateActive);
 
     @Query("select ${propertyName} " +
             "from ${className} ${propertyName} " +
             "where ${propertyName}.${entities[0].propertyName} = :${entities[0].propertyName} " +
-            "and ${propertyName}.fromDate < :dateActive " +
+            "and ${propertyName}.fromDate <= :dateActive " +
             "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    Iterable<${className}> findBy${entities[0].className}AndDateActive(@Param("${entities[0].propertyName}") ${entities[0].className} ${entities[0].propertyName},
-                                                         @Param("dateActive") Date dateActive);
+    Iterable<${className}> findBy${entities[0].className}AndDateActive(
+                @Param("${entities[0].propertyName}") ${entities[0].className} ${entities[0].propertyName},
+                @Param("dateActive") Date dateActive);
 
     @Query("select ${propertyName} " +
             "from ${className} ${propertyName} " +
             "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Identifier " +
-            "and ${propertyName}.fromDate < :dateActive " +
+            "and ${propertyName}.fromDate <= :dateActive " +
             "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    Iterable<${className}> findBy${entities[0].className}IdentifierAndDateActive(@Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
-                                                                                 @Param("dateActive") Date dateActive);
+    Iterable<${className}> findBy${entities[0].className}IdentifierAndDateActive(
+                @Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
+                @Param("dateActive") Date dateActive);
 
 
     @Query("select ${propertyName} " +
@@ -63,26 +67,31 @@ public interface SpringData${className}Repository
                 "join ${propertyName}.${entities[1].propertyName}.identifiers ${entities[1].propertyName}Identifier " +
                 "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Identifier " +
                 "and ${entities[1].propertyName}Identifier.value = :${entities[1].propertyName}Identifier " +
-                "and ${propertyName}.fromDate < :dateActive " +
+                "and ${propertyName}.fromDate <= :dateActive " +
                 "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    Iterable<${className}> findBy${entities[0].className}IdentifierAnd${entities[1].className}Identifier(@Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
-                                                            @Param("${entities[1].propertyName}Identifier") String ${entities[1].propertyName}Identifier);
+    Iterable<${className}> findBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
+                @Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
+                @Param("${entities[1].propertyName}Identifier") String ${entities[1].propertyName}Identifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select ${propertyName} " +
                 "from ${className} ${propertyName} " +
                 "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Identifier " +
                 "and ${propertyName}.${entities[1].propertyName}.pk = :${entities[1].propertyName}Identifier " +
-                "and ${propertyName}.fromDate < :dateActive " +
+                "and ${propertyName}.fromDate <= :dateActive " +
                 "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    ${className} findOneBy${entities[0].className}IdentifierAnd${entities[1].className}Identifier(@Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
-                                                            @Param("${entities[1].propertyName}Identifier") String ${entities[1].propertyName}Identifier);
+    ${className} findOneBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
+                @Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
+                @Param("${entities[1].propertyName}Identifier") String ${entities[1].propertyName}Identifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select ${propertyName} " +
             "from ${className} ${propertyName} " +
             "where ${propertyName}.${entities[1].propertyName} = :${entities[1].propertyName} " +
-            "and ${propertyName}.fromDate < :dateActive " +
+            "and ${propertyName}.fromDate <= :dateActive " +
             "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    Iterable<${className}> findBy${entities[1].className}AndDateActive(@Param("${entities[1].propertyName}") ${entities[1].className} ${entities[1].propertyName},
-                                                              @Param("dateActive") Date dateActive);
+    Iterable<${className}> findBy${entities[1].className}AndDateActive(
+                @Param("${entities[1].propertyName}") ${entities[1].className} ${entities[1].propertyName},
+                @Param("dateActive") Date dateActive);
 
 }

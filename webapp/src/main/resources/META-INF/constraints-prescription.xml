@@ -14,7 +14,7 @@
         </field>
     </bean>
 
-    <bean class="org.celllife.idart.domain.prescription.PrescribedMedication" ignore-annotations="true">
+    <bean class="org.celllife.idart.domain.prescribedmedication.PrescribedMedication" ignore-annotations="true">
         <field name="medication">
             <constraint annotation="javax.validation.constraints.NotNull"/>
         </field>

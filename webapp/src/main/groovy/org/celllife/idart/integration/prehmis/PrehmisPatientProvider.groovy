@@ -4,12 +4,12 @@ import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.patient.PatientProvider
 import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.integration.prehmis.builder.GetPatientRequestBuilder
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 import static org.celllife.idart.integration.prehmis.builder.PatientBuilder.buildIdartPatient
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetPatientRequest
 import static org.springframework.util.Assert.notNull
 
 /**
@@ -51,7 +51,7 @@ import static org.springframework.util.Assert.notNull
 
     Patient getPatient(String clinicIdentifierValue, String patientIdentifierValue, PrehmisPatientIdentifierType patientIdentifierType) {
 
-        String getPatientRequest = GetPatientRequestBuilder.build(
+        String getPatientRequest = buildGetPatientRequest(
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,

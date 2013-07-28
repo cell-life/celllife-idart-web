@@ -81,16 +81,22 @@ import javax.annotation.Generated
     @Override
     Iterable<Prescription> findPrescriptionsByClinicIdentifierAndPrescriptionIdentifier(String clinicIdentifier, String prescriptionIdentifier) {
         clinicPrescriptionRepository
-                .findByClinicIdentifierAndPrescriptionIdentifier(clinicIdentifier, prescriptionIdentifier)
+                .findByClinicIdentifierAndPrescriptionIdentifierAndDateActive(
+                        clinicIdentifier,
+                        prescriptionIdentifier,
+                        new Date()
+                )
                 .collect { clinicPrescription -> clinicPrescription.prescription }
     }
          
     @Override
     Prescription findOnePrescriptionByClinicIdentifierAndPrescriptionIdentifier(String clinicIdentifier, String prescriptionIdentifier) {
-        clinicPrescriptionRepository.findOneByClinicIdentifierAndPrescriptionIdentifier(
-                clinicIdentifier,
-                prescriptionIdentifier
-        )?.prescription
+        clinicPrescriptionRepository
+                .findOneByClinicIdentifierAndPrescriptionIdentifierAndDateActive(
+                        clinicIdentifier,
+                        prescriptionIdentifier,
+                        new Date()
+                )?.prescription
     }
 
     @Override

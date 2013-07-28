@@ -15,9 +15,8 @@ abstract class FinishedGood extends Part {
      */
     Set<PartBillOfMaterialsItem> billOfMaterials = [] as Set<PartBillOfMaterialsItem>
 
-    def addEngineeringPart(Date fromDate, Part engineeringPart, Double quantity, UnitOfMeasure unitOfMeasure) {
+    def addEngineeringPart(Part engineeringPart, Double quantity, UnitOfMeasure unitOfMeasure) {
         this.billOfMaterials << new EngineeringPartBillOfMaterialsItem(
-                fromDate: fromDate,
                 part: engineeringPart,
                 quantityUsed: new Quantity(
                         value: quantity,

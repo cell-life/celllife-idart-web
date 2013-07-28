@@ -5,6 +5,8 @@ import org.celllife.idart.client.common.Identifier;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
+import org.celllife.idart.client.part.PartClassification;
+import org.celllife.idart.client.part.PartClassificationType;
 
 /**
  * User: Kevin W. Sewell
@@ -45,6 +47,11 @@ public class DrugBuilder {
     public DrugBuilder setForm(String formCodeSystem, String formCodeValue) {
         this.drug.form = new Form();
         this.drug.form.codes.add(new Code(formCodeSystem, formCodeValue));
+        return this;
+    }
+
+    public DrugBuilder addClassification(PartClassificationType type, String classificationCode) {
+        this.drug.classifications.add(new PartClassification(type, classificationCode));
         return this;
     }
 }

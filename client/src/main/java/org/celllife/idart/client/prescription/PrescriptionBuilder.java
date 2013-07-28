@@ -66,8 +66,9 @@ public final class PrescriptionBuilder {
         return this;
     }
 
-    public PrescribedMedicationBuilder addPrescribedMedication() {
-        return new PrescribedMedicationBuilder(this, prescription, clinicIdentifier);
+    public PrescriptionBuilder addPrescribedMedication(PrescribedMedication prescribedMedication) {
+        this.prescription.prescribedMedications.add(prescribedMedication);
+        return this;
     }
 
     public Prescription finishPrescription() {

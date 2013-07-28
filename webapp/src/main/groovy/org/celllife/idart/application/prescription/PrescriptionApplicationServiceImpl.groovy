@@ -1,12 +1,10 @@
 package org.celllife.idart.application.prescription
 
-import org.celllife.idart.domain.medication.MedicationService
+import org.celllife.idart.application.prescribedmedication.PrescribedMedicationResourceService
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.practitioner.PractitionerService
 import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionService
-import org.celllife.idart.domain.product.GoodService
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -21,11 +19,9 @@ import org.springframework.stereotype.Service
 
     @Autowired PractitionerService practitionerService
 
-    @Autowired MedicationService medicationService
-
     @Autowired PrescriptionService prescriptionService
 
-    @Autowired UnitOfMeasureService unitOfMeasureService
+    @Autowired PrescribedMedicationResourceService prescribedMedicationResourceService
 
     Prescription save(Prescription prescription) {
 
@@ -35,27 +31,10 @@ import org.springframework.stereotype.Service
 
             prescriber = practitionerService.findByIdentifiers(prescriber.identifiers)
 
-            prescribedMedications.each { prescribedMedication ->
-
-                prescribedMedication?.with {
-                    medication = medicationService.findByIdentifiers(medication.identifiers)
-
-                    dosageInstruction?.with {
-
-                        doseQuantity?.with {
-                            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
-                        }
-
-                        timing?.with {
-                            repeat?.with {
-                                duration?.with {
-                                    unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
-                                }
-                            }
-                        }
-                    }
-                }
+            prescribedMedications = prescribedMedications.collect { prescribedMedication ->
+                prescribedMedicationResourceService.save(prescribedMedication)
             }
+
         }
 
         prescriptionService.save(prescription)

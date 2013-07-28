@@ -25,37 +25,41 @@ public interface SpringDataClinicPractitionerRepository
             "from ClinicPractitioner clinicPractitioner " +
             "where clinicPractitioner.clinic = :clinic " +
             "and clinicPractitioner.practitioner = :practitioner " +
-            "and clinicPractitioner.fromDate < :dateActive " +
+            "and clinicPractitioner.fromDate <= :dateActive " +
             "and ((clinicPractitioner.thruDate is not null and clinicPractitioner.thruDate > :dateActive) or clinicPractitioner.thruDate is null)")
-    ClinicPractitioner findByClinicAndPractitionerAndDateActive(@Param("clinic") Clinic clinic,
-                                                            @Param("practitioner") Practitioner practitioner,
-                                                            @Param("dateActive") Date dateActive);
+    ClinicPractitioner findByClinicAndPractitionerAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("practitioner") Practitioner practitioner,
+                @Param("dateActive") Date dateActive);
 
     @Query("select count(*) " +
             "from ClinicPractitioner clinicPractitioner " +
             "where clinicPractitioner.clinic = :clinic " +
             "and clinicPractitioner.practitioner = :practitioner " +
-            "and clinicPractitioner.fromDate < :dateActive " +
+            "and clinicPractitioner.fromDate <= :dateActive " +
             "and ((clinicPractitioner.thruDate is not null and clinicPractitioner.thruDate > :dateActive) or clinicPractitioner.thruDate is null)")
-    Long countByClinicAndPractitionerAndDateActive(@Param("clinic") Clinic clinic,
-                                                 @Param("practitioner") Practitioner practitioner,
-                                                 @Param("dateActive") Date dateActive);
+    Long countByClinicAndPractitionerAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("practitioner") Practitioner practitioner,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPractitioner " +
             "from ClinicPractitioner clinicPractitioner " +
             "where clinicPractitioner.clinic = :clinic " +
-            "and clinicPractitioner.fromDate < :dateActive " +
+            "and clinicPractitioner.fromDate <= :dateActive " +
             "and ((clinicPractitioner.thruDate is not null and clinicPractitioner.thruDate > :dateActive) or clinicPractitioner.thruDate is null)")
-    Iterable<ClinicPractitioner> findByClinicAndDateActive(@Param("clinic") Clinic clinic,
-                                                         @Param("dateActive") Date dateActive);
+    Iterable<ClinicPractitioner> findByClinicAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPractitioner " +
             "from ClinicPractitioner clinicPractitioner " +
             "where clinicPractitioner.clinic.pk = :clinicIdentifier " +
-            "and clinicPractitioner.fromDate < :dateActive " +
+            "and clinicPractitioner.fromDate <= :dateActive " +
             "and ((clinicPractitioner.thruDate is not null and clinicPractitioner.thruDate > :dateActive) or clinicPractitioner.thruDate is null)")
-    Iterable<ClinicPractitioner> findByClinicIdentifierAndDateActive(@Param("clinicIdentifier") String clinicIdentifier,
-                                                                                 @Param("dateActive") Date dateActive);
+    Iterable<ClinicPractitioner> findByClinicIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("dateActive") Date dateActive);
 
 
     @Query("select clinicPractitioner " +
@@ -63,26 +67,31 @@ public interface SpringDataClinicPractitionerRepository
                 "join clinicPractitioner.practitioner.identifiers practitionerIdentifier " +
                 "where clinicPractitioner.clinic.pk = :clinicIdentifier " +
                 "and practitionerIdentifier.value = :practitionerIdentifier " +
-                "and clinicPractitioner.fromDate < :dateActive " +
+                "and clinicPractitioner.fromDate <= :dateActive " +
                 "and ((clinicPractitioner.thruDate is not null and clinicPractitioner.thruDate > :dateActive) or clinicPractitioner.thruDate is null)")
-    Iterable<ClinicPractitioner> findByClinicIdentifierAndPractitionerIdentifier(@Param("clinicIdentifier") String clinicIdentifier,
-                                                            @Param("practitionerIdentifier") String practitionerIdentifier);
+    Iterable<ClinicPractitioner> findByClinicIdentifierAndPractitionerIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("practitionerIdentifier") String practitionerIdentifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPractitioner " +
                 "from ClinicPractitioner clinicPractitioner " +
                 "where clinicPractitioner.clinic.pk = :clinicIdentifier " +
                 "and clinicPractitioner.practitioner.pk = :practitionerIdentifier " +
-                "and clinicPractitioner.fromDate < :dateActive " +
+                "and clinicPractitioner.fromDate <= :dateActive " +
                 "and ((clinicPractitioner.thruDate is not null and clinicPractitioner.thruDate > :dateActive) or clinicPractitioner.thruDate is null)")
-    ClinicPractitioner findOneByClinicIdentifierAndPractitionerIdentifier(@Param("clinicIdentifier") String clinicIdentifier,
-                                                            @Param("practitionerIdentifier") String practitionerIdentifier);
+    ClinicPractitioner findOneByClinicIdentifierAndPractitionerIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("practitionerIdentifier") String practitionerIdentifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPractitioner " +
             "from ClinicPractitioner clinicPractitioner " +
             "where clinicPractitioner.practitioner = :practitioner " +
-            "and clinicPractitioner.fromDate < :dateActive " +
+            "and clinicPractitioner.fromDate <= :dateActive " +
             "and ((clinicPractitioner.thruDate is not null and clinicPractitioner.thruDate > :dateActive) or clinicPractitioner.thruDate is null)")
-    Iterable<ClinicPractitioner> findByPractitionerAndDateActive(@Param("practitioner") Practitioner practitioner,
-                                                              @Param("dateActive") Date dateActive);
+    Iterable<ClinicPractitioner> findByPractitionerAndDateActive(
+                @Param("practitioner") Practitioner practitioner,
+                @Param("dateActive") Date dateActive);
 
 }

@@ -42,7 +42,7 @@ abstract class Part implements Persistable<Long> {
             return
         }
 
-        this.mergeIdentifiers(that)
+        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
         this.unitOfMeasure = that.unitOfMeasure
         this.form = that.form
         that.classifications?.each { classification -> this.classifications << classification }
@@ -61,5 +61,18 @@ abstract class Part implements Persistable<Long> {
         }
 
         return false
+    }
+
+    def getClassificationCode(PartClassificationType type) {
+        for (classification in classifications) {
+            if (classification.type == type) {
+                return classification.code
+            }
+        }
+        null
+    }
+
+    def addClassification(PartClassificationType type, String code) {
+        this.classifications.add(new PartClassification(type: type, code: code))
     }
 }

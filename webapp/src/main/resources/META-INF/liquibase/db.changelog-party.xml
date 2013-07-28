@@ -6,13 +6,13 @@
     <changeSet id="party-1" author="kevin.sewell">
 
         <createTable tableName="party">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
 
         <createTable tableName="party_identifiers">
-            <column name="party" type="bigint">
+            <column name="party" type="varchar(31)">
                 <constraints references="party(pk)" foreignKeyName="party_identifiers_fk"/>
             </column>
             <column name="system" type="varchar(255)">
@@ -26,28 +26,24 @@
         </createTable>
 
         <createTable tableName="party_classifications">
-            <column name="party" type="bigint">
+            <column name="party" type="varchar(31)">
                 <constraints references="party(pk)" foreignKeyName="party_classifications_fk"/>
             </column>
             <column name="classification" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="from_date" type="date">
-                <constraints nullable="false"/>
-            </column>
+            <column name="from_date" type="date"/>
             <column name="thru_date" type="date"/>
         </createTable>
 
         <createTable tableName="party_contact_mechanisms">
-            <column name="party" type="bigint">
+            <column name="party" type="varchar(31)">
                 <constraints references="party(pk)" foreignKeyName="party_contact_mechanisms_fk"/>
             </column>
             <column name="contact_mechanism" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="from_date" type="date">
-                <constraints nullable="false"/>
-            </column>
+            <column name="from_date" type="date"/>
             <column name="thru_date" type="date"/>
             <column name="non_solicitation_indicator" type="bit"/>
             <column name="extension" type="varchar(10)"/>
@@ -55,7 +51,7 @@
         </createTable>
 
         <createTable tableName="organisation">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true" references="party(pk)" foreignKeyName="organisation_fk"/>
             </column>
             <column name="name" type="varchar(40)">
@@ -64,7 +60,7 @@
         </createTable>
 
         <createTable tableName="legal_organisation">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true" references="organisation(pk)" foreignKeyName="legal_organisation_fk"/>
             </column>
             <column name="tax_registration_number" type="varchar(40)">
@@ -73,13 +69,13 @@
         </createTable>
 
         <createTable tableName="informal_organisation">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true" references="organisation(pk)" foreignKeyName="informal_organisation_fk"/>
             </column>
         </createTable>
 
         <createTable tableName="person">
-            <column name="pk" type="bigint">
+            <column name="pk" type="varchar(31)">
                 <constraints primaryKey="true" references="party(pk)" foreignKeyName="person_party_fk"/>
             </column>
             <column name="last_name" type="varchar(40)"/>
@@ -100,12 +96,10 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="person" type="bigint">
+            <column name="person" type="varchar(31)">
                 <constraints references="person(pk)" foreignKeyName="person_physical_characteristic_fk"/>
             </column>
-            <column name="from_date" type="date">
-                <constraints nullable="false"/>
-            </column>
+            <column name="from_date" type="date"/>
             <column name="thru_date" type="date"/>
         </createTable>
 

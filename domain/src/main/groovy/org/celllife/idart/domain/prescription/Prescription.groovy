@@ -6,8 +6,11 @@ import org.celllife.idart.domain.common.Persistable
 import org.celllife.idart.domain.encounter.Encounter
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.practitioner.Practitioner
+import org.celllife.idart.domain.prescribedmedication.PrescribedMedication
 
 /**
+ * An order for both supply of the medication and the instructions for administration of the medicine to a patient.
+ *
  * User: Kevin W. Sewell
  * Date: 2013-06-17
  * Time: 20h49
@@ -53,13 +56,15 @@ class Prescription implements Persistable<String> {
     Set<PrescribedMedication> prescribedMedications = []
 
     def merge(Prescription that) {
+
         if (that == null) {
             return
         }
-        this.mergeIdentifiers(that)
+
+        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
         this.prescriber = that.prescriber
         this.patient = that.patient
         this.dateWritten = that.dateWritten
-        that.prescribedMedications?.each { prescribedMedication -> this.prescribedMedications << prescribedMedication }
+        that.prescribedMedications.each { prescribedMedication -> this.prescribedMedications << prescribedMedication }
     }
 }

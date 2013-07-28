@@ -43,7 +43,7 @@ class IdentifiableSerializerTest {
         finishedGood.addIdentifier("bla1", "bla")
         finishedGood.addIdentifier("bla", "bla")
         finishedGood.unitOfMeasure = unitOfMeasure
-        finishedGood.addEngineeringPart(new Date(), rawMaterial, 10.0D, unitOfMeasure)
+        finishedGood.addEngineeringPart(rawMaterial, 10.0D, unitOfMeasure)
 
         List<FinishedGood> list = [] as ArrayList<FinishedGood>
         list << finishedGood

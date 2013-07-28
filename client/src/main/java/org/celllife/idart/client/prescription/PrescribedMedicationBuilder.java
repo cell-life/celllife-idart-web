@@ -10,6 +10,7 @@ import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -21,18 +22,21 @@ public final class PrescribedMedicationBuilder implements Serializable {
 
     private PrescribedMedication prescribedMedication;
 
-    private PrescriptionBuilder parent;
-
-    private Prescription prescription;
-
     private String clinicMedicationsIdentifierSystem;
 
-    public PrescribedMedicationBuilder(PrescriptionBuilder parent, Prescription prescription, String clinicIdentifier) {
+    private String clinicPrescribedMedicationsIdentifierSystem;
+
+    public PrescribedMedicationBuilder(String clinicIdentifier) {
         this.prescribedMedication = new PrescribedMedication();
-        this.parent = parent;
-        this.prescription = prescription;
         this.clinicMedicationsIdentifierSystem =
                 String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicIdentifier);
+        this.clinicPrescribedMedicationsIdentifierSystem =
+                String.format("http://www.cell-life.org/idart/clinics/%s/prescribedMedications", clinicIdentifier);
+    }
+
+    public PrescribedMedicationBuilder setIdentifier(String prescribedMedicationIdentifier) {
+        this.prescribedMedication.identifiers.add(new Identifier(clinicPrescribedMedicationsIdentifierSystem, prescribedMedicationIdentifier));
+        return this;
     }
 
     public PrescribedMedicationBuilder setMedication(String identifier) {
@@ -51,8 +55,10 @@ public final class PrescribedMedicationBuilder implements Serializable {
         return this;
     }
 
-    public PrescribedMedicationBuilder setValid(Period valid) {
-        this.prescribedMedication.valid = valid;
+    public PrescribedMedicationBuilder setValid(Date fromDate, Date thruDate) {
+        this.prescribedMedication.valid = new Period();
+        this.prescribedMedication.valid.fromDate = fromDate;
+        this.prescribedMedication.valid.thruDate = thruDate;
         return this;
     }
 
@@ -127,9 +133,8 @@ public final class PrescribedMedicationBuilder implements Serializable {
         return getDosageInstructions().timing;
     }
 
-    public PrescriptionBuilder finishPrescribedMedication() {
-        prescription.prescribedMedications.add(prescribedMedication);
-        return parent;
+    public PrescribedMedication finishPrescribedMedication() {
+        return prescribedMedication;
     }
 
     private DosageInstruction getDosageInstructions() {

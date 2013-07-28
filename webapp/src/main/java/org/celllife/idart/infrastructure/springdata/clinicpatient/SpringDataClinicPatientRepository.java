@@ -25,37 +25,41 @@ public interface SpringDataClinicPatientRepository
             "from ClinicPatient clinicPatient " +
             "where clinicPatient.clinic = :clinic " +
             "and clinicPatient.patient = :patient " +
-            "and clinicPatient.fromDate < :dateActive " +
+            "and clinicPatient.fromDate <= :dateActive " +
             "and ((clinicPatient.thruDate is not null and clinicPatient.thruDate > :dateActive) or clinicPatient.thruDate is null)")
-    ClinicPatient findByClinicAndPatientAndDateActive(@Param("clinic") Clinic clinic,
-                                                            @Param("patient") Patient patient,
-                                                            @Param("dateActive") Date dateActive);
+    ClinicPatient findByClinicAndPatientAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("patient") Patient patient,
+                @Param("dateActive") Date dateActive);
 
     @Query("select count(*) " +
             "from ClinicPatient clinicPatient " +
             "where clinicPatient.clinic = :clinic " +
             "and clinicPatient.patient = :patient " +
-            "and clinicPatient.fromDate < :dateActive " +
+            "and clinicPatient.fromDate <= :dateActive " +
             "and ((clinicPatient.thruDate is not null and clinicPatient.thruDate > :dateActive) or clinicPatient.thruDate is null)")
-    Long countByClinicAndPatientAndDateActive(@Param("clinic") Clinic clinic,
-                                                 @Param("patient") Patient patient,
-                                                 @Param("dateActive") Date dateActive);
+    Long countByClinicAndPatientAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("patient") Patient patient,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPatient " +
             "from ClinicPatient clinicPatient " +
             "where clinicPatient.clinic = :clinic " +
-            "and clinicPatient.fromDate < :dateActive " +
+            "and clinicPatient.fromDate <= :dateActive " +
             "and ((clinicPatient.thruDate is not null and clinicPatient.thruDate > :dateActive) or clinicPatient.thruDate is null)")
-    Iterable<ClinicPatient> findByClinicAndDateActive(@Param("clinic") Clinic clinic,
-                                                         @Param("dateActive") Date dateActive);
+    Iterable<ClinicPatient> findByClinicAndDateActive(
+                @Param("clinic") Clinic clinic,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPatient " +
             "from ClinicPatient clinicPatient " +
             "where clinicPatient.clinic.pk = :clinicIdentifier " +
-            "and clinicPatient.fromDate < :dateActive " +
+            "and clinicPatient.fromDate <= :dateActive " +
             "and ((clinicPatient.thruDate is not null and clinicPatient.thruDate > :dateActive) or clinicPatient.thruDate is null)")
-    Iterable<ClinicPatient> findByClinicIdentifierAndDateActive(@Param("clinicIdentifier") String clinicIdentifier,
-                                                                                 @Param("dateActive") Date dateActive);
+    Iterable<ClinicPatient> findByClinicIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("dateActive") Date dateActive);
 
 
     @Query("select clinicPatient " +
@@ -63,26 +67,31 @@ public interface SpringDataClinicPatientRepository
                 "join clinicPatient.patient.identifiers patientIdentifier " +
                 "where clinicPatient.clinic.pk = :clinicIdentifier " +
                 "and patientIdentifier.value = :patientIdentifier " +
-                "and clinicPatient.fromDate < :dateActive " +
+                "and clinicPatient.fromDate <= :dateActive " +
                 "and ((clinicPatient.thruDate is not null and clinicPatient.thruDate > :dateActive) or clinicPatient.thruDate is null)")
-    Iterable<ClinicPatient> findByClinicIdentifierAndPatientIdentifier(@Param("clinicIdentifier") String clinicIdentifier,
-                                                            @Param("patientIdentifier") String patientIdentifier);
+    Iterable<ClinicPatient> findByClinicIdentifierAndPatientIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("patientIdentifier") String patientIdentifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPatient " +
                 "from ClinicPatient clinicPatient " +
                 "where clinicPatient.clinic.pk = :clinicIdentifier " +
                 "and clinicPatient.patient.pk = :patientIdentifier " +
-                "and clinicPatient.fromDate < :dateActive " +
+                "and clinicPatient.fromDate <= :dateActive " +
                 "and ((clinicPatient.thruDate is not null and clinicPatient.thruDate > :dateActive) or clinicPatient.thruDate is null)")
-    ClinicPatient findOneByClinicIdentifierAndPatientIdentifier(@Param("clinicIdentifier") String clinicIdentifier,
-                                                            @Param("patientIdentifier") String patientIdentifier);
+    ClinicPatient findOneByClinicIdentifierAndPatientIdentifierAndDateActive(
+                @Param("clinicIdentifier") String clinicIdentifier,
+                @Param("patientIdentifier") String patientIdentifier,
+                @Param("dateActive") Date dateActive);
 
     @Query("select clinicPatient " +
             "from ClinicPatient clinicPatient " +
             "where clinicPatient.patient = :patient " +
-            "and clinicPatient.fromDate < :dateActive " +
+            "and clinicPatient.fromDate <= :dateActive " +
             "and ((clinicPatient.thruDate is not null and clinicPatient.thruDate > :dateActive) or clinicPatient.thruDate is null)")
-    Iterable<ClinicPatient> findByPatientAndDateActive(@Param("patient") Patient patient,
-                                                              @Param("dateActive") Date dateActive);
+    Iterable<ClinicPatient> findByPatientAndDateActive(
+                @Param("patient") Patient patient,
+                @Param("dateActive") Date dateActive);
 
 }
