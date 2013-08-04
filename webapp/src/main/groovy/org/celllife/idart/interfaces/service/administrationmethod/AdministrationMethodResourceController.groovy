@@ -24,7 +24,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/administrationMethods",
+            value = "/methods",
             method = RequestMethod.GET, produces = "application/json"
     )
     Iterable<AdministrationMethod> findAll() {
@@ -33,14 +33,14 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/administrationMethods/{code}",
+            value = "/methods/{code}",
             method = RequestMethod.GET, produces = "application/json"
     )
     AdministrationMethod findByCode(@PathVariable("code") String code) {
         administrationMethodResourceService.findByCode(code)
     }
 
-    @RequestMapping(value = "/administrationMethods", method = RequestMethod.POST)
+    @RequestMapping(value = "/methods", method = RequestMethod.POST)
     void save(@RequestBody AdministrationMethod administrationMethod, HttpServletResponse response) {
 
         administrationMethod = administrationMethodResourceService.save(administrationMethod)

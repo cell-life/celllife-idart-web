@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service
 
     Iterable<AdministrationMethod> findAll() {
         administrationMethodService.findAll()
-    }
 
+
+    }
 }

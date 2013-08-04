@@ -15,8 +15,6 @@ class ModelEnricher {
             model.entityNamePlural = model.entityName + "s"
         }
 
-        model.resourcePath = model.entityNamePlural.substring(0, 1).toLowerCase() + model.entityNamePlural.substring(1)
-
         model.lowerCaseEntityName = model.entityName.substring(0, 1).toLowerCase() + model.entityName.substring(1)
 
         if (model.entityPackage == null) {
@@ -28,6 +26,16 @@ class ModelEnricher {
         if (model.resourcePath == null) {
             model.resourcePath = model.lowerCaseEntityNamePlural
         }
+
+        if (model.identifierName == null) {
+            model.identifierName = "Identifier"
+        }
+
+        if (model.identifierNamePlural == null) {
+            model.identifierNamePlural = model.identifierName + "s"
+        }
+
+        model.lowerCaseIdentifierName = model.identifierName.substring(0, 1).toLowerCase() + model.identifierName.substring(1)
 
         model.domainPackageName = basePackageName + ".domain." + model.entityPackage
         model.applicationPackageName = basePackageName + ".application." + model.entityPackage

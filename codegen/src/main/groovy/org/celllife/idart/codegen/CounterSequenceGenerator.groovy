@@ -7,7 +7,7 @@ class CounterSequenceGenerator {
         def directory = baseDirectory + "/" + model.counterPackageName.replaceAll("\\.", "/")
         def fileName = "Counter" + model.entityName + "Sequence.groovy"
 
-        Output.toFile(
+        FileWriter.toFile(
                 templateReader: "/templates/counterSequence.template",
                 model: model,
                 directory: directory,

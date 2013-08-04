@@ -24,7 +24,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/routesOfAdministration",
+            value = "/routes",
             method = RequestMethod.GET, produces = "application/json"
     )
     Iterable<RouteOfAdministration> findAll() {
@@ -33,14 +33,14 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/routesOfAdministration/{code}",
+            value = "/routes/{code}",
             method = RequestMethod.GET, produces = "application/json"
     )
     RouteOfAdministration findByCode(@PathVariable("code") String code) {
         routeOfAdministrationResourceService.findByCode(code)
     }
 
-    @RequestMapping(value = "/routesOfAdministration", method = RequestMethod.POST)
+    @RequestMapping(value = "/routes", method = RequestMethod.POST)
     void save(@RequestBody RouteOfAdministration routeOfAdministration, HttpServletResponse response) {
 
         routeOfAdministration = routeOfAdministrationResourceService.save(routeOfAdministration)

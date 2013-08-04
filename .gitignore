@@ -5,3 +5,7 @@
 target
 .settings
 .classpath
+
+**/.sass-cache/**
+**/webapp/resources/bower_components/**
+**/webapp/resources/node_modules/**

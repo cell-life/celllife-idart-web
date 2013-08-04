@@ -7,6 +7,11 @@ def codeGen = new CodeGenerator(
         basePackageName: project.groupId
 )
 
+codeGen.generateEntityAggregateRoots([
+        [entityName: "User", identifierName: "Username"],
+        [entityName: "System"]
+])
+
 codeGen.generateCodeableAggregateRoot([
         [entityName: "AdministrationMethod", resourcePath: "methods"],
         [entityName: "Form"],

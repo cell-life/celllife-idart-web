@@ -6,6 +6,14 @@ def codeGen = new CodeGenerator(
         basePackageName: project.groupId
 )
 
+def entityModels = [
+        [entityName: "User", identifierName: "Username"],
+        [entityName: "System"]
+]
+codeGen.generateEntitySpringDataRepositories(entityModels)
+codeGen.generateEntityResources(entityModels)
+codeGen.generateHibernateValidator(entityModels)
+
 def codeableModels = [
         [entityName: "AdministrationMethod", resourcePath: "methods"],
         [entityName: "Form"],

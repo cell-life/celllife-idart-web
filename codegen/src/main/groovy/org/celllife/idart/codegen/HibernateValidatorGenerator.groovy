@@ -7,7 +7,7 @@ class HibernateValidatorGenerator {
         def directory = baseDirectory + "/" + model.validationPackageName.replaceAll("\\.", "/")
         def fileName = "Hibernate" + model.entityName + "Validator.groovy"
 
-        Output.toFile(
+        FileWriter.toFile(
                 templateReader: "/templates/hibernateValidator.template",
                 model: model,
                 directory: directory,
