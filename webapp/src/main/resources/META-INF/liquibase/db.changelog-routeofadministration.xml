@@ -6,46 +6,13 @@
     <changeSet id="routeofadministration-1" author="kevin.sewell">
 
         <createTable tableName="route_of_administration">
-            <column name="pk" type="varchar(31)">
+            <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-        </createTable>
-
-        <createTable tableName="route_of_administration_names">
-            <column name="route_of_administration" type="varchar(31)">
-                <constraints references="route_of_administration(pk)"
-                             foreignKeyName="route_of_administration_names_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="route_of_administration_codes">
-            <column name="route_of_administration" type="varchar(31)">
-                <constraints references="route_of_administration(pk)"
-                             foreignKeyName="route_of_administration_codes_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="route_of_administration_descriptions">
-            <column name="route_of_administration" type="varchar(31)">
-                <constraints references="route_of_administration(pk)"
-                             foreignKeyName="route_of_administration_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
+            <column name="description" type="varchar(2000)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

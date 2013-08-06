@@ -1,24 +1,32 @@
 package org.celllife.idart.domain.entrysite
 
-import org.celllife.idart.domain.common.*
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-17
- * Time: 14h25
+ * Entry Site 
+ *
  */
-@Mixin([Codeable, Nameable, Describable])
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 class EntrySite {
 
     /**
-     * Persistence Key
+     * Namespace
      */
-    Long pk
+    static NAMESPACE = "http://www.cell-life.org/idart/entrySites"
 
-    Set<Code> codes = []
-
-    Set<LocalisedText> names = []
-
-    Set<LocalisedText> descriptions = []
-
+    /**
+     * Code 
+     */
+    EntrySiteCode code
+    
+    /**
+     * Name 
+     */
+    String name
+    
+    /**
+     * Description 
+     */
+    String description
+    
 }

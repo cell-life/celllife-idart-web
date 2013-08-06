@@ -5,14 +5,12 @@ import org.celllife.idart.domain.patient.PatientRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.repository.annotation.RestResource;
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-23
  * Time: 09h53
  */
-@RestResource(path = "patients")
 public interface SpringDataPatientRepository extends PatientRepository, PagingAndSortingRepository<Patient, Long> {
 
     @Query("select distinct patient " +

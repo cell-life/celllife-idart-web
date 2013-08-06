@@ -1,24 +1,32 @@
 package org.celllife.idart.domain.lifeevent
 
-import org.celllife.idart.domain.common.*
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-17
- * Time: 14h25
+ * Life Event 
+ *
  */
-@Mixin([Codeable, Nameable, Describable])
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 class LifeEvent {
 
     /**
-     * Persistence Key
+     * Namespace
      */
-    Long pk
+    static NAMESPACE = "http://www.cell-life.org/idart/lifeEvents"
 
-    Set<Code> codes = []
-
-    Set<LocalisedText> names = []
-
-    Set<LocalisedText> descriptions = []
-
+    /**
+     * Code 
+     */
+    LifeEventCode code
+    
+    /**
+     * Name 
+     */
+    String name
+    
+    /**
+     * Description 
+     */
+    String description
+    
 }

@@ -42,7 +42,7 @@
             <column name="handed_over_thru_date" type="date"/>
             <column name="quantity" type="numeric"/>
             <column name="quantity_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="dispensed_medication_qty_uom_fk"/>
+                <constraints references="unit_of_measure(code)" foreignKeyName="dispensed_medication_qty_uom_fk"/>
             </column>
             <column name="dosage_instruction" type="bigint"/>
         </createTable>

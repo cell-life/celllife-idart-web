@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.repository.annotation.RestResource;
 
 import javax.persistence.LockModeType;
 
@@ -15,7 +14,6 @@ import javax.persistence.LockModeType;
  * Date: 2013-04-26
  * Time: 15h59
  */
-@RestResource(path = "counters")
 public interface SpringDataCounterRepository extends CounterRepository, CrudRepository<Counter, Long> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)

@@ -6,7 +6,7 @@ import org.celllife.idart.application.drug.DrugResourceService
 import org.celllife.idart.application.medication.MedicationResourceService
 import org.celllife.idart.application.patient.PatientResourceService
 import org.celllife.idart.application.practitioner.PractitionerResourceService
-import org.celllife.idart.application.unitofmeasure.UnitOfMeasureResourceService
+import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.medication.Medication
@@ -43,7 +43,7 @@ class PrescriptionApplicationServiceIntegrationTest {
 
     @Autowired PatientResourceService patientResourceService
 
-    @Autowired UnitOfMeasureResourceService unitOfMeasureResourceService
+    @Autowired UnitOfMeasureApplicationService unitOfMeasureApplicationService
 
     @Autowired ObjectMapper objectMapper
 
@@ -51,14 +51,14 @@ class PrescriptionApplicationServiceIntegrationTest {
     void shouldUnmarshal() throws Exception {
 
         UnitOfMeasure milligrams = createMilligrams()
-        unitOfMeasureResourceService.save(milligrams)
+        unitOfMeasureApplicationService.save(milligrams)
 
         UnitOfMeasure millilitres = new UnitOfMeasure()
         millilitres.setName("Millilitres")
         millilitres.addCode("http://unitsofmeasure.org", "ml")
-        unitOfMeasureResourceService.save(millilitres)
+        unitOfMeasureApplicationService.save(millilitres)
 
-        unitOfMeasureResourceService.save(createEach())
+        unitOfMeasureApplicationService.save(createEach())
 
         compoundResourceService.save(createCompound(milligrams))
 

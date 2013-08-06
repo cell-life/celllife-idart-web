@@ -7,11 +7,21 @@
 
     <tx:annotation-driven/>
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    <bean id="jtaTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="nestedTransactionAllowed" value="true"/>
+        <property name="transactionManager">
+            <bean class="com.atomikos.icatch.jta.UserTransactionManager" init-method="init" destroy-method="close">
+                <property name="forceShutdown" value="false" />
+            </bean>
+        </property>
+        <property name="userTransaction">
+            <bean class="com.atomikos.icatch.jta.UserTransactionImp">
+                <property name="transactionTimeout" value="300" />
+            </bean>
+        </property>
     </bean>
 
-    <tx:advice id="transactionInterceptor">
+    <tx:advice id="transactionInterceptor" transaction-manager="jtaTransactionManager">
         <tx:attributes>
             <tx:method name="delete*" propagation="REQUIRES_NEW" read-only="false"/>
             <tx:method name="exists*" propagation="REQUIRES_NEW" read-only="true"/>

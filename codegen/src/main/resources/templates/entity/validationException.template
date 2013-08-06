@@ -1,0 +1,17 @@
+package ${entity.packageName}
+
+import javax.validation.ConstraintViolation
+
+import javax.annotation.Generated
+
+/**
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+class ${entity.className}ValidationException extends Exception {
+
+    Set<ConstraintViolation<${entity.className}>> constraintViolations
+
+    ${entity.className}ValidationException(Set<ConstraintViolation<${entity.className}>> constraintViolations) {
+        this.constraintViolations = constraintViolations
+    }
+}

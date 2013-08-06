@@ -13,10 +13,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="unit_of_measure" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="part_uom_fk"/>
+                <constraints references="unit_of_measure(code)" foreignKeyName="part_uom_fk"/>
             </column>
             <column name="form" type="varchar(31)">
-                <constraints references="form(pk)" foreignKeyName="part_form_fk"/>
+                <constraints references="form(code)" foreignKeyName="part_form_fk"/>
             </column>
         </createTable>
 
@@ -63,7 +63,7 @@
             </column>
             <column name="quantity_used" type="numeric"/>
             <column name="quantity_used_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="part_bom_qty_used_uom_fk"/>
+                <constraints references="unit_of_measure(code)" foreignKeyName="part_bom_qty_used_uom_fk"/>
             </column>
             <column name="instructions" type="varchar(2000)"/>
             <column name="comment" type="varchar(255)"/>

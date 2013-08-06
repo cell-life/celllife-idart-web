@@ -43,20 +43,20 @@
             <column name="number_of_repeats" type="integer"/>
             <column name="quantity" type="numeric"/>
             <column name="quantity_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="prescribed_medication_qty_uom_fk"/>
+                <constraints references="unit_of_measure(code)" foreignKeyName="prescribed_medication_qty_uom_fk"/>
             </column>
             <column name="expected_supply_duration" type="numeric"/>
             <column name="expected_supply_duration_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="prescribed_medication_duration_uom_fk"/>
+                <constraints references="unit_of_measure(code)" foreignKeyName="prescribed_medication_duration_uom_fk"/>
             </column>
 
             <!-- substitution -->
 
-            <column name="substitution" type="bigint">
-                <constraints references="substitution(pk)" foreignKeyName="prescribed_medication_substitution_fk"/>
+            <column name="substitution" type="varchar(31)">
+                <constraints references="substitution(code)" foreignKeyName="prescribed_medication_substitution_fk"/>
             </column>
-            <column name="substitution_reason" type="bigint">
-                <constraints references="substitution_reason(pk)"
+            <column name="substitution_reason" type="varchar(31)">
+                <constraints references="substitution_reason(code)"
                              foreignKeyName="prescribed_medication_substitution_reason_fk"/>
             </column>
 
@@ -71,8 +71,8 @@
                 <constraints references="prescribed_medication(pk)"
                              foreignKeyName="prescribed_medication_indications_fk"/>
             </column>
-            <column name="indications" type="bigint">
-                <constraints references="indication(pk)" foreignKeyName="indications_prescribed_medication_fk"/>
+            <column name="indications" type="varchar(31)">
+                <constraints references="indication(code)" foreignKeyName="indications_prescribed_medication_fk"/>
             </column>
         </createTable>
 

@@ -22,11 +22,13 @@ import org.springframework.context.annotation.ImportResource
 "classpath:/META-INF/spring/spring-integration-prehmis.xml",
 "classpath:/META-INF/spring/spring-integration-ucum.xml",
 "classpath:/META-INF/spring/spring-jdbc.xml",
+"classpath:/META-INF/spring/spring-jms.xml",
 "classpath:/META-INF/spring/spring-json.xml",
 "classpath:/META-INF/spring/spring-orm.xml",
 "classpath:/META-INF/spring/spring-task.xml",
 "classpath:/META-INF/spring/spring-tx.xml",
-"classpath:/META-INF/spring-data/spring-data-jpa.xml"
+"classpath:/META-INF/spring-data/spring-data-jpa.xml",
+"classpath:/META-INF/spring-data/spring-data-neo4j.xml"
 ])
 class TestConfiguration {
 }

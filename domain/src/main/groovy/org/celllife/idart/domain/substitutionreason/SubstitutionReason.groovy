@@ -1,24 +1,32 @@
 package org.celllife.idart.domain.substitutionreason
 
-import org.celllife.idart.domain.common.*
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-17
- * Time: 21h58
+ * Substitution Reason 
+ *
  */
-@Mixin([Codeable, Nameable, Describable])
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 class SubstitutionReason {
 
     /**
-     * Persistence Key
+     * Namespace
      */
-    Long pk
+    static NAMESPACE = "http://www.cell-life.org/idart/substitutionReasons"
 
-    Set<Code> codes = []
-
-    Set<LocalisedText> names = []
-
-    Set<LocalisedText> descriptions = []
-
+    /**
+     * Code 
+     */
+    SubstitutionReasonCode code
+    
+    /**
+     * Name 
+     */
+    String name
+    
+    /**
+     * Description 
+     */
+    String description
+    
 }

@@ -1,6 +1,6 @@
 package org.celllife.idart.codegen.entity
 
-import static org.celllife.idart.codegen.ModelEnricher.enrichModel
+import static EntityModelEnricher.enrichAggregateRoot
 
 /**
  * User: Kevin W. Sewell
@@ -11,69 +11,89 @@ class EntityAggregateRootGenerator {
 
     static generateEntityAggregateRoot(String groovySourcesDirectory, String basePackageName, model) {
 
-        enrichModel(basePackageName, model)
+        enrichAggregateRoot(basePackageName, model)
 
+        generateIdentifier(groovySourcesDirectory, model)
         generateEntity(groovySourcesDirectory, model)
-        generateEntityRepository(groovySourcesDirectory, model)
-        generateEntityValidatorInterface(groovySourcesDirectory, model)
-        generateEntityValidationException(groovySourcesDirectory, model)
-        generateEntityDomainServiceInterface(groovySourcesDirectory, model)
-        generateEntityDomainServiceImplementation(groovySourcesDirectory, model)
+        generateEntityNotFoundException(groovySourcesDirectory, model)
+        generateRepository(groovySourcesDirectory, model)
+        generateValidatorInterface(groovySourcesDirectory, model)
+        generateValidationException(groovySourcesDirectory, model)
+        generateDomainServiceInterface(groovySourcesDirectory, model)
+        generateDomainServiceImplementation(groovySourcesDirectory, model)
+    }
+
+    static generateIdentifier(String baseDirectory, model) {
+        org.celllife.idart.codegen.FileWriter.toFile(
+                templateReader: "/templates/entity/identifier.template",
+                model: model,
+                directory: baseDirectory + "/" + model.entity.packageName.replaceAll("\\.", "/"),
+                fileName: model.entity.identifier.className + ".groovy"
+        )
     }
 
     static generateEntity(String baseDirectory, model) {
         org.celllife.idart.codegen.FileWriter.toFile(
-                templateReader: "/templates/entity.template",
+                templateReader: "/templates/entity/entity.template",
                 model: model,
-                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + ".groovy"
+                directory: baseDirectory + "/" + model.entity.packageName.replaceAll("\\.", "/"),
+                fileName: model.entity.className + ".groovy"
         )
     }
 
-    static generateEntityRepository(String baseDirectory, model) {
+    static generateEntityNotFoundException(String baseDirectory, model) {
+        org.celllife.idart.codegen.FileWriter.toFile(
+                templateReader: "/templates/entity/notFoundException.template",
+                model: model,
+                directory: baseDirectory + "/" + model.entity.packageName.replaceAll("\\.", "/"),
+                fileName: model.entity.className + "NotFoundException.groovy"
+        )
+    }
+
+    static generateRepository(String baseDirectory, model) {
         org.celllife.idart.codegen.FileWriter.toFile(
                 templateReader: "/templates/entity/repository.template",
                 model: model,
-                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "Repository.groovy"
+                directory: baseDirectory + "/" + model.repository.packageName.replaceAll("\\.", "/"),
+                fileName: model.repository.className + ".groovy"
         )
     }
 
-    static generateEntityValidatorInterface(String baseDirectory, model) {
+    static generateValidatorInterface(String baseDirectory, model) {
         org.celllife.idart.codegen.FileWriter.toFile(
-                templateReader: "/templates/validatorInterface.template",
+                templateReader: "/templates/entity/validator.template",
                 model: model,
-                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "Validator.groovy"
+                directory: baseDirectory + "/" + model.validator.packageName.replaceAll("\\.", "/"),
+                fileName: model.validator.className + ".groovy"
         )
     }
 
-    static generateEntityValidationException(String baseDirectory, model) {
+    static generateValidationException(String baseDirectory, model) {
         org.celllife.idart.codegen.FileWriter.toFile(
-                templateReader: "/templates/validationException.template",
+                templateReader: "/templates/entity/validationException.template",
                 model: model,
-                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "ValidationException.groovy"
+                directory: baseDirectory + "/" +  model.entity.packageName.replaceAll("\\.", "/"),
+                fileName: model.entity.className + "ValidationException.groovy"
         )
     }
 
-    static generateEntityDomainServiceInterface(String baseDirectory, model) {
+    static generateDomainServiceInterface(String baseDirectory, model) {
 
         org.celllife.idart.codegen.FileWriter.toFile(
                 templateReader: "/templates/entity/domainServiceInterface.template",
                 model: model,
-                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "Service.groovy"
+                directory: baseDirectory + "/" + model.domainService.packageName.replaceAll("\\.", "/"),
+                fileName: model.domainService.className + ".groovy"
         )
     }
 
-    static generateEntityDomainServiceImplementation(String baseDirectory, model) {
+    static generateDomainServiceImplementation(String baseDirectory, model) {
 
         org.celllife.idart.codegen.FileWriter.toFile(
                 templateReader: "/templates/entity/domainServiceImplementation.template",
                 model: model,
-                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "ServiceImpl.groovy"
+                directory: baseDirectory + "/" + model.domainService.packageName.replaceAll("\\.", "/"),
+                fileName: model.domainService.className + "Impl.groovy"
         )
     }
 }

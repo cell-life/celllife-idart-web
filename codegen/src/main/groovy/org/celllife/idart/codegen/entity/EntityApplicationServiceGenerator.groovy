@@ -2,7 +2,7 @@ package org.celllife.idart.codegen.entity
 
 import org.celllife.idart.codegen.FileWriter
 
-import static org.celllife.idart.codegen.ModelEnricher.enrichModel
+import static EntityModelEnricher.enrichAggregateRoot
 
 /**
  * User: Kevin W. Sewell
@@ -11,11 +11,11 @@ import static org.celllife.idart.codegen.ModelEnricher.enrichModel
  */
 class EntityApplicationServiceGenerator {
 
-    static generateEntityApplicationService(String groovySourcesDirectory, String javaSourcesDirectory, String basePackageName, model) {
+    static generateEntityApplicationService(String groovySourcesDirectory, String basePackageName, model) {
 
-        enrichModel(basePackageName, model)
+        enrichAggregateRoot(basePackageName, model)
 
-        generateEntityApplicationServiceInterface(javaSourcesDirectory, model)
+        generateEntityApplicationServiceInterface(groovySourcesDirectory, model)
 
         generateEntityApplicationServiceImplementation(groovySourcesDirectory, model)
     }
@@ -24,8 +24,8 @@ class EntityApplicationServiceGenerator {
         FileWriter.toFile(
                 templateReader: "/templates/entity/applicationServiceInterface.template",
                 model: model,
-                directory: baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "ApplicationService.java"
+                directory: baseDirectory + "/" + model.applicationService.packageName.replaceAll("\\.", "/"),
+                fileName: model.applicationService.className + ".groovy"
         )
     }
 
@@ -33,18 +33,8 @@ class EntityApplicationServiceGenerator {
         FileWriter.toFile(
                 templateReader: "/templates/entity/applicationServiceImplementation.template",
                 model: model,
-                directory: baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "ApplicationServiceImpl.groovy"
-        )
-    }
-
-    static generateEntityApplicationServiceMixin(String baseDirectory, model) {
-        FileWriter.toFile(
-                templateReader: "/templates/entity/applicationServiceMixin.template",
-                model: model,
-                directory: baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "ApplicationServiceMixin.groovy",
-                overwrite: false
+                directory: baseDirectory + "/" + model.applicationService.packageName.replaceAll("\\.", "/"),
+                fileName: model.applicationService.className + "Impl.groovy"
         )
     }
 }

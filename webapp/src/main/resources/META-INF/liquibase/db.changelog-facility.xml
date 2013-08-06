@@ -12,7 +12,7 @@
             <column name="type" type="varchar(31)"/>
             <column name="area" type="numeric"/>
             <column name="area_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="area_uom_fk"/>
+                <constraints references="unit_of_measure(code)" foreignKeyName="area_uom_fk"/>
             </column>
         </createTable>
 

@@ -2,8 +2,8 @@ package org.celllife.idart.integration.ucum
 
 import com.xlson.groovycsv.CsvParser
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureType
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureTypeRepository
+import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureType
+import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -16,7 +16,7 @@ import java.util.regex.Pattern
  */
 @Component class UcumTsvFileReader {
 
-    @Autowired UnitOfMeasureTypeRepository unitOfMeasureTypeRepository;
+    @Autowired UnitOfMeasureTypeService unitOfMeasureTypeService;
 
     List<UnitOfMeasure> readFile(InputStream inputStream) {
 
@@ -30,18 +30,10 @@ import java.util.regex.Pattern
             def matcher = pattern.matcher(row.'Descriptive Name')
             if (matcher.matches()) {
                 unitOfMeasure.name = matcher.group(1)
-
-                def unitOfMeasureTypeName = matcher.group(2)
-
-                def unitOfMeasureType = unitOfMeasureTypeRepository.findOneByName("en", unitOfMeasureTypeName)
-                if (unitOfMeasureType == null) {
-                    unitOfMeasureType = new UnitOfMeasureType(name: unitOfMeasureTypeName)
-                    unitOfMeasureType = unitOfMeasureTypeRepository.save(unitOfMeasureType)
-                }
-                unitOfMeasure.type = unitOfMeasureType
+                unitOfMeasure.type = unitOfMeasureTypeService.save(new UnitOfMeasureType(code: matcher.group(2)))
             }
 
-            unitOfMeasure.addCode("http://unitsofmeasure.org", row.Code)
+            unitOfMeasure.code = row.Code
             unitOfMeasure
         }
     }

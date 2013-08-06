@@ -1,4 +1,7 @@
 package org.celllife.idart.codegen.relationship
+
+import static org.celllife.idart.codegen.relationship.RelationshipModelEnricher.enrichRelationshipModel
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-20
@@ -8,7 +11,7 @@ class RelationshipAggregateRootGenerator {
 
     static generateRelationshipAggregateRoot(String groovySourcesDirectory, String basePackageName, model) {
 
-        org.celllife.idart.codegen.relationship.RelationshipModelEnricher.enrichRelationshipModel(basePackageName, model)
+        enrichRelationshipModel(basePackageName, model)
 
         generateRelationshipEntity(groovySourcesDirectory, model)
         generateRelationshipRepository(groovySourcesDirectory, model)

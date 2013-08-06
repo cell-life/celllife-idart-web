@@ -6,43 +6,13 @@
     <changeSet id="indication-1" author="kevin.sewell">
 
         <createTable tableName="indication">
-            <column name="pk" type="bigint">
+            <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-        </createTable>
-
-        <createTable tableName="indication_names">
-            <column name="indication" type="bigint">
-                <constraints references="indication(pk)" foreignKeyName="indication_names_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="indication_codes">
-            <column name="indication" type="bigint">
-                <constraints references="indication(pk)" foreignKeyName="indication_codes_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="indication_descriptions">
-            <column name="indication" type="bigint">
-                <constraints references="indication(pk)" foreignKeyName="indication_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
+            <column name="description" type="varchar(2000)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

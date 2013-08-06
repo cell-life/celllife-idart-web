@@ -11,5 +11,4 @@
             <util:properties location="classpath:hibernate.properties"/>
         </property>
     </bean>
-
 </beans>

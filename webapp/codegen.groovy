@@ -1,29 +1,16 @@
+import groovy.json.JsonSlurper
 import org.celllife.idart.codegen.CodeGenerator
 
 def codeGen = new CodeGenerator(
         groovySourcesDirectory: "${project.basedir}/src/main/groovy",
         javaSourcesDirectory: "${project.basedir}/src/main/java",
-        basePackageName: project.groupId
+        basePackageName: project.groupId,
+        baseNamespace: "http://www.cell-life.org/idart"
 )
-
-def entityModels = [
-        [entityName: "User", identifierName: "Username"],
-        [entityName: "System"]
-]
-codeGen.generateEntitySpringDataRepositories(entityModels)
-codeGen.generateEntityResources(entityModels)
-codeGen.generateHibernateValidator(entityModels)
-
-def codeableModels = [
-        [entityName: "AdministrationMethod", resourcePath: "methods"],
-        [entityName: "Form"],
-        [entityName: "RouteOfAdministration", entityNamePlural: "RoutesOfAdministration", resourcePath: "routes"],
-        [entityName: "UnitOfMeasure", entityNamePlural: "UnitsOfMeasure"]
-]
-
-codeGen.generateCodeableSpringDataRepositories(codeableModels)
-codeGen.generateCodeableResources(codeableModels)
-codeGen.generateHibernateValidator(codeableModels)
+def aggregateRoots = new JsonSlurper().parse(new FileReader("${project.basedir}/../aggregateRoots.json"))
+codeGen.generateEntitySpringDataRepositories(aggregateRoots)
+codeGen.generateEntityResources(aggregateRoots)
+codeGen.generateEntityHibernateValidators(aggregateRoots)
 
 def identifiableModels = [
         [entityName: "Clinic"],
@@ -43,15 +30,9 @@ def identifiableModels = [
 
 codeGen.generateIdentifiableSpringDataRepositories(identifiableModels)
 codeGen.generateIdentifiableResources(identifiableModels)
-codeGen.generateHibernateValidator(identifiableModels)
+codeGen.generateHibernateValidators(identifiableModels)
 codeGen.generateCounterSequence(identifiableModels)
 
-def relationships = [
-        [entities: [[name: "Clinic"], [name: "Dispensation"]]],
-        [entities: [[name: "Clinic"], [name: "Medication"]]],
-        [entities: [[name: "Clinic"], [name: "Patient"]]] ,
-        [entities: [[name: "Clinic"], [name: "Practitioner"]]],
-        [entities: [[name: "Clinic"], [name: "Prescription"]]]
-]
-codeGen.generateRelationshipResources(relationships)
-codeGen.generateRelationshipSpringDataRepositories(relationships)
+def relationships = new JsonSlurper().parse(new FileReader("${project.basedir}/../relationships.json"))
+//codeGen.generateRelationshipResources(relationships)
+//codeGen.generateRelationshipSpringDataRepositories(relationships)

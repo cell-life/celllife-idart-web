@@ -6,43 +6,13 @@
     <changeSet id="substitution-1" author="kevin.sewell">
 
         <createTable tableName="substitution">
-            <column name="pk" type="bigint">
+            <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-        </createTable>
-
-        <createTable tableName="substitution_names">
-            <column name="substitution" type="bigint">
-                <constraints references="substitution(pk)" foreignKeyName="substitution_names_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="substitution_codes">
-            <column name="substitution" type="bigint">
-                <constraints references="substitution(pk)" foreignKeyName="substitution_codes_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="substitution_descriptions">
-            <column name="substitution" type="bigint">
-                <constraints references="substitution(pk)" foreignKeyName="substitution_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
+            <column name="description" type="varchar(2000)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

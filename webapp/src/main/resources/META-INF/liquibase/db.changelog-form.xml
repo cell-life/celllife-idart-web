@@ -6,43 +6,13 @@
     <changeSet id="form-1" author="kevin.sewell">
 
         <createTable tableName="form">
-            <column name="pk" type="varchar(31)">
+            <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-        </createTable>
-
-        <createTable tableName="form_names">
-            <column name="form" type="varchar(31)">
-                <constraints references="form(pk)" foreignKeyName="form_names_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="form_codes">
-            <column name="form" type="varchar(31)">
-                <constraints references="form(pk)" foreignKeyName="form_codes_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="form_descriptions">
-            <column name="form" type="varchar(31)">
-                <constraints references="form(pk)" foreignKeyName="form_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
+            <column name="description" type="varchar(2000)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

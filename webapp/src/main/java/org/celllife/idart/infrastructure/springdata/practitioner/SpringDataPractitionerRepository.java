@@ -5,7 +5,6 @@ import org.celllife.idart.domain.practitioner.PractitionerRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.repository.annotation.RestResource;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * Date: 2013-06-23
  * Time: 09h53
  */
-@RestResource(path = "practitioners")
 public interface SpringDataPractitionerRepository extends PractitionerRepository, PagingAndSortingRepository<Practitioner, Long> {
 
     @Query("select practitioner " +

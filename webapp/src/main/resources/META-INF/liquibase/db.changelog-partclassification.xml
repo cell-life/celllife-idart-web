@@ -49,10 +49,10 @@
             </column>
             <column name="quantity" type="numeric"/>
             <column name="quantity_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(pk)" foreignKeyName="ddd_qty_uom_fk"/>
+                <constraints references="unit_of_measure(code)" foreignKeyName="ddd_qty_uom_fk"/>
             </column>
             <column name="route" type="varchar(31)">
-                <constraints references="route_of_administration(pk)" foreignKeyName="ddd_route_fk"/>
+                <constraints references="route_of_administration(code)" foreignKeyName="ddd_route_fk"/>
             </column>
         </createTable>
 

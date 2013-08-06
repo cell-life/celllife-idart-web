@@ -1,0 +1,27 @@
+package ${entity.packageName}
+
+import javax.annotation.Generated
+
+/**
+ * ${name} <% if (description != null) { %>- ${description} <% } %>
+ *
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+class ${entity.className} {
+
+    /**
+     * Namespace
+     */
+    static NAMESPACE = "${namespace}"
+
+    /**
+     * ${entity.identifier.name} <% if (entity.identifier.description != null) { %>- ${entity.identifier.description} <% } %>
+     */
+    ${entity.identifier.className} ${entity.identifier.fieldName}
+    <% entity._properties.each { property -> %>
+    /**
+     * ${property.name} <% if (property.description != null) { %>- ${property.description} <% } %>
+     */
+    ${property.type} ${property.fieldName}
+    <% } %>
+}

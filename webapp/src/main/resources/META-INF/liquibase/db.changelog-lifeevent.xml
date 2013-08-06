@@ -6,43 +6,13 @@
     <changeSet id="lifeevent-1" author="kevin.sewell">
 
         <createTable tableName="life_event">
-            <column name="pk" type="bigint">
+            <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-        </createTable>
-
-        <createTable tableName="life_event_names">
-            <column name="life_event" type="bigint">
-                <constraints references="life_event(pk)" foreignKeyName="life_event_names_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="life_event_codes">
-            <column name="life_event" type="bigint">
-                <constraints references="life_event(pk)" foreignKeyName="life_event_codes_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="life_event_descriptions">
-            <column name="life_event" type="bigint">
-                <constraints references="life_event(pk)" foreignKeyName="life_event_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
+            <column name="description" type="varchar(2000)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

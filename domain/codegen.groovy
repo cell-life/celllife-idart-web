@@ -1,23 +1,15 @@
+import groovy.json.JsonSlurper
 import org.celllife.idart.codegen.CodeGenerator
 
 def codeGen = new CodeGenerator(
         groovySourcesDirectory: "${project.basedir}/src/main/groovy",
         javaSourcesDirectory: "${project.basedir}/src/main/java",
-        generatedSourcesDirectory: "${project.basedir}/target/generated-sources/domain",
-        basePackageName: project.groupId
+        basePackageName: project.groupId,
+        baseNamespace: "http://www.cell-life.org/idart"
 )
 
-codeGen.generateEntityAggregateRoots([
-        [entityName: "User", identifierName: "Username"],
-        [entityName: "System"]
-])
-
-codeGen.generateCodeableAggregateRoot([
-        [entityName: "AdministrationMethod", resourcePath: "methods"],
-        [entityName: "Form"],
-        [entityName: "RouteOfAdministration", entityNamePlural: "RoutesOfAdministration", resourcePath: "routes"],
-        [entityName: "UnitOfMeasure", entityNamePlural: "UnitsOfMeasure"]
-])
+def aggregateRoots = new JsonSlurper().parse(new FileReader("${project.basedir}/../aggregateRoots.json"))
+codeGen.generateEntityAggregateRoots(aggregateRoots)
 
 codeGen.generateIdentifiableAggregateRoot([
         [entityName: "Clinic"],
@@ -35,10 +27,6 @@ codeGen.generateIdentifiableAggregateRoot([
         [entityName: "Drug"]
 ])
 
-codeGen.generateRelationshipAggregateRoot([
-        [entities: [[name: "Clinic"], [name: "Dispensation"]]],
-        [entities: [[name: "Clinic"], [name: "Medication"]]],
-        [entities: [[name: "Clinic"], [name: "Patient"]]] ,
-        [entities: [[name: "Clinic"], [name: "Practitioner"]]],
-        [entities: [[name: "Clinic"], [name: "Prescription"]]]
-])
+
+def relationships = new JsonSlurper().parse(new FileReader("${project.basedir}/../relationships.json"))
+//codeGen.generateRelationshipAggregateRoot(relationshipModels)

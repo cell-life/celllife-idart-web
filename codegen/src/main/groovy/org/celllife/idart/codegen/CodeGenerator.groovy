@@ -1,25 +1,20 @@
 package org.celllife.idart.codegen
 
-import org.celllife.idart.codegen.entity.EntityAggregateRootGenerator
-import org.celllife.idart.codegen.entity.EntityApplicationServiceGenerator
-import org.celllife.idart.codegen.entity.EntityResourceGenerator
-import org.celllife.idart.codegen.entity.EntitySpringDataRepositoryGenerator
-
-import javax.swing.text.html.parser.Entity
-
+import static org.celllife.idart.codegen.HibernateValidatorGenerator.generateHibernateValidator
+import static org.celllife.idart.codegen.ModelEnricher.enrichModel
+import static org.celllife.idart.codegen.codeable.CodeableAggregateRootGenerator.generateCodeableAggregateRoot
+import static org.celllife.idart.codegen.codeable.CodeableApplicationServiceGenerator.generateCodeableApplicationService
+import static org.celllife.idart.codegen.codeable.CodeableResourceGenerator.generateCodeableResource
 import static org.celllife.idart.codegen.codeable.CodeableSpringDataRepositoryGenerator.generateCodeableSpringDataRepository
 import static org.celllife.idart.codegen.entity.EntityAggregateRootGenerator.generateEntityAggregateRoot
 import static org.celllife.idart.codegen.entity.EntityApplicationServiceGenerator.generateEntityApplicationService
+import static org.celllife.idart.codegen.entity.EntityHibernateValidatorGenerator.generateEntityHibernateValidator
 import static org.celllife.idart.codegen.entity.EntityResourceGenerator.generateEntityResource
 import static org.celllife.idart.codegen.entity.EntitySpringDataRepositoryGenerator.generateEntitySpringDataRepository
 import static org.celllife.idart.codegen.identifiable.IdentifiableAggregateRootGenerator.generateIdentifiableAggregateRoot
 import static org.celllife.idart.codegen.identifiable.IdentifiableApplicationServiceGenerator.generateIdentifiableApplicationService
 import static org.celllife.idart.codegen.identifiable.IdentifiableResourceGenerator.generateIdentifiableResource
-import static org.celllife.idart.codegen.codeable.CodeableAggregateRootGenerator.generateCodeableAggregateRoot
-import static org.celllife.idart.codegen.codeable.CodeableResourceGenerator.generateCodeableResource
-import static org.celllife.idart.codegen.codeable.CodeableApplicationServiceGenerator.generateCodeableApplicationService
 import static org.celllife.idart.codegen.identifiable.IdentifiableSpringDataRepositoryGenerator.generateIdentifiableSpringDataRepository
-import static org.celllife.idart.codegen.ModelEnricher.enrichModel
 import static org.celllife.idart.codegen.relationship.RelationshipAggregateRootGenerator.generateRelationshipAggregateRoot
 import static org.celllife.idart.codegen.relationship.RelationshipApplicationServiceGenerator.generateRelationshipApplicationService
 import static org.celllife.idart.codegen.relationship.RelationshipModelEnricher.enrichRelationshipModel
@@ -38,6 +33,8 @@ class CodeGenerator {
 
     def basePackageName
 
+    def baseNamespace
+
     CodeGenerator(args) {
 
         this.groovySourcesDirectory = args.groovySourcesDirectory
@@ -45,6 +42,8 @@ class CodeGenerator {
         this.javaSourcesDirectory = args.javaSourcesDirectory
 
         this.basePackageName = args.basePackageName
+
+        this.baseNamespace = args.baseNamespace
     }
 
     def generateCounterSequence(models) {
@@ -53,9 +52,9 @@ class CodeGenerator {
         }
     }
 
-    def generateHibernateValidator(models) {
+    def generateHibernateValidators(models) {
         models.each { model ->
-            HibernateValidatorGenerator.generateHibernateValidator(groovySourcesDirectory, model)
+            generateHibernateValidator(groovySourcesDirectory, model)
         }
     }
 
@@ -73,7 +72,8 @@ class CodeGenerator {
     def generateIdentifiableSpringDataRepositories(models) {
         models.each { model ->
             enrichModel(basePackageName, model)
-            generateIdentifiableSpringDataRepository(javaSourcesDirectory, model) }
+            generateIdentifiableSpringDataRepository(javaSourcesDirectory, model)
+        }
     }
 
     def generateCodeableResources(models) {
@@ -82,6 +82,7 @@ class CodeGenerator {
             generateCodeableApplicationService(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
         }
     }
+
     def generateCodeableAggregateRoot(models) {
         models.each { model -> generateCodeableAggregateRoot(groovySourcesDirectory, basePackageName, model) }
     }
@@ -113,20 +114,25 @@ class CodeGenerator {
 
     def generateEntityResources(models) {
         models.each { model ->
-            generateEntityResource(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
-            generateEntityApplicationService(groovySourcesDirectory, javaSourcesDirectory, basePackageName, model)
+            generateEntityResource(groovySourcesDirectory, baseNamespace, model)
+            generateEntityApplicationService(groovySourcesDirectory, baseNamespace, model)
         }
     }
 
     def generateEntityAggregateRoots(models) {
         models.each { model ->
-            generateEntityAggregateRoot(groovySourcesDirectory, basePackageName, model)
+            generateEntityAggregateRoot(groovySourcesDirectory, baseNamespace, model)
         }
     }
 
     def generateEntitySpringDataRepositories(models) {
         models.each { model ->
-            enrichModel(basePackageName, model)
-            generateEntitySpringDataRepository(javaSourcesDirectory, model) }
+            generateEntitySpringDataRepository(javaSourcesDirectory, baseNamespace, model) }
+    }
+
+    def generateEntityHibernateValidators(models) {
+        models.each { model ->
+            generateEntityHibernateValidator(groovySourcesDirectory, baseNamespace, model)
+        }
     }
 }

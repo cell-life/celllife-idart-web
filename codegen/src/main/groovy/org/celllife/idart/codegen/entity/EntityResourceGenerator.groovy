@@ -1,6 +1,6 @@
 package org.celllife.idart.codegen.entity
 
-import static org.celllife.idart.codegen.ModelEnricher.enrichModel
+import static EntityModelEnricher.enrichAggregateRoot
 
 /**
  * User: Kevin W. Sewell
@@ -9,11 +9,11 @@ import static org.celllife.idart.codegen.ModelEnricher.enrichModel
  */
 class EntityResourceGenerator {
 
-    static generateEntityResource(String groovySourcesDirectory, String javaSourcesDirectory , String basePackageName, model) {
-        enrichModel(basePackageName, model)
+    static generateEntityResource(String groovySourcesDirectory, String basePackageName, def model) {
+
+        enrichAggregateRoot(basePackageName, model)
 
         generateEntityController(groovySourcesDirectory, model)
-        generateEntityResourceInterface(javaSourcesDirectory, model)
     }
 
     static generateEntityController(String baseDirectory, model) {
@@ -21,19 +21,8 @@ class EntityResourceGenerator {
         org.celllife.idart.codegen.FileWriter.toFile(
                 templateReader: "/templates/entity/resourceController.template",
                 model: model,
-                directory: baseDirectory + "/" + model.resourcePackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "ResourceController.groovy"
+                directory: baseDirectory + "/" + model.resourceController.packageName.replaceAll("\\.", "/"),
+                fileName: model.resourceController.className + ".groovy"
         )
     }
-
-    static generateEntityResourceInterface(String baseDirectory, model) {
-
-        org.celllife.idart.codegen.FileWriter.toFile(
-                templateReader: "/templates/entity/resourceServiceInterface.template",
-                model: model,
-                directory: baseDirectory + "/" + model.applicationPackageName.replaceAll("\\.", "/"),
-                fileName: model.entityName + "ResourceService.java"
-        )
-    }
-
 }

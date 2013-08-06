@@ -1,28 +1,32 @@
 package org.celllife.idart.domain.administrationmethod
 
-import org.celllife.idart.domain.common.*
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-06
- * Time: 22h10
+ * Administration Method - The method in which medication is administered 
+ *
  */
-@Mixin([Codeable, Nameable, Describable])
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 class AdministrationMethod {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/methods"
-
-    static final String DEFAULT_SYSTEM = "2.16.840.1.113883.12.165"
+    /**
+     * Namespace
+     */
+    static NAMESPACE = "http://www.cell-life.org/idart/administrationMethods"
 
     /**
-     * Persistence Key
+     * Code 
      */
-    String pk
-
-    Set<Code> codes = []
-
-    Set<LocalisedText> names = []
-
-    Set<LocalisedText> descriptions = []
-
+    AdministrationMethodCode code
+    
+    /**
+     * Name 
+     */
+    String name
+    
+    /**
+     * Description 
+     */
+    String description
+    
 }

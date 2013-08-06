@@ -1,16 +1,28 @@
 package org.celllife.idart.domain.user
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-08-01
- * Time: 10h24
+ * User 
+ *
  */
 class User {
 
-    Long pk
+    /**
+     * Namespace
+     */
+    static NAMESPACE = "http://www.cell-life.org/idart/users"
 
+    /**
+     * Identifier 
+     */
+    UserIdentifier identifier
+
+    /**
+     * Current Username 
+     */
     String currentUsername
 
+    /**
+     * Current Password 
+     */
     String currentPassword
-
 }

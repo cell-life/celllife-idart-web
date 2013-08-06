@@ -7,117 +7,15 @@
     <!-- Administration Method -->
 
     <entity class="org.celllife.idart.domain.administrationmethod.AdministrationMethod">
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
         <attributes>
-            <id name="pk"/>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
         </attributes>
-    </entity>
-
-    <!-- Clinic Medication Relationship -->
-
-    <entity class="org.celllife.idart.domain.clinicdispensation.ClinicDispensation">
-
-        <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <basic name="fromDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <basic name="thruDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <many-to-one name="clinic"/>
-            <many-to-one name="dispensation"/>
-        </attributes>
-
-    </entity>
-
-    <!-- Clinic Medication Relationship -->
-
-    <entity class="org.celllife.idart.domain.clinicmedication.ClinicMedication">
-
-        <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <basic name="fromDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <basic name="thruDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <many-to-one name="clinic"/>
-            <many-to-one name="medication"/>
-        </attributes>
-
-    </entity>
-
-    <!-- Clinic Patient Relationship -->
-
-    <entity class="org.celllife.idart.domain.clinicpatient.ClinicPatient">
-
-        <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <basic name="fromDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <basic name="thruDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <many-to-one name="clinic"/>
-            <many-to-one name="patient"/>
-        </attributes>
-
-    </entity>
-
-    <!-- Clinic Practitioner Relationship -->
-
-    <entity class="org.celllife.idart.domain.clinicpractitioner.ClinicPractitioner">
-
-        <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <basic name="fromDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <basic name="thruDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <many-to-one name="clinic"/>
-            <many-to-one name="practitioner"/>
-        </attributes>
-
-    </entity>
-
-    <!-- Clinic Prescription Relationship -->
-
-    <entity class="org.celllife.idart.domain.clinicprescription.ClinicPrescription">
-
-        <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <basic name="fromDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <basic name="thruDate">
-                <temporal>TIMESTAMP</temporal>
-            </basic>
-            <many-to-one name="clinic"/>
-            <many-to-one name="prescription"/>
-        </attributes>
-
     </entity>
 
     <!-- Contact Mechanism -->
@@ -339,12 +237,13 @@
 
     <entity class="org.celllife.idart.domain.entrysite.EntrySite">
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
         </attributes>
     </entity>
 
@@ -384,18 +283,14 @@
     <!-- Form -->
 
     <entity class="org.celllife.idart.domain.form.Form">
-
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
-
         <attributes>
-            <id name="pk"/>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
         </attributes>
     </entity>
 
@@ -403,12 +298,13 @@
 
     <entity class="org.celllife.idart.domain.indication.Indication">
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
         </attributes>
     </entity>
 
@@ -457,12 +353,13 @@
 
     <entity class="org.celllife.idart.domain.lifeevent.LifeEvent">
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
         </attributes>
     </entity>
 
@@ -887,18 +784,14 @@
     <!-- RouteOfAdministration -->
 
     <entity class="org.celllife.idart.domain.routeofadministration.RouteOfAdministration">
-
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
-
         <attributes>
-            <id name="pk"/>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
         </attributes>
     </entity>
 
@@ -906,12 +799,13 @@
 
     <entity class="org.celllife.idart.domain.substitution.Substitution">
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
         </attributes>
     </entity>
 
@@ -919,37 +813,83 @@
 
     <entity class="org.celllife.idart.domain.substitutionreason.SubstitutionReason">
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
+        </attributes>
+    </entity>
+
+    <!-- System -->
+
+    <entity class="org.celllife.idart.domain.system.System">
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
         </attributes>
     </entity>
 
     <!-- UnitOfMeasure -->
 
     <entity class="org.celllife.idart.domain.unitofmeasure.UnitOfMeasure">
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.CodeableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
         <attributes>
-            <id name="pk"/>
-            <many-to-one name="type" fetch="EAGER"/>
-            <element-collection name="codes" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
+            <many-to-one name="type"/>
         </attributes>
     </entity>
 
-    <entity class="org.celllife.idart.domain.unitofmeasure.UnitOfMeasureType">
+    <!-- UnitOfMeasureType -->
+
+    <entity class="org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureType">
+        <attributes>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
+        </attributes>
+    </entity>
+
+    <!-- User -->
+
+    <entity class="org.celllife.idart.domain.user.User">
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="currentUsername"/>
+            <basic name="currentPassword"/>
+        </attributes>
+    </entity>
+
+    <!-- User For System -->
+
+    <entity class="org.celllife.idart.domain.usersystem.UserSystem">
         <attributes>
             <id name="pk">
                 <generated-value strategy="TABLE"/>
             </id>
-            <element-collection name="names" fetch="EAGER"/>
+            <basic name="relationship">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <many-to-one name="fromUser"/>
+            <many-to-one name="toSystem"/>
         </attributes>
     </entity>
 

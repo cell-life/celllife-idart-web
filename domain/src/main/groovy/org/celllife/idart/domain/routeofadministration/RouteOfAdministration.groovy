@@ -1,28 +1,32 @@
 package org.celllife.idart.domain.routeofadministration
 
-import org.celllife.idart.domain.common.*
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-17
- * Time: 14h25
+ * Route Of Administration 
+ *
  */
-@Mixin([Codeable, Nameable, Describable])
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 class RouteOfAdministration {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/routes"
-
-    static final String DEFAULT_SYSTEM = "2.16.840.1.113883.5.112"
+    /**
+     * Namespace
+     */
+    static NAMESPACE = "http://www.cell-life.org/idart/routesOfAdministration"
 
     /**
-     * Persistence Key
+     * Code 
      */
-    String pk
-
-    Set<Code> codes = []
-
-    Set<LocalisedText> names = []
-
-    Set<LocalisedText> descriptions = []
-
+    RouteOfAdministrationCode code
+    
+    /**
+     * Name 
+     */
+    String name
+    
+    /**
+     * Description 
+     */
+    String description
+    
 }

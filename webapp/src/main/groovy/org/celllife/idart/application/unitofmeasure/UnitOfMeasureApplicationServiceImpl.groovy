@@ -1,29 +1,28 @@
 package org.celllife.idart.application.unitofmeasure
 
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureValidationException
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureNotFoundException
+import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureCode
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-21
- * Time: 01h28
  */
-@Service class UnitOfMeasureApplicationServiceImpl implements UnitOfMeasureApplicationService, UnitOfMeasureResourceService {
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+@Service class UnitOfMeasureApplicationServiceImpl implements UnitOfMeasureApplicationService {
 
     @Autowired UnitOfMeasureService unitOfMeasureService
 
-    UnitOfMeasure save(UnitOfMeasure unitOfMeasure) {
+    UnitOfMeasure save(UnitOfMeasure unitOfMeasure) throws UnitOfMeasureValidationException {
         unitOfMeasureService.save(unitOfMeasure)
     }
 
-    UnitOfMeasure findByCode(String code) {
+    UnitOfMeasure findByCode(UnitOfMeasureCode code) throws UnitOfMeasureNotFoundException{
         unitOfMeasureService.findByCode(code)
-    }
-
-    Iterable<UnitOfMeasure> findAll() {
-        unitOfMeasureService.findAll()
     }
 
 }

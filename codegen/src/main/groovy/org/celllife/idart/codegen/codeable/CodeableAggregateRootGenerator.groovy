@@ -13,11 +13,21 @@ class CodeableAggregateRootGenerator {
 
         enrichModel(basePackageName, model)
 
+        generateCodeableEntity(groovySourcesDirectory, model)
         generateCodeableRepository(groovySourcesDirectory, model)
         generateCodeableValidatorInterface(groovySourcesDirectory, model)
         generateCodeableValidationException(groovySourcesDirectory, model)
         generateCodeableDomainServiceInterface(groovySourcesDirectory, model)
         generateCodeableDomainServiceImplementation(groovySourcesDirectory, model)
+    }
+
+    static generateCodeableEntity(String baseDirectory, model) {
+        org.celllife.idart.codegen.FileWriter.toFile(
+                templateReader: "/templates/codeable/entity.template",
+                model: model,
+                directory: baseDirectory + "/" + model.domainPackageName.replaceAll("\\.", "/"),
+                fileName: model.entityName + ".groovy"
+        )
     }
 
     static generateCodeableRepository(String baseDirectory, model) {

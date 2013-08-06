@@ -28,16 +28,6 @@
     </filter-mapping>
 
     <servlet>
-        <servlet-name>api</servlet-name>
-        <servlet-class>org.springframework.data.rest.webmvc.RepositoryRestExporterServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>api</servlet-name>
-        <url-pattern>/api/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>main</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>

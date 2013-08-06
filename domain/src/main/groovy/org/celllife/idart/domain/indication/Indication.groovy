@@ -1,24 +1,32 @@
 package org.celllife.idart.domain.indication
 
-import org.celllife.idart.domain.common.*
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-17
- * Time: 20h54
+ * Indication 
+ *
  */
-@Mixin([Codeable, Nameable, Describable])
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 class Indication {
 
     /**
-     * Persistence Key
+     * Namespace
      */
-    Long pk
+    static NAMESPACE = "http://www.cell-life.org/idart/indications"
 
-    Set<Code> codes = []
-
-    Set<LocalisedText> names = []
-
-    Set<LocalisedText> descriptions = []
-
+    /**
+     * Code 
+     */
+    IndicationCode code
+    
+    /**
+     * Name 
+     */
+    String name
+    
+    /**
+     * Description 
+     */
+    String description
+    
 }

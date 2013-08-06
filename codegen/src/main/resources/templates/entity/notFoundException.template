@@ -1,0 +1,13 @@
+package ${entity.packageName}
+
+import javax.annotation.Generated
+
+/**
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+class ${entity.className}NotFoundException extends Exception {
+
+    ${entity.className}NotFoundException(String message) {
+        super(message)
+    }
+}
