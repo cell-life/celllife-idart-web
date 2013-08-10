@@ -7,7 +7,7 @@ import javax.annotation.Generated
 import javax.persistence.Embeddable
 
 /**
- * System Identifier
+ * System System Identifier
  *
  */
 @Embeddable
@@ -20,4 +20,12 @@ class SystemIdentifier implements Serializable {
      */
     String value
     
+    static SystemIdentifier valueOf(String string) {
+        new SystemIdentifier ( value: string )
+    }
+
+    @Override
+    String toString() {
+         value 
+    }
 }

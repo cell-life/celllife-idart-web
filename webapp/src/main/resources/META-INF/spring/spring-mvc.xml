@@ -16,6 +16,7 @@
 
     <!--Tell the servlet where to look for annotated methods-->
     <context:component-scan base-package="org.celllife.idart.interfaces.service"/>
+    <context:component-scan base-package="org.celllife.idart.interfaces.resource"/>
 
     <mvc:view-controller path="/" view-name="index"/>
 

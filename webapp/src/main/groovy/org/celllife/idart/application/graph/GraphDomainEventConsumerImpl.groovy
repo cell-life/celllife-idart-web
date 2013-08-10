@@ -3,8 +3,7 @@ package org.celllife.idart.application.graph
 import groovy.json.JsonSlurper
 import org.neo4j.graphdb.GraphDatabaseService
 import org.neo4j.graphdb.Node
-import org.neo4j.graphdb.index.Index
-import org.neo4j.graphdb.index.IndexHits
+import org.neo4j.graphdb.index.UniqueFactory
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,7 +29,7 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
             def system = new JsonSlurper().parseText(message)
 
-            Node systemNode = createSystemNode(system.identifier.value)
+            Node systemNode = getOrCreateSystemNode(system.identifier.value)
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)
@@ -44,7 +43,7 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
             def user = new JsonSlurper().parseText(message)
 
-            Node userNode = createUserNode(user.identifier.value)
+            Node userNode = getOrCreateUserNode(user.identifier.value)
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)
@@ -58,9 +57,9 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
             def userSystem = new JsonSlurper().parseText(message)
 
-            Node fromUserNode = createUserNode(userSystem.fromUser.identifier.value)
+            Node fromUserNode = getOrCreateUserNode(userSystem.fromUser.identifier.value)
 
-            Node toSystemNode = createSystemNode(userSystem.toSystem.identifier.value)
+            Node toSystemNode = getOrCreateSystemNode(userSystem.toSystem.identifier.value)
 
             fromUserNode.createRelationshipTo(toSystemNode, withName(userSystem.relationship))
 
@@ -69,45 +68,27 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
         }
     }
 
-    Node createUserNode(userIdentifier) {
+    Node getOrCreateUserNode(userIdentifier) {
 
-        Index<Node> userIndex = graphDatabaseService.index().forNodes("users")
-        IndexHits<Node> users = userIndex.get("identifier", userIdentifier)
-
-        try {
-            if (users.size() != 0) {
-                return users.single
+        UniqueFactory<Node> factory = new UniqueFactory.UniqueNodeFactory(graphDatabaseService, "users") {
+            @Override
+            protected void initialize(Node created, Map<String, Object> properties) {
+                created.setProperty("identifier", properties.get("identifier"));
             }
-        } finally {
-            users.close()
-        }
+        };
 
-        def userNode = graphDatabaseService.createNode()
-
-        userNode.setProperty("identifier", userIdentifier)
-        userIndex.add(userNode, "identifier", userIdentifier)
-
-        return userNode
+        factory.getOrCreate("identifier", userIdentifier);
     }
 
-    Node createSystemNode(systemIdentifier) {
+    Node getOrCreateSystemNode(String systemIdentifier) {
 
-        Index<Node> systemIndex = graphDatabaseService.index().forNodes("systems")
-        IndexHits<Node> systems = systemIndex.get("identifier", systemIdentifier)
-
-        try {
-            if (systems.size() != 0) {
-                return systems.single
+        UniqueFactory<Node> factory = new UniqueFactory.UniqueNodeFactory(graphDatabaseService, "systems") {
+            @Override
+            protected void initialize(Node created, Map<String, Object> properties) {
+                created.setProperty("identifier", properties.get("identifier"));
             }
-        } finally {
-            systems.close()
-        }
+        };
 
-        def systemNode = graphDatabaseService.createNode()
-
-        systemNode.setProperty("identifier", systemIdentifier)
-        systemIndex.add(systemNode, "identifier", systemIdentifier)
-
-        return systemNode
+        factory.getOrCreate("identifier", systemIdentifier);
     }
 }

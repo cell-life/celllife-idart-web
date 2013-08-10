@@ -21,21 +21,30 @@ import static org.celllife.idart.domain.usersystem.UserSystemRelationship.FOR
     @Autowired UserSystemEventPublisher userSystemEventPublisher
 
     @Override
-    void saveUserForSystem(UserIdentifier user, SystemIdentifier system) {
+    void saveUserForSystem(UserIdentifier userIdentifier, SystemIdentifier systemIdentifier) {
 
-        def existingRelationship = userSystemRepository.findByUserAndSystemAndRelationship(user, system, FOR)
+        def existingRelationship =
+            userSystemRepository.findByUserIdentifierAndSystemIdentifierAndRelationship(
+                userIdentifier,
+                systemIdentifier,
+                FOR
+            )
 
         if (existingRelationship == null) {
             existingRelationship = userSystemRepository.save(
                     new UserSystem(
-                            fromUser: new User(identifier: user),
-                            toSystem: new System(identifier: system),
+                            fromUser: new User(userIdentifier: userIdentifier),
+                            toSystem: new System(systemIdentifier: systemIdentifier),
                             relationship: FOR
 
                     )
             )
         }
 
-        userSystemEventPublisher.userSystemSaved(existingRelationship)
+        userSystemEventPublisher.publish(newUserSystemEvent(existingRelationship))
+    }
+
+    static newUserSystemEvent(UserSystem existingRelationship) {
+        new UserSystemEventFactory().username("").userSystem(existingRelationship).build()
     }
 }

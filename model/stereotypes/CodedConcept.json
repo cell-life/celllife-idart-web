@@ -1,0 +1,12 @@
+{
+    "name": {
+        "singular": "Coded Concept"
+    },
+    "description": "A coded concept",
+    "_properties": [
+        {
+            "name": "hasCode",
+            "inverseFunctional": true
+        }
+    ]
+}

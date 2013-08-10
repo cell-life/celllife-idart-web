@@ -9,6 +9,6 @@ public interface SystemRepository {
 
     System save(System system)
 
-    System findOne(SystemIdentifier identifier)
+    System findOne(SystemIdentifier systemIdentifier)
 
 }

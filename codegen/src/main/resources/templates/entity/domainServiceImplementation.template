@@ -14,16 +14,20 @@ import javax.annotation.Generated
 
     @Autowired ${validator.className} ${validator.fieldName}
 
+    @Autowired ${eventPublisher.className} ${eventPublisher.fieldName}
+
     @Override
     ${entity.className} save(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException {
 
         ${validator.fieldName}.validate(${entity.fieldName})
 
+        ${eventPublisher.fieldName}.${entity.fieldName}Saved(${entity.fieldName})
+
         ${repository.fieldName}.save(${entity.fieldName})
     }
 
     @Override
-    ${entity.className} findBy${entity.identifier.name}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException {
+    ${entity.className} findBy${entity.identifier.className}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException {
 
         def ${entity.fieldName} = ${repository.fieldName}.findOne(${entity.identifier.fieldName})
 

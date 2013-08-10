@@ -2,6 +2,7 @@ package org.celllife.idart.domain.part
 
 import org.celllife.idart.domain.common.Quantity
 
+import javax.persistence.ManyToOne
 import javax.validation.constraints.NotNull
 
 /**

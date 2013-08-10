@@ -14,6 +14,6 @@ class System {
     /**
      * Identifier 
      */
-    SystemIdentifier identifier
+    SystemIdentifier systemIdentifier
 
 }

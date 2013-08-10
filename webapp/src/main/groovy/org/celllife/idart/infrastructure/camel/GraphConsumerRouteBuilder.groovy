@@ -13,21 +13,16 @@ import org.springframework.stereotype.Component
     @Override
     void configure() throws Exception {
 
-        from("jms:topic:userSavedEventTopic?" +
-                "clientId=userSavedEventGraphConsumer&" +
-                "durableSubscriptionName=userSavedEventGraphConsumer"
-        ).beanRef("graphDomainEventConsumer", "userSaved")
-
-        from("jms:topic:systemSavedEventTopic?" +
-                "clientId=systemSavedEventGraphConsumer&" +
-                "durableSubscriptionName=systemSavedEventGraphConsumer"
-        ).beanRef("graphDomainEventConsumer", "systemSaved")
-
-        from("jms:topic:userSystemSavedEventTopic?" +
-                "clientId=userSystemSavedEventGraphConsumer&" +
-                "durableSubscriptionName=userSystemSavedEventGraphConsumer"
-        ).beanRef("graphDomainEventConsumer", "userSystemSaved")
-
+        ["userEvent", "systemEvent", "userSystemEvent"].each { event ->
+            from(buildUri(event)).beanRef("graphDomainEventConsumer", methodName(event))
+        }
     }
 
+    static methodName(String event) {
+        event
+    }
+
+    static buildUri(event) {
+        "jms:topic:${event}?clientId=${event}Graph&durableSubscriptionName=${event}Graph"
+    }
 }

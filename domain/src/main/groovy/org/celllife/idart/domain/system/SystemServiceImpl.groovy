@@ -20,20 +20,24 @@ import javax.annotation.Generated
 
         systemValidator.validate(system)
 
-        systemEventPublisher.systemSaved(system)
+        systemEventPublisher.publish(newSystemEvent(system))
 
         systemRepository.save(system)
     }
 
     @Override
-    System findByIdentifier(SystemIdentifier identifier) throws SystemNotFoundException {
+    System findBySystemIdentifier(SystemIdentifier systemIdentifier) throws SystemNotFoundException {
 
-        def system = systemRepository.findOne(identifier)
+        def system = systemRepository.findOne(systemIdentifier)
 
         if (system == null) {
-            throw new SystemNotFoundException("Could not find System with Identifier [${ identifier}]")
+            throw new SystemNotFoundException("Could not find System with System Identifier [${ systemIdentifier}]")
         }
 
         system
+    }
+
+    static newSystemEvent(System system) {
+        new SystemEventFactory().username("").system(system).systemEvent()
     }
 }

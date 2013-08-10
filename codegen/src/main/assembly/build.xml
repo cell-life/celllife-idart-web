@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project name="idart-codegen" default="entity-all" basedir="."
+         xmlns:codegen="org.celllife.idart.codegen.ant">
+
+    <property file="${basedir}/build.properties"/>
+
+    <property name="etc.path" value="${basedir}/etc"/>
+    <property name="lib.path" value="${basedir}/lib"/>
+
+    <path id="codegen.classpath">
+        <fileset dir="${lib.path}" includes="*.jar"/>
+    </path>
+
+    <taskdef classpathref="codegen.classpath"
+             uri="org.celllife.idart.codegen.ant"
+             resource="codegen.tasks"/>
+
+    <target name="entity-all">
+        <codegen:entity basedir="${project.baseDir}"
+                        basenamespace="${project.baseNamespace}"
+                        modelfile="${project.modelFile}"/>
+    </target>
+
+</project>

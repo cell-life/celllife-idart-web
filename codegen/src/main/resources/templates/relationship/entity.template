@@ -12,9 +12,11 @@ class ${className} {
 
     Long pk
 
-    ${entities[0].className} ${entities[0].propertyName}
+    ${from.entity.className} ${from.entity.fieldName}
 
-    ${entities[1].className} ${entities[1].propertyName}
+    ${to.entity.className} ${to.entity.fieldName}
+
+    ${relationshipEnum.className} ${relationshipEnum.fieldName}
 
     Date fromDate
 

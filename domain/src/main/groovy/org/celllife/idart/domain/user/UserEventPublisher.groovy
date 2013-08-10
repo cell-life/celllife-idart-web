@@ -7,6 +7,6 @@ package org.celllife.idart.domain.user
  */
 interface UserEventPublisher {
 
-    void userSaved(User user)
+    void publishUserEvent(UserEvent userEvent)
 
 }

@@ -6,6 +6,13 @@ target
 .settings
 .classpath
 
+activemq-data
+*.epoch
+*.log
+
 **/.sass-cache/**
 **/webapp/resources/bower_components/**
 **/webapp/resources/node_modules/**
+
+generated/**/*.java
+generated/**/*.groovy

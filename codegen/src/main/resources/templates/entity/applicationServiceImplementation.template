@@ -21,8 +21,8 @@ import javax.annotation.Generated
         ${domainService.fieldName}.save(${entity.fieldName})
     }
 
-    ${entity.className} findBy${entity.identifier.name}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException{
-        ${domainService.fieldName}.findBy${entity.identifier.name}(${entity.identifier.fieldName})
+    ${entity.className} findBy${entity.identifier.className}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException{
+        ${domainService.fieldName}.findBy${entity.identifier.className}(${entity.identifier.fieldName})
     }
 
 }

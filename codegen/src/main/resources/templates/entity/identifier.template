@@ -20,4 +20,12 @@ class ${entity.identifier.className} implements Serializable {
      */
     ${property.type} ${property.fieldName}
     <% } %>
+    static ${entity.identifier.className} valueOf(String string) {
+        new ${entity.identifier.className} (<% entity.identifier._properties.each { property -> %> ${property.fieldName}: string <% } %>)
+    }
+
+    @Override
+    String toString() {
+        <% entity.identifier._properties.each { property -> %> ${property.fieldName} <% } %>
+    }
 }

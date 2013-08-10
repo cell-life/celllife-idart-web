@@ -2,7 +2,7 @@ package org.celllife.idart.domain.contactmechanism
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.celllife.idart.domain.party.PartyContactMechanism
-import org.celllife.idart.infrastructure.contactmechanism.json.ContactMechanismMixin
+import org.celllife.idart.infrastructure.jackson.contactmechanism.ContactMechanismMixin
 import org.junit.Before
 import org.junit.Test
 

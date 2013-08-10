@@ -1,6 +1,7 @@
 package org.celllife.idart.interfaces.service.form
 
 import org.celllife.idart.domain.form.Form
+import org.celllife.idart.domain.form.FormCode
 import org.celllife.idart.domain.form.FormService
 import org.celllife.idart.integration.hl7.CodeFile
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,7 +32,7 @@ import static org.celllife.idart.integration.hl7.Hl7CodeFileReader.readFile
 
         switch (structure) {
             case "hl7":
-                formService.save(getFormsFromHl7(fileContent))
+                getFormsFromHl7(fileContent).each { form -> formService.save(form) }
                 break
         }
 
@@ -48,7 +49,7 @@ import static org.celllife.idart.integration.hl7.Hl7CodeFileReader.readFile
 
         codeFile.codes.collect { code ->
             Form form = new Form(name: code.name, description: code.description)
-            form.addCode(codeFile.system, code.code)
+            form.formCode = new FormCode(value: code.code)
             form
         }
     }

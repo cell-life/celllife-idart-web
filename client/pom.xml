@@ -7,15 +7,15 @@
 
     <parent>
         <groupId>org.celllife.idart</groupId>
-        <artifactId>celllife-idart-web-parent</artifactId>
+        <artifactId>celllife-idart-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>celllife-idart-web-client</artifactId>
+    <artifactId>celllife-idart-client</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>celllife-idart-web-client</name>
+    <name>celllife-idart-client</name>
 
     <build>
         <plugins>

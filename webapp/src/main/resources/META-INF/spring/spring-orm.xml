@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          depends-on="liquibase">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="jpaProperties">
-            <util:properties location="classpath:hibernate.properties"/>
-        </property>
-    </bean>
+    <jee:jndi-lookup id="entityManagerFactory"
+                     proxy-interface="javax.persistence.EntityManagerFactory"
+                     jndi-name="jpa/idartEntityManagerFactory"
+                     resource-ref="false"/>
+
+    <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
+
 </beans>

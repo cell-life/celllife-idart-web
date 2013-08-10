@@ -8,7 +8,7 @@ import static org.celllife.idart.codegen.codeable.CodeableResourceGenerator.gene
 import static org.celllife.idart.codegen.codeable.CodeableSpringDataRepositoryGenerator.generateCodeableSpringDataRepository
 import static org.celllife.idart.codegen.entity.EntityAggregateRootGenerator.generateEntityAggregateRoot
 import static org.celllife.idart.codegen.entity.EntityApplicationServiceGenerator.generateEntityApplicationService
-import static org.celllife.idart.codegen.entity.EntityHibernateValidatorGenerator.generateEntityHibernateValidator
+import static org.celllife.idart.codegen.entity.EntityJsr303ValidatorGenerator.generateEntityJsr303Validator
 import static org.celllife.idart.codegen.entity.EntityResourceGenerator.generateEntityResource
 import static org.celllife.idart.codegen.entity.EntitySpringDataRepositoryGenerator.generateEntitySpringDataRepository
 import static org.celllife.idart.codegen.identifiable.IdentifiableAggregateRootGenerator.generateIdentifiableAggregateRoot
@@ -132,7 +132,8 @@ class CodeGenerator {
 
     def generateEntityHibernateValidators(models) {
         models.each { model ->
-            generateEntityHibernateValidator(groovySourcesDirectory, baseNamespace, model)
+            generateEntityJsr303Validator(groovySourcesDirectory, baseNamespace, model)
         }
     }
+
 }

@@ -1,3 +1,4 @@
+
 package org.celllife.idart.domain.user
 
 import javax.annotation.Generated
@@ -9,6 +10,6 @@ public interface UserService {
 
     User save(User user) throws UserValidationException
 
-    User findByIdentifier(UserIdentifier identifier) throws UserNotFoundException
+    User findByUserIdentifier(UserIdentifier userIdentifier) throws UserNotFoundException
 
 }

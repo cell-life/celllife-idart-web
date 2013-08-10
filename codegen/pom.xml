@@ -7,18 +7,51 @@
 
     <parent>
         <groupId>org.celllife.idart</groupId>
-        <artifactId>celllife-idart-web-parent</artifactId>
+        <artifactId>celllife-idart-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>celllife-idart-web-codegen</artifactId>
+    <artifactId>celllife-idart-codegen</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
 
         <plugins>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <descriptor>${project.basedir}/assembly.xml</descriptor>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>write-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.directory}/${project.build.finalName}/build.properties</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
@@ -60,6 +93,15 @@
                     <artifactId>asm</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- Groovy -->
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.8.4</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- JUnit -->

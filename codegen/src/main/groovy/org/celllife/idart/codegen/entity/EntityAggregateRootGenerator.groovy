@@ -17,6 +17,7 @@ class EntityAggregateRootGenerator {
         generateEntity(groovySourcesDirectory, model)
         generateEntityNotFoundException(groovySourcesDirectory, model)
         generateRepository(groovySourcesDirectory, model)
+        generateEventPublisherInterface(groovySourcesDirectory, model)
         generateValidatorInterface(groovySourcesDirectory, model)
         generateValidationException(groovySourcesDirectory, model)
         generateDomainServiceInterface(groovySourcesDirectory, model)
@@ -56,6 +57,15 @@ class EntityAggregateRootGenerator {
                 model: model,
                 directory: baseDirectory + "/" + model.repository.packageName.replaceAll("\\.", "/"),
                 fileName: model.repository.className + ".groovy"
+        )
+    }
+
+    static generateEventPublisherInterface(String baseDirectory, model) {
+        org.celllife.idart.codegen.FileWriter.toFile(
+                templateReader: "/templates/entity/eventPublisher.template",
+                model: model,
+                directory: baseDirectory + "/" + model.eventPublisher.packageName.replaceAll("\\.", "/"),
+                fileName: model.eventPublisher.className + ".groovy"
         )
     }
 

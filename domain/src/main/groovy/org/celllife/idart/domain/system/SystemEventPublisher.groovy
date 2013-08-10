@@ -7,6 +7,6 @@ package org.celllife.idart.domain.system
  */
 interface SystemEventPublisher {
 
-    void systemSaved(System system)
+    void publish(SystemEvent systemEvent)
 
 }

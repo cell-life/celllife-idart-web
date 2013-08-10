@@ -7,7 +7,7 @@
 
     <parent>
         <groupId>org.celllife.idart</groupId>
-        <artifactId>celllife-idart-web-parent</artifactId>
+        <artifactId>celllife-idart-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

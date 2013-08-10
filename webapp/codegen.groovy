@@ -7,13 +7,12 @@ def codeGen = new CodeGenerator(
         basePackageName: project.groupId,
         baseNamespace: "http://www.cell-life.org/idart"
 )
-def aggregateRoots = new JsonSlurper().parse(new FileReader("${project.basedir}/../aggregateRoots.json"))
+def aggregateRoots = new JsonSlurper().parse(new FileReader("${project.basedir}/../model/aggregateRoots.json"))
 codeGen.generateEntitySpringDataRepositories(aggregateRoots)
 codeGen.generateEntityResources(aggregateRoots)
 codeGen.generateEntityHibernateValidators(aggregateRoots)
 
 def identifiableModels = [
-        [entityName: "Clinic"],
         [entityName: "Dispensation"],
         [entityName: "DispensedMedication"],
         [entityName: "Encounter"],
@@ -33,6 +32,6 @@ codeGen.generateIdentifiableResources(identifiableModels)
 codeGen.generateHibernateValidators(identifiableModels)
 codeGen.generateCounterSequence(identifiableModels)
 
-def relationships = new JsonSlurper().parse(new FileReader("${project.basedir}/../relationships.json"))
+def relationships = new JsonSlurper().parse(new FileReader("${project.basedir}/../model/relationships.json"))
 //codeGen.generateRelationshipResources(relationships)
 //codeGen.generateRelationshipSpringDataRepositories(relationships)

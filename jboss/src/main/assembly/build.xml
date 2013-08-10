@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<project name="idart-web-jboss" default="run" basedir="."
+         xmlns:cargo="antlib:org.codehaus.cargo.ant">
+
+    <property url="file://${basedir}/build.properties"/>
+
+    <property name="etc.path" value="${basedir}/etc"/>
+    <property name="lib.path" value="${basedir}/lib"/>
+    <property name="tmp.path" value="${basedir}/tmp"/>
+
+    <property name="jboss.path" value="${tmp.path}/jboss-as-${jboss.version}"/>
+    <property name="mysql.module.path" value="${jboss.path}/modules/com/mysql/main"/>
+
+    <property name="webapp.path" value="${basedir}/lib/celllife-idart-web-webapp-${idart.version}.war"/>
+
+    <path id="cargo.classpath">
+        <pathelement location="${lib.path}/cargo-core-uberjar-${cargo.version}.jar"/>
+        <pathelement location="${lib.path}/cargo-ant-${cargo.version}.jar"/>
+        <pathelement location="${lib.path}/commons-discovery-${commons-discovery.version}.jar"/>
+        <pathelement location="${lib.path}/commons-logging-${commons-logging.version}.jar"/>
+        <pathelement location="${lib.path}/jdom-${jdom.version}.jar"/>
+    </path>
+
+    <taskdef resource="cargo.tasks"
+             uri="antlib:org.codehaus.cargo.ant"
+             classpathref="cargo.classpath"/>
+
+    <cargo:cargo id="jboss.container" containerId="jboss72x" home="${jboss.path}">
+        <cargo:configuration type="existing" home="${jboss.path}/standalone">
+            <property name="cargo.servlet.users" value="admin:P@ssw0rd1"/>
+        </cargo:configuration>
+    </cargo:cargo>
+
+    <property name="app.name" value="test.war"/>
+
+    <presetdef name="jboss-cli">
+        <java jar="${jboss.path}/jboss-modules.jar" fork="true">
+            <jvmarg line="-Dlogging.configuration=file://${etc.path}/jboss-cli-logging.properties"/>
+            <jvmarg line="-Djboss.cli.config=${etc.path}/jboss-cli.xml"/>
+            <arg line="-mp ${jboss.path}/modules org.jboss.as.cli -c"/>
+        </java>
+    </presetdef>
+
+    <presetdef name="jboss-add-user">
+        <java jar="${jboss.path}/jboss-modules.jar" fork="true">
+            <env key="JBOSS_HOME" value="${jboss.path}"/>
+            <arg line="-mp ${jboss.path}/modules org.jboss.as.domain-add-user"/>
+        </java>
+    </presetdef>
+
+    <fileset id="dependency.fileset"/>
+
+    <target name="jboss-clean" depends="check-initialised" if="initialised">
+        <delete dir="tmp"/>
+    </target>
+
+    <target name="check-initialised">
+        <condition property="initialised">
+            <available file="${jboss.path}" type="dir"/>
+        </condition>
+    </target>
+
+    <target name="jboss-initialise" depends="check-initialised" unless="initialised">
+
+        <unzip src="${lib.path}/jboss-as-dist-${jboss.version}.zip" dest="${tmp.path}" />
+
+        <chmod dir="${jboss.path}/bin" includes="**/*.sh" perm="755" />
+
+        <copy file="${jboss.path}/standalone/configuration/standalone-full.xml"
+              tofile="${jboss.path}/standalone/configuration/standalone.xml"
+              overwrite="true"/>
+
+        <mkdir dir="${mysql.module.path}"/>
+
+        <copy file="${lib.path}/mysql-connector-java-${mysql.version}.jar" todir="${mysql.module.path}"/>
+
+        <copy file="${etc.path}/com.mysql.module.xml" tofile="${mysql.module.path}/module.xml" filtering="true">
+            <filterset>
+                <filter token="MYSQL_VERSION" value="${mysql.version}"/>
+            </filterset>
+        </copy>
+
+    </target>
+
+    <target name="jboss-configure">
+        <jboss-cli failonerror="true">
+            <arg line="--file=${etc.path}/config.cli"/>
+        </jboss-cli>
+    </target>
+
+    <target name="jboss-add-user">
+        <jboss-add-user failonerror="true">
+            <arg line="-s"/>
+            <arg line="-u admin"/>
+            <arg line="-p P@ssw0rd1"/>
+        </jboss-add-user>
+    </target>
+
+    <target name="jboss-start">
+        <cargo:cargo refid="jboss.container" action="start"/>
+    </target>
+
+    <target name="jboss-run">
+        <cargo:cargo refid="jboss.container" action="run"/>
+    </target>
+
+    <target name="jboss-stop" depends="check-initialised" if="initialised">
+        <cargo:cargo refid="jboss.container" action="stop"/>
+    </target>
+
+    <target name="jboss-restart">
+        <cargo:cargo refid="jboss.container" action="restart"/>
+    </target>
+
+    <target name="jboss-start-deployed">
+        <cargo:cargo id="jboss.container" containerId="jboss72x" home="${jboss.path}" action="start">
+            <cargo:configuration type="existing" home="${jboss.path}/standalone">
+                <cargo:deployable type="war" file="${webapp.path}">
+                    <property name="context" value="${webapp.context}"/>
+                </cargo:deployable>
+            </cargo:configuration>
+        </cargo:cargo>
+    </target>
+
+    <target name="jboss-run-deployed">
+        <cargo:cargo id="jboss.container" containerId="jboss72x" home="${jboss.path}" action="run">
+            <cargo:configuration type="existing" home="${jboss.path}/standalone">
+                <cargo:deployable type="war" file="${webapp.path}"/>
+            </cargo:configuration>
+        </cargo:cargo>
+    </target>
+
+    <target name="start">
+        <ant target="configure"/>
+        <ant target="jboss-start-deployed"/>
+    </target>
+
+    <target name="run">
+        <ant target="configure"/>
+        <ant target="jboss-run-deployed"/>
+    </target>
+
+    <target name="configure">
+        <ant target="jboss-stop"/>
+        <ant target="jboss-clean"/>
+        <ant target="jboss-initialise"/>
+        <ant target="jboss-start"/>
+        <ant target="jboss-configure"/>
+        <ant target="jboss-add-user"/>
+        <ant target="jboss-stop"/>
+    </target>
+
+</project>

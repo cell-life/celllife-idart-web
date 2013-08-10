@@ -7,11 +7,11 @@
 
     <parent>
         <groupId>org.celllife.idart</groupId>
-        <artifactId>celllife-idart-web-parent</artifactId>
+        <artifactId>celllife-idart-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>celllife-idart-web-domain</artifactId>
+    <artifactId>celllife-idart-domain</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
@@ -19,15 +19,6 @@
     <build>
 
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
@@ -35,23 +26,6 @@
                 <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>groovy-codegen</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <source>${project.basedir}/codegen.groovy</source>
-                            <classpath>
-                                <classpath>
-                                    <groupId>org.celllife.idart</groupId>
-                                    <artifactId>celllife-idart-web-codegen</artifactId>
-                                </classpath>
-                            </classpath>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>groovy-compile</id>
                         <goals>
                             <goal>compile</goal>
                             <goal>generateStubs</goal>
@@ -69,11 +43,6 @@
                         <artifactId>groovy-all</artifactId>
                         <version>${groovy.version}</version>
                     </dependency>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant</artifactId>
-                        <version>1.8.3</version>
-                    </dependency>
                 </dependencies>
             </plugin>
 
@@ -82,12 +51,7 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.celllife.idart</groupId>
-            <artifactId>celllife-idart-web-codegen</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+        <!-- Jackson -->
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -104,18 +68,20 @@
             <artifactId>groovy-all</artifactId>
         </dependency>
 
-        <!-- Hibernate -->
+        <!-- JPA -->
 
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_2.0_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Validation -->
 
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-validation_1.0_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

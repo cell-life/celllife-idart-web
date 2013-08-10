@@ -53,6 +53,10 @@ class EntityModelEnricher {
                     className = toCamelCase(model.name)
                 }
 
+                if (collectionClassName == null) {
+                    collectionClassName = toCamelCase(model.namePlural)
+                }
+
                 if (packageName == null) {
                     packageName = "${basePackageName}.domain.${model.packageName}"
                 }
@@ -80,11 +84,11 @@ class EntityModelEnricher {
                 identifier.with {
 
                     if (name == null) {
-                        name = "Identifier"
+                        name = model.name + " Identifier"
                     }
 
                     if (className == null) {
-                        className = model.entity.className + name
+                        className = toCamelCase(name)
                     }
 
                     if (fieldName == null) {
@@ -207,6 +211,29 @@ class EntityModelEnricher {
             }
 
             /*
+             * Event Publisher Interface
+             */
+
+            if (eventPublisher == null) {
+                eventPublisher = [:]
+            }
+
+            eventPublisher.with {
+
+                if (className == null) {
+                    className = "${model.entity.className}EventPublisher"
+                }
+
+                if (packageName == null) {
+                    packageName = "${basePackageName}.domain.${model.packageName}"
+                }
+
+                if (fieldName == null) {
+                    fieldName = toFieldName(className)
+                }
+            }
+
+            /*
              * Validator Interface
              */
 
@@ -230,21 +257,21 @@ class EntityModelEnricher {
             }
 
             /*
-             * Hibernate Validator Implementation
+             * jsr303 Validator Implementation
              */
 
-            if (hibernateValidator == null) {
-                hibernateValidator = [:]
+            if (jsr303Validator == null) {
+                jsr303Validator = [:]
             }
 
-            hibernateValidator.with {
+            jsr303Validator.with {
 
                 if (className == null) {
-                    className = "Hibernate${model.entity.className}Validator"
+                    className = "Jsr303${model.entity.className}Validator"
                 }
 
                 if (packageName == null) {
-                    packageName = "${basePackageName}.infrastructure.hibernate.${model.packageName}"
+                    packageName = "${basePackageName}.infrastructure.jsr303.${model.packageName}"
                 }
 
                 if (fieldName == null) {

@@ -1,10 +1,10 @@
-package ${applicationPackageName}
+package ${applicationService.packageName}
 
-import ${entities[0].applicationPackageName}.${entities[0].className}ResourceService
-import ${entities[1].applicationPackageName}.${entities[1].className}ResourceService
-import ${domainPackageName}.${className}Service
-import ${entities[0].domainPackageName}.${entities[0].className}
-import ${entities[1].domainPackageName}.${entities[1].className}
+import ${from.applicationService.packageName}.${from.applicationService.className}
+import ${to.applicationService.packageName}.${to.applicationService.className}
+import ${domainService.packageName}.${domainService.className}
+import ${from.entity.packageName}.${from.entity.className}
+import ${to.entity.packageName}.${to.entity.className}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service    
 
@@ -13,50 +13,34 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class ${className}ApplicationServiceImpl implements ${className}ResourceService {
+@Service class ${applicationService.className}Impl implements ${applicationService.className} {
 
-    @Autowired ${entities[0].className}ResourceService ${entities[0].propertyName}ResourceService
+    @Autowired ${from.applicationService.className} ${from.applicationService.fieldName}
 
-    @Autowired ${entities[1].className}ResourceService ${entities[1].propertyName}ResourceService
+    @Autowired ${to.applicationService.className} ${to.applicationService.fieldName}
 
-    @Autowired ${className}Service ${propertyName}Service
+    @Autowired ${domainService.className} ${domainService.fieldName}
 
     @Override
-    void save(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier, ${entities[1].className} ${entities[1].propertyName}) {
-
-        ${entities[1].propertyName}.addIdentifier(
-                String.format(
-                        "http://www.cell-life.org/idart/${entities[0].propertyNamePlural}/%s/${entities[1].propertyNamePlural}",
-                        ${entities[0].propertyName}Identifier
-                ),
-                ${entities[1].propertyName}Identifier
-        )
-
-        save(${entities[0].propertyName}Identifier, ${entities[1].propertyName})
+    void save(${from.entity.identifier.className} ${from.entity.identifier.fieldName}, ${to.entity.identifier.className} ${to.entity.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName}) {
+        save(${from.entity.identifier.fieldName}, ${to.entity.fieldName})
     }
 
     @Override
-    void save(String ${entities[0].propertyName}Identifier, ${entities[1].className} ${entities[1].propertyName}) {
+    void save(${from.entity.className} ${from.entity.fieldName}, ${to.entity.className} ${to.entity.fieldName}) {
 
-        def ${entities[0].propertyName} = ${entities[0].propertyName}ResourceService.findByIdentifier(${entities[0].propertyName}Identifier)
+        ${to.applicationService.fieldName}.save(${to.entity.fieldName})
 
-        ${entities[1].propertyName} = ${entities[1].propertyName}ResourceService.save(${entities[1].propertyName})
-
-        ${propertyName}Service.save(${entities[0].propertyName}, ${entities[1].propertyName})
+        ${domainService.fieldName}.save(${from.entity.identity.fieldName}, ${to.identity.entity.fieldName})
     }
 
     @Override
-    Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}Identifier(String ${entities[0].propertyName}Identifier) {
-         ${propertyName}Service.find${entities[1].classNamePlural}By${entities[0].className}Identifier(${entities[0].propertyName}Identifier)
+    Iterable<${to.entity.className}> find${to.entity.collectionClassName}By${from.entity.className}Identifier(${from.entity.identifier.className} ${from.entity.identifier.fieldName}) {
+         ${domainService.fieldName}.find${to.entity.collectionClassName}By${from.entity.className}Identifier(${from.entity.identifier.fieldName})
     }
 
     @Override
-    Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier) {
-
-    }
-
-    @Override
-    ${entities[1].className} findOne${entities[1].className}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier) {
+    ${to.entity.className} findOne${to.entity.className}By${from.entity.identifier.className}And${to.entity.identifier.className}(${from.entity.identifier.className} ${from.entity.identifier.fieldName}, ${to.entity.identifier.className} ${to.entity.identifier.fieldName}) {
 
     }
 }

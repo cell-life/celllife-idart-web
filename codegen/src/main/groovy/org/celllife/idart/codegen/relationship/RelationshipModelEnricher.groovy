@@ -1,5 +1,7 @@
 package org.celllife.idart.codegen.relationship
 
+import org.celllife.idart.codegen.entity.EntityModelEnricher
+
 import java.util.regex.Pattern
 
 /**
@@ -19,183 +21,38 @@ class RelationshipModelEnricher {
              * From Entity
              */
 
-            if (from == null) {
-                throw new RuntimeException()
-            }
-
-            from.with() {
-
-                if (name == null) {
-                    throw new RuntimeException()
-                }
-
-                if (namePlural == null) {
-                    namePlural = name + "s"
-                }
-
-                if (packageName == null) {
-                    packageName = name.replaceAll(/ /, '').toLowerCase()
-                }
-
-                if (resourcePath == null) {
-                    resourcePath = toFieldName(namePlural.replaceAll(/ /, ''))
-                }
-
-                if (namespace == null) {
-                    namespace = baseNamespace + "/" + resourcePath
-                }
-
-                /*
-                 * Entity
-                 */
-
-                if (entity == null) {
-                    entity = [:]
-                }
-
-                entity.with() {
-
-                    if (className == null) {
-                        className = toCamelCase(model.from.name)
-                    }
-
-                    if (packageName == null) {
-                        packageName = "${basePackageName}.domain.${model.from.packageName}"
-                    }
-
-                    if (fieldName == null) {
-                        fieldName = toFieldName(model.from.name)
-                    }
-
-                    if (collectionFieldName == null) {
-                        collectionFieldName = toFieldName(model.from.namePlural)
-                    }
-
-                    if (tableName == null) {
-                        tableName = toSnakeCase(className)
-                    }
-
-                    /*
-                     * Identifier
-                     */
-
-                    if (identifier == null) {
-                        identifier = [:]
-                    }
-
-                    identifier.with {
-
-                        if (name == null) {
-                            name = "Identifier"
-                        }
-
-                        if (className == null) {
-                            className = model.from.entity.className + name
-                        }
-
-                        if (fieldName == null) {
-                            fieldName = toFieldName(name)
-                        }
-                    }
-                }
-            }
+            EntityModelEnricher.enrichAggregateRoot(baseNamespace, from)
 
             /*
              * To Entity
              */
 
-            if (to == null) {
-                throw new RuntimeException()
-            }
+            EntityModelEnricher.enrichAggregateRoot(baseNamespace, to)
 
-            to.with() {
+            relationships.each {relationship ->
 
+                relationship.with {
 
-                if (name == null) {
-                    throw new RuntimeException()
-                }
-
-                if (namePlural == null) {
-                    namePlural = name + "s"
-                }
-
-                if (packageName == null) {
-                    packageName = name.replaceAll(/ /, '').toLowerCase()
-                }
-
-                if (resourcePath == null) {
-                    resourcePath = toFieldName(namePlural.replaceAll(/ /, ''))
-                }
-
-                if (namespace == null) {
-                    namespace = baseNamespace + "/" + resourcePath
-                }
-
-                /*
-                 * Entity
-                 */
-
-                if (entity == null) {
-                    entity = [:]
-                }
-
-                entity.with() {
-
-                    if (className == null) {
-                        className = toCamelCase(model.to.name)
+                    if (name == null) {
+                        throw new RuntimeException()
                     }
 
-                    if (packageName == null) {
-                        packageName = "${basePackageName}.domain.${model.to.packageName}"
+                    if (constantName == null) {
+                        constantName = toSnakeCase(name).toUpperCase()
                     }
 
-                    if (fieldName == null) {
-                        fieldName = toFieldName(model.to.name)
-                    }
-
-                    if (collectionFieldName == null) {
-                        collectionFieldName = toFieldName(model.to.namePlural)
-                    }
-
-                    if (tableName == null) {
-                        tableName = toSnakeCase(className)
-                    }
-
-                    /*
-                     * Identifier
-                     */
-
-                    if (identifier == null) {
-                        identifier = [:]
-                    }
-
-                    identifier.with {
-
-                        if (name == null) {
-                            name = "Identifier"
-                        }
-
-                        if (className == null) {
-                            className = model.to.entity.className + name
-                        }
-
-                        if (fieldName == null) {
-                            fieldName = toFieldName(name)
-                        }
+                    if (resourcePath == null) {
+                        resourcePath = toFieldName(model.to.namePlural + name)
                     }
                 }
             }
 
             if (name == null) {
-                throw new RuntimeException()
-            }
-
-            if (fullName == null) {
-                fullName = from.name + " " + name + " " + to.name
+                name = from.name + to.name
             }
 
             if (className == null) {
-                className = toCamelCase(fullName)
+                className = toCamelCase(name)
             }
 
             if (packageName == null) {
@@ -204,6 +61,25 @@ class RelationshipModelEnricher {
 
             if (resourcePath == null) {
                 resourcePath = toFieldName(model.name) + toCamelCase(model.to.namePlural)
+            }
+            
+            /*
+             * Relationship Enumeration
+             */
+            
+            if (relationshipEnum == null) {
+                relationshipEnum = [:]
+            }
+            
+            relationshipEnum.with {
+                
+                if (className == null) {
+                    className = model.className + "Relationship"
+                }
+                
+                if (fieldName == null) {
+                    fieldName = "relationship"
+                }
             }
 
             /*

@@ -7,75 +7,19 @@
 
     <parent>
         <groupId>org.celllife.idart</groupId>
-        <artifactId>celllife-idart-web-parent</artifactId>
+        <artifactId>celllife-idart-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>celllife-idart-web-webapp</artifactId>
+    <artifactId>celllife-idart-webapp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>${project.artifactId}</name>
 
-    <properties>
-        <jetty.daemon>true</jetty.daemon>
-    </properties>
-
-    <profiles>
-        <profile>
-            <id>jetty</id>
-            <properties>
-                <jetty.daemon>false</jetty.daemon>
-            </properties>
-        </profile>
-        <profile>
-            <id>perf</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>performance-test</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <phase>integration-test</phase>
-                                <configuration>
-                                    <skipTests>${skipTests}</skipTests>
-                                    <includes>
-                                        <include>**/*PerformanceTest.java</include>
-                                    </includes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
     <build>
-        <testResources>
-            <testResource>
-                <directory>${project.basedir}/src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>${project.basedir}/../etc</directory>
-            </testResource>
-        </testResources>
-
+        <finalName>${project.artifactId}</finalName>
         <plugins>
-
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
@@ -83,23 +27,6 @@
                 <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>groovy-codegen</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <source>${project.basedir}/codegen.groovy</source>
-                            <classpath>
-                                <classpath>
-                                    <groupId>org.celllife.idart</groupId>
-                                    <artifactId>celllife-idart-web-codegen</artifactId>
-                                </classpath>
-                            </classpath>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>groovy-compile</id>
                         <goals>
                             <goal>compile</goal>
                             <goal>generateStubs</goal>
@@ -117,216 +44,35 @@
                         <artifactId>groovy-all</artifactId>
                         <version>${groovy.version}</version>
                     </dependency>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant</artifactId>
-                        <version>1.8.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <configuration>
-                            <skip>${jetty.daemon}</skip>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unit-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <phase>test</phase>
-                        <configuration>
-                            <skipTests>${skipTests}</skipTests>
-                            <excludes>
-                                <exclude>**/*AcceptanceTest.java</exclude>
-                                <exclude>**/*PerformanceTest.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>acceptance-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <skipTests>${skipTests}</skipTests>
-                            <includes>
-                                <include>**/*AcceptanceTest.java</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sql-maven-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>junit-drop-database</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>clean</phase>
-                        <configuration>
-                            <onError>continue</onError>
-                            <sqlCommand>DROP DATABASE test;</sqlCommand>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>junit-create-database</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>clean</phase>
-                        <configuration>
-                            <sqlCommand>CREATE DATABASE test;</sqlCommand>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>acceptance-drop-database</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>pre-integration-test</phase>
-                        <configuration>
-                            <onError>continue</onError>
-                            <sqlCommand>DROP DATABASE test;</sqlCommand>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>acceptance-create-database</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>pre-integration-test</phase>
-                        <configuration>
-                            <sqlCommand>CREATE DATABASE test;</sqlCommand>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <username>root</username>
-                    <password>root</password>
-                    <driver>com.mysql.jdbc.Driver</driver>
-                    <url>jdbc:mysql://localhost:3306</url>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.23</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.0.4.v20111024</version>
-                <executions>
-                    <execution>
-                        <id>jetty-run</id>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <phase>pre-integration-test</phase>
-                    </execution>
-                    <execution>
-                        <id>jetty-stop</id>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <daemon>${jetty.daemon}</daemon>
-                    <stopKey>STOP</stopKey>
-                    <stopPort>9001</stopPort>
-                    <webAppConfig>
-                        <contextPath>/idart</contextPath>
-                    </webAppConfig>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>9000</port>
-                            <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                    </connectors>
-                    <systemProperties>
-                        <systemProperty>
-                            <key>liquibase.databaseChangeLogTableName</key>
-                            <value>database_changelog</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>liquibase.databaseChangeLogLockTableName</key>
-                            <value>database_changelog_lock</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>logback.configurationFile</key>
-                            <value>${project.basedir}/../etc/logback.xml</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>application.properties</key>
-                            <value>file://${project.basedir}/../etc/application.properties</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>com.mchange.v2.c3p0.cfg.xml</key>
-                            <value>${project.basedir}/../etc/c3p0-config.xml</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <jvmArgs>-Xmx1024m -Xms1024m -XX:MaxPermSize=512m</jvmArgs>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.h2database</groupId>
-                        <artifactId>h2</artifactId>
-                        <version>1.3.160</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.22</version>
-                    </dependency>
                 </dependencies>
             </plugin>
 
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>neo4j-release-repository</id>
-            <name>Neo4j Maven 2 release repository</name>
-            <url>http://m2.neo4j.org/content/repositories/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
 
         <dependency>
             <groupId>org.celllife.idart</groupId>
-            <artifactId>celllife-idart-web-codegen</artifactId>
+            <artifactId>celllife-idart-generated-application</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.celllife.idart</groupId>
-            <artifactId>celllife-idart-web-domain</artifactId>
+            <artifactId>celllife-idart-generated-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.celllife.idart</groupId>
+            <artifactId>celllife-idart-generated-infrastructure</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.celllife.idart</groupId>
+            <artifactId>celllife-idart-domain</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -349,54 +95,36 @@
             <artifactId>jackson-dataformat-csv</artifactId>
         </dependency>
 
-        <!-- Dozer -->
-
-        <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
-        </dependency>
-
-        <!-- Connection Pool -->
-
-        <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-        </dependency>
-
-        <!-- Hibernate -->
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-        </dependency>
-
         <!-- Validation -->
 
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-validation_1.0_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Liquibase -->
+        <!-- JMS -->
 
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jms_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JPA -->
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_2.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JTA -->
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!--AspectJ-->
@@ -500,16 +228,6 @@
 
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-ldap</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-cas</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
         </dependency>
 
@@ -532,11 +250,6 @@
 
         <dependency>
             <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-neo4j-cross-store</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-neo4j-rest</artifactId>
         </dependency>
 
@@ -552,44 +265,45 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- Servlet -->
 
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Tiles -->
@@ -628,12 +342,6 @@
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>asm</groupId>
-                    <artifactId>asm</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -667,38 +375,6 @@
             <artifactId>guava</artifactId>
         </dependency>
 
-        <!-- ActiveMQ -->
-
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-broker</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-camel</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-kahadb-store</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-pool</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-spring</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.xbean</groupId>
-            <artifactId>xbean-spring</artifactId>
-        </dependency>
-
         <!-- Camel -->
 
         <dependency>
@@ -711,26 +387,9 @@
             <artifactId>camel-jms</artifactId>
         </dependency>
 
-        <!-- Atomikos -->
-
         <dependency>
-            <groupId>com.atomikos</groupId>
-            <artifactId>transactions-jta</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.atomikos</groupId>
-            <artifactId>transactions-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.atomikos</groupId>
-            <artifactId>transactions-jms</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.atomikos</groupId>
-            <artifactId>transactions-hibernate3</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson</artifactId>
         </dependency>
 
     </dependencies>

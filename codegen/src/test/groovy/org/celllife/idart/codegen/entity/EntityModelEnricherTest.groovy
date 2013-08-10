@@ -79,7 +79,7 @@ public class EntityModelEnricherTest {
 
     @Test
     public void shouldGenerateHibernateValidator() throws Exception {
-        def templatePath = "/templates/entity/hibernateValidator.template"
+        def templatePath = "/templates/entity/jsr303Validator.template"
         models.each { model ->
             generate(templatePath, enrichAggregateRoot(baseNamespace, model))
         }

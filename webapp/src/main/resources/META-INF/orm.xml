@@ -8,7 +8,7 @@
 
     <entity class="org.celllife.idart.domain.administrationmethod.AdministrationMethod">
         <attributes>
-            <embedded-id name="code">
+            <embedded-id name="administrationMethodCode">
                 <attribute-override name="value">
                     <column name="code"/>
                 </attribute-override>
@@ -106,12 +106,6 @@
 
     <entity class="org.celllife.idart.domain.dispensedmedication.DispensedMedication">
 
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
-
         <attributes>
             <id name="pk"/>
             <many-to-one name="medication"/>
@@ -152,12 +146,6 @@
     <!-- Dispensation -->
 
     <entity class="org.celllife.idart.domain.dispensation.Dispensation">
-
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
 
         <attributes>
             <id name="pk"/>
@@ -237,7 +225,7 @@
 
     <entity class="org.celllife.idart.domain.entrysite.EntrySite">
         <attributes>
-            <embedded-id name="code">
+            <embedded-id name="entrySiteCode">
                 <attribute-override name="value">
                     <column name="code"/>
                 </attribute-override>
@@ -253,17 +241,10 @@
 
         <discriminator-column name="type"/>
 
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
-
         <attributes>
-            <id name="pk"/>
-            <element-collection name="descriptions" fetch="EAGER"/>
-            <element-collection name="identifiers" fetch="EAGER"/>
-            <element-collection name="names" fetch="EAGER"/>
+            <id name="facilityIdentifier"/>
+            <element-collection name="name" fetch="EAGER"/>
+            <element-collection name="description" fetch="EAGER"/>
             <embedded name="area">
                 <attribute-override name="value">
                     <column name="area"/>
@@ -502,13 +483,6 @@
 
         <inheritance strategy="JOINED"/>
 
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-                <pre-update method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
-
         <attributes>
             <id name="pk"/>
             <element-collection name="classifications" fetch="EAGER"/>
@@ -567,13 +541,6 @@
 
     <entity class="org.celllife.idart.domain.patient.Patient">
 
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-                <pre-update method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
-
         <attributes>
             <id name="pk"/>
             <basic name="fromDate">
@@ -591,13 +558,6 @@
     <!-- Practitioner -->
 
     <entity class="org.celllife.idart.domain.practitioner.Practitioner">
-
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-                <pre-update method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
 
         <attributes>
             <id name="pk"/>
@@ -680,13 +640,6 @@
 
     <entity class="org.celllife.idart.domain.prescription.Prescription">
 
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-                <pre-update method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
-
         <attributes>
             <id name="pk"/>
             <basic name="dateWritten">
@@ -704,12 +657,6 @@
     </entity>
 
     <entity class="org.celllife.idart.domain.prescribedmedication.PrescribedMedication">
-
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
 
         <attributes>
             <id name="pk"/>
@@ -761,13 +708,6 @@
     <entity class="org.celllife.idart.domain.product.Product">
 
         <inheritance strategy="JOINED"/>
-
-        <entity-listeners>
-            <entity-listener class="org.celllife.idart.framework.persistence.IdentifiableEntityListener">
-                <pre-persist method-name="setPk"/>
-                <pre-update method-name="setPk"/>
-            </entity-listener>
-        </entity-listeners>
 
         <attributes>
             <id name="pk"/>

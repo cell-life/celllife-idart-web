@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project name="idart-database" default="update" basedir="."
+         xmlns:liquibase="antlib:org.liquibase.ant">
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${basedir}/jdbc.properties"/>
+
+    <property name="etc.path" value="${basedir}/etc"/>
+    <property name="lib.path" value="${basedir}/lib"/>
+    <property name="tmp.path" value="${basedir}/tmp"/>
+
+    <path id="mysql.classpath">
+        <pathelement location="${lib.path}/mysql-connector-java-${mysql.version}.jar"/>
+    </path>
+
+    <path id="liquibase.classpath">
+        <pathelement location="${lib.path}/mysql-connector-java-${mysql.version}.jar"/>
+        <pathelement location="${lib.path}/liquibase-core-${liquibase.version}.jar"/>
+    </path>
+
+    <typedef resource="liquibasetasks.properties"
+             uri="antlib:org.liquibase.ant"
+             classpathref="liquibase.classpath"/>
+
+    <fileset id="dependency.fileset"/>
+
+    <target name="schema-update">
+        <liquibase:updateDatabase url="${idart.database.url}"
+                                  username="${idart.database.user}"
+                                  password="${idart.database.password}"
+                                  driver="${database.driver}"
+                                  changelogfile="${basedir}/etc/db.changelog-master.xml"
+                                  classpathref="liquibase.classpath"
+                                  databasechangeloglocktablename="database_changelog_lock"
+                                  databasechangelogtablename="database_changelog"/>
+    </target>
+
+    <target name="database-drop">
+        <sql url="${admin.database.url}" userid="${admin.database.user}" password="${admin.database.password}"
+             driver="${database.driver}">
+            <classpath refid="mysql.classpath"/>
+            <transaction>drop database ${idart.database.name}</transaction>
+        </sql>
+    </target>
+
+    <target name="database-create">
+        <sql url="${admin.database.url}" userid="${admin.database.user}" password="${admin.database.password}"
+             driver="${database.driver}">
+            <classpath refid="mysql.classpath"/>
+            <transaction>create database ${idart.database.name}</transaction>
+        </sql>
+    </target>
+
+    <target name="database-recreate">
+        <ant target="database-drop"/>
+        <ant target="database-create"/>
+        <ant target="schema-update"/>
+    </target>
+
+</project>

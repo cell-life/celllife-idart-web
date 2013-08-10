@@ -1,40 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:c="http://www.springframework.org/schema/c"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-
-                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
     <context:component-scan base-package="org.celllife.idart.infrastructure.camel"/>
-    <context:component-scan base-package="org.celllife.idart.infrastructure.jms"/>
 
-    <bean id="jmsConnectionFactory" class="com.atomikos.jms.AtomikosConnectionFactoryBean" init-method="init"
-          destroy-method="close">
-        <property name="uniqueResourceName" value="XAJMS"/>
-        <property name="poolSize" value="10"/>
-        <property name="maxPoolSize" value="10"/>
-        <property name="xaConnectionFactory">
-            <bean class="org.apache.activemq.ActiveMQXAConnectionFactory">
-                <property name="brokerURL" value="tcp://localhost:61616"/>
-                <property name="clientIDPrefix" value="IdartWeb"/>
-                <property name="connectionIDPrefix" value="IdartWeb"/>
-            </bean>
-        </property>
-    </bean>
+    <jee:jndi-lookup id="jmsConnectionFactory"
+                     expected-type="javax.jms.ConnectionFactory"
+                     jndi-name="ConnectionFactory"
+                     resource-ref="false"/>
 
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
         <property name="sessionTransacted" value="true"/>
     </bean>
-
-    <bean id="systemSavedEventTopic" c:name="systemSavedEventTopic" class="org.apache.activemq.command.ActiveMQTopic"/>
-    <bean id="userSavedEventTopic" c:name="userSavedEventTopic" class="org.apache.activemq.command.ActiveMQTopic"/>
-    <bean id="userSystemSavedEventTopic" c:name="userSystemSavedEventTopic"
-          class="org.apache.activemq.command.ActiveMQTopic"/>
 
     <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
@@ -47,8 +32,61 @@
         </property>
     </bean>
 
-    <camel:camelContext autoStartup="true" >
+    <camel:camelContext autoStartup="true">
+
+        <camel:proxy id="systemEventPublisher"
+                     serviceInterface="org.celllife.idart.domain.system.SystemEventPublisher"
+                     serviceUrl="direct:systemEvent"/>
+
+        <camel:proxy id="userSystemEventPublisher"
+                     serviceInterface="org.celllife.idart.domain.usersystem.UserSystemEventPublisher"
+                     serviceUrl="direct:userSystemEvent"/>
+
+        <camel:proxy id="userEventPublisher"
+                     serviceInterface="org.celllife.idart.domain.user.UserEventPublisher"
+                     serviceUrl="direct:userEvent"/>
+
         <camel:routeBuilder ref="graphConsumerRouteBuilder"/>
+
+        <camel:dataFormats>
+            <camel:json id="systemEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.system.SystemEvent"/>
+            <camel:json id="userEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.user.UserEvent"/>
+            <camel:json id="userSystemEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.usersystem.UserSystemEvent"/>
+        </camel:dataFormats>
+
+        <camel:route>
+            <camel:from uri="direct:systemEvent"/>
+            <camel:transform>
+                <camel:simple>${body.args[0]}</camel:simple>
+            </camel:transform>
+            <camel:marshal ref="systemEvent"/>
+            <camel:to uri="jms:topic:systemEvent" pattern="InOnly"/>
+        </camel:route>
+
+        <camel:route>
+            <camel:from uri="direct:userSystemEvent"/>
+            <camel:transform>
+                <camel:simple>${body.args[0]}</camel:simple>
+            </camel:transform>
+            <camel:marshal ref="userSystemEvent"/>
+            <camel:to uri="jms:topic:userSystemEvent" pattern="InOnly"/>
+        </camel:route>
+
+        <camel:route>
+            <camel:from uri="direct:userEvent"/>
+            <camel:transform>
+                <camel:simple>${body.args[0]}</camel:simple>
+            </camel:transform>
+            <camel:marshal ref="userEvent"/>
+            <camel:to uri="jms:topic:userEvent" pattern="InOnly"/>
+        </camel:route>
+
     </camel:camelContext>
 
 </beans>

@@ -14,6 +14,6 @@ interface ${applicationService.className} {
 
     ${entity.className} save(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException
 
-    ${entity.className} findBy${entity.identifier.name}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException
+    ${entity.className} findBy${entity.identifier.className}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException
 
 }

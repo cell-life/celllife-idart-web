@@ -1,0 +1,30 @@
+package ${jsr303Validator.packageName}
+
+import ${entity.packageName}.${entity.className}
+import ${entity.packageName}.${entity.className}ValidationException
+import ${validator.packageName}.${validator.className}
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
+
+import javax.validation.ConstraintViolation
+import javax.validation.ValidatorFactory
+
+import javax.annotation.Generated
+
+/**
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+@Component class ${jsr303Validator.className} implements ${validator.className} {
+
+    @Autowired ValidatorFactory validatorFactory
+
+    @Override
+    void validate(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException {
+
+        Set<ConstraintViolation<${entity.className}>> constraintViolations = validatorFactory.validator.validate(${entity.fieldName})
+
+        if (!constraintViolations.empty) {
+            throw new ${entity.className}ValidationException(constraintViolations)
+        }
+    }
+}

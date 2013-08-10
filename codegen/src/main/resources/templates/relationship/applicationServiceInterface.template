@@ -1,10 +1,43 @@
-package $applicationPackageName;
+package ${applicationService.packageName}
 
-import javax.annotation.Generated;
+import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ${entityName}ApplicationService {
+
+    /**
+     *
+     * @param ${from.entity.identifier.fieldName}
+     * @param ${to.entity.identifier.fieldName}
+     * @param ${to.entity.fieldName}
+     * @return
+     */
+    void save(String ${from.entity.identifier.fieldName}, String ${to.entity.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName})
+
+    /**
+     *
+     * @param ${from.entity.identifier.fieldName}
+     * @param ${to.entity.fieldName}
+     * @return
+     */
+    void save(String ${from.entity.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName})
+
+    /**
+     *
+     * @param ${from.entity.identifier.fieldName}
+     * @return
+     */
+    Iterable<${to.entity.className}> find${to.entity.collectionClassName}By${from.entity.identifier.className}(String ${from.entity.identifier.fieldName})
+
+    /**
+     *
+     * @param ${from.entity.identifier.fieldName}
+     * @param ${to.entity.identifier.fieldName}
+     * @return
+     */
+    ${to.entity.className} findOne${to.entity.className}By${from.entity.identifier.className}And${to.entity.identifier.className}(String ${from.entity.identifier.fieldName}, String ${to.entity.identifier.fieldName})
+
 
 }

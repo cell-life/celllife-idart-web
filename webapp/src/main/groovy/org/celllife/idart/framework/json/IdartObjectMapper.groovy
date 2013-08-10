@@ -7,10 +7,10 @@ import org.celllife.idart.domain.common.Quantity
 import org.celllife.idart.domain.contactmechanism.ContactMechanism
 import org.celllife.idart.domain.part.Part
 import org.celllife.idart.domain.part.PartBillOfMaterialsItem
-import org.celllife.idart.infrastructure.contactmechanism.json.ContactMechanismMixin
-import org.celllife.idart.infrastructure.part.json.PartBillOfMaterialsItemMixin
-import org.celllife.idart.infrastructure.part.json.PartMixin
-import org.celllife.idart.infrastructure.part.json.QuantityMixin
+import org.celllife.idart.infrastructure.jackson.contactmechanism.ContactMechanismMixin
+import org.celllife.idart.infrastructure.jackson.part.PartBillOfMaterialsItemMixin
+import org.celllife.idart.infrastructure.jackson.part.PartMixin
+import org.celllife.idart.infrastructure.jackson.part.QuantityMixin
 import org.springframework.stereotype.Component
 
 /**

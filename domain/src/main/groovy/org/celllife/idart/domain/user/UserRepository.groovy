@@ -9,6 +9,6 @@ public interface UserRepository {
 
     User save(User user)
 
-    User findOne(UserIdentifier identifier)
+    User findOne(UserIdentifier userIdentifier)
 
 }

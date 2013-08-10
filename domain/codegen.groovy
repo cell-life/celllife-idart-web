@@ -8,11 +8,10 @@ def codeGen = new CodeGenerator(
         baseNamespace: "http://www.cell-life.org/idart"
 )
 
-def aggregateRoots = new JsonSlurper().parse(new FileReader("${project.basedir}/../aggregateRoots.json"))
+def aggregateRoots = new JsonSlurper().parse(new FileReader("${project.basedir}/../model/aggregateRoots.json"))
 codeGen.generateEntityAggregateRoots(aggregateRoots)
 
 codeGen.generateIdentifiableAggregateRoot([
-        [entityName: "Clinic"],
         [entityName: "Dispensation"],
         [entityName: "DispensedMedication"],
         [entityName: "Encounter"],
@@ -28,5 +27,5 @@ codeGen.generateIdentifiableAggregateRoot([
 ])
 
 
-def relationships = new JsonSlurper().parse(new FileReader("${project.basedir}/../relationships.json"))
-//codeGen.generateRelationshipAggregateRoot(relationshipModels)
+def relationships = new JsonSlurper().parse(new FileReader("${project.basedir}/../model/relationships.json"))
+//codeGen.generateRelationshipAggregateRoot(relationships)

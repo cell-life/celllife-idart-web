@@ -12,7 +12,7 @@ interface UserSystemRepository {
 
     UserSystem save(UserSystem userForSystem)
 
-    UserSystem findByUserAndSystemAndRelationship(UserIdentifier user,
+    UserSystem findByUserIdentifierAndSystemIdentifierAndRelationship(UserIdentifier user,
                                                   SystemIdentifier system,
                                                   UserSystemRelationship relationship)
 }

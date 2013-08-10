@@ -2,10 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-    <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <jee:jndi-lookup id="javaxValidatorFactory"
+                     jndi-name="java:comp/ValidatorFactory"
+                     expected-type="javax.validation.ValidatorFactory"
+                     resource-ref="false"/>
+
+    <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="constraintValidatorFactory">
+            <bean factory-bean="javaxValidatorFactory" factory-method="getConstraintValidatorFactory"/>
+        </property>
+    </bean>
 
     <context:component-scan base-package="org.celllife.idart.infrastructure.validation"/>
     <context:component-scan base-package="org.celllife.idart.infrastructure.hibernate"/>

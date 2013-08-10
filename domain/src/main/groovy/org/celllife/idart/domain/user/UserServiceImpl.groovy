@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.user
 
+import org.celllife.idart.domain.common.EventHeader
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -7,7 +8,6 @@ import javax.annotation.Generated
 
 /**
  */
-//@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class UserServiceImpl implements UserService {
 
     @Autowired UserRepository userRepository
@@ -21,20 +21,24 @@ import javax.annotation.Generated
 
         userValidator.validate(user)
 
-        userEventPublisher.userSaved(user)
+        userEventPublisher.publishUserEvent(new UserEventFactory().username(currentUsername).user(user).build())
 
         userRepository.save(user)
     }
 
     @Override
-    User findByIdentifier(UserIdentifier identifier) throws UserNotFoundException {
+    User findByUserIdentifier(UserIdentifier userIdentifier) throws UserNotFoundException {
 
-        def user = userRepository.findOne(identifier)
+        def user = userRepository.findOne(userIdentifier)
 
         if (user == null) {
-            throw new UserNotFoundException("Could not find User with Identifier [${ identifier}]")
+            throw new UserNotFoundException("Could not find User with User Identifier [${ userIdentifier}]")
         }
 
         user
+    }
+
+    static String getCurrentUsername() {
+        return null;
     }
 }

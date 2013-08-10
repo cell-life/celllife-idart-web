@@ -1,0 +1,96 @@
+
+#######################################################################################################################
+# Setup
+#######################################################################################################################
+
+connect
+batch
+
+#######################################################################################################################
+# Remove default datasources
+#######################################################################################################################
+
+data-source remove --name=ExampleDS
+/subsystem=datasources/jdbc-driver=h2:remove
+
+#######################################################################################################################
+# Remove un-needed modules
+#######################################################################################################################
+
+/subsystem=jsr77:remove
+/extension=org.jboss.as.jsr77:remove
+/subsystem=ejb3:remove
+/extension=org.jboss.as.ejb3:remove
+
+#######################################################################################################################
+# Add Second Level caching for Hibernate
+#######################################################################################################################
+
+/subsystem=infinispan/cache-container=hibernate:write-attribute(name=start, value=eager)
+/subsystem=infinispan/cache-container=hibernate:write-attribute(name=jndi-name, value="java:/infinispan/hibernate")
+
+#######################################################################################################################
+# Add MySQL Driver
+#######################################################################################################################
+
+/subsystem=datasources/jdbc-driver=mysql:add( \
+    driver-name=mysql, \
+    driver-module-name=com.mysql, \
+    driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource \
+)
+
+#######################################################################################################################
+# Add MySQL Data Source
+#######################################################################################################################
+
+data-source add \
+    --name=iDartDS \
+    --driver-name=mysql \
+    --connection-url=jdbc:mysql://localhost:3306/test \
+    --jndi-name=java:/jdbc/idart \
+    --user-name=test \
+    --password=test \
+    --use-ccm=false \
+    --max-pool-size=25 \
+    --blocking-timeout-wait-millis=5000
+data-source enable --name=iDartDS
+
+#######################################################################################################################
+# Adding JMS Topics
+#######################################################################################################################
+
+jms-topic add \
+    --topic-address=systemEvent \
+    --entries=topic/systemEvent
+
+jms-topic add \
+    --topic-address=userEvent \
+    --entries=topic/userEvent
+
+jms-topic add \
+    --topic-address=userSystemEvent \
+    --entries=topic/userSystemEvent
+
+#######################################################################################################################
+# Adding Logging entries
+#######################################################################################################################
+
+/subsystem=logging/logger=org.apache.camel:add(level=WARN)
+/subsystem=logging/logger=org.hibernate:add(level=WARN)
+/subsystem=logging/logger=org.hornetq:add(level=WARN)
+/subsystem=logging/logger=org.jboss.as.messaging:add(level=WARN)
+/subsystem=logging/logger=org.springframework:add(level=WARN)
+/subsystem=logging/logger=org.jboss.as.clustering.infinispan:add(level=WARN)
+/subsystem=logging/logger=org.infinispan.jmx:add(level=WARN)
+
+#######################################################################################################################
+# Enabling Statistics for JTA
+#######################################################################################################################
+
+/subsystem=transactions/:write-attribute(name=enable-statistics, value=true)
+
+#######################################################################################################################
+# Execute
+#######################################################################################################################
+
+run-batch

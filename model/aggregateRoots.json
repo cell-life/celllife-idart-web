@@ -1,0 +1,218 @@
+[
+    {
+        "name": "Administration Method",
+        "description": "The method in which medication is administered",
+        "entity": {
+            "identifier": {
+                "name": "Administration Method Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Compound"
+    },
+    {
+        "name": "Dispensation"
+    },
+    {
+        "name": "DispensedMedication"
+    },
+    {
+        "name": "Drug",
+        "features": [ "domainService", "applicationService" ]
+    },
+    {
+        "name": "Encounter"
+    },
+    {
+        "name": "Entry Site",
+        "entity": {
+            "identifier": {
+                "name": "Entry Site Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Facility"
+    },
+    {
+        "name": "Form",
+        "entity": {
+            "identifier": {
+                "name": "Form Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Indication",
+        "entity": {
+            "identifier": {
+                "name": "Indication Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Life Event",
+        "entity": {
+            "identifier": {
+                "name": "Life Event Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Organisation"
+    },
+    {
+        "name": "Patient"
+    },
+    {
+        "name": "Person"
+    },
+    {
+        "name": "Practitioner"
+    },
+    {
+        "name": "PrescribedMedication"
+    },
+    {
+        "name": "Prescription"
+    },
+    {
+        "name": "Route Of Administration",
+        "namePlural": "Routes Of Administration",
+        "entity": {
+            "identifier": {
+                "name": "Route Of Administration Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Substitution",
+        "entity": {
+            "identifier": {
+                "name": "Substitution Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Substitution Reason",
+        "entity": {
+            "identifier": {
+                "name": "Substitution Reason Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Unit Of Measure",
+        "namePlural": "Units Of Measure",
+        "entity": {
+            "identifier": {
+                "name": "Unit Of Measure Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Unit Of Measure Type",
+        "entity": {
+            "identifier": {
+                "name": "Unit Of Measure Type Code"
+            },
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "System"
+    },
+    {
+        "name": "User",
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Current Username"
+                },
+                {
+                    "name": "Current Password"
+                }
+            ]
+        }
+    }
+]

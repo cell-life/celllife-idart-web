@@ -7,7 +7,7 @@ import javax.annotation.Generated
 import javax.persistence.Embeddable
 
 /**
- * User Identifier
+ * User User Identifier
  *
  */
 @Embeddable
@@ -20,4 +20,12 @@ class UserIdentifier implements Serializable {
      */
     String value
     
+    static UserIdentifier valueOf(String string) {
+        new UserIdentifier ( value: string )
+    }
+
+    @Override
+    String toString() {
+         value 
+    }
 }

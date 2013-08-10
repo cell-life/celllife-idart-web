@@ -27,17 +27,17 @@ class PrescribedMedicationApplicationServiceImpl implements PrescribedMedication
             dosageInstruction?.with {
 
                 doseQuantity?.with {
-                    unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                    unitOfMeasure = unitOfMeasureService.findByUnitOfMeasureCode(unitOfMeasure?.unitOfMeasureCode)
                 }
 
                 expectedSupplyDuration?.with {
-                    unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                    unitOfMeasure = unitOfMeasureService.findByUnitOfMeasureCode(unitOfMeasure?.unitOfMeasureCode)
                 }
 
                 timing?.with {
                     repeat?.with {
                         duration?.with {
-                            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
+                            unitOfMeasureService.findByUnitOfMeasureCode(unitOfMeasure?.unitOfMeasureCode)
                         }
                     }
                 }

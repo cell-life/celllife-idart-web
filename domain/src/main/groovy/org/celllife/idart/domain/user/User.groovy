@@ -14,7 +14,7 @@ class User {
     /**
      * Identifier 
      */
-    UserIdentifier identifier
+    UserIdentifier userIdentifier
 
     /**
      * Current Username 

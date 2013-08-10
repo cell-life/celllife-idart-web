@@ -27,8 +27,8 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
             value = "/${resourcePath}/{${entity.identifier.fieldName}}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    ${entity.className} findBy${entity.identifier.name}(@PathVariable("${entity.identifier.fieldName}") ${entity.identifier.className} ${entity.identifier.fieldName}) {
-        ${applicationService.fieldName}.findBy${entity.identifier.name}(${entity.identifier.fieldName})
+    ${entity.className} findBy${entity.identifier.className}(@PathVariable("${entity.identifier.fieldName}") ${entity.identifier.className} ${entity.identifier.fieldName}) {
+        ${applicationService.fieldName}.findBy${entity.identifier.className}(${entity.identifier.fieldName})
     }
 
     @RequestMapping(value = "/${resourcePath}", method = RequestMethod.POST)
