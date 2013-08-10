@@ -32,20 +32,20 @@ class EntityCodeGeneratorTask extends Task {
 
         switch (action) {
             case EntityCodeGeneratorAction.application :
-                generateEntityResources("${baseDir}/generated/application/src/main/groovy", baseNamespace, aggregateRoots)
+                generateEntityResources("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
                 break
             case EntityCodeGeneratorAction.domain :
-                generateEntityAggregateRoots("${baseDir}/generated/domain/src/main/groovy", baseNamespace, aggregateRoots)
+                generateEntityAggregateRoots("${baseDir}/domain/src/main/groovy", baseNamespace, aggregateRoots)
                 break
             case EntityCodeGeneratorAction.infrastructure :
-                generateEntitySpringDataRepositories("${baseDir}/generated/infrastructure/src/main/java", baseNamespace, aggregateRoots)
-                generateEntityJsr303Validators("${baseDir}/generated/infrastructure/src/main/groovy", baseNamespace, aggregateRoots)
+                generateEntitySpringDataRepositories("${baseDir}/webapp/src/main/java", baseNamespace, aggregateRoots)
+                generateEntityJsr303Validators("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
                 break
             default:
-                generateEntityResources("${baseDir}/generated/application/src/main/groovy", baseNamespace, aggregateRoots)
-                generateEntityAggregateRoots("${baseDir}/generated/domain/src/main/groovy", baseNamespace, aggregateRoots)
-                generateEntitySpringDataRepositories("${baseDir}/generated/infrastructure/src/main/java", baseNamespace, aggregateRoots)
-                generateEntityJsr303Validators("${baseDir}/generated/infrastructure/src/main/groovy", baseNamespace, aggregateRoots)
+                generateEntityResources("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
+                generateEntityAggregateRoots("${baseDir}/domain/src/main/groovy", baseNamespace, aggregateRoots)
+                generateEntitySpringDataRepositories("${baseDir}/webapp/src/main/java", baseNamespace, aggregateRoots)
+                generateEntityJsr303Validators("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
         }
     }
 
