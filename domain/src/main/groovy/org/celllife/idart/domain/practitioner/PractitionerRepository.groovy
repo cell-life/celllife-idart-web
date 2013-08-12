@@ -1,6 +1,8 @@
-package org.celllife.idart.domain.practitioner;
+package org.celllife.idart.domain.practitioner
 
-import javax.annotation.Generated;
+import org.celllife.idart.common.PractitionerIdentifier
+
+import javax.annotation.Generated
 
 /**
  */
@@ -9,13 +11,6 @@ public interface PractitionerRepository {
 
     Practitioner save(Practitioner practitioner)
 
-    public <S extends Practitioner> Iterable<S> save(Iterable<S> practitioners)
+    Practitioner findOne(PractitionerIdentifier practitionerIdentifier)
 
-    Practitioner findOne(Long pk)
-
-    Iterable<Practitioner> findAll()
-
-    Practitioner findOneByIdentifier(String identifierSystem, String identifierValue)
-
-    Iterable<Practitioner> findByIdentifier(String identifierValue)
 }

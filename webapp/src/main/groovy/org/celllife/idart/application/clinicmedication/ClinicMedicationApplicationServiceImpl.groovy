@@ -1,10 +1,7 @@
 package org.celllife.idart.application.clinicmedication
 
-import org.celllife.idart.application.clinic.ClinicResourceService
-import org.celllife.idart.application.medication.MedicationResourceService
 import org.celllife.idart.domain.medication.Medication
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service    
+import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
@@ -12,10 +9,6 @@ import javax.annotation.Generated
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class ClinicMedicationApplicationServiceImpl  {
-
-    @Autowired ClinicResourceService clinicResourceService
-
-    @Autowired MedicationResourceService medicationResourceService
 
     def clinicMedicationService
 
@@ -34,9 +27,9 @@ import javax.annotation.Generated
 
     void save(String clinicIdentifier, Medication medication) {
 
-        def clinic = clinicResourceService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
 
-        medication = medicationResourceService.save(medication)
+        medication = medicationApplicationService.save(medication)
 
         clinicMedicationService.save(clinic, medication)
     }

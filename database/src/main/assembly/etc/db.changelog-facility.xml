@@ -6,52 +6,15 @@
     <changeSet id="facility-1" author="kevin.sewell">
 
         <createTable tableName="facility">
-            <column name="pk" type="varchar(31)">
+            <column name="identifier" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(31)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(2000)"/>
             <column name="area" type="numeric"/>
-            <column name="area_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="area_uom_fk"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="facility_identifiers">
-            <column name="facility" type="varchar(31)">
-                <constraints references="facility(pk)" foreignKeyName="facility_identifiers_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
-        </createTable>
-
-        <createTable tableName="facility_names">
-            <column name="facility" type="varchar(31)">
-                <constraints references="facility(pk)" foreignKeyName="facility_names_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="facility_descriptions">
-            <column name="facility" type="varchar(31)">
-                <constraints references="facility(pk)" foreignKeyName="facility_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="area_uom" type="varchar(31)"/>
+            <column name="located_at_facility" type="varchar(31)"/>
         </createTable>
 
     </changeSet>

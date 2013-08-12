@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.encounter
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.EncounterIdentifier
 
 import javax.annotation.Generated
 
@@ -9,12 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface EncounterService {
 
-    Encounter save(Encounter encounter)
+    Encounter save(Encounter encounter) throws EncounterValidationException
 
-    Iterable<Encounter> findAll()
-
-    Encounter findByIdentifier(String identifier)
-
-    Encounter findByIdentifiers(Iterable<Identifier> identifiers)
+    Encounter findByEncounterIdentifier(EncounterIdentifier encounterIdentifier) throws EncounterNotFoundException
 
 }

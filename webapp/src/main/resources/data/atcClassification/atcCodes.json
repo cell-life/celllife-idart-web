@@ -1,6 +1,6 @@
 [
     {
-        "@class": "org.celllife.idart.domain.partclassification.AtcClassification",
+        "@class": "org.celllife.idart.domain.atc.AtcClassification",
         "firstLevel": "J",
         "secondLevel": "05",
         "thirdLevel": "A",

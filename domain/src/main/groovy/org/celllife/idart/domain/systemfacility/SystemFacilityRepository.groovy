@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.systemfacility
 
-import org.celllife.idart.domain.facility.FacilityIdentifier
-import org.celllife.idart.domain.system.SystemIdentifier
+import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.SystemIdentifier
 
 /**
  * User: Kevin W. Sewell

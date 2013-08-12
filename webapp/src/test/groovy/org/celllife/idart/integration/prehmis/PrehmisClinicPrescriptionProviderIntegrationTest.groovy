@@ -1,17 +1,16 @@
 package org.celllife.idart.integration.prehmis
 
-import org.celllife.idart.application.prescription.ClinicPrescriptionProvider
+import org.celllife.idart.application.prescription.PrescriptionProvider
 import org.celllife.idart.domain.clinic.Clinic
-import org.celllife.idart.domain.common.Duration
-import org.celllife.idart.domain.common.Period
-import org.celllife.idart.domain.common.Quantity
-import org.celllife.idart.domain.common.Repeat
-import org.celllife.idart.domain.common.Schedule
+import org.celllife.idart.common.Duration
+import org.celllife.idart.common.Period
+import org.celllife.idart.common.Quantity
+import org.celllife.idart.common.Repeat
+import org.celllife.idart.common.Schedule
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.medication.Medication
-import org.celllife.idart.domain.part.PartClassificationType
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
@@ -25,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import static org.celllife.idart.domain.part.PartClassificationType.ATC
+import static org.celllife.idart.common.PartClassificationType.ATC
 
 /**
  * User: Kevin W. Sewell
@@ -36,7 +35,7 @@ import static org.celllife.idart.domain.part.PartClassificationType.ATC
 @ContextConfiguration(classes = TestConfiguration.class)
 class PrehmisClinicPrescriptionProviderIntegrationTest {
 
-    @Autowired ClinicPrescriptionProvider prehmisClinicPrescriptionProvider
+    @Autowired PrescriptionProvider prehmisClinicPrescriptionProvider
 
     @Test
     void testFindByIdentifier() throws Exception {

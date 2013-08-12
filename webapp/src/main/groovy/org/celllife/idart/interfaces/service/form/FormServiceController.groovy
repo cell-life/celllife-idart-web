@@ -1,7 +1,7 @@
 package org.celllife.idart.interfaces.service.form
 
 import org.celllife.idart.domain.form.Form
-import org.celllife.idart.domain.form.FormCode
+import org.celllife.idart.common.FormCode
 import org.celllife.idart.domain.form.FormService
 import org.celllife.idart.integration.hl7.CodeFile
 import org.springframework.beans.factory.annotation.Autowired

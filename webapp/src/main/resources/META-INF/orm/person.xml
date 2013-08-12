@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Person -->
+
+    <entity class="org.celllife.idart.domain.person.Person">
+
+        <attributes>
+            <basic name="firstName"/>
+            <basic name="middleNames"/>
+            <basic name="lastName"/>
+            <basic name="personalTitle"/>
+            <basic name="suffix"/>
+            <basic name="nickname"/>
+            <basic name="gender">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="maritalStatus">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="birthDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="comment"/>
+            <basic name="totalYearsWorkExperience"/>
+            <basic name="mothersMaidenName"/>
+            <element-collection name="measurements" fetch="EAGER">
+                <collection-table>
+                    <join-column name="person_identifier" referenced-column-name="identifier"/>
+                    <join-column name="person_type" referenced-column-name="type"/>
+                </collection-table>
+            </element-collection>
+        </attributes>
+
+    </entity>
+
+</entity-mappings>

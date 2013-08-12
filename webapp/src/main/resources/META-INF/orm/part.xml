@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Part -->
+
+    <entity class="org.celllife.idart.domain.part.Part">
+
+        <inheritance/>
+
+        <discriminator-column name="type"/>
+
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
+            <element-collection name="classifications" fetch="EAGER">
+                <collection-table>
+                    <join-column name="part_applied_to"/>
+                </collection-table>
+            </element-collection>
+            <embedded name="form">
+                <attribute-override name="value">
+                    <column name="form"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="unitOfMeasure">
+                <attribute-override name="value">
+                    <column name="unit_of_measure"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.compound.Compound">
+        <discriminator-value>compound</discriminator-value>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.drug.Drug">
+        <discriminator-value>drug</discriminator-value>
+
+        <attributes>
+            <element-collection name="billOfMaterials" fetch="EAGER">
+                <collection-table>
+                    <join-column name="for_drug"/>
+                </collection-table>
+            </element-collection>
+        </attributes>
+    </entity>
+
+    <!-- Part BillOf Materials Item -->
+
+    <embeddable class="org.celllife.idart.domain.part.PartBillOfMaterialsItem">
+
+        <attributes>
+            <basic name="comment"/>
+            <basic name="instructions"/>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <embedded name="part">
+                <attribute-override name="value">
+                    <column name="of_part"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="quantityUsed">
+                <attribute-override name="value">
+                    <column name="quantity_used"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="quantity_used_uom"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+
+    </embeddable>
+
+    <!-- Part Classification Application -->
+
+    <embeddable class="org.celllife.idart.domain.part.PartClassificationApplication">
+        <attributes>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="classification">
+                <attribute-override name="value">
+                    <column name="classification_code"/>
+                </attribute-override>
+                <attribute-override name="type">
+                    <column name="classification_type"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

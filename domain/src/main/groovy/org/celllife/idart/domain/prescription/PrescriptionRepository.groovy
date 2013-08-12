@@ -1,6 +1,8 @@
-package org.celllife.idart.domain.prescription;
+package org.celllife.idart.domain.prescription
 
-import javax.annotation.Generated;
+import org.celllife.idart.common.PrescriptionIdentifier
+
+import javax.annotation.Generated
 
 /**
  */
@@ -9,13 +11,6 @@ public interface PrescriptionRepository {
 
     Prescription save(Prescription prescription)
 
-    public <S extends Prescription> Iterable<S> save(Iterable<S> prescriptions)
+    Prescription findOne(PrescriptionIdentifier prescriptionIdentifier)
 
-    Prescription findOne(Long pk)
-
-    Iterable<Prescription> findAll()
-
-    Prescription findOneByIdentifier(String identifierSystem, String identifierValue)
-
-    Iterable<Prescription> findByIdentifier(String identifierValue)
 }

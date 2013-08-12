@@ -1,8 +1,8 @@
 package org.celllife.idart.domain.party
 
 import groovy.transform.EqualsAndHashCode
-import org.celllife.idart.domain.common.Identifiable
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.PartyType
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 
 /**
@@ -11,18 +11,12 @@ import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
  * Time: 13h45
  */
 @EqualsAndHashCode(includes = "identifiers")
-@Mixin([Identifiable])
 abstract class Party {
-
-    /**
-     * Persistence Key
-     */
-    String pk
 
     /**
      * Identified by
      */
-    Set<Identifier> identifiers = []
+    PartyIdentifier identifier
 
     /**
      * Classified into
@@ -35,9 +29,8 @@ abstract class Party {
     Set<PartyContactMechanism> contactMechanisms = []
 
     def merge(Party that) {
-        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
-        that?.classifications?.each { classification -> this.classifications << classification }
-        that?.contactMechanisms?.each { contactMechanism -> this.contactMechanisms << contactMechanism }
+        this.classifications.addAll(that.classifications)
+        this.contactMechanisms.addAll(that.contactMechanisms)
     }
 
     def addMobileTelephoneNumber(args) {

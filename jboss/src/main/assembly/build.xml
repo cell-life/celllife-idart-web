@@ -2,7 +2,7 @@
 <project name="idart-web-jboss" default="run" basedir="."
          xmlns:cargo="antlib:org.codehaus.cargo.ant">
 
-    <property url="file://${basedir}/build.properties"/>
+    <property file="${basedir}/build.properties"/>
 
     <property name="etc.path" value="${basedir}/etc"/>
     <property name="lib.path" value="${basedir}/lib"/>
@@ -11,7 +11,7 @@
     <property name="jboss.path" value="${tmp.path}/jboss-as-${jboss.version}"/>
     <property name="mysql.module.path" value="${jboss.path}/modules/com/mysql/main"/>
 
-    <property name="webapp.path" value="${basedir}/lib/celllife-idart-web-webapp-${idart.version}.war"/>
+    <property name="webapp.path" value="${basedir}/lib/celllife-idart-webapp-${idart.version}.war"/>
 
     <path id="cargo.classpath">
         <pathelement location="${lib.path}/cargo-core-uberjar-${cargo.version}.jar"/>
@@ -27,7 +27,7 @@
 
     <cargo:cargo id="jboss.container" containerId="jboss72x" home="${jboss.path}">
         <cargo:configuration type="existing" home="${jboss.path}/standalone">
-            <property name="cargo.servlet.users" value="admin:P@ssw0rd1"/>
+            <property name="cargo.process.spawn" value="true"/>
         </cargo:configuration>
     </cargo:cargo>
 
@@ -115,6 +115,7 @@
     <target name="jboss-start-deployed">
         <cargo:cargo id="jboss.container" containerId="jboss72x" home="${jboss.path}" action="start">
             <cargo:configuration type="existing" home="${jboss.path}/standalone">
+                <property name="cargo.process.spawn" value="true"/>
                 <cargo:deployable type="war" file="${webapp.path}">
                     <property name="context" value="${webapp.context}"/>
                 </cargo:deployable>

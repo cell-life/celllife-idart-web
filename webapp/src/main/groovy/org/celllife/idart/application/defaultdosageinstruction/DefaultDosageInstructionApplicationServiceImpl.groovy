@@ -1,58 +1,28 @@
 package org.celllife.idart.application.defaultdosageinstruction
 
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
+import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionValidationException
+import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionNotFoundException
+import org.celllife.idart.common.DefaultDosageInstructionIdentifier
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionService
-import org.celllife.idart.domain.drug.DrugService
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-15
- * Time: 22h10
  */
-@Service class DefaultDosageInstructionApplicationServiceImpl implements DefaultDosageInstructionApplicationService,
-        DefaultDosageInstructionResourceService {
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+@Service class DefaultDosageInstructionApplicationServiceImpl implements DefaultDosageInstructionApplicationService {
 
     @Autowired DefaultDosageInstructionService defaultDosageInstructionService
 
-    @Autowired DrugService drugService
-
-    @Autowired UnitOfMeasureService unitOfMeasureService
-
-    @Override
-    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
-
-        defaultDosageInstruction.with {
-
-            medication = drugService.findByIdentifiers(medication.identifiers)
-
-            dosageInstruction?.with {
-                doseQuantity?.with {
-                    unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
-                }
-
-                timing?.with {
-                    repeat?.with {
-                        duration?.with {
-                            unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
-                        }
-                    }
-                }
-            }
-        }
-
+    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) throws DefaultDosageInstructionValidationException {
         defaultDosageInstructionService.save(defaultDosageInstruction)
     }
 
-    @Override
-    DefaultDosageInstruction findByIdentifier(String medicationIdentifier) {
-        return defaultDosageInstructionService.findByIdentifier(medicationIdentifier)
+    DefaultDosageInstruction findByDefaultDosageInstructionIdentifier(DefaultDosageInstructionIdentifier defaultDosageInstructionIdentifier) throws DefaultDosageInstructionNotFoundException{
+        defaultDosageInstructionService.findByDefaultDosageInstructionIdentifier(defaultDosageInstructionIdentifier)
     }
 
-    @Override
-    Iterable<DefaultDosageInstruction> findAll() {
-        defaultDosageInstructionService.findAll()
-    }
 }

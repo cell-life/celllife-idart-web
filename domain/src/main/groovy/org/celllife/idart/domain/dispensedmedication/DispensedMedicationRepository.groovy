@@ -1,6 +1,8 @@
-package org.celllife.idart.domain.dispensedmedication;
+package org.celllife.idart.domain.dispensedmedication
 
-import javax.annotation.Generated;
+import org.celllife.idart.common.DispensedMedicationIdentifier
+
+import javax.annotation.Generated
 
 /**
  */
@@ -9,13 +11,6 @@ public interface DispensedMedicationRepository {
 
     DispensedMedication save(DispensedMedication dispensedMedication)
 
-    public <S extends DispensedMedication> Iterable<S> save(Iterable<S> dispensedMedications)
+    DispensedMedication findOne(DispensedMedicationIdentifier dispensedMedicationIdentifier)
 
-    DispensedMedication findOne(Long pk)
-
-    Iterable<DispensedMedication> findAll()
-
-    DispensedMedication findOneByIdentifier(String identifierSystem, String identifierValue)
-
-    Iterable<DispensedMedication> findByIdentifier(String identifierValue)
 }

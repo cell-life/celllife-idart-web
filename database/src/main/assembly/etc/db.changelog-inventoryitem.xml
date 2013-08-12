@@ -9,7 +9,7 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="part" type="bigint"/>
+            <column name="part" type="varchar(31)"/>
         </createTable>
 
         <createTable tableName="inventory_item_status">
@@ -26,9 +26,7 @@
                              foreignKeyName="non_serialised_inventory_item_fk"/>
             </column>
             <column name="quantity_on_hand" type="numeric"/>
-            <column name="quantity_on_hand_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="quantity_on_hand_uom_fk"/>
-            </column>
+            <column name="quantity_on_hand_uom" type="varchar(31)"/>
         </createTable>
 
         <createTable tableName="serialised_inventory_item">

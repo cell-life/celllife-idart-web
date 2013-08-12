@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.compound
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PartIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired CompoundRepository compoundRepository
 
-    @Autowired CompoundSequence compoundSequence
-
     @Autowired CompoundValidator compoundValidator
 
+    @Autowired CompoundEventPublisher compoundEventPublisher
+
     @Override
-    Compound save(Compound newCompound) {
+    Compound save(Compound compound) throws CompoundValidationException {
 
-        compoundValidator.validate(newCompound)
+        compoundValidator.validate(compound)
 
-        def existingCompound = findByIdentifiers(newCompound.identifiers)
+        compoundEventPublisher.compoundSaved(compound)
 
-        if (requiresIdartIdentifier(newCompound, existingCompound)) {
-            newCompound.addIdentifier(Compound.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingCompound == null) {
-            existingCompound = new Compound()
-        }
-
-        existingCompound.merge(newCompound)
-
-        compoundRepository.save(existingCompound)
+        compoundRepository.save(compound)
     }
 
     @Override
-    Compound findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingCompound = compoundRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingCompound != null) {
-                return existingCompound
-            }
+    Compound findByPartIdentifier(PartIdentifier partIdentifier) throws CompoundNotFoundException {
+
+        def compound = compoundRepository.findOne(partIdentifier)
+
+        if (compound == null) {
+            throw new CompoundNotFoundException("Could not find Compound with Part Identifier [${ partIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Compound findByIdentifier(String identifier) {
-        compoundRepository.findOneByIdentifier(Compound.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<Compound> findAll() {
-        compoundRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", compoundSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(Compound... compounds) {
-
-        for (Compound compound in compounds) {
-            if (compound?.hasIdentifierForSystem(Compound.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        compound
     }
 }

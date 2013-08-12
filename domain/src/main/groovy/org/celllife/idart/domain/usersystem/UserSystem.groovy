@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.usersystem
 
-import org.celllife.idart.domain.system.System
-import org.celllife.idart.domain.user.User
+import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.UserIdentifier
 
 /**
  * User: Kevin W. Sewell
@@ -12,9 +12,9 @@ class UserSystem {
 
     Long pk
 
-    User fromUser
+    UserIdentifier fromUser
 
-    System toSystem
+    SystemIdentifier toSystem
 
     UserSystemRelationship relationship
 

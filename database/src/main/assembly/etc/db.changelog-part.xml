@@ -6,77 +6,34 @@
     <changeSet id="part-1" author="kevin.sewell">
 
         <createTable tableName="part">
-            <column name="pk" type="bigint">
+            <column name="identifier" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="type" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="unit_of_measure" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="part_uom_fk"/>
-            </column>
-            <column name="form" type="varchar(31)">
-                <constraints references="form(code)" foreignKeyName="part_form_fk"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="part_identifiers">
-            <column name="part" type="bigint">
-                <constraints references="part(pk)" foreignKeyName="part_identifiers_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+            <column name="type" type="varchar(31)"/>
+            <column name="unit_of_measure" type="varchar(31)"/>
+            <column name="form" type="varchar(31)"/>
         </createTable>
 
         <createTable tableName="part_classifications">
-            <column name="part" type="bigint">
-                <constraints references="part(pk)" foreignKeyName="part_classifications_fk"/>
-            </column>
-            <column name="type" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="code" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+            <column name="part_applied_to" type="varchar(31)"/>
+            <column name="classification_type" type="varchar(31)"/>
+            <column name="classification_code" type="varchar(31)"/>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
         </createTable>
 
-        <createTable tableName="part_bill_of_materials_item">
-            <column name="pk" type="bigint">
-                <constraints primaryKey="true"/>
+        <createTable tableName="drug_bill_of_materials">
+            <column name="for_drug" type="varchar(31)">
+                <constraints references="part(identifier)" foreignKeyName="part_bill_of_materials_item_fk"/>
             </column>
             <column name="type" type="varchar(40)"/>
-            <column name="from_date" type="DATE"/>
-            <column name="thru_date" type="DATE"/>
-            <column name="for_part" type="bigint">
-                <constraints references="part(pk)" foreignKeyName="part_bom_for_part_fk"/>
-            </column>
-            <column name="part" type="bigint">
-                <constraints references="part(pk)" foreignKeyName="part_bom_part_fk"/>
-            </column>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
+            <column name="of_part" type="varchar(31)"/>
             <column name="quantity_used" type="numeric"/>
-            <column name="quantity_used_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="part_bom_qty_used_uom_fk"/>
-            </column>
+            <column name="quantity_used_uom" type="varchar(31)"/>
             <column name="instructions" type="varchar(2000)"/>
             <column name="comment" type="varchar(255)"/>
-        </createTable>
-
-        <createTable tableName="part_bill_of_materials">
-            <column name="part" type="bigint">
-                <constraints references="part(pk)" foreignKeyName="part_bill_of_materials_fk"/>
-            </column>
-            <column name="bill_of_materials" type="bigint">
-                <constraints references="part_bill_of_materials_item(pk)"
-                             foreignKeyName="part_bill_of_materials_item_fk"/>
-            </column>
         </createTable>
 
     </changeSet>

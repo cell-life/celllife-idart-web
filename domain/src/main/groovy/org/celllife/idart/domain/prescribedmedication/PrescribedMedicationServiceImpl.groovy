@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.prescribedmedication
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PrescribedMedicationIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired PrescribedMedicationRepository prescribedMedicationRepository
 
-    @Autowired PrescribedMedicationSequence prescribedMedicationSequence
-
     @Autowired PrescribedMedicationValidator prescribedMedicationValidator
 
+    @Autowired PrescribedMedicationEventPublisher prescribedMedicationEventPublisher
+
     @Override
-    PrescribedMedication save(PrescribedMedication newPrescribedMedication) {
+    PrescribedMedication save(PrescribedMedication prescribedMedication) throws PrescribedMedicationValidationException {
 
-        prescribedMedicationValidator.validate(newPrescribedMedication)
+        prescribedMedicationValidator.validate(prescribedMedication)
 
-        def existingPrescribedMedication = findByIdentifiers(newPrescribedMedication.identifiers)
+        prescribedMedicationEventPublisher.prescribedMedicationSaved(prescribedMedication)
 
-        if (requiresIdartIdentifier(newPrescribedMedication, existingPrescribedMedication)) {
-            newPrescribedMedication.addIdentifier(PrescribedMedication.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingPrescribedMedication == null) {
-            existingPrescribedMedication = new PrescribedMedication()
-        }
-
-        existingPrescribedMedication.merge(newPrescribedMedication)
-
-        prescribedMedicationRepository.save(existingPrescribedMedication)
+        prescribedMedicationRepository.save(prescribedMedication)
     }
 
     @Override
-    PrescribedMedication findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingPrescribedMedication = prescribedMedicationRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingPrescribedMedication != null) {
-                return existingPrescribedMedication
-            }
+    PrescribedMedication findByPrescribedMedicationIdentifier(PrescribedMedicationIdentifier prescribedMedicationIdentifier) throws PrescribedMedicationNotFoundException {
+
+        def prescribedMedication = prescribedMedicationRepository.findOne(prescribedMedicationIdentifier)
+
+        if (prescribedMedication == null) {
+            throw new PrescribedMedicationNotFoundException("Could not find PrescribedMedication with PrescribedMedication Identifier [${ prescribedMedicationIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    PrescribedMedication findByIdentifier(String identifier) {
-        prescribedMedicationRepository.findOneByIdentifier(PrescribedMedication.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<PrescribedMedication> findAll() {
-        prescribedMedicationRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", prescribedMedicationSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(PrescribedMedication... prescribedMedications) {
-
-        for (PrescribedMedication prescribedMedication in prescribedMedications) {
-            if (prescribedMedication?.hasIdentifierForSystem(PrescribedMedication.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        prescribedMedication
     }
 }

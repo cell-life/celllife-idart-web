@@ -1,7 +1,8 @@
 package org.celllife.idart.domain.person
 
-import org.celllife.idart.domain.common.Gender
-import org.celllife.idart.domain.common.MaritalStatus
+import org.celllife.idart.common.Gender
+import org.celllife.idart.common.MaritalStatus
+import org.celllife.idart.common.Measurement
 import org.celllife.idart.domain.party.Party
 
 /**
@@ -11,6 +12,9 @@ import org.celllife.idart.domain.party.Party
  */
 class Person extends Party {
 
+    /**
+     * Namespace
+     */
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/people"
 
     /**
@@ -77,10 +81,16 @@ class Person extends Party {
     /**
      * having
      */
-    Set<PhysicalCharacteristic> physicalCharacteristics = []
+    Set<Measurement> measurements = []
 
     def merge(Person that) {
+
+        if (that == null) {
+            return
+        }
+
         super.merge(that)
+
         this.firstName = that.firstName
         this.middleNames = that.middleNames
         this.lastName = that.lastName
@@ -93,7 +103,7 @@ class Person extends Party {
         this.maritalStatus = that.maritalStatus
         this.totalYearsWorkExperience = that.totalYearsWorkExperience
         this.comment = that.comment
-        that?.physicalCharacteristics?.each { physicalCharacteristic -> this.physicalCharacteristics << physicalCharacteristic }
+        this.measurements.addAll(that.measurements)
     }
 
 }

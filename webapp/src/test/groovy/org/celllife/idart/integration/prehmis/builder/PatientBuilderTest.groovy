@@ -1,6 +1,6 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.domain.common.Gender
+import org.celllife.idart.common.Gender
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
 import org.junit.Assert

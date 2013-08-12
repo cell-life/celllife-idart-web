@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.inventoryitem
 
-import org.celllife.idart.domain.common.Quantity
+import org.celllife.idart.common.Quantity
 
 import javax.validation.constraints.NotNull
 

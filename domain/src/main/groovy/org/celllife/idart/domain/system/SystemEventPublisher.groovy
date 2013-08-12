@@ -1,12 +1,12 @@
 package org.celllife.idart.domain.system
 
+import javax.annotation.Generated
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-08-05
- * Time: 19h03
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface SystemEventPublisher {
 
-    void publish(SystemEvent systemEvent)
+    void systemSaved(System system)
 
 }

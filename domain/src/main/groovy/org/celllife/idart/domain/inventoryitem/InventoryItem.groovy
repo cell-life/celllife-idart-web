@@ -1,8 +1,6 @@
 package org.celllife.idart.domain.inventoryitem
 
-import org.celllife.idart.domain.part.Part
-
-import javax.validation.constraints.NotNull
+import org.celllife.idart.common.PartIdentifier
 
 /**
  * User: Kevin W. Sewell
@@ -19,8 +17,7 @@ abstract class InventoryItem {
     /**
      * the physical occurrence of
      */
-    @NotNull
-    Part part
+    PartIdentifier part
 
     List<InventoryItemStatus> status = []
 

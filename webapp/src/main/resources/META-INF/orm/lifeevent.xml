@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- LifeEvent -->
+
+    <entity class="org.celllife.idart.domain.lifeevent.LifeEvent">
+        <attributes>
+            <embedded-id name="code">
+                <attribute-override name="value">
+                    <column name="code"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
+        </attributes>
+    </entity>
+
+</entity-mappings>

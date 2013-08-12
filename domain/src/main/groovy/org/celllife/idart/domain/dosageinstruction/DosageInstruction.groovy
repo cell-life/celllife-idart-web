@@ -1,9 +1,11 @@
 package org.celllife.idart.domain.dosageinstruction
 
-import org.celllife.idart.domain.administrationmethod.AdministrationMethod
-import org.celllife.idart.domain.common.*
-import org.celllife.idart.domain.entrysite.EntrySite
-import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
+import org.celllife.idart.common.AdministrationMethodCode
+import org.celllife.idart.common.EntrySiteCode
+import org.celllife.idart.common.RouteOfAdministrationCode
+import org.celllife.idart.common.Quantity
+import org.celllife.idart.common.Ratio
+import org.celllife.idart.common.Schedule
 
 /**
  * User: Kevin W. Sewell
@@ -17,7 +19,7 @@ class DosageInstruction {
     /**
      * Free text dosage instruction
      */
-    Set<LocalisedText> texts
+    String text
 
     /**
      * Coded dosage instruction
@@ -32,17 +34,17 @@ class DosageInstruction {
     /**
      * Location on body
      */
-    EntrySite site
+    EntrySiteCode site
 
     /**
      * Route Of Administration
      */
-    RouteOfAdministration route
+    RouteOfAdministrationCode route
 
     /**
      * Administration Method
      */
-    AdministrationMethod method
+    AdministrationMethodCode method
 
     /**
      * Dose Quantity

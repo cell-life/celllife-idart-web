@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.encounter
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.EncounterIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired EncounterRepository encounterRepository
 
-    @Autowired EncounterSequence encounterSequence
-
     @Autowired EncounterValidator encounterValidator
 
+    @Autowired EncounterEventPublisher encounterEventPublisher
+
     @Override
-    Encounter save(Encounter newEncounter) {
+    Encounter save(Encounter encounter) throws EncounterValidationException {
 
-        encounterValidator.validate(newEncounter)
+        encounterValidator.validate(encounter)
 
-        def existingEncounter = findByIdentifiers(newEncounter.identifiers)
+        encounterEventPublisher.encounterSaved(encounter)
 
-        if (requiresIdartIdentifier(newEncounter, existingEncounter)) {
-            newEncounter.addIdentifier(Encounter.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingEncounter == null) {
-            existingEncounter = new Encounter()
-        }
-
-        existingEncounter.merge(newEncounter)
-
-        encounterRepository.save(existingEncounter)
+        encounterRepository.save(encounter)
     }
 
     @Override
-    Encounter findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingEncounter = encounterRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingEncounter != null) {
-                return existingEncounter
-            }
+    Encounter findByEncounterIdentifier(EncounterIdentifier encounterIdentifier) throws EncounterNotFoundException {
+
+        def encounter = encounterRepository.findOne(encounterIdentifier)
+
+        if (encounter == null) {
+            throw new EncounterNotFoundException("Could not find Encounter with Encounter Identifier [${ encounterIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Encounter findByIdentifier(String identifier) {
-        encounterRepository.findOneByIdentifier(Encounter.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<Encounter> findAll() {
-        encounterRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", encounterSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(Encounter... encounters) {
-
-        for (Encounter encounter in encounters) {
-            if (encounter?.hasIdentifierForSystem(Encounter.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        encounter
     }
 }

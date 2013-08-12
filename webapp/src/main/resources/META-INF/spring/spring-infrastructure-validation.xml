@@ -18,6 +18,6 @@
     </bean>
 
     <context:component-scan base-package="org.celllife.idart.infrastructure.validation"/>
-    <context:component-scan base-package="org.celllife.idart.infrastructure.hibernate"/>
+    <context:component-scan base-package="org.celllife.idart.infrastructure.jsr303"/>
 
 </beans>

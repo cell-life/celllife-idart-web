@@ -10,6 +10,8 @@
 
     <includeBaseDirectory>false</includeBaseDirectory>
 
+
+
     <fileSets>
         <fileSet>
             <directory>src/main/assembly</directory>
@@ -19,8 +21,19 @@
 
     <dependencySets>
         <dependencySet>
+            <excludes>
+                <exclude>org.celllife.idart:celllife-idart-model:zip:dist</exclude>
+            </excludes>
             <scope>runtime</scope>
             <outputDirectory>/lib</outputDirectory>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>org.celllife.idart:celllife-idart-model:zip:dist</include>
+            </includes>
+            <scope>runtime</scope>
+            <unpack>true</unpack>
+            <outputDirectory>/model</outputDirectory>
         </dependencySet>
     </dependencySets>
 

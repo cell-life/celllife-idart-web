@@ -1,58 +1,28 @@
 package org.celllife.idart.application.person
 
-import org.celllife.idart.domain.person.Height
 import org.celllife.idart.domain.person.Person
+import org.celllife.idart.domain.person.PersonValidationException
+import org.celllife.idart.domain.person.PersonNotFoundException
+import org.celllife.idart.common.PartyIdentifier
 import org.celllife.idart.domain.person.PersonService
-import org.celllife.idart.domain.person.Weight
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-15
- * Time: 23h08
  */
-@Service class PersonApplicationServiceImpl implements PersonApplicationService, PersonResourceService {
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+@Service class PersonApplicationServiceImpl implements PersonApplicationService {
 
     @Autowired PersonService personService
 
-    @Autowired UnitOfMeasureService unitOfMeasureService
-
-    Person save(Person person) {
-
-        person?.with {
-
-            physicalCharacteristics.each { physicalCharacteristic ->
-                switch (physicalCharacteristic) {
-                    case Height:
-                        ((Height) physicalCharacteristic)?.with {
-                            value?.with {
-                                unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
-                            }
-                        }
-                        break
-                    case Weight:
-                        ((Weight) physicalCharacteristic)?.with {
-                            value?.with {
-                                unitOfMeasure = unitOfMeasureService.findByCodes(unitOfMeasure?.codes)
-                            }
-                        }
-                        break
-                }
-            }
-        }
-
+    Person save(Person person) throws PersonValidationException {
         personService.save(person)
     }
 
-    @Override
-    Person findByIdentifier(String identifier) {
-        personService.findByIdentifier(identifier)
+    Person findByPartyIdentifier(PartyIdentifier partyIdentifier) throws PersonNotFoundException{
+        personService.findByPartyIdentifier(partyIdentifier)
     }
 
-    @Override
-    Iterable<Person> findAll() {
-        personService.findAll()
-    }
 }

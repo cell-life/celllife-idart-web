@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- DefaultDosageInstruction -->
+
+    <entity class="org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <one-to-one name="dosageInstruction" fetch="EAGER" orphan-removal="true">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <embedded name="drug">
+                <attribute-override name="value">
+                    <column name="drug"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+</entity-mappings>

@@ -1,7 +1,8 @@
 package org.celllife.idart.domain.practitioner
 
-import org.celllife.idart.domain.common.Identifiable
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.Period
+import org.celllife.idart.common.PractitionerIdentifier
 import org.celllife.idart.domain.person.Person
 
 import javax.validation.constraints.NotNull
@@ -13,36 +14,28 @@ import javax.validation.constraints.NotNull
  * Date: 2013-06-16
  * Time: 09h14
  */
-@Mixin([Identifiable])
 class Practitioner {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/practitioners"
-
     /**
-     * Persistence Key
+     * Namespace
      */
-    String pk
+    static NAMESPACE = "http://www.cell-life.org/idart/practitioners"
 
     /**
      * Identified by
      */
-    Set<Identifier> identifiers = []
+    PractitionerIdentifier identifier
 
     /**
-     * From date
+     * Valid during
      */
-    Date fromDate
-
-    /**
-     * Thru date
-     */
-    Date thruDate
+    Period valid
 
     /**
      * Acted by
      */
     @NotNull
-    Person person
+    PartyIdentifier person
 
     def merge(Practitioner that) {
 
@@ -50,9 +43,10 @@ class Practitioner {
             return
         }
 
-        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
-        this.fromDate = that.fromDate
-        this.thruDate = that.thruDate
-        this.person = that.person
+        this.valid = that.valid
+
+        if (that.person != null) {
+            this.person = that.person
+        }
     }
 }

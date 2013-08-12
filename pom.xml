@@ -14,12 +14,11 @@
     <modules>
         <module>client</module>
         <module>codegen</module>
-        <module>generated/application</module>
-        <module>generated/domain</module>
-        <module>generated/infrastructure</module>
+        <module>common</module>
         <module>database</module>
         <module>domain</module>
         <module>jboss</module>
+        <module>model</module>
         <module>webapp</module>
     </modules>
 
@@ -37,6 +36,7 @@
         <spring-data-neo4j.version>2.2.1.RELEASE</spring-data-neo4j.version>
         <neo4j.version>1.9.RC2</neo4j.version>
         <camel.version>2.11.0</camel.version>
+        <hibernate.version>4.2.2.Final</hibernate.version>
     </properties>
 
     <distributionManagement>
@@ -438,6 +438,20 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- Hibernate -->
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hibernate.javax.persistence</groupId>
+                        <artifactId>hibernate-jpa-2.0-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Commons -->

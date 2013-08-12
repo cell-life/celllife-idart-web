@@ -6,35 +6,23 @@
     <changeSet id="prescription-1" author="kevin.sewell">
 
         <createTable tableName="prescription">
-            <column name="pk" type="varchar(31)">
+            <column name="identifier" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="encounter" type="bigint"/>
+            <column name="encounter" type="varchar(31)"/>
             <column name="prescriber" type="varchar(31)"/>
             <column name="patient" type="varchar(31)"/>
             <column name="date_written" type="date"/>
         </createTable>
 
-        <createTable tableName="prescription_identifiers">
-            <column name="prescription" type="varchar(31)">
-                <constraints references="prescription(pk)" foreignKeyName="prescription_identifiers_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+        <createTable tableName="prescription_prescribed_medications">
+            <column name="prescription" type="varchar(31)"/>
+            <column name="prescribed_medication" type="varchar(31)"/>
         </createTable>
 
         <createTable tableName="prescribed_medication">
-            <column name="pk" type="varchar(31)">
+            <column name="identifier" type="varchar(31)">
                 <constraints primaryKey="true"/>
-            </column>
-            <column name="prescription" type="varchar(31)">
-                <constraints references="prescription(pk)" foreignKeyName="prescribed_medication_prescription_fk"/>
             </column>
             <column name="reason_for_prescribing" type="varchar(2000)"/>
             <column name="medication" type="varchar(31)"/>
@@ -42,23 +30,14 @@
             <column name="valid_thru_date" type="date"/>
             <column name="number_of_repeats" type="integer"/>
             <column name="quantity" type="numeric"/>
-            <column name="quantity_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="prescribed_medication_qty_uom_fk"/>
-            </column>
+            <column name="quantity_uom" type="varchar(31)"/>
             <column name="expected_supply_duration" type="numeric"/>
-            <column name="expected_supply_duration_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="prescribed_medication_duration_uom_fk"/>
-            </column>
+            <column name="expected_supply_duration_uom" type="varchar(31)"/>
 
             <!-- substitution -->
 
-            <column name="substitution" type="varchar(31)">
-                <constraints references="substitution(code)" foreignKeyName="prescribed_medication_substitution_fk"/>
-            </column>
-            <column name="substitution_reason" type="varchar(31)">
-                <constraints references="substitution_reason(code)"
-                             foreignKeyName="prescribed_medication_substitution_reason_fk"/>
-            </column>
+            <column name="substitution" type="varchar(31)"/>
+            <column name="substitution_reason" type="varchar(31)"/>
 
             <!-- dosage_instructions -->
 
@@ -67,27 +46,8 @@
         </createTable>
 
         <createTable tableName="prescribed_medication_indications">
-            <column name="prescribed_medication" type="varchar(31)">
-                <constraints references="prescribed_medication(pk)"
-                             foreignKeyName="prescribed_medication_indications_fk"/>
-            </column>
-            <column name="indications" type="varchar(31)">
-                <constraints references="indication(code)" foreignKeyName="indications_prescribed_medication_fk"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="prescribed_medication_identifiers">
-            <column name="prescribed_medication" type="varchar(31)">
-                <constraints references="prescribed_medication(pk)" foreignKeyName="prescribed_medication_identifiers_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+            <column name="prescribed_medication" type="varchar(31)"/>
+            <column name="indication" type="varchar(31)"/>
         </createTable>
 
     </changeSet>

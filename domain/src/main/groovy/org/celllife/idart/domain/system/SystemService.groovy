@@ -1,5 +1,6 @@
-
 package org.celllife.idart.domain.system
+
+import org.celllife.idart.common.SystemIdentifier
 
 import javax.annotation.Generated
 

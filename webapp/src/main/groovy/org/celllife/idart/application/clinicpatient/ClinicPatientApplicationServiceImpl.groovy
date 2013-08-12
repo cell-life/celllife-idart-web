@@ -1,10 +1,7 @@
 package org.celllife.idart.application.clinicpatient
 
-import org.celllife.idart.application.clinic.ClinicResourceService
 import org.celllife.idart.application.patient.PatientProvider
-import org.celllife.idart.application.patient.PatientResourceService
 import org.celllife.idart.domain.clinic.Clinic
-import org.celllife.idart.domain.clinic.ClinicNotFoundException
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.patient.Patient
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,11 +9,7 @@ import org.springframework.stereotype.Service
 
 /**
  */
-@Service class ClinicPatientApplicationServiceImpl {
-
-    @Autowired ClinicResourceService clinicResourceService
-
-    @Autowired PatientResourceService patientResourceService
+class ClinicPatientApplicationServiceImpl {
 
     def clinicPatientService
 
@@ -43,7 +36,7 @@ import org.springframework.stereotype.Service
      */
     void save(String clinicIdentifier, Patient patient) {
 
-        def clinic = clinicResourceService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
 
         save(clinic, patient)
     }
@@ -62,10 +55,10 @@ import org.springframework.stereotype.Service
     Iterable<Patient> findPatientsByClinicIdentifierAndPatientIdentifier(String clinicIdentifier,
                                                                          String patientIdentifier) {
 
-        Clinic clinic = clinicResourceService.findByIdentifier(clinicIdentifier)
+        Clinic clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
 
         if (clinic == null) {
-            throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifier)
+//            throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifier)
         }
 
         lookupFromExternalProvidersAndSave(patientIdentifier, clinic)
@@ -123,7 +116,7 @@ import org.springframework.stereotype.Service
      */
     void save(Clinic clinic, Patient patient) {
 
-        patient = patientResourceService.save(patient)
+        patient = patientApplicationService.save(patient)
 
         clinicPatientService.save(clinic, patient)
     }

@@ -1,10 +1,8 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.domain.common.Identifiable
-import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.person.Person
-
-import javax.validation.constraints.NotNull
+import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.Period
 
 /**
  * Party Role -> Person Role -> Patient
@@ -13,35 +11,27 @@ import javax.validation.constraints.NotNull
  * Date: 2013-06-16
  * Time: 09h14
  */
-@Mixin([Identifiable])
 class Patient {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/patients"
-
     /**
-     * Persistence Key
+     * Namespace
      */
-    String pk
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/patients"
 
     /**
      * Identified by
      */
-    Set<Identifier> identifiers = []
+    PatientIdentifier identifier
 
     /**
-     * From date
+     * Valid during
      */
-    Date fromDate
-
-    /**
-     * Thru date
-     */
-    Date thruDate
+    Period valid
 
     /**
      * Acted by
      */
-    Person person
+    PartyIdentifier person
 
     def merge(Patient that) {
 
@@ -49,9 +39,10 @@ class Patient {
             return
         }
 
-        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
-        this.fromDate = that.fromDate
-        this.thruDate = that.thruDate
-        this.person = that.person
+        this.valid = that.valid
+
+        if (that.person != null) {
+            this.person = that.person
+        }
     }
 }

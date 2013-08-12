@@ -1,5 +1,7 @@
 package ${repository.packageName}
 
+import ${identifier.packageName}.${identifier.className}
+
 import javax.annotation.Generated
 
 /**
@@ -9,6 +11,6 @@ public interface ${repository.className} {
 
     ${entity.className} save(${entity.className} ${entity.fieldName})
 
-    ${entity.className} findOne(${entity.identifier.className} ${entity.identifier.fieldName})
+    ${entity.className} findOne(${identifier.className} ${identifier.fieldName})
 
 }

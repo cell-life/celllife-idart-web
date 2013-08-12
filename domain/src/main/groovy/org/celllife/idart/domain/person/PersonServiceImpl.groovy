@@ -1,87 +1,42 @@
 package org.celllife.idart.domain.person
 
-import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.party.Party
+import org.celllife.idart.common.PartyIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-15
- * Time: 23h09
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class PersonServiceImpl implements PersonService {
 
     @Autowired PersonRepository personRepository
 
-    @Autowired PersonSequence personSequence
+    @Autowired PersonValidator personValidator
+
+    @Autowired PersonEventPublisher personEventPublisher
 
     @Override
-    Person findByIdentifiers(Set<Identifier> identifiers) {
+    Person save(Person person) throws PersonValidationException {
 
-        for (identifier in identifiers) {
-            Person person = personRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (person != null) {
-                return person
-            }
+        personValidator.validate(person)
+
+        personEventPublisher.personSaved(person)
+
+        personRepository.save(person)
+    }
+
+    @Override
+    Person findByPartyIdentifier(PartyIdentifier partyIdentifier) throws PersonNotFoundException {
+
+        def person = personRepository.findOne(partyIdentifier)
+
+        if (person == null) {
+            throw new PersonNotFoundException("Could not find Person with Party Identifier [${ partyIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Person save(Person newPerson) {
-        merge(newPerson, findByIdentifiers(newPerson.identifiers))
-    }
-
-    @Override
-    Person update(Person newPerson, Long existingPersonPk) {
-        Person existingPerson = personRepository.findOne(existingPersonPk)
-        merge(newPerson, existingPerson)
-    }
-
-    @Override
-    Iterable<Person> findAll() {
-        personRepository.findAll()
-    }
-
-    @Override
-    Person findByIdentifier(String identifier) {
-        personRepository.findOneByIdentifier(Person.IDART_SYSTEM, identifier)
-    }
-
-    Person merge(Person newPerson, Person existingPerson) {
-
-        if (requiresIdartIdentifier(newPerson, existingPerson)) {
-            ((Party) newPerson).addIdentifier(Person.IDART_SYSTEM, nextPersonIdentifier())
-        }
-
-        if (existingPerson != null) {
-            existingPerson.merge(newPerson)
-            return personRepository.save(existingPerson)
-        }
-
-        return personRepository.save(newPerson)
-    }
-
-    private String nextPersonIdentifier() {
-        String.format("%08d", personSequence.nextValue())
-    }
-
-    /**
-     * Iterate through people and check if any have an iDART identifier
-     *
-     * @param people
-     * @return
-     */
-    private static requiresIdartIdentifier(Person... people) {
-
-        for (Person person in people) {
-            if (((Party) person)?.hasIdentifierForSystem(Person.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        person
     }
 }

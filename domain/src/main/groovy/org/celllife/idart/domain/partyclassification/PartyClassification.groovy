@@ -1,26 +1,28 @@
 package org.celllife.idart.domain.partyclassification
 
-import org.celllife.idart.domain.common.Codeable
-import org.celllife.idart.domain.common.Describable
-import org.celllife.idart.domain.common.LocalisedText
+import org.celllife.idart.common.PartyClassificationCode
+import org.celllife.idart.common.PartyClassificationType
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 10h30
  */
-@Mixin([Codeable, Describable])
-abstract class PartyClassification {
+class PartyClassification {
 
     /**
-     * Persistence Key
+     * Identified by
      */
-    Long pk
+    PartyClassificationCode code
 
-    Set<LocalisedText> codes = []
+    /**
+     * Described as
+     */
+    String description
 
-    Set<LocalisedText> descriptions = []
-
-    PartyClassification parent
+    /**
+     * Has Parent Identified by
+     */
+    PartyClassificationCode parent
 
 }

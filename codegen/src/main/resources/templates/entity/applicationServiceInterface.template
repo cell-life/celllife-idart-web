@@ -3,7 +3,7 @@ package ${applicationService.packageName}
 import ${entity.packageName}.${entity.className}
 import ${entity.packageName}.${entity.className}ValidationException
 import ${entity.packageName}.${entity.className}NotFoundException
-import ${entity.packageName}.${entity.identifier.className}
+import ${identifier.packageName}.${identifier.className}
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface ${applicationService.className} {
 
     ${entity.className} save(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException
 
-    ${entity.className} findBy${entity.identifier.className}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException
+    ${entity.className} findBy${identifier.className}(${identifier.className} ${identifier.fieldName}) throws ${entity.className}NotFoundException
 
 }

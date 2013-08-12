@@ -1,8 +1,8 @@
 package org.celllife.idart.domain.party
 
-import org.celllife.idart.application.compound.CompoundResourceService
-import org.celllife.idart.application.drug.DrugResourceService
-import org.celllife.idart.application.medication.MedicationResourceService
+import org.celllife.idart.application.compound.CompoundApplicationService
+import org.celllife.idart.application.drug.DrugApplicationService
+import org.celllife.idart.application.medication.MedicationApplicationService
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.medication.Medication
@@ -28,11 +28,11 @@ class PartRepositoryIntegrationTest {
 
     @Autowired UnitOfMeasureService unitOfMeasureService
 
-    @Autowired MedicationResourceService medicationResourceService
+    @Autowired MedicationApplicationService medicationApplicationService
 
-    @Autowired DrugResourceService drugResourceService
+    @Autowired DrugApplicationService drugApplicationService
 
-    @Autowired CompoundResourceService compoundResourceService
+    @Autowired CompoundApplicationService compoundApplicationService
 
     @Test
     void testName() throws Exception {
@@ -51,21 +51,21 @@ class PartRepositoryIntegrationTest {
 
         Compound abacavirCompound = new Compound(unitOfMeasure: milligrams)
         abacavirCompound.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
-        abacavirCompound = compoundResourceService.save(abacavirCompound)
+        abacavirCompound = compoundApplicationService.save(abacavirCompound)
 
         Drug abacavir20mg = new Drug(unitOfMeasure: millilitres)
         abacavir20mg.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
         abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
-        abacavir20mg = drugResourceService.save(abacavir20mg)
+        abacavir20mg = drugApplicationService.save(abacavir20mg)
 
         Drug drug = new Drug(unitOfMeasure: each)
         drug.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
         drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
-        drug = drugResourceService.save(drug)
+        drug = drugApplicationService.save(drug)
 
         Medication good = new Medication(drug: drug)
         ((Product) good).addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml")
-        medicationResourceService.save(good)
+        medicationApplicationService.save(good)
 
     }
 }

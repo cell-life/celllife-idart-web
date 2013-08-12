@@ -1,6 +1,6 @@
 package org.celllife.idart.codegen.relationship
 
-import org.celllife.idart.codegen.entity.EntityModelEnricher
+import org.celllife.idart.codegen.transform.EntityModelEnricher
 
 import java.util.regex.Pattern
 

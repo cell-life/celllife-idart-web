@@ -1,5 +1,6 @@
-
 package org.celllife.idart.domain.user
+
+import org.celllife.idart.common.UserIdentifier
 
 import javax.annotation.Generated
 

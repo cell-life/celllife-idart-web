@@ -21,11 +21,6 @@
 
     <!-- Domain Aggregates -->
 
-    <include file="db.changelog-clinicdispensation.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-clinicmedication.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-clinicpatient.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-clinicpractitioner.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-clinicprescription.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-contactmechanism.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-defaultdosageinstruction.xml" relativeToChangelogFile="true"/>
@@ -45,9 +40,5 @@
     <include file="db.changelog-system.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-user.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-usersystem.xml" relativeToChangelogFile="true"/>
-
-    <!-- Cross Domain Constraints -->
-
-    <include file="db.changelog-constraint.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

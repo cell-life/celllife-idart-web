@@ -1,0 +1,268 @@
+[
+    {
+        "name": "Administration Method",
+        "description": "The method in which medication is administered",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        },
+        "features": {
+            "excludes": []
+        }
+
+    },
+    {
+        "name": "Compound",
+        "identifier": {
+            "name": "Part Identifier"
+        },
+        "features": {
+            "excludes": ["identifier"]
+        }
+    },
+    {
+        "name": "Default Dosage Instruction"
+    },
+    {
+        "name": "Dispensation"
+    },
+    {
+        "name": "DispensedMedication"
+    },
+    {
+        "name": "Drug",
+        "identifier": {
+            "name": "Part Identifier"
+        },
+        "features": {
+            "excludes": ["identifier"]
+        }
+    },
+    {
+        "name": "Encounter"
+    },
+    {
+        "name": "Entry Site",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Facility",
+        "namePlural": "Facilities"
+    },
+    {
+        "name": "Form",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Indication",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Legal Organisation",
+        "identifier": {
+            "name": "Party Identifier"
+        },
+        "features": {
+            "excludes": ["identifier"]
+        }
+    },
+    {
+        "name": "Life Event",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Medication",
+        "identifier": {
+            "name": "Product Identifier"
+        },
+        "features": {
+            "excludes": ["identifier"]
+        }
+    },
+    {
+        "name": "Organisation",
+        "identifier": {
+            "name": "Party Identifier"
+        },
+        "features": {
+            "excludes": ["identifier", "validator", "jsr303Validator", "eventPublisher"]
+        }
+    },
+    {
+        "name": "Patient"
+    },
+    {
+        "name": "Person",
+        "identifier": {
+            "name": "Party Identifier"
+        },
+        "features": {
+            "excludes": ["identifier"]
+        }
+    },
+    {
+        "name": "Practitioner"
+    },
+    {
+        "name": "PrescribedMedication"
+    },
+    {
+        "name": "Prescription"
+    },
+    {
+        "name": "Route Of Administration",
+        "namePlural": "Routes Of Administration",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Substitution",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Substitution Reason",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Unit Of Measure",
+        "namePlural": "Units Of Measure",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Unit Of Measure Type",
+        "identifier": {
+            "shortName": "Code"
+        },
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Name"
+                },
+                {
+                    "name": "Description"
+                }
+            ]
+        }
+    },
+    {
+        "name": "System"
+    },
+    {
+        "name": "User",
+        "entity": {
+            "_properties": [
+                {
+                    "name": "Current Username"
+                },
+                {
+                    "name": "Current Password"
+                }
+            ]
+        }
+    }
+]

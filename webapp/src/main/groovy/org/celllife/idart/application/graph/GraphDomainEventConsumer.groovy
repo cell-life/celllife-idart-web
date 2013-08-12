@@ -6,9 +6,9 @@ package org.celllife.idart.application.graph
  */
 public interface GraphDomainEventConsumer {
 
-    void systemSaved(String message)
+    void systemEvent(String message)
 
-    void userSaved(String message)
+    void userEvent(String message)
 
-    void userSystemSaved(String message)
+    void userSystemEvent(String message)
 }

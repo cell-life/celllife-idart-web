@@ -1,7 +1,7 @@
 package org.celllife.idart.application.patient
 
 import org.celllife.idart.application.person.PersonApplicationService
-import org.celllife.idart.application.person.PersonResourceService
+import org.celllife.idart.common.PatientIdentifier
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.person.Person
@@ -13,11 +13,9 @@ import org.springframework.stereotype.Service
  * Date: 2013-04-25
  * Time: 11h36
  */
-@Service class PatientApplicationServiceImpl implements PatientApplicationService, PatientResourceService {
+@Service class PatientApplicationServiceImpl implements PatientApplicationService {
 
     @Autowired PersonApplicationService personApplicationService
-
-    @Autowired PersonResourceService personResourceService
 
     @Autowired PatientService patientService
 
@@ -57,16 +55,11 @@ import org.springframework.stereotype.Service
             newPatient.person = existingPatient.person
         }
 
-        return personResourceService.save(newPatient.person)
+        return personApplicationService.save(newPatient.person)
     }
 
     @Override
-    Patient findByIdentifier(String identifier) {
-        patientService.findByIdentifier(identifier)
-    }
-
-    @Override
-    Iterable<Patient> findAll() {
-        patientService.findAll()
+    Patient findByPatientIdentifier(PatientIdentifier patientIdentifier) {
+        patientService.findByPatientIdentifier(patientIdentifier)
     }
 }

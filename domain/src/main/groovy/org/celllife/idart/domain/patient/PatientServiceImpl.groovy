@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PatientIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired PatientRepository patientRepository
 
-    @Autowired PatientSequence patientSequence
-
     @Autowired PatientValidator patientValidator
 
+    @Autowired PatientEventPublisher patientEventPublisher
+
     @Override
-    Patient save(Patient newPatient) {
+    Patient save(Patient patient) throws PatientValidationException {
 
-        patientValidator.validate(newPatient)
+        patientValidator.validate(patient)
 
-        def existingPatient = findByIdentifiers(newPatient.identifiers)
+        patientEventPublisher.patientSaved(patient)
 
-        if (requiresIdartIdentifier(newPatient, existingPatient)) {
-            newPatient.addIdentifier(Patient.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingPatient == null) {
-            existingPatient = new Patient()
-        }
-
-        existingPatient.merge(newPatient)
-
-        patientRepository.save(existingPatient)
+        patientRepository.save(patient)
     }
 
     @Override
-    Patient findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingPatient = patientRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingPatient != null) {
-                return existingPatient
-            }
+    Patient findByPatientIdentifier(PatientIdentifier patientIdentifier) throws PatientNotFoundException {
+
+        def patient = patientRepository.findOne(patientIdentifier)
+
+        if (patient == null) {
+            throw new PatientNotFoundException("Could not find Patient with Patient Identifier [${ patientIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Patient findByIdentifier(String identifier) {
-        patientRepository.findOneByIdentifier(Patient.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<Patient> findAll() {
-        patientRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", patientSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(Patient... patients) {
-
-        for (Patient patient in patients) {
-            if (patient?.hasIdentifierForSystem(Patient.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        patient
     }
 }

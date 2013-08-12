@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Product -->
+
+    <entity class="org.celllife.idart.domain.product.Product">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.medication.Medication">
+        <attributes>
+            <embedded name="drug">
+                <attribute-override name="value">
+                    <column name="drug"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+</entity-mappings>

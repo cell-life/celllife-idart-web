@@ -3,8 +3,11 @@ package org.celllife.idart.codegen.ant
 import groovy.json.JsonSlurper
 import org.apache.tools.ant.BuildException
 import org.apache.tools.ant.Task
+import org.celllife.idart.codegen.entity.EntityCodeGenerator
 
-import static org.celllife.idart.codegen.entity.EntityAggregateRootGenerator.generateEntityAggregateRoot
+import static EntityCodeGenerator.generateEntity
+import static org.celllife.idart.codegen.entity.EntityCodeGenerator.generateEntityCode
+import static org.celllife.idart.codegen.entity.EntityIdentifierGenerator.generateEntityIdentifier
 import static org.celllife.idart.codegen.entity.EntityApplicationServiceGenerator.generateEntityApplicationService
 import static org.celllife.idart.codegen.entity.EntityJsr303ValidatorGenerator.generateEntityJsr303Validator
 import static org.celllife.idart.codegen.entity.EntityResourceGenerator.generateEntityResource
@@ -28,24 +31,10 @@ class EntityCodeGeneratorTask extends Task {
     @Override
     void execute() throws BuildException {
 
-        def aggregateRoots = new JsonSlurper().parse(new FileReader(modelFile))
+        def models = new JsonSlurper().parse(new FileReader(modelFile))
 
-        switch (action) {
-            case EntityCodeGeneratorAction.application :
-                generateEntityResources("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
-                break
-            case EntityCodeGeneratorAction.domain :
-                generateEntityAggregateRoots("${baseDir}/domain/src/main/groovy", baseNamespace, aggregateRoots)
-                break
-            case EntityCodeGeneratorAction.infrastructure :
-                generateEntitySpringDataRepositories("${baseDir}/webapp/src/main/java", baseNamespace, aggregateRoots)
-                generateEntityJsr303Validators("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
-                break
-            default:
-                generateEntityResources("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
-                generateEntityAggregateRoots("${baseDir}/domain/src/main/groovy", baseNamespace, aggregateRoots)
-                generateEntitySpringDataRepositories("${baseDir}/webapp/src/main/java", baseNamespace, aggregateRoots)
-                generateEntityJsr303Validators("${baseDir}/webapp/src/main/groovy", baseNamespace, aggregateRoots)
+        models.each { model ->
+            generateEntityCode(baseDir, baseNamespace, model)
         }
     }
 
@@ -65,27 +54,4 @@ class EntityCodeGeneratorTask extends Task {
         this.action = action
     }
 
-    static generateEntityAggregateRoots(sourcesDirectory, baseNamespace, models) {
-        models.each { model ->
-            generateEntityAggregateRoot(sourcesDirectory, baseNamespace, model)
-        }
-    }
-
-    static generateEntityResources(sourcesDirectory, baseNamespace, models) {
-        models.each { model ->
-            generateEntityResource(sourcesDirectory, baseNamespace, model)
-            generateEntityApplicationService(sourcesDirectory, baseNamespace, model)
-        }
-    }
-
-    static generateEntitySpringDataRepositories(sourcesDirectory, baseNamespace, models) {
-        models.each { model ->
-            generateEntitySpringDataRepository(sourcesDirectory, baseNamespace, model) }
-    }
-
-    static generateEntityJsr303Validators(sourcesDirectory, baseNamespace, models) {
-        models.each { model ->
-            generateEntityJsr303Validator(sourcesDirectory, baseNamespace, model)
-        }
-    }
 }

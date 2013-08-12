@@ -3,7 +3,7 @@ package org.celllife.idart.framework.json
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.celllife.idart.domain.common.Quantity
+import org.celllife.idart.common.Quantity
 import org.celllife.idart.domain.contactmechanism.ContactMechanism
 import org.celllife.idart.domain.part.Part
 import org.celllife.idart.domain.part.PartBillOfMaterialsItem

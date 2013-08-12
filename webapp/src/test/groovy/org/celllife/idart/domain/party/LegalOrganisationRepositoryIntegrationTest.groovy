@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.party
 
-import org.celllife.idart.domain.organisation.LegalOrganisation
-import org.celllife.idart.domain.organisation.LegalOrganisationRepository
+import org.celllife.idart.domain.legalorganisation.LegalOrganisation
+import org.celllife.idart.domain.legalorganisation.LegalOrganisationRepository
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Test
 import org.junit.runner.RunWith

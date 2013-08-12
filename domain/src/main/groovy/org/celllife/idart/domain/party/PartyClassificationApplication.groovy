@@ -1,24 +1,25 @@
 package org.celllife.idart.domain.party
 
-import org.celllife.idart.domain.partyclassification.PartyClassification
-
-import javax.validation.constraints.NotNull
+import groovy.transform.EqualsAndHashCode
+import org.celllife.idart.common.PartyClassificationCode
+import org.celllife.idart.common.Period
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 10h23
  */
+@EqualsAndHashCode
 class PartyClassificationApplication {
 
     /**
-     * described by
+     * Application of
      */
-    PartyClassification classification
+    PartyClassificationCode classification
 
-    @NotNull
-    Date fromDate
-
-    Date thruDate
+    /**
+     * Valid during
+     */
+    Period valid
 
 }

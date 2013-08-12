@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Counter -->
+
+    <entity class="org.celllife.idart.domain.counter.Counter">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="name"/>
+            <basic name="nextValue"/>
+        </attributes>
+    </entity>
+
+</entity-mappings>

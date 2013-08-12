@@ -1,7 +1,7 @@
 package org.celllife.idart.application.practitioner
 
 import org.celllife.idart.application.person.PersonApplicationService
-import org.celllife.idart.application.person.PersonResourceService
+import org.celllife.idart.common.PractitionerIdentifier
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.domain.practitioner.PractitionerService
@@ -13,13 +13,11 @@ import org.springframework.stereotype.Service
  * Date: 2013-04-29
  * Time: 12h16
  */
-@Service class PractitionerApplicationServiceImpl implements PractitionerApplicationService, PractitionerResourceService {
+@Service class PractitionerApplicationServiceImpl implements PractitionerApplicationService {
 
     @Autowired PractitionerService practitionerService
 
     @Autowired PersonApplicationService personApplicationService
-
-    @Autowired PersonResourceService personResourceService
 
     @Override
     Practitioner save(Practitioner newPractitioner) {
@@ -30,13 +28,8 @@ import org.springframework.stereotype.Service
     }
 
     @Override
-    Practitioner findByIdentifier(String identifier) {
-        return practitionerService.findByIdentifier(identifier)
-    }
-
-    @Override
-    Iterable<Practitioner> findAll() {
-        return practitionerService.findAll()
+    Practitioner findByPractitionerIdentifier(PractitionerIdentifier practitionerIdentifier) {
+        return practitionerService.findByPractitionerIdentifier(practitionerIdentifier)
     }
 
     /**
@@ -54,7 +47,7 @@ import org.springframework.stereotype.Service
      */
     Person updatePerson(Practitioner newPractitioner) {
 
-        def existingPractitioner = practitionerService.findByIdentifiers(newPractitioner.identifiers)
+        def existingPractitioner = practitionerService.findByPractitionerIdentifier(newPractitioner.practitionerIdentifier)
 
         if (existingPractitioner != null) {
             if (existingPractitioner.person == null) {
@@ -66,6 +59,6 @@ import org.springframework.stereotype.Service
             newPractitioner.person = existingPractitioner.person
         }
 
-        return personResourceService.save(newPractitioner.person)
+        return personApplicationService.save(newPractitioner.person)
     }
 }

@@ -1,36 +1,32 @@
 package org.celllife.idart.domain.prescribedmedication
 
-import org.celllife.idart.domain.common.*
+import org.celllife.idart.common.*
+import org.celllife.idart.common.Duration
+import org.celllife.idart.common.Period
+import org.celllife.idart.common.Quantity
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
-import org.celllife.idart.domain.indication.Indication
-import org.celllife.idart.domain.medication.Medication
-import org.celllife.idart.domain.substitution.Substitution
-import org.celllife.idart.domain.substitutionreason.SubstitutionReason
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-17
  * Time: 20h52
  */
-@Mixin(Identifiable)
 class PrescribedMedication {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescribedMedications"
-
     /**
-     * Persistence Key
+     * Namespace
      */
-    String pk
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescribedMedications"
 
     /**
      * Identified by
      */
-    Set<Identifier> identifiers = []
+    PrescribedMedicationIdentifier identifier
 
     /**
      * Medication
      */
-    Medication medication
+    ProductIdentifier medication
 
     /**
      * Reason For Prescribing
@@ -40,7 +36,7 @@ class PrescribedMedication {
     /**
      * Indications
      */
-    Set<Indication> indications
+    Set<IndicationCode> indications
 
     /**
      * Valid Period
@@ -65,12 +61,12 @@ class PrescribedMedication {
     /**
      * Substitution
      */
-    Substitution substitution
+    SubstitutionCode substitution
 
     /**
      * Substitution Reason
      */
-    SubstitutionReason substitutionReason
+    SubstitutionReasonCode substitutionReason
 
     /**
      * Dosage Instruction
@@ -83,10 +79,9 @@ class PrescribedMedication {
             return
         }
 
-        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
         this.medication = that.medication
         this.reasonForPrescribing = that.reasonForPrescribing
-        that.indications?.each {indication -> this.indications << indication }
+        that.indications?.each { indication -> this.indications << indication }
         this.valid = that.valid
         this.numberOfRepeats = that.numberOfRepeats
         this.quantity = that.quantity

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Contact Mechanism -->
+
+    <entity class="org.celllife.idart.domain.contactmechanism.ContactMechanism">
+
+        <inheritance strategy="SINGLE_TABLE"/>
+
+        <discriminator-column name="type"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.ElectronicAddress">
+
+        <discriminator-value>electronicAddress</discriminator-value>
+
+        <attributes>
+            <basic name="electronicAddressString"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.PostalAddress">
+
+        <discriminator-value>postalAddress</discriminator-value>
+
+        <attributes>
+            <basic name="address1"/>
+            <basic name="address2"/>
+            <basic name="directions"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.TelecommunicationsNumber">
+
+        <discriminator-value>telecommunicationsNumber</discriminator-value>
+
+        <attributes>
+            <basic name="areaCode"/>
+            <basic name="contactNumber"/>
+            <basic name="countryCode"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber">
+
+        <discriminator-value>mobileTelephoneNumber</discriminator-value>
+
+        <attributes>
+            <basic name="contactNumber"/>
+            <basic name="countryCode"/>
+        </attributes>
+    </entity>
+
+</entity-mappings>

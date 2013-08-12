@@ -2,8 +2,8 @@ package org.celllife.idart.integration.prehmis
 
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
-import org.celllife.idart.application.prescription.ClinicPrescriptionProvider
 import org.celllife.idart.application.prescription.PrescriptionNotSavedException
+import org.celllife.idart.application.prescription.PrescriptionProvider
 import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.prescription.Prescription
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 
 import java.text.SimpleDateFormat
 
-import static org.celllife.idart.domain.part.PartClassificationType.ATC
+import static org.celllife.idart.common.PartClassificationType.ATC
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStorePrescriptionRequest
 
@@ -21,7 +21,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
  * Date: 2013-04-25
  * Time: 15h17
  */
-@Service class PrehmisClinicPrescriptionProvider implements ClinicPrescriptionProvider {
+@Service class PrehmisClinicPrescriptionProvider implements PrescriptionProvider {
 
     static final SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
 
@@ -40,7 +40,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     String prehmisApplicationKey
 
     @Override
-    void save(Clinic clinic, Prescription prescription) {
+    void save(Prescription prescription) {
 
         def prehmisRestClient = new RESTClient(prehmisEndpointUrl)
 

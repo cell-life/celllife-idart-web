@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.dispensation
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.DispensationIdentifier
 
 import javax.annotation.Generated
 
@@ -9,12 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface DispensationService {
 
-    Dispensation save(Dispensation dispensation)
+    Dispensation save(Dispensation dispensation) throws DispensationValidationException
 
-    Iterable<Dispensation> findAll()
-
-    Dispensation findByIdentifier(String identifier)
-
-    Dispensation findByIdentifiers(Iterable<Identifier> identifiers)
+    Dispensation findByDispensationIdentifier(DispensationIdentifier dispensationIdentifier) throws DispensationNotFoundException
 
 }

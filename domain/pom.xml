@@ -34,6 +34,7 @@
                         </goals>
                         <configuration>
                             <providerSelection>${java.version}</providerSelection>
+                            <tolerance>0</tolerance>
                         </configuration>
                     </execution>
                 </executions>
@@ -51,21 +52,26 @@
 
     <dependencies>
 
+        <!-- iDART Common -->
+
+        <dependency>
+            <groupId>org.celllife.idart</groupId>
+            <artifactId>celllife-idart-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Groovy -->
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+
         <!-- Jackson -->
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
         </dependency>
 
         <!-- JPA -->
@@ -74,6 +80,20 @@
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jpa_2.0_spec</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- Spring - Security -->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
 
         <!-- Validation -->

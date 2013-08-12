@@ -6,40 +6,15 @@
     <changeSet id="partyclassification-1" author="kevin.sewell">
 
         <createTable tableName="party_classification">
-            <column name="pk" type="bigint">
+            <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="type" type="varchar(40)">
-                <constraints nullable="false"/>
+            <column name="type" type="varchar(31)">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="parent" type="bigint">
-                <constraints references="party_classification(pk)" foreignKeyName="parent_party_classification_fk"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="party_classification_codes">
-            <column name="party_classification" type="bigint">
-                <constraints references="party_classification(pk)" foreignKeyName="party_classification_codes_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="party_classification_descriptions">
-            <column name="party_classification" type="bigint">
-                <constraints references="party_classification(pk)"
-                             foreignKeyName="party_classification_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="description" type="varchar(2000)"/>
+            <column name="parent_code" type="varchar(31)"/>
+            <column name="parent_type" type="varchar(31)"/>
         </createTable>
 
     </changeSet>

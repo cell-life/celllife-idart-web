@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.system
 
+import org.celllife.idart.common.SystemIdentifier
+
 /**
  * System 
  *
@@ -14,6 +16,6 @@ class System {
     /**
      * Identifier 
      */
-    SystemIdentifier systemIdentifier
+    SystemIdentifier identifier
 
 }

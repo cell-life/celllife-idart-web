@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.systemfacility
 
-import org.celllife.idart.domain.facility.Facility
-import org.celllife.idart.domain.system.System
+import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.SystemIdentifier
 
 /**
  * User: Kevin W. Sewell
@@ -12,9 +12,9 @@ class SystemFacility {
 
     Long pk
 
-    System fromSystem
+    SystemIdentifier fromSystem
 
-    Facility toFacility
+    FacilityIdentifier toFacility
 
     SystemFacilityRelationship relationship
 

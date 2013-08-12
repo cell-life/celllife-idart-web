@@ -7,7 +7,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class PractitionerValidationException extends RuntimeException {
+class PractitionerValidationException extends Exception {
 
     Set<ConstraintViolation<Practitioner>> constraintViolations
 

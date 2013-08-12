@@ -1,13 +1,18 @@
 package org.celllife.idart.domain.user
 
-import org.celllife.idart.domain.common.EventHeader
+import org.celllife.idart.common.UserIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.user.UserEvent.UserEventType.SAVED
+import static org.celllife.idart.domain.user.UserEvent.newUserEvent
+
 /**
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class UserServiceImpl implements UserService {
 
     @Autowired UserRepository userRepository
@@ -21,7 +26,7 @@ import javax.annotation.Generated
 
         userValidator.validate(user)
 
-        userEventPublisher.publishUserEvent(new UserEventFactory().username(currentUsername).user(user).build())
+        userEventPublisher.publish(newUserEvent(user, SAVED))
 
         userRepository.save(user)
     }
@@ -36,9 +41,5 @@ import javax.annotation.Generated
         }
 
         user
-    }
-
-    static String getCurrentUsername() {
-        return null;
     }
 }

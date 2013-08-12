@@ -1,6 +1,8 @@
-package org.celllife.idart.domain.person;
+package org.celllife.idart.domain.person
 
-import javax.annotation.Generated;
+import org.celllife.idart.common.PartyIdentifier
+
+import javax.annotation.Generated
 
 /**
  */
@@ -9,13 +11,6 @@ public interface PersonRepository {
 
     Person save(Person person)
 
-    public <S extends Person> Iterable<S> save(Iterable<S> people)
+    Person findOne(PartyIdentifier partyIdentifier)
 
-    Person findOne(Long pk)
-
-    Iterable<Person> findAll()
-
-    Person findOneByIdentifier(String identifierSystem, String identifierValue)
-
-    Iterable<Person> findByIdentifier(String identifierValue)
 }

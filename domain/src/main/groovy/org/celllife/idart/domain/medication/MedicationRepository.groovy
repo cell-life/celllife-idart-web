@@ -1,6 +1,8 @@
-package org.celllife.idart.domain.medication;
+package org.celllife.idart.domain.medication
 
-import javax.annotation.Generated;
+import org.celllife.idart.common.ProductIdentifier
+
+import javax.annotation.Generated
 
 /**
  */
@@ -9,13 +11,6 @@ public interface MedicationRepository {
 
     Medication save(Medication medication)
 
-    public <S extends Medication> Iterable<S> save(Iterable<S> medications)
+    Medication findOne(ProductIdentifier productIdentifier)
 
-    Medication findOne(Long pk)
-
-    Iterable<Medication> findAll()
-
-    Medication findOneByIdentifier(String identifierSystem, String identifierValue)
-
-    Iterable<Medication> findByIdentifier(String identifierValue)
 }

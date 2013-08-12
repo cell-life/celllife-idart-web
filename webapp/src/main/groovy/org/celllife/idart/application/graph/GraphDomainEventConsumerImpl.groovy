@@ -23,13 +23,13 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
     @Autowired GraphDatabaseService graphDatabaseService
 
     @Override
-    void systemSaved(String message) {
+    void systemEvent(String message) {
 
         try {
 
-            def system = new JsonSlurper().parseText(message)
+            def event = new JsonSlurper().parseText(message)
 
-            Node systemNode = getOrCreateSystemNode(system.identifier.value)
+            Node systemNode = getOrCreateSystemNode(event.system.identifier.value)
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)
@@ -37,13 +37,13 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
     }
 
     @Override
-    void userSaved(String message) {
+    void userEvent(String message) {
 
         try {
 
-            def user = new JsonSlurper().parseText(message)
+            def event = new JsonSlurper().parseText(message)
 
-            Node userNode = getOrCreateUserNode(user.identifier.value)
+            Node userNode = getOrCreateUserNode(event.user.identifier.value)
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)
@@ -51,17 +51,17 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
     }
 
     @Override
-    void userSystemSaved(String message) {
+    void userSystemEvent(String message) {
 
         try {
 
-            def userSystem = new JsonSlurper().parseText(message)
+            def event = new JsonSlurper().parseText(message)
 
-            Node fromUserNode = getOrCreateUserNode(userSystem.fromUser.identifier.value)
+            Node fromUserNode = getOrCreateUserNode(event.userSystem.fromUser.identifier.value)
 
-            Node toSystemNode = getOrCreateSystemNode(userSystem.toSystem.identifier.value)
+            Node toSystemNode = getOrCreateSystemNode(event.userSystem.toSystem.identifier.value)
 
-            fromUserNode.createRelationshipTo(toSystemNode, withName(userSystem.relationship))
+            fromUserNode.createRelationshipTo(toSystemNode, withName(event.userSystem.relationship))
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)

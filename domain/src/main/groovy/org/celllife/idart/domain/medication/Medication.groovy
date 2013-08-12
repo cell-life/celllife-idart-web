@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.medication
 
-import org.celllife.idart.domain.drug.Drug
+import org.celllife.idart.common.DrugIdentifier
 import org.celllife.idart.domain.product.Product
 
 /**
@@ -15,7 +15,7 @@ class Medication extends Product {
     /**
      * Offered using
      */
-    Drug drug
+    DrugIdentifier drug
 
     def merge(Medication that) {
         super.merge(that)

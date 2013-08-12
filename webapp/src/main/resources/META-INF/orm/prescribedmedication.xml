@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Prescribed Medication -->
+
+    <entity class="org.celllife.idart.domain.prescribedmedication.PrescribedMedication">
+
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="numberOfRepeats"/>
+            <basic name="reasonForPrescribing"/>
+            <one-to-one name="dosageInstruction" fetch="EAGER" orphan-removal="true">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <element-collection name="indications" fetch="EAGER">
+                <attribute-override name="value">
+                    <column name="indication"/>
+                </attribute-override>
+            </element-collection>
+            <embedded name="medication">
+                <attribute-override name="value">
+                    <column name="medication"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="substitution">
+                <attribute-override name="value">
+                    <column name="substitution"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="substitutionReason">
+                <attribute-override name="value">
+                    <column name="substitution_reason"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="expectedSupplyDuration">
+                <attribute-override name="value">
+                    <column name="expected_supply_duration"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="expected_supply_duration_uom"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="quantity">
+                <attribute-override name="value">
+                    <column name="quantity"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="quantity_uom"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+</entity-mappings>

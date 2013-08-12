@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.dispensation
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.DispensationIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired DispensationRepository dispensationRepository
 
-    @Autowired DispensationSequence dispensationSequence
-
     @Autowired DispensationValidator dispensationValidator
 
+    @Autowired DispensationEventPublisher dispensationEventPublisher
+
     @Override
-    Dispensation save(Dispensation newDispensation) {
+    Dispensation save(Dispensation dispensation) throws DispensationValidationException {
 
-        dispensationValidator.validate(newDispensation)
+        dispensationValidator.validate(dispensation)
 
-        def existingDispensation = findByIdentifiers(newDispensation.identifiers)
+        dispensationEventPublisher.dispensationSaved(dispensation)
 
-        if (requiresIdartIdentifier(newDispensation, existingDispensation)) {
-            newDispensation.addIdentifier(Dispensation.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingDispensation == null) {
-            existingDispensation = new Dispensation()
-        }
-
-        existingDispensation.merge(newDispensation)
-
-        dispensationRepository.save(existingDispensation)
+        dispensationRepository.save(dispensation)
     }
 
     @Override
-    Dispensation findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingDispensation = dispensationRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingDispensation != null) {
-                return existingDispensation
-            }
+    Dispensation findByDispensationIdentifier(DispensationIdentifier dispensationIdentifier) throws DispensationNotFoundException {
+
+        def dispensation = dispensationRepository.findOne(dispensationIdentifier)
+
+        if (dispensation == null) {
+            throw new DispensationNotFoundException("Could not find Dispensation with Dispensation Identifier [${ dispensationIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Dispensation findByIdentifier(String identifier) {
-        dispensationRepository.findOneByIdentifier(Dispensation.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<Dispensation> findAll() {
-        dispensationRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", dispensationSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(Dispensation... dispensations) {
-
-        for (Dispensation dispensation in dispensations) {
-            if (dispensation?.hasIdentifierForSystem(Dispensation.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        dispensation
     }
 }

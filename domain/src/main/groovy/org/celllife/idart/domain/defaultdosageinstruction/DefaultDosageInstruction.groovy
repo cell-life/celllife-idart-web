@@ -2,6 +2,7 @@ package org.celllife.idart.domain.defaultdosageinstruction
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import org.celllife.idart.common.PartIdentifier
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 import org.celllife.idart.domain.drug.Drug
 
@@ -18,18 +19,12 @@ class DefaultDosageInstruction {
 
     Long pk
 
-    @NotNull
-    Drug medication
+    PartIdentifier drug
 
-    @NotNull
     DosageInstruction dosageInstruction
 
     def merge(DefaultDosageInstruction that) {
-        this.medication = that.medication
+        this.drug = that.drug
         this.dosageInstruction = that.dosageInstruction
-    }
-
-    def getIdentifiers() {
-        medication?.identifiers
     }
 }

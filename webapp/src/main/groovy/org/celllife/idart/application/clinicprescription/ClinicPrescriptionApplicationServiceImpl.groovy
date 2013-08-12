@@ -1,25 +1,18 @@
 package org.celllife.idart.application.clinicprescription
 
-import org.celllife.idart.application.clinic.ClinicResourceService
-import org.celllife.idart.application.prescription.ClinicPrescriptionProvider
-import org.celllife.idart.application.prescription.PrescriptionResourceService
+import org.celllife.idart.application.prescription.PrescriptionProvider
 import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.prescription.Prescription
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 /**
  */
-@Service class ClinicPrescriptionApplicationServiceImpl  {
-
-    @Autowired ClinicResourceService clinicResourceService
-
-    @Autowired PrescriptionResourceService prescriptionResourceService
+class ClinicPrescriptionApplicationServiceImpl  {
 
     def clinicPrescriptionService
 
-    @Autowired ClinicPrescriptionProvider prehmisClinicPrescriptionProvider
+    @Autowired PrescriptionProvider prehmisClinicPrescriptionProvider
 
     void save(String clinicIdentifier, String prescriptionIdentifier, Prescription prescription) {
 
@@ -31,9 +24,9 @@ import org.springframework.stereotype.Service
                 prescriptionIdentifier
         )
 
-        prescription = prescriptionResourceService.save(prescription)
+        prescription = prescriptionApplicationService.save(prescription)
 
-        def clinic = clinicResourceService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
 
         clinicPrescriptionService.save(clinic, prescription)
 

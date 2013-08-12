@@ -6,31 +6,17 @@
     <changeSet id="product-1" author="kevin.sewell">
 
         <createTable tableName="product">
-            <column name="pk" type="varchar(31)">
+            <column name="identifier" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
         </createTable>
 
-        <createTable tableName="product_identifiers">
-            <column name="product" type="varchar(31)">
-                <constraints references="product(pk)" foreignKeyName="product_identifiers_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
-        </createTable>
-
         <createTable tableName="medication">
-            <column name="pk" type="varchar(31)">
-                <constraints references="product(pk)" foreignKeyName="product_medication_fk"/>
+            <column name="identifier" type="varchar(31)">
+                <constraints references="product(identifier)" foreignKeyName="product_medication_fk"/>
             </column>
-            <column name="drug" type="bigint"/>
+            <column name="drug" type="varchar(31)"/>
         </createTable>
     </changeSet>
 

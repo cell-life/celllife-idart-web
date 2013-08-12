@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.system
 
-import org.celllife.idart.domain.common.EventHeader
-import org.celllife.idart.domain.usersystem.UserSystem
+import org.celllife.idart.common.EventHeader
 
 /**
  * User: Kevin W. Sewell

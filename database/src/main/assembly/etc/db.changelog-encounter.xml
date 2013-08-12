@@ -6,23 +6,9 @@
     <changeSet id="encounter-1" author="kevin.sewell">
 
         <createTable tableName="encounter">
-            <column name="pk" type="bigint">
+            <column name="identifier" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-        </createTable>
-
-        <createTable tableName="encounter_identifiers">
-            <column name="encounter" type="bigint">
-                <constraints references="encounter(pk)" foreignKeyName="encounter_identifiers_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
         </createTable>
 
     </changeSet>

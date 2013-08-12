@@ -1,11 +1,6 @@
 package org.celllife.idart.domain.prescription
 
-import org.celllife.idart.domain.common.Identifiable
-import org.celllife.idart.domain.common.Identifier
-import org.celllife.idart.domain.encounter.Encounter
-import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.domain.practitioner.Practitioner
-import org.celllife.idart.domain.prescribedmedication.PrescribedMedication
+import org.celllife.idart.common.*
 
 /**
  * An order for both supply of the medication and the instructions for administration of the medicine to a patient.
@@ -14,30 +9,27 @@ import org.celllife.idart.domain.prescribedmedication.PrescribedMedication
  * Date: 2013-06-17
  * Time: 20h49
  */
-@Mixin([Identifiable])
 class Prescription {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescriptions"
-
     /**
-     * Persistence Key
+     * Namespace
      */
-    String pk
+    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescriptions"
 
     /**
      * Identified by
      */
-    Set<Identifier> identifiers = []
+    PrescriptionIdentifier identifier
 
     /**
      * Prescribed by
      */
-    Practitioner prescriber
+    PractitionerIdentifier prescriber
 
     /**
      * Prescribed to
      */
-    Patient patient
+    PatientIdentifier patient
 
     /**
      * Written on
@@ -47,12 +39,12 @@ class Prescription {
     /**
      * During
      */
-    Encounter encounter
+    EncounterIdentifier encounter
 
     /**
      * Contains
      */
-    Set<PrescribedMedication> prescribedMedications = []
+    Set<PrescribedMedicationIdentifier> prescribedMedications = []
 
     def merge(Prescription that) {
 
@@ -60,7 +52,6 @@ class Prescription {
             return
         }
 
-        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
         this.prescriber = that.prescriber
         this.patient = that.patient
         this.dateWritten = that.dateWritten

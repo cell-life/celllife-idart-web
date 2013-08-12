@@ -1,10 +1,9 @@
 package org.celllife.idart.domain.systemfacility
 
+import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.SystemIdentifier
 import org.celllife.idart.domain.facility.Facility
-import org.celllife.idart.domain.facility.FacilityIdentifier
 import org.celllife.idart.domain.system.System
-import org.celllife.idart.domain.system.SystemIdentifier
-import org.celllife.idart.domain.user.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -34,8 +33,8 @@ import static org.celllife.idart.domain.systemfacility.SystemFacilityRelationshi
         if (existingRelationship == null) {
             existingRelationship = systemFacilityRepository.save(
                     new SystemFacility(
-                            fromSystem: new System(systemIdentifier: systemIdentifier),
-                            toFacility: new Facility(facilityIdentifier: facilityIdentifier),
+                            fromSystem: systemIdentifier,
+                            toFacility: facilityIdentifier,
                             relationship: DEPLOYED_AT
 
                     )

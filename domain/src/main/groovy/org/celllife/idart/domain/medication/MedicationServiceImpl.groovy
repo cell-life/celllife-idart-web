@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.medication
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.ProductIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired MedicationRepository medicationRepository
 
-    @Autowired MedicationSequence medicationSequence
-
     @Autowired MedicationValidator medicationValidator
 
+    @Autowired MedicationEventPublisher medicationEventPublisher
+
     @Override
-    Medication save(Medication newMedication) {
+    Medication save(Medication medication) throws MedicationValidationException {
 
-        medicationValidator.validate(newMedication)
+        medicationValidator.validate(medication)
 
-        def existingMedication = findByIdentifiers(newMedication.identifiers)
+        medicationEventPublisher.medicationSaved(medication)
 
-        if (requiresIdartIdentifier(newMedication, existingMedication)) {
-            newMedication.addIdentifier(Medication.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingMedication == null) {
-            existingMedication = new Medication()
-        }
-
-        existingMedication.merge(newMedication)
-
-        medicationRepository.save(existingMedication)
+        medicationRepository.save(medication)
     }
 
     @Override
-    Medication findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingMedication = medicationRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingMedication != null) {
-                return existingMedication
-            }
+    Medication findByProductIdentifier(ProductIdentifier productIdentifier) throws MedicationNotFoundException {
+
+        def medication = medicationRepository.findOne(productIdentifier)
+
+        if (medication == null) {
+            throw new MedicationNotFoundException("Could not find Medication with Product Identifier [${ productIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Medication findByIdentifier(String identifier) {
-        medicationRepository.findOneByIdentifier(Medication.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<Medication> findAll() {
-        medicationRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", medicationSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(Medication... medications) {
-
-        for (Medication medication in medications) {
-            if (medication?.hasIdentifierForSystem(Medication.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        medication
     }
 }

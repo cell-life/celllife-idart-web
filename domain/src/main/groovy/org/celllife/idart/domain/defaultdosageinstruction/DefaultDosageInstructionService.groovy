@@ -1,19 +1,16 @@
 package org.celllife.idart.domain.defaultdosageinstruction
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.DefaultDosageInstructionIdentifier
+
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-14
- * Time: 22h00
  */
-interface DefaultDosageInstructionService {
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+public interface DefaultDosageInstructionService {
 
-    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction)
+    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) throws DefaultDosageInstructionValidationException
 
-    Iterable<DefaultDosageInstruction> findAll()
+    DefaultDosageInstruction findByDefaultDosageInstructionIdentifier(DefaultDosageInstructionIdentifier defaultDosageInstructionIdentifier) throws DefaultDosageInstructionNotFoundException
 
-    DefaultDosageInstruction findByIdentifiers(Set<Identifier> medicationIdentifiers)
-
-    DefaultDosageInstruction findByIdentifier(String medicationIdentifier)
 }

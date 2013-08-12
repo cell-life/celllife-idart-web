@@ -1,7 +1,8 @@
 package org.celllife.idart.domain.usersystem
 
-import org.celllife.idart.domain.system.SystemIdentifier
-import org.celllife.idart.domain.user.UserIdentifier
+import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.UserIdentifier
+
 
 /**
  * User: Kevin W. Sewell
@@ -10,6 +11,6 @@ import org.celllife.idart.domain.user.UserIdentifier
  */
 interface UserSystemService {
 
-    void saveUserForSystem(UserIdentifier user, SystemIdentifier system)
+    void saveUserForSystem(UserIdentifier fromUser, SystemIdentifier toSystem)
 
 }

@@ -1,52 +1,28 @@
 package org.celllife.idart.application.prescription
 
-import org.celllife.idart.application.prescribedmedication.PrescribedMedicationResourceService
-import org.celllife.idart.domain.patient.PatientService
-import org.celllife.idart.domain.practitioner.PractitionerService
 import org.celllife.idart.domain.prescription.Prescription
+import org.celllife.idart.domain.prescription.PrescriptionValidationException
+import org.celllife.idart.domain.prescription.PrescriptionNotFoundException
+import org.celllife.idart.common.PrescriptionIdentifier
 import org.celllife.idart.domain.prescription.PrescriptionService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import javax.annotation.Generated
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-15
- * Time: 21h46
  */
-@Service class PrescriptionApplicationServiceImpl implements PrescriptionApplicationService, PrescriptionResourceService {
-
-    @Autowired PatientService patientService
-
-    @Autowired PractitionerService practitionerService
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+@Service class PrescriptionApplicationServiceImpl implements PrescriptionApplicationService {
 
     @Autowired PrescriptionService prescriptionService
 
-    @Autowired PrescribedMedicationResourceService prescribedMedicationResourceService
-
-    Prescription save(Prescription prescription) {
-
-        prescription?.with {
-
-            patient = patientService.findByIdentifiers(patient.identifiers)
-
-            prescriber = practitionerService.findByIdentifiers(prescriber.identifiers)
-
-            prescribedMedications = prescribedMedications.collect { prescribedMedication ->
-                prescribedMedicationResourceService.save(prescribedMedication)
-            }
-
-        }
-
+    Prescription save(Prescription prescription) throws PrescriptionValidationException {
         prescriptionService.save(prescription)
     }
 
-    @Override
-    Prescription findByIdentifier(String identifier) {
-        prescriptionService.findByIdentifier(identifier)
+    Prescription findByPrescriptionIdentifier(PrescriptionIdentifier prescriptionIdentifier) throws PrescriptionNotFoundException{
+        prescriptionService.findByPrescriptionIdentifier(prescriptionIdentifier)
     }
 
-    @Override
-    Iterable<Prescription> findAll() {
-        prescriptionService.findAll()
-    }
 }

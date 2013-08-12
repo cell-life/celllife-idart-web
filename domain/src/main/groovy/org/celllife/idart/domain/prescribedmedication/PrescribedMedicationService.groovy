@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.prescribedmedication
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PrescribedMedicationIdentifier
 
 import javax.annotation.Generated
 
@@ -9,12 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PrescribedMedicationService {
 
-    PrescribedMedication save(PrescribedMedication prescribedMedication)
+    PrescribedMedication save(PrescribedMedication prescribedMedication) throws PrescribedMedicationValidationException
 
-    Iterable<PrescribedMedication> findAll()
-
-    PrescribedMedication findByIdentifier(String identifier)
-
-    PrescribedMedication findByIdentifiers(Iterable<Identifier> identifiers)
+    PrescribedMedication findByPrescribedMedicationIdentifier(PrescribedMedicationIdentifier prescribedMedicationIdentifier) throws PrescribedMedicationNotFoundException
 
 }

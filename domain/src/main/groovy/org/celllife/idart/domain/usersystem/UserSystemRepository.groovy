@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.usersystem
 
-import org.celllife.idart.domain.system.SystemIdentifier
-import org.celllife.idart.domain.user.UserIdentifier
+import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.UserIdentifier
 
 /**
  * User: Kevin W. Sewell
@@ -12,7 +12,7 @@ interface UserSystemRepository {
 
     UserSystem save(UserSystem userForSystem)
 
-    UserSystem findByUserIdentifierAndSystemIdentifierAndRelationship(UserIdentifier user,
-                                                  SystemIdentifier system,
-                                                  UserSystemRelationship relationship)
+    UserSystem findByFromUserAndToSystemAndRelationship(UserIdentifier fromUser,
+                                                        SystemIdentifier toSystem,
+                                                        UserSystemRelationship relationship)
 }

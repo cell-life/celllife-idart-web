@@ -9,13 +9,8 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-
-            <column name="medication" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="dosage_instruction" type="bigint">
-                <constraints nullable="false"/>
-            </column>
+            <column name="drug" type="varchar(31)"/>
+            <column name="dosage_instruction" type="bigint"/>
         </createTable>
 
     </changeSet>

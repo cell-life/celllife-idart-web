@@ -1,18 +1,15 @@
 package ${springDataRepository.packageName};
 
+import ${identifier.packageName}.${identifier.className};
 import ${entity.packageName}.${entity.className};
-import ${entity.packageName}.${entity.identifier.className};
 import ${repository.packageName}.${repository.className};
-
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
 
 import javax.annotation.Generated;
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface ${springDataRepository.className} extends PagingAndSortingRepository<${entity.className}, ${entity.identifier.className}>, ${repository.className} {
+public interface ${springDataRepository.className} extends PagingAndSortingRepository<${entity.className}, ${identifier.className}>, ${repository.className} {
 
 }

@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.practitioner
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PractitionerIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired PractitionerRepository practitionerRepository
 
-    @Autowired PractitionerSequence practitionerSequence
-
     @Autowired PractitionerValidator practitionerValidator
 
+    @Autowired PractitionerEventPublisher practitionerEventPublisher
+
     @Override
-    Practitioner save(Practitioner newPractitioner) {
+    Practitioner save(Practitioner practitioner) throws PractitionerValidationException {
 
-        practitionerValidator.validate(newPractitioner)
+        practitionerValidator.validate(practitioner)
 
-        def existingPractitioner = findByIdentifiers(newPractitioner.identifiers)
+        practitionerEventPublisher.practitionerSaved(practitioner)
 
-        if (requiresIdartIdentifier(newPractitioner, existingPractitioner)) {
-            newPractitioner.addIdentifier(Practitioner.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingPractitioner == null) {
-            existingPractitioner = new Practitioner()
-        }
-
-        existingPractitioner.merge(newPractitioner)
-
-        practitionerRepository.save(existingPractitioner)
+        practitionerRepository.save(practitioner)
     }
 
     @Override
-    Practitioner findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingPractitioner = practitionerRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingPractitioner != null) {
-                return existingPractitioner
-            }
+    Practitioner findByPractitionerIdentifier(PractitionerIdentifier practitionerIdentifier) throws PractitionerNotFoundException {
+
+        def practitioner = practitionerRepository.findOne(practitionerIdentifier)
+
+        if (practitioner == null) {
+            throw new PractitionerNotFoundException("Could not find Practitioner with Practitioner Identifier [${ practitionerIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Practitioner findByIdentifier(String identifier) {
-        practitionerRepository.findOneByIdentifier(Practitioner.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<Practitioner> findAll() {
-        practitionerRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", practitionerSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(Practitioner... practitioners) {
-
-        for (Practitioner practitioner in practitioners) {
-            if (practitioner?.hasIdentifierForSystem(Practitioner.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        practitioner
     }
 }

@@ -1,6 +1,6 @@
 package org.celllife.idart.integration.prehmis
 
-import org.celllife.idart.domain.common.Gender
+import org.celllife.idart.common.Gender
 
 /**
  * User: Kevin W. Sewell

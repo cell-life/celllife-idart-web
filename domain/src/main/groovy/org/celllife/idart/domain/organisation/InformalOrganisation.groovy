@@ -6,4 +6,5 @@ package org.celllife.idart.domain.organisation
  * Time: 13h52
  */
 class InformalOrganisation extends Organisation {
+
 }

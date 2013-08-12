@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Party -->
+
+    <entity class="org.celllife.idart.domain.party.Party">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
+            <element-collection name="classifications" fetch="EAGER">
+                <collection-table>
+                    <join-column name="party_applied_to_identifier"/>
+                    <join-column name="party_applied_to_type"/>
+                </collection-table>
+            </element-collection>
+            <element-collection name="contactMechanisms" fetch="EAGER">
+                <collection-table>
+                    <join-column name="party_for_identifier"/>
+                    <join-column name="party_for_type"/>
+                </collection-table>
+            </element-collection>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.organisation.Organisation">
+        <attributes>
+            <basic name="name"/>
+        </attributes>
+    </entity>
+
+    <entity class="org.celllife.idart.domain.organisation.InformalOrganisation"/>
+
+    <entity class="org.celllife.idart.domain.legalorganisation.LegalOrganisation">
+        <attributes>
+            <basic name="taxRegistrationNumber"/>
+        </attributes>
+    </entity>
+
+    <!-- Party Contact Mechanism -->
+
+    <embeddable class="org.celllife.idart.domain.party.PartyContactMechanism">
+        <attributes>
+            <basic name="comment"/>
+            <basic name="nonSolicitationIndicator">
+                <column column-definition="bit"/>
+            </basic>
+            <basic name="extension"/>
+            <one-to-one name="contactMechanism">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+    <!-- Party Classification Application -->
+
+    <embeddable class="org.celllife.idart.domain.party.PartyClassificationApplication">
+        <attributes>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="classification">
+                <attribute-override name="value">
+                    <column name="classification_code"/>
+                </attribute-override>
+                <attribute-override name="type">
+                    <column name="classification_type"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

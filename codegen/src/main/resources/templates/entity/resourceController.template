@@ -2,7 +2,7 @@ package ${resourceController.packageName}
 
 import ${applicationService.packageName}.${applicationService.className}
 import ${entity.packageName}.${entity.className}
-import ${entity.packageName}.${entity.identifier.className}
+import ${identifier.packageName}.${identifier.className}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/${resourcePath}/{${entity.identifier.fieldName}}",
+            value = "/${resourcePath}/{${identifier.fieldName}}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    ${entity.className} findBy${entity.identifier.className}(@PathVariable("${entity.identifier.fieldName}") ${entity.identifier.className} ${entity.identifier.fieldName}) {
-        ${applicationService.fieldName}.findBy${entity.identifier.className}(${entity.identifier.fieldName})
+    ${entity.className} findBy${identifier.className}(@PathVariable("${identifier.fieldName}") ${identifier.className} ${identifier.fieldName}) {
+        ${applicationService.fieldName}.findBy${identifier.className}(${identifier.fieldName})
     }
 
     @RequestMapping(value = "/${resourcePath}", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         ${entity.fieldName} = ${applicationService.fieldName}.save(${entity.fieldName})
 
-        response.setHeader("Location", "\${baseUrl}/${entity.fieldName}s/\${${entity.fieldName}.${entity.identifier.fieldName}}")
+        response.setHeader("Location", "\${baseUrl}/${entity.fieldName}s/\${${entity.fieldName}.${identifier.shortFieldName}}")
         response.setStatus(SC_CREATED)
     }
 }

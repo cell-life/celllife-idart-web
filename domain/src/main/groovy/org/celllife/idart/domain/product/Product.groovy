@@ -1,25 +1,18 @@
 package org.celllife.idart.domain.product
 
-import org.celllife.idart.domain.common.Identifiable
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.ProductIdentifier
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 18h13
  */
-@Mixin(Identifiable)
-class Product {
-
-    /**
-     * Persistence Key
-     */
-    String pk
+abstract class Product {
 
     /**
      * Identified by
      */
-    Set<Identifier> identifiers = []
+    ProductIdentifier identifier
 
     /**
      * Name
@@ -28,7 +21,6 @@ class Product {
 
     def merge(Product that) {
         this.name = that.name
-        that.identifierSystems.each { system -> this.addIdentifier(system, that.getIdentifierValue(system)) }
     }
 
 }

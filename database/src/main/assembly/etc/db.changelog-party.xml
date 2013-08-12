@@ -6,126 +6,130 @@
     <changeSet id="party-1" author="kevin.sewell">
 
         <createTable tableName="party">
-            <column name="pk" type="varchar(31)">
-                <constraints primaryKey="true"/>
-            </column>
+            <column name="identifier" type="varchar(31)"/>
+            <column name="type" type="varchar(31)"/>
         </createTable>
 
-        <createTable tableName="party_identifiers">
-            <column name="party" type="varchar(31)">
-                <constraints references="party(pk)" foreignKeyName="party_identifiers_fk"/>
-            </column>
-            <column name="system" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(31)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
-        </createTable>
+        <addPrimaryKey tableName="party" columnNames="identifier,type"/>
 
         <createTable tableName="party_classifications">
-            <column name="party" type="varchar(31)">
-                <constraints references="party(pk)" foreignKeyName="party_classifications_fk"/>
-            </column>
-            <column name="classification" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+            <column name="party_applied_to_identifier" type="varchar(31)"/>
+            <column name="party_applied_to_type" type="varchar(31)"/>
+            <column name="classification_code" type="varchar(31)"/>
+            <column name="classification_type" type="varchar(31)"/>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
         </createTable>
 
+        <addForeignKeyConstraint baseTableName="party_classifications"
+                                 baseColumnNames="party_applied_to_identifier,party_applied_to_type"
+                                 constraintName="party_classifications_fk"
+                                 referencedTableName="party"
+                                 referencedColumnNames="identifier,type"/>
+
         <createTable tableName="party_contact_mechanisms">
-            <column name="party" type="varchar(31)">
-                <constraints references="party(pk)" foreignKeyName="party_contact_mechanisms_fk"/>
-            </column>
+            <column name="party_for_identifier" type="varchar(31)"/>
+            <column name="party_for_type" type="varchar(31)"/>
             <column name="contact_mechanism" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
             <column name="non_solicitation_indicator" type="bit"/>
             <column name="extension" type="varchar(10)"/>
             <column name="comment" type="varchar(2000)"/>
         </createTable>
 
+        <addForeignKeyConstraint baseTableName="party_contact_mechanisms"
+                                 baseColumnNames="party_for_identifier,party_for_type"
+                                 constraintName="party_contact_mechanisms_fk"
+                                 referencedTableName="party"
+                                 referencedColumnNames="identifier,type"/>
+
         <createTable tableName="organisation">
-            <column name="pk" type="varchar(31)">
-                <constraints primaryKey="true" references="party(pk)" foreignKeyName="organisation_fk"/>
-            </column>
-            <column name="name" type="varchar(40)">
+            <column name="identifier" type="varchar(31)"/>
+            <column name="type" type="varchar(31)"/>
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
+        <addPrimaryKey tableName="organisation" columnNames="identifier,type"/>
+
+        <addForeignKeyConstraint baseTableName="organisation"
+                                 baseColumnNames="identifier,type"
+                                 constraintName="party_organisation_fk"
+                                 referencedTableName="party"
+                                 referencedColumnNames="identifier,type"/>
+
         <createTable tableName="legal_organisation">
-            <column name="pk" type="varchar(31)">
-                <constraints primaryKey="true" references="organisation(pk)" foreignKeyName="legal_organisation_fk"/>
-            </column>
+            <column name="identifier" type="varchar(31)"/>
+            <column name="type" type="varchar(31)"/>
             <column name="tax_registration_number" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
+        <addPrimaryKey tableName="legal_organisation" columnNames="identifier,type"/>
+
+        <addForeignKeyConstraint baseTableName="legal_organisation"
+                                 baseColumnNames="identifier,type"
+                                 constraintName="legal_organisation_fk"
+                                 referencedTableName="organisation"
+                                 referencedColumnNames="identifier,type"/>
+
         <createTable tableName="informal_organisation">
-            <column name="pk" type="varchar(31)">
-                <constraints primaryKey="true" references="organisation(pk)" foreignKeyName="informal_organisation_fk"/>
-            </column>
+            <column name="identifier" type="varchar(31)"/>
+            <column name="type" type="varchar(31)"/>
         </createTable>
 
+        <addPrimaryKey tableName="informal_organisation" columnNames="identifier,type"/>
+
+        <addForeignKeyConstraint baseTableName="informal_organisation"
+                                 baseColumnNames="identifier,type"
+                                 constraintName="informal_organisation_fk"
+                                 referencedTableName="organisation"
+                                 referencedColumnNames="identifier,type"/>
+
         <createTable tableName="person">
-            <column name="pk" type="varchar(31)">
-                <constraints primaryKey="true" references="party(pk)" foreignKeyName="person_party_fk"/>
-            </column>
-            <column name="last_name" type="varchar(40)"/>
-            <column name="first_name" type="varchar(40)"/>
-            <column name="middle_names" type="varchar(40)"/>
-            <column name="personal_title" type="varchar(40)"/>
-            <column name="suffix" type="varchar(40)"/>
-            <column name="nickname" type="varchar(40)"/>
-            <column name="gender" type="varchar(40)"/>
+            <column name="identifier" type="varchar(31)"/>
+            <column name="type" type="varchar(31)"/>
+            <column name="last_name" type="varchar(63)"/>
+            <column name="first_name" type="varchar(63)"/>
+            <column name="middle_names" type="varchar(63)"/>
+            <column name="personal_title" type="varchar(31)"/>
+            <column name="suffix" type="varchar(31)"/>
+            <column name="nickname" type="varchar(63)"/>
+            <column name="gender" type="varchar(31)"/>
             <column name="birth_date" type="date"/>
-            <column name="mothers_maiden_name" type="varchar(40)"/>
-            <column name="marital_status" type="varchar(40)"/>
+            <column name="mothers_maiden_name" type="varchar(63)"/>
+            <column name="marital_status" type="varchar(31)"/>
             <column name="total_years_work_experience" type="integer"/>
             <column name="comment" type="varchar(255)"/>
         </createTable>
 
-        <createTable tableName="physical_characteristic">
-            <column name="pk" type="bigint">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="person" type="varchar(31)">
-                <constraints references="person(pk)" foreignKeyName="person_physical_characteristic_fk"/>
-            </column>
-            <column name="from_date" type="date"/>
-            <column name="thru_date" type="date"/>
+        <addPrimaryKey tableName="person" columnNames="identifier,type"/>
+
+        <addForeignKeyConstraint baseTableName="person"
+                                 baseColumnNames="identifier,type"
+                                 constraintName="party_person_fk"
+                                 referencedTableName="party"
+                                 referencedColumnNames="identifier,type"/>
+
+        <createTable tableName="person_measurements">
+            <column name="person_identifier" type="varchar(31)"/>
+            <column name="person_type" type="varchar(31)"/>
+            <column name="type" type="varchar(31)"/>
+            <column name="value" type="numeric"/>
+            <column name="unit_of_measure" type="varchar(31)"/>
+            <column name="date_taken" type="date"/>
         </createTable>
 
-        <createTable tableName="height">
-            <column name="pk" type="bigint">
-                <constraints primaryKey="true"
-                             references="physical_characteristic(pk)"
-                             foreignKeyName="height_physical_characteristic_fk"/>
-            </column>
-            <column name="value" type="numeric"/>
-            <column name="unit_of_measure" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="height_unit_of_measure_fk"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="weight">
-            <column name="pk" type="bigint">
-                <constraints primaryKey="true"
-                             references="physical_characteristic(pk)"
-                             foreignKeyName="weight_physical_characteristic_fk"/>
-            </column>
-            <column name="value" type="numeric"/>
-            <column name="unit_of_measure" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="weight_unit_of_measure_fk"/>
-            </column>
-        </createTable>
+        <addForeignKeyConstraint baseTableName="person_measurements"
+                                 baseColumnNames="person_identifier,person_type"
+                                 constraintName="person_measurement_fk"
+                                 referencedTableName="person"
+                                 referencedColumnNames="identifier,type"/>
 
     </changeSet>
 

@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.prescription
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PrescriptionIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,64 +14,29 @@ import javax.annotation.Generated
 
     @Autowired PrescriptionRepository prescriptionRepository
 
-    @Autowired PrescriptionSequence prescriptionSequence
-
     @Autowired PrescriptionValidator prescriptionValidator
 
+    @Autowired PrescriptionEventPublisher prescriptionEventPublisher
+
     @Override
-    Prescription save(Prescription newPrescription) {
+    Prescription save(Prescription prescription) throws PrescriptionValidationException {
 
-        prescriptionValidator.validate(newPrescription)
+        prescriptionValidator.validate(prescription)
 
-        def existingPrescription = findByIdentifiers(newPrescription.identifiers)
+        prescriptionEventPublisher.prescriptionSaved(prescription)
 
-        if (requiresIdartIdentifier(newPrescription, existingPrescription)) {
-            newPrescription.addIdentifier(Prescription.IDART_SYSTEM, nextPatientIdentifier())
-        }
-
-        if (existingPrescription == null) {
-            existingPrescription = new Prescription()
-        }
-
-        existingPrescription.merge(newPrescription)
-
-        prescriptionRepository.save(existingPrescription)
+        prescriptionRepository.save(prescription)
     }
 
     @Override
-    Prescription findByIdentifiers(Iterable<Identifier> identifiers) {
-        for (identifier in identifiers) {
-            def existingPrescription = prescriptionRepository.findOneByIdentifier(identifier.system, identifier.value)
-            if (existingPrescription != null) {
-                return existingPrescription
-            }
+    Prescription findByPrescriptionIdentifier(PrescriptionIdentifier prescriptionIdentifier) throws PrescriptionNotFoundException {
+
+        def prescription = prescriptionRepository.findOne(prescriptionIdentifier)
+
+        if (prescription == null) {
+            throw new PrescriptionNotFoundException("Could not find Prescription with Prescription Identifier [${ prescriptionIdentifier}]")
         }
 
-        null
-    }
-
-    @Override
-    Prescription findByIdentifier(String identifier) {
-        prescriptionRepository.findOneByIdentifier(Prescription.IDART_SYSTEM, identifier)
-    }
-
-    @Override
-    Iterable<Prescription> findAll() {
-        prescriptionRepository.findAll()
-    }
-
-    String nextPatientIdentifier() {
-        String.format("%08d", prescriptionSequence.nextValue())
-    }
-
-    static requiresIdartIdentifier(Prescription... prescriptions) {
-
-        for (Prescription prescription in prescriptions) {
-            if (prescription?.hasIdentifierForSystem(Prescription.IDART_SYSTEM)) {
-                return false
-            }
-        }
-
-        return true
+        prescription
     }
 }

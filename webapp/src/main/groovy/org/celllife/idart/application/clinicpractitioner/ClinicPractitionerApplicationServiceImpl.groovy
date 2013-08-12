@@ -1,8 +1,6 @@
 package org.celllife.idart.application.clinicpractitioner
 
-import org.celllife.idart.application.clinic.ClinicResourceService
 import org.celllife.idart.application.practitioner.PractitionerProvider
-import org.celllife.idart.application.practitioner.PractitionerResourceService
 import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.practitioner.Practitioner
@@ -11,14 +9,10 @@ import org.springframework.stereotype.Service
 
 /**
  */
-@Service class ClinicPractitionerApplicationServiceImpl  {
+class ClinicPractitionerApplicationServiceImpl  {
 
     static final String CLINIC_PRACTITIONER_IDENTIFIER_SYSTEM_TEMPLATE =
         "http://www.cell-life.org/idart/clinics/%s/practitioners"
-
-    @Autowired ClinicResourceService clinicResourceService
-
-    @Autowired PractitionerResourceService practitionerResourceService
 
     def clinicPractitionerService
 
@@ -42,7 +36,7 @@ import org.springframework.stereotype.Service
      */
     void save(String clinicIdentifier, Practitioner practitioner) {
 
-        def clinic = clinicResourceService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
 
         save(clinic, practitioner)
     }
@@ -52,7 +46,7 @@ import org.springframework.stereotype.Service
      */
     Iterable<Practitioner> findPractitionersByClinicIdentifier(String clinicIdentifier) {
 
-        Clinic clinic = clinicResourceService.findByIdentifier(clinicIdentifier)
+        Clinic clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
 
         lookupFromExternalProvidersAndSave(clinic)
 
@@ -121,7 +115,7 @@ import org.springframework.stereotype.Service
      */
     void save(Clinic clinic, Practitioner practitioner) {
 
-        practitioner = practitionerResourceService.save(practitioner)
+        practitioner = practitionerApplicationService.save(practitioner)
 
         clinicPractitionerService.save(clinic, practitioner)
 

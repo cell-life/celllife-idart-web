@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.user
 
+import org.celllife.idart.common.UserIdentifier
+
 /**
  * User 
  *
@@ -14,7 +16,7 @@ class User {
     /**
      * Identifier 
      */
-    UserIdentifier userIdentifier
+    UserIdentifier identifier
 
     /**
      * Current Username 

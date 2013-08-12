@@ -1,21 +1,16 @@
 package org.celllife.idart.domain.person
 
-import org.celllife.idart.domain.common.Identifier
+import org.celllife.idart.common.PartyIdentifier
+
+import javax.annotation.Generated
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-15
- * Time: 23h09
  */
-interface PersonService {
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+public interface PersonService {
 
-    Person findByIdentifiers(Set<Identifier> identifiers)
+    Person save(Person person) throws PersonValidationException
 
-    Person save(Person person)
+    Person findByPartyIdentifier(PartyIdentifier partyIdentifier) throws PersonNotFoundException
 
-    Person update(Person newPerson, Long existingPersonPk)
-
-    Iterable<Person> findAll()
-
-    Person findByIdentifier(String identifier)
 }

@@ -1,13 +1,11 @@
 package org.celllife.idart.infrastructure.springdata.usersystem
 
+import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.UserIdentifier
 import org.celllife.idart.domain.system.System
-import org.celllife.idart.domain.system.SystemIdentifier
 import org.celllife.idart.domain.system.SystemService
 import org.celllife.idart.domain.user.User
-import org.celllife.idart.domain.user.UserIdentifier
 import org.celllife.idart.domain.user.UserService
-import org.celllife.idart.domain.usersystem.UserSystem
-import org.celllife.idart.domain.usersystem.UserSystemRelationship
 import org.celllife.idart.domain.usersystem.UserSystemService
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Test
@@ -15,8 +13,6 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
-
-import static org.celllife.idart.domain.usersystem.UserSystemRelationship.FOR
 
 /**
  * User: Kevin W. Sewell
@@ -40,7 +36,7 @@ class UserForSystemRepositoryIntegrationTest {
         def user = new User(identifier: userIdentifier)
         userService.save(user)
 
-        userService.findByIdentifier(new UserIdentifier(value: "00001"))
+        userService.findByUserIdentifier(new UserIdentifier(value: "00001"))
 
         def systemIdentifier = new SystemIdentifier(value: "00002")
         def system = new System(identifier: systemIdentifier)

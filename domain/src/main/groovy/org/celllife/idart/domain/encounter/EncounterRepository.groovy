@@ -1,6 +1,8 @@
-package org.celllife.idart.domain.encounter;
+package org.celllife.idart.domain.encounter
 
-import javax.annotation.Generated;
+import org.celllife.idart.common.EncounterIdentifier
+
+import javax.annotation.Generated
 
 /**
  */
@@ -9,13 +11,6 @@ public interface EncounterRepository {
 
     Encounter save(Encounter encounter)
 
-    public <S extends Encounter> Iterable<S> save(Iterable<S> encounters)
+    Encounter findOne(EncounterIdentifier encounterIdentifier)
 
-    Encounter findOne(Long pk)
-
-    Iterable<Encounter> findAll()
-
-    Encounter findOneByIdentifier(String identifierSystem, String identifierValue)
-
-    Iterable<Encounter> findByIdentifier(String identifierValue)
 }

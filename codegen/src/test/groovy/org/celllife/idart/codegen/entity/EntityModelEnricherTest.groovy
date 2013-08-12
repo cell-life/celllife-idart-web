@@ -5,7 +5,8 @@ import org.junit.Test
 
 import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
-import static EntityModelEnricher.*
+import static org.celllife.idart.codegen.entity.EntityModelTransform.*
+import static org.celllife.idart.codegen.transform.Transformations.*
 import static org.junit.Assert.assertEquals
 
 /**
@@ -18,14 +19,35 @@ public class EntityModelEnricherTest {
     def baseNamespace = "http://www.cell-life.org/idart"
 
     def models = [
-            [name: "User", entity: [_properties: [[name: "Current Username"], [name: "Current Password"]]]],
-            [name: "Unit Of Measure", namePlural: "Units Of Measure", entity: [identifier: [name: "Code"], _properties: [[name: "Name"], [name: "Description"]]]]
+            [
+                    name: "User",
+                    features: [
+                            excludes: ["identifier"]
+                    ],
+                    entity: [
+                            _properties: [
+                                    [name: "Current Username"],
+                                    [name: "Current Password"]
+                            ]
+                    ]
+            ],
+            [
+                    name: "Unit Of Measure",
+                    namePlural: "Units Of Measure",
+                    entity: [
+                            identifier: [name: "Code"],
+                            _properties: [
+                                    [name: "Name"],
+                                    [name: "Description"]
+                            ]
+                    ]
+            ]
     ]
 
     @Test
     public void testEnrichModel() throws Exception {
         models.each { model ->
-            println prettyPrint(toJson(enrichAggregateRoot(baseNamespace, model)))
+            println prettyPrint(toJson(transform(baseNamespace, model)))
         }
     }
 
@@ -33,7 +55,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateIdentifier() throws Exception {
         def templatePath = "/templates/entity/identifier.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -41,7 +63,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateEntity() throws Exception {
         def templatePath = "/templates/entity/entity.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -49,7 +71,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateEntityNotFoundException() throws Exception {
         def templatePath = "/templates/entity/notFoundException.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -57,7 +79,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateRepository() throws Exception {
         def templatePath = "/templates/entity/repository.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -65,7 +87,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateSpringDataRepository() throws Exception {
         def templatePath = "/templates/entity/springDataRepository.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -73,7 +95,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateValidator() throws Exception {
         def templatePath = "/templates/entity/validator.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -81,7 +103,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateHibernateValidator() throws Exception {
         def templatePath = "/templates/entity/jsr303Validator.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -89,7 +111,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateDomainServiceInterface() throws Exception {
         def templatePath = "/templates/entity/domainServiceInterface.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -97,7 +119,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateDomainServiceImplmentation() throws Exception {
         def templatePath = "/templates/entity/domainServiceImplementation.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -105,7 +127,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateApplicationServiceInterface() throws Exception {
         def templatePath = "/templates/entity/applicationServiceInterface.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -113,7 +135,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateApplicationServiceImplementation() throws Exception {
         def templatePath = "/templates/entity/applicationServiceImplementation.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 
@@ -121,7 +143,7 @@ public class EntityModelEnricherTest {
     public void shouldGenerateResourceController() throws Exception {
         def templatePath = "/templates/entity/resourceController.template"
         models.each { model ->
-            generate(templatePath, enrichAggregateRoot(baseNamespace, model))
+            generate(templatePath, transform(baseNamespace, model))
         }
     }
 

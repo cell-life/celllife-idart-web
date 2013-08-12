@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Dispensation -->
+
+    <entity class="org.celllife.idart.domain.dispensation.Dispensation">
+
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
+            <element-collection name="dispensedMedications" fetch="EAGER">
+                <attribute-override name="value">
+                    <column name="dispensed_medication"/>
+                </attribute-override>
+            </element-collection>
+            <embedded name="patient">
+                <attribute-override name="value">
+                    <column name="patient"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="dispenser">
+                <attribute-override name="value">
+                    <column name="dispenser"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+</entity-mappings>

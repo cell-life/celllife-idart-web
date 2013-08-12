@@ -1,5 +1,6 @@
-
 package ${domainService.packageName}
+
+import ${identifier.packageName}.${identifier.className}
 
 import javax.annotation.Generated
 
@@ -10,6 +11,6 @@ public interface ${domainService.className} {
 
     ${entity.className} save(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException
 
-    ${entity.className} findBy${entity.identifier.className}(${entity.identifier.className} ${entity.identifier.fieldName}) throws ${entity.className}NotFoundException
+    ${entity.className} findBy${identifier.className}(${identifier.className} ${identifier.fieldName}) throws ${entity.className}NotFoundException
 
 }

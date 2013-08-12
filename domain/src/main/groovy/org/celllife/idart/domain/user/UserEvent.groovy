@@ -1,6 +1,9 @@
 package org.celllife.idart.domain.user
 
-import org.celllife.idart.domain.common.EventHeader
+import org.celllife.idart.common.EventHeader
+import org.celllife.idart.common.EventType
+
+import static org.celllife.idart.common.EventHeader.newEventHeader
 
 /**
  * User: Kevin W. Sewell
@@ -13,4 +16,11 @@ class UserEvent {
 
     User user
 
+    static UserEvent newUserEvent(User user, UserEventType userEventType) {
+        new UserEvent(user: user, header: newEventHeader(userEventType))
+    }
+
+    enum UserEventType implements EventType {
+        SAVED
+    }
 }

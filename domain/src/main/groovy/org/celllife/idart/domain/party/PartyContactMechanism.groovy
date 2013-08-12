@@ -2,6 +2,7 @@ package org.celllife.idart.domain.party
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import org.celllife.idart.common.Period
 import org.celllife.idart.domain.contactmechanism.ContactMechanism
 
 /**
@@ -13,9 +14,10 @@ import org.celllife.idart.domain.contactmechanism.ContactMechanism
 @EqualsAndHashCode(includes = "contactMechanism")
 class PartyContactMechanism {
 
-    Date fromDate
-
-    Date thruDate
+    /**
+     * Valid during
+     */
+    Period valid
 
     Boolean nonSolicitationIndicator
 

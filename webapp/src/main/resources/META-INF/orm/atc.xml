@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!--
+    This should be embeddable but JPA ain't digging that shit...
+    getting java.util.ConcurrentModificationException @ org.hibernate.cfg.Configuration.originalSecondPassCompile(Configuration.java:1592)
+    -->
+
+    <!--<entity class="org.celllife.idart.domain.atc.DefinedDailyDose">-->
+
+    <!--<attributes>-->
+    <!--<id name="pk">-->
+    <!--<generated-value strategy="TABLE"/>-->
+    <!--</id>-->
+    <!--<embedded name="route">-->
+    <!--<attribute-override name="value">-->
+    <!--<column name="route"/>-->
+    <!--</attribute-override>-->
+    <!--</embedded>-->
+    <!--<embedded name="quantity">-->
+    <!--<attribute-override name="value">-->
+    <!--<column name="quantity"/>-->
+    <!--</attribute-override>-->
+    <!--<attribute-override name="unitOfMeasure.value">-->
+    <!--<column name="quantity_uom"/>-->
+    <!--</attribute-override>-->
+    <!--</embedded>-->
+    <!--</attributes>-->
+
+    <!--</entity>-->
+
+</entity-mappings>

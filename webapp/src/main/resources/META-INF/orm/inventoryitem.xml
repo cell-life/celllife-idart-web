@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Inventory Item -->
+
+    <entity class="org.celllife.idart.domain.inventoryitem.InventoryItem">
+
+        <inheritance strategy="JOINED"/>
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <element-collection name="status" fetch="EAGER">
+                <order-by>dateTime</order-by>
+            </element-collection>
+            <embedded name="part">
+                <attribute-override name="value">
+                    <column name="part"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.inventoryitem.SerialisedInventoryItem">
+
+        <attributes>
+            <basic name="serialNumber"/>
+        </attributes>
+
+    </entity>
+
+    <entity class="org.celllife.idart.domain.inventoryitem.NonSerialisedInventoryItem">
+
+        <attributes>
+            <embedded name="quantityOnHand">
+                <attribute-override name="value">
+                    <column name="quantity_on_hand"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="quantity_on_hand_uom"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+    <!-- Inventory Item -->
+
+    <embeddable class="org.celllife.idart.domain.inventoryitem.InventoryItemStatus">
+        <attributes>
+            <basic name="dateTime">
+                <temporal>TIMESTAMP</temporal>
+            </basic>
+            <basic name="statusType">
+                <enumerated>STRING</enumerated>
+            </basic>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

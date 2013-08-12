@@ -1,11 +1,11 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.celllife.idart.application.compound.CompoundResourceService
-import org.celllife.idart.application.drug.DrugResourceService
-import org.celllife.idart.application.medication.MedicationResourceService
-import org.celllife.idart.application.patient.PatientResourceService
-import org.celllife.idart.application.practitioner.PractitionerResourceService
+import org.celllife.idart.application.compound.CompoundApplicationService
+import org.celllife.idart.application.drug.DrugApplicationService
+import org.celllife.idart.application.medication.MedicationApplicationService
+import org.celllife.idart.application.patient.PatientApplicationService
+import org.celllife.idart.application.practitioner.PractitionerApplicationService
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.drug.Drug
@@ -31,17 +31,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner.class)
 class PrescriptionApplicationServiceIntegrationTest {
 
-    @Autowired MedicationResourceService medicationResourceService
+    @Autowired MedicationApplicationService medicationApplicationService
 
-    @Autowired DrugResourceService drugResourceService
+    @Autowired DrugApplicationService drugApplicationService
 
-    @Autowired CompoundResourceService compoundResourceService
+    @Autowired CompoundApplicationService compoundApplicationService
 
-    @Autowired PrescriptionResourceService prescriptionResourceService
+    @Autowired PrescriptionApplicationService prescriptionApplicationService
 
-    @Autowired PractitionerResourceService practitionerResourceService
+    @Autowired PractitionerApplicationService practitionerApplicationService
 
-    @Autowired PatientResourceService patientResourceService
+    @Autowired PatientApplicationService patientApplicationService
 
     @Autowired UnitOfMeasureApplicationService unitOfMeasureApplicationService
 
@@ -60,31 +60,31 @@ class PrescriptionApplicationServiceIntegrationTest {
 
         unitOfMeasureApplicationService.save(createEach())
 
-        compoundResourceService.save(createCompound(milligrams))
+        compoundApplicationService.save(createCompound(milligrams))
 
-        drugResourceService.save(createDrug(millilitres, createCompound(milligrams), milligrams))
+        drugApplicationService.save(createDrug(millilitres, createCompound(milligrams), milligrams))
 
-        drugResourceService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
+        drugApplicationService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
 
         Medication medication = new Medication(drug: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
         medication.addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")
-        medicationResourceService.save(medication)
+        medicationApplicationService.save(medication)
 
         Patient patient = new Patient()
         patient.addIdentifier("http://www.cell-life.org/idart/patients", "00001")
         patient.person = new Person()
-        patientResourceService.save(patient)
+        patientApplicationService.save(patient)
 
         Practitioner practitioner = new Practitioner()
         practitioner.addIdentifier("http://www.cell-life.org/idart/practitioners", "00001")
         practitioner.person = new Person()
-        practitionerResourceService.save(practitioner)
+        practitionerApplicationService.save(practitioner)
 
         InputStream inputStream = getClass().getResourceAsStream("/data/prescription/0000.json")
         Prescription prescription = objectMapper.readValue(inputStream, Prescription.class)
         System.out.println(prescription)
 
-        prescriptionResourceService.save(prescription)
+        prescriptionApplicationService.save(prescription)
     }
 
     static UnitOfMeasure createMilligrams() {

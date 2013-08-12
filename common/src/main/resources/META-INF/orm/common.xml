@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Duration -->
+
+    <embeddable class="org.celllife.idart.common.Duration">
+        <attributes>
+            <basic name="value"/>
+            <embedded name="unitOfMeasure">
+                <attribute-override name="value">
+                    <column name="unit_of_measure"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+    <!-- Measurement -->
+
+    <embeddable class="org.celllife.idart.common.Measurement">
+
+        <attributes>
+            <basic name="dateTaken">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <embedded name="value"/>
+        </attributes>
+    </embeddable>
+
+    <!-- Part Classification Code -->
+
+    <embeddable class="org.celllife.idart.common.PartClassificationCode">
+        <attributes>
+            <basic name="value">
+                <column name="code"/>
+            </basic>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <!-- Party Classification Code -->
+
+    <embeddable class="org.celllife.idart.common.PartyClassificationCode">
+        <attributes>
+            <basic name="value">
+                <column name="code"/>
+            </basic>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <!-- Party Classification Code -->
+
+    <embeddable class="org.celllife.idart.common.PartyIdentifier">
+        <attributes>
+            <basic name="value">
+                <column name="identifier"/>
+            </basic>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <!-- Period -->
+
+    <embeddable class="org.celllife.idart.common.Period">
+        <attributes>
+            <basic name="fromDate">
+                <column name="period_from_date"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="thruDate">
+                <column name="period_thru_date"/>
+                <temporal>DATE</temporal>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <!-- Period -->
+
+    <embeddable class="org.celllife.idart.common.Quantity">
+        <attributes>
+            <basic name="value"/>
+            <embedded name="unitOfMeasure">
+                <attribute-override name="value">
+                    <column name="unit_of_measure"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+    <!-- Repeat -->
+
+    <embeddable class="org.celllife.idart.common.Repeat">
+        <attributes>
+            <basic name="count"/>
+            <basic name="end">
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="frequency">
+                <column name="repeat_frequency"/>
+            </basic>
+            <basic name="count">
+                <column name="repeat_count"/>
+            </basic>
+            <basic name="end">
+                <column name="repeat_end"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <embedded name="when">
+                <attribute-override name="value">
+                    <column name="repeat_when"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="duration">
+                <attribute-override name="value">
+                    <column name="repeat_duration"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="repeat_duration_uom"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+    <!-- Schedule -->
+
+    <embeddable class="org.celllife.idart.common.Schedule">
+        <attributes>
+            <element-collection name="events" fetch="EAGER"/>
+            <embedded name="repeat"/>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

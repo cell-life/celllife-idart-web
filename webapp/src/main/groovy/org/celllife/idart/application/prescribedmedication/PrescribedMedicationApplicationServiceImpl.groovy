@@ -1,5 +1,6 @@
 package org.celllife.idart.application.prescribedmedication
 
+import org.celllife.idart.common.PrescribedMedicationIdentifier
 import org.celllife.idart.domain.medication.MedicationService
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedication
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationService
@@ -9,8 +10,7 @@ import org.springframework.stereotype.Service
 
 /**
  */
-@Service
-class PrescribedMedicationApplicationServiceImpl implements PrescribedMedicationApplicationService, PrescribedMedicationResourceService {
+@Service class PrescribedMedicationApplicationServiceImpl implements PrescribedMedicationApplicationService {
 
     @Autowired PrescribedMedicationService prescribedMedicationService
 
@@ -47,12 +47,7 @@ class PrescribedMedicationApplicationServiceImpl implements PrescribedMedication
         prescribedMedicationService.save(prescribedMedication)
     }
 
-    PrescribedMedication findByIdentifier(String identifier) {
-        prescribedMedicationService.findByIdentifier(identifier)
+    PrescribedMedication findByPrescribedMedicationIdentifier(PrescribedMedicationIdentifier prescribedMedicationIdentifier) {
+        prescribedMedicationService.findByPrescribedMedicationIdentifier(prescribedMedicationIdentifier)
     }
-
-    Iterable<PrescribedMedication> findAll() {
-        prescribedMedicationService.findAll()
-    }
-
 }

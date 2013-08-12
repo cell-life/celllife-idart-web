@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Facility -->
+
+    <entity class="org.celllife.idart.domain.facility.Facility">
+
+        <attributes>
+            <embedded-id name="identifier">
+                <attribute-override name="value">
+                    <column name="identifier"/>
+                </attribute-override>
+            </embedded-id>
+            <basic name="name"/>
+            <basic name="description"/>
+            <embedded name="locatedAt">
+                <attribute-override name="value">
+                    <column name="located_at_facility"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="area">
+                <attribute-override name="value">
+                    <column name="area"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="area_uom"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+</entity-mappings>

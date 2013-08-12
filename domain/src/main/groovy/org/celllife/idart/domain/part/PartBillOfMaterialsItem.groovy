@@ -1,38 +1,54 @@
 package org.celllife.idart.domain.part
 
-import org.celllife.idart.domain.common.Quantity
-
-import javax.persistence.ManyToOne
-import javax.validation.constraints.NotNull
+import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.Period
+import org.celllife.idart.common.Quantity
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 18h34
  */
-abstract class PartBillOfMaterialsItem {
+class PartBillOfMaterialsItem {
 
     /**
-     * Persistence Key
+     * Of type
      */
-    Long pk
+    PartBillOfMaterialsType type
 
-    Date fromDate
+    /**
+     * Valid during
+     */
+    Period valid
 
-    Date thruDate
+    /**
+     *  Made up of
+     */
+    PartIdentifier part
 
-    @NotNull
-    Part part
-
+    /**
+     *
+     */
     Quantity quantityUsed
 
+    /**
+     *
+     */
     String instructions
 
+    /**
+     *
+     */
     String comment
 
     def merge(PartBillOfMaterialsItem that) {
-        this.fromDate = that.fromDate
-        this.thruDate = that.thruDate
+
+        if (that == null) {
+            return
+        }
+
+        this.type = that.type
+        this.valid = that.valid
         this.part = that.part
         this.quantityUsed = that.quantityUsed
         this.instructions = that.instructions
@@ -45,14 +61,8 @@ abstract class PartBillOfMaterialsItem {
             return false
         }
 
-        if (this.part == null && that.part == null) {
-            return true
-        }
-
-        if (this.part == null || that.part == null) {
-            return false
-        }
-
-        return this.part.matches(that.part)
+        return (this.part == that.part) &&
+                (this.type == that.type) &&
+                (this.quantityUsed == that.quantityUsed)
     }
 }

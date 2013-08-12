@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.system
 
+import org.celllife.idart.common.SystemIdentifier
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -7,6 +9,7 @@ import javax.annotation.Generated
 
 /**
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Service class SystemServiceImpl implements SystemService {
 
     @Autowired SystemRepository systemRepository
@@ -20,7 +23,7 @@ import javax.annotation.Generated
 
         systemValidator.validate(system)
 
-        systemEventPublisher.publish(newSystemEvent(system))
+        systemEventPublisher.systemSaved(system)
 
         systemRepository.save(system)
     }
@@ -35,9 +38,5 @@ import javax.annotation.Generated
         }
 
         system
-    }
-
-    static newSystemEvent(System system) {
-        new SystemEventFactory().username("").system(system).systemEvent()
     }
 }

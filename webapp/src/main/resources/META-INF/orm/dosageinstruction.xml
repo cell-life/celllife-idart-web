@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Dosage Instruction -->
+
+    <entity class="org.celllife.idart.domain.dosageinstruction.DosageInstruction">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="text" fetch="EAGER">
+                <column name="dosage_instruction_text"/>
+            </basic>
+            <embedded name="method">
+                <attribute-override name="value">
+                    <column name="method"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="route">
+                <attribute-override name="value">
+                    <column name="route"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="site">
+                <attribute-override name="value">
+                    <column name="site"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="doseQuantity">
+                <attribute-override name="value">
+                    <column name="dose_quantity"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="dose_quantity_uom"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="maxDosePerPeriod">
+                <attribute-override name="numerator.value">
+                    <column name="max_dose_per_period_numerator"/>
+                </attribute-override>
+                <attribute-override name="denominator.value">
+                    <column name="max_dose_per_period_denominator"/>
+                </attribute-override>
+                <attribute-override name="numerator.unitOfMeasure.value">
+                    <column name="max_dose_per_period_numerator_uom"/>
+                </attribute-override>
+                <attribute-override name="denominator.unitOfMeasure.value">
+                    <column name="max_dose_per_period_denominator_uom"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="rate">
+                <attribute-override name="numerator.value">
+                    <column name="rate_numerator"/>
+                </attribute-override>
+                <attribute-override name="denominator.value">
+                    <column name="rate_denominator"/>
+                </attribute-override>
+                <attribute-override name="numerator.unitOfMeasure.value">
+                    <column name="rate_numerator_uom"/>
+                </attribute-override>
+                <attribute-override name="denominator.unitOfMeasure.value">
+                    <column name="rate_denominator_uom"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="timing"/>
+        </attributes>
+    </entity>
+
+</entity-mappings>

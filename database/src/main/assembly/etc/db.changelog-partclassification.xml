@@ -6,54 +6,15 @@
     <changeSet id="partclassification-1" author="kevin.sewell">
 
         <createTable tableName="part_classification">
-            <column name="pk" type="bigint">
+            <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="type" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="parent" type="bigint">
-                <constraints references="part_classification(pk)" foreignKeyName="parent_part_class_fk"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="part_classification_descriptions">
-            <column name="part_classification" type="bigint">
-                <constraints references="part_classification(pk)" foreignKeyName="part_classification_descriptions_fk"/>
-            </column>
-            <column name="locale" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="varchar(2000)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="atc_classification">
-            <column name="pk" type="bigint">
-                <constraints primaryKey="true" references="part_classification(pk)" foreignKeyName="atc_part_fk"/>
-            </column>
-            <column name="first_level" type="varchar(1)"/>
-            <column name="second_level" type="varchar(2)"/>
-            <column name="third_level" type="varchar(1)"/>
-            <column name="forth_level" type="varchar(1)"/>
-            <column name="fifth_level" type="varchar(2)"/>
-        </createTable>
-
-        <createTable tableName="defined_daily_dose">
-            <column name="pk" type="bigint">
+            <column name="type" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="atc_classification" type="bigint">
-                <constraints references="atc_classification(pk)" foreignKeyName="ddd_atc_fk"/>
-            </column>
-            <column name="quantity" type="numeric"/>
-            <column name="quantity_uom" type="varchar(31)">
-                <constraints references="unit_of_measure(code)" foreignKeyName="ddd_qty_uom_fk"/>
-            </column>
-            <column name="route" type="varchar(31)">
-                <constraints references="route_of_administration(code)" foreignKeyName="ddd_route_fk"/>
-            </column>
+            <column name="description" type="varchar(2000)"/>
+            <column name="parent_code" type="varchar(31)"/>
+            <column name="parent_type" type="varchar(31)"/>
         </createTable>
 
     </changeSet>
