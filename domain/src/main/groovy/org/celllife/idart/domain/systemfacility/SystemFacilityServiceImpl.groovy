@@ -2,11 +2,11 @@ package org.celllife.idart.domain.systemfacility
 
 import org.celllife.idart.common.FacilityIdentifier
 import org.celllife.idart.common.SystemIdentifier
-import org.celllife.idart.domain.facility.Facility
-import org.celllife.idart.domain.system.System
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import static org.celllife.idart.domain.systemfacility.SystemFacilityEvent.EventType.SAVED
+import static org.celllife.idart.domain.systemfacility.SystemFacilityEvent.newSystemFacilityEvent
 import static org.celllife.idart.domain.systemfacility.SystemFacilityRelationship.DEPLOYED_AT
 
 /**
@@ -24,7 +24,7 @@ import static org.celllife.idart.domain.systemfacility.SystemFacilityRelationshi
     void saveUserForSystem(SystemIdentifier systemIdentifier, FacilityIdentifier facilityIdentifier) {
 
         def existingRelationship =
-            systemFacilityRepository.findBySystemIdentifierAndFacilityIdentifierAndRelationship(
+            systemFacilityRepository.findBySystemAndFacilityAndRelationship(
                     systemIdentifier,
                     facilityIdentifier,
                     DEPLOYED_AT
@@ -41,6 +41,6 @@ import static org.celllife.idart.domain.systemfacility.SystemFacilityRelationshi
             )
         }
 
-        systemFacilityEventPublisher.userSystemSaved(existingRelationship)
+        systemFacilityEventPublisher.publish(newSystemFacilityEvent(existingRelationship, SAVED))
     }
 }

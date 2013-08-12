@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.administrationmethod.AdministrationMethodEvent.EventType.SAVED
+import static org.celllife.idart.domain.administrationmethod.AdministrationMethodEvent.newAdministrationMethodEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         administrationMethodValidator.validate(administrationMethod)
 
-        administrationMethodEventPublisher.administrationMethodSaved(administrationMethod)
+        administrationMethodEventPublisher.publish(newAdministrationMethodEvent(administrationMethod, SAVED))
 
         administrationMethodRepository.save(administrationMethod)
     }

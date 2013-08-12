@@ -22,7 +22,6 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
     @Autowired GraphDatabaseService graphDatabaseService
 
-    @Override
     void systemEvent(String message) {
 
         try {
@@ -36,7 +35,6 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
         }
     }
 
-    @Override
     void userEvent(String message) {
 
         try {
@@ -50,7 +48,6 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
         }
     }
 
-    @Override
     void userSystemEvent(String message) {
 
         try {
@@ -66,6 +63,151 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)
         }
+    }
+
+    @Override
+    void handleAdministrationMethodEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleCompoundEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleDefaultDosageInstructionEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleDispensationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleDispensedMedicationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleDrugEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleEncounterEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleEntrySiteEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleFacilityEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleFormEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleIndicationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleLegalOrganisationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleLifeEventEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleMedicationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleOrganisationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handlePatientEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handlePersonEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handlePractitionerEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handlePrescribedMedicationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handlePrescriptionEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleRouteOfAdministrationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleSubstitutionEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleSubstitutionReasonEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleSystemEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleSystemFacilityEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleUnitOfMeasureEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleUnitOfMeasureTypeEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleUserEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleUserSystemEvent(String message) {
+        println message
     }
 
     Node getOrCreateUserNode(userIdentifier) {

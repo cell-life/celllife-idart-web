@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.indication.IndicationEvent.EventType.SAVED
+import static org.celllife.idart.domain.indication.IndicationEvent.newIndicationEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         indicationValidator.validate(indication)
 
-        indicationEventPublisher.indicationSaved(indication)
+        indicationEventPublisher.publish(newIndicationEvent(indication, SAVED))
 
         indicationRepository.save(indication)
     }

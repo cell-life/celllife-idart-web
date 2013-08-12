@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static ${domainEvent.packageName}.${domainEvent.className}.EventType.SAVED
+import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEvent.className}
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         ${validator.fieldName}.validate(${entity.fieldName})
 
-        ${eventPublisher.fieldName}.${entity.fieldName}Saved(${entity.fieldName})
+        ${eventPublisher.fieldName}.publish(new${domainEvent.className}(${entity.fieldName}, SAVED))
 
         ${repository.fieldName}.save(${entity.fieldName})
     }

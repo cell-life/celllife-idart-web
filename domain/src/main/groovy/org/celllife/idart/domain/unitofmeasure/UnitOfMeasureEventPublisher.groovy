@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface UnitOfMeasureEventPublisher {
 
-    void unitOfMeasureSaved(UnitOfMeasure unitOfMeasure)
+    void publish(UnitOfMeasureEvent unitOfMeasureEvent)
 
 }

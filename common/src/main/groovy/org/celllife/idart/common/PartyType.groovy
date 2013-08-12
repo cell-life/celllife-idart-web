@@ -7,9 +7,9 @@ package org.celllife.idart.common
  */
 enum PartyType {
 
-    INFORMAL_ORGANISATION,
+    INFORMALORG,
 
-    LEGAL_ORGANISATION,
+    LEGALORG,
 
     PERSON
 

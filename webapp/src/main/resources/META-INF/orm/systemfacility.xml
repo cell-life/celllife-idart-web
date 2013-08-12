@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- System For Facility -->
+
+    <entity class="org.celllife.idart.domain.systemfacility.SystemFacility">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="relationship">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <embedded name="fromSystem">
+                <attribute-override name="value">
+                    <column name="from_system"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="toFacility">
+                <attribute-override name="value">
+                    <column name="to_facility"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+</entity-mappings>

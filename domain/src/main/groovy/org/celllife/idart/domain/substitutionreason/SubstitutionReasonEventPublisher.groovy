@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface SubstitutionReasonEventPublisher {
 
-    void substitutionReasonSaved(SubstitutionReason substitutionReason)
+    void publish(SubstitutionReasonEvent substitutionReasonEvent)
 
 }

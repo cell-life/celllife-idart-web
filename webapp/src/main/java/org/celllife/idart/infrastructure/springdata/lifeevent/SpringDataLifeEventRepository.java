@@ -10,6 +10,7 @@ import javax.annotation.Generated;
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataLifeEventRepository extends PagingAndSortingRepository<LifeEvent, LifeEventCode>, LifeEventRepository {
+public interface SpringDataLifeEventRepository extends LifeEventRepository,
+        PagingAndSortingRepository<LifeEvent, LifeEventCode> {
 
 }

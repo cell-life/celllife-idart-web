@@ -7,6 +7,6 @@ package org.celllife.idart.domain.systemfacility
  */
 interface SystemFacilityEventPublisher {
 
-    void userSystemSaved(SystemFacility userSystem)
+    void publish(SystemFacilityEvent systemFacilityEvent)
 
 }

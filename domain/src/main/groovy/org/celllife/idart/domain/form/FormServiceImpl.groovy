@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.form.FormEvent.EventType.SAVED
+import static org.celllife.idart.domain.form.FormEvent.newFormEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         formValidator.validate(form)
 
-        formEventPublisher.formSaved(form)
+        formEventPublisher.publish(newFormEvent(form, SAVED))
 
         formRepository.save(form)
     }

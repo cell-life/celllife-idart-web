@@ -12,7 +12,7 @@ interface SystemFacilityRepository {
 
     SystemFacility save(SystemFacility userForSystem)
 
-    SystemFacility findBySystemIdentifierAndFacilityIdentifierAndRelationship(
+    SystemFacility findBySystemAndFacilityAndRelationship(
             SystemIdentifier systemIdentifier,
             FacilityIdentifier facilityIdentifier,
             SystemFacilityRelationship relationship)

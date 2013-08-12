@@ -10,6 +10,7 @@ import javax.annotation.Generated;
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataAdministrationMethodRepository extends PagingAndSortingRepository<AdministrationMethod, AdministrationMethodCode>, AdministrationMethodRepository {
+public interface SpringDataAdministrationMethodRepository extends AdministrationMethodRepository,
+        PagingAndSortingRepository<AdministrationMethod, AdministrationMethodCode> {
 
 }

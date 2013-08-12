@@ -148,6 +148,30 @@ public class EntityModelEnricherTest {
     }
 
     @Test
+    public void shouldGenerateDomainEvent() throws Exception {
+        def templatePath = "/templates/entity/domainEvent.template"
+        models.each { model ->
+            generate(templatePath, transform(baseNamespace, model))
+        }
+    }
+
+    @Test
+    public void shouldGenerateEventPublisher() throws Exception {
+        def templatePath = "/templates/entity/eventPublisher.template"
+        models.each { model ->
+            generate(templatePath, transform(baseNamespace, model))
+        }
+    }
+
+    @Test
+    public void shouldGenerateCamelEventPublisher() throws Exception {
+        def templatePath = "/templates/entity/camelEventPublisher.template"
+        models.each { model ->
+            generate(templatePath, transform(baseNamespace, model))
+        }
+    }
+
+    @Test
     public void shouldConvertToSnakeCase() throws Exception {
 
         assertEquals("user", toSnakeCase("User"))

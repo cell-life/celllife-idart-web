@@ -1,8 +1,15 @@
 package org.celllife.idart.codegen.relationship
 
 import org.celllife.idart.codegen.transform.EntityModelEnricher
+import org.celllife.idart.codegen.transform.IdentifierModelEnricher
+import org.celllife.idart.codegen.transform.ModelEnricher
 
 import java.util.regex.Pattern
+
+import static org.celllife.idart.codegen.transform.ApplicationServiceModelEnricher.enrichModelWithApplicationService
+import static org.celllife.idart.codegen.transform.EntityModelEnricher.enrichModelWithEntity
+import static org.celllife.idart.codegen.transform.IdentifierModelEnricher.enrichModelWithIdentifier
+import static org.celllife.idart.codegen.transform.ModelEnricher.enrichModel
 
 /**
  * User: Kevin W. Sewell
@@ -21,13 +28,19 @@ class RelationshipModelEnricher {
              * From Entity
              */
 
-            EntityModelEnricher.enrichAggregateRoot(baseNamespace, from)
+            enrichModel(baseNamespace, from)
+            enrichModelWithIdentifier(baseNamespace, from)
+            enrichModelWithEntity(baseNamespace, from)
+            enrichModelWithApplicationService(baseNamespace, from)
 
             /*
              * To Entity
              */
 
-            EntityModelEnricher.enrichAggregateRoot(baseNamespace, to)
+            enrichModel(baseNamespace, to)
+            enrichModelWithIdentifier(baseNamespace, to)
+            enrichModelWithEntity(baseNamespace, to)
+            enrichModelWithApplicationService(baseNamespace, to)
 
             relationships.each {relationship ->
 

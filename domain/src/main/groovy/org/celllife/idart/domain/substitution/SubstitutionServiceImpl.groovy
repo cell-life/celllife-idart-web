@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.substitution.SubstitutionEvent.EventType.SAVED
+import static org.celllife.idart.domain.substitution.SubstitutionEvent.newSubstitutionEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         substitutionValidator.validate(substitution)
 
-        substitutionEventPublisher.substitutionSaved(substitution)
+        substitutionEventPublisher.publish(newSubstitutionEvent(substitution, SAVED))
 
         substitutionRepository.save(substitution)
     }

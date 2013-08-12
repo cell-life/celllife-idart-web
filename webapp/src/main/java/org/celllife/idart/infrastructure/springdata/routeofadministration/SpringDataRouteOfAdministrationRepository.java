@@ -10,6 +10,7 @@ import javax.annotation.Generated;
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataRouteOfAdministrationRepository extends PagingAndSortingRepository<RouteOfAdministration, RouteOfAdministrationCode>, RouteOfAdministrationRepository {
+public interface SpringDataRouteOfAdministrationRepository extends RouteOfAdministrationRepository,
+        PagingAndSortingRepository<RouteOfAdministration, RouteOfAdministrationCode> {
 
 }

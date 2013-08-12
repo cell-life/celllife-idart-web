@@ -7,6 +7,6 @@
 
     <jpa:repositories base-package="org.celllife.idart.infrastructure.springdata"
                       entity-manager-factory-ref="entityManagerFactory"
-                      transaction-manager-ref="jtaTransactionManager" />
+                      transaction-manager-ref="transactionManager" />
 
 </beans>

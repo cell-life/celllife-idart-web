@@ -22,25 +22,20 @@ import javax.annotation.Generated
     @Autowired ${domainService.className} ${domainService.fieldName}
 
     @Override
-    void save(${from.entity.identifier.className} ${from.entity.identifier.fieldName}, ${to.entity.identifier.className} ${to.entity.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName}) {
-        save(${from.entity.identifier.fieldName}, ${to.entity.fieldName})
-    }
-
-    @Override
-    void save(${from.entity.className} ${from.entity.fieldName}, ${to.entity.className} ${to.entity.fieldName}) {
+    void save(${from.identifier.className} ${from.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName}) {
 
         ${to.applicationService.fieldName}.save(${to.entity.fieldName})
 
-        ${domainService.fieldName}.save(${from.entity.identity.fieldName}, ${to.identity.entity.fieldName})
+        save(${from.identifier.fieldName}, ${to.entity.fieldName}.${to.identifier.shortFieldName})
     }
 
     @Override
-    Iterable<${to.entity.className}> find${to.entity.collectionClassName}By${from.entity.className}Identifier(${from.entity.identifier.className} ${from.entity.identifier.fieldName}) {
-         ${domainService.fieldName}.find${to.entity.collectionClassName}By${from.entity.className}Identifier(${from.entity.identifier.fieldName})
+    void save(${from.identifier.className} ${from.identifier.fieldName}, ${to.identifier.className} ${to.identifier.fieldName}) {
+        ${domainService.fieldName}.save(${from.identifier.fieldName}, ${to.identifier.fieldName})
     }
 
     @Override
-    ${to.entity.className} findOne${to.entity.className}By${from.entity.identifier.className}And${to.entity.identifier.className}(${from.entity.identifier.className} ${from.entity.identifier.fieldName}, ${to.entity.identifier.className} ${to.entity.identifier.fieldName}) {
-
+    Iterable<${to.identifier.className}> find${to.entity.collectionClassName}By${from.entity.className}(${from.identifier.className} ${from.entity.fieldName}) {
+         ${domainService.fieldName}.find${to.entity.collectionClassName}By${from.entity.className}(${from.entity.fieldName})
     }
 }

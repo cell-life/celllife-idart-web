@@ -3,15 +3,8 @@ package org.celllife.idart.codegen.ant
 import groovy.json.JsonSlurper
 import org.apache.tools.ant.BuildException
 import org.apache.tools.ant.Task
-import org.celllife.idart.codegen.entity.EntityCodeGenerator
 
-import static EntityCodeGenerator.generateEntity
 import static org.celllife.idart.codegen.entity.EntityCodeGenerator.generateEntityCode
-import static org.celllife.idart.codegen.entity.EntityIdentifierGenerator.generateEntityIdentifier
-import static org.celllife.idart.codegen.entity.EntityApplicationServiceGenerator.generateEntityApplicationService
-import static org.celllife.idart.codegen.entity.EntityJsr303ValidatorGenerator.generateEntityJsr303Validator
-import static org.celllife.idart.codegen.entity.EntityResourceGenerator.generateEntityResource
-import static org.celllife.idart.codegen.entity.EntitySpringDataRepositoryGenerator.generateEntitySpringDataRepository
 
 /**
  * User: Kevin W. Sewell

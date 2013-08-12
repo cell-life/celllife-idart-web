@@ -10,6 +10,7 @@ import javax.annotation.Generated;
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataEncounterRepository extends PagingAndSortingRepository<Encounter, EncounterIdentifier>, EncounterRepository {
+public interface SpringDataEncounterRepository extends EncounterRepository,
+        PagingAndSortingRepository<Encounter, EncounterIdentifier> {
 
 }

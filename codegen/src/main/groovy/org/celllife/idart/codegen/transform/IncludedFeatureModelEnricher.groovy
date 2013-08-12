@@ -13,13 +13,15 @@ class IncludedFeatureModelEnricher {
             "identifier",
             "entity",
             "repository",
-            "domainService",
-            "applicationService",
             "validator",
             "jsr303Validator",
             "springDataRepository",
-            "resourceController",
-            "eventPublisher"
+            "domainEvent",
+            "eventPublisher",
+            "camelEventPublisher",
+            "domainService",
+            "applicationService",
+            "resourceController"
     ]
 
     static enrichModelWithIncludedFeatures(baseNamespace, model) {

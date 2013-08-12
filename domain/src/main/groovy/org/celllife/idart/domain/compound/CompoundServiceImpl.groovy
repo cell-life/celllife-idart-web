@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.compound.CompoundEvent.EventType.SAVED
+import static org.celllife.idart.domain.compound.CompoundEvent.newCompoundEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         compoundValidator.validate(compound)
 
-        compoundEventPublisher.compoundSaved(compound)
+        compoundEventPublisher.publish(newCompoundEvent(compound, SAVED))
 
         compoundRepository.save(compound)
     }

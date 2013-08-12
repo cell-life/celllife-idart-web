@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.organisation.OrganisationEvent.EventType.SAVED
+import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrganisationEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         organisationValidator.validate(organisation)
 
-        organisationEventPublisher.organisationSaved(organisation)
+        organisationEventPublisher.publish(newOrganisationEvent(organisation, SAVED))
 
         organisationRepository.save(organisation)
     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <context:component-scan base-package="org.celllife.idart.infrastructure.camel"/>
+
+    <camel:camelContext autoStartup="true">
+
+        <camel:routeContextRef ref="eventRouteContext"/>
+
+        <camel:dataFormats>
+            <camel:json id="systemEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.system.SystemEvent"/>
+            <camel:json id="userEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.user.UserEvent"/>
+            <camel:json id="userSystemEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.usersystem.UserSystemEvent"/>
+        </camel:dataFormats>
+
+    </camel:camelContext>
+
+</beans>

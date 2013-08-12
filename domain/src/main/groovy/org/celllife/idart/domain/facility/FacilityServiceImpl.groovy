@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.facility.FacilityEvent.EventType.SAVED
+import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         facilityValidator.validate(facility)
 
-        facilityEventPublisher.facilitySaved(facility)
+        facilityEventPublisher.publish(newFacilityEvent(facility, SAVED))
 
         facilityRepository.save(facility)
     }

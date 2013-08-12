@@ -10,6 +10,7 @@ import javax.annotation.Generated;
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataUnitOfMeasureTypeRepository extends PagingAndSortingRepository<UnitOfMeasureType, UnitOfMeasureTypeCode>, UnitOfMeasureTypeRepository {
+public interface SpringDataUnitOfMeasureTypeRepository extends UnitOfMeasureTypeRepository,
+        PagingAndSortingRepository<UnitOfMeasureType, UnitOfMeasureTypeCode> {
 
 }

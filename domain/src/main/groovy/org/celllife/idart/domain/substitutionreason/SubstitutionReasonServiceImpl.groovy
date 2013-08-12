@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEvent.EventType.SAVED
+import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEvent.newSubstitutionReasonEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         substitutionReasonValidator.validate(substitutionReason)
 
-        substitutionReasonEventPublisher.substitutionReasonSaved(substitutionReason)
+        substitutionReasonEventPublisher.publish(newSubstitutionReasonEvent(substitutionReason, SAVED))
 
         substitutionReasonRepository.save(substitutionReason)
     }

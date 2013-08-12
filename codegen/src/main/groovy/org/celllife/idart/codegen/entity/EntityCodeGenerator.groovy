@@ -1,6 +1,9 @@
 package org.celllife.idart.codegen.entity
 
+import org.celllife.idart.codegen.StdOutWriter
+
 import static org.celllife.idart.codegen.FileWriter.toFile
+import static org.celllife.idart.codegen.StdOutWriter.toStdOut
 import static org.celllife.idart.codegen.entity.EntityModelTransform.transform
 
 /**
@@ -14,42 +17,48 @@ class EntityCodeGenerator {
 
         transform(baseNamespace, model)
 
-        model.features.each { feature ->
+        model.features.includes.each { feature ->
 
             switch (feature) {
+                case "identifier":
+                    generateIdentifier(baseDirectory, model)
+                    break
                 case "entity":
                     generateEntity(baseDirectory, model)
-                    break
-                case "repository":
-                    generateRepository(baseDirectory, model)
-                    generateEntityNotFoundException(baseDirectory, model)
-                    break
-                case "eventPublisher":
-                    generateEventPublisherInterface(baseDirectory, model)
-                    break
-                case "validator":
-                    generateValidatorInterface(baseDirectory, model)
-                    generateValidationException(baseDirectory, model)
                     break
                 case "domainService":
                     generateDomainServiceInterface(baseDirectory, model)
                     generateDomainServiceImplementation(baseDirectory, model)
                     break
-                case "applicationService":
-                    generateApplicationServiceInterface(baseDirectory, model)
-                    generateApplicationServiceImplementation(baseDirectory, model)
+                case "repository":
+                    generateRepository(baseDirectory, model)
+                    generateEntityNotFoundException(baseDirectory, model)
                     break
-                case "identifier":
-                    generateIdentifier(baseDirectory, model)
+                case "springDataRepository":
+                    generateSpringDataRepository(baseDirectory, model)
+                    break
+                case "domainEvent":
+                    generateDomainEvent(baseDirectory, model)
+                    break
+                case "eventPublisher":
+                    generateEventPublisher(baseDirectory, model)
+                    break
+                case "camelEventPublisher":
+                    generateCamelEventPublisher(baseDirectory, model)
+                    break
+                case "validator":
+                    generateValidatorInterface(baseDirectory, model)
+                    generateValidationException(baseDirectory, model)
                     break
                 case "jsr303Validator":
                     generateJsr303Validator(baseDirectory, model)
                     break
+                case "applicationService":
+                    generateApplicationServiceInterface(baseDirectory, model)
+                    generateApplicationServiceImplementation(baseDirectory, model)
+                    break
                 case "resourceController":
                     generateResourceController(baseDirectory, model)
-                    break
-                case "springDataRepository":
-                    generateSpringDataRepository()
                     break
                 case "": break
             }
@@ -61,7 +70,7 @@ class EntityCodeGenerator {
         toFile(
                 templateReader: "/templates/entity/identifier.template",
                 model: model,
-                directory: baseDirectory + "/domain/src/main/groovy/" + model.identifier.packageName.replaceAll("\\.", "/"),
+                directory: baseDirectory + "/common/src/main/groovy/" + model.identifier.packageName.replaceAll("\\.", "/"),
                 fileName: model.identifier.className + ".groovy"
         )
     }
@@ -102,12 +111,34 @@ class EntityCodeGenerator {
         )
     }
 
-    static generateEventPublisherInterface(String baseDirectory, model) {
+    static generateDomainEvent(String baseDirectory, model) {
+        toStdOut(
+                templateReader: "/templates/entity/domainEventCamelContext.template",
+                model: model
+        )
+        toFile(
+                templateReader: "/templates/entity/domainEvent.template",
+                model: model,
+                directory: baseDirectory + "/domain/src/main/groovy/" + model.domainEvent.packageName.replaceAll("\\.", "/"),
+                fileName: model.domainEvent.className + ".groovy"
+        )
+    }
+
+    static generateEventPublisher(String baseDirectory, model) {
         toFile(
                 templateReader: "/templates/entity/eventPublisher.template",
                 model: model,
                 directory: baseDirectory + "/domain/src/main/groovy/" + model.eventPublisher.packageName.replaceAll("\\.", "/"),
                 fileName: model.eventPublisher.className + ".groovy"
+        )
+    }
+
+    static generateCamelEventPublisher(String baseDirectory, model) {
+        toFile(
+                templateReader: "/templates/entity/camelEventPublisher.template",
+                model: model,
+                directory: baseDirectory + "/webapp/src/main/groovy/" + model.camelEventPublisher.packageName.replaceAll("\\.", "/"),
+                fileName: model.camelEventPublisher.className + ".groovy"
         )
     }
 
@@ -168,18 +199,18 @@ class EntityCodeGenerator {
 
     static generateApplicationServiceImplementation(String baseDirectory, model) {
         toFile(
-                templateReader: "/templates/webapp/applicationServiceImplementation.template",
+                templateReader: "/templates/entity/applicationServiceImplementation.template",
                 model: model,
-                directory: baseDirectory + "/domain/src/main/groovy/" + model.applicationService.packageName.replaceAll("\\.", "/"),
+                directory: baseDirectory + "/webapp/src/main/groovy/" + model.applicationService.packageName.replaceAll("\\.", "/"),
                 fileName: model.applicationService.className + "Impl.groovy"
         )
     }
 
     static generateResourceController(String baseDirectory, model) {
         toFile(
-                templateReader: "/templates/webapp/resourceController.template",
+                templateReader: "/templates/entity/resourceController.template",
                 model: model,
-                directory: baseDirectory + "/domain/src/main/groovy/" + model.resourceController.packageName.replaceAll("\\.", "/"),
+                directory: baseDirectory + "/webapp/src/main/groovy/" + model.resourceController.packageName.replaceAll("\\.", "/"),
                 fileName: model.resourceController.className + ".groovy"
         )
     }

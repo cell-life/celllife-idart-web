@@ -7,8 +7,4 @@ package org.celllife.idart.codegen.ant
  */
 public enum EntityCodeGeneratorAction {
 
-    application,
-    domain,
-    infrastructure
-
 }

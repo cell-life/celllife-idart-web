@@ -5,6 +5,8 @@ import org.celllife.idart.common.UserIdentifier
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+import static org.celllife.idart.domain.usersystem.UserSystemEvent.EventType.SAVED
+import static org.celllife.idart.domain.usersystem.UserSystemEvent.newUserSystemEvent
 import static org.celllife.idart.domain.usersystem.UserSystemRelationship.FOR
 
 /**
@@ -22,7 +24,7 @@ import static org.celllife.idart.domain.usersystem.UserSystemRelationship.FOR
     void saveUserForSystem(UserIdentifier fromUser, SystemIdentifier toSystem) {
 
         def existingRelationship =
-            userSystemRepository.findByFromUserAndToSystemAndRelationship(fromUser, toSystem, FOR)
+            userSystemRepository.findByUserAndSystemAndRelationship(fromUser, toSystem, FOR)
 
         if (existingRelationship == null) {
             existingRelationship = userSystemRepository.save(
@@ -30,10 +32,6 @@ import static org.celllife.idart.domain.usersystem.UserSystemRelationship.FOR
             )
         }
 
-        userSystemEventPublisher.publish(newUserSystemEvent(existingRelationship))
-    }
-
-    static newUserSystemEvent(UserSystem existingRelationship) {
-        new UserSystemEventFactory().username("").userSystem(existingRelationship).build()
+        userSystemEventPublisher.publish(newUserSystemEvent(existingRelationship, SAVED))
     }
 }

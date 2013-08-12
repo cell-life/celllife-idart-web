@@ -5,39 +5,39 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface ${entityName}ApplicationService {
+public interface ${applicationService.className} {
 
     /**
      *
-     * @param ${from.entity.identifier.fieldName}
-     * @param ${to.entity.identifier.fieldName}
+     * @param ${from.identifier.fieldName}
+     * @param ${to.identifier.fieldName}
      * @param ${to.entity.fieldName}
      * @return
      */
-    void save(String ${from.entity.identifier.fieldName}, String ${to.entity.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName})
+    void save(${from.identifier.className} ${from.identifier.fieldName}, ${to.identifier.className} ${to.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName})
 
     /**
      *
-     * @param ${from.entity.identifier.fieldName}
+     * @param ${from.identifier.fieldName}
      * @param ${to.entity.fieldName}
      * @return
      */
-    void save(String ${from.entity.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName})
+    void save(${from.entity.className} ${from.entity.fieldName}, ${to.entity.className} ${to.entity.fieldName})
 
     /**
      *
-     * @param ${from.entity.identifier.fieldName}
+     * @param ${from.identifier.fieldName}
      * @return
      */
-    Iterable<${to.entity.className}> find${to.entity.collectionClassName}By${from.entity.identifier.className}(String ${from.entity.identifier.fieldName})
+    Iterable<${to.entity.className}> find${to.entity.collectionClassName}By${from.entity.className}Identifier(${from.identifier.className} ${from.identifier.fieldName})
 
     /**
      *
-     * @param ${from.entity.identifier.fieldName}
-     * @param ${to.entity.identifier.fieldName}
+     * @param ${from.identifier.fieldName}
+     * @param ${to.identifier.fieldName}
      * @return
      */
-    ${to.entity.className} findOne${to.entity.className}By${from.entity.identifier.className}And${to.entity.identifier.className}(String ${from.entity.identifier.fieldName}, String ${to.entity.identifier.fieldName})
+    ${to.entity.className} findOne${to.entity.className}By${from.identifier.className}And${to.identifier.className}(${from.identifier.className} ${from.identifier.fieldName}, ${to.identifier.className} ${to.identifier.fieldName})
 
 
 }

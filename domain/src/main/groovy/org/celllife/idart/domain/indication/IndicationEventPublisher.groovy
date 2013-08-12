@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface IndicationEventPublisher {
 
-    void indicationSaved(Indication indication)
+    void publish(IndicationEvent indicationEvent)
 
 }

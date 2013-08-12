@@ -35,6 +35,7 @@
         <mapping-file>META-INF/orm/substitution.xml</mapping-file>
         <mapping-file>META-INF/orm/substitutionreason.xml</mapping-file>
         <mapping-file>META-INF/orm/system.xml</mapping-file>
+        <mapping-file>META-INF/orm/systemfacility.xml</mapping-file>
         <mapping-file>META-INF/orm/unitofmeasure.xml</mapping-file>
         <mapping-file>META-INF/orm/unitofmeasuretype.xml</mapping-file>
         <mapping-file>META-INF/orm/user.xml</mapping-file>

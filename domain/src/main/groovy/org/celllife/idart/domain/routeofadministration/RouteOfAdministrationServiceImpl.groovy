@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrationEvent.EventType.SAVED
+import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrationEvent.newRouteOfAdministrationEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         routeOfAdministrationValidator.validate(routeOfAdministration)
 
-        routeOfAdministrationEventPublisher.routeOfAdministrationSaved(routeOfAdministration)
+        routeOfAdministrationEventPublisher.publish(newRouteOfAdministrationEvent(routeOfAdministration, SAVED))
 
         routeOfAdministrationRepository.save(routeOfAdministration)
     }

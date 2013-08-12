@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.system.SystemEvent.EventType.SAVED
+import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         systemValidator.validate(system)
 
-        systemEventPublisher.systemSaved(system)
+        systemEventPublisher.publish(newSystemEvent(system, SAVED))
 
         systemRepository.save(system)
     }

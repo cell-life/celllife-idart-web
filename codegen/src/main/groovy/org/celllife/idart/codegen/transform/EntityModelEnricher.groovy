@@ -9,19 +9,6 @@ import static org.celllife.idart.codegen.transform.Transformations.*
  */
 class EntityModelEnricher {
 
-    static fullListOfFeatures = [
-            "identifier",
-            "entity",
-            "repository",
-            "domainService",
-            "applicationService",
-            "validator",
-            "jsr303Validator",
-            "springDataRepository",
-            "resourceController",
-            "eventPublisher"
-    ]
-
     static enrichModelWithEntity(baseNamespace, model) {
 
         def basePackageName = toPackage(baseNamespace)

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionEvent.EventType.SAVED
+import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionEvent.newDefaultDosageInstructionEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         defaultDosageInstructionValidator.validate(defaultDosageInstruction)
 
-        defaultDosageInstructionEventPublisher.defaultDosageInstructionSaved(defaultDosageInstruction)
+        defaultDosageInstructionEventPublisher.publish(newDefaultDosageInstructionEvent(defaultDosageInstruction, SAVED))
 
         defaultDosageInstructionRepository.save(defaultDosageInstruction)
     }

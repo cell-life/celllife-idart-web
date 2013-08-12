@@ -15,6 +15,7 @@ MAVEN_OPTS="-Xmx1024m -Xms1024m -XX:MaxPermSize=512m"
 export MAVEN_OPTS
 
 mvn clean -f ${BASE_DIR}/../pom.xml
+mvn install -DskipTests -f ${BASE_DIR}/../common/pom.xml
 mvn install -DskipTests -f ${BASE_DIR}/../domain/pom.xml
 mvn install -DskipTests -f ${BASE_DIR}/../webapp/pom.xml
 mvn install -DskipTests -f ${BASE_DIR}/../jboss/pom.xml

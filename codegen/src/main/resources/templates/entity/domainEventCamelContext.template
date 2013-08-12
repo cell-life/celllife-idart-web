@@ -1,0 +1,14 @@
+
+spring-jms.xml    <camel:route>
+spring-jms.xml        <camel:from uri="jms:topic:${domainEvent.fieldName}?clientId=${domainEvent.fieldName}Graph&amp;durableSubscriptionName=${domainEvent.fieldName}Graph"/>
+spring-jms.xml        <camel:bean ref="graphDomainEventConsumer" method="handle${domainEvent.className}"/>
+spring-jms.xml    </camel:route>
+spring-jms.xml
+spring-jms.xml    <camel:route>
+spring-jms.xml        <camel:from uri="direct:${domainEvent.fieldName}"/>
+spring-jms.xml        <camel:to uri="jms:topic:${domainEvent.fieldName}" pattern="InOnly"/>
+spring-jms.xml    </camel:route>
+
+config.cli        jms-topic add \\
+config.cli            --topic-address=${domainEvent.fieldName} \\
+config.cli            --entries=topic/${domainEvent.fieldName}

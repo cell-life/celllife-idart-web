@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface DispensedMedicationEventPublisher {
 
-    void dispensedMedicationSaved(DispensedMedication dispensedMedication)
+    void publish(DispensedMedicationEvent dispensedMedicationEvent)
 
 }

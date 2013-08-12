@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent.EventType.SAVED
+import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent.newUnitOfMeasureTypeEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         unitOfMeasureTypeValidator.validate(unitOfMeasureType)
 
-        unitOfMeasureTypeEventPublisher.unitOfMeasureTypeSaved(unitOfMeasureType)
+        unitOfMeasureTypeEventPublisher.publish(newUnitOfMeasureTypeEvent(unitOfMeasureType, SAVED))
 
         unitOfMeasureTypeRepository.save(unitOfMeasureType)
     }

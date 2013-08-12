@@ -33,6 +33,7 @@ mvn install -DskipTests -f ${BASE_DIR}/../codegen/pom.xml
 ant -f ${BASE_DIR}/../codegen/target/celllife-idart-codegen/build.xml -Dproject.baseDir=${BASE_DIR}/..
 
 # Build Domain and Webapp
+mvn install -DskipTests -f ${BASE_DIR}/../common/pom.xml
 mvn install -DskipTests -f ${BASE_DIR}/../domain/pom.xml
 mvn install -DskipTests -f ${BASE_DIR}/../webapp/pom.xml
 

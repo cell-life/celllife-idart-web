@@ -10,6 +10,7 @@ import javax.annotation.Generated;
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataSubstitutionReasonRepository extends PagingAndSortingRepository<SubstitutionReason, SubstitutionReasonCode>, SubstitutionReasonRepository {
+public interface SpringDataSubstitutionReasonRepository extends SubstitutionReasonRepository,
+        PagingAndSortingRepository<SubstitutionReason, SubstitutionReasonCode> {
 
 }

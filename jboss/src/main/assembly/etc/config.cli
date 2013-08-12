@@ -60,8 +60,112 @@ data-source enable --name=iDartDS
 #######################################################################################################################
 
 jms-topic add \
+    --topic-address=administrationMethodEvent \
+    --entries=topic/administrationMethodEvent
+
+jms-topic add \
+    --topic-address=compoundEvent \
+    --entries=topic/compoundEvent
+
+jms-topic add \
+    --topic-address=defaultDosageInstructionEvent \
+    --entries=topic/defaultDosageInstructionEvent
+
+jms-topic add \
+    --topic-address=dispensationEvent \
+    --entries=topic/dispensationEvent
+
+jms-topic add \
+    --topic-address=dispensedMedicationEvent \
+    --entries=topic/dispensedMedicationEvent
+
+jms-topic add \
+    --topic-address=drugEvent \
+    --entries=topic/drugEvent
+
+jms-topic add \
+    --topic-address=encounterEvent \
+    --entries=topic/encounterEvent
+
+jms-topic add \
+    --topic-address=entrySiteEvent \
+    --entries=topic/entrySiteEvent
+
+jms-topic add \
+    --topic-address=facilityEvent \
+    --entries=topic/facilityEvent
+
+jms-topic add \
+    --topic-address=formEvent \
+    --entries=topic/formEvent
+
+jms-topic add \
+    --topic-address=indicationEvent \
+    --entries=topic/indicationEvent
+
+jms-topic add \
+    --topic-address=legalOrganisationEvent \
+    --entries=topic/legalOrganisationEvent
+
+jms-topic add \
+    --topic-address=lifeEventEvent \
+    --entries=topic/lifeEventEvent
+
+jms-topic add \
+    --topic-address=medicationEvent \
+    --entries=topic/medicationEvent
+
+jms-topic add \
+    --topic-address=organisationEvent \
+    --entries=topic/organisationEvent
+
+jms-topic add \
+    --topic-address=patientEvent \
+    --entries=topic/patientEvent
+
+jms-topic add \
+    --topic-address=personEvent \
+    --entries=topic/personEvent
+
+jms-topic add \
+    --topic-address=practitionerEvent \
+    --entries=topic/practitionerEvent
+
+jms-topic add \
+    --topic-address=prescribedMedicationEvent \
+    --entries=topic/prescribedMedicationEvent
+
+jms-topic add \
+    --topic-address=prescriptionEvent \
+    --entries=topic/prescriptionEvent
+
+jms-topic add \
+    --topic-address=routeOfAdministrationEvent \
+    --entries=topic/routeOfAdministrationEvent
+
+jms-topic add \
+    --topic-address=substitutionEvent \
+    --entries=topic/substitutionEvent
+
+jms-topic add \
+    --topic-address=substitutionReasonEvent \
+    --entries=topic/substitutionReasonEvent
+
+jms-topic add \
+    --topic-address=unitOfMeasureEvent \
+    --entries=topic/unitOfMeasureEvent
+
+jms-topic add \
+    --topic-address=unitOfMeasureTypeEvent \
+    --entries=topic/unitOfMeasureTypeEvent
+
+jms-topic add \
     --topic-address=systemEvent \
     --entries=topic/systemEvent
+
+jms-topic add \
+    --topic-address=systemFacilityEvent \
+    --entries=topic/systemFacilityEvent
 
 jms-topic add \
     --topic-address=userEvent \

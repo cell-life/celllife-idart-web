@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
-import static org.celllife.idart.domain.user.UserEvent.UserEventType.SAVED
+import static org.celllife.idart.domain.user.UserEvent.EventType.SAVED
 import static org.celllife.idart.domain.user.UserEvent.newUserEvent
 
 /**

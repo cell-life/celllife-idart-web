@@ -19,7 +19,8 @@ class RelationshipModelEnricherTest {
     def baseNamespace = "http://www.cell-life.org/idart"
 
     def models = [
-            [from: [name: "User"], to: [name: "System"], relationships: [[name: "For"]]]
+            [from: [name: "User"], to: [name: "System"], relationships: [[name: "For"]]],
+            [from: [name: "System"], to: [name: "Facility", namePlural: "Facilities"], relationships: [[name: "Deployed At"]]]
     ]
 
     @Test

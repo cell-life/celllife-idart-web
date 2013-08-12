@@ -38,6 +38,7 @@
     <include file="db.changelog-prescription.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-product.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-system.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-systemfacility.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-user.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-usersystem.xml" relativeToChangelogFile="true"/>
 

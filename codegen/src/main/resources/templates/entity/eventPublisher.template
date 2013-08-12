@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface ${eventPublisher.className} {
 
-    void publish(${event.className} ${event.fieldName})
+    void publish(${domainEvent.className} ${domainEvent.fieldName})
 
 }

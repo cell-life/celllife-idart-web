@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
 
+import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicationEvent.EventType.SAVED
+import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicationEvent.newPrescribedMedicationEvent
+
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
@@ -23,7 +26,7 @@ import javax.annotation.Generated
 
         prescribedMedicationValidator.validate(prescribedMedication)
 
-        prescribedMedicationEventPublisher.prescribedMedicationSaved(prescribedMedication)
+        prescribedMedicationEventPublisher.publish(newPrescribedMedicationEvent(prescribedMedication, SAVED))
 
         prescribedMedicationRepository.save(prescribedMedication)
     }

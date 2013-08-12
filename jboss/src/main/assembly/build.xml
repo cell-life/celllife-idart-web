@@ -6,7 +6,7 @@
 
     <property name="etc.path" value="${basedir}/etc"/>
     <property name="lib.path" value="${basedir}/lib"/>
-    <property name="tmp.path" value="${basedir}/tmp"/>
+    <property name="tmp.path" value="${java.io.tmpdir}"/>
 
     <property name="jboss.path" value="${tmp.path}/jboss-as-${jboss.version}"/>
     <property name="mysql.module.path" value="${jboss.path}/modules/com/mysql/main"/>
@@ -51,7 +51,7 @@
     <fileset id="dependency.fileset"/>
 
     <target name="jboss-clean" depends="check-initialised" if="initialised">
-        <delete dir="tmp"/>
+        <delete dir="${jboss.path}"/>
     </target>
 
     <target name="check-initialised">

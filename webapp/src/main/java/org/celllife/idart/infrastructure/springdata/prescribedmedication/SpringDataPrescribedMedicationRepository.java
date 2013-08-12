@@ -10,6 +10,7 @@ import javax.annotation.Generated;
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataPrescribedMedicationRepository extends PagingAndSortingRepository<PrescribedMedication, PrescribedMedicationIdentifier>, PrescribedMedicationRepository {
+public interface SpringDataPrescribedMedicationRepository extends PrescribedMedicationRepository,
+        PagingAndSortingRepository<PrescribedMedication, PrescribedMedicationIdentifier> {
 
 }

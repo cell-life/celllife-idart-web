@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface OrganisationEventPublisher {
 
-    void organisationSaved(Organisation organisation)
+    void publish(OrganisationEvent organisationEvent)
 
 }

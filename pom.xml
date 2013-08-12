@@ -37,6 +37,7 @@
         <neo4j.version>1.9.RC2</neo4j.version>
         <camel.version>2.11.0</camel.version>
         <hibernate.version>4.2.2.Final</hibernate.version>
+        <hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
     </properties>
 
     <distributionManagement>
@@ -454,6 +455,12 @@
                 </exclusions>
             </dependency>
 
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+
             <!-- Commons -->
 
             <dependency>
@@ -554,13 +561,13 @@
 
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-jms</artifactId>
+                <artifactId>camel-jackson</artifactId>
                 <version>${camel.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-jackson</artifactId>
+                <artifactId>camel-jms</artifactId>
                 <version>${camel.version}</version>
             </dependency>
 

@@ -8,17 +8,17 @@
 
     <tx:annotation-driven/>
 
-    <jee:jndi-lookup id="transactionManager"
+    <jee:jndi-lookup id="jtaTransactionManager"
                      jndi-name="TransactionManager"
                      expected-type="javax.transaction.TransactionManager"
                      resource-ref="false"/>
 
-    <bean id="jtaTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
         <property name="nestedTransactionAllowed" value="true"/>
-        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionManager" ref="jtaTransactionManager"/>
     </bean>
 
-    <tx:advice id="transactionInterceptor" transaction-manager="jtaTransactionManager">
+    <tx:advice id="transactionInterceptor" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="delete*" propagation="REQUIRES_NEW" read-only="false"/>
             <tx:method name="exists*" propagation="REQUIRES_NEW" read-only="true"/>

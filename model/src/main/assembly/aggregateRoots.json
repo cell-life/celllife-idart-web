@@ -142,7 +142,7 @@
             "name": "Party Identifier"
         },
         "features": {
-            "excludes": ["identifier", "validator", "jsr303Validator", "eventPublisher"]
+            "excludes": ["identifier"]
         }
     },
     {
