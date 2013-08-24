@@ -1,4 +1,4 @@
-package org.celllife.idart.domain.dispensedmedication
+package org.celllife.idart.domain.dispensation
 
 import org.celllife.idart.common.DispensedMedicationId
 import org.celllife.idart.common.PrescribedMedicationId

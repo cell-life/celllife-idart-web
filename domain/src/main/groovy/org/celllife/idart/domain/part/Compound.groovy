@@ -1,4 +1,4 @@
-package org.celllife.idart.domain.compound
+package org.celllife.idart.domain.part
 
 import org.celllife.idart.domain.part.Part
 

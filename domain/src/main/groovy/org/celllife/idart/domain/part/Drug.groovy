@@ -1,9 +1,7 @@
-package org.celllife.idart.domain.drug
+package org.celllife.idart.domain.part
 
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.domain.part.EngineeringPartBillOfMaterialsItem
-import org.celllife.idart.domain.part.Part
-import org.celllife.idart.domain.part.PartBillOfMaterialsItem
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 
 /**
