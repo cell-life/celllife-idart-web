@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.organisation
 
+import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.domain.party.Party
 
 /**
@@ -8,6 +9,11 @@ import org.celllife.idart.domain.party.Party
  * Time: 13h50
  */
 abstract class Organisation extends Party {
+
+    /**
+     * Identified by
+     */
+    OrganisationId id
 
     String name
 

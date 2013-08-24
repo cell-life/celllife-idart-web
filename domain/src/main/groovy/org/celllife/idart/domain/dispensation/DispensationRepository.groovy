@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.dispensation
 
-import org.celllife.idart.common.DispensationIdentifier
+import org.celllife.idart.common.DispensationId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface DispensationRepository {
 
     Dispensation save(Dispensation dispensation)
 
-    Dispensation findOne(DispensationIdentifier dispensationIdentifier)
+    Dispensation findOne(DispensationId dispensationId)
 
 }

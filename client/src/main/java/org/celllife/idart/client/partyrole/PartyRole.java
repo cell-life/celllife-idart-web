@@ -1,6 +1,6 @@
 package org.celllife.idart.client.partyrole;
 
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.person.Person;
 
 import java.io.Serializable;
@@ -17,7 +17,7 @@ public abstract class PartyRole implements Serializable {
 
     public Person person;
 
-    public Set<Identifier> identifiers = new HashSet<Identifier>();
+    public Set<Id> ids = new HashSet<Id>();
 
     public Date fromDate;
 
@@ -26,16 +26,16 @@ public abstract class PartyRole implements Serializable {
     public PartyRole() {
     }
 
-    public String getIdentifierBySytem(String system) {
+    public String getIdBySytem(String system) {
 
-        for (Identifier identifier : identifiers) {
+        for (Id id : ids) {
 
-            if (identifier == null) {
+            if (id == null) {
                 continue;
             }
 
-            if (identifier.system != null && identifier.system.equals(system)) {
-                return identifier.value;
+            if (id.system != null && id.system.equals(system)) {
+                return id.value;
             }
         }
 

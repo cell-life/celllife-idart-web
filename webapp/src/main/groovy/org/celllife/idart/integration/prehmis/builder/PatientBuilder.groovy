@@ -4,7 +4,7 @@ import org.celllife.idart.domain.party.Party
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.integration.prehmis.PrehmisGender
-import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
+import org.celllife.idart.integration.prehmis.PrehmisPatientIdType
 
 import java.text.SimpleDateFormat
 
@@ -35,16 +35,16 @@ class PatientBuilder {
             return null
         }
 
-        patient.addIdentifier(PrehmisPatientIdentifierType.PREHMIS.system, prehmisId)
+        patient.addId(PrehmisPatientIdType.PREHMIS.system, prehmisId)
 
         String pgwcPatientNumber = prehmisPatient.pgwc_patient_number.text()
         if (pgwcPatientNumber != null && !pgwcPatientNumber.empty) {
-            patient.addIdentifier(PrehmisPatientIdentifierType.PGWC.system, pgwcPatientNumber)
+            patient.addId(PrehmisPatientIdType.PGWC.system, pgwcPatientNumber)
         }
 
         String saId = prehmisPatient.sa_id_number.text()
         if (saId != null && !saId.empty) {
-            ((Party) person).addIdentifier(PrehmisPatientIdentifierType.SAID.system, saId)
+            ((Party) person).addId(PrehmisPatientIdType.SAID.system, saId)
         }
 
         person.firstName = prehmisPatient.first_name.text()

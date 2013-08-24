@@ -1,8 +1,8 @@
 package org.celllife.idart.domain.dispensation
 
-import org.celllife.idart.common.DispensationIdentifier
-import org.celllife.idart.common.DispensedMedicationIdentifier
-import org.celllife.idart.common.PractitionerIdentifier
+import org.celllife.idart.common.DispensationId
+import org.celllife.idart.common.DispensedMedicationId
+import org.celllife.idart.common.PractitionerId
 
 /**
  * Provision of a supply of a medication with the intention that it is subsequently consumed by a patient
@@ -22,7 +22,7 @@ class Dispensation {
     /**
      * Identified by
      */
-    DispensationIdentifier identifier
+    DispensationId id
 
     /**
      * Dispensed to
@@ -30,17 +30,17 @@ class Dispensation {
      * Although the patient could be inferred from the prescription, this is put here explicitly because the dispense
      * action may take place without a prescription.
      */
-    PractitionerIdentifier patient
+    PractitionerId patient
 
     /**
      * Dispensed by
      */
-    PractitionerIdentifier dispenser
+    PractitionerId dispenser
 
     /**
      * Contains
      */
-    Set<DispensedMedicationIdentifier> dispensedMedications = []
+    Set<DispensedMedicationId> dispensedMedications = []
 
     def merge(Dispensation that) {
 

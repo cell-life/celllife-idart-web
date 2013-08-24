@@ -1,7 +1,7 @@
 package org.celllife.idart.client.person;
 
 import org.celllife.idart.client.common.Gender;
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.common.MaritalStatus;
 
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public final class Person implements Serializable {
 
-    public Set<Identifier> identifiers;
+    public Set<Id> ids;
 
     public Set<PartyClassificationApplication> classifications;
 

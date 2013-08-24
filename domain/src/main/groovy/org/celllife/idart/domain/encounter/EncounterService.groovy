@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.encounter
 
-import org.celllife.idart.common.EncounterIdentifier
+import org.celllife.idart.common.EncounterId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface EncounterService {
 
     Encounter save(Encounter encounter) throws EncounterValidationException
 
-    Encounter findByEncounterIdentifier(EncounterIdentifier encounterIdentifier) throws EncounterNotFoundException
+    Encounter findByEncounterId(EncounterId encounterId) throws EncounterNotFoundException
 
 }

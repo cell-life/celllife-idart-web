@@ -22,26 +22,26 @@ public final class PrescribedMedicationBuilder implements Serializable {
 
     private PrescribedMedication prescribedMedication;
 
-    private String clinicMedicationsIdentifierSystem;
+    private String clinicMedicationsIdSystem;
 
-    private String clinicPrescribedMedicationsIdentifierSystem;
+    private String clinicPrescribedMedicationsIdSystem;
 
-    public PrescribedMedicationBuilder(String clinicIdentifier) {
+    public PrescribedMedicationBuilder(String clinicId) {
         this.prescribedMedication = new PrescribedMedication();
-        this.clinicMedicationsIdentifierSystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicIdentifier);
-        this.clinicPrescribedMedicationsIdentifierSystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/prescribedMedications", clinicIdentifier);
+        this.clinicMedicationsIdSystem =
+                String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicId);
+        this.clinicPrescribedMedicationsIdSystem =
+                String.format("http://www.cell-life.org/idart/clinics/%s/prescribedMedications", clinicId);
     }
 
-    public PrescribedMedicationBuilder setIdentifier(String prescribedMedicationIdentifier) {
-        this.prescribedMedication.identifiers.add(new Identifier(clinicPrescribedMedicationsIdentifierSystem, prescribedMedicationIdentifier));
+    public PrescribedMedicationBuilder setId(String prescribedMedicationId) {
+        this.prescribedMedication.ids.add(new Id(clinicPrescribedMedicationsIdSystem, prescribedMedicationId));
         return this;
     }
 
-    public PrescribedMedicationBuilder setMedication(String identifier) {
+    public PrescribedMedicationBuilder setMedication(String id) {
         this.prescribedMedication.medication = new Medication();
-        this.prescribedMedication.medication.identifiers.add(new Identifier(clinicMedicationsIdentifierSystem, identifier));
+        this.prescribedMedication.medication.ids.add(new Id(clinicMedicationsIdSystem, id));
         return this;
     }
 

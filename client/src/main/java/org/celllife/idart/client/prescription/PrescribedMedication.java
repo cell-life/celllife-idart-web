@@ -1,7 +1,7 @@
 package org.celllife.idart.client.prescription;
 
 import org.celllife.idart.client.common.Duration;
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.common.Period;
 import org.celllife.idart.client.common.Quantity;
 import org.celllife.idart.client.dosageinstruction.DosageInstruction;
@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public final class PrescribedMedication implements Serializable {
 
-    public Set<Identifier> identifiers = new HashSet<Identifier>();
+    public Set<Id> ids = new HashSet<Id>();
 
     public Medication medication;
 

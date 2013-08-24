@@ -3,7 +3,7 @@ package org.celllife.idart.application.dispensation
 import org.celllife.idart.domain.dispensation.Dispensation
 import org.celllife.idart.domain.dispensation.DispensationValidationException
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
-import org.celllife.idart.common.DispensationIdentifier
+import org.celllife.idart.common.DispensationId
 import org.celllife.idart.domain.dispensation.DispensationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         dispensationService.save(dispensation)
     }
 
-    Dispensation findByDispensationIdentifier(DispensationIdentifier dispensationIdentifier) throws DispensationNotFoundException{
-        dispensationService.findByDispensationIdentifier(dispensationIdentifier)
+    Dispensation findByDispensationId(DispensationId dispensationId) throws DispensationNotFoundException{
+        dispensationService.findByDispensationId(dispensationId)
     }
 
 }

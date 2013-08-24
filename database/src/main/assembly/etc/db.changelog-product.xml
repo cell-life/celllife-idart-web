@@ -6,15 +6,15 @@
     <changeSet id="product-1" author="kevin.sewell">
 
         <createTable tableName="product">
-            <column name="identifier" type="varchar(31)">
+            <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="medication">
-            <column name="identifier" type="varchar(31)">
-                <constraints references="product(identifier)" foreignKeyName="product_medication_fk"/>
+            <column name="id" type="varchar(31)">
+                <constraints references="product(id)" foreignKeyName="product_medication_fk"/>
             </column>
             <column name="drug" type="varchar(31)"/>
         </createTable>

@@ -49,7 +49,7 @@ class PractitionerBuilderTest {
 
         Assert.assertEquals("AEIGHT", practitioner.person.firstName)
         Assert.assertEquals("TEST", practitioner.person.lastName)
-        Assert.assertEquals("72254311", practitioner.getIdentifierValue("http://prehmis.capetown.gov.za"))
+        Assert.assertEquals("72254311", practitioner.getIdValue("http://prehmis.capetown.gov.za"))
 
         practitioner.person.contactMechanisms.each { contactMechanism ->
             if (contactMechanism.contactMechanism instanceof MobileTelephoneNumber) {

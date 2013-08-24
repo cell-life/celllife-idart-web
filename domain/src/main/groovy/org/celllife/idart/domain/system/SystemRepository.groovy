@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.system
 
-import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.SystemId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface SystemRepository {
 
     System save(System system)
 
-    System findOne(SystemIdentifier systemIdentifier)
+    System findOne(SystemId systemId)
 
 }

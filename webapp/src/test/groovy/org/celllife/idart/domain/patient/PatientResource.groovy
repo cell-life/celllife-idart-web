@@ -15,14 +15,14 @@ class PatientResource {
 
     static String baseResourceUrl = "${contextPath}/api/patients"
 
-    static String findByIdentifierUrl = "${baseResourceUrl}/search/findByIdentifier"
+    static String findByIdUrl = "${baseResourceUrl}/search/findById"
 
     static findAll() {
         get(path: baseResourceUrl)
     }
 
-    static findByIdentifier(String identifierValue) {
-        get(path: findByIdentifierUrl, query: [identifierValue: identifierValue])
+    static findById(String idValue) {
+        get(path: findByIdUrl, query: [idValue: idValue])
     }
 
     static clear() {

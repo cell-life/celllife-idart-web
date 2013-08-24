@@ -1,8 +1,8 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.common.PartyIdentifier
-import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.PatientId
 import org.celllife.idart.common.Period
+import org.celllife.idart.common.PersonId
 
 /**
  * Party Role -> Person Role -> Patient
@@ -21,7 +21,7 @@ class Patient {
     /**
      * Identified by
      */
-    PatientIdentifier identifier
+    PatientId id
 
     /**
      * Valid during
@@ -31,7 +31,7 @@ class Patient {
     /**
      * Acted by
      */
-    PartyIdentifier person
+    PersonId person
 
     def merge(Patient that) {
 

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.facility
 
-import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.FacilityId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface FacilityRepository {
 
     Facility save(Facility facility)
 
-    Facility findOne(FacilityIdentifier facilityIdentifier)
+    Facility findOne(FacilityId facilityId)
 
 }

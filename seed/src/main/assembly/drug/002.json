@@ -1,0 +1,26 @@
+{
+    "@type": "drug",
+    "identifier": "00000002",
+    "billOfMaterials": [
+        {
+            "@type": "engineering",
+            "fromDate": "2013-01-01",
+            "part": {
+                "@type": "drug",
+                "identifier": "00000001"
+            },
+            "quantityUsed": {
+                "unitOfMeasure": "each",
+                "value": "100"
+
+            }
+        }
+    ],
+    "classifications": [
+        {
+            "code": "J05AF01",
+            "type": "ATC"
+        }
+    ],
+    "unitOfMeasure": "each"
+}

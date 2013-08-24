@@ -2,7 +2,7 @@ package org.celllife.idart.domain.defaultdosageinstruction
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 import org.celllife.idart.domain.drug.Drug
 
@@ -19,7 +19,7 @@ class DefaultDosageInstruction {
 
     Long pk
 
-    PartIdentifier drug
+    PartId drug
 
     DosageInstruction dosageInstruction
 

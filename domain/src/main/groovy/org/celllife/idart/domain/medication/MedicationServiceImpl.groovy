@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.medication
 
-import org.celllife.idart.common.ProductIdentifier
+import org.celllife.idart.common.ProductId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.medication.MedicationEvent.newMedication
     }
 
     @Override
-    Medication findByProductIdentifier(ProductIdentifier productIdentifier) throws MedicationNotFoundException {
+    Medication findByProductId(ProductId productId) throws MedicationNotFoundException {
 
-        def medication = medicationRepository.findOne(productIdentifier)
+        def medication = medicationRepository.findOne(productId)
 
         if (medication == null) {
-            throw new MedicationNotFoundException("Could not find Medication with Product Identifier [${ productIdentifier}]")
+            throw new MedicationNotFoundException("Could not find Medication with Product Id [${ productId}]")
         }
 
         medication

@@ -1,14 +1,14 @@
 package org.celllife.idart.codegen.relationship
 
 import org.celllife.idart.codegen.transform.EntityModelEnricher
-import org.celllife.idart.codegen.transform.IdentifierModelEnricher
+import org.celllife.idart.codegen.transform.IdModelEnricher
 import org.celllife.idart.codegen.transform.ModelEnricher
 
 import java.util.regex.Pattern
 
 import static org.celllife.idart.codegen.transform.ApplicationServiceModelEnricher.enrichModelWithApplicationService
 import static org.celllife.idart.codegen.transform.EntityModelEnricher.enrichModelWithEntity
-import static org.celllife.idart.codegen.transform.IdentifierModelEnricher.enrichModelWithIdentifier
+import static org.celllife.idart.codegen.transform.IdModelEnricher.enrichModelWithId
 import static org.celllife.idart.codegen.transform.ModelEnricher.enrichModel
 
 /**
@@ -29,7 +29,7 @@ class RelationshipModelEnricher {
              */
 
             enrichModel(baseNamespace, from)
-            enrichModelWithIdentifier(baseNamespace, from)
+            enrichModelWithId(baseNamespace, from)
             enrichModelWithEntity(baseNamespace, from)
             enrichModelWithApplicationService(baseNamespace, from)
 
@@ -38,7 +38,7 @@ class RelationshipModelEnricher {
              */
 
             enrichModel(baseNamespace, to)
-            enrichModelWithIdentifier(baseNamespace, to)
+            enrichModelWithId(baseNamespace, to)
             enrichModelWithEntity(baseNamespace, to)
             enrichModelWithApplicationService(baseNamespace, to)
 

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.practitioner
 
-import org.celllife.idart.common.PractitionerIdentifier
+import org.celllife.idart.common.PractitionerId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface PractitionerService {
 
     Practitioner save(Practitioner practitioner) throws PractitionerValidationException
 
-    Practitioner findByPractitionerIdentifier(PractitionerIdentifier practitionerIdentifier) throws PractitionerNotFoundException
+    Practitioner findByPractitionerId(PractitionerId practitionerId) throws PractitionerNotFoundException
 
 }

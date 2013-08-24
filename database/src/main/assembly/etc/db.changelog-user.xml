@@ -6,7 +6,7 @@
     <changeSet id="user-1" author="kevin.sewell">
 
         <createTable tableName="user">
-            <column name="identifier" type="varchar(31)">
+            <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="current_username" type="varchar(31)"/>

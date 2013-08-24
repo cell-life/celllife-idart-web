@@ -58,19 +58,6 @@
         </attributes>
     </embeddable>
 
-    <!-- Party Classification Code -->
-
-    <embeddable class="org.celllife.idart.common.PartyIdentifier">
-        <attributes>
-            <basic name="value">
-                <column name="identifier"/>
-            </basic>
-            <basic name="type">
-                <enumerated>STRING</enumerated>
-            </basic>
-        </attributes>
-    </embeddable>
-
     <!-- Period -->
 
     <embeddable class="org.celllife.idart.common.Period">
@@ -86,7 +73,7 @@
         </attributes>
     </embeddable>
 
-    <!-- Period -->
+    <!-- Quantity -->
 
     <embeddable class="org.celllife.idart.common.Quantity">
         <attributes>
@@ -103,10 +90,6 @@
 
     <embeddable class="org.celllife.idart.common.Repeat">
         <attributes>
-            <basic name="count"/>
-            <basic name="end">
-                <temporal>DATE</temporal>
-            </basic>
             <basic name="frequency">
                 <column name="repeat_frequency"/>
             </basic>

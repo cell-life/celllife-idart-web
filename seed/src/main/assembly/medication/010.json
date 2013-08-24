@@ -1,0 +1,8 @@
+{
+    "identifier": "00000010",
+    "name": "Tenofovir 300mg (30 Tablets)",
+    "drug": {
+        "@type": "drug",
+        "identifier": "00000020"
+    }
+}

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.user
 
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.UserId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.user.UserEvent.newUserEvent
     }
 
     @Override
-    User findByUserIdentifier(UserIdentifier userIdentifier) throws UserNotFoundException {
+    User findByUserId(UserId userId) throws UserNotFoundException {
 
-        def user = userRepository.findOne(userIdentifier)
+        def user = userRepository.findOne(userId)
 
         if (user == null) {
-            throw new UserNotFoundException("Could not find User with User Identifier [${ userIdentifier}]")
+            throw new UserNotFoundException("Could not find User with User Id [${ userId}]")
         }
 
         user

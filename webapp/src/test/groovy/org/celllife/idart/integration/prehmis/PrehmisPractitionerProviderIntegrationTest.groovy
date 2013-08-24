@@ -22,7 +22,7 @@ class PrehmisPractitionerProviderIntegrationTest {
     @Autowired PractitionerProvider practitionerProvider
 
     @Test
-    void testFindByIdentifier() throws Exception {
+    void testFindById() throws Exception {
 
         Set<Practitioner> practitioners = practitionerProvider.findAll("WES")
         Assert.assertNotNull(practitioners)

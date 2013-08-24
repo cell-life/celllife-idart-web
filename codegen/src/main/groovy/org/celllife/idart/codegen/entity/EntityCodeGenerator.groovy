@@ -20,8 +20,8 @@ class EntityCodeGenerator {
         model.features.includes.each { feature ->
 
             switch (feature) {
-                case "identifier":
-                    generateIdentifier(baseDirectory, model)
+                case "id":
+                    generateId(baseDirectory, model)
                     break
                 case "entity":
                     generateEntity(baseDirectory, model)
@@ -66,12 +66,12 @@ class EntityCodeGenerator {
         }
     }
 
-    static generateIdentifier(String baseDirectory, model) {
+    static generateId(String baseDirectory, model) {
         toFile(
-                templateReader: "/templates/entity/identifier.template",
+                templateReader: "/templates/entity/id.template",
                 model: model,
-                directory: baseDirectory + "/common/src/main/groovy/" + model.identifier.packageName.replaceAll("\\.", "/"),
-                fileName: model.identifier.className + ".groovy"
+                directory: baseDirectory + "/common/src/main/groovy/" + model.id.packageName.replaceAll("\\.", "/"),
+                fileName: model.id.className + ".groovy"
         )
     }
 

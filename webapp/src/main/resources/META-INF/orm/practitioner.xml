@@ -9,14 +9,14 @@
     <entity class="org.celllife.idart.domain.practitioner.Practitioner">
 
         <attributes>
-            <embedded-id name="identifier">
+            <embedded-id name="id">
                 <attribute-override name="value">
-                    <column name="identifier"/>
+                    <column name="id"/>
                 </attribute-override>
             </embedded-id>
             <embedded name="person">
                 <attribute-override name="value">
-                    <column name="person_identifier"/>
+                    <column name="person_id"/>
                 </attribute-override>
                 <attribute-override name="type">
                     <column name="person_type"/>

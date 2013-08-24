@@ -2,7 +2,7 @@
     {
         "name": "Administration Method",
         "description": "The method in which medication is administered",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -22,11 +22,11 @@
     },
     {
         "name": "Compound",
-        "identifier": {
-            "name": "Part Identifier"
+        "id": {
+            "name": "Part Id"
         },
         "features": {
-            "excludes": ["identifier"]
+            "excludes": ["id"]
         }
     },
     {
@@ -40,11 +40,11 @@
     },
     {
         "name": "Drug",
-        "identifier": {
-            "name": "Part Identifier"
+        "id": {
+            "name": "Part Id"
         },
         "features": {
-            "excludes": ["identifier"]
+            "excludes": ["id"]
         }
     },
     {
@@ -52,7 +52,7 @@
     },
     {
         "name": "Entry Site",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -72,7 +72,7 @@
     },
     {
         "name": "Form",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -88,7 +88,7 @@
     },
     {
         "name": "Indication",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -103,17 +103,8 @@
         }
     },
     {
-        "name": "Legal Organisation",
-        "identifier": {
-            "name": "Party Identifier"
-        },
-        "features": {
-            "excludes": ["identifier"]
-        }
-    },
-    {
         "name": "Life Event",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -129,33 +120,21 @@
     },
     {
         "name": "Medication",
-        "identifier": {
-            "name": "Product Identifier"
+        "id": {
+            "name": "Product Id"
         },
         "features": {
-            "excludes": ["identifier"]
+            "excludes": ["id"]
         }
     },
     {
-        "name": "Organisation",
-        "identifier": {
-            "name": "Party Identifier"
-        },
-        "features": {
-            "excludes": ["identifier"]
-        }
+        "name": "Organisation"
     },
     {
         "name": "Patient"
     },
     {
-        "name": "Person",
-        "identifier": {
-            "name": "Party Identifier"
-        },
-        "features": {
-            "excludes": ["identifier"]
-        }
+        "name": "Person"
     },
     {
         "name": "Practitioner"
@@ -169,7 +148,7 @@
     {
         "name": "Route Of Administration",
         "namePlural": "Routes Of Administration",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -185,7 +164,7 @@
     },
     {
         "name": "Substitution",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -202,7 +181,7 @@
     },
     {
         "name": "Substitution Reason",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -219,7 +198,7 @@
     {
         "name": "Unit Of Measure",
         "namePlural": "Units Of Measure",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {
@@ -235,7 +214,7 @@
     },
     {
         "name": "Unit Of Measure Type",
-        "identifier": {
+        "id": {
             "shortName": "Code"
         },
         "entity": {

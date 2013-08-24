@@ -1,7 +1,7 @@
 package org.celllife.idart.infrastructure.springdata.systemfacility;
 
-import org.celllife.idart.common.FacilityIdentifier;
-import org.celllife.idart.common.SystemIdentifier;
+import org.celllife.idart.common.FacilityId;
+import org.celllife.idart.common.SystemId;
 import org.celllife.idart.domain.systemfacility.SystemFacility;
 import org.celllife.idart.domain.systemfacility.SystemFacilityRelationship;
 import org.celllife.idart.domain.systemfacility.SystemFacilityRepository;
@@ -21,7 +21,7 @@ public interface SpringDataSystemFacilityRepository extends SystemFacilityReposi
             "where systemFacility.fromSystem = :fromSystem " +
             "and systemFacility.toFacility = :toFacility " +
             "and systemFacility.relationship = :relationship")
-    SystemFacility findBySystemAndFacilityAndRelationship(@Param("fromSystem") SystemIdentifier fromSystem,
-                                                          @Param("toFacility") FacilityIdentifier toFacility,
+    SystemFacility findBySystemAndFacilityAndRelationship(@Param("fromSystem") SystemId fromSystem,
+                                                          @Param("toFacility") FacilityId toFacility,
                                                           @Param("relationship") SystemFacilityRelationship relationship);
 }

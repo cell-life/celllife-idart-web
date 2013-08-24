@@ -1,6 +1,6 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.part.Drug;
 
 /**
@@ -12,26 +12,26 @@ public final class MedicationBuilder {
 
     private final Medication medication;
 
-    private final String clinicMedicationsIdentifierSystem;
+    private final String clinicMedicationsIdSystem;
 
-    private final String clinicDrugsIdentifierSystem;
+    private final String clinicDrugsIdSystem;
 
-    public MedicationBuilder(String clinicIdentifier) {
+    public MedicationBuilder(String clinicId) {
         this.medication = new Medication();
         this.medication.drug = new Drug();
 
-        this.clinicMedicationsIdentifierSystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicIdentifier);
+        this.clinicMedicationsIdSystem =
+                String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicId);
 
-        this.clinicDrugsIdentifierSystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicIdentifier);
+        this.clinicDrugsIdSystem =
+                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicId);
 
     }
 
-    public MedicationBuilder setIdentifier(String identifier) {
-        this.medication.identifiers.add(new Identifier(clinicMedicationsIdentifierSystem, identifier));
+    public MedicationBuilder setId(String id) {
+        this.medication.ids.add(new Id(clinicMedicationsIdSystem, id));
         this.medication.drug = new Drug();
-        this.medication.drug.identifiers.add(new Identifier(clinicDrugsIdentifierSystem, identifier));
+        this.medication.drug.ids.add(new Id(clinicDrugsIdSystem, id));
         return this;
     }
 

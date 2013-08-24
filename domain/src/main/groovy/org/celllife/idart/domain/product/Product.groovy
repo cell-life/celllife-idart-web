@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.product
 
-import org.celllife.idart.common.ProductIdentifier
+import org.celllife.idart.common.ProductId
 
 /**
  * User: Kevin W. Sewell
@@ -12,7 +12,7 @@ abstract class Product {
     /**
      * Identified by
      */
-    ProductIdentifier identifier
+    ProductId id
 
     /**
      * Name

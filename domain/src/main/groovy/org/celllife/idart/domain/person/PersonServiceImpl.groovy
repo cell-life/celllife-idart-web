@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.person
 
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.PersonId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.person.PersonEvent.newPersonEvent
     }
 
     @Override
-    Person findByPartyIdentifier(PartyIdentifier partyIdentifier) throws PersonNotFoundException {
+    Person findByPersonId(PersonId personId) throws PersonNotFoundException {
 
-        def person = personRepository.findOne(partyIdentifier)
+        def person = personRepository.findOne(personId)
 
         if (person == null) {
-            throw new PersonNotFoundException("Could not find Person with Party Identifier [${ partyIdentifier}]")
+            throw new PersonNotFoundException("Could not find Person with Person Id [${ personId}]")
         }
 
         person

@@ -18,25 +18,25 @@ class ClinicPatientApplicationServiceImpl {
     /**
      * {@inheritDoc}
      */
-    void save(String clinicIdentifier, String patientIdentifier, Patient patient) {
+    void save(String clinicId, String patientId, Patient patient) {
 
-        patient.addIdentifier(
+        patient.addId(
                 String.format(
                         "http://www.cell-life.org/idart/clinics/%s/patients",
-                        clinicIdentifier
+                        clinicId
                 ),
-                patientIdentifier
+                patientId
         )
 
-        save(clinicIdentifier, patient)
+        save(clinicId, patient)
     }
 
     /**
      * {@inheritDoc}
      */
-    void save(String clinicIdentifier, Patient patient) {
+    void save(String clinicId, Patient patient) {
 
-        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findById(clinicId)
 
         save(clinic, patient)
     }
@@ -44,35 +44,35 @@ class ClinicPatientApplicationServiceImpl {
     /**
      * {@inheritDoc}
      */
-    Iterable<Patient> findPatientsByClinicIdentifier(String clinicIdentifier) {
+    Iterable<Patient> findPatientsByClinicId(String clinicId) {
 
-        clinicPatientService.findPatientsByClinicIdentifier(clinicIdentifier)
+        clinicPatientService.findPatientsByClinicId(clinicId)
     }
 
     /**
      * {@inheritDoc}
      */
-    Iterable<Patient> findPatientsByClinicIdentifierAndPatientIdentifier(String clinicIdentifier,
-                                                                         String patientIdentifier) {
+    Iterable<Patient> findPatientsByClinicIdAndPatientId(String clinicId,
+                                                                         String patientId) {
 
-        Clinic clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
+        Clinic clinic = clinicApplicationService.findById(clinicId)
 
         if (clinic == null) {
-//            throw new ClinicNotFoundException("Clinic not found for identifier value: " + clinicIdentifier)
+//            throw new ClinicNotFoundException("Clinic not found for id value: " + clinicId)
         }
 
-        lookupFromExternalProvidersAndSave(patientIdentifier, clinic)
+        lookupFromExternalProvidersAndSave(patientId, clinic)
 
-        clinicPatientService.findPatientsByClinicIdentifierAndPatientIdentifier(clinicIdentifier, patientIdentifier)
+        clinicPatientService.findPatientsByClinicIdAndPatientId(clinicId, patientId)
     }
 
     /**
      * {@inheritDoc}
      */
-    Patient findOnePatientByClinicIdentifierAndPatientIdentifier(String clinicIdentifier,
-                                                                 String patientIdentifier) {
+    Patient findOnePatientByClinicIdAndPatientId(String clinicId,
+                                                                 String patientId) {
 
-        clinicPatientService.findOnePatientByClinicIdentifierAndPatientIdentifier(clinicIdentifier, patientIdentifier)
+        clinicPatientService.findOnePatientByClinicIdAndPatientId(clinicId, patientId)
     }
 
     /**
@@ -80,26 +80,26 @@ class ClinicPatientApplicationServiceImpl {
      *
      * @param clinic
      */
-    void lookupFromExternalProvidersAndSave(String patientIdentifier, Clinic clinic) {
+    void lookupFromExternalProvidersAndSave(String patientId, Clinic clinic) {
 
-        lookupFromExternalProviders(patientIdentifier, clinic).each { practitioner -> save(clinic, practitioner) }
+        lookupFromExternalProviders(patientId, clinic).each { practitioner -> save(clinic, practitioner) }
     }
 
     /**
      *
-     * @param patientIdentifier
+     * @param patientId
      * @param clinic
      * @return
      */
-    Set<Patient> lookupFromExternalProviders(String patientIdentifier, Clinic clinic) {
+    Set<Patient> lookupFromExternalProviders(String patientId, Clinic clinic) {
 
         Set<Patient> patients = []
 
-        for (String identifierSystem : ((Facility) clinic).identifierSystems) {
-            String clinicIdentifier = ((Facility) clinic).getIdentifierValue(identifierSystem)
-            switch (identifierSystem) {
+        for (String idSystem : ((Facility) clinic).idSystems) {
+            String clinicId = ((Facility) clinic).getIdValue(idSystem)
+            switch (idSystem) {
                 case "http://prehmis.capetown.gov.za":
-                    patients << prehmisPatientProvider.findByIdentifier(clinicIdentifier, patientIdentifier)
+                    patients << prehmisPatientProvider.findById(clinicId, patientId)
                     break
                 default:
                     break

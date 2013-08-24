@@ -33,7 +33,7 @@ class PractitionerBuilder {
             return null
         }
 
-        practitioner.addIdentifier("http://prehmis.capetown.gov.za", prehmisPractitionerCode)
+        practitioner.addId("http://prehmis.capetown.gov.za", prehmisPractitionerCode)
 
         Person person = new Person()
 

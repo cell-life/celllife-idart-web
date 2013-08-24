@@ -1,6 +1,6 @@
 package org.celllife.idart.application.prescribedmedication
 
-import org.celllife.idart.common.PrescribedMedicationIdentifier
+import org.celllife.idart.common.PrescribedMedicationId
 import org.celllife.idart.domain.medication.MedicationService
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedication
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationService
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service
 
         prescribedMedication?.with {
 
-            medication = medicationService.findByIdentifiers(medication.identifiers)
+            medication = medicationService.findByIds(medication.ids)
 
             dosageInstruction?.with {
 
@@ -47,7 +47,7 @@ import org.springframework.stereotype.Service
         prescribedMedicationService.save(prescribedMedication)
     }
 
-    PrescribedMedication findByPrescribedMedicationIdentifier(PrescribedMedicationIdentifier prescribedMedicationIdentifier) {
-        prescribedMedicationService.findByPrescribedMedicationIdentifier(prescribedMedicationIdentifier)
+    PrescribedMedication findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) {
+        prescribedMedicationService.findByPrescribedMedicationId(prescribedMedicationId)
     }
 }

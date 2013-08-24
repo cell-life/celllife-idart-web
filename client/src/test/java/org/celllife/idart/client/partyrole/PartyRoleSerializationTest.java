@@ -34,10 +34,10 @@ public class PartyRoleSerializationTest {
         PartyRole partyRole = objectMapper.reader(PartyRole.class).readValue(inputStream);
 
         Assert.assertNotNull(partyRole);
-        Assert.assertNotNull(partyRole.identifiers);
-        Assert.assertTrue(partyRole.identifiers.size() != 0);
+        Assert.assertNotNull(partyRole.ids);
+        Assert.assertTrue(partyRole.ids.size() != 0);
         Assert.assertNotNull(partyRole.person);
-        Assert.assertTrue(partyRole.person.identifiers.size() != 0);
+        Assert.assertTrue(partyRole.person.ids.size() != 0);
         Assert.assertEquals("MIHLALI", partyRole.person.firstName);
         Assert.assertEquals("PAPU", partyRole.person.lastName);
         Assert.assertEquals(Gender.F, partyRole.person.gender);
@@ -60,10 +60,10 @@ public class PartyRoleSerializationTest {
 
         for (PartyRole partyRole : partyRoles) {
             Assert.assertNotNull(partyRole);
-            Assert.assertNotNull(partyRole.identifiers);
-            Assert.assertTrue(partyRole.identifiers.size() != 0);
+            Assert.assertNotNull(partyRole.ids);
+            Assert.assertTrue(partyRole.ids.size() != 0);
             Assert.assertNotNull(partyRole.person);
-            Assert.assertTrue(partyRole.person.identifiers.size() != 0);
+            Assert.assertTrue(partyRole.person.ids.size() != 0);
         }
     }
 }

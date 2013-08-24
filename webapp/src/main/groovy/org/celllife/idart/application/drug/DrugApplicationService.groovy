@@ -3,7 +3,7 @@ package org.celllife.idart.application.drug
 import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.drug.DrugValidationException
 import org.celllife.idart.domain.drug.DrugNotFoundException
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface DrugApplicationService {
 
     Drug save(Drug drug) throws DrugValidationException
 
-    Drug findByPartIdentifier(PartIdentifier partIdentifier) throws DrugNotFoundException
+    Drug findByPartId(PartId partId) throws DrugNotFoundException
 
 }

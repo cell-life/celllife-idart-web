@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.user
 
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.UserId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface UserRepository {
 
     User save(User user)
 
-    User findOne(UserIdentifier userIdentifier)
+    User findOne(UserId userId)
 
 }

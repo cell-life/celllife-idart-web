@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.prescribedmedication
 
-import org.celllife.idart.common.PrescribedMedicationIdentifier
+import org.celllife.idart.common.PrescribedMedicationId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface PrescribedMedicationRepository {
 
     PrescribedMedication save(PrescribedMedication prescribedMedication)
 
-    PrescribedMedication findOne(PrescribedMedicationIdentifier prescribedMedicationIdentifier)
+    PrescribedMedication findOne(PrescribedMedicationId prescribedMedicationId)
 
 }

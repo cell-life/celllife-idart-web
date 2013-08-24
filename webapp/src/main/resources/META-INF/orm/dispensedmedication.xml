@@ -9,9 +9,9 @@
     <entity class="org.celllife.idart.domain.dispensedmedication.DispensedMedication">
 
         <attributes>
-            <embedded-id name="identifier">
+            <embedded-id name="id">
                 <attribute-override name="value">
-                    <column name="identifier"/>
+                    <column name="id"/>
                 </attribute-override>
             </embedded-id>
             <one-to-one name="dosageInstruction" fetch="EAGER" orphan-removal="true">

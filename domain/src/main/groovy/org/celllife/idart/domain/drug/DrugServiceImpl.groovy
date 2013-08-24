@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.drug
 
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.drug.DrugEvent.newDrugEvent
     }
 
     @Override
-    Drug findByPartIdentifier(PartIdentifier partIdentifier) throws DrugNotFoundException {
+    Drug findByPartId(PartId partId) throws DrugNotFoundException {
 
-        def drug = drugRepository.findOne(partIdentifier)
+        def drug = drugRepository.findOne(partId)
 
         if (drug == null) {
-            throw new DrugNotFoundException("Could not find Drug with Part Identifier [${ partIdentifier}]")
+            throw new DrugNotFoundException("Could not find Drug with Part Id [${ partId}]")
         }
 
         drug

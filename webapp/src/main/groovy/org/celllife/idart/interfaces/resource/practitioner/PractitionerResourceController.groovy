@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.practitioner
 
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
 import org.celllife.idart.domain.practitioner.Practitioner
-import org.celllife.idart.common.PractitionerIdentifier
+import org.celllife.idart.common.PractitionerId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/practitioners/{practitionerIdentifier}",
+            value = "/practitioners/{practitionerId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Practitioner findByPractitionerIdentifier(@PathVariable("practitionerIdentifier") PractitionerIdentifier practitionerIdentifier) {
-        practitionerApplicationService.findByPractitionerIdentifier(practitionerIdentifier)
+    Practitioner findByPractitionerId(@PathVariable("practitionerId") PractitionerId practitionerId) {
+        practitionerApplicationService.findByPractitionerId(practitionerId)
     }
 
     @RequestMapping(value = "/practitioners", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         practitioner = practitionerApplicationService.save(practitioner)
 
-        response.setHeader("Location", "${baseUrl}/practitioners/${practitioner.identifier}")
+        response.setHeader("Location", "${baseUrl}/practitioners/${practitioner.id}")
         response.setStatus(SC_CREATED)
     }
 }

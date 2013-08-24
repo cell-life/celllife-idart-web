@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.PatientId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface PatientService {
 
     Patient save(Patient patient) throws PatientValidationException
 
-    Patient findByPatientIdentifier(PatientIdentifier patientIdentifier) throws PatientNotFoundException
+    Patient findByPatientId(PatientId patientId) throws PatientNotFoundException
 
 }

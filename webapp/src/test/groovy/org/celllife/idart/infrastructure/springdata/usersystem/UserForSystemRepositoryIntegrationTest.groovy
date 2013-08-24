@@ -1,7 +1,7 @@
 package org.celllife.idart.infrastructure.springdata.usersystem
 
-import org.celllife.idart.common.SystemIdentifier
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.SystemId
+import org.celllife.idart.common.UserId
 import org.celllife.idart.domain.system.System
 import org.celllife.idart.domain.system.SystemService
 import org.celllife.idart.domain.user.User
@@ -32,17 +32,17 @@ class UserForSystemRepositoryIntegrationTest {
     @Test
     public void shouldSave() throws Exception {
 
-        def userIdentifier = new UserIdentifier(value: "00001")
-        def user = new User(identifier: userIdentifier)
+        def userId = new UserId(value: "00001")
+        def user = new User(id: userId)
         userService.save(user)
 
-        userService.findByUserIdentifier(new UserIdentifier(value: "00001"))
+        userService.findByUserId(new UserId(value: "00001"))
 
-        def systemIdentifier = new SystemIdentifier(value: "00002")
-        def system = new System(identifier: systemIdentifier)
+        def systemId = new SystemId(value: "00002")
+        def system = new System(id: systemId)
         systemService.save(system)
 
-        userForSystemService.saveUserForSystem(userIdentifier, systemIdentifier)
+        userForSystemService.saveUserForSystem(userId, systemId)
 
         sleep(5000)
 

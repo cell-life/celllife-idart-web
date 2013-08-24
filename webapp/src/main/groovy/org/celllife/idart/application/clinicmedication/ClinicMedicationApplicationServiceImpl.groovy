@@ -12,37 +12,37 @@ import javax.annotation.Generated
 
     def clinicMedicationService
 
-    void save(String clinicIdentifier, String medicationIdentifier, Medication medication) {
+    void save(String clinicId, String medicationId, Medication medication) {
 
-        medication.addIdentifier(
+        medication.addId(
                 String.format(
                         "http://www.cell-life.org/idart/clinics/%s/medications",
-                        clinicIdentifier
+                        clinicId
                 ),
-                medicationIdentifier
+                medicationId
         )
 
-        save(clinicIdentifier, medication)
+        save(clinicId, medication)
     }
 
-    void save(String clinicIdentifier, Medication medication) {
+    void save(String clinicId, Medication medication) {
 
-        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findById(clinicId)
 
         medication = medicationApplicationService.save(medication)
 
         clinicMedicationService.save(clinic, medication)
     }
 
-    Iterable<Medication> findMedicationsByClinicIdentifier(String clinicIdentifier) {
-         clinicMedicationService.findMedicationsByClinicIdentifier(clinicIdentifier)
+    Iterable<Medication> findMedicationsByClinicId(String clinicId) {
+         clinicMedicationService.findMedicationsByClinicId(clinicId)
     }
 
-    Iterable<Medication> findMedicationsByClinicIdentifierAndMedicationIdentifier(String clinicIdentifier, String medicationIdentifier) {
+    Iterable<Medication> findMedicationsByClinicIdAndMedicationId(String clinicId, String medicationId) {
 
     }
 
-    Medication findOneMedicationByClinicIdentifierAndMedicationIdentifier(String clinicIdentifier, String medicationIdentifier) {
+    Medication findOneMedicationByClinicIdAndMedicationId(String clinicId, String medicationId) {
 
     }
 }

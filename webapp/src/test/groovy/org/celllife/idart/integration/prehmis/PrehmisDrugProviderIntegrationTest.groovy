@@ -23,7 +23,7 @@ class PrehmisDrugProviderIntegrationTest {
     @Autowired PrehmisDrugProvider prehmisDrugProvider
 
     @Test
-    void testFindByIdentifier() throws Exception {
+    void testFindById() throws Exception {
 
         def getDrugListResponse = prehmisDrugProvider.findAll("WES")
 

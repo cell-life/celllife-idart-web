@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.person
 
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.PersonId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface PersonService {
 
     Person save(Person person) throws PersonValidationException
 
-    Person findByPartyIdentifier(PartyIdentifier partyIdentifier) throws PersonNotFoundException
+    Person findByPersonId(PersonId personId) throws PersonNotFoundException
 
 }

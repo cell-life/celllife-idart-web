@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.facility
 
 import org.celllife.idart.application.facility.FacilityApplicationService
 import org.celllife.idart.domain.facility.Facility
-import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.FacilityId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/facilities/{facilityIdentifier}",
+            value = "/facilities/{facilityId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Facility findByFacilityIdentifier(@PathVariable("facilityIdentifier") FacilityIdentifier facilityIdentifier) {
-        facilityApplicationService.findByFacilityIdentifier(facilityIdentifier)
+    Facility findByFacilityId(@PathVariable("facilityId") FacilityId facilityId) {
+        facilityApplicationService.findByFacilityId(facilityId)
     }
 
     @RequestMapping(value = "/facilities", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         facility = facilityApplicationService.save(facility)
 
-        response.setHeader("Location", "${baseUrl}/facilitys/${facility.identifier}")
+        response.setHeader("Location", "${baseUrl}/facilitys/${facility.id}")
         response.setStatus(SC_CREATED)
     }
 }

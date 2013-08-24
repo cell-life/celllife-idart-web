@@ -22,7 +22,7 @@ public class EntityModelEnricherTest {
             [
                     name: "User",
                     features: [
-                            excludes: ["identifier"]
+                            excludes: ["id"]
                     ],
                     entity: [
                             _properties: [
@@ -35,7 +35,7 @@ public class EntityModelEnricherTest {
                     name: "Unit Of Measure",
                     namePlural: "Units Of Measure",
                     entity: [
-                            identifier: [name: "Code"],
+                            id: [name: "Code"],
                             _properties: [
                                     [name: "Name"],
                                     [name: "Description"]
@@ -52,8 +52,8 @@ public class EntityModelEnricherTest {
     }
 
     @Test
-    public void shouldGenerateIdentifier() throws Exception {
-        def templatePath = "/templates/entity/identifier.template"
+    public void shouldGenerateId() throws Exception {
+        def templatePath = "/templates/entity/id.template"
         models.each { model ->
             generate(templatePath, transform(baseNamespace, model))
         }

@@ -3,7 +3,7 @@ package org.celllife.idart.application.user
 import org.celllife.idart.domain.user.User
 import org.celllife.idart.domain.user.UserValidationException
 import org.celllife.idart.domain.user.UserNotFoundException
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.UserId
 import org.celllife.idart.domain.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         userService.save(user)
     }
 
-    User findByUserIdentifier(UserIdentifier userIdentifier) throws UserNotFoundException{
-        userService.findByUserIdentifier(userIdentifier)
+    User findByUserId(UserId userId) throws UserNotFoundException{
+        userService.findByUserId(userId)
     }
 
 }

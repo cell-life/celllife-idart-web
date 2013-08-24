@@ -1,6 +1,6 @@
 package org.celllife.idart.client.clinic;
 
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -12,16 +12,16 @@ import java.util.Set;
  */
 public final class Clinic implements Serializable {
 
-    public Set<Identifier> identifiers;
+    public Set<Id> ids;
 
     public Clinic() {
     }
 
-    public void addIdentifier(String system, String value) {
-        if (this.identifiers == null) {
-            this.identifiers = new HashSet<Identifier>();
+    public void addId(String system, String value) {
+        if (this.ids == null) {
+            this.ids = new HashSet<Id>();
         }
-        this.identifiers.add(new Identifier(system, value));
+        this.ids.add(new Id(system, value));
     }
 
 }

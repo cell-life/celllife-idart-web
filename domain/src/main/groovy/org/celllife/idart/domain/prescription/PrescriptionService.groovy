@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.prescription
 
-import org.celllife.idart.common.PrescriptionIdentifier
+import org.celllife.idart.common.PrescriptionId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface PrescriptionService {
 
     Prescription save(Prescription prescription) throws PrescriptionValidationException
 
-    Prescription findByPrescriptionIdentifier(PrescriptionIdentifier prescriptionIdentifier) throws PrescriptionNotFoundException
+    Prescription findByPrescriptionId(PrescriptionId prescriptionId) throws PrescriptionNotFoundException
 
 }

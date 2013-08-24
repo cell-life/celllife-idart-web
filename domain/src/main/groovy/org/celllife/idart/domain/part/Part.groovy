@@ -2,7 +2,7 @@ package org.celllife.idart.domain.part
 
 import org.celllife.idart.common.FormCode
 import org.celllife.idart.common.PartClassificationType
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 import org.celllife.idart.common.UnitOfMeasureCode
 
 /**
@@ -15,7 +15,7 @@ abstract class Part {
     /**
      * Identified by
      */
-    PartIdentifier identifier
+    PartId id
 
     UnitOfMeasureCode unitOfMeasure
 
@@ -42,7 +42,7 @@ abstract class Part {
             return false
         }
 
-        return this.identifier == that.identifier
+        return this.id == that.id
     }
 
     def getClassificationCode(PartClassificationType type) {

@@ -18,14 +18,14 @@ class AlphaJsonTest {
         objectMapper.addMixInAnnotations(Alpha, AlphaMixin)
 
         Alpha alpha = objectMapper.reader(Alpha).readValue("""{
-    "identifier" : "000001",
+    "id" : "000001",
     "name" : "Geoff",
     "description" : "The Geoffster"
 }""")
 
         Assert.assertNotNull(alpha)
         Assert.assertTrue(alpha instanceof AlphaImpl)
-        Assert.assertEquals("000001", alpha.identifier)
+        Assert.assertEquals("000001", alpha.id)
         Assert.assertEquals("Geoff", alpha.name)
         Assert.assertEquals("The Geoffster", alpha.description)
 
@@ -37,7 +37,7 @@ class AlphaJsonTest {
         def objectMapper = new ObjectMapper()
         objectMapper.addMixInAnnotations(Alpha, AlphaMixin)
 
-        def alpha = new AlphaImpl(identifier: "00001", name: "Geoff", description: "The Geoffster")
+        def alpha = new AlphaImpl(id: "00001", name: "Geoff", description: "The Geoffster")
 
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(System.out, alpha)
     }

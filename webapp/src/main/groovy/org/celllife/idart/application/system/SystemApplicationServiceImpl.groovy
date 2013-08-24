@@ -3,7 +3,7 @@ package org.celllife.idart.application.system
 import org.celllife.idart.domain.system.System
 import org.celllife.idart.domain.system.SystemValidationException
 import org.celllife.idart.domain.system.SystemNotFoundException
-import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.SystemId
 import org.celllife.idart.domain.system.SystemService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         systemService.save(system)
     }
 
-    System findBySystemIdentifier(SystemIdentifier systemIdentifier) throws SystemNotFoundException{
-        systemService.findBySystemIdentifier(systemIdentifier)
+    System findBySystemId(SystemId systemId) throws SystemNotFoundException{
+        systemService.findBySystemId(systemId)
     }
 
 }

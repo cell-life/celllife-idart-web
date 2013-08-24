@@ -7,26 +7,26 @@ import static org.celllife.idart.codegen.transform.Transformations.*
  * Date: 2013-07-20
  * Time: 21h34
  */
-class IdentifierModelEnricher {
+class IdModelEnricher {
 
-    static enrichModelWithIdentifier(baseNamespace, model) {
+    static enrichModelWithId(baseNamespace, model) {
 
         def basePackageName = toPackage(baseNamespace)
 
         model.with {
 
             /*
-             * Identifier
+             * Id
              */
 
-            if (identifier == null) {
-                identifier = [:]
+            if (id == null) {
+                id = [:]
             }
 
-            identifier.with {
+            id.with {
 
                 if (shortName == null) {
-                    shortName = "Identifier"
+                    shortName = "Id"
                 }
 
                 if (name == null) {
@@ -54,7 +54,7 @@ class IdentifierModelEnricher {
                 }
 
                 /*
-                 * Identifier Properties
+                 * Id Properties
                  */
 
                 if (_properties == null) {
@@ -64,7 +64,7 @@ class IdentifierModelEnricher {
                 _properties.each { property ->
 
                     /*
-                     * Identifier Property
+                     * Id Property
                      */
 
                     property.with {

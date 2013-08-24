@@ -1,0 +1,26 @@
+[
+    {
+        "@class": "org.celllife.idart.domain.atc.AtcClassification",
+        "firstLevel": "J",
+        "secondLevel": "05",
+        "thirdLevel": "A",
+        "forthLevel": "F",
+        "fifthLevel": "01",
+        "definedDailyDoses": [
+            {
+                "quantity": {
+                    "unitOfMeasure": "g",
+                    "value": "0.6"
+                },
+                "route": "PO"
+            },
+            {
+                "quantity": {
+                    "unitOfMeasure": "g",
+                    "value": "0.6"
+                },
+                "route": "PARENTINJ"
+            }
+        ]
+    }
+]

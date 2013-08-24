@@ -3,7 +3,7 @@ package org.celllife.idart.application.organisation
 import org.celllife.idart.domain.organisation.Organisation
 import org.celllife.idart.domain.organisation.OrganisationValidationException
 import org.celllife.idart.domain.organisation.OrganisationNotFoundException
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.domain.organisation.OrganisationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         organisationService.save(organisation)
     }
 
-    Organisation findByPartyIdentifier(PartyIdentifier partyIdentifier) throws OrganisationNotFoundException{
-        organisationService.findByPartyIdentifier(partyIdentifier)
+    Organisation findByOrganisationId(OrganisationId organisationId) throws OrganisationNotFoundException{
+        organisationService.findByOrganisationId(organisationId)
     }
 
 }

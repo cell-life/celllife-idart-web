@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.prescription
 
 import org.celllife.idart.application.prescription.PrescriptionApplicationService
 import org.celllife.idart.domain.prescription.Prescription
-import org.celllife.idart.common.PrescriptionIdentifier
+import org.celllife.idart.common.PrescriptionId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/prescriptions/{prescriptionIdentifier}",
+            value = "/prescriptions/{prescriptionId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Prescription findByPrescriptionIdentifier(@PathVariable("prescriptionIdentifier") PrescriptionIdentifier prescriptionIdentifier) {
-        prescriptionApplicationService.findByPrescriptionIdentifier(prescriptionIdentifier)
+    Prescription findByPrescriptionId(@PathVariable("prescriptionId") PrescriptionId prescriptionId) {
+        prescriptionApplicationService.findByPrescriptionId(prescriptionId)
     }
 
     @RequestMapping(value = "/prescriptions", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         prescription = prescriptionApplicationService.save(prescription)
 
-        response.setHeader("Location", "${baseUrl}/prescriptions/${prescription.identifier}")
+        response.setHeader("Location", "${baseUrl}/prescriptions/${prescription.id}")
         response.setStatus(SC_CREATED)
     }
 }

@@ -28,7 +28,7 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
             def event = new JsonSlurper().parseText(message)
 
-            Node systemNode = getOrCreateSystemNode(event.system.identifier.value)
+            Node systemNode = getOrCreateSystemNode(event.system.id.value)
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)
@@ -41,7 +41,7 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
             def event = new JsonSlurper().parseText(message)
 
-            Node userNode = getOrCreateUserNode(event.user.identifier.value)
+            Node userNode = getOrCreateUserNode(event.user.id.value)
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)
@@ -54,9 +54,9 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
             def event = new JsonSlurper().parseText(message)
 
-            Node fromUserNode = getOrCreateUserNode(event.userSystem.fromUser.identifier.value)
+            Node fromUserNode = getOrCreateUserNode(event.userSystem.fromUser.id.value)
 
-            Node toSystemNode = getOrCreateSystemNode(event.userSystem.toSystem.identifier.value)
+            Node toSystemNode = getOrCreateSystemNode(event.userSystem.toSystem.id.value)
 
             fromUserNode.createRelationshipTo(toSystemNode, withName(event.userSystem.relationship))
 
@@ -210,27 +210,27 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
         println message
     }
 
-    Node getOrCreateUserNode(userIdentifier) {
+    Node getOrCreateUserNode(userId) {
 
         UniqueFactory<Node> factory = new UniqueFactory.UniqueNodeFactory(graphDatabaseService, "users") {
             @Override
             protected void initialize(Node created, Map<String, Object> properties) {
-                created.setProperty("identifier", properties.get("identifier"));
+                created.setProperty("id", properties.get("id"));
             }
         };
 
-        factory.getOrCreate("identifier", userIdentifier);
+        factory.getOrCreate("id", userId);
     }
 
-    Node getOrCreateSystemNode(String systemIdentifier) {
+    Node getOrCreateSystemNode(String systemId) {
 
         UniqueFactory<Node> factory = new UniqueFactory.UniqueNodeFactory(graphDatabaseService, "systems") {
             @Override
             protected void initialize(Node created, Map<String, Object> properties) {
-                created.setProperty("identifier", properties.get("identifier"));
+                created.setProperty("id", properties.get("id"));
             }
         };
 
-        factory.getOrCreate("identifier", systemIdentifier);
+        factory.getOrCreate("id", systemId);
     }
 }

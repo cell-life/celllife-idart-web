@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.system
 
 import org.celllife.idart.application.system.SystemApplicationService
 import org.celllife.idart.domain.system.System
-import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.SystemId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/systems/{systemIdentifier}",
+            value = "/systems/{systemId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    System findBySystemIdentifier(@PathVariable("systemIdentifier") SystemIdentifier systemIdentifier) {
-        systemApplicationService.findBySystemIdentifier(systemIdentifier)
+    System findBySystemId(@PathVariable("systemId") SystemId systemId) {
+        systemApplicationService.findBySystemId(systemId)
     }
 
     @RequestMapping(value = "/systems", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         system = systemApplicationService.save(system)
 
-        response.setHeader("Location", "${baseUrl}/systems/${system.identifier}")
+        response.setHeader("Location", "${baseUrl}/systems/${system.id}")
         response.setStatus(SC_CREATED)
     }
 }

@@ -1,7 +1,7 @@
 package org.celllife.idart.application.practitioner
 
 import org.celllife.idart.application.person.PersonApplicationService
-import org.celllife.idart.common.PractitionerIdentifier
+import org.celllife.idart.common.PractitionerId
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.domain.practitioner.PractitionerService
@@ -28,18 +28,18 @@ import org.springframework.stereotype.Service
     }
 
     @Override
-    Practitioner findByPractitionerIdentifier(PractitionerIdentifier practitionerIdentifier) {
-        return practitionerService.findByPractitionerIdentifier(practitionerIdentifier)
+    Practitioner findByPractitionerId(PractitionerId practitionerId) {
+        return practitionerService.findByPractitionerId(practitionerId)
     }
 
     /**
-     * Incoming practitioner's person may not have an identifier. This means that a new person will be created
+     * Incoming practitioner's person may not have an id. This means that a new person will be created
      * everytime we update the practitioner. So to counter this:
      * 1: we lookup the person via the practitioner
      * 2a: If practitioner exists
      * 2b: Then so must the person, thus merge new Person into existing Person and save
      * 3a: If practitioner does not exist
-     * 3b: Then the person might exist, but there is not way to be absolutely sure without a person identifier
+     * 3b: Then the person might exist, but there is not way to be absolutely sure without a person id
      *     This may result in a duplicate person being created, we shall create a compensating work flow to handle
      *     the merging of duplicate people
      * @param newPractitioner
@@ -47,7 +47,7 @@ import org.springframework.stereotype.Service
      */
     Person updatePerson(Practitioner newPractitioner) {
 
-        def existingPractitioner = practitionerService.findByPractitionerIdentifier(newPractitioner.practitionerIdentifier)
+        def existingPractitioner = practitionerService.findByPractitionerId(newPractitioner.practitionerId)
 
         if (existingPractitioner != null) {
             if (existingPractitioner.person == null) {

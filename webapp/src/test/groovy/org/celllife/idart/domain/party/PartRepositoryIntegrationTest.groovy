@@ -50,21 +50,21 @@ class PartRepositoryIntegrationTest {
         each = unitOfMeasureService.save(each)
 
         Compound abacavirCompound = new Compound(unitOfMeasure: milligrams)
-        abacavirCompound.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
+        abacavirCompound.addId("http://www.who.int/medicines/services/inn", "Abacavir")
         abacavirCompound = compoundApplicationService.save(abacavirCompound)
 
         Drug abacavir20mg = new Drug(unitOfMeasure: millilitres)
-        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
+        abacavir20mg.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
         abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
         abacavir20mg = drugApplicationService.save(abacavir20mg)
 
         Drug drug = new Drug(unitOfMeasure: each)
-        drug.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
+        drug.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
         drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
         drug = drugApplicationService.save(drug)
 
         Medication good = new Medication(drug: drug)
-        ((Product) good).addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml")
+        ((Product) good).addId("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml")
         medicationApplicationService.save(good)
 
     }

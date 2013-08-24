@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.encounter
 
 import org.celllife.idart.application.encounter.EncounterApplicationService
 import org.celllife.idart.domain.encounter.Encounter
-import org.celllife.idart.common.EncounterIdentifier
+import org.celllife.idart.common.EncounterId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/encounters/{encounterIdentifier}",
+            value = "/encounters/{encounterId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Encounter findByEncounterIdentifier(@PathVariable("encounterIdentifier") EncounterIdentifier encounterIdentifier) {
-        encounterApplicationService.findByEncounterIdentifier(encounterIdentifier)
+    Encounter findByEncounterId(@PathVariable("encounterId") EncounterId encounterId) {
+        encounterApplicationService.findByEncounterId(encounterId)
     }
 
     @RequestMapping(value = "/encounters", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         encounter = encounterApplicationService.save(encounter)
 
-        response.setHeader("Location", "${baseUrl}/encounters/${encounter.identifier}")
+        response.setHeader("Location", "${baseUrl}/encounters/${encounter.id}")
         response.setStatus(SC_CREATED)
     }
 }

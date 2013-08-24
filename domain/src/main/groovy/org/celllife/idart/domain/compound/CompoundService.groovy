@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.compound
 
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface CompoundService {
 
     Compound save(Compound compound) throws CompoundValidationException
 
-    Compound findByPartIdentifier(PartIdentifier partIdentifier) throws CompoundNotFoundException
+    Compound findByPartId(PartId partId) throws CompoundNotFoundException
 
 }

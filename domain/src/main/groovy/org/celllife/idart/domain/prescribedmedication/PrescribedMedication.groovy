@@ -21,12 +21,12 @@ class PrescribedMedication {
     /**
      * Identified by
      */
-    PrescribedMedicationIdentifier identifier
+    PrescribedMedicationId id
 
     /**
      * Medication
      */
-    ProductIdentifier medication
+    ProductId medication
 
     /**
      * Reason For Prescribing

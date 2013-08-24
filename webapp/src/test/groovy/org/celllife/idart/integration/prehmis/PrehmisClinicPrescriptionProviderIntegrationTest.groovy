@@ -38,23 +38,23 @@ class PrehmisClinicPrescriptionProviderIntegrationTest {
     @Autowired PrescriptionProvider prehmisClinicPrescriptionProvider
 
     @Test
-    void testFindByIdentifier() throws Exception {
+    void testFindById() throws Exception {
 
         def clinic = new Clinic()
-        ((Facility) clinic).addIdentifier("http://prehmis.capetown.gov.za", "WES")
+        ((Facility) clinic).addId("http://prehmis.capetown.gov.za", "WES")
 
         def patient = new Patient()
         patient.with {
-            addIdentifier("http://www.pgwc.gov.za", "72254311")
-            addIdentifier("http://prehmis.capetown.gov.za", "1")
+            addId("http://www.pgwc.gov.za", "72254311")
+            addId("http://prehmis.capetown.gov.za", "1")
             person = new Person()
 //            person.with {
-//                addIdentifier(PrehmisPatientIdentifierType.SAID.system, "")
+//                addId(PrehmisPatientIdType.SAID.system, "")
 //            }
         }
         def practitioner = new Practitioner()
         practitioner.with {
-            addIdentifier("http://prehmis.capetown.gov.za", "1500")
+            addId("http://prehmis.capetown.gov.za", "1500")
         }
 
         def prescribedMedication1 = new PrescribedMedication()
@@ -81,7 +81,7 @@ class PrehmisClinicPrescriptionProviderIntegrationTest {
         }
 
         def prescription = new Prescription()
-        prescription.addIdentifier(Prescription.IDART_SYSTEM, (System.currentTimeMillis() + "").substring(0,8))
+        prescription.addId(Prescription.IDART_SYSTEM, (System.currentTimeMillis() + "").substring(0,8))
         prescription.patient = patient
         prescription.prescriber = practitioner
         prescription.dateWritten = new Date()

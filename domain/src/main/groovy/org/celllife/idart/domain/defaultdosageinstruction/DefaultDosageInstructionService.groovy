@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.defaultdosageinstruction
 
-import org.celllife.idart.common.DefaultDosageInstructionIdentifier
+import org.celllife.idart.common.DefaultDosageInstructionId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface DefaultDosageInstructionService {
 
     DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) throws DefaultDosageInstructionValidationException
 
-    DefaultDosageInstruction findByDefaultDosageInstructionIdentifier(DefaultDosageInstructionIdentifier defaultDosageInstructionIdentifier) throws DefaultDosageInstructionNotFoundException
+    DefaultDosageInstruction findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) throws DefaultDosageInstructionNotFoundException
 
 }

@@ -9,7 +9,7 @@ class IdentifiableEntityListener {
     public void setPk(Object object) {
 
         if (object.pk == null) {
-            object.pk = object.idartIdentifierValue
+            object.pk = object.idartIdValue
         }
     }
 }

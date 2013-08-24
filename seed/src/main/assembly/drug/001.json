@@ -1,0 +1,27 @@
+{
+    "@type": "drug",
+    "identifier": "00000001",
+    "billOfMaterials": [
+        {
+            "@type": "engineering",
+            "fromDate": "2013-01-01",
+            "part": {
+                "@type": "compound",
+                "identifier": "Zidovudine"
+            },
+            "quantityUsed": {
+                "unitOfMeasure": "mg",
+                "value": "100"
+
+            }
+        }
+    ],
+    "classifications": [
+        {
+            "code": "J05AF01",
+            "type": "ATC"
+        }
+    ],
+    "form": "CAP",
+    "unitOfMeasure": "each"
+}

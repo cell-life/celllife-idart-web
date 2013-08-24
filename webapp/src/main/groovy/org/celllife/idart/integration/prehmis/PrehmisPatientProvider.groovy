@@ -34,13 +34,13 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
-    Set<Patient> findByIdentifier(String clinicIdentifierValue, String patientIdentifierValue) {
+    Set<Patient> findById(String clinicIdValue, String patientIdValue) {
 
         Set<Patient> patients = []
 
-        PrehmisPatientIdentifierType.values().each { patientIdentifierType ->
+        PrehmisPatientIdType.values().each { patientIdType ->
 
-            def patient = getPatient(clinicIdentifierValue, patientIdentifierValue, patientIdentifierType)
+            def patient = getPatient(clinicIdValue, patientIdValue, patientIdType)
             if (patient != null) {
                 patients << patient
             }
@@ -49,15 +49,15 @@ import static org.springframework.util.Assert.notNull
         patients
     }
 
-    Patient getPatient(String clinicIdentifierValue, String patientIdentifierValue, PrehmisPatientIdentifierType patientIdentifierType) {
+    Patient getPatient(String clinicIdValue, String patientIdValue, PrehmisPatientIdType patientIdType) {
 
         String getPatientRequest = buildGetPatientRequest(
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
-                facilityCode: clinicIdentifierValue,
-                patientIdentifierValue: patientIdentifierValue,
-                patientIdentifierType: patientIdentifierType.toString().toLowerCase()
+                facilityCode: clinicIdValue,
+                patientIdValue: patientIdValue,
+                patientIdType: patientIdType.toString().toLowerCase()
         )
 
         def getPatientResponse = prehmisRestClient.post(

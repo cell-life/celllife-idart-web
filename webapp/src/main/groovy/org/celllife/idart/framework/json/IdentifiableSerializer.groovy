@@ -18,14 +18,14 @@ class IdentifiableSerializer extends JsonSerializer<Object> {
                    JsonGenerator generator,
                    SerializerProvider provider) throws IOException, JsonProcessingException {
 
-        generator.writeFieldName("identifiers")
+        generator.writeFieldName("ids")
         generator.writeStartArray()
-        identifiable.identifiers.each { identifier ->
+        identifiable.ids.each { id ->
             generator.writeStartObject()
             generator.writeFieldName("system")
-            generator.writeString(identifier.system)
+            generator.writeString(id.system)
             generator.writeFieldName("value")
-            generator.writeString(identifier.value)
+            generator.writeString(id.value)
             generator.writeEndObject()
         }
         generator.writeEndArray()

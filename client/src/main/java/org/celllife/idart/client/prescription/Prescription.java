@@ -1,6 +1,6 @@
 package org.celllife.idart.client.prescription;
 
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.visit.Encounter;
 
@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public final class Prescription implements Serializable {
 
-    public Set<Identifier> identifiers = new HashSet<Identifier>();
+    public Set<Id> ids = new HashSet<Id>();
 
     public PartyRole prescriber;
 

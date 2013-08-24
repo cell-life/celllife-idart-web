@@ -3,7 +3,7 @@ package org.celllife.idart.application.compound
 import org.celllife.idart.domain.compound.Compound
 import org.celllife.idart.domain.compound.CompoundValidationException
 import org.celllife.idart.domain.compound.CompoundNotFoundException
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 import org.celllife.idart.domain.compound.CompoundService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         compoundService.save(compound)
     }
 
-    Compound findByPartIdentifier(PartIdentifier partIdentifier) throws CompoundNotFoundException{
-        compoundService.findByPartIdentifier(partIdentifier)
+    Compound findByPartId(PartId partId) throws CompoundNotFoundException{
+        compoundService.findByPartId(partId)
     }
 
 }

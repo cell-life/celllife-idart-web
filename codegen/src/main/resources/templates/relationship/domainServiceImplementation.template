@@ -71,29 +71,29 @@ import javax.annotation.Generated
     }
 
     @Override
-    Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}Identifier(String ${entities[0].propertyName}Identifier) {
+    Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}Id(String ${entities[0].propertyName}Id) {
         ${propertyName}Repository
-                .findBy${entities[0].className}IdentifierAndDateActive(${entities[0].propertyName}Identifier, new Date())
+                .findBy${entities[0].className}IdAndDateActive(${entities[0].propertyName}Id, new Date())
                 .collect { ${propertyName} -> ${propertyName}.${entities[1].propertyName} }
     }
             
     @Override
-    Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier) {
+    Iterable<${entities[1].className}> find${entities[1].classNamePlural}By${entities[0].className}IdAnd${entities[1].className}Id(String ${entities[0].propertyName}Id, String ${entities[1].propertyName}Id) {
         ${propertyName}Repository
-                .findBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
-                        ${entities[0].propertyName}Identifier,
-                        ${entities[1].propertyName}Identifier,
+                .findBy${entities[0].className}IdAnd${entities[1].className}IdAndDateActive(
+                        ${entities[0].propertyName}Id,
+                        ${entities[1].propertyName}Id,
                         new Date()
                 )
                 .collect { ${propertyName} -> ${propertyName}.${entities[1].propertyName} }
     }
          
     @Override
-    ${entities[1].className} findOne${entities[1].className}By${entities[0].className}IdentifierAnd${entities[1].className}Identifier(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier) {
+    ${entities[1].className} findOne${entities[1].className}By${entities[0].className}IdAnd${entities[1].className}Id(String ${entities[0].propertyName}Id, String ${entities[1].propertyName}Id) {
         ${propertyName}Repository
-                .findOneBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
-                        ${entities[0].propertyName}Identifier,
-                        ${entities[1].propertyName}Identifier,
+                .findOneBy${entities[0].className}IdAnd${entities[1].className}IdAndDateActive(
+                        ${entities[0].propertyName}Id,
+                        ${entities[1].propertyName}Id,
                         new Date()
                 )?.${entities[1].propertyName}
     }

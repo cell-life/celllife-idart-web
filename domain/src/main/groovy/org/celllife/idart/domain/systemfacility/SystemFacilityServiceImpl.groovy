@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.systemfacility
 
-import org.celllife.idart.common.FacilityIdentifier
-import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.FacilityId
+import org.celllife.idart.common.SystemId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -21,20 +21,20 @@ import static org.celllife.idart.domain.systemfacility.SystemFacilityRelationshi
     @Autowired SystemFacilityEventPublisher systemFacilityEventPublisher
 
     @Override
-    void saveUserForSystem(SystemIdentifier systemIdentifier, FacilityIdentifier facilityIdentifier) {
+    void saveUserForSystem(SystemId systemId, FacilityId facilityId) {
 
         def existingRelationship =
             systemFacilityRepository.findBySystemAndFacilityAndRelationship(
-                    systemIdentifier,
-                    facilityIdentifier,
+                    systemId,
+                    facilityId,
                     DEPLOYED_AT
             )
 
         if (existingRelationship == null) {
             existingRelationship = systemFacilityRepository.save(
                     new SystemFacility(
-                            fromSystem: systemIdentifier,
-                            toFacility: facilityIdentifier,
+                            fromSystem: systemId,
+                            toFacility: facilityId,
                             relationship: DEPLOYED_AT
 
                     )

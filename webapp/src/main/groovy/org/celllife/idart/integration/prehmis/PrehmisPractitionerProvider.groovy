@@ -30,12 +30,12 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
-    Set<Practitioner> findAll(String clinicIdentifierValue) {
+    Set<Practitioner> findAll(String clinicIdValue) {
 
         String getPractitionerListRequest = buildGetPractitionerListRequest(
                 username: prehmisUsername,
                 password: prehmisPassword,
-                facilityCode: clinicIdentifierValue,
+                facilityCode: clinicIdValue,
                 applicationKey: prehmisApplicationKey
         )
 

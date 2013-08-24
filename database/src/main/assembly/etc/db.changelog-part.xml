@@ -6,7 +6,7 @@
     <changeSet id="part-1" author="kevin.sewell">
 
         <createTable tableName="part">
-            <column name="identifier" type="varchar(31)">
+            <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(31)"/>
@@ -24,7 +24,7 @@
 
         <createTable tableName="drug_bill_of_materials">
             <column name="for_drug" type="varchar(31)">
-                <constraints references="part(identifier)" foreignKeyName="part_bill_of_materials_item_fk"/>
+                <constraints references="part(id)" foreignKeyName="part_bill_of_materials_item_fk"/>
             </column>
             <column name="type" type="varchar(40)"/>
             <column name="valid_from_date" type="date"/>

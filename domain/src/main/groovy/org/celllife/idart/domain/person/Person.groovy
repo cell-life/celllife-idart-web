@@ -3,6 +3,7 @@ package org.celllife.idart.domain.person
 import org.celllife.idart.common.Gender
 import org.celllife.idart.common.MaritalStatus
 import org.celllife.idart.common.Measurement
+import org.celllife.idart.common.PersonId
 import org.celllife.idart.domain.party.Party
 
 /**
@@ -16,6 +17,11 @@ class Person extends Party {
      * Namespace
      */
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/people"
+
+    /**
+     * Identified by
+     */
+    PersonId id
 
     /**
      * First Name

@@ -14,19 +14,19 @@ class ClinicPrescriptionApplicationServiceImpl  {
 
     @Autowired PrescriptionProvider prehmisClinicPrescriptionProvider
 
-    void save(String clinicIdentifier, String prescriptionIdentifier, Prescription prescription) {
+    void save(String clinicId, String prescriptionId, Prescription prescription) {
 
-        prescription.addIdentifier(
+        prescription.addId(
                 String.format(
                         "http://www.cell-life.org/idart/clinics/%s/prescriptions",
-                        clinicIdentifier
+                        clinicId
                 ),
-                prescriptionIdentifier
+                prescriptionId
         )
 
         prescription = prescriptionApplicationService.save(prescription)
 
-        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findById(clinicId)
 
         clinicPrescriptionService.save(clinic, prescription)
 
@@ -40,9 +40,9 @@ class ClinicPrescriptionApplicationServiceImpl  {
      * @param prescription
      */
     void postToExternalProviders(Clinic clinic, Prescription prescription) {
-        ((Facility) clinic).getIdentifierSystems().each { identifierSystem ->
+        ((Facility) clinic).getIdSystems().each { idSystem ->
 
-            switch (identifierSystem) {
+            switch (idSystem) {
                 case "http://prehmis.capetown.gov.za":
                     prehmisClinicPrescriptionProvider.save(clinic, prescription)
                     break

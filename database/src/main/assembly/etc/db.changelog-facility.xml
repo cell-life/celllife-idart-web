@@ -6,7 +6,7 @@
     <changeSet id="facility-1" author="kevin.sewell">
 
         <createTable tableName="facility">
-            <column name="identifier" type="varchar(31)">
+            <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(31)"/>

@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.dispensedmedication
 
 import org.celllife.idart.application.dispensedmedication.DispensedMedicationApplicationService
 import org.celllife.idart.domain.dispensedmedication.DispensedMedication
-import org.celllife.idart.common.DispensedMedicationIdentifier
+import org.celllife.idart.common.DispensedMedicationId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/dispensedMedications/{dispensedMedicationIdentifier}",
+            value = "/dispensedMedications/{dispensedMedicationId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    DispensedMedication findByDispensedMedicationIdentifier(@PathVariable("dispensedMedicationIdentifier") DispensedMedicationIdentifier dispensedMedicationIdentifier) {
-        dispensedMedicationApplicationService.findByDispensedMedicationIdentifier(dispensedMedicationIdentifier)
+    DispensedMedication findByDispensedMedicationId(@PathVariable("dispensedMedicationId") DispensedMedicationId dispensedMedicationId) {
+        dispensedMedicationApplicationService.findByDispensedMedicationId(dispensedMedicationId)
     }
 
     @RequestMapping(value = "/dispensedMedications", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         dispensedMedication = dispensedMedicationApplicationService.save(dispensedMedication)
 
-        response.setHeader("Location", "${baseUrl}/dispensedMedications/${dispensedMedication.identifier}")
+        response.setHeader("Location", "${baseUrl}/dispensedMedications/${dispensedMedication.id}")
         response.setStatus(SC_CREATED)
     }
 }

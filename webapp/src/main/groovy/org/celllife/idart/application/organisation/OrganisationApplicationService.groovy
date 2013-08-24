@@ -3,7 +3,7 @@ package org.celllife.idart.application.organisation
 import org.celllife.idart.domain.organisation.Organisation
 import org.celllife.idart.domain.organisation.OrganisationValidationException
 import org.celllife.idart.domain.organisation.OrganisationNotFoundException
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.OrganisationId
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface OrganisationApplicationService {
 
     Organisation save(Organisation organisation) throws OrganisationValidationException
 
-    Organisation findByPartyIdentifier(PartyIdentifier partyIdentifier) throws OrganisationNotFoundException
+    Organisation findByOrganisationId(OrganisationId organisationId) throws OrganisationNotFoundException
 
 }

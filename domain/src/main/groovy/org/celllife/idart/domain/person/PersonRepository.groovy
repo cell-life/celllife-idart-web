@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.person
 
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.PersonId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface PersonRepository {
 
     Person save(Person person)
 
-    Person findOne(PartyIdentifier partyIdentifier)
+    Person findOne(PersonId personId)
 
 }

@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.person
 
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.domain.person.Person
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.PersonId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/persons/{partyIdentifier}",
+            value = "/persons/{personId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Person findByPartyIdentifier(@PathVariable("partyIdentifier") PartyIdentifier partyIdentifier) {
-        personApplicationService.findByPartyIdentifier(partyIdentifier)
+    Person findByPersonId(@PathVariable("personId") PersonId personId) {
+        personApplicationService.findByPersonId(personId)
     }
 
     @RequestMapping(value = "/persons", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         person = personApplicationService.save(person)
 
-        response.setHeader("Location", "${baseUrl}/persons/${person.identifier}")
+        response.setHeader("Location", "${baseUrl}/persons/${person.id}")
         response.setStatus(SC_CREATED)
     }
 }

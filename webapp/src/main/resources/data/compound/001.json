@@ -1,9 +1,0 @@
-{
-    "@type": "compound",
-    "identifiers": [
-        {
-            "system": "http://www.who.int/medicines/services/inn",
-            "value": "Zidovudine"
-        }
-    ]
-}

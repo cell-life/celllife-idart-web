@@ -1,6 +1,6 @@
 package org.celllife.idart.client.visit;
 
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public final class Encounter implements Serializable {
 
-    public Set<Identifier> identifiers = new HashSet<Identifier>();
+    public Set<Id> ids = new HashSet<Id>();
 
     public Encounter() {
     }

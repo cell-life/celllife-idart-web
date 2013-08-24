@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.usersystem
 
-import org.celllife.idart.common.SystemIdentifier
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.SystemId
+import org.celllife.idart.common.UserId
 
 
 /**
@@ -11,6 +11,6 @@ import org.celllife.idart.common.UserIdentifier
  */
 interface UserSystemService {
 
-    void saveUserForSystem(UserIdentifier fromUser, SystemIdentifier toSystem)
+    void saveUserForSystem(UserId fromUser, SystemId toSystem)
 
 }

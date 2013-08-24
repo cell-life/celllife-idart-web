@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.usersystem
 
-import org.celllife.idart.common.SystemIdentifier
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.SystemId
+import org.celllife.idart.common.UserId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -21,7 +21,7 @@ import static org.celllife.idart.domain.usersystem.UserSystemRelationship.FOR
     @Autowired UserSystemEventPublisher userSystemEventPublisher
 
     @Override
-    void saveUserForSystem(UserIdentifier fromUser, SystemIdentifier toSystem) {
+    void saveUserForSystem(UserId fromUser, SystemId toSystem) {
 
         def existingRelationship =
             userSystemRepository.findByUserAndSystemAndRelationship(fromUser, toSystem, FOR)

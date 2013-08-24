@@ -1,0 +1,27 @@
+{
+    "@type": "drug",
+    "identifier": "00000011",
+    "billOfMaterials": [
+        {
+            "@type": "engineering",
+            "fromDate": "2013-01-01",
+            "part": {
+                "@type": "compound",
+                "identifier": "Stavudine"
+            },
+            "quantityUsed": {
+                "unitOfMeasure": "mg",
+                "value": "20"
+
+            }
+        }
+    ],
+    "classifications": [
+        {
+            "code": "J05AF04",
+            "type": "ATC"
+        }
+    ],
+    "form": "CAP",
+    "unitOfMeasure": "each"
+}

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.drug
 
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface DrugService {
 
     Drug save(Drug drug) throws DrugValidationException
 
-    Drug findByPartIdentifier(PartIdentifier partIdentifier) throws DrugNotFoundException
+    Drug findByPartId(PartId partId) throws DrugNotFoundException
 
 }

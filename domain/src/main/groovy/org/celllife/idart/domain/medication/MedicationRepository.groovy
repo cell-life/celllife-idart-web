@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.medication
 
-import org.celllife.idart.common.ProductIdentifier
+import org.celllife.idart.common.ProductId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface MedicationRepository {
 
     Medication save(Medication medication)
 
-    Medication findOne(ProductIdentifier productIdentifier)
+    Medication findOne(ProductId productId)
 
 }

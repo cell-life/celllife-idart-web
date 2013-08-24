@@ -35,13 +35,13 @@ class IdartMappingJackson2HttpMessageConverterTest {
         unitOfMeasure.addName("en", "Bla")
 
         def compound = new Compound()
-        compound.addIdentifier("bla1", "bla")
-        compound.addIdentifier("bla", "bla")
+        compound.addId("bla1", "bla")
+        compound.addId("bla", "bla")
         compound.unitOfMeasure = unitOfMeasure
 
         def drug = new Drug()
-        drug.addIdentifier("bla1", "bla")
-        drug.addIdentifier("bla", "bla")
+        drug.addId("bla1", "bla")
+        drug.addId("bla", "bla")
         drug.unitOfMeasure = unitOfMeasure
         drug.addEngineeringPart(compound, 10.0D, unitOfMeasure)
 

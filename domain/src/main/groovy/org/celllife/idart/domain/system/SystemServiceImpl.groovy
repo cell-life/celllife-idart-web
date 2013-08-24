@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.system
 
-import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.SystemId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
     }
 
     @Override
-    System findBySystemIdentifier(SystemIdentifier systemIdentifier) throws SystemNotFoundException {
+    System findBySystemId(SystemId systemId) throws SystemNotFoundException {
 
-        def system = systemRepository.findOne(systemIdentifier)
+        def system = systemRepository.findOne(systemId)
 
         if (system == null) {
-            throw new SystemNotFoundException("Could not find System with System Identifier [${ systemIdentifier}]")
+            throw new SystemNotFoundException("Could not find System with System Id [${ systemId}]")
         }
 
         system

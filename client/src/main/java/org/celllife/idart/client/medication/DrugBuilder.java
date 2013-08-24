@@ -1,7 +1,7 @@
 package org.celllife.idart.client.medication;
 
 import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
@@ -17,21 +17,21 @@ public class DrugBuilder {
 
     private final Drug drug;
 
-    private final String clinicDrugsIdentifierSystem;
+    private final String clinicDrugsIdSystem;
 
-    public DrugBuilder(String clinicIdentifier) {
+    public DrugBuilder(String clinicId) {
         this.drug = new Drug();
-        this.clinicDrugsIdentifierSystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicIdentifier);
+        this.clinicDrugsIdSystem =
+                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicId);
     }
 
-    public DrugBuilder setIdentifier(String identifierValue) {
-        this.drug.identifiers.add(new Identifier(this.clinicDrugsIdentifierSystem, identifierValue));
+    public DrugBuilder setId(String idValue) {
+        this.drug.ids.add(new Id(this.clinicDrugsIdSystem, idValue));
         return this;
     }
 
-    public DrugBuilder setIdentifier(String identifierSystem, String identifierValue) {
-        this.drug.identifiers.add(new Identifier(identifierSystem, identifierValue));
+    public DrugBuilder setId(String idSystem, String idValue) {
+        this.drug.ids.add(new Id(idSystem, idValue));
         return this;
     }
 

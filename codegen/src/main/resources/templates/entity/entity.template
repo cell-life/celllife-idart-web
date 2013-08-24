@@ -1,6 +1,6 @@
 package ${entity.packageName}
 
-import ${identifier.packageName}.${identifier.className}
+import ${id.packageName}.${id.className}
 
 import javax.annotation.Generated
 
@@ -17,9 +17,9 @@ class ${entity.className} {
     static NAMESPACE = "${namespace}"
 
     /**
-     * ${identifier.name} <% if (identifier.description != null) { %>- ${identifier.description} <% } %>
+     * ${id.name} <% if (id.description != null) { %>- ${id.description} <% } %>
      */
-    ${identifier.className} ${identifier.shortFieldName}
+    ${id.className} ${id.shortFieldName}
     <% entity._properties.each { property -> %>
     /**
      * ${property.name} <% if (property.description != null) { %>- ${property.description} <% } %>

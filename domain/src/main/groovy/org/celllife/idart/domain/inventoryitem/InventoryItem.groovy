@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.inventoryitem
 
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 
 /**
  * User: Kevin W. Sewell
@@ -17,7 +17,7 @@ abstract class InventoryItem {
     /**
      * the physical occurrence of
      */
-    PartIdentifier part
+    PartId part
 
     List<InventoryItemStatus> status = []
 

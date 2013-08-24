@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.dispensedmedication
 
-import org.celllife.idart.common.DispensedMedicationIdentifier
+import org.celllife.idart.common.DispensedMedicationId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.dispensedmedication.DispensedMedicationE
     }
 
     @Override
-    DispensedMedication findByDispensedMedicationIdentifier(DispensedMedicationIdentifier dispensedMedicationIdentifier) throws DispensedMedicationNotFoundException {
+    DispensedMedication findByDispensedMedicationId(DispensedMedicationId dispensedMedicationId) throws DispensedMedicationNotFoundException {
 
-        def dispensedMedication = dispensedMedicationRepository.findOne(dispensedMedicationIdentifier)
+        def dispensedMedication = dispensedMedicationRepository.findOne(dispensedMedicationId)
 
         if (dispensedMedication == null) {
-            throw new DispensedMedicationNotFoundException("Could not find DispensedMedication with DispensedMedication Identifier [${ dispensedMedicationIdentifier}]")
+            throw new DispensedMedicationNotFoundException("Could not find DispensedMedication with DispensedMedication Id [${ dispensedMedicationId}]")
         }
 
         dispensedMedication

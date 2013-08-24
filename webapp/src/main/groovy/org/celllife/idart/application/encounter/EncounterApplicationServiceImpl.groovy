@@ -3,7 +3,7 @@ package org.celllife.idart.application.encounter
 import org.celllife.idart.domain.encounter.Encounter
 import org.celllife.idart.domain.encounter.EncounterValidationException
 import org.celllife.idart.domain.encounter.EncounterNotFoundException
-import org.celllife.idart.common.EncounterIdentifier
+import org.celllife.idart.common.EncounterId
 import org.celllife.idart.domain.encounter.EncounterService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         encounterService.save(encounter)
     }
 
-    Encounter findByEncounterIdentifier(EncounterIdentifier encounterIdentifier) throws EncounterNotFoundException{
-        encounterService.findByEncounterIdentifier(encounterIdentifier)
+    Encounter findByEncounterId(EncounterId encounterId) throws EncounterNotFoundException{
+        encounterService.findByEncounterId(encounterId)
     }
 
 }

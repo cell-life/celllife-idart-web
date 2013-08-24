@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.PatientId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface PatientRepository {
 
     Patient save(Patient patient)
 
-    Patient findOne(PatientIdentifier patientIdentifier)
+    Patient findOne(PatientId patientId)
 
 }

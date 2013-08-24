@@ -67,16 +67,16 @@ class PrescriptionApplicationServiceIntegrationTest {
         drugApplicationService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
 
         Medication medication = new Medication(drug: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
-        medication.addIdentifier("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")
+        medication.addId("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")
         medicationApplicationService.save(medication)
 
         Patient patient = new Patient()
-        patient.addIdentifier("http://www.cell-life.org/idart/patients", "00001")
+        patient.addId("http://www.cell-life.org/idart/patients", "00001")
         patient.person = new Person()
         patientApplicationService.save(patient)
 
         Practitioner practitioner = new Practitioner()
-        practitioner.addIdentifier("http://www.cell-life.org/idart/practitioners", "00001")
+        practitioner.addId("http://www.cell-life.org/idart/practitioners", "00001")
         practitioner.person = new Person()
         practitionerApplicationService.save(practitioner)
 
@@ -103,14 +103,14 @@ class PrescriptionApplicationServiceIntegrationTest {
 
     static Compound createCompound(UnitOfMeasure milligrams) {
         Compound abacavirCompound = new Compound()
-        abacavirCompound.addIdentifier("http://www.who.int/medicines/services/inn", "Abacavir")
+        abacavirCompound.addId("http://www.who.int/medicines/services/inn", "Abacavir")
         abacavirCompound.setUnitOfMeasure(milligrams)
         abacavirCompound
     }
 
     static Drug createDrug(UnitOfMeasure millilitres, Compound abacavirCompound, UnitOfMeasure milligrams) {
         Drug abacavir20mg = new Drug()
-        abacavir20mg.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
+        abacavir20mg.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
         abacavir20mg.setUnitOfMeasure(millilitres)
         abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
         abacavir20mg
@@ -118,7 +118,7 @@ class PrescriptionApplicationServiceIntegrationTest {
 
     static Drug createFinishedDrug(UnitOfMeasure each, Drug abacavir20mg, UnitOfMeasure millilitres) {
         Drug drug = new Drug()
-        drug.addIdentifier("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
+        drug.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
         drug.setUnitOfMeasure(each)
         drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
         drug

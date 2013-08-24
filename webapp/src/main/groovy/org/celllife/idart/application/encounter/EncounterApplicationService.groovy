@@ -3,7 +3,7 @@ package org.celllife.idart.application.encounter
 import org.celllife.idart.domain.encounter.Encounter
 import org.celllife.idart.domain.encounter.EncounterValidationException
 import org.celllife.idart.domain.encounter.EncounterNotFoundException
-import org.celllife.idart.common.EncounterIdentifier
+import org.celllife.idart.common.EncounterId
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface EncounterApplicationService {
 
     Encounter save(Encounter encounter) throws EncounterValidationException
 
-    Encounter findByEncounterIdentifier(EncounterIdentifier encounterIdentifier) throws EncounterNotFoundException
+    Encounter findByEncounterId(EncounterId encounterId) throws EncounterNotFoundException
 
 }

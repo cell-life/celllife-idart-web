@@ -9,6 +9,6 @@ import org.celllife.idart.domain.patient.Patient
  */
 interface PatientProvider {
 
-    Set<Patient> findByIdentifier(String clinicIdentifierValue, String patientIdentifierValue)
+    Set<Patient> findById(String clinicIdValue, String patientIdValue)
 
 }

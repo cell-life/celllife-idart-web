@@ -19,17 +19,17 @@ class Prescription {
     /**
      * Identified by
      */
-    PrescriptionIdentifier identifier
+    PrescriptionId id
 
     /**
      * Prescribed by
      */
-    PractitionerIdentifier prescriber
+    PractitionerId prescriber
 
     /**
      * Prescribed to
      */
-    PatientIdentifier patient
+    PatientId patient
 
     /**
      * Written on
@@ -39,12 +39,12 @@ class Prescription {
     /**
      * During
      */
-    EncounterIdentifier encounter
+    EncounterId encounter
 
     /**
      * Contains
      */
-    Set<PrescribedMedicationIdentifier> prescribedMedications = []
+    Set<PrescribedMedicationId> prescribedMedications = []
 
     def merge(Prescription that) {
 

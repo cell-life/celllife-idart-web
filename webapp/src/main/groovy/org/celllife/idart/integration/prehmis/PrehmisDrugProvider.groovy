@@ -30,13 +30,13 @@ import static org.springframework.util.Assert.notNull
 
     RESTClient prehmisRestClient
 
-    def findAll(String clinicIdentifierValue) {
+    def findAll(String clinicIdValue) {
 
         String getDrugListRequest = buildGetDrugListRequest(
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
-                facilityCode: clinicIdentifierValue
+                facilityCode: clinicIdValue
         )
 
         def getDrugResponse = prehmisRestClient.post(

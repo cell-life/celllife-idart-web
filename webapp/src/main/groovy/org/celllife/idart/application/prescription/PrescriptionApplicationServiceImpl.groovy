@@ -3,7 +3,7 @@ package org.celllife.idart.application.prescription
 import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionValidationException
 import org.celllife.idart.domain.prescription.PrescriptionNotFoundException
-import org.celllife.idart.common.PrescriptionIdentifier
+import org.celllife.idart.common.PrescriptionId
 import org.celllife.idart.domain.prescription.PrescriptionService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         prescriptionService.save(prescription)
     }
 
-    Prescription findByPrescriptionIdentifier(PrescriptionIdentifier prescriptionIdentifier) throws PrescriptionNotFoundException{
-        prescriptionService.findByPrescriptionIdentifier(prescriptionIdentifier)
+    Prescription findByPrescriptionId(PrescriptionId prescriptionId) throws PrescriptionNotFoundException{
+        prescriptionService.findByPrescriptionId(prescriptionId)
     }
 
 }

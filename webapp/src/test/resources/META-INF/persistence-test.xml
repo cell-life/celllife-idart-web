@@ -21,6 +21,7 @@
         <mapping-file>META-INF/orm/indication.xml</mapping-file>
         <mapping-file>META-INF/orm/inventoryitem.xml</mapping-file>
         <mapping-file>META-INF/orm/lifeevent.xml</mapping-file>
+        <mapping-file>META-INF/orm/organisation.xml</mapping-file>
         <mapping-file>META-INF/orm/part.xml</mapping-file>
         <mapping-file>META-INF/orm/partclassification.xml</mapping-file>
         <mapping-file>META-INF/orm/party.xml</mapping-file>

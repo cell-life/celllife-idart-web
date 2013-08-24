@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.user
 
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.UserId
 
 /**
  * User 
@@ -14,9 +14,9 @@ class User {
     static NAMESPACE = "http://www.cell-life.org/idart/users"
 
     /**
-     * Identifier 
+     * Id 
      */
-    UserIdentifier identifier
+    UserId id
 
     /**
      * Current Username 

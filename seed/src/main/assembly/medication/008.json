@@ -1,0 +1,8 @@
+{
+    "identifier": "00000008",
+    "name": "Abacavir 20mg/ml (240ml)",
+    "drug": {
+        "@type": "drug",
+        "identifier": "00000016"
+    }
+}

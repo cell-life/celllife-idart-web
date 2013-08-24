@@ -1,9 +1,7 @@
 package org.celllife.idart.framework.jpa
 
 import org.celllife.idart.common.AdministrationMethodCode
-import org.celllife.idart.common.PartyIdentifier
 import org.celllife.idart.domain.administrationmethod.AdministrationMethod
-import org.celllife.idart.domain.person.Person
 import org.junit.Test
 
 import javax.persistence.Persistence

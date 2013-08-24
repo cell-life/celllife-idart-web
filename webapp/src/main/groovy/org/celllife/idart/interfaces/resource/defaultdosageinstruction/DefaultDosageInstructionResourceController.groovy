@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.defaultdosageinstruction
 
 import org.celllife.idart.application.defaultdosageinstruction.DefaultDosageInstructionApplicationService
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
-import org.celllife.idart.common.DefaultDosageInstructionIdentifier
+import org.celllife.idart.common.DefaultDosageInstructionId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/defaultDosageInstructions/{defaultDosageInstructionIdentifier}",
+            value = "/defaultDosageInstructions/{defaultDosageInstructionId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    DefaultDosageInstruction findByDefaultDosageInstructionIdentifier(@PathVariable("defaultDosageInstructionIdentifier") DefaultDosageInstructionIdentifier defaultDosageInstructionIdentifier) {
-        defaultDosageInstructionApplicationService.findByDefaultDosageInstructionIdentifier(defaultDosageInstructionIdentifier)
+    DefaultDosageInstruction findByDefaultDosageInstructionId(@PathVariable("defaultDosageInstructionId") DefaultDosageInstructionId defaultDosageInstructionId) {
+        defaultDosageInstructionApplicationService.findByDefaultDosageInstructionId(defaultDosageInstructionId)
     }
 
     @RequestMapping(value = "/defaultDosageInstructions", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         defaultDosageInstruction = defaultDosageInstructionApplicationService.save(defaultDosageInstruction)
 
-        response.setHeader("Location", "${baseUrl}/defaultDosageInstructions/${defaultDosageInstruction.identifier}")
+        response.setHeader("Location", "${baseUrl}/defaultDosageInstructions/${defaultDosageInstruction.id}")
         response.setStatus(SC_CREATED)
     }
 }

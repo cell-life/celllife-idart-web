@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.defaultdosageinstruction
 
-import org.celllife.idart.common.DefaultDosageInstructionIdentifier
+import org.celllife.idart.common.DefaultDosageInstructionId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageIn
     }
 
     @Override
-    DefaultDosageInstruction findByDefaultDosageInstructionIdentifier(DefaultDosageInstructionIdentifier defaultDosageInstructionIdentifier) throws DefaultDosageInstructionNotFoundException {
+    DefaultDosageInstruction findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) throws DefaultDosageInstructionNotFoundException {
 
-        def defaultDosageInstruction = defaultDosageInstructionRepository.findOne(defaultDosageInstructionIdentifier)
+        def defaultDosageInstruction = defaultDosageInstructionRepository.findOne(defaultDosageInstructionId)
 
         if (defaultDosageInstruction == null) {
-            throw new DefaultDosageInstructionNotFoundException("Could not find DefaultDosageInstruction with Default Dosage Instruction Identifier [${ defaultDosageInstructionIdentifier}]")
+            throw new DefaultDosageInstructionNotFoundException("Could not find DefaultDosageInstruction with Default Dosage Instruction Id [${ defaultDosageInstructionId}]")
         }
 
         defaultDosageInstruction

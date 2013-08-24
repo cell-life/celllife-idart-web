@@ -1,6 +1,6 @@
 package ${domainService.packageName}
 
-import ${identifier.packageName}.${identifier.className}
+import ${id.packageName}.${id.className}
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEve
     }
 
     @Override
-    ${entity.className} findBy${identifier.className}(${identifier.className} ${identifier.fieldName}) throws ${entity.className}NotFoundException {
+    ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) throws ${entity.className}NotFoundException {
 
-        def ${entity.fieldName} = ${repository.fieldName}.findOne(${identifier.fieldName})
+        def ${entity.fieldName} = ${repository.fieldName}.findOne(${id.fieldName})
 
         if (${entity.fieldName} == null) {
-            throw new ${entity.className}NotFoundException("Could not find ${entity.className} with ${identifier.name} [\${ ${identifier.fieldName}}]")
+            throw new ${entity.className}NotFoundException("Could not find ${entity.className} with ${id.name} [\${ ${id.fieldName}}]")
         }
 
         ${entity.fieldName}

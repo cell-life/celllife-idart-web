@@ -1,0 +1,8 @@
+{
+    "identifier": "00000002",
+    "name": "Zidovudine 10mg/ml (200 ml)",
+    "drug": {
+        "@type": "drug",
+        "identifier": "00000004"
+    }
+}

@@ -48,10 +48,10 @@ public class IdartClientIntegrationTest {
 
         for (PartyRole patient : patients) {
             Assert.assertNotNull(patient);
-            Assert.assertNotNull(patient.identifiers);
-            Assert.assertTrue(patient.identifiers.size() != 0);
+            Assert.assertNotNull(patient.ids);
+            Assert.assertTrue(patient.ids.size() != 0);
             Assert.assertNotNull(patient.person);
-            Assert.assertTrue(patient.person.identifiers.size() != 0);
+            Assert.assertTrue(patient.person.ids.size() != 0);
         }
     }
 
@@ -63,10 +63,10 @@ public class IdartClientIntegrationTest {
 
         for (PartyRole practitioner : practitioners) {
             Assert.assertNotNull(practitioner);
-            Assert.assertNotNull(practitioner.identifiers);
-            Assert.assertTrue(practitioner.identifiers.size() != 0);
+            Assert.assertNotNull(practitioner.ids);
+            Assert.assertTrue(practitioner.ids.size() != 0);
             Assert.assertNotNull(practitioner.person);
-            Assert.assertTrue(practitioner.person.identifiers.size() != 0);
+            Assert.assertTrue(practitioner.person.ids.size() != 0);
         }
     }
 
@@ -79,8 +79,8 @@ public class IdartClientIntegrationTest {
 
         for (Compound compound : compounds) {
             Assert.assertNotNull(compound);
-            Assert.assertNotNull(compound.identifiers);
-            Assert.assertTrue(compound.identifiers.size() != 0);
+            Assert.assertNotNull(compound.ids);
+            Assert.assertTrue(compound.ids.size() != 0);
         }
     }
 
@@ -93,8 +93,8 @@ public class IdartClientIntegrationTest {
 
         for (Drug drug : drugs) {
             Assert.assertNotNull(drug);
-            Assert.assertNotNull(drug.identifiers);
-            Assert.assertTrue(drug.identifiers.size() != 0);
+            Assert.assertNotNull(drug.ids);
+            Assert.assertTrue(drug.ids.size() != 0);
             if (drug.form != null) {
                 Assert.assertNotNull(drug.form.codes);
             }
@@ -150,20 +150,20 @@ public class IdartClientIntegrationTest {
     @Test
     public void testCreateClinic() throws Exception {
         Clinic clinic = new Clinic();
-        clinic.addIdentifier("http://www.cell-life.org/idart/clinics", "00000001");
+        clinic.addId("http://www.cell-life.org/idart/clinics", "00000001");
     }
 
     @Test
     public void testCreatePrescription() throws Exception {
 
-        String clinicIdentifier = "00000001";
+        String clinicId = "00000001";
 
-        Prescription prescription = new PrescriptionBuilder(clinicIdentifier)
+        Prescription prescription = new PrescriptionBuilder(clinicId)
                 .setPatient("http://www.pgwc.gov.za", "72254311")
                 .setPrescriber("http://prehmis.capetown.gov.za", "1299")
                 .setDateWritten(new Date())
-                .addPrescribedMedication(newPrescribedMedication(clinicIdentifier)
-                        .setIdentifier("00000001")
+                .addPrescribedMedication(newPrescribedMedication(clinicId)
+                        .setId("00000001")
                         .setMedication("00000001")
                         .setReasonForPrescribing("Because I said so")
                         .setValid(null, new Date())
@@ -182,23 +182,23 @@ public class IdartClientIntegrationTest {
     @Test
     public void testCreateMedication() throws Exception {
 
-        String clinicIdentifier = "00000001";
+        String clinicId = "00000001";
 
-        MedicationBuilder medicationBuilder = new MedicationBuilder(clinicIdentifier)
+        MedicationBuilder medicationBuilder = new MedicationBuilder(clinicId)
                 .setName("[ABC] Abacavir 300mg")
-                .addDrug(newDrug(clinicIdentifier)
+                .addDrug(newDrug(clinicId)
                         .setForm(Form.IDART_SYSTEM, "CAP")
                         .addClassification(PartClassificationType.ATC, "J05AF06")
                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                 .setQuantity(60, UnitOfMeasures.EACH)
-                                .addPart(newDrug(clinicIdentifier)
-                                        .setIdentifier("00000002")
+                                .addPart(newDrug(clinicId)
+                                        .setId("00000002")
                                         .setForm(Form.IDART_SYSTEM, "CAP")
                                         .addClassification(PartClassificationType.ATC, "J05AF06")
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")
-                                                .addPart(newCompound(clinicIdentifier)
-                                                        .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
+                                                .addPart(newCompound(clinicId)
+                                                        .setId(Compound.INN_SYSTEM, "Abacavir")
                                                         .finishCompound()
                                                 )
                                                 .finishBillOfMaterialsItem()
@@ -213,19 +213,19 @@ public class IdartClientIntegrationTest {
         idartClient.saveMedication("00000001", medicationBuilder.finishMedication());
     }
 
-    private static PrescribedMedicationBuilder newPrescribedMedication(String clinicIdentifier) {
-        return new PrescribedMedicationBuilder(clinicIdentifier);
+    private static PrescribedMedicationBuilder newPrescribedMedication(String clinicId) {
+        return new PrescribedMedicationBuilder(clinicId);
     }
 
     private static BillOfMaterialsItemBuilder newBillOfMaterialsItem() {
         return new BillOfMaterialsItemBuilder();
     }
 
-    private static DrugBuilder newDrug(String clinicIdentifier) {
-        return new DrugBuilder(clinicIdentifier);
+    private static DrugBuilder newDrug(String clinicId) {
+        return new DrugBuilder(clinicId);
     }
 
-    private static CompoundBuilder newCompound(String clinicIdentifier) {
-        return new CompoundBuilder(clinicIdentifier);
+    private static CompoundBuilder newCompound(String clinicId) {
+        return new CompoundBuilder(clinicId);
     }
 }

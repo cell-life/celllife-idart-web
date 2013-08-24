@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.dispensation
 
 import org.celllife.idart.application.dispensation.DispensationApplicationService
 import org.celllife.idart.domain.dispensation.Dispensation
-import org.celllife.idart.common.DispensationIdentifier
+import org.celllife.idart.common.DispensationId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/dispensations/{dispensationIdentifier}",
+            value = "/dispensations/{dispensationId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Dispensation findByDispensationIdentifier(@PathVariable("dispensationIdentifier") DispensationIdentifier dispensationIdentifier) {
-        dispensationApplicationService.findByDispensationIdentifier(dispensationIdentifier)
+    Dispensation findByDispensationId(@PathVariable("dispensationId") DispensationId dispensationId) {
+        dispensationApplicationService.findByDispensationId(dispensationId)
     }
 
     @RequestMapping(value = "/dispensations", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         dispensation = dispensationApplicationService.save(dispensation)
 
-        response.setHeader("Location", "${baseUrl}/dispensations/${dispensation.identifier}")
+        response.setHeader("Location", "${baseUrl}/dispensations/${dispensation.id}")
         response.setStatus(SC_CREATED)
     }
 }

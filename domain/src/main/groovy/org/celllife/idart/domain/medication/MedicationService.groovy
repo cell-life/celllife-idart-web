@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.medication
 
-import org.celllife.idart.common.ProductIdentifier
+import org.celllife.idart.common.ProductId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface MedicationService {
 
     Medication save(Medication medication) throws MedicationValidationException
 
-    Medication findByProductIdentifier(ProductIdentifier productIdentifier) throws MedicationNotFoundException
+    Medication findByProductId(ProductId productId) throws MedicationNotFoundException
 
 }

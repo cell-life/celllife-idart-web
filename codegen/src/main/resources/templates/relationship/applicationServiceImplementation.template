@@ -22,20 +22,20 @@ import javax.annotation.Generated
     @Autowired ${domainService.className} ${domainService.fieldName}
 
     @Override
-    void save(${from.identifier.className} ${from.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName}) {
+    void save(${from.id.className} ${from.id.fieldName}, ${to.entity.className} ${to.entity.fieldName}) {
 
         ${to.applicationService.fieldName}.save(${to.entity.fieldName})
 
-        save(${from.identifier.fieldName}, ${to.entity.fieldName}.${to.identifier.shortFieldName})
+        save(${from.id.fieldName}, ${to.entity.fieldName}.${to.id.shortFieldName})
     }
 
     @Override
-    void save(${from.identifier.className} ${from.identifier.fieldName}, ${to.identifier.className} ${to.identifier.fieldName}) {
-        ${domainService.fieldName}.save(${from.identifier.fieldName}, ${to.identifier.fieldName})
+    void save(${from.id.className} ${from.id.fieldName}, ${to.id.className} ${to.id.fieldName}) {
+        ${domainService.fieldName}.save(${from.id.fieldName}, ${to.id.fieldName})
     }
 
     @Override
-    Iterable<${to.identifier.className}> find${to.entity.collectionClassName}By${from.entity.className}(${from.identifier.className} ${from.entity.fieldName}) {
+    Iterable<${to.id.className}> find${to.entity.collectionClassName}By${from.entity.className}(${from.id.className} ${from.entity.fieldName}) {
          ${domainService.fieldName}.find${to.entity.collectionClassName}By${from.entity.className}(${from.entity.fieldName})
     }
 }

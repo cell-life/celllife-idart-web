@@ -1,6 +1,6 @@
 package org.celllife.idart.client.part;
 
-import org.celllife.idart.client.common.Identifier;
+import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 import org.codehaus.jackson.annotate.JsonSubTypes;
@@ -22,7 +22,7 @@ import java.util.Set;
 })
 public abstract class Part implements Serializable {
 
-    public Set<Identifier> identifiers = new HashSet<Identifier>();
+    public Set<Id> ids = new HashSet<Id>();
 
     public UnitOfMeasure unitOfMeasure;
 
@@ -36,7 +36,7 @@ public abstract class Part implements Serializable {
     @Override
     public String toString() {
         return "Part{" +
-                "identifiers=" + identifiers +
+                "ids=" + ids +
                 ", unitOfMeasure=" + unitOfMeasure +
                 ", form=" + form +
                 ", classifications=" + classifications +

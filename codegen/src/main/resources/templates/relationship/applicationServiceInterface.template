@@ -9,16 +9,16 @@ public interface ${applicationService.className} {
 
     /**
      *
-     * @param ${from.identifier.fieldName}
-     * @param ${to.identifier.fieldName}
+     * @param ${from.id.fieldName}
+     * @param ${to.id.fieldName}
      * @param ${to.entity.fieldName}
      * @return
      */
-    void save(${from.identifier.className} ${from.identifier.fieldName}, ${to.identifier.className} ${to.identifier.fieldName}, ${to.entity.className} ${to.entity.fieldName})
+    void save(${from.id.className} ${from.id.fieldName}, ${to.id.className} ${to.id.fieldName}, ${to.entity.className} ${to.entity.fieldName})
 
     /**
      *
-     * @param ${from.identifier.fieldName}
+     * @param ${from.id.fieldName}
      * @param ${to.entity.fieldName}
      * @return
      */
@@ -26,18 +26,18 @@ public interface ${applicationService.className} {
 
     /**
      *
-     * @param ${from.identifier.fieldName}
+     * @param ${from.id.fieldName}
      * @return
      */
-    Iterable<${to.entity.className}> find${to.entity.collectionClassName}By${from.entity.className}Identifier(${from.identifier.className} ${from.identifier.fieldName})
+    Iterable<${to.entity.className}> find${to.entity.collectionClassName}By${from.entity.className}Id(${from.id.className} ${from.id.fieldName})
 
     /**
      *
-     * @param ${from.identifier.fieldName}
-     * @param ${to.identifier.fieldName}
+     * @param ${from.id.fieldName}
+     * @param ${to.id.fieldName}
      * @return
      */
-    ${to.entity.className} findOne${to.entity.className}By${from.identifier.className}And${to.identifier.className}(${from.identifier.className} ${from.identifier.fieldName}, ${to.identifier.className} ${to.identifier.fieldName})
+    ${to.entity.className} findOne${to.entity.className}By${from.id.className}And${to.id.className}(${from.id.className} ${from.id.fieldName}, ${to.id.className} ${to.id.fieldName})
 
 
 }

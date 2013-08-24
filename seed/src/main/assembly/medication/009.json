@@ -1,0 +1,8 @@
+{
+    "identifier": "00000009",
+    "name": "Abacavir 300mg (60 Tablets)",
+    "drug": {
+        "@type": "drug",
+        "identifier": "000000018"
+    }
+}

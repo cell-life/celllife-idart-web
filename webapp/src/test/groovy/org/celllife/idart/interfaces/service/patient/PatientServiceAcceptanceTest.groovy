@@ -32,7 +32,7 @@ class PatientServiceAcceptanceTest {
     }
 
     @Test
-    void shouldFindPatientByIdentifierValue() throws Exception {
+    void shouldFindPatientByIdValue() throws Exception {
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "17768102")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254212")
@@ -42,14 +42,14 @@ class PatientServiceAcceptanceTest {
     }
 
     @Test
-    void shouldFindPatientByIdentifierValueTwice() throws Exception {
+    void shouldFindPatientByIdValueTwice() throws Exception {
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
     }
 
-    static assertPatientExists(String applicationId, String idartClinicIdentifier, String patientIdentifier) {
+    static assertPatientExists(String applicationId, String idartClinicId, String patientId) {
 
-        def patients = PatientServiceClient.findByIdentifier(applicationId, idartClinicIdentifier, patientIdentifier)
+        def patients = PatientServiceClient.findById(applicationId, idartClinicId, patientId)
 
         println "***************************************************************************************************"
         println "***************************************************************************************************"

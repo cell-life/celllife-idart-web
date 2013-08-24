@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.practitioner
 
-import org.celllife.idart.common.PractitionerIdentifier
+import org.celllife.idart.common.PractitionerId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
     }
 
     @Override
-    Practitioner findByPractitionerIdentifier(PractitionerIdentifier practitionerIdentifier) throws PractitionerNotFoundException {
+    Practitioner findByPractitionerId(PractitionerId practitionerId) throws PractitionerNotFoundException {
 
-        def practitioner = practitionerRepository.findOne(practitionerIdentifier)
+        def practitioner = practitionerRepository.findOne(practitionerId)
 
         if (practitioner == null) {
-            throw new PractitionerNotFoundException("Could not find Practitioner with Practitioner Identifier [${ practitionerIdentifier}]")
+            throw new PractitionerNotFoundException("Could not find Practitioner with Practitioner Id [${ practitionerId}]")
         }
 
         practitioner

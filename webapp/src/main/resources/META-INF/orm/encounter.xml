@@ -8,9 +8,9 @@
 
     <entity class="org.celllife.idart.domain.encounter.Encounter">
         <attributes>
-            <embedded-id name="identifier">
+            <embedded-id name="id">
                 <attribute-override name="value">
-                    <column name="identifier"/>
+                    <column name="id"/>
                 </attribute-override>
             </embedded-id>
         </attributes>

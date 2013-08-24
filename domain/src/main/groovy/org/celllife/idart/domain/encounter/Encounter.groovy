@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.encounter
 
-import org.celllife.idart.common.EncounterIdentifier
+import org.celllife.idart.common.EncounterId
 
 /**
  * User: Kevin W. Sewell
@@ -17,7 +17,7 @@ class Encounter {
     /**
      * Identified by
      */
-    EncounterIdentifier identifier
+    EncounterId id
 
     def merge(Encounter that) {
 

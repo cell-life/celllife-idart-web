@@ -10,7 +10,7 @@ import static org.celllife.idart.codegen.transform.Transformations.*
 class IncludedFeatureModelEnricher {
 
     static fullListOfFeatures = [
-            "identifier",
+            "id",
             "entity",
             "repository",
             "validator",

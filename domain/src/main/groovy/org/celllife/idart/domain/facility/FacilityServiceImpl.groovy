@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.facility
 
-import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.FacilityId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
     }
 
     @Override
-    Facility findByFacilityIdentifier(FacilityIdentifier facilityIdentifier) throws FacilityNotFoundException {
+    Facility findByFacilityId(FacilityId facilityId) throws FacilityNotFoundException {
 
-        def facility = facilityRepository.findOne(facilityIdentifier)
+        def facility = facilityRepository.findOne(facilityId)
 
         if (facility == null) {
-            throw new FacilityNotFoundException("Could not find Facility with Facility Identifier [${ facilityIdentifier}]")
+            throw new FacilityNotFoundException("Could not find Facility with Facility Id [${ facilityId}]")
         }
 
         facility

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.patient
 
-import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.PatientId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.patient.PatientEvent.newPatientEvent
     }
 
     @Override
-    Patient findByPatientIdentifier(PatientIdentifier patientIdentifier) throws PatientNotFoundException {
+    Patient findByPatientId(PatientId patientId) throws PatientNotFoundException {
 
-        def patient = patientRepository.findOne(patientIdentifier)
+        def patient = patientRepository.findOne(patientId)
 
         if (patient == null) {
-            throw new PatientNotFoundException("Could not find Patient with Patient Identifier [${ patientIdentifier}]")
+            throw new PatientNotFoundException("Could not find Patient with Patient Id [${ patientId}]")
         }
 
         patient

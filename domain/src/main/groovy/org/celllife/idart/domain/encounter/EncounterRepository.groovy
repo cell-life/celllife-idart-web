@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.encounter
 
-import org.celllife.idart.common.EncounterIdentifier
+import org.celllife.idart.common.EncounterId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface EncounterRepository {
 
     Encounter save(Encounter encounter)
 
-    Encounter findOne(EncounterIdentifier encounterIdentifier)
+    Encounter findOne(EncounterId encounterId)
 
 }

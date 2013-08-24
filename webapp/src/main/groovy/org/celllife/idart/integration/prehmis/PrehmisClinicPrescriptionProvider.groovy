@@ -48,7 +48,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
-                facilityCode: ((Facility) clinic).getIdentifierValue("http://prehmis.capetown.gov.za"),
+                facilityCode: ((Facility) clinic).getIdValue("http://prehmis.capetown.gov.za"),
         ])
 
         try {
@@ -96,11 +96,11 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
         prescription.with {
 
-            prehmisPrescription.id = idartIdentifierValue
-            prehmisPrescription.patientSaIdNumber = patient?.person?.getIdentifierValue(PrehmisPatientIdentifierType.SAID.system)
-            prehmisPrescription.prehmisPatientId = patient?.getIdentifierValue(PrehmisPatientIdentifierType.PREHMIS.system)
-            prehmisPrescription.pgwcPatientNumber = patient?.getIdentifierValue(PrehmisPatientIdentifierType.PGWC.system)
-            prehmisPrescription.practitionerCode = prescriber?.getIdentifierValue("http://prehmis.capetown.gov.za")
+            prehmisPrescription.id = idartIdValue
+            prehmisPrescription.patientSaIdNumber = patient?.person?.getIdValue(PrehmisPatientIdType.SAID.system)
+            prehmisPrescription.prehmisPatientId = patient?.getIdValue(PrehmisPatientIdType.PREHMIS.system)
+            prehmisPrescription.pgwcPatientNumber = patient?.getIdValue(PrehmisPatientIdType.PGWC.system)
+            prehmisPrescription.practitionerCode = prescriber?.getIdValue("http://prehmis.capetown.gov.za")
             prehmisPrescription.prescriptionDate = toPrehmisDate(dateWritten)
 
             if (prescribedMedications.size() != 0) {
@@ -123,7 +123,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
-                facilityCode: ((Facility) clinic).getIdentifierValue("http://prehmis.capetown.gov.za"),
+                facilityCode: ((Facility) clinic).getIdValue("http://prehmis.capetown.gov.za"),
                 prescription: prehmisPrescription
         ])
 

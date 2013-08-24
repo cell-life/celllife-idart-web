@@ -1,0 +1,8 @@
+{
+    "identifier": "00000001",
+    "name": "Zidovudine 100mg (100 Tablets)",
+    "drug": {
+        "@type": "drug",
+        "identifier": "00000002"
+    }
+}

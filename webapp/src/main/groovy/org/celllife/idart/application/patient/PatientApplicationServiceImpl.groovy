@@ -1,7 +1,7 @@
 package org.celllife.idart.application.patient
 
 import org.celllife.idart.application.person.PersonApplicationService
-import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.PatientId
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.person.Person
@@ -22,28 +22,28 @@ import org.springframework.stereotype.Service
     @Override
     Patient save(Patient newPatient) {
 
-        newPatient.person = updatePerson(newPatient)
+        updatePerson(newPatient)
 
         patientService.save(newPatient)
     }
 
     /**
-     * Incoming patient's person may not have an identifier. This means that a new person will be created
+     * Incoming patient's person may not have an id. This means that a new person will be created
      * everytime we update the patient. So to counter this:
      * 1: we lookup the person via the patient
      * 2a: If patient exists
      * 2b: Then so must the person, thus merge new Person into existing Person and save
      * 3a: If patient does not exist
-     * 3b: Then the person might exist, but there is not way to be absolutely sure without a person identifier
+     * 3b: Then the person might exist, but there is not way to be absolutely sure without a person id
      *     This may result in a duplicate person being created, we shall create a compensating work flow to handle
      *     the merging of duplicate people
      *
      * @param newPatient
      * @return
      */
-    Person updatePerson(Patient newPatient) {
+    void updatePerson(Patient newPatient) {
 
-        def existingPatient = patientService.findByIdentifiers(newPatient.identifiers)
+        def existingPatient = patientService.findByIds(newPatient.ids)
 
         if (existingPatient != null) {
             if (existingPatient.person == null) {
@@ -55,11 +55,11 @@ import org.springframework.stereotype.Service
             newPatient.person = existingPatient.person
         }
 
-        return personApplicationService.save(newPatient.person)
+        personApplicationService.save(newPatient.person)
     }
 
     @Override
-    Patient findByPatientIdentifier(PatientIdentifier patientIdentifier) {
-        patientService.findByPatientIdentifier(patientIdentifier)
+    Patient findByPatientId(PatientId patientId) {
+        patientService.findByPatientId(patientId)
     }
 }

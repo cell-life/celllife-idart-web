@@ -1,9 +1,8 @@
 package org.celllife.idart.domain.practitioner
 
-import org.celllife.idart.common.PartyIdentifier
 import org.celllife.idart.common.Period
-import org.celllife.idart.common.PractitionerIdentifier
-import org.celllife.idart.domain.person.Person
+import org.celllife.idart.common.PersonId
+import org.celllife.idart.common.PractitionerId
 
 import javax.validation.constraints.NotNull
 
@@ -24,7 +23,7 @@ class Practitioner {
     /**
      * Identified by
      */
-    PractitionerIdentifier identifier
+    PractitionerId id
 
     /**
      * Valid during
@@ -35,7 +34,7 @@ class Practitioner {
      * Acted by
      */
     @NotNull
-    PartyIdentifier person
+    PersonId person
 
     def merge(Practitioner that) {
 

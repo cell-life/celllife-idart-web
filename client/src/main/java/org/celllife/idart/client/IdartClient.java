@@ -21,11 +21,11 @@ public interface IdartClient {
 
     void saveClinic(Clinic clinic);
 
-    void saveMedication(String medicationIdentifier, Medication medication);
+    void saveMedication(String medicationId, Medication medication);
 
-    void savePrescription(String prescriptionIdentifier, Prescription prescription);
+    void savePrescription(String prescriptionId, Prescription prescription);
 
-    List<Patient> getPatients(String patientIdentifierValue);
+    List<Patient> getPatients(String patientIdValue);
 
     List<Practitioner> getPractitioners();
 

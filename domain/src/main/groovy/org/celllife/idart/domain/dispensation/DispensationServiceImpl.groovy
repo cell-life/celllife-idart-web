@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.dispensation
 
-import org.celllife.idart.common.DispensationIdentifier
+import org.celllife.idart.common.DispensationId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
     }
 
     @Override
-    Dispensation findByDispensationIdentifier(DispensationIdentifier dispensationIdentifier) throws DispensationNotFoundException {
+    Dispensation findByDispensationId(DispensationId dispensationId) throws DispensationNotFoundException {
 
-        def dispensation = dispensationRepository.findOne(dispensationIdentifier)
+        def dispensation = dispensationRepository.findOne(dispensationId)
 
         if (dispensation == null) {
-            throw new DispensationNotFoundException("Could not find Dispensation with Dispensation Identifier [${ dispensationIdentifier}]")
+            throw new DispensationNotFoundException("Could not find Dispensation with Dispensation Id [${ dispensationId}]")
         }
 
         dispensation

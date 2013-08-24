@@ -51,35 +51,35 @@ public interface SpringData${className}Repository
 
     @Query("select ${propertyName} " +
             "from ${className} ${propertyName} " +
-            "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Identifier " +
+            "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Id " +
             "and ${propertyName}.fromDate <= :dateActive " +
             "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    Iterable<${className}> findBy${entities[0].className}IdentifierAndDateActive(
-                @Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
+    Iterable<${className}> findBy${entities[0].className}IdAndDateActive(
+                @Param("${entities[0].propertyName}Id") String ${entities[0].propertyName}Id,
                 @Param("dateActive") Date dateActive);
 
 
     @Query("select ${propertyName} " +
                 "from ${className} ${propertyName} " +
-                "join ${propertyName}.${entities[1].propertyName}.identifiers ${entities[1].propertyName}Identifier " +
-                "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Identifier " +
-                "and ${entities[1].propertyName}Identifier.value = :${entities[1].propertyName}Identifier " +
+                "join ${propertyName}.${entities[1].propertyName}.ids ${entities[1].propertyName}Id " +
+                "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Id " +
+                "and ${entities[1].propertyName}Id.value = :${entities[1].propertyName}Id " +
                 "and ${propertyName}.fromDate <= :dateActive " +
                 "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    Iterable<${className}> findBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
-                @Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
-                @Param("${entities[1].propertyName}Identifier") String ${entities[1].propertyName}Identifier,
+    Iterable<${className}> findBy${entities[0].className}IdAnd${entities[1].className}IdAndDateActive(
+                @Param("${entities[0].propertyName}Id") String ${entities[0].propertyName}Id,
+                @Param("${entities[1].propertyName}Id") String ${entities[1].propertyName}Id,
                 @Param("dateActive") Date dateActive);
 
     @Query("select ${propertyName} " +
                 "from ${className} ${propertyName} " +
-                "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Identifier " +
-                "and ${propertyName}.${entities[1].propertyName}.pk = :${entities[1].propertyName}Identifier " +
+                "where ${propertyName}.${entities[0].propertyName}.pk = :${entities[0].propertyName}Id " +
+                "and ${propertyName}.${entities[1].propertyName}.pk = :${entities[1].propertyName}Id " +
                 "and ${propertyName}.fromDate <= :dateActive " +
                 "and ((${propertyName}.thruDate is not null and ${propertyName}.thruDate > :dateActive) or ${propertyName}.thruDate is null)")
-    ${className} findOneBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(
-                @Param("${entities[0].propertyName}Identifier") String ${entities[0].propertyName}Identifier,
-                @Param("${entities[1].propertyName}Identifier") String ${entities[1].propertyName}Identifier,
+    ${className} findOneBy${entities[0].className}IdAnd${entities[1].className}IdAndDateActive(
+                @Param("${entities[0].propertyName}Id") String ${entities[0].propertyName}Id,
+                @Param("${entities[1].propertyName}Id") String ${entities[1].propertyName}Id,
                 @Param("dateActive") Date dateActive);
 
     @Query("select ${propertyName} " +

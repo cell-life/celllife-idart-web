@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.drug
 
 import org.celllife.idart.application.drug.DrugApplicationService
 import org.celllife.idart.domain.drug.Drug
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/drugs/{partIdentifier}",
+            value = "/drugs/{partId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Drug findByPartIdentifier(@PathVariable("partIdentifier") PartIdentifier partIdentifier) {
-        drugApplicationService.findByPartIdentifier(partIdentifier)
+    Drug findByPartId(@PathVariable("partId") PartId partId) {
+        drugApplicationService.findByPartId(partId)
     }
 
     @RequestMapping(value = "/drugs", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         drug = drugApplicationService.save(drug)
 
-        response.setHeader("Location", "${baseUrl}/drugs/${drug.identifier}")
+        response.setHeader("Location", "${baseUrl}/drugs/${drug.id}")
         response.setStatus(SC_CREATED)
     }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="person-1" author="kevin.sewell">
+
+        <createTable tableName="person">
+            <column name="id" type="varchar(31)"/>
+            <column name="last_name" type="varchar(63)"/>
+            <column name="first_name" type="varchar(63)"/>
+            <column name="middle_names" type="varchar(63)"/>
+            <column name="personal_title" type="varchar(31)"/>
+            <column name="suffix" type="varchar(31)"/>
+            <column name="nickname" type="varchar(63)"/>
+            <column name="gender" type="varchar(31)"/>
+            <column name="birth_date" type="date"/>
+            <column name="mothers_maiden_name" type="varchar(63)"/>
+            <column name="marital_status" type="varchar(31)"/>
+            <column name="total_years_work_experience" type="integer"/>
+            <column name="comment" type="varchar(255)"/>
+        </createTable>
+
+        <addPrimaryKey tableName="person" columnNames="id"/>
+
+        <createTable tableName="person_classifications">
+            <column name="person_applied_to" type="varchar(31)"/>
+            <column name="classification_code" type="varchar(31)"/>
+            <column name="classification_type" type="varchar(31)"/>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="person_classifications"
+                                 baseColumnNames="person_applied_to"
+                                 constraintName="person_classifications_fk"
+                                 referencedTableName="person"
+                                 referencedColumnNames="id"/>
+
+        <createTable tableName="person_contact_mechanisms">
+            <column name="person_for" type="varchar(31)"/>
+            <column name="contact_mechanism" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
+            <column name="non_solicitation_indicator" type="bit"/>
+            <column name="extension" type="varchar(10)"/>
+            <column name="comment" type="varchar(2000)"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="person_contact_mechanisms"
+                                 baseColumnNames="person_for"
+                                 constraintName="person_contact_mechanisms_fk"
+                                 referencedTableName="person"
+                                 referencedColumnNames="id"/>
+
+        <createTable tableName="person_measurements">
+            <column name="person" type="varchar(31)"/>
+            <column name="type" type="varchar(31)"/>
+            <column name="value" type="numeric"/>
+            <column name="unit_of_measure" type="varchar(31)"/>
+            <column name="date_taken" type="date"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="person_measurements"
+                                 baseColumnNames="person"
+                                 constraintName="person_measurement_fk"
+                                 referencedTableName="person"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>

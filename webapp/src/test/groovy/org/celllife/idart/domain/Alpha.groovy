@@ -7,6 +7,6 @@ package org.celllife.idart.domain
  */
 class Alpha {
 
-    String identifier
+    String id
 
 }

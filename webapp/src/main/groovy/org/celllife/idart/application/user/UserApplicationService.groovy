@@ -3,7 +3,7 @@ package org.celllife.idart.application.user
 import org.celllife.idart.domain.user.User
 import org.celllife.idart.domain.user.UserValidationException
 import org.celllife.idart.domain.user.UserNotFoundException
-import org.celllife.idart.common.UserIdentifier
+import org.celllife.idart.common.UserId
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface UserApplicationService {
 
     User save(User user) throws UserValidationException
 
-    User findByUserIdentifier(UserIdentifier userIdentifier) throws UserNotFoundException
+    User findByUserId(UserId userId) throws UserNotFoundException
 
 }

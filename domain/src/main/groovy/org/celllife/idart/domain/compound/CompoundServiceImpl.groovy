@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.compound
 
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.compound.CompoundEvent.newCompoundEvent
     }
 
     @Override
-    Compound findByPartIdentifier(PartIdentifier partIdentifier) throws CompoundNotFoundException {
+    Compound findByPartId(PartId partId) throws CompoundNotFoundException {
 
-        def compound = compoundRepository.findOne(partIdentifier)
+        def compound = compoundRepository.findOne(partId)
 
         if (compound == null) {
-            throw new CompoundNotFoundException("Could not find Compound with Part Identifier [${ partIdentifier}]")
+            throw new CompoundNotFoundException("Could not find Compound with Part Id [${ partId}]")
         }
 
         compound

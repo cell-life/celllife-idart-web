@@ -3,7 +3,7 @@ package org.celllife.idart.application.patient
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.patient.PatientValidationException
 import org.celllife.idart.domain.patient.PatientNotFoundException
-import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.PatientId
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface PatientApplicationService {
 
     Patient save(Patient patient) throws PatientValidationException
 
-    Patient findByPatientIdentifier(PatientIdentifier patientIdentifier) throws PatientNotFoundException
+    Patient findByPatientId(PatientId patientId) throws PatientNotFoundException
 
 }

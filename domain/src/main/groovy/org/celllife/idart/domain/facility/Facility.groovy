@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.facility
 
-import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.Quantity
 
 /**
@@ -15,9 +15,9 @@ class Facility {
     static NAMESPACE = "http://www.cell-life.org/idart/facilities"
 
     /**
-     * Facility Identifier 
+     * Facility Id
      */
-    FacilityIdentifier identifier
+    FacilityId id
 
     /**
      * Name
@@ -37,7 +37,7 @@ class Facility {
     /**
      * Located at
      */
-    FacilityIdentifier locatedAt
+    FacilityId locatedAt
 
     def merge(Facility that) {
 

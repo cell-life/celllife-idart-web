@@ -9,5 +9,5 @@ import org.celllife.idart.domain.practitioner.Practitioner
  */
 interface PractitionerProvider {
 
-    Set<Practitioner> findAll(String clinicIdentifierValue)
+    Set<Practitioner> findAll(String clinicIdValue)
 }

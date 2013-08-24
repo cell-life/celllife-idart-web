@@ -6,7 +6,7 @@
     <changeSet id="prescription-1" author="kevin.sewell">
 
         <createTable tableName="prescription">
-            <column name="identifier" type="varchar(31)">
+            <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="encounter" type="varchar(31)"/>
@@ -21,7 +21,7 @@
         </createTable>
 
         <createTable tableName="prescribed_medication">
-            <column name="identifier" type="varchar(31)">
+            <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="reason_for_prescribing" type="varchar(2000)"/>

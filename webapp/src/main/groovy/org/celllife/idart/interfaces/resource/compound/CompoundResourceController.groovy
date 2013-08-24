@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.compound
 
 import org.celllife.idart.application.compound.CompoundApplicationService
 import org.celllife.idart.domain.compound.Compound
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/compounds/{partIdentifier}",
+            value = "/compounds/{partId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Compound findByPartIdentifier(@PathVariable("partIdentifier") PartIdentifier partIdentifier) {
-        compoundApplicationService.findByPartIdentifier(partIdentifier)
+    Compound findByPartId(@PathVariable("partId") PartId partId) {
+        compoundApplicationService.findByPartId(partId)
     }
 
     @RequestMapping(value = "/compounds", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         compound = compoundApplicationService.save(compound)
 
-        response.setHeader("Location", "${baseUrl}/compounds/${compound.identifier}")
+        response.setHeader("Location", "${baseUrl}/compounds/${compound.id}")
         response.setStatus(SC_CREATED)
     }
 }

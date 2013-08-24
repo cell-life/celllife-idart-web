@@ -3,7 +3,7 @@ package org.celllife.idart.application.drug
 import org.celllife.idart.domain.drug.Drug
 import org.celllife.idart.domain.drug.DrugValidationException
 import org.celllife.idart.domain.drug.DrugNotFoundException
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 import org.celllife.idart.domain.drug.DrugService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,8 +21,8 @@ import javax.annotation.Generated
         drugService.save(drug)
     }
 
-    Drug findByPartIdentifier(PartIdentifier partIdentifier) throws DrugNotFoundException{
-        drugService.findByPartIdentifier(partIdentifier)
+    Drug findByPartId(PartId partId) throws DrugNotFoundException{
+        drugService.findByPartId(partId)
     }
 
 }

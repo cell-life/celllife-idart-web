@@ -7,7 +7,7 @@ import static org.celllife.idart.codegen.transform.DomainServiceModelEnricher.en
 import static org.celllife.idart.codegen.transform.EntityModelEnricher.enrichModelWithEntity
 import static org.celllife.idart.codegen.transform.EventPublisherModelEnricher.enrichModelWithEventPublisher
 import static org.celllife.idart.codegen.transform.RepositoryModelEnricher.enrichModelWithRepository
-import static org.celllife.idart.codegen.transform.IdentifierModelEnricher.enrichModelWithIdentifier
+import static org.celllife.idart.codegen.transform.IdModelEnricher.enrichModelWithId
 import static org.celllife.idart.codegen.transform.IncludedFeatureModelEnricher.enrichModelWithIncludedFeatures
 import static org.celllife.idart.codegen.transform.Jsr303ValidatorModelEnricher.enrichModelWithJsr303Validator
 import static org.celllife.idart.codegen.transform.ModelEnricher.enrichModel
@@ -29,7 +29,7 @@ class EntityModelTransform {
         enrichModelWithIncludedFeatures(baseNamespace, model)
 
         enrichModelWithEntity(baseNamespace, model)
-        enrichModelWithIdentifier(baseNamespace, model)
+        enrichModelWithId(baseNamespace, model)
 
         enrichModelWithRepository(baseNamespace, model)
         enrichModelWithSpringDataRepository(baseNamespace, model)

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.organisation
 
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.OrganisationId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface OrganisationService {
 
     Organisation save(Organisation organisation) throws OrganisationValidationException
 
-    Organisation findByPartyIdentifier(PartyIdentifier partyIdentifier) throws OrganisationNotFoundException
+    Organisation findByOrganisationId(OrganisationId organisationId) throws OrganisationNotFoundException
 
 }

@@ -46,22 +46,22 @@ public final class IdartClientSingleton implements IdartClient {
 
     private String idartWebUrl;
 
-    private String idartClinicIdentifier;
+    private String idartClinicId;
 
-    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicIdentifier) {
+    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicId) {
 
         if (instance == null) {
-            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, idartClinicIdentifier);
+            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, idartClinicId);
         }
 
         return instance;
     }
 
-    private IdartClientSingleton(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicIdentifier) {
+    private IdartClientSingleton(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicId) {
 
         this.idartWebUrl = idartWebUrl;
 
-        this.idartClinicIdentifier = idartClinicIdentifier;
+        this.idartClinicId = idartClinicId;
 
         this.httpClient = new HttpClient();
 
@@ -98,14 +98,14 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void saveMedication(String medicationIdentifier, Medication medication) {
+    public void saveMedication(String medicationId, Medication medication) {
 
         PutMethod putMedication = new PutMethod(
                 String.format(
                         "%s/clinics/%s/medications/%s",
                         idartWebUrl,
-                        idartClinicIdentifier,
-                        medicationIdentifier
+                        idartClinicId,
+                        medicationId
                 )
         );
 
@@ -123,14 +123,14 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void savePrescription(String prescriptionIdentifier, Prescription prescription) {
+    public void savePrescription(String prescriptionId, Prescription prescription) {
 
         PutMethod putPrescription = new PutMethod(
                 String.format(
                         "%s/clinics/%s/prescriptions/%s",
                         idartWebUrl,
-                        idartClinicIdentifier,
-                        prescriptionIdentifier
+                        idartClinicId,
+                        prescriptionId
                 )
         );
 
@@ -156,14 +156,14 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public List<Patient> getPatients(String patientIdentifierValue) {
+    public List<Patient> getPatients(String patientIdValue) {
 
         GetMethod getPatients = new GetMethod(
                 String.format(
-                        "%s/clinics/%s/patients/search/findByIdentifier?patientIdentifier=%s",
+                        "%s/clinics/%s/patients/search/findById?patientId=%s",
                         idartWebUrl,
-                        idartClinicIdentifier,
-                        patientIdentifierValue
+                        idartClinicId,
+                        patientIdValue
                 )
         );
 
@@ -188,7 +188,7 @@ public final class IdartClientSingleton implements IdartClient {
                 String.format(
                         "%s/clinics/%s/practitioners",
                         idartWebUrl,
-                        idartClinicIdentifier
+                        idartClinicId
                 )
         );
 
@@ -235,7 +235,7 @@ public final class IdartClientSingleton implements IdartClient {
                 String.format(
                         "%s/clinics/%s/drugs",
                         idartWebUrl,
-                        idartClinicIdentifier
+                        idartClinicId
                 )
         );
 

@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.part
 
-import org.celllife.idart.common.PartIdentifier
+import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Quantity
 
@@ -24,7 +24,7 @@ class PartBillOfMaterialsItem {
     /**
      *  Made up of
      */
-    PartIdentifier part
+    PartId part
 
     /**
      *

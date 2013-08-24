@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.organisation
 
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.OrganisationId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrgani
     }
 
     @Override
-    Organisation findByPartyIdentifier(PartyIdentifier partyIdentifier) throws OrganisationNotFoundException {
+    Organisation findByOrganisationId(OrganisationId organisationId) throws OrganisationNotFoundException {
 
-        def organisation = organisationRepository.findOne(partyIdentifier)
+        def organisation = organisationRepository.findOne(organisationId)
 
         if (organisation == null) {
-            throw new OrganisationNotFoundException("Could not find Organisation with Party Identifier [${ partyIdentifier}]")
+            throw new OrganisationNotFoundException("Could not find Organisation with Organisation Id [${ organisationId}]")
         }
 
         organisation

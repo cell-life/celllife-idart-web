@@ -9,9 +9,9 @@
     <entity class="org.celllife.idart.domain.prescribedmedication.PrescribedMedication">
 
         <attributes>
-            <embedded-id name="identifier">
+            <embedded-id name="id">
                 <attribute-override name="value">
-                    <column name="identifier"/>
+                    <column name="id"/>
                 </attribute-override>
             </embedded-id>
             <basic name="numberOfRepeats"/>

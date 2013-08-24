@@ -5,7 +5,7 @@ package org.celllife.idart.integration.prehmis
  * Date: 2013-04-25
  * Time: 15h22
  */
-enum PrehmisPatientIdentifierType {
+enum PrehmisPatientIdType {
 
     PGWC("http://www.pgwc.gov.za", "PGWC Patient Number"),
 
@@ -19,7 +19,7 @@ enum PrehmisPatientIdentifierType {
 
     final String description
 
-    PrehmisPatientIdentifierType(String system, String description) {
+    PrehmisPatientIdType(String system, String description) {
         this.system = system
         this.description = description
     }

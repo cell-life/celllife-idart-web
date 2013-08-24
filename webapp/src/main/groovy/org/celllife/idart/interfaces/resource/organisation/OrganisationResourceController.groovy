@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.organisation
 
 import org.celllife.idart.application.organisation.OrganisationApplicationService
 import org.celllife.idart.domain.organisation.Organisation
-import org.celllife.idart.common.PartyIdentifier
+import org.celllife.idart.common.OrganisationId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/organisations/{partyIdentifier}",
+            value = "/organisations/{organisationId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Organisation findByPartyIdentifier(@PathVariable("partyIdentifier") PartyIdentifier partyIdentifier) {
-        organisationApplicationService.findByPartyIdentifier(partyIdentifier)
+    Organisation findByOrganisationId(@PathVariable("organisationId") OrganisationId organisationId) {
+        organisationApplicationService.findByOrganisationId(organisationId)
     }
 
     @RequestMapping(value = "/organisations", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         organisation = organisationApplicationService.save(organisation)
 
-        response.setHeader("Location", "${baseUrl}/organisations/${organisation.identifier}")
+        response.setHeader("Location", "${baseUrl}/organisations/${organisation.id}")
         response.setStatus(SC_CREATED)
     }
 }

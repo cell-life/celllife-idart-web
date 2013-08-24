@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.encounter
 
-import org.celllife.idart.common.EncounterIdentifier
+import org.celllife.idart.common.EncounterId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.encounter.EncounterEvent.newEncounterEve
     }
 
     @Override
-    Encounter findByEncounterIdentifier(EncounterIdentifier encounterIdentifier) throws EncounterNotFoundException {
+    Encounter findByEncounterId(EncounterId encounterId) throws EncounterNotFoundException {
 
-        def encounter = encounterRepository.findOne(encounterIdentifier)
+        def encounter = encounterRepository.findOne(encounterId)
 
         if (encounter == null) {
-            throw new EncounterNotFoundException("Could not find Encounter with Encounter Identifier [${ encounterIdentifier}]")
+            throw new EncounterNotFoundException("Could not find Encounter with Encounter Id [${ encounterId}]")
         }
 
         encounter

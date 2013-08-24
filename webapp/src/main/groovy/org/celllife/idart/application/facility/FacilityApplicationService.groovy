@@ -3,7 +3,7 @@ package org.celllife.idart.application.facility
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.facility.FacilityValidationException
 import org.celllife.idart.domain.facility.FacilityNotFoundException
-import org.celllife.idart.common.FacilityIdentifier
+import org.celllife.idart.common.FacilityId
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface FacilityApplicationService {
 
     Facility save(Facility facility) throws FacilityValidationException
 
-    Facility findByFacilityIdentifier(FacilityIdentifier facilityIdentifier) throws FacilityNotFoundException
+    Facility findByFacilityId(FacilityId facilityId) throws FacilityNotFoundException
 
 }

@@ -13,9 +13,9 @@
         <discriminator-column name="type"/>
 
         <attributes>
-            <embedded-id name="identifier">
+            <embedded-id name="id">
                 <attribute-override name="value">
-                    <column name="identifier"/>
+                    <column name="id"/>
                 </attribute-override>
             </embedded-id>
             <element-collection name="classifications" fetch="EAGER">

@@ -1,7 +1,7 @@
 package org.celllife.idart.domain.systemfacility
 
-import org.celllife.idart.common.FacilityIdentifier
-import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.FacilityId
+import org.celllife.idart.common.SystemId
 
 /**
  * User: Kevin W. Sewell
@@ -13,7 +13,7 @@ interface SystemFacilityRepository {
     SystemFacility save(SystemFacility userForSystem)
 
     SystemFacility findBySystemAndFacilityAndRelationship(
-            SystemIdentifier systemIdentifier,
-            FacilityIdentifier facilityIdentifier,
+            SystemId systemId,
+            FacilityId facilityId,
             SystemFacilityRelationship relationship)
 }

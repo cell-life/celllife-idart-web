@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
  */
 class ClinicPractitionerApplicationServiceImpl  {
 
-    static final String CLINIC_PRACTITIONER_IDENTIFIER_SYSTEM_TEMPLATE =
+    static final String CLINIC_PRACTITIONER_ID_SYSTEM_TEMPLATE =
         "http://www.cell-life.org/idart/clinics/%s/practitioners"
 
     def clinicPractitionerService
@@ -21,22 +21,22 @@ class ClinicPractitionerApplicationServiceImpl  {
     /**
      * {@inheritDoc}
      */
-    void save(String clinicIdentifier, String practitionerIdentifier, Practitioner practitioner) {
+    void save(String clinicId, String practitionerId, Practitioner practitioner) {
 
-        practitioner.addIdentifier(
-                String.format(CLINIC_PRACTITIONER_IDENTIFIER_SYSTEM_TEMPLATE, clinicIdentifier),
-                practitionerIdentifier
+        practitioner.addId(
+                String.format(CLINIC_PRACTITIONER_ID_SYSTEM_TEMPLATE, clinicId),
+                practitionerId
         )
 
-        save(clinicIdentifier, practitioner)
+        save(clinicId, practitioner)
     }
 
     /**
      * {@inheritDoc}
      */
-    void save(String clinicIdentifier, Practitioner practitioner) {
+    void save(String clinicId, Practitioner practitioner) {
 
-        def clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
+        def clinic = clinicApplicationService.findById(clinicId)
 
         save(clinic, practitioner)
     }
@@ -44,9 +44,9 @@ class ClinicPractitionerApplicationServiceImpl  {
     /**
      * {@inheritDoc}
      */
-    Iterable<Practitioner> findPractitionersByClinicIdentifier(String clinicIdentifier) {
+    Iterable<Practitioner> findPractitionersByClinicId(String clinicId) {
 
-        Clinic clinic = clinicApplicationService.findByIdentifier(clinicIdentifier)
+        Clinic clinic = clinicApplicationService.findById(clinicId)
 
         lookupFromExternalProvidersAndSave(clinic)
 
@@ -56,21 +56,21 @@ class ClinicPractitionerApplicationServiceImpl  {
     /**
      * {@inheritDoc}
      */
-    Iterable<Practitioner> findPractitionersByClinicIdentifierAndPractitionerIdentifier(String clinicIdentifier,
-                                                                                        String practitionerIdentifier) {
+    Iterable<Practitioner> findPractitionersByClinicIdAndPractitionerId(String clinicId,
+                                                                                        String practitionerId) {
 
-        clinicPractitionerService.findPractitionersByClinicIdentifierAndPractitionerIdentifier(clinicIdentifier,
-                practitionerIdentifier)
+        clinicPractitionerService.findPractitionersByClinicIdAndPractitionerId(clinicId,
+                practitionerId)
     }
 
     /**
      * {@inheritDoc}
      */
-    Practitioner findOnePractitionerByClinicIdentifierAndPractitionerIdentifier(String clinicIdentifier,
-                                                                                String practitionerIdentifier) {
+    Practitioner findOnePractitionerByClinicIdAndPractitionerId(String clinicId,
+                                                                                String practitionerId) {
 
-        clinicPractitionerService.findOnePractitionerByClinicIdentifierAndPractitionerIdentifier(clinicIdentifier,
-                practitionerIdentifier)
+        clinicPractitionerService.findOnePractitionerByClinicIdAndPractitionerId(clinicId,
+                practitionerId)
     }
 
     /**
@@ -92,12 +92,12 @@ class ClinicPractitionerApplicationServiceImpl  {
 
         Set<Practitioner> practitioners = []
 
-        ((Facility) clinic).getIdentifierSystems().each { identifierSystem ->
+        ((Facility) clinic).getIdSystems().each { idSystem ->
 
-            String clinicIdentifierValue = ((Facility) clinic).getIdentifierValue(identifierSystem)
-            switch (identifierSystem) {
+            String clinicIdValue = ((Facility) clinic).getIdValue(idSystem)
+            switch (idSystem) {
                 case "http://prehmis.capetown.gov.za":
-                    practitioners << prehmisPractitionerProvider.findAll(clinicIdentifierValue)
+                    practitioners << prehmisPractitionerProvider.findAll(clinicIdValue)
                     break
                 default:
                     break

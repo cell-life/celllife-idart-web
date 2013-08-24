@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.system
 
-import org.celllife.idart.common.SystemIdentifier
+import org.celllife.idart.common.SystemId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface SystemService {
 
     System save(System system) throws SystemValidationException
 
-    System findBySystemIdentifier(SystemIdentifier systemIdentifier) throws SystemNotFoundException
+    System findBySystemId(SystemId systemId) throws SystemNotFoundException
 
 }

@@ -1,8 +1,8 @@
 package org.celllife.idart.domain.dispensedmedication
 
-import org.celllife.idart.common.DispensedMedicationIdentifier
-import org.celllife.idart.common.PrescribedMedicationIdentifier
-import org.celllife.idart.common.ProductIdentifier
+import org.celllife.idart.common.DispensedMedicationId
+import org.celllife.idart.common.PrescribedMedicationId
+import org.celllife.idart.common.ProductId
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
@@ -22,12 +22,12 @@ class DispensedMedication {
     /**
      * Identified by
      */
-    DispensedMedicationIdentifier identifier
+    DispensedMedicationId id
 
     /**
      * Medication
      */
-    ProductIdentifier medication
+    ProductId medication
 
     /**
      * Quantity
@@ -52,7 +52,7 @@ class DispensedMedication {
     /**
      * Authorized by
      */
-    PrescribedMedicationIdentifier authorizingPrescribedMedication
+    PrescribedMedicationId authorizingPrescribedMedication
 
 
     def merge(DispensedMedication that) {

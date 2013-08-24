@@ -16,16 +16,16 @@ class PractitionerService {
 
     static String baseResourceUrl = "${contextPath}/practitioners"
 
-    static String findByClinicIdentifierUrl = "${baseResourceUrl}/search/findByClinicIdentifier"
+    static String findByClinicIdUrl = "${baseResourceUrl}/search/findByClinicId"
 
     static findAll() {
         get(path: baseResourceUrl)
     }
 
-    static findByClinicIdentifier(String applicationId, String clinicIdentifier) {
+    static findByClinicId(String applicationId, String clinicId) {
         get(
-                path: findByClinicIdentifierUrl,
-                query: [clinicIdentifier: clinicIdentifier],
+                path: findByClinicIdUrl,
+                query: [clinicId: clinicId],
                 headers: ['X-IDART_APPLICATION_ID': applicationId]
         )
     }

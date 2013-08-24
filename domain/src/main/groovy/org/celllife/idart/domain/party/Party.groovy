@@ -1,8 +1,6 @@
 package org.celllife.idart.domain.party
 
 import groovy.transform.EqualsAndHashCode
-import org.celllife.idart.common.PartyIdentifier
-import org.celllife.idart.common.PartyType
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 
 /**
@@ -10,13 +8,8 @@ import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
  * Date: 2013-06-15
  * Time: 13h45
  */
-@EqualsAndHashCode(includes = "identifiers")
+@EqualsAndHashCode(includes = "ids")
 abstract class Party {
-
-    /**
-     * Identified by
-     */
-    PartyIdentifier identifier
 
     /**
      * Classified into

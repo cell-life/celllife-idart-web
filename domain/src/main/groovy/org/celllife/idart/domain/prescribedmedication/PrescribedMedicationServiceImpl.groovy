@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.prescribedmedication
 
-import org.celllife.idart.common.PrescribedMedicationIdentifier
+import org.celllife.idart.common.PrescribedMedicationId
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,12 +32,12 @@ import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicatio
     }
 
     @Override
-    PrescribedMedication findByPrescribedMedicationIdentifier(PrescribedMedicationIdentifier prescribedMedicationIdentifier) throws PrescribedMedicationNotFoundException {
+    PrescribedMedication findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) throws PrescribedMedicationNotFoundException {
 
-        def prescribedMedication = prescribedMedicationRepository.findOne(prescribedMedicationIdentifier)
+        def prescribedMedication = prescribedMedicationRepository.findOne(prescribedMedicationId)
 
         if (prescribedMedication == null) {
-            throw new PrescribedMedicationNotFoundException("Could not find PrescribedMedication with PrescribedMedication Identifier [${ prescribedMedicationIdentifier}]")
+            throw new PrescribedMedicationNotFoundException("Could not find PrescribedMedication with PrescribedMedication Id [${ prescribedMedicationId}]")
         }
 
         prescribedMedication

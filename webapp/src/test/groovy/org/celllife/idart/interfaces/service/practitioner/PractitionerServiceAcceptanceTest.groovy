@@ -30,19 +30,19 @@ class PractitionerServiceAcceptanceTest {
     }
 
     @Test
-    void shouldFindPractitionerByClinicIdentifier() throws Exception {
+    void shouldFindPractitionerByClinicId() throws Exception {
         assertPractitionersExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic")
     }
 
     @Test
-    void shouldFindPractitionerByClinicIdentifierTwice() throws Exception {
+    void shouldFindPractitionerByClinicIdTwice() throws Exception {
         assertPractitionersExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic")
         assertPractitionersExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic")
     }
 
-    static assertPractitionersExists(String applicationId, String idartClinicIdentifier) {
+    static assertPractitionersExists(String applicationId, String idartClinicId) {
 
-        def practitioners = PractitionerService.findByClinicIdentifier(applicationId, idartClinicIdentifier)
+        def practitioners = PractitionerService.findByClinicId(applicationId, idartClinicId)
 
         assertNotNull practitioners
         assertEquals(13, practitioners.size)

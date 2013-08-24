@@ -2,7 +2,7 @@ package org.celllife.idart.interfaces.resource.patient
 
 import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.common.PatientIdentifier
+import org.celllife.idart.common.PatientId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -24,11 +24,11 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
     @ResponseBody
     @RequestMapping(
-            value = "/patients/{patientIdentifier}",
+            value = "/patients/{patientId}",
             method = RequestMethod.GET, produces = "application/json"
     )
-    Patient findByPatientIdentifier(@PathVariable("patientIdentifier") PatientIdentifier patientIdentifier) {
-        patientApplicationService.findByPatientIdentifier(patientIdentifier)
+    Patient findByPatientId(@PathVariable("patientId") PatientId patientId) {
+        patientApplicationService.findByPatientId(patientId)
     }
 
     @RequestMapping(value = "/patients", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ import static javax.servlet.http.HttpServletResponse.SC_CREATED
 
         patient = patientApplicationService.save(patient)
 
-        response.setHeader("Location", "${baseUrl}/patients/${patient.identifier}")
+        response.setHeader("Location", "${baseUrl}/patients/${patient.id}")
         response.setStatus(SC_CREATED)
     }
 }

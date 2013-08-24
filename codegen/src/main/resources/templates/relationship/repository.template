@@ -18,11 +18,11 @@ public interface ${className}Repository {
 
     Iterable<${className}> findBy${entities[0].className}AndDateActive(${entities[0].className} ${entities[0].propertyName}, Date dateActive)
 
-    Iterable<${className}> findBy${entities[0].className}IdentifierAndDateActive(String ${entities[0].propertyName}Identifier, Date dateActive)
+    Iterable<${className}> findBy${entities[0].className}IdAndDateActive(String ${entities[0].propertyName}Id, Date dateActive)
 
-    Iterable<${className}> findBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier, Date dateActive)
+    Iterable<${className}> findBy${entities[0].className}IdAnd${entities[1].className}IdAndDateActive(String ${entities[0].propertyName}Id, String ${entities[1].propertyName}Id, Date dateActive)
 
-    ${className} findOneBy${entities[0].className}IdentifierAnd${entities[1].className}IdentifierAndDateActive(String ${entities[0].propertyName}Identifier, String ${entities[1].propertyName}Identifier, Date dateActive)
+    ${className} findOneBy${entities[0].className}IdAnd${entities[1].className}IdAndDateActive(String ${entities[0].propertyName}Id, String ${entities[1].propertyName}Id, Date dateActive)
 
     Iterable<${className}> findBy${entities[1].className}AndDateActive(${entities[1].className} ${entities[1].propertyName}, Date dateActive)
 

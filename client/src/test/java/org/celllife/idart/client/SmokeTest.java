@@ -50,10 +50,10 @@ public class SmokeTest {
 
         for (PartyRole patient : patients) {
             Assert.assertNotNull(patient);
-            Assert.assertNotNull(patient.identifiers);
-            Assert.assertTrue(patient.identifiers.size() != 0);
+            Assert.assertNotNull(patient.ids);
+            Assert.assertTrue(patient.ids.size() != 0);
             Assert.assertNotNull(patient.person);
-            Assert.assertTrue(patient.person.identifiers.size() != 0);
+            Assert.assertTrue(patient.person.ids.size() != 0);
         }
 
         // ********************************************************************************************************
@@ -64,31 +64,31 @@ public class SmokeTest {
 
         for (PartyRole practitioner : practitioners) {
             Assert.assertNotNull(practitioner);
-            Assert.assertNotNull(practitioner.identifiers);
-            Assert.assertTrue(practitioner.identifiers.size() != 0);
+            Assert.assertNotNull(practitioner.ids);
+            Assert.assertTrue(practitioner.ids.size() != 0);
             Assert.assertNotNull(practitioner.person);
-            Assert.assertTrue(practitioner.person.identifiers.size() != 0);
+            Assert.assertTrue(practitioner.person.ids.size() != 0);
         }
 
         // ********************************************************************************************************
 
-        String clinicIdentifier = "00000001";
+        String clinicId = "00000001";
 
-        MedicationBuilder medicationBuilder = new MedicationBuilder(clinicIdentifier)
+        MedicationBuilder medicationBuilder = new MedicationBuilder(clinicId)
                 .setName("[ABC] Abacavir 300mg")
-                .addDrug(newDrug(clinicIdentifier)
+                .addDrug(newDrug(clinicId)
                         .setForm(Form.IDART_SYSTEM, "CAP")
                         .addClassification(PartClassificationType.ATC, "J05AF06")
                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                 .setQuantity(60, UnitOfMeasures.EACH)
-                                .addPart(newDrug(clinicIdentifier)
-                                        .setIdentifier("00000002")
+                                .addPart(newDrug(clinicId)
+                                        .setId("00000002")
                                         .setForm(Form.IDART_SYSTEM, "CAP")
                                         .addClassification(PartClassificationType.ATC, "J05AF06")
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")
-                                                .addPart(newCompound(clinicIdentifier)
-                                                        .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
+                                                .addPart(newCompound(clinicId)
+                                                        .setId(Compound.INN_SYSTEM, "Abacavir")
                                                         .finishCompound()
                                                 )
                                                 .finishBillOfMaterialsItem()
@@ -104,13 +104,13 @@ public class SmokeTest {
 
         // ********************************************************************************************************
 
-        Prescription prescription = new PrescriptionBuilder(clinicIdentifier)
-                .addIdentifier("http://www.cell-life.org/idart/prescriptions", System.currentTimeMillis() + "")
+        Prescription prescription = new PrescriptionBuilder(clinicId)
+                .addId("http://www.cell-life.org/idart/prescriptions", System.currentTimeMillis() + "")
                 .setPatient("http://www.pgwc.gov.za", "72254311")
                 .setPrescriber("http://prehmis.capetown.gov.za", "1299")
                 .setDateWritten(new Date())
-                .addPrescribedMedication(newPrescribedMedication(clinicIdentifier)
-                        .setIdentifier(System.currentTimeMillis() + "")
+                .addPrescribedMedication(newPrescribedMedication(clinicId)
+                        .setId(System.currentTimeMillis() + "")
                         .setMedication("00000001")
                         .setReasonForPrescribing("Because I said so")
                         .setValid(null, new Date())
@@ -126,20 +126,20 @@ public class SmokeTest {
         System.out.println(((IdartClientSingleton) idartClient).mapToJson(prescription));
     }
 
-    private static PrescribedMedicationBuilder newPrescribedMedication(String clinicIdentifier) {
-        return new PrescribedMedicationBuilder(clinicIdentifier);
+    private static PrescribedMedicationBuilder newPrescribedMedication(String clinicId) {
+        return new PrescribedMedicationBuilder(clinicId);
     }
 
     private static BillOfMaterialsItemBuilder newBillOfMaterialsItem() {
         return new BillOfMaterialsItemBuilder();
     }
 
-    private static DrugBuilder newDrug(String clinicIdentifier) {
-        return new DrugBuilder(clinicIdentifier);
+    private static DrugBuilder newDrug(String clinicId) {
+        return new DrugBuilder(clinicId);
     }
 
-    private static CompoundBuilder newCompound(String clinicIdentifier) {
-        return new CompoundBuilder(clinicIdentifier);
+    private static CompoundBuilder newCompound(String clinicId) {
+        return new CompoundBuilder(clinicId);
     }
 
 }

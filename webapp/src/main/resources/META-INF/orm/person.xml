@@ -9,6 +9,11 @@
     <entity class="org.celllife.idart.domain.person.Person">
 
         <attributes>
+            <embedded-id name="id">
+                <attribute-override name="value">
+                    <column name="id"/>
+                </attribute-override>
+            </embedded-id>
             <basic name="firstName"/>
             <basic name="middleNames"/>
             <basic name="lastName"/>
@@ -29,8 +34,17 @@
             <basic name="mothersMaidenName"/>
             <element-collection name="measurements" fetch="EAGER">
                 <collection-table>
-                    <join-column name="person_identifier" referenced-column-name="identifier"/>
-                    <join-column name="person_type" referenced-column-name="type"/>
+                    <join-column name="person" referenced-column-name="id"/>
+                </collection-table>
+            </element-collection>
+            <element-collection name="classifications" fetch="EAGER">
+                <collection-table>
+                    <join-column name="person_applied_to"/>
+                </collection-table>
+            </element-collection>
+            <element-collection name="contactMechanisms" fetch="EAGER">
+                <collection-table>
+                    <join-column name="person_for"/>
                 </collection-table>
             </element-collection>
         </attributes>

@@ -3,7 +3,7 @@ package org.celllife.idart.application.dispensedmedication
 import org.celllife.idart.domain.dispensedmedication.DispensedMedication
 import org.celllife.idart.domain.dispensedmedication.DispensedMedicationValidationException
 import org.celllife.idart.domain.dispensedmedication.DispensedMedicationNotFoundException
-import org.celllife.idart.common.DispensedMedicationIdentifier
+import org.celllife.idart.common.DispensedMedicationId
 
 import javax.annotation.Generated
 
@@ -14,6 +14,6 @@ interface DispensedMedicationApplicationService {
 
     DispensedMedication save(DispensedMedication dispensedMedication) throws DispensedMedicationValidationException
 
-    DispensedMedication findByDispensedMedicationIdentifier(DispensedMedicationIdentifier dispensedMedicationIdentifier) throws DispensedMedicationNotFoundException
+    DispensedMedication findByDispensedMedicationId(DispensedMedicationId dispensedMedicationId) throws DispensedMedicationNotFoundException
 
 }

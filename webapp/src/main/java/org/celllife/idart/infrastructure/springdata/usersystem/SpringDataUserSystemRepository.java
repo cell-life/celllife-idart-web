@@ -1,7 +1,7 @@
 package org.celllife.idart.infrastructure.springdata.usersystem;
 
-import org.celllife.idart.common.SystemIdentifier;
-import org.celllife.idart.common.UserIdentifier;
+import org.celllife.idart.common.SystemId;
+import org.celllife.idart.common.UserId;
 import org.celllife.idart.domain.usersystem.UserSystem;
 import org.celllife.idart.domain.usersystem.UserSystemRelationship;
 import org.celllife.idart.domain.usersystem.UserSystemRepository;
@@ -21,7 +21,7 @@ public interface SpringDataUserSystemRepository extends UserSystemRepository,
             "where userSystem.fromUser = :fromUser " +
             "and userSystem.toSystem = :toSystem " +
             "and userSystem.relationship = :relationship")
-    UserSystem findByUserAndSystemAndRelationship(@Param("fromUser") UserIdentifier fromUser,
-                                                  @Param("toSystem") SystemIdentifier toSystem,
+    UserSystem findByUserAndSystemAndRelationship(@Param("fromUser") UserId fromUser,
+                                                  @Param("toSystem") SystemId toSystem,
                                                   @Param("relationship") UserSystemRelationship relationship);
 }

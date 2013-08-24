@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.dispensedmedication
 
-import org.celllife.idart.common.DispensedMedicationIdentifier
+import org.celllife.idart.common.DispensedMedicationId
 
 import javax.annotation.Generated
 
@@ -11,6 +11,6 @@ public interface DispensedMedicationService {
 
     DispensedMedication save(DispensedMedication dispensedMedication) throws DispensedMedicationValidationException
 
-    DispensedMedication findByDispensedMedicationIdentifier(DispensedMedicationIdentifier dispensedMedicationIdentifier) throws DispensedMedicationNotFoundException
+    DispensedMedication findByDispensedMedicationId(DispensedMedicationId dispensedMedicationId) throws DispensedMedicationNotFoundException
 
 }
