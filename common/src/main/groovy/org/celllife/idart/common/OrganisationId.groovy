@@ -3,24 +3,36 @@ package org.celllife.idart.common
 import com.fasterxml.jackson.annotation.JsonValue
 import groovy.transform.EqualsAndHashCode
 
+import javax.annotation.Generated
+
 /**
  * Organisation Id
  *
  */
 @EqualsAndHashCode
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 class OrganisationId implements Serializable {
-
+    
     /**
      * Value
      */
     String value
-
-    static OrganisationId valueOf(String value) {
-        return new OrganisationId(value: value)
+    
+    static OrganisationId valueOf(String string) {
+        new OrganisationId ( value: string )
     }
-
+    
     @JsonValue
     String getValue() {
-        value
+         this.value
+    }
+
+    def setValue(String value) {
+         this.value = value
+    }
+    
+    @Override
+    String toString() {
+         value 
     }
 }

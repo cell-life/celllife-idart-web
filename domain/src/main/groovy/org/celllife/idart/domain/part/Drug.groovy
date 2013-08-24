@@ -1,8 +1,10 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Quantity
-import org.celllife.idart.domain.part.EngineeringPartBillOfMaterialsItem
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
+import org.celllife.idart.common.UnitOfMeasureCode
+
+import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
 
 /**
  * User: Kevin W. Sewell
@@ -18,9 +20,10 @@ class Drug extends Part {
      */
     Set<PartBillOfMaterialsItem> billOfMaterials = [] as Set<PartBillOfMaterialsItem>
 
-    def addEngineeringPart(Part engineeringPart, Double quantity, UnitOfMeasure unitOfMeasure) {
-        this.billOfMaterials << new EngineeringPartBillOfMaterialsItem(
-                part: engineeringPart,
+    def addEngineeringPart(PartId part, Double quantity, UnitOfMeasureCode unitOfMeasure) {
+        this.billOfMaterials << new PartBillOfMaterialsItem(
+                type: ENGINEERING,
+                part: part,
                 quantityUsed: new Quantity(
                         value: quantity,
                         unitOfMeasure: unitOfMeasure

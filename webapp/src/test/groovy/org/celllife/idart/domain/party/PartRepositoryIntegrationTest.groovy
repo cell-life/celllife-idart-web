@@ -1,10 +1,9 @@
 package org.celllife.idart.domain.party
 
-import org.celllife.idart.application.compound.CompoundApplicationService
-import org.celllife.idart.application.drug.DrugApplicationService
 import org.celllife.idart.application.medication.MedicationApplicationService
-import org.celllife.idart.domain.compound.Compound
-import org.celllife.idart.domain.drug.Drug
+import org.celllife.idart.application.part.PartApplicationService
+import org.celllife.idart.domain.part.Compound
+import org.celllife.idart.domain.part.Drug
 import org.celllife.idart.domain.medication.Medication
 
 import org.celllife.idart.domain.product.Product
@@ -30,9 +29,7 @@ class PartRepositoryIntegrationTest {
 
     @Autowired MedicationApplicationService medicationApplicationService
 
-    @Autowired DrugApplicationService drugApplicationService
-
-    @Autowired CompoundApplicationService compoundApplicationService
+    @Autowired PartApplicationService partApplicationService
 
     @Test
     void testName() throws Exception {
@@ -51,17 +48,17 @@ class PartRepositoryIntegrationTest {
 
         Compound abacavirCompound = new Compound(unitOfMeasure: milligrams)
         abacavirCompound.addId("http://www.who.int/medicines/services/inn", "Abacavir")
-        abacavirCompound = compoundApplicationService.save(abacavirCompound)
+        abacavirCompound = partApplicationService.save(abacavirCompound)
 
         Drug abacavir20mg = new Drug(unitOfMeasure: millilitres)
         abacavir20mg.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
         abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
-        abacavir20mg = drugApplicationService.save(abacavir20mg)
+        abacavir20mg = partApplicationService.save(abacavir20mg)
 
         Drug drug = new Drug(unitOfMeasure: each)
         drug.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
         drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
-        drug = drugApplicationService.save(drug)
+        drug = partApplicationService.save(drug)
 
         Medication good = new Medication(drug: drug)
         ((Product) good).addId("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml")

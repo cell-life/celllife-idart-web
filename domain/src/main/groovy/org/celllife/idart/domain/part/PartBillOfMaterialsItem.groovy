@@ -27,17 +27,17 @@ class PartBillOfMaterialsItem {
     PartId part
 
     /**
-     *
+     * Quantity Used
      */
     Quantity quantityUsed
 
     /**
-     *
+     * Instructions
      */
     String instructions
 
     /**
-     *
+     * Comment
      */
     String comment
 
@@ -61,7 +61,7 @@ class PartBillOfMaterialsItem {
             return false
         }
 
-        return (this.part == that.part) &&
+        return this.part.matches(that.part) &&
                 (this.type == that.type) &&
                 (this.quantityUsed == that.quantityUsed)
     }

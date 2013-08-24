@@ -80,6 +80,9 @@ class IdModelEnricher {
                             if (fieldName == null) {
                                 fieldName = toFieldName(property.name)
                             }
+                            if (className == null) {
+                                className = toCamelCase(property.name)
+                            }
                             if (columnName == null) {
                                 columnName = toSnakeCase(fieldName)
                             }

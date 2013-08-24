@@ -2,12 +2,8 @@ package org.celllife.idart.infrastructure.jackson.part;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.celllife.idart.domain.compound.Compound;
-import org.celllife.idart.domain.drug.Drug;
-import org.celllife.idart.domain.form.Form;
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure;
-import org.celllife.idart.framework.json.CodeableSerializer;
+import org.celllife.idart.domain.part.Compound;
+import org.celllife.idart.domain.part.Drug;
 
 /**
  * User: Kevin W. Sewell
@@ -20,11 +16,4 @@ import org.celllife.idart.framework.json.CodeableSerializer;
         @JsonSubTypes.Type(name = "compound", value = Compound.class),
 })
 public interface PartMixin {
-
-    @JsonSerialize(using = CodeableSerializer.class)
-    UnitOfMeasure getUnitOfMeasure();
-
-    @JsonSerialize(using = CodeableSerializer.class)
-    Form getForm();
-
 }

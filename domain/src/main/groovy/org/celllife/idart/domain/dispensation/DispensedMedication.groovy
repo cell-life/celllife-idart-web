@@ -20,11 +20,6 @@ class DispensedMedication {
     static final String IDART_SYSTEM = "http://www.cell-life.org/idart/dispensedMedications"
 
     /**
-     * Identified by
-     */
-    DispensedMedicationId id
-
-    /**
      * Medication
      */
     ProductId medication

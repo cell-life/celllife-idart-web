@@ -40,7 +40,7 @@ class Dispensation {
     /**
      * Contains
      */
-    Set<DispensedMedicationId> dispensedMedications = []
+    Set<DispensedMedication> dispensedMedications = []
 
     def merge(Dispensation that) {
 

@@ -21,12 +21,16 @@ class ${id.className} implements Serializable {
     static ${id.className} valueOf(String string) {
         new ${id.className} (<% id._properties.each { property -> %> ${property.fieldName}: string <% } %>)
     }
-
+    <% id._properties.each { property -> %>
     @JsonValue
-    ${property.type} get${property.type}() {
-         ${property.fieldName}
+    ${property.type} get${property.className}() {
+         this.${property.fieldName}
     }
 
+    def set${property.className}(${property.type} ${property.fieldName}) {
+         this.${property.fieldName} = ${property.fieldName}
+    }
+    <% } %>
     @Override
     String toString() {
         <% id._properties.each { property -> %> ${property.fieldName} <% } %>

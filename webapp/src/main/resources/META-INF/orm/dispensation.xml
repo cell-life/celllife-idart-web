@@ -15,9 +15,7 @@
                 </attribute-override>
             </embedded-id>
             <element-collection name="dispensedMedications" fetch="EAGER">
-                <attribute-override name="value">
-                    <column name="dispensed_medication"/>
-                </attribute-override>
+                <collection-table name="dispensed_medication"/>
             </element-collection>
             <embedded name="patient">
                 <attribute-override name="value">
@@ -31,5 +29,52 @@
             </embedded>
         </attributes>
     </entity>
+
+    <!-- Dispensed Medication -->
+
+    <embeddable class="org.celllife.idart.domain.dispensation.DispensedMedication">
+
+        <attributes>
+            <one-to-one name="dosageInstruction" fetch="EAGER" orphan-removal="true">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <embedded name="medication">
+                <attribute-override name="value">
+                    <column name="medication"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="authorizingPrescribedMedication">
+                <attribute-override name="value">
+                    <column name="authorizing_prescribed_medication"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="quantity">
+                <attribute-override name="value">
+                    <column name="quantity"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="quantity_uom"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="handedOver">
+                <attribute-override name="fromDate">
+                    <column name="handed_over_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="handed_over_thru_date"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="prepared">
+                <attribute-override name="fromDate">
+                    <column name="prepared_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="prepared_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
 
 </entity-mappings>

@@ -21,31 +21,10 @@
 
     },
     {
-        "name": "Compound",
-        "id": {
-            "name": "Part Id"
-        },
-        "features": {
-            "excludes": ["id"]
-        }
-    },
-    {
         "name": "Default Dosage Instruction"
     },
     {
         "name": "Dispensation"
-    },
-    {
-        "name": "DispensedMedication"
-    },
-    {
-        "name": "Drug",
-        "id": {
-            "name": "Part Id"
-        },
-        "features": {
-            "excludes": ["id"]
-        }
     },
     {
         "name": "Encounter"
@@ -129,6 +108,9 @@
     },
     {
         "name": "Organisation"
+    },
+    {
+        "name": "Part"
     },
     {
         "name": "Patient"

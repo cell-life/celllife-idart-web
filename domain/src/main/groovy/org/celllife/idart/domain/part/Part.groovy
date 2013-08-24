@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.part
 
 import org.celllife.idart.common.FormCode
+import org.celllife.idart.common.PartClassificationCode
 import org.celllife.idart.common.PartClassificationType
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.UnitOfMeasureCode
@@ -47,14 +48,14 @@ abstract class Part {
 
     def getClassificationCode(PartClassificationType type) {
         for (classification in classifications) {
-            if (classification.type == type) {
-                return classification.code
+            if (classification.classification.type == type) {
+                return classification.classification
             }
         }
         null
     }
 
     def addClassification(PartClassificationType type, String code) {
-        this.classifications.add(new PartClassificationApplication(type: type, code: code))
+        this.classifications.add(new PartClassificationApplication(classification: new PartClassificationCode(type:type, value: code)))
     }
 }

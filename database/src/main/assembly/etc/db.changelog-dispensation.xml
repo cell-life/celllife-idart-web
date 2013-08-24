@@ -13,14 +13,9 @@
             <column name="patient" type="varchar(31)"/>
         </createTable>
 
-        <createTable tableName="dispensation_dispensed_medications">
-            <column name="dispensation" type="varchar(31)"/>
-            <column name="dispensed_medication" type="varchar(31)"/>
-        </createTable>
-
         <createTable tableName="dispensed_medication">
-            <column name="id" type="varchar(31)">
-                <constraints primaryKey="true"/>
+            <column name="dispensation" type="varchar(31)">
+                <constraints references="dispensation(id)" foreignKeyName="dispensation_dispensed_medication_fk" />
             </column>
             <column name="authorizing_prescribed_medication" type="varchar(31)"/>
             <column name="medication" type="varchar(31)"/>

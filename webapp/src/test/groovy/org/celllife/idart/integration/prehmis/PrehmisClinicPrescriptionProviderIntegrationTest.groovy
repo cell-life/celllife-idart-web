@@ -8,7 +8,7 @@ import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.Repeat
 import org.celllife.idart.common.Schedule
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
-import org.celllife.idart.domain.drug.Drug
+import org.celllife.idart.domain.part.Drug
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.medication.Medication
 import org.celllife.idart.domain.patient.Patient

@@ -1,7 +1,7 @@
 package org.celllife.idart.framework.json
 
-import org.celllife.idart.domain.compound.Compound
-import org.celllife.idart.domain.drug.Drug
+import org.celllife.idart.domain.part.Compound
+import org.celllife.idart.domain.part.Drug
 
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
 import org.junit.Before

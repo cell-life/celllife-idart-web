@@ -37,11 +37,11 @@
 
     </entity>
 
-    <entity class="org.celllife.idart.domain.compound.Compound">
+    <entity class="org.celllife.idart.domain.part.Compound">
         <discriminator-value>compound</discriminator-value>
     </entity>
 
-    <entity class="org.celllife.idart.domain.drug.Drug">
+    <entity class="org.celllife.idart.domain.part.Drug">
         <discriminator-value>drug</discriminator-value>
 
         <attributes>

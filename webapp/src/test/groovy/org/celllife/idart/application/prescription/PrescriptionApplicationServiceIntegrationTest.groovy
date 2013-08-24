@@ -1,14 +1,13 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.celllife.idart.application.compound.CompoundApplicationService
-import org.celllife.idart.application.drug.DrugApplicationService
 import org.celllife.idart.application.medication.MedicationApplicationService
+import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
-import org.celllife.idart.domain.compound.Compound
-import org.celllife.idart.domain.drug.Drug
+import org.celllife.idart.domain.part.Compound
+import org.celllife.idart.domain.part.Drug
 import org.celllife.idart.domain.medication.Medication
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person
@@ -33,9 +32,7 @@ class PrescriptionApplicationServiceIntegrationTest {
 
     @Autowired MedicationApplicationService medicationApplicationService
 
-    @Autowired DrugApplicationService drugApplicationService
-
-    @Autowired CompoundApplicationService compoundApplicationService
+    @Autowired PartApplicationService partApplicationService
 
     @Autowired PrescriptionApplicationService prescriptionApplicationService
 
@@ -60,11 +57,11 @@ class PrescriptionApplicationServiceIntegrationTest {
 
         unitOfMeasureApplicationService.save(createEach())
 
-        compoundApplicationService.save(createCompound(milligrams))
+        partApplicationService.save(createCompound(milligrams))
 
-        drugApplicationService.save(createDrug(millilitres, createCompound(milligrams), milligrams))
+        partApplicationService.save(createDrug(millilitres, createCompound(milligrams), milligrams))
 
-        drugApplicationService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
+        partApplicationService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
 
         Medication medication = new Medication(drug: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
         medication.addId("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")

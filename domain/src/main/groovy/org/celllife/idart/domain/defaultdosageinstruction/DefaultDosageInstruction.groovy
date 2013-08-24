@@ -4,9 +4,6 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.celllife.idart.common.PartId
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
-import org.celllife.idart.domain.drug.Drug
-
-import javax.validation.constraints.NotNull
 
 /**
  * User: Kevin W. Sewell
