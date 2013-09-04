@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class AdministrationMethodNotFoundException extends Exception {
+class AdministrationMethodNotFoundException extends RuntimeException {
 
     AdministrationMethodNotFoundException(String message) {
         super(message)

@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface SystemService {
 
-    System save(System system) throws SystemValidationException
+    System save(System system)
 
-    System findBySystemId(SystemId systemId) throws SystemNotFoundException
+    System findBySystemId(SystemId systemId)
 
 }

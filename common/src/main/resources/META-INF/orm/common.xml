@@ -17,6 +17,16 @@
         </attributes>
     </embeddable>
 
+    <!-- Label -->
+
+    <embeddable class="org.celllife.idart.common.Label">
+        <attributes>
+            <basic name="value">
+                <column name="label"/>
+            </basic>
+        </attributes>
+    </embeddable>
+
     <!-- Measurement -->
 
     <embeddable class="org.celllife.idart.common.Measurement">

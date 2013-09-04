@@ -2,7 +2,6 @@ package org.celllife.idart.client;
 
 import org.celllife.idart.client.clinic.Clinic;
 import org.celllife.idart.client.common.LocalisedText;
-import org.celllife.idart.client.common.Period;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.medication.BillOfMaterialsItemBuilder;
 import org.celllife.idart.client.medication.CompoundBuilder;
@@ -187,13 +186,13 @@ public class IdartClientIntegrationTest {
         MedicationBuilder medicationBuilder = new MedicationBuilder(clinicId)
                 .setName("[ABC] Abacavir 300mg")
                 .addDrug(newDrug(clinicId)
-                        .setForm(Form.IDART_SYSTEM, "CAP")
+                        .setForm("CAP")
                         .addClassification(PartClassificationType.ATC, "J05AF06")
                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                 .setQuantity(60, UnitOfMeasures.EACH)
                                 .addPart(newDrug(clinicId)
                                         .setId("00000002")
-                                        .setForm(Form.IDART_SYSTEM, "CAP")
+                                        .setForm("CAP")
                                         .addClassification(PartClassificationType.ATC, "J05AF06")
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")

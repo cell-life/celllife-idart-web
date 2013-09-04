@@ -19,6 +19,10 @@ class EntrySiteCode implements Serializable {
     String value
     
     static EntrySiteCode valueOf(String string) {
+        entrySiteCode(string)
+    }
+
+    static EntrySiteCode entrySiteCode(String string) {
         new EntrySiteCode ( value: string )
     }
     

@@ -14,8 +14,6 @@ import java.util.Set;
  */
 public final class Form implements Serializable {
 
-    public static final String IDART_SYSTEM = "http://www.cell-life.org/idart/forms";
-
     public Set<Code> codes = new HashSet<Code>();
 
     public Set<LocalisedText> names;

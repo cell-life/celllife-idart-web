@@ -6,20 +6,21 @@ import ${validator.packageName}.${validator.className}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 import javax.validation.ConstraintViolation
 import javax.validation.ValidatorFactory
-
-import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class ${jsr303Validator.className} implements ${validator.className} {
+@Named class ${jsr303Validator.className} implements ${validator.className} {
 
-    @Autowired ValidatorFactory validatorFactory
+    @Inject ValidatorFactory validatorFactory
 
     @Override
-    void validate(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException {
+    void validate(${entity.className} ${entity.fieldName}) {
 
         Set<ConstraintViolation<${entity.className}>> constraintViolations = validatorFactory.validator.validate(${entity.fieldName})
 

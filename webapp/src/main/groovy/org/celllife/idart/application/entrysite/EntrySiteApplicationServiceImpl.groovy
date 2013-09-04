@@ -1,27 +1,25 @@
 package org.celllife.idart.application.entrysite
 
-import org.celllife.idart.domain.entrysite.EntrySite
-import org.celllife.idart.domain.entrysite.EntrySiteValidationException
-import org.celllife.idart.domain.entrysite.EntrySiteNotFoundException
 import org.celllife.idart.common.EntrySiteCode
+import org.celllife.idart.domain.entrysite.EntrySite
 import org.celllife.idart.domain.entrysite.EntrySiteService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class EntrySiteApplicationServiceImpl implements EntrySiteApplicationService {
+@Named class EntrySiteApplicationServiceImpl implements EntrySiteApplicationService {
 
-    @Autowired EntrySiteService entrySiteService
+    @Inject EntrySiteService entrySiteService
 
-    EntrySite save(EntrySite entrySite) throws EntrySiteValidationException {
+    EntrySite save(EntrySite entrySite) {
         entrySiteService.save(entrySite)
     }
 
-    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) throws EntrySiteNotFoundException{
+    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) {
         entrySiteService.findByEntrySiteCode(entrySiteCode)
     }
 

@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface RouteOfAdministrationService {
 
-    RouteOfAdministration save(RouteOfAdministration routeOfAdministration) throws RouteOfAdministrationValidationException
+    RouteOfAdministration save(RouteOfAdministration routeOfAdministration)
 
-    RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) throws RouteOfAdministrationNotFoundException
+    RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode)
 
 }

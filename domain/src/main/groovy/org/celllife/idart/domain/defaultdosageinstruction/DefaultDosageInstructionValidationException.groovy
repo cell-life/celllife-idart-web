@@ -7,7 +7,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class DefaultDosageInstructionValidationException extends Exception {
+class DefaultDosageInstructionValidationException extends RuntimeException {
 
     Set<ConstraintViolation<DefaultDosageInstruction>> constraintViolations
 

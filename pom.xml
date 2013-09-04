@@ -175,6 +175,10 @@
                 <version>${neo4j.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>commons-beanutils</groupId>
+                        <artifactId>commons-beanutils-core</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
@@ -403,6 +407,14 @@
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-validation_1.0_spec</artifactId>
                 <version>1.1</version>
+            </dependency>
+
+            <!-- Inject -->
+
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-atinject_1.0_spec</artifactId>
+                <version>1.0</version>
             </dependency>
 
             <!-- Servlet -->

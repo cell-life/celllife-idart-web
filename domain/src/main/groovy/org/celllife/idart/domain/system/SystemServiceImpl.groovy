@@ -2,10 +2,9 @@ package org.celllife.idart.domain.system
 
 import org.celllife.idart.common.SystemId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.system.SystemEvent.EventType.SAVED
 import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class SystemServiceImpl implements SystemService {
+@Named class SystemServiceImpl implements SystemService {
 
-    @Autowired SystemRepository systemRepository
+    @Inject SystemRepository systemRepository
 
-    @Autowired SystemValidator systemValidator
+    @Inject SystemValidator systemValidator
 
-    @Autowired SystemEventPublisher systemEventPublisher
+    @Inject SystemEventPublisher systemEventPublisher
 
     @Override
-    System save(System system) throws SystemValidationException {
+    System save(System system) {
 
         systemValidator.validate(system)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
     }
 
     @Override
-    System findBySystemId(SystemId systemId) throws SystemNotFoundException {
+    System findBySystemId(SystemId systemId) {
 
         def system = systemRepository.findOne(systemId)
 

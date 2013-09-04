@@ -6,11 +6,10 @@ import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PatientService {
 
-    Patient save(Patient patient) throws PatientValidationException
+    Patient save(Patient patient)
 
-    Patient findByPatientId(PatientId patientId) throws PatientNotFoundException
+    Patient findByPatientId(PatientId patientId)
 
 }

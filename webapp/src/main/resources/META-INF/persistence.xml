@@ -6,6 +6,7 @@
         <jta-data-source>jdbc/idart</jta-data-source>
 
         <mapping-file>META-INF/orm/administrationmethod.xml</mapping-file>
+        <mapping-file>META-INF/orm/authority.xml</mapping-file>
         <mapping-file>META-INF/orm/atc.xml</mapping-file>
         <mapping-file>META-INF/orm/common.xml</mapping-file>
         <mapping-file>META-INF/orm/contactmechanism.xml</mapping-file>
@@ -17,6 +18,7 @@
         <mapping-file>META-INF/orm/entrysite.xml</mapping-file>
         <mapping-file>META-INF/orm/facility.xml</mapping-file>
         <mapping-file>META-INF/orm/form.xml</mapping-file>
+        <mapping-file>META-INF/orm/identifiable.xml</mapping-file>
         <mapping-file>META-INF/orm/indication.xml</mapping-file>
         <mapping-file>META-INF/orm/inventoryitem.xml</mapping-file>
         <mapping-file>META-INF/orm/lifeevent.xml</mapping-file>

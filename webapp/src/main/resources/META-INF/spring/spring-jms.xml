@@ -30,7 +30,6 @@
     </bean>
 
     <camel:routeContext id="eventRouteContext">
-
         <camel:route>
             <camel:from
                     uri="jms:topic:administrationMethodEvent?clientId=administrationMethodEventGraph&amp;durableSubscriptionName=administrationMethodEventGraph"/>
@@ -41,18 +40,6 @@
             <camel:from uri="direct:administrationMethodEvent"/>
             <camel:to uri="jms:topic:administrationMethodEvent" pattern="InOnly"/>
         </camel:route>
-
-        <camel:route>
-            <camel:from
-                    uri="jms:topic:compoundEvent?clientId=compoundEventGraph&amp;durableSubscriptionName=compoundEventGraph"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleCompoundEvent"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:compoundEvent"/>
-            <camel:to uri="jms:topic:compoundEvent" pattern="InOnly"/>
-        </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:defaultDosageInstructionEvent?clientId=defaultDosageInstructionEventGraph&amp;durableSubscriptionName=defaultDosageInstructionEventGraph"/>
@@ -63,7 +50,6 @@
             <camel:from uri="direct:defaultDosageInstructionEvent"/>
             <camel:to uri="jms:topic:defaultDosageInstructionEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:dispensationEvent?clientId=dispensationEventGraph&amp;durableSubscriptionName=dispensationEventGraph"/>
@@ -74,28 +60,6 @@
             <camel:from uri="direct:dispensationEvent"/>
             <camel:to uri="jms:topic:dispensationEvent" pattern="InOnly"/>
         </camel:route>
-
-        <camel:route>
-            <camel:from
-                    uri="jms:topic:dispensedMedicationEvent?clientId=dispensedMedicationEventGraph&amp;durableSubscriptionName=dispensedMedicationEventGraph"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleDispensedMedicationEvent"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:dispensedMedicationEvent"/>
-            <camel:to uri="jms:topic:dispensedMedicationEvent" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="jms:topic:drugEvent?clientId=drugEventGraph&amp;durableSubscriptionName=drugEventGraph"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleDrugEvent"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:drugEvent"/>
-            <camel:to uri="jms:topic:drugEvent" pattern="InOnly"/>
-        </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:encounterEvent?clientId=encounterEventGraph&amp;durableSubscriptionName=encounterEventGraph"/>
@@ -106,7 +70,6 @@
             <camel:from uri="direct:encounterEvent"/>
             <camel:to uri="jms:topic:encounterEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:entrySiteEvent?clientId=entrySiteEventGraph&amp;durableSubscriptionName=entrySiteEventGraph"/>
@@ -117,7 +80,6 @@
             <camel:from uri="direct:entrySiteEvent"/>
             <camel:to uri="jms:topic:entrySiteEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:facilityEvent?clientId=facilityEventGraph&amp;durableSubscriptionName=facilityEventGraph"/>
@@ -128,7 +90,6 @@
             <camel:from uri="direct:facilityEvent"/>
             <camel:to uri="jms:topic:facilityEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from uri="jms:topic:formEvent?clientId=formEventGraph&amp;durableSubscriptionName=formEventGraph"/>
             <camel:bean ref="graphDomainEventConsumer" method="handleFormEvent"/>
@@ -138,7 +99,6 @@
             <camel:from uri="direct:formEvent"/>
             <camel:to uri="jms:topic:formEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:indicationEvent?clientId=indicationEventGraph&amp;durableSubscriptionName=indicationEventGraph"/>
@@ -149,18 +109,6 @@
             <camel:from uri="direct:indicationEvent"/>
             <camel:to uri="jms:topic:indicationEvent" pattern="InOnly"/>
         </camel:route>
-
-        <camel:route>
-            <camel:from
-                    uri="jms:topic:legalOrganisationEvent?clientId=legalOrganisationEventGraph&amp;durableSubscriptionName=legalOrganisationEventGraph"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleLegalOrganisationEvent"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:legalOrganisationEvent"/>
-            <camel:to uri="jms:topic:legalOrganisationEvent" pattern="InOnly"/>
-        </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:lifeEventEvent?clientId=lifeEventEventGraph&amp;durableSubscriptionName=lifeEventEventGraph"/>
@@ -171,7 +119,6 @@
             <camel:from uri="direct:lifeEventEvent"/>
             <camel:to uri="jms:topic:lifeEventEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:medicationEvent?clientId=medicationEventGraph&amp;durableSubscriptionName=medicationEventGraph"/>
@@ -182,7 +129,6 @@
             <camel:from uri="direct:medicationEvent"/>
             <camel:to uri="jms:topic:medicationEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:organisationEvent?clientId=organisationEventGraph&amp;durableSubscriptionName=organisationEventGraph"/>
@@ -193,7 +139,15 @@
             <camel:from uri="direct:organisationEvent"/>
             <camel:to uri="jms:topic:organisationEvent" pattern="InOnly"/>
         </camel:route>
+        <camel:route>
+            <camel:from uri="jms:topic:partEvent?clientId=partEventGraph&amp;durableSubscriptionName=partEventGraph"/>
+            <camel:bean ref="graphDomainEventConsumer" method="handlePartEvent"/>
+        </camel:route>
 
+        <camel:route>
+            <camel:from uri="direct:partEvent"/>
+            <camel:to uri="jms:topic:partEvent" pattern="InOnly"/>
+        </camel:route>
         <camel:route>
             <camel:from
                     uri="jms:topic:patientEvent?clientId=patientEventGraph&amp;durableSubscriptionName=patientEventGraph"/>
@@ -204,7 +158,6 @@
             <camel:from uri="direct:patientEvent"/>
             <camel:to uri="jms:topic:patientEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:personEvent?clientId=personEventGraph&amp;durableSubscriptionName=personEventGraph"/>
@@ -215,7 +168,6 @@
             <camel:from uri="direct:personEvent"/>
             <camel:to uri="jms:topic:personEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:practitionerEvent?clientId=practitionerEventGraph&amp;durableSubscriptionName=practitionerEventGraph"/>
@@ -226,7 +178,6 @@
             <camel:from uri="direct:practitionerEvent"/>
             <camel:to uri="jms:topic:practitionerEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:prescribedMedicationEvent?clientId=prescribedMedicationEventGraph&amp;durableSubscriptionName=prescribedMedicationEventGraph"/>
@@ -237,7 +188,6 @@
             <camel:from uri="direct:prescribedMedicationEvent"/>
             <camel:to uri="jms:topic:prescribedMedicationEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:prescriptionEvent?clientId=prescriptionEventGraph&amp;durableSubscriptionName=prescriptionEventGraph"/>
@@ -248,7 +198,6 @@
             <camel:from uri="direct:prescriptionEvent"/>
             <camel:to uri="jms:topic:prescriptionEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:routeOfAdministrationEvent?clientId=routeOfAdministrationEventGraph&amp;durableSubscriptionName=routeOfAdministrationEventGraph"/>
@@ -259,7 +208,6 @@
             <camel:from uri="direct:routeOfAdministrationEvent"/>
             <camel:to uri="jms:topic:routeOfAdministrationEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:substitutionEvent?clientId=substitutionEventGraph&amp;durableSubscriptionName=substitutionEventGraph"/>
@@ -270,7 +218,6 @@
             <camel:from uri="direct:substitutionEvent"/>
             <camel:to uri="jms:topic:substitutionEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:substitutionReasonEvent?clientId=substitutionReasonEventGraph&amp;durableSubscriptionName=substitutionReasonEventGraph"/>
@@ -281,7 +228,6 @@
             <camel:from uri="direct:substitutionReasonEvent"/>
             <camel:to uri="jms:topic:substitutionReasonEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:unitOfMeasureEvent?clientId=unitOfMeasureEventGraph&amp;durableSubscriptionName=unitOfMeasureEventGraph"/>
@@ -292,7 +238,6 @@
             <camel:from uri="direct:unitOfMeasureEvent"/>
             <camel:to uri="jms:topic:unitOfMeasureEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:unitOfMeasureTypeEvent?clientId=unitOfMeasureTypeEventGraph&amp;durableSubscriptionName=unitOfMeasureTypeEventGraph"/>
@@ -303,7 +248,6 @@
             <camel:from uri="direct:unitOfMeasureTypeEvent"/>
             <camel:to uri="jms:topic:unitOfMeasureTypeEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from
                     uri="jms:topic:systemEvent?clientId=systemEventGraph&amp;durableSubscriptionName=systemEventGraph"/>
@@ -314,7 +258,6 @@
             <camel:from uri="direct:systemEvent"/>
             <camel:to uri="jms:topic:systemEvent" pattern="InOnly"/>
         </camel:route>
-
         <camel:route>
             <camel:from uri="jms:topic:userEvent?clientId=userEventGraph&amp;durableSubscriptionName=userEventGraph"/>
             <camel:bean ref="graphDomainEventConsumer" method="handleUserEvent"/>

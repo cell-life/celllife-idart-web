@@ -9,12 +9,8 @@
             <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="varchar(2000)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(2000)"/>
         </createTable>
 
     </changeSet>

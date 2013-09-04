@@ -35,13 +35,13 @@ public final class PrescribedMedicationBuilder implements Serializable {
     }
 
     public PrescribedMedicationBuilder setId(String prescribedMedicationId) {
-        this.prescribedMedication.ids.add(new Id(clinicPrescribedMedicationsIdSystem, prescribedMedicationId));
+        this.prescribedMedication.ids.add(new Id(prescribedMedicationId));
         return this;
     }
 
     public PrescribedMedicationBuilder setMedication(String id) {
         this.prescribedMedication.medication = new Medication();
-        this.prescribedMedication.medication.ids.add(new Id(clinicMedicationsIdSystem, id));
+        this.prescribedMedication.medication.ids.add(new Id(id));
         return this;
     }
 

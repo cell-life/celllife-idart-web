@@ -1,4 +1,9 @@
 {
-  "name": "resources",
-  "version": "0.0.1"
+    "name": "idart-web",
+    "version": "0.0.1",
+    "dependencies": {
+        "sass-bootstrap": "3.0.*",
+        "jquery": "~1.10.x",
+        "aura" : "latest"
+    }
 }

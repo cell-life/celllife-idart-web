@@ -1,5 +1,7 @@
 package org.celllife.idart.codegen.entity
 
+import org.celllife.idart.codegen.transform.SecurityAdapterModelEnricher
+
 import static org.celllife.idart.codegen.transform.ApplicationServiceModelEnricher.enrichModelWithApplicationService
 import static org.celllife.idart.codegen.transform.CamelEventPublisherModelEnricher.enrichModelWithCamelEventPublisher
 import static org.celllife.idart.codegen.transform.DomainEventModelEnricher.enrichModelWithDomainEvent
@@ -12,6 +14,7 @@ import static org.celllife.idart.codegen.transform.IncludedFeatureModelEnricher.
 import static org.celllife.idart.codegen.transform.Jsr303ValidatorModelEnricher.enrichModelWithJsr303Validator
 import static org.celllife.idart.codegen.transform.ModelEnricher.enrichModel
 import static org.celllife.idart.codegen.transform.ResourceControllerServiceModelEnricher.enrichModelWithResourceController
+import static org.celllife.idart.codegen.transform.SecurityAdapterModelEnricher.enrichModelWithSecurityAdapter
 import static org.celllife.idart.codegen.transform.SpringDataRepositoryModelEnricher.enrichModelWithSpringDataRepository
 import static org.celllife.idart.codegen.transform.ValidatorModelEnricher.enrichModelWithValidator
 
@@ -40,6 +43,7 @@ class EntityModelTransform {
         enrichModelWithDomainService(baseNamespace, model)
         enrichModelWithApplicationService(baseNamespace, model)
 
+        enrichModelWithSecurityAdapter(baseNamespace, model)
         enrichModelWithResourceController(baseNamespace, model)
 
         enrichModelWithDomainEvent(baseNamespace, model)

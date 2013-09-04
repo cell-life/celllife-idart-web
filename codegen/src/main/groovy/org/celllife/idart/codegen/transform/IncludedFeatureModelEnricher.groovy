@@ -21,7 +21,8 @@ class IncludedFeatureModelEnricher {
             "camelEventPublisher",
             "domainService",
             "applicationService",
-            "resourceController"
+            "resourceController",
+            "securityAdapter"
     ]
 
     static enrichModelWithIncludedFeatures(baseNamespace, model) {

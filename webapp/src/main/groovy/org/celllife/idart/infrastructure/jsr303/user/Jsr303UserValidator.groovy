@@ -6,20 +6,21 @@ import org.celllife.idart.domain.user.UserValidator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 import javax.validation.ConstraintViolation
 import javax.validation.ValidatorFactory
-
-import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class Jsr303UserValidator implements UserValidator {
+@Named class Jsr303UserValidator implements UserValidator {
 
-    @Autowired ValidatorFactory validatorFactory
+    @Inject ValidatorFactory validatorFactory
 
     @Override
-    void validate(User user) throws UserValidationException {
+    void validate(User user) {
 
         Set<ConstraintViolation<User>> constraintViolations = validatorFactory.validator.validate(user)
 

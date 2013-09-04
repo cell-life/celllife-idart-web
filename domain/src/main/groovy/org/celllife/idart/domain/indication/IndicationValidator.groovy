@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface IndicationValidator {
 
-    void validate(Indication indication) throws IndicationValidationException
+    void validate(Indication indication)
 
 }

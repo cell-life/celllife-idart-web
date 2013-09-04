@@ -2,10 +2,9 @@ package org.celllife.idart.domain.practitioner
 
 import org.celllife.idart.common.PractitionerId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.practitioner.PractitionerEvent.EventType.SAVED
 import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPractitionerEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class PractitionerServiceImpl implements PractitionerService {
+@Named class PractitionerServiceImpl implements PractitionerService {
 
-    @Autowired PractitionerRepository practitionerRepository
+    @Inject PractitionerRepository practitionerRepository
 
-    @Autowired PractitionerValidator practitionerValidator
+    @Inject PractitionerValidator practitionerValidator
 
-    @Autowired PractitionerEventPublisher practitionerEventPublisher
+    @Inject PractitionerEventPublisher practitionerEventPublisher
 
     @Override
-    Practitioner save(Practitioner practitioner) throws PractitionerValidationException {
+    Practitioner save(Practitioner practitioner) {
 
         practitionerValidator.validate(practitioner)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
     }
 
     @Override
-    Practitioner findByPractitionerId(PractitionerId practitionerId) throws PractitionerNotFoundException {
+    Practitioner findByPractitionerId(PractitionerId practitionerId) {
 
         def practitioner = practitionerRepository.findOne(practitionerId)
 

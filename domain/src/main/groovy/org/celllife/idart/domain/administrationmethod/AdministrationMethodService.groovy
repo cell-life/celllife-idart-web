@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface AdministrationMethodService {
 
-    AdministrationMethod save(AdministrationMethod administrationMethod) throws AdministrationMethodValidationException
+    AdministrationMethod save(AdministrationMethod administrationMethod)
 
-    AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode) throws AdministrationMethodNotFoundException
+    AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode)
 
 }

@@ -1,16 +1,18 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.celllife.idart.application.medication.MedicationApplicationService
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.patient.PatientApplicationService
+import org.celllife.idart.application.patient.dto.PatientDto
+import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
+import org.celllife.idart.application.product.ProductApplicationService
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
+import org.celllife.idart.common.PartId
+import org.celllife.idart.common.UnitOfMeasureCode
+import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.part.Compound
 import org.celllife.idart.domain.part.Drug
-import org.celllife.idart.domain.medication.Medication
-import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
@@ -21,6 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
+import static org.celllife.idart.common.Label.label
+import static org.celllife.idart.common.PersonId.personId
+import static org.celllife.idart.common.PractitionerId.practitionerId
+import static org.celllife.idart.common.ProductId.productId
+import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-22
@@ -30,7 +38,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner.class)
 class PrescriptionApplicationServiceIntegrationTest {
 
-    @Autowired MedicationApplicationService medicationApplicationService
+    @Autowired ProductApplicationService productApplicationService
 
     @Autowired PartApplicationService partApplicationService
 
@@ -50,31 +58,33 @@ class PrescriptionApplicationServiceIntegrationTest {
         UnitOfMeasure milligrams = createMilligrams()
         unitOfMeasureApplicationService.save(milligrams)
 
-        UnitOfMeasure millilitres = new UnitOfMeasure()
-        millilitres.setName("Millilitres")
-        millilitres.addCode("http://unitsofmeasure.org", "ml")
+        UnitOfMeasure millilitres = createMillilitres()
         unitOfMeasureApplicationService.save(millilitres)
 
-        unitOfMeasureApplicationService.save(createEach())
+        def each = createEach()
+        unitOfMeasureApplicationService.save(each)
 
-        partApplicationService.save(createCompound(milligrams))
+        def compound = createCompound(milligrams.code)
+        partApplicationService.save(compound)
 
-        partApplicationService.save(createDrug(millilitres, createCompound(milligrams), milligrams))
+        def drug = createDrug(millilitres.code, compound.id, milligrams.code)
+        partApplicationService.save(drug)
 
-        partApplicationService.save(createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
+        def finishedDrug = createFinishedDrug(each.code, drug.id, millilitres.code)
+        partApplicationService.save(finishedDrug)
 
-        Medication medication = new Medication(drug: createFinishedDrug(createEach(), createDrug(millilitres, createCompound(milligrams), milligrams), millilitres))
-        medication.addId("http://www.cell-life.org/idart/medications", "Abacavir 20mg/ml 240ml")
-        medicationApplicationService.save(medication)
+        Medication medication = new Medication(drug: drug.id)
+        medication.id = productId("00001")
+        medication.name = "Abacavir 20mg/ml 240ml"
+        productApplicationService.save(medication)
 
-        Patient patient = new Patient()
-        patient.addId("http://www.cell-life.org/idart/patients", "00001")
-        patient.person = new Person()
+        PatientDto patient = new PatientDto()
+        patient.person = new PersonDto()
         patientApplicationService.save(patient)
 
         Practitioner practitioner = new Practitioner()
-        practitioner.addId("http://www.cell-life.org/idart/practitioners", "00001")
-        practitioner.person = new Person()
+        practitioner.id = practitionerId("00001")
+        practitioner.person = personId("00001")
         practitionerApplicationService.save(practitioner)
 
         InputStream inputStream = getClass().getResourceAsStream("/data/prescription/0000.json")
@@ -84,39 +94,46 @@ class PrescriptionApplicationServiceIntegrationTest {
         prescriptionApplicationService.save(prescription)
     }
 
+    static UnitOfMeasure createMillilitres() {
+        UnitOfMeasure millilitres = new UnitOfMeasure()
+        millilitres.name = "Millilitres"
+        millilitres.code = unitOfMeasureCode("ml")
+        millilitres
+    }
+
     static UnitOfMeasure createMilligrams() {
         UnitOfMeasure milligrams = new UnitOfMeasure()
-        milligrams.setName("Milligrams")
-        milligrams.addCode("http://unitsofmeasure.org", "mg")
+        milligrams.name = "Milligrams"
+        milligrams.code = unitOfMeasureCode("mg")
         milligrams
     }
 
     static UnitOfMeasure createEach() {
         UnitOfMeasure each = new UnitOfMeasure()
-        each.setName("Each")
-        each.addCode("http://unitsofmeasure.org", "ea")
+        each.code = unitOfMeasureCode("ea")
+        each.name = "Each"
         each
     }
 
-    static Compound createCompound(UnitOfMeasure milligrams) {
+    static Compound createCompound(UnitOfMeasureCode milligrams) {
         Compound abacavirCompound = new Compound()
-        abacavirCompound.addId("http://www.who.int/medicines/services/inn", "Abacavir")
-        abacavirCompound.setUnitOfMeasure(milligrams)
+        abacavirCompound.label = label("Abacavir")
+        abacavirCompound.unitOfMeasure = milligrams
         abacavirCompound
     }
 
-    static Drug createDrug(UnitOfMeasure millilitres, Compound abacavirCompound, UnitOfMeasure milligrams) {
+    static Drug createDrug(UnitOfMeasureCode millilitres, PartId abacavirCompound, UnitOfMeasureCode milligrams) {
         Drug abacavir20mg = new Drug()
-        abacavir20mg.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml")
-        abacavir20mg.setUnitOfMeasure(millilitres)
+        abacavir20mg.label = label("Abacavir 20mg/ml")
+        abacavir20mg.unitOfMeasure = millilitres
         abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
         abacavir20mg
     }
 
-    static Drug createFinishedDrug(UnitOfMeasure each, Drug abacavir20mg, UnitOfMeasure millilitres) {
+    static Drug createFinishedDrug(UnitOfMeasureCode each, PartId abacavir20mg, UnitOfMeasureCode millilitres) {
         Drug drug = new Drug()
-        drug.addId("http://www.cell-life.org/idart/drugs", "Abacavir 20mg/ml 240ml")
-        drug.setUnitOfMeasure(each)
+        drug.label = label("Abacavir 20mg/ml 240ml")
+        drug.unitOfMeasure = each
         drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
         drug
     }

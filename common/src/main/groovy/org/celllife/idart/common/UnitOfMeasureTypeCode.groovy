@@ -19,6 +19,10 @@ class UnitOfMeasureTypeCode implements Serializable {
     String value
     
     static UnitOfMeasureTypeCode valueOf(String string) {
+        unitOfMeasureTypeCode(string)
+    }
+
+    static UnitOfMeasureTypeCode unitOfMeasureTypeCode(String string) {
         new UnitOfMeasureTypeCode ( value: string )
     }
     

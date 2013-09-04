@@ -1,38 +1,56 @@
 package org.celllife.idart.domain.person
 
 import org.celllife.idart.common.PersonId
+import org.celllife.idart.domain.identifiable.IdentifiableSeqeuence
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+import javax.inject.Inject
+import javax.inject.Named
 
-import javax.annotation.Generated
-
+import static java.lang.String.format
+import static org.celllife.idart.common.PersonId.personId
+import static org.celllife.idart.domain.identifiable.IdentifiableType.PERSON
 import static org.celllife.idart.domain.person.PersonEvent.EventType.SAVED
 import static org.celllife.idart.domain.person.PersonEvent.newPersonEvent
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class PersonServiceImpl implements PersonService {
+@Named class PersonServiceImpl implements PersonService {
 
-    @Autowired PersonRepository personRepository
+    @Inject PersonRepository personRepository
 
-    @Autowired PersonValidator personValidator
+    @Inject PersonValidator personValidator
 
-    @Autowired PersonEventPublisher personEventPublisher
+    @Inject PersonEventPublisher personEventPublisher
+
+    @Inject IdentifiableSeqeuence identifiableSeqeuence
 
     @Override
-    Person save(Person person) throws PersonValidationException {
+    Person save(Person person) {
 
-        personValidator.validate(person)
+        def existingPerson = null
 
-        personEventPublisher.publish(newPersonEvent(person, SAVED))
+        if (person.id != null) {
+            existingPerson = personRepository.findOne(person.id)
+        } else {
+            def value = identifiableSeqeuence.nextValue(PERSON)
+            person.id = personId(format("%08d", value))
+        }
 
-        personRepository.save(person)
+        if (existingPerson == null) {
+            existingPerson = person
+        } else {
+            existingPerson.merge(person)
+        }
+
+        personValidator.validate(existingPerson)
+
+        personEventPublisher.publish(newPersonEvent(existingPerson, SAVED))
+
+        personRepository.save(existingPerson)
     }
 
     @Override
-    Person findByPersonId(PersonId personId) throws PersonNotFoundException {
+    Person findByPersonId(PersonId personId) {
 
         def person = personRepository.findOne(personId)
 

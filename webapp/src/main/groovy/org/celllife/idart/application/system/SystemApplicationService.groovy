@@ -1,9 +1,7 @@
 package org.celllife.idart.application.system
 
-import org.celllife.idart.domain.system.System
-import org.celllife.idart.domain.system.SystemValidationException
-import org.celllife.idart.domain.system.SystemNotFoundException
 import org.celllife.idart.common.SystemId
+import org.celllife.idart.domain.system.System
 
 import javax.annotation.Generated
 
@@ -12,8 +10,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface SystemApplicationService {
 
-    System save(System system) throws SystemValidationException
+    System save(System system)
 
-    System findBySystemId(SystemId systemId) throws SystemNotFoundException
+    System findBySystemId(SystemId systemId)
 
 }

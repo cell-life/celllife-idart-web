@@ -1,9 +1,7 @@
 package org.celllife.idart.application.form
 
-import org.celllife.idart.domain.form.Form
-import org.celllife.idart.domain.form.FormValidationException
-import org.celllife.idart.domain.form.FormNotFoundException
 import org.celllife.idart.common.FormCode
+import org.celllife.idart.domain.form.Form
 
 import javax.annotation.Generated
 
@@ -12,8 +10,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface FormApplicationService {
 
-    Form save(Form form) throws FormValidationException
+    Form save(Form form)
 
-    Form findByFormCode(FormCode formCode) throws FormNotFoundException
+    Form findByFormCode(FormCode formCode)
 
 }

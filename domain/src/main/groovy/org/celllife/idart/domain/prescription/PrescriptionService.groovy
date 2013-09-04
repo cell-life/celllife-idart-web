@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PrescriptionService {
 
-    Prescription save(Prescription prescription) throws PrescriptionValidationException
+    Prescription save(Prescription prescription)
 
-    Prescription findByPrescriptionId(PrescriptionId prescriptionId) throws PrescriptionNotFoundException
+    Prescription findByPrescriptionId(PrescriptionId prescriptionId)
 
 }

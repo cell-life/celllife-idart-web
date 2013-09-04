@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Identifiable -->
+
+    <entity class="org.celllife.idart.domain.identifiable.Identifiable">
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <element-collection name="identifiers" fetch="EAGER"/>
+        </attributes>
+    </entity>
+
+    <!-- Identifiers -->
+
+    <embeddable class="org.celllife.idart.domain.identifiable.Identifier">
+        <attributes>
+            <embedded name="authority">
+                <attribute-override name="value">
+                    <column name="authority"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class PrescribedMedicationNotFoundException extends Exception {
+class PrescribedMedicationNotFoundException extends RuntimeException {
 
     PrescribedMedicationNotFoundException(String message) {
         super(message)

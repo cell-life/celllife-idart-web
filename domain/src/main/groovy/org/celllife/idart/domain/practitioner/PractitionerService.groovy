@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PractitionerService {
 
-    Practitioner save(Practitioner practitioner) throws PractitionerValidationException
+    Practitioner save(Practitioner practitioner)
 
-    Practitioner findByPractitionerId(PractitionerId practitionerId) throws PractitionerNotFoundException
+    Practitioner findByPractitionerId(PractitionerId practitionerId)
 
 }

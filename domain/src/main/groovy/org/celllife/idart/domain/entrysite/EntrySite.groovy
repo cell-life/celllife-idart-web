@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class EntrySite {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/entrySites"
-
-    /**
      * Entry Site Code 
      */
     EntrySiteCode code

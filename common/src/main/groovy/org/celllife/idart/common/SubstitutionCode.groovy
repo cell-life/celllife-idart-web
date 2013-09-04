@@ -19,6 +19,10 @@ class SubstitutionCode implements Serializable {
     String value
     
     static SubstitutionCode valueOf(String string) {
+        substitutionCode(string)
+    }
+
+    static SubstitutionCode substitutionCode(String string) {
         new SubstitutionCode ( value: string )
     }
     

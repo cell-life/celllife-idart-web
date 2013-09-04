@@ -19,6 +19,10 @@ class LifeEventCode implements Serializable {
     String value
     
     static LifeEventCode valueOf(String string) {
+        lifeEventCode(string)
+    }
+
+    static LifeEventCode lifeEventCode(String string) {
         new LifeEventCode ( value: string )
     }
     

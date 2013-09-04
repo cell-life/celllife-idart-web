@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class OrganisationNotFoundException extends Exception {
+class OrganisationNotFoundException extends RuntimeException {
 
     OrganisationNotFoundException(String message) {
         super(message)

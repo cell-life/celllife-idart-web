@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class SystemNotFoundException extends Exception {
+class SystemNotFoundException extends RuntimeException {
 
     SystemNotFoundException(String message) {
         super(message)

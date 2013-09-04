@@ -5,20 +5,20 @@ import org.apache.camel.EndpointInject
 import org.apache.camel.ProducerTemplate
 import org.celllife.idart.domain.practitioner.PractitionerEvent
 import org.celllife.idart.domain.practitioner.PractitionerEventPublisher
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Camel Practitioner Event Publisher
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class CamelPractitionerEventPublisher implements PractitionerEventPublisher {
+@Named class CamelPractitionerEventPublisher implements PractitionerEventPublisher {
 
     @EndpointInject(uri = "direct:practitionerEvent") ProducerTemplate producerTemplate
 
-    @Autowired ObjectMapper objectMapper
+    @Inject ObjectMapper objectMapper
 
     @Override
     void publish(PractitionerEvent practitionerEvent) {

@@ -19,6 +19,10 @@ class FacilityId implements Serializable {
     String value
     
     static FacilityId valueOf(String string) {
+        facilityId(string)
+    }
+
+    static FacilityId facilityId(String string) {
         new FacilityId ( value: string )
     }
     

@@ -1,9 +1,9 @@
 {
-    "@type": "drug",
+    "type": "DRUG",
     "identifier": "00000017",
     "billOfMaterials": [
         {
-            "@type": "engineering",
+            "type": "ENGINEERING",
             "fromDate": "2013-01-01",
             "part": {
                 "@type": "compound",

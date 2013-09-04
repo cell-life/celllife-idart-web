@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class IndicationNotFoundException extends Exception {
+class IndicationNotFoundException extends RuntimeException {
 
     IndicationNotFoundException(String message) {
         super(message)

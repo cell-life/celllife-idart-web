@@ -2,10 +2,9 @@ package org.celllife.idart.domain.facility
 
 import org.celllife.idart.common.FacilityId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.facility.FacilityEvent.EventType.SAVED
 import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class FacilityServiceImpl implements FacilityService {
+@Named class FacilityServiceImpl implements FacilityService {
 
-    @Autowired FacilityRepository facilityRepository
+    @Inject FacilityRepository facilityRepository
 
-    @Autowired FacilityValidator facilityValidator
+    @Inject FacilityValidator facilityValidator
 
-    @Autowired FacilityEventPublisher facilityEventPublisher
+    @Inject FacilityEventPublisher facilityEventPublisher
 
     @Override
-    Facility save(Facility facility) throws FacilityValidationException {
+    Facility save(Facility facility) {
 
         facilityValidator.validate(facility)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
     }
 
     @Override
-    Facility findByFacilityId(FacilityId facilityId) throws FacilityNotFoundException {
+    Facility findByFacilityId(FacilityId facilityId) {
 
         def facility = facilityRepository.findOne(facilityId)
 

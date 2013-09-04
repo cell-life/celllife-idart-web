@@ -1,0 +1,27 @@
+package ${securityAdapter.packageName}
+
+import ${id.packageName}.${id.className}
+import ${entity.packageName}.${entity.className}
+import ${applicationService.packageName}.${applicationService.className}
+
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
+import java.security.Principal
+
+/**
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+@Named class ${securityAdapter.className} {
+
+    @Inject ${applicationService.className} ${applicationService.fieldName}
+
+    ${entity.className} save(Principal principal, ${entity.className} ${entity.fieldName}) {
+        ${applicationService.fieldName}.save(${entity.fieldName})
+    }
+
+    ${entity.className} findBy${id.className}(Principal principal, ${id.className} ${id.fieldName}) {
+        ${applicationService.fieldName}.findBy${id.className}(${id.fieldName})
+    }
+
+}

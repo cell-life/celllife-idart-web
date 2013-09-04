@@ -6,20 +6,21 @@ import org.celllife.idart.domain.indication.IndicationValidator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 import javax.validation.ConstraintViolation
 import javax.validation.ValidatorFactory
-
-import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class Jsr303IndicationValidator implements IndicationValidator {
+@Named class Jsr303IndicationValidator implements IndicationValidator {
 
-    @Autowired ValidatorFactory validatorFactory
+    @Inject ValidatorFactory validatorFactory
 
     @Override
-    void validate(Indication indication) throws IndicationValidationException {
+    void validate(Indication indication) {
 
         Set<ConstraintViolation<Indication>> constraintViolations = validatorFactory.validator.validate(indication)
 

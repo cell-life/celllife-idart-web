@@ -2,10 +2,9 @@ package org.celllife.idart.domain.form
 
 import org.celllife.idart.common.FormCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.form.FormEvent.EventType.SAVED
 import static org.celllife.idart.domain.form.FormEvent.newFormEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.form.FormEvent.newFormEvent
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class FormServiceImpl implements FormService {
+@Named class FormServiceImpl implements FormService {
 
-    @Autowired FormRepository formRepository
+    @Inject FormRepository formRepository
 
-    @Autowired FormValidator formValidator
+    @Inject FormValidator formValidator
 
-    @Autowired FormEventPublisher formEventPublisher
+    @Inject FormEventPublisher formEventPublisher
 
     @Override
-    Form save(Form form) throws FormValidationException {
+    Form save(Form form) {
 
         formValidator.validate(form)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.form.FormEvent.newFormEvent
     }
 
     @Override
-    Form findByFormCode(FormCode formCode) throws FormNotFoundException {
+    Form findByFormCode(FormCode formCode) {
 
         def form = formRepository.findOne(formCode)
 

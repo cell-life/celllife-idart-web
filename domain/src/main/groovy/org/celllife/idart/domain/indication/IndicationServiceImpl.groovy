@@ -2,10 +2,9 @@ package org.celllife.idart.domain.indication
 
 import org.celllife.idart.common.IndicationCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.indication.IndicationEvent.EventType.SAVED
 import static org.celllife.idart.domain.indication.IndicationEvent.newIndicationEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.indication.IndicationEvent.newIndication
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class IndicationServiceImpl implements IndicationService {
+@Named class IndicationServiceImpl implements IndicationService {
 
-    @Autowired IndicationRepository indicationRepository
+    @Inject IndicationRepository indicationRepository
 
-    @Autowired IndicationValidator indicationValidator
+    @Inject IndicationValidator indicationValidator
 
-    @Autowired IndicationEventPublisher indicationEventPublisher
+    @Inject IndicationEventPublisher indicationEventPublisher
 
     @Override
-    Indication save(Indication indication) throws IndicationValidationException {
+    Indication save(Indication indication) {
 
         indicationValidator.validate(indication)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.indication.IndicationEvent.newIndication
     }
 
     @Override
-    Indication findByIndicationCode(IndicationCode indicationCode) throws IndicationNotFoundException {
+    Indication findByIndicationCode(IndicationCode indicationCode) {
 
         def indication = indicationRepository.findOne(indicationCode)
 

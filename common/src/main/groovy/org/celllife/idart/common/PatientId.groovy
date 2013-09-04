@@ -19,6 +19,10 @@ class PatientId implements Serializable {
     String value
     
     static PatientId valueOf(String string) {
+        patientId(string)
+    }
+
+    static PatientId patientId(String string) {
         new PatientId ( value: string )
     }
     

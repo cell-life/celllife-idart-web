@@ -1,9 +1,7 @@
 package org.celllife.idart.application.substitution
 
-import org.celllife.idart.domain.substitution.Substitution
-import org.celllife.idart.domain.substitution.SubstitutionValidationException
-import org.celllife.idart.domain.substitution.SubstitutionNotFoundException
 import org.celllife.idart.common.SubstitutionCode
+import org.celllife.idart.domain.substitution.Substitution
 
 import javax.annotation.Generated
 
@@ -12,8 +10,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface SubstitutionApplicationService {
 
-    Substitution save(Substitution substitution) throws SubstitutionValidationException
+    Substitution save(Substitution substitution)
 
-    Substitution findBySubstitutionCode(SubstitutionCode substitutionCode) throws SubstitutionNotFoundException
+    Substitution findBySubstitutionCode(SubstitutionCode substitutionCode)
 
 }

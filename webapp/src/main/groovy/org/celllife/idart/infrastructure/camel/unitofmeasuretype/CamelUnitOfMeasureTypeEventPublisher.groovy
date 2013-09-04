@@ -5,20 +5,20 @@ import org.apache.camel.EndpointInject
 import org.apache.camel.ProducerTemplate
 import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent
 import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEventPublisher
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Camel Unit Of Measure Type Event Publisher
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class CamelUnitOfMeasureTypeEventPublisher implements UnitOfMeasureTypeEventPublisher {
+@Named class CamelUnitOfMeasureTypeEventPublisher implements UnitOfMeasureTypeEventPublisher {
 
     @EndpointInject(uri = "direct:unitOfMeasureTypeEvent") ProducerTemplate producerTemplate
 
-    @Autowired ObjectMapper objectMapper
+    @Inject ObjectMapper objectMapper
 
     @Override
     void publish(UnitOfMeasureTypeEvent unitOfMeasureTypeEvent) {

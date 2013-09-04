@@ -2,8 +2,9 @@ package org.celllife.idart.domain.usersystem
 
 import org.celllife.idart.common.SystemId
 import org.celllife.idart.common.UserId
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.usersystem.UserSystemEvent.EventType.SAVED
 import static org.celllife.idart.domain.usersystem.UserSystemEvent.newUserSystemEvent
@@ -14,11 +15,11 @@ import static org.celllife.idart.domain.usersystem.UserSystemRelationship.FOR
  * Date: 2013-08-04
  * Time: 22h35
  */
-@Service class UserSystemServiceImpl implements UserSystemService {
+@Named class UserSystemServiceImpl implements UserSystemService {
 
-    @Autowired UserSystemRepository userSystemRepository
+    @Inject UserSystemRepository userSystemRepository
 
-    @Autowired UserSystemEventPublisher userSystemEventPublisher
+    @Inject UserSystemEventPublisher userSystemEventPublisher
 
     @Override
     void saveUserForSystem(UserId fromUser, SystemId toSystem) {

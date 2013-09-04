@@ -1,27 +1,25 @@
 package org.celllife.idart.application.system
 
-import org.celllife.idart.domain.system.System
-import org.celllife.idart.domain.system.SystemValidationException
-import org.celllife.idart.domain.system.SystemNotFoundException
 import org.celllife.idart.common.SystemId
+import org.celllife.idart.domain.system.System
 import org.celllife.idart.domain.system.SystemService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class SystemApplicationServiceImpl implements SystemApplicationService {
+@Named class SystemApplicationServiceImpl implements SystemApplicationService {
 
-    @Autowired SystemService systemService
+    @Inject SystemService systemService
 
-    System save(System system) throws SystemValidationException {
+    System save(System system) {
         systemService.save(system)
     }
 
-    System findBySystemId(SystemId systemId) throws SystemNotFoundException{
+    System findBySystemId(SystemId systemId) {
         systemService.findBySystemId(systemId)
     }
 

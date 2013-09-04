@@ -1,38 +1,56 @@
 package org.celllife.idart.domain.patient
 
 import org.celllife.idart.common.PatientId
+import org.celllife.idart.domain.identifiable.IdentifiableSeqeuence
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+import javax.inject.Inject
+import javax.inject.Named
 
-import javax.annotation.Generated
-
+import static java.lang.String.format
+import static org.celllife.idart.common.PatientId.patientId
+import static org.celllife.idart.domain.identifiable.IdentifiableType.PATIENT
 import static org.celllife.idart.domain.patient.PatientEvent.EventType.SAVED
 import static org.celllife.idart.domain.patient.PatientEvent.newPatientEvent
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class PatientServiceImpl implements PatientService {
+@Named class PatientServiceImpl implements PatientService {
 
-    @Autowired PatientRepository patientRepository
+    @Inject PatientRepository patientRepository
 
-    @Autowired PatientValidator patientValidator
+    @Inject PatientValidator patientValidator
 
-    @Autowired PatientEventPublisher patientEventPublisher
+    @Inject PatientEventPublisher patientEventPublisher
+
+    @Inject IdentifiableSeqeuence identifiableSeqeuence
 
     @Override
-    Patient save(Patient patient) throws PatientValidationException {
+    Patient save(Patient patient) {
 
-        patientValidator.validate(patient)
+        def existingPatient = null
 
-        patientEventPublisher.publish(newPatientEvent(patient, SAVED))
+        if (patient.id != null) {
+            existingPatient = patientRepository.findOne(patient.id)
+        } else {
+            def value = identifiableSeqeuence.nextValue(PATIENT)
+            patient.id = patientId(format("%08d", value))
+        }
 
-        patientRepository.save(patient)
+        if (existingPatient == null) {
+            existingPatient = patient
+        } else {
+            existingPatient.merge(patient)
+        }
+
+        patientValidator.validate(existingPatient)
+
+        patientEventPublisher.publish(newPatientEvent(existingPatient, SAVED))
+
+        patientRepository.save(existingPatient)
     }
 
     @Override
-    Patient findByPatientId(PatientId patientId) throws PatientNotFoundException {
+    Patient findByPatientId(PatientId patientId) {
 
         def patient = patientRepository.findOne(patientId)
 

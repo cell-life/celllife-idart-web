@@ -2,10 +2,9 @@ package org.celllife.idart.domain.unitofmeasuretype
 
 import org.celllife.idart.common.UnitOfMeasureTypeCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent.EventType.SAVED
 import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent.newUnitOfMeasureTypeEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class UnitOfMeasureTypeServiceImpl implements UnitOfMeasureTypeService {
+@Named class UnitOfMeasureTypeServiceImpl implements UnitOfMeasureTypeService {
 
-    @Autowired UnitOfMeasureTypeRepository unitOfMeasureTypeRepository
+    @Inject UnitOfMeasureTypeRepository unitOfMeasureTypeRepository
 
-    @Autowired UnitOfMeasureTypeValidator unitOfMeasureTypeValidator
+    @Inject UnitOfMeasureTypeValidator unitOfMeasureTypeValidator
 
-    @Autowired UnitOfMeasureTypeEventPublisher unitOfMeasureTypeEventPublisher
+    @Inject UnitOfMeasureTypeEventPublisher unitOfMeasureTypeEventPublisher
 
     @Override
-    UnitOfMeasureType save(UnitOfMeasureType unitOfMeasureType) throws UnitOfMeasureTypeValidationException {
+    UnitOfMeasureType save(UnitOfMeasureType unitOfMeasureType) {
 
         unitOfMeasureTypeValidator.validate(unitOfMeasureType)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent
     }
 
     @Override
-    UnitOfMeasureType findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode) throws UnitOfMeasureTypeNotFoundException {
+    UnitOfMeasureType findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode) {
 
         def unitOfMeasureType = unitOfMeasureTypeRepository.findOne(unitOfMeasureTypeCode)
 

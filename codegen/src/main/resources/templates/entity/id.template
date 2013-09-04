@@ -19,6 +19,10 @@ class ${id.className} implements Serializable {
     ${property.type} ${property.fieldName}
     <% } %>
     static ${id.className} valueOf(String string) {
+        ${id.fieldName}(string)
+    }
+
+    static ${id.className} ${id.fieldName}(String string) {
         new ${id.className} (<% id._properties.each { property -> %> ${property.fieldName}: string <% } %>)
     }
     <% id._properties.each { property -> %>

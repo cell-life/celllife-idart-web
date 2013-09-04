@@ -14,11 +14,6 @@ import org.celllife.idart.domain.party.Party
 class Person extends Party {
 
     /**
-     * Namespace
-     */
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/people"
-
-    /**
      * Identified by
      */
     PersonId id

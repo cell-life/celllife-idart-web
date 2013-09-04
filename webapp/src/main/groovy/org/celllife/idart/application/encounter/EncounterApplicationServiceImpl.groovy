@@ -1,27 +1,25 @@
 package org.celllife.idart.application.encounter
 
-import org.celllife.idart.domain.encounter.Encounter
-import org.celllife.idart.domain.encounter.EncounterValidationException
-import org.celllife.idart.domain.encounter.EncounterNotFoundException
 import org.celllife.idart.common.EncounterId
+import org.celllife.idart.domain.encounter.Encounter
 import org.celllife.idart.domain.encounter.EncounterService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class EncounterApplicationServiceImpl implements EncounterApplicationService {
+@Named class EncounterApplicationServiceImpl implements EncounterApplicationService {
 
-    @Autowired EncounterService encounterService
+    @Inject EncounterService encounterService
 
-    Encounter save(Encounter encounter) throws EncounterValidationException {
+    Encounter save(Encounter encounter) {
         encounterService.save(encounter)
     }
 
-    Encounter findByEncounterId(EncounterId encounterId) throws EncounterNotFoundException{
+    Encounter findByEncounterId(EncounterId encounterId) {
         encounterService.findByEncounterId(encounterId)
     }
 

@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.part
 
 import org.celllife.idart.common.FormCode
+import org.celllife.idart.common.Label
 import org.celllife.idart.common.PartClassificationCode
 import org.celllife.idart.common.PartClassificationType
 import org.celllife.idart.common.PartId
@@ -17,6 +18,11 @@ abstract class Part {
      * Identified by
      */
     PartId id
+
+    /**
+     * Labelled as
+     */
+    Label label
 
     UnitOfMeasureCode unitOfMeasure
 

@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface EntrySiteService {
 
-    EntrySite save(EntrySite entrySite) throws EntrySiteValidationException
+    EntrySite save(EntrySite entrySite)
 
-    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) throws EntrySiteNotFoundException
+    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode)
 
 }

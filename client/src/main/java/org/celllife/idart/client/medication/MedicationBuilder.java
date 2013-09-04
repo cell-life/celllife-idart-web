@@ -29,9 +29,9 @@ public final class MedicationBuilder {
     }
 
     public MedicationBuilder setId(String id) {
-        this.medication.ids.add(new Id(clinicMedicationsIdSystem, id));
+        this.medication.ids.add(new Id(id));
         this.medication.drug = new Drug();
-        this.medication.drug.ids.add(new Id(clinicDrugsIdSystem, id));
+        this.medication.drug.ids.add(new Id(id));
         return this;
     }
 

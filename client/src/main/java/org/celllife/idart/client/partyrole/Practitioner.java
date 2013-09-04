@@ -7,6 +7,4 @@ package org.celllife.idart.client.partyrole;
  */
 public final class Practitioner extends PartyRole {
 
-    public static final String IDART_SYSTEM = "http://www.cell-life.org/idart/practitioners";
-
 }

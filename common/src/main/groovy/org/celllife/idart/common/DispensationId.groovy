@@ -19,6 +19,10 @@ class DispensationId implements Serializable {
     String value
     
     static DispensationId valueOf(String string) {
+        dispensationId(string)
+    }
+
+    static DispensationId dispensationId(String string) {
         new DispensationId ( value: string )
     }
     

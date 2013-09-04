@@ -6,20 +6,21 @@ import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeValidator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 import javax.validation.ConstraintViolation
 import javax.validation.ValidatorFactory
-
-import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class Jsr303UnitOfMeasureTypeValidator implements UnitOfMeasureTypeValidator {
+@Named class Jsr303UnitOfMeasureTypeValidator implements UnitOfMeasureTypeValidator {
 
-    @Autowired ValidatorFactory validatorFactory
+    @Inject ValidatorFactory validatorFactory
 
     @Override
-    void validate(UnitOfMeasureType unitOfMeasureType) throws UnitOfMeasureTypeValidationException {
+    void validate(UnitOfMeasureType unitOfMeasureType) {
 
         Set<ConstraintViolation<UnitOfMeasureType>> constraintViolations = validatorFactory.validator.validate(unitOfMeasureType)
 

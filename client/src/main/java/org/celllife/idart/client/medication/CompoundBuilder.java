@@ -23,12 +23,12 @@ public class CompoundBuilder {
     }
 
     public CompoundBuilder setId(String idValue) {
-        this.compound.ids.add(new Id(this.clinicDrugsIdSystem, idValue));
+        this.compound.ids.add(new Id(idValue));
         return this;
     }
 
     public CompoundBuilder setId(String idSystem, String idValue) {
-        this.compound.ids.add(new Id(idSystem, idValue));
+        this.compound.ids.add(new Id(idValue));
         return this;
     }
 
@@ -38,7 +38,7 @@ public class CompoundBuilder {
 
     public CompoundBuilder setForm(String formCodeSystem, String formCodeValue) {
         this.compound.form = new Form();
-        this.compound.form.codes.add(new Code(formCodeSystem, formCodeValue));
+        this.compound.form.codes.add(new Code(formCodeValue));
         return this;
     }
 }

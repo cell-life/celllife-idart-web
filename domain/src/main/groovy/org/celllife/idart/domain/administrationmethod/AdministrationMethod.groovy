@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class AdministrationMethod {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/administrationMethods"
-
-    /**
      * Administration Method Code 
      */
     AdministrationMethodCode code

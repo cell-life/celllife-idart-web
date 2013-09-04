@@ -1,0 +1,5 @@
+form {
+  >div { @extend %form-group;
+    >input { @extend %form-control; }
+  }
+}

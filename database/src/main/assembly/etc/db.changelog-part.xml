@@ -10,6 +10,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" type="varchar(31)"/>
+            <column name="label" type="varchar(255)"/>
             <column name="unit_of_measure" type="varchar(31)"/>
             <column name="form" type="varchar(31)"/>
         </createTable>

@@ -1,5 +1,5 @@
 {
-    "@type": "compound",
-    "identifier": "Tenofovir",
+    "type": "COMPOUND",
+    "label": "Tenofovir",
     "unitOfMeasure": "mg"
 }

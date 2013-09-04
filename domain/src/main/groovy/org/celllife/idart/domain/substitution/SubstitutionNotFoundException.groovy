@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class SubstitutionNotFoundException extends Exception {
+class SubstitutionNotFoundException extends RuntimeException {
 
     SubstitutionNotFoundException(String message) {
         super(message)

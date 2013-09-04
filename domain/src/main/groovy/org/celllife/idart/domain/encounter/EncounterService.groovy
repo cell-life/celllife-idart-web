@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface EncounterService {
 
-    Encounter save(Encounter encounter) throws EncounterValidationException
+    Encounter save(Encounter encounter)
 
-    Encounter findByEncounterId(EncounterId encounterId) throws EncounterNotFoundException
+    Encounter findByEncounterId(EncounterId encounterId)
 
 }

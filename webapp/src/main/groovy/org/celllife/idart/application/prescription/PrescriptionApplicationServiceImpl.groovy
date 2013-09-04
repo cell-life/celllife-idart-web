@@ -1,27 +1,25 @@
 package org.celllife.idart.application.prescription
 
-import org.celllife.idart.domain.prescription.Prescription
-import org.celllife.idart.domain.prescription.PrescriptionValidationException
-import org.celllife.idart.domain.prescription.PrescriptionNotFoundException
 import org.celllife.idart.common.PrescriptionId
+import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class PrescriptionApplicationServiceImpl implements PrescriptionApplicationService {
+@Named class PrescriptionApplicationServiceImpl implements PrescriptionApplicationService {
 
-    @Autowired PrescriptionService prescriptionService
+    @Inject PrescriptionService prescriptionService
 
-    Prescription save(Prescription prescription) throws PrescriptionValidationException {
+    Prescription save(Prescription prescription) {
         prescriptionService.save(prescription)
     }
 
-    Prescription findByPrescriptionId(PrescriptionId prescriptionId) throws PrescriptionNotFoundException{
+    Prescription findByPrescriptionId(PrescriptionId prescriptionId) {
         prescriptionService.findByPrescriptionId(prescriptionId)
     }
 

@@ -1,4 +1,6 @@
 {
-    "@type": "compound",
-    "identifier": "Zidovudine"
+    "type": "COMPOUND",
+    "label": "Zidovudine",
+    "unitOfMeasure": "mg"
+
 }

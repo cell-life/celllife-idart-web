@@ -2,10 +2,9 @@ package org.celllife.idart.domain.substitutionreason
 
 import org.celllife.idart.common.SubstitutionReasonCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEvent.EventType.SAVED
 import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEvent.newSubstitutionReasonEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEve
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class SubstitutionReasonServiceImpl implements SubstitutionReasonService {
+@Named class SubstitutionReasonServiceImpl implements SubstitutionReasonService {
 
-    @Autowired SubstitutionReasonRepository substitutionReasonRepository
+    @Inject SubstitutionReasonRepository substitutionReasonRepository
 
-    @Autowired SubstitutionReasonValidator substitutionReasonValidator
+    @Inject SubstitutionReasonValidator substitutionReasonValidator
 
-    @Autowired SubstitutionReasonEventPublisher substitutionReasonEventPublisher
+    @Inject SubstitutionReasonEventPublisher substitutionReasonEventPublisher
 
     @Override
-    SubstitutionReason save(SubstitutionReason substitutionReason) throws SubstitutionReasonValidationException {
+    SubstitutionReason save(SubstitutionReason substitutionReason) {
 
         substitutionReasonValidator.validate(substitutionReason)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEve
     }
 
     @Override
-    SubstitutionReason findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode) throws SubstitutionReasonNotFoundException {
+    SubstitutionReason findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode) {
 
         def substitutionReason = substitutionReasonRepository.findOne(substitutionReasonCode)
 

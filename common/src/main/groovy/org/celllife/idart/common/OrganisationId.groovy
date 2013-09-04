@@ -19,6 +19,10 @@ class OrganisationId implements Serializable {
     String value
     
     static OrganisationId valueOf(String string) {
+        organisationId(string)
+    }
+
+    static OrganisationId organisationId(String string) {
         new OrganisationId ( value: string )
     }
     

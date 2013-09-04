@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class LifeEvent {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/lifeEvents"
-
-    /**
      * Life Event Code 
      */
     LifeEventCode code

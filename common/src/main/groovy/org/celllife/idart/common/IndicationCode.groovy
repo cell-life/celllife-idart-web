@@ -19,6 +19,10 @@ class IndicationCode implements Serializable {
     String value
     
     static IndicationCode valueOf(String string) {
+        indicationCode(string)
+    }
+
+    static IndicationCode indicationCode(String string) {
         new IndicationCode ( value: string )
     }
     

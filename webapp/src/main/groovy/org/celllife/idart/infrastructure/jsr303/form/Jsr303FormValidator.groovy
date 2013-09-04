@@ -6,20 +6,21 @@ import org.celllife.idart.domain.form.FormValidator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 import javax.validation.ConstraintViolation
 import javax.validation.ValidatorFactory
-
-import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class Jsr303FormValidator implements FormValidator {
+@Named class Jsr303FormValidator implements FormValidator {
 
-    @Autowired ValidatorFactory validatorFactory
+    @Inject ValidatorFactory validatorFactory
 
     @Override
-    void validate(Form form) throws FormValidationException {
+    void validate(Form form) {
 
         Set<ConstraintViolation<Form>> constraintViolations = validatorFactory.validator.validate(form)
 

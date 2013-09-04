@@ -7,7 +7,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class RouteOfAdministrationValidationException extends Exception {
+class RouteOfAdministrationValidationException extends RuntimeException {
 
     Set<ConstraintViolation<RouteOfAdministration>> constraintViolations
 

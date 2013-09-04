@@ -57,6 +57,9 @@ class EntityCodeGenerator {
                     generateApplicationServiceInterface(baseDirectory, model)
                     generateApplicationServiceImplementation(baseDirectory, model)
                     break
+                case "securityAdapter":
+                    generateSecurityAdapter(baseDirectory, model)
+                    break
                 case "resourceController":
                     generateResourceController(baseDirectory, model)
                     break
@@ -203,6 +206,15 @@ class EntityCodeGenerator {
                 model: model,
                 directory: baseDirectory + "/webapp/src/main/groovy/" + model.applicationService.packageName.replaceAll("\\.", "/"),
                 fileName: model.applicationService.className + "Impl.groovy"
+        )
+    }
+
+    static generateSecurityAdapter(String baseDirectory, model) {
+        toFile(
+                templateReader: "/templates/entity/securityAdapter.template",
+                model: model,
+                directory: baseDirectory + "/webapp/src/main/groovy/" + model.securityAdapter.packageName.replaceAll("\\.", "/"),
+                fileName: model.securityAdapter.className + ".groovy"
         )
     }
 

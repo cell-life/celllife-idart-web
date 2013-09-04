@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ImportResource
 "classpath:/META-INF/spring/spring-config.xml",
 "classpath:/META-INF/spring/spring-domain.xml",
 "classpath:/META-INF/spring/spring-framework.xml",
+"classpath:/META-INF/spring/spring-infrastructure-counter.xml",
 "classpath:/META-INF/spring/spring-infrastructure-validation.xml",
 "classpath:/META-INF/spring/spring-integration-prehmis.xml",
 "classpath:/META-INF/spring/spring-integration-ucum.xml",

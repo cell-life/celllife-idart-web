@@ -1,16 +1,16 @@
 package org.celllife.idart.domain.counter
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-26
  * Time: 16h03
  */
-@Service class CounterServiceImpl implements CounterService {
+@Named class CounterServiceImpl implements CounterService {
 
-    @Autowired CounterRepository counterRepository
+    @Inject CounterRepository counterRepository
 
     def Integer getNextValue(String counterName) {
         nextValue(counterName)

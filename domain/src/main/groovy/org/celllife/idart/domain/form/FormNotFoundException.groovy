@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class FormNotFoundException extends Exception {
+class FormNotFoundException extends RuntimeException {
 
     FormNotFoundException(String message) {
         super(message)

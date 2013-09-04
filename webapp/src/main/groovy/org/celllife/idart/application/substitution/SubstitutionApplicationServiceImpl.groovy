@@ -1,27 +1,25 @@
 package org.celllife.idart.application.substitution
 
-import org.celllife.idart.domain.substitution.Substitution
-import org.celllife.idart.domain.substitution.SubstitutionValidationException
-import org.celllife.idart.domain.substitution.SubstitutionNotFoundException
 import org.celllife.idart.common.SubstitutionCode
+import org.celllife.idart.domain.substitution.Substitution
 import org.celllife.idart.domain.substitution.SubstitutionService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class SubstitutionApplicationServiceImpl implements SubstitutionApplicationService {
+@Named class SubstitutionApplicationServiceImpl implements SubstitutionApplicationService {
 
-    @Autowired SubstitutionService substitutionService
+    @Inject SubstitutionService substitutionService
 
-    Substitution save(Substitution substitution) throws SubstitutionValidationException {
+    Substitution save(Substitution substitution) {
         substitutionService.save(substitution)
     }
 
-    Substitution findBySubstitutionCode(SubstitutionCode substitutionCode) throws SubstitutionNotFoundException{
+    Substitution findBySubstitutionCode(SubstitutionCode substitutionCode) {
         substitutionService.findBySubstitutionCode(substitutionCode)
     }
 

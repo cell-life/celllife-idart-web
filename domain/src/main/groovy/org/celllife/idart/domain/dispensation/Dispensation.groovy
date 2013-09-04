@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.dispensation
 
 import org.celllife.idart.common.DispensationId
-import org.celllife.idart.common.DispensedMedicationId
 import org.celllife.idart.common.PractitionerId
 
 /**
@@ -13,11 +12,6 @@ import org.celllife.idart.common.PractitionerId
  * Time: 01h13
  */
 class Dispensation {
-
-    /**
-     * Namespace
-     */
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/dispensations"
 
     /**
      * Identified by

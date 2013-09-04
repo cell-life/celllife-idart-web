@@ -5,20 +5,20 @@ import org.apache.camel.EndpointInject
 import org.apache.camel.ProducerTemplate
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationEvent
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationEventPublisher
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Camel Route Of Administration Event Publisher
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class CamelRouteOfAdministrationEventPublisher implements RouteOfAdministrationEventPublisher {
+@Named class CamelRouteOfAdministrationEventPublisher implements RouteOfAdministrationEventPublisher {
 
     @EndpointInject(uri = "direct:routeOfAdministrationEvent") ProducerTemplate producerTemplate
 
-    @Autowired ObjectMapper objectMapper
+    @Inject ObjectMapper objectMapper
 
     @Override
     void publish(RouteOfAdministrationEvent routeOfAdministrationEvent) {

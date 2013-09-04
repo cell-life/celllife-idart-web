@@ -1,5 +1,5 @@
 {
-    "@type": "compound",
-    "identifier": "Abacavir",
+    "type": "COMPOUND",
+    "label": "Abacavir",
     "unitOfMeasure": "mg"
 }

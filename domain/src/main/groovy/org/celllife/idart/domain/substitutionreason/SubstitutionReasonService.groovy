@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface SubstitutionReasonService {
 
-    SubstitutionReason save(SubstitutionReason substitutionReason) throws SubstitutionReasonValidationException
+    SubstitutionReason save(SubstitutionReason substitutionReason)
 
-    SubstitutionReason findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode) throws SubstitutionReasonNotFoundException
+    SubstitutionReason findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode)
 
 }

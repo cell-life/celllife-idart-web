@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface FormService {
 
-    Form save(Form form) throws FormValidationException
+    Form save(Form form)
 
-    Form findByFormCode(FormCode formCode) throws FormNotFoundException
+    Form findByFormCode(FormCode formCode)
 
 }

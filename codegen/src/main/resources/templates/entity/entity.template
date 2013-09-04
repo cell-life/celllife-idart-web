@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class ${entity.className} {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "${namespace}"
-
-    /**
      * ${id.name} <% if (id.description != null) { %>- ${id.description} <% } %>
      */
     ${id.className} ${id.shortFieldName}

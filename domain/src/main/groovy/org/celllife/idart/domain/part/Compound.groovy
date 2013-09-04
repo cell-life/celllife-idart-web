@@ -1,7 +1,5 @@
 package org.celllife.idart.domain.part
 
-import org.celllife.idart.domain.part.Part
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-07-20
@@ -9,5 +7,4 @@ import org.celllife.idart.domain.part.Part
  */
 class Compound extends Part {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/compounds"
 }

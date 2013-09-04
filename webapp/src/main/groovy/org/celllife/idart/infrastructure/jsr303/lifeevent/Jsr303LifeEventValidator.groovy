@@ -6,20 +6,21 @@ import org.celllife.idart.domain.lifeevent.LifeEventValidator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 import javax.validation.ConstraintViolation
 import javax.validation.ValidatorFactory
-
-import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class Jsr303LifeEventValidator implements LifeEventValidator {
+@Named class Jsr303LifeEventValidator implements LifeEventValidator {
 
-    @Autowired ValidatorFactory validatorFactory
+    @Inject ValidatorFactory validatorFactory
 
     @Override
-    void validate(LifeEvent lifeEvent) throws LifeEventValidationException {
+    void validate(LifeEvent lifeEvent) {
 
         Set<ConstraintViolation<LifeEvent>> constraintViolations = validatorFactory.validator.validate(lifeEvent)
 

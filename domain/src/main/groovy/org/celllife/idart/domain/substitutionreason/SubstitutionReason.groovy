@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class SubstitutionReason {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/substitutionReasons"
-
-    /**
      * Substitution Reason Code 
      */
     SubstitutionReasonCode code

@@ -23,45 +23,36 @@ module.exports = (grunt) ->
         uglify:
             options:
                 preserveComments: 'none'
-            bootstrap:
-                src: [ 'src/scripts/js/bootstrap/*.js' ]
-                dest: 'js/bootstrap.min.js'
             main:
                 src: [ 'js/main.js' ]
                 dest: 'js/main.min.js'
-            settings:
-                src: [ 'src/scripts/js/settings.js' ]
-                dest: 'js/settings.min.js'
 
         coffee:
             compile:
                 files:
                     'js/main.js': 'src/scripts/coffee/main.coffee'
+                    'js/app.js': 'src/scripts/coffee/app.coffee'
+
+        handlebars:
+            compile:
+                files:
+                    "app/scripts/templates.js" : ["app/aura_components/**/*.hbs"]
+                options:
+                    wrapped: true
+                    namespace: "Handlebars.templates"
+                    processName: (filename) ->
+                        return filename.replace(/^app\/aura_components\//, '').replace(/\.hbs$/, '')
 
         watch:
             compass:
-                files: 'src/styles/sass/**/*.sass',
+                files: 'src/styles/sass/**/*',
                 tasks: 'compass'
-                options:
-                    nospawn: true
-            less:
-                files: 'src/styles/less/**/*.less',
-                tasks: 'less'
-                options:
-                    nospawn: true
             coffee:
-                files: 'src/scripts/coffee/**/*.coffee',
+                files: 'src/scripts/coffee/**/*',
                 tasks: 'coffee'
-                options:
-                    nospawn: true
             scripts:
-                files: 'src/scripts/js/**/*.js',
+                files: 'src/scripts/js/**/*',
                 tasks: 'uglify'
-                options:
-                    nospawn: true
-
-        reloadr:
-            files: ['css/**/*.css', 'js/**/*.js']
 
 
     # Load modules.
@@ -77,4 +68,3 @@ module.exports = (grunt) ->
 
     # Grunt tasks.
     grunt.registerTask 'default', ['compass', 'coffee', 'uglify', 'cssmin']
-    grunt.registerTask 'ninja', ['reloadr', 'watch']

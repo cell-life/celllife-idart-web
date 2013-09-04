@@ -14,11 +14,6 @@ import org.celllife.idart.common.PersonId
 class Patient {
 
     /**
-     * Namespace
-     */
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/patients"
-
-    /**
      * Identified by
      */
     PatientId id
@@ -45,4 +40,5 @@ class Patient {
             this.person = that.person
         }
     }
+
 }

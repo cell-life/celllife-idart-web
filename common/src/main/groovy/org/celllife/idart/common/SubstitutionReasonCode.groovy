@@ -19,6 +19,10 @@ class SubstitutionReasonCode implements Serializable {
     String value
     
     static SubstitutionReasonCode valueOf(String string) {
+        substitutionReasonCode(string)
+    }
+
+    static SubstitutionReasonCode substitutionReasonCode(String string) {
         new SubstitutionReasonCode ( value: string )
     }
     

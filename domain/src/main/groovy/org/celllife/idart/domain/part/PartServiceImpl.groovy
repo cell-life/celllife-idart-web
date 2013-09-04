@@ -2,10 +2,9 @@ package org.celllife.idart.domain.part
 
 import org.celllife.idart.common.PartId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.part.PartEvent.EventType.SAVED
 import static org.celllife.idart.domain.part.PartEvent.newPartEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class PartServiceImpl implements PartService {
+@Named class PartServiceImpl implements PartService {
 
-    @Autowired PartRepository partRepository
+    @Inject PartRepository partRepository
 
-    @Autowired PartValidator partValidator
+    @Inject PartValidator partValidator
 
-    @Autowired PartEventPublisher partEventPublisher
+    @Inject PartEventPublisher partEventPublisher
 
     @Override
-    Part save(Part part) throws PartValidationException {
+    Part save(Part part) {
 
         partValidator.validate(part)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
     }
 
     @Override
-    Part findByPartId(PartId partId) throws PartNotFoundException {
+    Part findByPartId(PartId partId) {
 
         def part = partRepository.findOne(partId)
 

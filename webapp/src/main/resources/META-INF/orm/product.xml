@@ -19,7 +19,7 @@
         </attributes>
     </entity>
 
-    <entity class="org.celllife.idart.domain.medication.Medication">
+    <entity class="org.celllife.idart.domain.product.Medication">
         <attributes>
             <embedded name="drug">
                 <attribute-override name="value">

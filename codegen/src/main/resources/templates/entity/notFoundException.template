@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class ${entity.className}NotFoundException extends Exception {
+class ${entity.className}NotFoundException extends RuntimeException {
 
     ${entity.className}NotFoundException(String message) {
         super(message)

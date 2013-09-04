@@ -7,7 +7,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class SubstitutionReasonValidationException extends Exception {
+class SubstitutionReasonValidationException extends RuntimeException {
 
     Set<ConstraintViolation<SubstitutionReason>> constraintViolations
 

@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class Indication {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/indications"
-
-    /**
      * Indication Code 
      */
     IndicationCode code

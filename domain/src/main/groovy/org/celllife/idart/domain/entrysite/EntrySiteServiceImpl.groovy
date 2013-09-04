@@ -2,10 +2,9 @@ package org.celllife.idart.domain.entrysite
 
 import org.celllife.idart.common.EntrySiteCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.entrysite.EntrySiteEvent.EventType.SAVED
 import static org.celllife.idart.domain.entrysite.EntrySiteEvent.newEntrySiteEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.entrysite.EntrySiteEvent.newEntrySiteEve
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class EntrySiteServiceImpl implements EntrySiteService {
+@Named class EntrySiteServiceImpl implements EntrySiteService {
 
-    @Autowired EntrySiteRepository entrySiteRepository
+    @Inject EntrySiteRepository entrySiteRepository
 
-    @Autowired EntrySiteValidator entrySiteValidator
+    @Inject EntrySiteValidator entrySiteValidator
 
-    @Autowired EntrySiteEventPublisher entrySiteEventPublisher
+    @Inject EntrySiteEventPublisher entrySiteEventPublisher
 
     @Override
-    EntrySite save(EntrySite entrySite) throws EntrySiteValidationException {
+    EntrySite save(EntrySite entrySite) {
 
         entrySiteValidator.validate(entrySite)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.entrysite.EntrySiteEvent.newEntrySiteEve
     }
 
     @Override
-    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) throws EntrySiteNotFoundException {
+    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) {
 
         def entrySite = entrySiteRepository.findOne(entrySiteCode)
 

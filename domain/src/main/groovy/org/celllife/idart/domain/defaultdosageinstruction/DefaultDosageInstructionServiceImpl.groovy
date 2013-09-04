@@ -2,10 +2,9 @@ package org.celllife.idart.domain.defaultdosageinstruction
 
 import org.celllife.idart.common.DefaultDosageInstructionId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionEvent.EventType.SAVED
 import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionEvent.newDefaultDosageInstructionEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageIn
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class DefaultDosageInstructionServiceImpl implements DefaultDosageInstructionService {
+@Named class DefaultDosageInstructionServiceImpl implements DefaultDosageInstructionService {
 
-    @Autowired DefaultDosageInstructionRepository defaultDosageInstructionRepository
+    @Inject DefaultDosageInstructionRepository defaultDosageInstructionRepository
 
-    @Autowired DefaultDosageInstructionValidator defaultDosageInstructionValidator
+    @Inject DefaultDosageInstructionValidator defaultDosageInstructionValidator
 
-    @Autowired DefaultDosageInstructionEventPublisher defaultDosageInstructionEventPublisher
+    @Inject DefaultDosageInstructionEventPublisher defaultDosageInstructionEventPublisher
 
     @Override
-    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) throws DefaultDosageInstructionValidationException {
+    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
         defaultDosageInstructionValidator.validate(defaultDosageInstruction)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageIn
     }
 
     @Override
-    DefaultDosageInstruction findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) throws DefaultDosageInstructionNotFoundException {
+    DefaultDosageInstruction findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) {
 
         def defaultDosageInstruction = defaultDosageInstructionRepository.findOne(defaultDosageInstructionId)
 

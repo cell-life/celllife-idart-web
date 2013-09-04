@@ -1,27 +1,25 @@
 package org.celllife.idart.application.user
 
-import org.celllife.idart.domain.user.User
-import org.celllife.idart.domain.user.UserValidationException
-import org.celllife.idart.domain.user.UserNotFoundException
 import org.celllife.idart.common.UserId
+import org.celllife.idart.domain.user.User
 import org.celllife.idart.domain.user.UserService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class UserApplicationServiceImpl implements UserApplicationService {
+@Named class UserApplicationServiceImpl implements UserApplicationService {
 
-    @Autowired UserService userService
+    @Inject UserService userService
 
-    User save(User user) throws UserValidationException {
+    User save(User user) {
         userService.save(user)
     }
 
-    User findByUserId(UserId userId) throws UserNotFoundException{
+    User findByUserId(UserId userId) {
         userService.findByUserId(userId)
     }
 

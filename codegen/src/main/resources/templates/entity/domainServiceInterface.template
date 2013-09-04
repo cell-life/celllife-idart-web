@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ${domainService.className} {
 
-    ${entity.className} save(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException
+    ${entity.className} save(${entity.className} ${entity.fieldName})
 
-    ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) throws ${entity.className}NotFoundException
+    ${entity.className} findBy${id.className}(${id.className} ${id.fieldName})
 
 }

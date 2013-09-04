@@ -1,0 +1,12 @@
+
+div.person { @extend %panel ; @extend %panel-default; max-width: 400px; margin: auto;
+
+  > h1 { @extend %panel-heading; @extend %panel-title; }
+
+  > form { @extend %panel-body; padding: 15px; margin: 0 auto;
+
+    button.save { @extend %btn; @extend %btn-primary; @extend %btn-block;}
+
+  }
+}
+

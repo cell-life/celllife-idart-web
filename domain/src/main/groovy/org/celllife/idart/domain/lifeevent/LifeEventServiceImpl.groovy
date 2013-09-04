@@ -2,10 +2,9 @@ package org.celllife.idart.domain.lifeevent
 
 import org.celllife.idart.common.LifeEventCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.lifeevent.LifeEventEvent.EventType.SAVED
 import static org.celllife.idart.domain.lifeevent.LifeEventEvent.newLifeEventEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.lifeevent.LifeEventEvent.newLifeEventEve
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class LifeEventServiceImpl implements LifeEventService {
+@Named class LifeEventServiceImpl implements LifeEventService {
 
-    @Autowired LifeEventRepository lifeEventRepository
+    @Inject LifeEventRepository lifeEventRepository
 
-    @Autowired LifeEventValidator lifeEventValidator
+    @Inject LifeEventValidator lifeEventValidator
 
-    @Autowired LifeEventEventPublisher lifeEventEventPublisher
+    @Inject LifeEventEventPublisher lifeEventEventPublisher
 
     @Override
-    LifeEvent save(LifeEvent lifeEvent) throws LifeEventValidationException {
+    LifeEvent save(LifeEvent lifeEvent) {
 
         lifeEventValidator.validate(lifeEvent)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.lifeevent.LifeEventEvent.newLifeEventEve
     }
 
     @Override
-    LifeEvent findByLifeEventCode(LifeEventCode lifeEventCode) throws LifeEventNotFoundException {
+    LifeEvent findByLifeEventCode(LifeEventCode lifeEventCode) {
 
         def lifeEvent = lifeEventRepository.findOne(lifeEventCode)
 

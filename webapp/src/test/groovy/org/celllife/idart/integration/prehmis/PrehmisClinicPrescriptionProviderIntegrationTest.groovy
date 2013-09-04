@@ -10,7 +10,7 @@ import org.celllife.idart.common.Schedule
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 import org.celllife.idart.domain.part.Drug
 import org.celllife.idart.domain.facility.Facility
-import org.celllife.idart.domain.medication.Medication
+import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.person.Person
 import org.celllife.idart.domain.practitioner.Practitioner

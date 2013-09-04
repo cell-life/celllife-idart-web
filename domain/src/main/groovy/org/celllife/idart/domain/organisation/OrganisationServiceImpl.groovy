@@ -2,10 +2,9 @@ package org.celllife.idart.domain.organisation
 
 import org.celllife.idart.common.OrganisationId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.organisation.OrganisationEvent.EventType.SAVED
 import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrganisationEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrgani
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class OrganisationServiceImpl implements OrganisationService {
+@Named class OrganisationServiceImpl implements OrganisationService {
 
-    @Autowired OrganisationRepository organisationRepository
+    @Inject OrganisationRepository organisationRepository
 
-    @Autowired OrganisationValidator organisationValidator
+    @Inject OrganisationValidator organisationValidator
 
-    @Autowired OrganisationEventPublisher organisationEventPublisher
+    @Inject OrganisationEventPublisher organisationEventPublisher
 
     @Override
-    Organisation save(Organisation organisation) throws OrganisationValidationException {
+    Organisation save(Organisation organisation) {
 
         organisationValidator.validate(organisation)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrgani
     }
 
     @Override
-    Organisation findByOrganisationId(OrganisationId organisationId) throws OrganisationNotFoundException {
+    Organisation findByOrganisationId(OrganisationId organisationId) {
 
         def organisation = organisationRepository.findOne(organisationId)
 

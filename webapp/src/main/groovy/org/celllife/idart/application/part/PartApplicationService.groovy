@@ -1,14 +1,17 @@
 package org.celllife.idart.application.part
 
+import org.celllife.idart.common.PartId
 import org.celllife.idart.domain.part.Part
 
+import javax.annotation.Generated
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-08-10
- * Time: 19h14
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PartApplicationService {
 
     Part save(Part part)
+
+    Part findByPartId(PartId partId)
 
 }

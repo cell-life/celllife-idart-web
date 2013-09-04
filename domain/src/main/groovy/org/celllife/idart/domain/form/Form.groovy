@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class Form {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/forms"
-
-    /**
      * Form Code 
      */
     FormCode code

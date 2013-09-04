@@ -2,10 +2,9 @@ package org.celllife.idart.domain.routeofadministration
 
 import org.celllife.idart.common.RouteOfAdministrationCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrationEvent.EventType.SAVED
 import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrationEvent.newRouteOfAdministrationEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrat
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class RouteOfAdministrationServiceImpl implements RouteOfAdministrationService {
+@Named class RouteOfAdministrationServiceImpl implements RouteOfAdministrationService {
 
-    @Autowired RouteOfAdministrationRepository routeOfAdministrationRepository
+    @Inject RouteOfAdministrationRepository routeOfAdministrationRepository
 
-    @Autowired RouteOfAdministrationValidator routeOfAdministrationValidator
+    @Inject RouteOfAdministrationValidator routeOfAdministrationValidator
 
-    @Autowired RouteOfAdministrationEventPublisher routeOfAdministrationEventPublisher
+    @Inject RouteOfAdministrationEventPublisher routeOfAdministrationEventPublisher
 
     @Override
-    RouteOfAdministration save(RouteOfAdministration routeOfAdministration) throws RouteOfAdministrationValidationException {
+    RouteOfAdministration save(RouteOfAdministration routeOfAdministration) {
 
         routeOfAdministrationValidator.validate(routeOfAdministration)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrat
     }
 
     @Override
-    RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) throws RouteOfAdministrationNotFoundException {
+    RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) {
 
         def routeOfAdministration = routeOfAdministrationRepository.findOne(routeOfAdministrationCode)
 

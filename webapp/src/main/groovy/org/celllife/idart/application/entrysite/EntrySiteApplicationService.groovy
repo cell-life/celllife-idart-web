@@ -1,9 +1,7 @@
 package org.celllife.idart.application.entrysite
 
-import org.celllife.idart.domain.entrysite.EntrySite
-import org.celllife.idart.domain.entrysite.EntrySiteValidationException
-import org.celllife.idart.domain.entrysite.EntrySiteNotFoundException
 import org.celllife.idart.common.EntrySiteCode
+import org.celllife.idart.domain.entrysite.EntrySite
 
 import javax.annotation.Generated
 
@@ -12,8 +10,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface EntrySiteApplicationService {
 
-    EntrySite save(EntrySite entrySite) throws EntrySiteValidationException
+    EntrySite save(EntrySite entrySite)
 
-    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) throws EntrySiteNotFoundException
+    EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode)
 
 }

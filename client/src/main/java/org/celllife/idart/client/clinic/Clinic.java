@@ -21,7 +21,7 @@ public final class Clinic implements Serializable {
         if (this.ids == null) {
             this.ids = new HashSet<Id>();
         }
-        this.ids.add(new Id(system, value));
+        this.ids.add(new Id(value));
     }
 
 }

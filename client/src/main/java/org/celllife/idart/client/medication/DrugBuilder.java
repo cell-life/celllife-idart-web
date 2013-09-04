@@ -26,12 +26,12 @@ public class DrugBuilder {
     }
 
     public DrugBuilder setId(String idValue) {
-        this.drug.ids.add(new Id(this.clinicDrugsIdSystem, idValue));
+        this.drug.ids.add(new Id(idValue));
         return this;
     }
 
     public DrugBuilder setId(String idSystem, String idValue) {
-        this.drug.ids.add(new Id(idSystem, idValue));
+        this.drug.ids.add(new Id(idValue));
         return this;
     }
 
@@ -44,9 +44,9 @@ public class DrugBuilder {
         return this;
     }
 
-    public DrugBuilder setForm(String formCodeSystem, String formCodeValue) {
+    public DrugBuilder setForm(String formCodeValue) {
         this.drug.form = new Form();
-        this.drug.form.codes.add(new Code(formCodeSystem, formCodeValue));
+        this.drug.form.codes.add(new Code(formCodeValue));
         return this;
     }
 

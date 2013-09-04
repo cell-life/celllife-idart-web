@@ -19,6 +19,10 @@ class DefaultDosageInstructionId implements Serializable {
     String value
     
     static DefaultDosageInstructionId valueOf(String string) {
+        defaultDosageInstructionId(string)
+    }
+
+    static DefaultDosageInstructionId defaultDosageInstructionId(String string) {
         new DefaultDosageInstructionId ( value: string )
     }
     

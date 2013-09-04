@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class RouteOfAdministration {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/routesOfAdministration"
-
-    /**
      * Route Of Administration Code 
      */
     RouteOfAdministrationCode code

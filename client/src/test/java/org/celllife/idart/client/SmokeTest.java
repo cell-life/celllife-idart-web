@@ -1,14 +1,10 @@
 package org.celllife.idart.client;
 
-import org.celllife.idart.client.clinic.Clinic;
-import org.celllife.idart.client.common.LocalisedText;
-import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.medication.BillOfMaterialsItemBuilder;
 import org.celllife.idart.client.medication.CompoundBuilder;
 import org.celllife.idart.client.medication.DrugBuilder;
 import org.celllife.idart.client.medication.MedicationBuilder;
 import org.celllife.idart.client.part.Compound;
-import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.part.PartClassificationType;
 import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
@@ -16,7 +12,6 @@ import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.PrescribedMedicationBuilder;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
-import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasures;
 import org.junit.Assert;
 import org.junit.Before;
@@ -77,13 +72,13 @@ public class SmokeTest {
         MedicationBuilder medicationBuilder = new MedicationBuilder(clinicId)
                 .setName("[ABC] Abacavir 300mg")
                 .addDrug(newDrug(clinicId)
-                        .setForm(Form.IDART_SYSTEM, "CAP")
+                        .setForm("CAP")
                         .addClassification(PartClassificationType.ATC, "J05AF06")
                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                 .setQuantity(60, UnitOfMeasures.EACH)
                                 .addPart(newDrug(clinicId)
                                         .setId("00000002")
-                                        .setForm(Form.IDART_SYSTEM, "CAP")
+                                        .setForm("CAP")
                                         .addClassification(PartClassificationType.ATC, "J05AF06")
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")

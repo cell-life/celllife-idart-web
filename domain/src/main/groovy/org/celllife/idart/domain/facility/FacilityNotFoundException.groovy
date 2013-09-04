@@ -5,7 +5,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class FacilityNotFoundException extends Exception {
+class FacilityNotFoundException extends RuntimeException {
 
     FacilityNotFoundException(String message) {
         super(message)

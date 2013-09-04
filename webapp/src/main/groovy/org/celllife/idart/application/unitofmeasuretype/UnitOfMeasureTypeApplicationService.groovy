@@ -1,9 +1,7 @@
 package org.celllife.idart.application.unitofmeasuretype
 
-import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureType
-import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeValidationException
-import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeNotFoundException
 import org.celllife.idart.common.UnitOfMeasureTypeCode
+import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureType
 
 import javax.annotation.Generated
 
@@ -12,8 +10,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface UnitOfMeasureTypeApplicationService {
 
-    UnitOfMeasureType save(UnitOfMeasureType unitOfMeasureType) throws UnitOfMeasureTypeValidationException
+    UnitOfMeasureType save(UnitOfMeasureType unitOfMeasureType)
 
-    UnitOfMeasureType findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode) throws UnitOfMeasureTypeNotFoundException
+    UnitOfMeasureType findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode)
 
 }

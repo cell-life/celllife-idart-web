@@ -21,7 +21,7 @@ public final class Id implements Serializable {
     public Id() {
     }
 
-    public Id(String system, String value) {
+    public Id(String value) {
         this.system = system;
         this.value = value;
     }

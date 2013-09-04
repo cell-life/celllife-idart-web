@@ -1,22 +1,26 @@
 package org.celllife.idart.application.part
 
-import org.celllife.idart.domain.part.Compound
+import org.celllife.idart.common.PartId
 import org.celllife.idart.domain.part.Part
 import org.celllife.idart.domain.part.PartService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-17
- * Time: 22h24
  */
-@Service class PartApplicationServiceImpl implements PartApplicationService {
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+@Named class PartApplicationServiceImpl implements PartApplicationService {
 
-    @Autowired PartService partService
+    @Inject PartService partService
 
-    @Override
     Part save(Part part) {
-        return partService.save(part as Compound)
+        partService.save(part)
     }
+
+    Part findByPartId(PartId partId) {
+        partService.findByPartId(partId)
+    }
+
 }

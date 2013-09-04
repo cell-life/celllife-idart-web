@@ -6,20 +6,21 @@ import org.celllife.idart.domain.part.PartValidator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 import javax.validation.ConstraintViolation
 import javax.validation.ValidatorFactory
-
-import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class Jsr303PartValidator implements PartValidator {
+@Named class Jsr303PartValidator implements PartValidator {
 
-    @Autowired ValidatorFactory validatorFactory
+    @Inject ValidatorFactory validatorFactory
 
     @Override
-    void validate(Part part) throws PartValidationException {
+    void validate(Part part) {
 
         Set<ConstraintViolation<Part>> constraintViolations = validatorFactory.validator.validate(part)
 

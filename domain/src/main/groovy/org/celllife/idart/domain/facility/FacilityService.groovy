@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface FacilityService {
 
-    Facility save(Facility facility) throws FacilityValidationException
+    Facility save(Facility facility)
 
-    Facility findByFacilityId(FacilityId facilityId) throws FacilityNotFoundException
+    Facility findByFacilityId(FacilityId facilityId)
 
 }

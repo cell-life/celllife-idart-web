@@ -10,10 +10,10 @@ import org.celllife.idart.domain.part.Drug;
  * Date: 2013-07-18
  * Time: 20h19
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(name = "drug", value = Drug.class),
-        @JsonSubTypes.Type(name = "compound", value = Compound.class),
+        @JsonSubTypes.Type(name = "DRUG", value = Drug.class),
+        @JsonSubTypes.Type(name = "COMPOUND", value = Compound.class),
 })
 public interface PartMixin {
 }

@@ -1,6 +1,6 @@
 package org.celllife.idart.application.clinicmedication
 
-import org.celllife.idart.domain.medication.Medication
+import org.celllife.idart.domain.product.Medication
 import org.springframework.stereotype.Service
 
 import javax.annotation.Generated

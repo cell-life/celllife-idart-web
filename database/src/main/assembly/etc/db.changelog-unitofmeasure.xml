@@ -9,24 +9,16 @@
             <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="varchar(2000)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(2000)"/>
         </createTable>
 
         <createTable tableName="unit_of_measure">
             <column name="code" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="varchar(2000)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(2000)"/>
             <column name="type" type="varchar(31)">
                 <constraints references="unit_of_measure_type(code)" foreignKeyName="unit_of_measure_type_fk"/>
             </column>

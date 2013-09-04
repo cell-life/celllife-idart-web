@@ -1,27 +1,25 @@
 package org.celllife.idart.application.dispensation
 
-import org.celllife.idart.domain.dispensation.Dispensation
-import org.celllife.idart.domain.dispensation.DispensationValidationException
-import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.common.DispensationId
+import org.celllife.idart.domain.dispensation.Dispensation
 import org.celllife.idart.domain.dispensation.DispensationService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class DispensationApplicationServiceImpl implements DispensationApplicationService {
+@Named class DispensationApplicationServiceImpl implements DispensationApplicationService {
 
-    @Autowired DispensationService dispensationService
+    @Inject DispensationService dispensationService
 
-    Dispensation save(Dispensation dispensation) throws DispensationValidationException {
+    Dispensation save(Dispensation dispensation) {
         dispensationService.save(dispensation)
     }
 
-    Dispensation findByDispensationId(DispensationId dispensationId) throws DispensationNotFoundException{
+    Dispensation findByDispensationId(DispensationId dispensationId) {
         dispensationService.findByDispensationId(dispensationId)
     }
 

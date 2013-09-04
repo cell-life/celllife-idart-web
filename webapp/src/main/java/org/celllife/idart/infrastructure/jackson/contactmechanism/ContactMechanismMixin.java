@@ -12,13 +12,12 @@ import org.celllife.idart.domain.contactmechanism.TelecommunicationsNumber;
  * Date: 2013-07-18
  * Time: 20h19
  */
-
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(name = "email", value = ElectronicAddress.class),
-        @JsonSubTypes.Type(name = "mobile", value = MobileTelephoneNumber.class),
-        @JsonSubTypes.Type(name = "postal", value = PostalAddress.class),
-        @JsonSubTypes.Type(name = "telephone", value = TelecommunicationsNumber.class)
+        @JsonSubTypes.Type(name = "EMAIL", value = ElectronicAddress.class),
+        @JsonSubTypes.Type(name = "MOBILE", value = MobileTelephoneNumber.class),
+        @JsonSubTypes.Type(name = "POSTAL", value = PostalAddress.class),
+        @JsonSubTypes.Type(name = "TELEPHONE", value = TelecommunicationsNumber.class)
 })
 public interface ContactMechanismMixin {
 }

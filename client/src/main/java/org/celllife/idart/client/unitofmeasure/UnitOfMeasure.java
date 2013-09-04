@@ -14,10 +14,6 @@ import java.util.Set;
  */
 public final class UnitOfMeasure implements Serializable {
 
-    public static final String IDART_SYSTEM = "http://www.cell-life.org/idart/unitsOfMeasure";
-
-    public static final String UCUM_SYSTEM = "http://unitsofmeasure.org";
-
     public Set<Code> codes = new HashSet<Code>();
 
     public Set<LocalisedText> names;
@@ -28,6 +24,6 @@ public final class UnitOfMeasure implements Serializable {
     }
 
     public UnitOfMeasure(String codeValue) {
-        codes.add(new Code(IDART_SYSTEM, codeValue));
+        codes.add(new Code(codeValue));
     }
 }

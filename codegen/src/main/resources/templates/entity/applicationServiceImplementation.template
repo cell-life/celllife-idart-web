@@ -1,27 +1,25 @@
 package ${applicationService.packageName}
 
-import ${entity.packageName}.${entity.className}
-import ${entity.packageName}.${entity.className}ValidationException
-import ${entity.packageName}.${entity.className}NotFoundException
 import ${id.packageName}.${id.className}
+import ${entity.packageName}.${entity.className}
 import ${domainService.packageName}.${domainService.className}
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class ${applicationService.className}Impl implements ${applicationService.className} {
+@Named class ${applicationService.className}Impl implements ${applicationService.className} {
 
-    @Autowired ${domainService.className} ${domainService.fieldName}
+    @Inject ${domainService.className} ${domainService.fieldName}
 
-    ${entity.className} save(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException {
+    ${entity.className} save(${entity.className} ${entity.fieldName}) {
         ${domainService.fieldName}.save(${entity.fieldName})
     }
 
-    ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) throws ${entity.className}NotFoundException{
+    ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) {
         ${domainService.fieldName}.findBy${id.className}(${id.fieldName})
     }
 

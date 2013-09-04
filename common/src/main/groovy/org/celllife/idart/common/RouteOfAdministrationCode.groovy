@@ -19,6 +19,10 @@ class RouteOfAdministrationCode implements Serializable {
     String value
     
     static RouteOfAdministrationCode valueOf(String string) {
+        routeOfAdministrationCode(string)
+    }
+
+    static RouteOfAdministrationCode routeOfAdministrationCode(String string) {
         new RouteOfAdministrationCode ( value: string )
     }
     

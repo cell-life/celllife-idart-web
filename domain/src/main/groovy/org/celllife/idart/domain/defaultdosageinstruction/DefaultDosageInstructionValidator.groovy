@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface DefaultDosageInstructionValidator {
 
-    void validate(DefaultDosageInstruction defaultDosageInstruction) throws DefaultDosageInstructionValidationException
+    void validate(DefaultDosageInstruction defaultDosageInstruction)
 
 }

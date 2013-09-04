@@ -1,12 +1,12 @@
 {
-    "@type": "drug",
+    "type": "DRUG",
     "identifier": "00000014",
     "billOfMaterials": [
         {
-            "@type": "engineering",
+            "type": "ENGINEERING",
             "fromDate": "2013-01-01",
             "part": {
-                "@type": "drug",
+                "type": "DRUG",
                 "identifier": "00000013"
             },
             "quantityUsed": {

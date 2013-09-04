@@ -12,11 +12,6 @@ import org.celllife.idart.common.*
 class Prescription {
 
     /**
-     * Namespace
-     */
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/prescriptions"
-
-    /**
      * Identified by
      */
     PrescriptionId id

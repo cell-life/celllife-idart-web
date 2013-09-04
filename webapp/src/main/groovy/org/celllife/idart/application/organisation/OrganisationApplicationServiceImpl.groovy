@@ -1,27 +1,25 @@
 package org.celllife.idart.application.organisation
 
-import org.celllife.idart.domain.organisation.Organisation
-import org.celllife.idart.domain.organisation.OrganisationValidationException
-import org.celllife.idart.domain.organisation.OrganisationNotFoundException
 import org.celllife.idart.common.OrganisationId
+import org.celllife.idart.domain.organisation.Organisation
 import org.celllife.idart.domain.organisation.OrganisationService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class OrganisationApplicationServiceImpl implements OrganisationApplicationService {
+@Named class OrganisationApplicationServiceImpl implements OrganisationApplicationService {
 
-    @Autowired OrganisationService organisationService
+    @Inject OrganisationService organisationService
 
-    Organisation save(Organisation organisation) throws OrganisationValidationException {
+    Organisation save(Organisation organisation) {
         organisationService.save(organisation)
     }
 
-    Organisation findByOrganisationId(OrganisationId organisationId) throws OrganisationNotFoundException{
+    Organisation findByOrganisationId(OrganisationId organisationId) {
         organisationService.findByOrganisationId(organisationId)
     }
 

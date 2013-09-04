@@ -9,22 +9,18 @@ import java.io.Serializable;
  */
 public final class Code implements Serializable {
 
-    public String system;
-
     public String value;
 
     public Code() {
     }
 
-    public Code(String system, String value) {
-        this.system = system;
+    public Code(String value) {
         this.value = value;
     }
 
     @Override
     public String toString() {
         return "Coded{" +
-                "system='" + system + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }

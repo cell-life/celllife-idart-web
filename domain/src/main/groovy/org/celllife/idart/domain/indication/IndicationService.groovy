@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface IndicationService {
 
-    Indication save(Indication indication) throws IndicationValidationException
+    Indication save(Indication indication)
 
-    Indication findByIndicationCode(IndicationCode indicationCode) throws IndicationNotFoundException
+    Indication findByIndicationCode(IndicationCode indicationCode)
 
 }

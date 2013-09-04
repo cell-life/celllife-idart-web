@@ -1,9 +1,7 @@
 package org.celllife.idart.application.practitioner
 
-import org.celllife.idart.domain.practitioner.Practitioner
-import org.celllife.idart.domain.practitioner.PractitionerValidationException
-import org.celllife.idart.domain.practitioner.PractitionerNotFoundException
 import org.celllife.idart.common.PractitionerId
+import org.celllife.idart.domain.practitioner.Practitioner
 
 import javax.annotation.Generated
 
@@ -12,8 +10,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PractitionerApplicationService {
 
-    Practitioner save(Practitioner practitioner) throws PractitionerValidationException
+    Practitioner save(Practitioner practitioner)
 
-    Practitioner findByPractitionerId(PractitionerId practitionerId) throws PractitionerNotFoundException
+    Practitioner findByPractitionerId(PractitionerId practitionerId)
 
 }

@@ -19,6 +19,10 @@ class EncounterId implements Serializable {
     String value
     
     static EncounterId valueOf(String string) {
+        encounterId(string)
+    }
+
+    static EncounterId encounterId(String string) {
         new EncounterId ( value: string )
     }
     

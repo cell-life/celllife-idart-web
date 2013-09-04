@@ -55,7 +55,7 @@ class PatientBuilderTest {
         Assert.assertEquals("TEST", patient.person.lastName)
         Assert.assertEquals("72254311", patient.getIdValue(PrehmisPatientIdType.PGWC.system))
         Assert.assertEquals("1", patient.getIdValue(PrehmisPatientIdType.PREHMIS.system))
-        Assert.assertEquals(Gender.M, patient.person.gender)
+        Assert.assertEquals(Gender.MALE, patient.person.gender)
         Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("1981-01-01"), patient.person.birthDate)
 
         patient.person.contactMechanisms.each { contactMechanism ->

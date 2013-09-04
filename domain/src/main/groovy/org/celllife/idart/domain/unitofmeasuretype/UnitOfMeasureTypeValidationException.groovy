@@ -7,7 +7,7 @@ import javax.annotation.Generated
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class UnitOfMeasureTypeValidationException extends Exception {
+class UnitOfMeasureTypeValidationException extends RuntimeException {
 
     Set<ConstraintViolation<UnitOfMeasureType>> constraintViolations
 

@@ -19,6 +19,10 @@ class UserId implements Serializable {
     String value
     
     static UserId valueOf(String string) {
+        userId(string)
+    }
+
+    static UserId userId(String string) {
         new UserId ( value: string )
     }
     

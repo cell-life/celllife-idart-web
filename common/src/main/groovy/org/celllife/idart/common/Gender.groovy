@@ -6,7 +6,7 @@ package org.celllife.idart.common
  * Time: 22h13
  */
 enum Gender {
-    M,
-    F,
-    U
+    MALE,
+    FEMALE,
+    UNKOWN
 }

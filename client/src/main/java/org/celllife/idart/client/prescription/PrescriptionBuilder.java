@@ -1,15 +1,9 @@
 package org.celllife.idart.client.prescription;
 
-import org.celllife.idart.client.common.Duration;
 import org.celllife.idart.client.common.Id;
-import org.celllife.idart.client.common.Quantity;
-import org.celllife.idart.client.dosageinstruction.DosageInstruction;
-import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
-import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -33,31 +27,31 @@ public final class PrescriptionBuilder {
     }
 
     public PrescriptionBuilder setId(String prescriptionId) {
-        this.prescription.ids.add(new Id(clinicPrescriptionIdSystem, prescriptionId));
+        this.prescription.ids.add(new Id(prescriptionId));
         return this;
     }
 
     public PrescriptionBuilder setPatient(String id) {
         this.prescription.patient = new Patient();
-        this.prescription.patient.ids.add(new Id(Patient.IDART_SYSTEM, id));
+        this.prescription.patient.ids.add(new Id(id));
         return this;
     }
 
     public PrescriptionBuilder setPatient(String idSystem, String idValue) {
         this.prescription.patient = new Patient();
-        this.prescription.patient.ids.add(new Id(idSystem, idValue));
+        this.prescription.patient.ids.add(new Id(idValue));
         return this;
     }
 
     public PrescriptionBuilder setPrescriber(String id) {
         this.prescription.prescriber = new Practitioner();
-        this.prescription.prescriber.ids.add(new Id(Practitioner.IDART_SYSTEM, id));
+        this.prescription.prescriber.ids.add(new Id(id));
         return this;
     }
 
     public PrescriptionBuilder setPrescriber(String idSystem, String idValue) {
         this.prescription.prescriber = new Practitioner();
-        this.prescription.prescriber.ids.add(new Id(idSystem, idValue));
+        this.prescription.prescriber.ids.add(new Id(idValue));
         return this;
     }
 
@@ -76,7 +70,7 @@ public final class PrescriptionBuilder {
     }
 
     public PrescriptionBuilder addId(String system, String value) {
-        this.prescription.ids.add(new Id(system, value));
+        this.prescription.ids.add(new Id(value));
         return this;
     }
 }

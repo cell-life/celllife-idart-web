@@ -19,6 +19,10 @@ class PractitionerId implements Serializable {
     String value
     
     static PractitionerId valueOf(String string) {
+        practitionerId(string)
+    }
+
+    static PractitionerId practitionerId(String string) {
         new PractitionerId ( value: string )
     }
     

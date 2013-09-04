@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PartService {
 
-    Part save(Part part) throws PartValidationException
+    Part save(Part part)
 
-    Part findByPartId(PartId partId) throws PartNotFoundException
+    Part findByPartId(PartId partId)
 
 }

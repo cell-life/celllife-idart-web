@@ -2,10 +2,9 @@ package org.celllife.idart.domain.dispensation
 
 import org.celllife.idart.common.DispensationId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.dispensation.DispensationEvent.EventType.SAVED
 import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispensationEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class DispensationServiceImpl implements DispensationService {
+@Named class DispensationServiceImpl implements DispensationService {
 
-    @Autowired DispensationRepository dispensationRepository
+    @Inject DispensationRepository dispensationRepository
 
-    @Autowired DispensationValidator dispensationValidator
+    @Inject DispensationValidator dispensationValidator
 
-    @Autowired DispensationEventPublisher dispensationEventPublisher
+    @Inject DispensationEventPublisher dispensationEventPublisher
 
     @Override
-    Dispensation save(Dispensation dispensation) throws DispensationValidationException {
+    Dispensation save(Dispensation dispensation) {
 
         dispensationValidator.validate(dispensation)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
     }
 
     @Override
-    Dispensation findByDispensationId(DispensationId dispensationId) throws DispensationNotFoundException {
+    Dispensation findByDispensationId(DispensationId dispensationId) {
 
         def dispensation = dispensationRepository.findOne(dispensationId)
 

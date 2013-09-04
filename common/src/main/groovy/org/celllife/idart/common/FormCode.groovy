@@ -19,6 +19,10 @@ class FormCode implements Serializable {
     String value
     
     static FormCode valueOf(String string) {
+        formCode(string)
+    }
+
+    static FormCode formCode(String string) {
         new FormCode ( value: string )
     }
     

@@ -2,10 +2,9 @@ package org.celllife.idart.domain.prescription
 
 import org.celllife.idart.common.PrescriptionId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.prescription.PrescriptionEvent.EventType.SAVED
 import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescriptionEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class PrescriptionServiceImpl implements PrescriptionService {
+@Named class PrescriptionServiceImpl implements PrescriptionService {
 
-    @Autowired PrescriptionRepository prescriptionRepository
+    @Inject PrescriptionRepository prescriptionRepository
 
-    @Autowired PrescriptionValidator prescriptionValidator
+    @Inject PrescriptionValidator prescriptionValidator
 
-    @Autowired PrescriptionEventPublisher prescriptionEventPublisher
+    @Inject PrescriptionEventPublisher prescriptionEventPublisher
 
     @Override
-    Prescription save(Prescription prescription) throws PrescriptionValidationException {
+    Prescription save(Prescription prescription) {
 
         prescriptionValidator.validate(prescription)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
     }
 
     @Override
-    Prescription findByPrescriptionId(PrescriptionId prescriptionId) throws PrescriptionNotFoundException {
+    Prescription findByPrescriptionId(PrescriptionId prescriptionId) {
 
         def prescription = prescriptionRepository.findOne(prescriptionId)
 

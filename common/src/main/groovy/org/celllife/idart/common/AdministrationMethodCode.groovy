@@ -19,6 +19,10 @@ class AdministrationMethodCode implements Serializable {
     String value
     
     static AdministrationMethodCode valueOf(String string) {
+        administrationMethodCode(string)
+    }
+
+    static AdministrationMethodCode administrationMethodCode(String string) {
         new AdministrationMethodCode ( value: string )
     }
     

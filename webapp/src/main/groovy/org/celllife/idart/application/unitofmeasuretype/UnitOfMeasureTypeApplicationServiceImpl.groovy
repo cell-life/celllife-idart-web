@@ -1,27 +1,25 @@
 package org.celllife.idart.application.unitofmeasuretype
 
-import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureType
-import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeValidationException
-import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeNotFoundException
 import org.celllife.idart.common.UnitOfMeasureTypeCode
+import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureType
 import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class UnitOfMeasureTypeApplicationServiceImpl implements UnitOfMeasureTypeApplicationService {
+@Named class UnitOfMeasureTypeApplicationServiceImpl implements UnitOfMeasureTypeApplicationService {
 
-    @Autowired UnitOfMeasureTypeService unitOfMeasureTypeService
+    @Inject UnitOfMeasureTypeService unitOfMeasureTypeService
 
-    UnitOfMeasureType save(UnitOfMeasureType unitOfMeasureType) throws UnitOfMeasureTypeValidationException {
+    UnitOfMeasureType save(UnitOfMeasureType unitOfMeasureType) {
         unitOfMeasureTypeService.save(unitOfMeasureType)
     }
 
-    UnitOfMeasureType findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode) throws UnitOfMeasureTypeNotFoundException{
+    UnitOfMeasureType findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode) {
         unitOfMeasureTypeService.findByUnitOfMeasureTypeCode(unitOfMeasureTypeCode)
     }
 

@@ -2,10 +2,9 @@ package org.celllife.idart.domain.prescribedmedication
 
 import org.celllife.idart.common.PrescribedMedicationId
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicationEvent.EventType.SAVED
 import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicationEvent.newPrescribedMedicationEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicatio
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class PrescribedMedicationServiceImpl implements PrescribedMedicationService {
+@Named class PrescribedMedicationServiceImpl implements PrescribedMedicationService {
 
-    @Autowired PrescribedMedicationRepository prescribedMedicationRepository
+    @Inject PrescribedMedicationRepository prescribedMedicationRepository
 
-    @Autowired PrescribedMedicationValidator prescribedMedicationValidator
+    @Inject PrescribedMedicationValidator prescribedMedicationValidator
 
-    @Autowired PrescribedMedicationEventPublisher prescribedMedicationEventPublisher
+    @Inject PrescribedMedicationEventPublisher prescribedMedicationEventPublisher
 
     @Override
-    PrescribedMedication save(PrescribedMedication prescribedMedication) throws PrescribedMedicationValidationException {
+    PrescribedMedication save(PrescribedMedication prescribedMedication) {
 
         prescribedMedicationValidator.validate(prescribedMedication)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicatio
     }
 
     @Override
-    PrescribedMedication findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) throws PrescribedMedicationNotFoundException {
+    PrescribedMedication findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) {
 
         def prescribedMedication = prescribedMedicationRepository.findOne(prescribedMedicationId)
 

@@ -19,6 +19,10 @@ class SystemId implements Serializable {
     String value
     
     static SystemId valueOf(String string) {
+        systemId(string)
+    }
+
+    static SystemId systemId(String string) {
         new SystemId ( value: string )
     }
     

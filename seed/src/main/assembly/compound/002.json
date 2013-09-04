@@ -1,5 +1,5 @@
 {
-    "@type": "compound",
-    "identifier": "Stavudine",
+    "type": "COMPOUND",
+    "label": "Stavudine",
     "unitOfMeasure": "mg"
 }

@@ -19,6 +19,10 @@ class PersonId implements Serializable {
     String value
     
     static PersonId valueOf(String string) {
+        personId(string)
+    }
+
+    static PersonId personId(String string) {
         new PersonId ( value: string )
     }
     

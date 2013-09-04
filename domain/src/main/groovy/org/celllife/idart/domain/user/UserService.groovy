@@ -9,8 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface UserService {
 
-    User save(User user) throws UserValidationException
+    User save(User user)
 
-    User findByUserId(UserId userId) throws UserNotFoundException
+    User findByUserId(UserId userId)
 
 }

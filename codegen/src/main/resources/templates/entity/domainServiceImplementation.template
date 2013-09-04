@@ -2,10 +2,9 @@ package ${domainService.packageName}
 
 import ${id.packageName}.${id.className}
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static ${domainEvent.packageName}.${domainEvent.className}.EventType.SAVED
 import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEvent.className}
@@ -13,16 +12,16 @@ import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEve
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class ${domainService.className}Impl implements ${domainService.className} {
+@Named class ${domainService.className}Impl implements ${domainService.className} {
 
-    @Autowired ${repository.className} ${repository.fieldName}
+    @Inject ${repository.className} ${repository.fieldName}
 
-    @Autowired ${validator.className} ${validator.fieldName}
+    @Inject ${validator.className} ${validator.fieldName}
 
-    @Autowired ${eventPublisher.className} ${eventPublisher.fieldName}
+    @Inject ${eventPublisher.className} ${eventPublisher.fieldName}
 
     @Override
-    ${entity.className} save(${entity.className} ${entity.fieldName}) throws ${entity.className}ValidationException {
+    ${entity.className} save(${entity.className} ${entity.fieldName}) {
 
         ${validator.fieldName}.validate(${entity.fieldName})
 
@@ -32,7 +31,7 @@ import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEve
     }
 
     @Override
-    ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) throws ${entity.className}NotFoundException {
+    ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) {
 
         def ${entity.fieldName} = ${repository.fieldName}.findOne(${id.fieldName})
 

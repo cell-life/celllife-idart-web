@@ -1,27 +1,25 @@
 package org.celllife.idart.application.routeofadministration
 
-import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
-import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationValidationException
-import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationNotFoundException
 import org.celllife.idart.common.RouteOfAdministrationCode
+import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class RouteOfAdministrationApplicationServiceImpl implements RouteOfAdministrationApplicationService {
+@Named class RouteOfAdministrationApplicationServiceImpl implements RouteOfAdministrationApplicationService {
 
-    @Autowired RouteOfAdministrationService routeOfAdministrationService
+    @Inject RouteOfAdministrationService routeOfAdministrationService
 
-    RouteOfAdministration save(RouteOfAdministration routeOfAdministration) throws RouteOfAdministrationValidationException {
+    RouteOfAdministration save(RouteOfAdministration routeOfAdministration) {
         routeOfAdministrationService.save(routeOfAdministration)
     }
 
-    RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) throws RouteOfAdministrationNotFoundException{
+    RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) {
         routeOfAdministrationService.findByRouteOfAdministrationCode(routeOfAdministrationCode)
     }
 

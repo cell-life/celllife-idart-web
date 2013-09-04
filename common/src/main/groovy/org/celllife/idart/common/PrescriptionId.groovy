@@ -19,6 +19,10 @@ class PrescriptionId implements Serializable {
     String value
     
     static PrescriptionId valueOf(String string) {
+        prescriptionId(string)
+    }
+
+    static PrescriptionId prescriptionId(String string) {
         new PrescriptionId ( value: string )
     }
     

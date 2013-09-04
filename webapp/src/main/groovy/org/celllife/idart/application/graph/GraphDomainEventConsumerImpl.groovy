@@ -71,27 +71,12 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
     }
 
     @Override
-    void handleCompoundEvent(String message) {
-        println message
-    }
-
-    @Override
     void handleDefaultDosageInstructionEvent(String message) {
         println message
     }
 
     @Override
     void handleDispensationEvent(String message) {
-        println message
-    }
-
-    @Override
-    void handleDispensedMedicationEvent(String message) {
-        println message
-    }
-
-    @Override
-    void handleDrugEvent(String message) {
         println message
     }
 
@@ -137,6 +122,11 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
     @Override
     void handleOrganisationEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handlePartEvent(String message) {
         println message
     }
 

@@ -2,10 +2,9 @@ package org.celllife.idart.domain.substitution
 
 import org.celllife.idart.common.SubstitutionCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.substitution.SubstitutionEvent.EventType.SAVED
 import static org.celllife.idart.domain.substitution.SubstitutionEvent.newSubstitutionEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.substitution.SubstitutionEvent.newSubsti
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class SubstitutionServiceImpl implements SubstitutionService {
+@Named class SubstitutionServiceImpl implements SubstitutionService {
 
-    @Autowired SubstitutionRepository substitutionRepository
+    @Inject SubstitutionRepository substitutionRepository
 
-    @Autowired SubstitutionValidator substitutionValidator
+    @Inject SubstitutionValidator substitutionValidator
 
-    @Autowired SubstitutionEventPublisher substitutionEventPublisher
+    @Inject SubstitutionEventPublisher substitutionEventPublisher
 
     @Override
-    Substitution save(Substitution substitution) throws SubstitutionValidationException {
+    Substitution save(Substitution substitution) {
 
         substitutionValidator.validate(substitution)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.substitution.SubstitutionEvent.newSubsti
     }
 
     @Override
-    Substitution findBySubstitutionCode(SubstitutionCode substitutionCode) throws SubstitutionNotFoundException {
+    Substitution findBySubstitutionCode(SubstitutionCode substitutionCode) {
 
         def substitution = substitutionRepository.findOne(substitutionCode)
 

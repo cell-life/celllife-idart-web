@@ -19,6 +19,10 @@ class PartId implements Serializable {
     String value
     
     static PartId valueOf(String string) {
+        partId(string)
+    }
+
+    static PartId partId(String string) {
         new PartId ( value: string )
     }
     

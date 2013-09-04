@@ -2,8 +2,9 @@ package org.celllife.idart.domain.systemfacility
 
 import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.SystemId
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.systemfacility.SystemFacilityEvent.EventType.SAVED
 import static org.celllife.idart.domain.systemfacility.SystemFacilityEvent.newSystemFacilityEvent
@@ -14,11 +15,11 @@ import static org.celllife.idart.domain.systemfacility.SystemFacilityRelationshi
  * Date: 2013-08-04
  * Time: 22h35
  */
-@Service class SystemFacilityServiceImpl implements SystemFacilityService {
+@Named class SystemFacilityServiceImpl implements SystemFacilityService {
 
-    @Autowired SystemFacilityRepository systemFacilityRepository
+    @Inject SystemFacilityRepository systemFacilityRepository
 
-    @Autowired SystemFacilityEventPublisher systemFacilityEventPublisher
+    @Inject SystemFacilityEventPublisher systemFacilityEventPublisher
 
     @Override
     void saveUserForSystem(SystemId systemId, FacilityId facilityId) {

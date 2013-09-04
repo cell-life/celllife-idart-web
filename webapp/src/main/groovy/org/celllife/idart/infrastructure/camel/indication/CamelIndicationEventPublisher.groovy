@@ -5,20 +5,20 @@ import org.apache.camel.EndpointInject
 import org.apache.camel.ProducerTemplate
 import org.celllife.idart.domain.indication.IndicationEvent
 import org.celllife.idart.domain.indication.IndicationEventPublisher
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Camel Indication Event Publisher
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class CamelIndicationEventPublisher implements IndicationEventPublisher {
+@Named class CamelIndicationEventPublisher implements IndicationEventPublisher {
 
     @EndpointInject(uri = "direct:indicationEvent") ProducerTemplate producerTemplate
 
-    @Autowired ObjectMapper objectMapper
+    @Inject ObjectMapper objectMapper
 
     @Override
     void publish(IndicationEvent indicationEvent) {

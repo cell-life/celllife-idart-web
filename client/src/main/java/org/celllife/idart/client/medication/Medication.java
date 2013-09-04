@@ -14,8 +14,6 @@ import java.util.Set;
  */
 public final class Medication implements Serializable {
 
-    public static final String IDART_SYSTEM = "http://www.cell-life.org/idart/medications";
-
     public Set<Id> ids = new HashSet<Id>();
 
     public String name;

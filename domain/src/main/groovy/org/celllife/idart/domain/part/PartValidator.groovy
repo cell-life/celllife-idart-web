@@ -7,6 +7,6 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PartValidator {
 
-    void validate(Part part) throws PartValidationException
+    void validate(Part part)
 
 }

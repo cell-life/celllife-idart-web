@@ -1,19 +1,15 @@
 package org.celllife.idart.application.person
 
-import org.celllife.idart.domain.person.Person
-import org.celllife.idart.domain.person.PersonValidationException
-import org.celllife.idart.domain.person.PersonNotFoundException
+import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.PersonId
-
-import javax.annotation.Generated
+import org.celllife.idart.domain.person.Person
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PersonApplicationService {
 
-    Person save(Person person) throws PersonValidationException
+    PersonId save(PersonDto person)
 
-    Person findByPersonId(PersonId personId) throws PersonNotFoundException
+    Person findByPersonId(PersonId personId)
 
 }

@@ -1,27 +1,25 @@
 package org.celllife.idart.application.administrationmethod
 
-import org.celllife.idart.domain.administrationmethod.AdministrationMethod
-import org.celllife.idart.domain.administrationmethod.AdministrationMethodValidationException
-import org.celllife.idart.domain.administrationmethod.AdministrationMethodNotFoundException
 import org.celllife.idart.common.AdministrationMethodCode
+import org.celllife.idart.domain.administrationmethod.AdministrationMethod
 import org.celllife.idart.domain.administrationmethod.AdministrationMethodService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class AdministrationMethodApplicationServiceImpl implements AdministrationMethodApplicationService {
+@Named class AdministrationMethodApplicationServiceImpl implements AdministrationMethodApplicationService {
 
-    @Autowired AdministrationMethodService administrationMethodService
+    @Inject AdministrationMethodService administrationMethodService
 
-    AdministrationMethod save(AdministrationMethod administrationMethod) throws AdministrationMethodValidationException {
+    AdministrationMethod save(AdministrationMethod administrationMethod) {
         administrationMethodService.save(administrationMethod)
     }
 
-    AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode) throws AdministrationMethodNotFoundException{
+    AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode) {
         administrationMethodService.findByAdministrationMethodCode(administrationMethodCode)
     }
 

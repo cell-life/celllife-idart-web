@@ -5,20 +5,20 @@ import org.apache.camel.EndpointInject
 import org.apache.camel.ProducerTemplate
 import ${domainEvent.packageName}.${domainEvent.className}
 import ${eventPublisher.packageName}.${eventPublisher.className}
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Camel ${name} Event Publisher
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Component class ${camelEventPublisher.className} implements ${eventPublisher.className} {
+@Named class ${camelEventPublisher.className} implements ${eventPublisher.className} {
 
     @EndpointInject(uri = "direct:${domainEvent.fieldName}") ProducerTemplate producerTemplate
 
-    @Autowired ObjectMapper objectMapper
+    @Inject ObjectMapper objectMapper
 
     @Override
     void publish(${domainEvent.className} ${domainEvent.fieldName}) {

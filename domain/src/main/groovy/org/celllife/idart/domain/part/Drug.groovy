@@ -13,8 +13,6 @@ import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
  */
 class Drug extends Part {
 
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/drugs"
-
     /**
      * Made up of
      */

@@ -10,11 +10,6 @@ import org.celllife.idart.common.EncounterId
 class Encounter {
 
     /**
-     * Namespace
-     */
-    static final String IDART_SYSTEM = "http://www.cell-life.org/idart/encounters"
-
-    /**
      * Identified by
      */
     EncounterId id

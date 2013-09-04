@@ -6,11 +6,10 @@ import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PersonService {
 
-    Person save(Person person) throws PersonValidationException
+    Person save(Person person)
 
-    Person findByPersonId(PersonId personId) throws PersonNotFoundException
+    Person findByPersonId(PersonId personId)
 
 }

@@ -2,10 +2,9 @@ package org.celllife.idart.domain.administrationmethod
 
 import org.celllife.idart.common.AdministrationMethodCode
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
 import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 import static org.celllife.idart.domain.administrationmethod.AdministrationMethodEvent.EventType.SAVED
 import static org.celllife.idart.domain.administrationmethod.AdministrationMethodEvent.newAdministrationMethodEvent
@@ -13,16 +12,16 @@ import static org.celllife.idart.domain.administrationmethod.AdministrationMetho
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-@Service class AdministrationMethodServiceImpl implements AdministrationMethodService {
+@Named class AdministrationMethodServiceImpl implements AdministrationMethodService {
 
-    @Autowired AdministrationMethodRepository administrationMethodRepository
+    @Inject AdministrationMethodRepository administrationMethodRepository
 
-    @Autowired AdministrationMethodValidator administrationMethodValidator
+    @Inject AdministrationMethodValidator administrationMethodValidator
 
-    @Autowired AdministrationMethodEventPublisher administrationMethodEventPublisher
+    @Inject AdministrationMethodEventPublisher administrationMethodEventPublisher
 
     @Override
-    AdministrationMethod save(AdministrationMethod administrationMethod) throws AdministrationMethodValidationException {
+    AdministrationMethod save(AdministrationMethod administrationMethod) {
 
         administrationMethodValidator.validate(administrationMethod)
 
@@ -32,7 +31,7 @@ import static org.celllife.idart.domain.administrationmethod.AdministrationMetho
     }
 
     @Override
-    AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode) throws AdministrationMethodNotFoundException {
+    AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode) {
 
         def administrationMethod = administrationMethodRepository.findOne(administrationMethodCode)
 
