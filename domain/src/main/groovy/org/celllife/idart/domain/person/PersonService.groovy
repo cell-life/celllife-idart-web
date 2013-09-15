@@ -12,4 +12,5 @@ public interface PersonService {
 
     Person findByPersonId(PersonId personId)
 
+    Boolean exists(PersonId personId)
 }

@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface IndicationRepository {
 
+    boolean exists(IndicationCode indicationCode)
+
     Indication save(Indication indication)
 
     Indication findOne(IndicationCode indicationCode)

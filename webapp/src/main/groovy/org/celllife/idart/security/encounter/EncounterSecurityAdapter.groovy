@@ -1,7 +1,8 @@
 package org.celllife.idart.security.encounter
 
+import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.common.EncounterId
-import org.celllife.idart.domain.encounter.Encounter
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.encounter.EncounterApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject EncounterApplicationService encounterApplicationService
 
-    Encounter save(Principal principal, Encounter encounter) {
-        encounterApplicationService.save(encounter)
+    EncounterId save(Principal principal, encounterDto) {
+        encounterApplicationService.save(encounterDto)
     }
 
-    Encounter findByEncounterId(Principal principal, EncounterId encounterId) {
+    EncounterDto findByEncounterId(Principal principal, EncounterId encounterId) {
         encounterApplicationService.findByEncounterId(encounterId)
+    }
+
+    EncounterDto findByIdentifier(Principal principal, Identifier identifier) {
+        encounterApplicationService.findByIdentifier(identifier)
     }
 
 }

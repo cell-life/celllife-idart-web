@@ -60,4 +60,9 @@ import static org.celllife.idart.domain.person.PersonEvent.newPersonEvent
 
         person
     }
+
+    @Override
+    Boolean exists(PersonId personId) {
+        personRepository.exists(personId)
+    }
 }

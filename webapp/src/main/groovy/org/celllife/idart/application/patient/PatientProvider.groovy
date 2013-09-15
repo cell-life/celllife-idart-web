@@ -1,6 +1,6 @@
 package org.celllife.idart.application.patient
 
-import org.celllife.idart.domain.patient.Patient
+import org.celllife.idart.application.patient.dto.PatientDto
 
 /**
  * User: Kevin W. Sewell
@@ -9,6 +9,6 @@ import org.celllife.idart.domain.patient.Patient
  */
 interface PatientProvider {
 
-    Set<Patient> findById(String clinicIdValue, String patientIdValue)
+    Set<PatientDto> findByIdentifier(String clinicIdentifierValue, String patientIdentifierValue)
 
 }

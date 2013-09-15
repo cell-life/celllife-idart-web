@@ -11,8 +11,8 @@
             </column>
             <column name="person_id" type="varchar(31)"/>
             <column name="person_type" type="varchar(31)"/>
-            <column name="valid_from_date" type="DATE"/>
-            <column name="valid_thru_date" type="DATE"/>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
         </createTable>
 
     </changeSet>

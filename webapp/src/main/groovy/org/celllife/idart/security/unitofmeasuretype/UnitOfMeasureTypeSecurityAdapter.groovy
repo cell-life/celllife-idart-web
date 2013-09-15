@@ -1,7 +1,8 @@
 package org.celllife.idart.security.unitofmeasuretype
 
+import org.celllife.idart.application.unitofmeasuretype.dto.UnitOfMeasureTypeDto
 import org.celllife.idart.common.UnitOfMeasureTypeCode
-import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureType
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.unitofmeasuretype.UnitOfMeasureTypeApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject UnitOfMeasureTypeApplicationService unitOfMeasureTypeApplicationService
 
-    UnitOfMeasureType save(Principal principal, UnitOfMeasureType unitOfMeasureType) {
-        unitOfMeasureTypeApplicationService.save(unitOfMeasureType)
+    UnitOfMeasureTypeCode save(Principal principal, unitOfMeasureTypeDto) {
+        unitOfMeasureTypeApplicationService.save(unitOfMeasureTypeDto)
     }
 
-    UnitOfMeasureType findByUnitOfMeasureTypeCode(Principal principal, UnitOfMeasureTypeCode unitOfMeasureTypeCode) {
+    UnitOfMeasureTypeDto findByUnitOfMeasureTypeCode(Principal principal, UnitOfMeasureTypeCode unitOfMeasureTypeCode) {
         unitOfMeasureTypeApplicationService.findByUnitOfMeasureTypeCode(unitOfMeasureTypeCode)
+    }
+
+    UnitOfMeasureTypeDto findByIdentifier(Principal principal, Identifier identifier) {
+        unitOfMeasureTypeApplicationService.findByIdentifier(identifier)
     }
 
 }

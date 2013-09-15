@@ -28,7 +28,7 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
             def event = new JsonSlurper().parseText(message)
 
-            Node systemNode = getOrCreateSystemNode(event.system.id.value)
+            Node systemNode = getOrCreateSystemNode(event.getAuthority.id.value)
 
         } catch (Throwable throwable) {
             LOGGER.error(throwable.message, throwable)

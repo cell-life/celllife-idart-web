@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.encounter.EncounterEvent.newEncounterEve
     @Inject EncounterValidator encounterValidator
 
     @Inject EncounterEventPublisher encounterEventPublisher
-
+    
+    @Inject EncounterSequence encounterSequence
+    
+    @Override
+    Boolean exists(EncounterId encounterId) {
+        encounterRepository.exists(encounterId)
+    }
+    
     @Override
     Encounter save(Encounter encounter) {
 
-        encounterValidator.validate(encounter)
+        def existingEncounter = null
 
-        encounterEventPublisher.publish(newEncounterEvent(encounter, SAVED))
+        if (encounter.id != null) {
+            existingEncounter = encounterRepository.findOne(encounter.id)
+        } else {
+            encounter.id = encounterSequence.nextValue()
+        }
 
-        encounterRepository.save(encounter)
+        if (existingEncounter == null) {
+            existingEncounter = encounter
+        } else {
+            existingEncounter.merge(encounter)
+        }
+
+        encounterValidator.validate(existingEncounter)
+
+        encounterEventPublisher.publish(newEncounterEvent(existingEncounter, SAVED))
+
+        encounterRepository.save(existingEncounter)
     }
-
+    
     @Override
     Encounter findByEncounterId(EncounterId encounterId) {
 
         def encounter = encounterRepository.findOne(encounterId)
 
         if (encounter == null) {
-            throw new EncounterNotFoundException("Could not find Encounter with Encounter Id [${ encounterId}]")
+            throw new EncounterNotFoundException("Could not find Encounter with id [${ encounterId}]")
         }
 
         encounter

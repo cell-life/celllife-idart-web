@@ -1,7 +1,8 @@
 package org.celllife.idart.security.indication
 
+import org.celllife.idart.application.indication.dto.IndicationDto
 import org.celllife.idart.common.IndicationCode
-import org.celllife.idart.domain.indication.Indication
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.indication.IndicationApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject IndicationApplicationService indicationApplicationService
 
-    Indication save(Principal principal, Indication indication) {
-        indicationApplicationService.save(indication)
+    IndicationCode save(Principal principal, indicationDto) {
+        indicationApplicationService.save(indicationDto)
     }
 
-    Indication findByIndicationCode(Principal principal, IndicationCode indicationCode) {
+    IndicationDto findByIndicationCode(Principal principal, IndicationCode indicationCode) {
         indicationApplicationService.findByIndicationCode(indicationCode)
+    }
+
+    IndicationDto findByIdentifier(Principal principal, Identifier identifier) {
+        indicationApplicationService.findByIdentifier(identifier)
     }
 
 }

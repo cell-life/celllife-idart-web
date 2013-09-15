@@ -1,7 +1,8 @@
 package org.celllife.idart.application.substitutionreason
 
+import org.celllife.idart.application.substitutionreason.dto.SubstitutionReasonDto
 import org.celllife.idart.common.SubstitutionReasonCode
-import org.celllife.idart.domain.substitutionreason.SubstitutionReason
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface SubstitutionReasonApplicationService {
 
-    SubstitutionReason save(SubstitutionReason substitutionReason)
+    Boolean exists(SubstitutionReasonCode substitutionReasonCode)
 
-    SubstitutionReason findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode)
+    SubstitutionReasonCode save(SubstitutionReasonDto substitutionReasonDto)
+
+    SubstitutionReasonDto findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode)
+
+    SubstitutionReasonDto findByIdentifier(Identifier identifier)
 
 }

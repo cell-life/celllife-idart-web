@@ -3,7 +3,10 @@ package org.celllife.idart.application.person.dto
 import org.celllife.idart.common.Gender
 import org.celllife.idart.common.MaritalStatus
 import org.celllife.idart.common.Measurement
+import org.celllife.idart.domain.contactmechanism.ContactMechanism
+import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.domain.party.PartyContactMechanism
 
 /**
  * User: Kevin W. Sewell
@@ -15,7 +18,7 @@ class PersonDto {
     /**
      * Identified by
      */
-    Set<Identifier> identifiers
+    Set<Identifier> identifiers = [] as Set
 
     /**
      * First Name
@@ -83,4 +86,12 @@ class PersonDto {
      */
     Set<Measurement> measurements = []
 
+    /**
+     * Contactable via
+     */
+    Set<PartyContactMechanism> contactMechanisms = []
+
+    def addContactMechanism(ContactMechanism contactMechanism) {
+        contactMechanisms << new PartyContactMechanism(contactMechanism: contactMechanism)
+    }
 }

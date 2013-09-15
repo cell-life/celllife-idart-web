@@ -4,15 +4,19 @@ import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.prescription.PrescriptionNotSavedException
 import org.celllife.idart.application.prescription.PrescriptionProvider
-import org.celllife.idart.domain.clinic.Clinic
-import org.celllife.idart.domain.facility.Facility
-import org.celllife.idart.domain.prescription.Prescription
+import org.celllife.idart.application.prescription.dto.PrescriptionDto
+import org.celllife.idart.common.AuthorityId
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 import java.text.SimpleDateFormat
 
+import static org.celllife.idart.common.AuthorityId.PGWC
+import static org.celllife.idart.common.AuthorityId.SA_IDENTITY_NUMBER
+import static org.celllife.idart.common.AuthorityId.PREHMIS
 import static org.celllife.idart.common.PartClassificationType.ATC
+import static org.celllife.idart.domain.identifiable.Identifiers.getIdentifierValue
+import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStorePrescriptionRequest
 
@@ -40,7 +44,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     String prehmisApplicationKey
 
     @Override
-    void save(Prescription prescription) {
+    void save(String facilityCode, PrescriptionDto prescription) {
 
         def prehmisRestClient = new RESTClient(prehmisEndpointUrl)
 
@@ -48,7 +52,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
-                facilityCode: ((Facility) clinic).getIdValue("http://prehmis.capetown.gov.za"),
+                facilityCode: facilityCode,
         ])
 
         try {
@@ -68,7 +72,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
         try {
             storePrescriptionResponse = prehmisRestClient.post(
-                    body: buildStorePrescriptionRequest(clinic, prescription),
+                    body: buildStorePrescriptionRequest(facilityCode, prescription),
                     contentType: ContentType.XML,
                     requestContentType: ContentType.XML,
                     headers: [
@@ -90,17 +94,17 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
         }
     }
 
-    String buildStorePrescriptionRequest(Clinic clinic, Prescription prescription) {
+    String buildStorePrescriptionRequest(String facilityCode, PrescriptionDto prescription) {
 
         def prehmisPrescription = [:]
 
         prescription.with {
 
-            prehmisPrescription.id = idartIdValue
-            prehmisPrescription.patientSaIdNumber = patient?.person?.getIdValue(PrehmisPatientIdType.SAID.system)
-            prehmisPrescription.prehmisPatientId = patient?.getIdValue(PrehmisPatientIdType.PREHMIS.system)
-            prehmisPrescription.pgwcPatientNumber = patient?.getIdValue(PrehmisPatientIdType.PGWC.system)
-            prehmisPrescription.practitionerCode = prescriber?.getIdValue("http://prehmis.capetown.gov.za")
+            prehmisPrescription.id = getIdentifierValue(identifiers, AuthorityId.IDART)
+            prehmisPrescription.patientSaIdNumber = getIdentifierValue(patient?.person?.identifiers, SA_IDENTITY_NUMBER)
+            prehmisPrescription.prehmisPatientId = getIdentifierValue(patient?.identifiers, PREHMIS)
+            prehmisPrescription.pgwcPatientNumber = getIdentifierValue(patient?.identifiers, PGWC)
+            prehmisPrescription.practitionerCode = getIdentifierValue(prescriber?.identifiers, PREHMIS)
             prehmisPrescription.prescriptionDate = toPrehmisDate(dateWritten)
 
             if (prescribedMedications.size() != 0) {
@@ -111,7 +115,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
                 prehmisPrescription.prescribedMedications = prescribedMedications.collect { prescribedMedication ->
                     [
-                        atcCode : prescribedMedication.medication?.drug?.getClassificationCode(ATC),
+                        atcCode : getClassificationCode(prescribedMedication.medication?.drug?.classifications, ATC),
                         amountPerTime : prescribedMedication.dosageInstruction?.doseQuantity?.value,
                         timesPerDay : prescribedMedication.dosageInstruction?.timing?.repeat?.frequency
                     ]
@@ -123,7 +127,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
-                facilityCode: ((Facility) clinic).getIdValue("http://prehmis.capetown.gov.za"),
+                facilityCode: facilityCode,
                 prescription: prehmisPrescription
         ])
 

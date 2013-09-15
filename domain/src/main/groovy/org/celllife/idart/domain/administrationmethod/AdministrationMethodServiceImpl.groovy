@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.administrationmethod.AdministrationMetho
     @Inject AdministrationMethodValidator administrationMethodValidator
 
     @Inject AdministrationMethodEventPublisher administrationMethodEventPublisher
-
+    
+    @Override
+    Boolean exists(AdministrationMethodCode administrationMethodCode) {
+        administrationMethodRepository.exists(administrationMethodCode)
+    }
+    
     @Override
     AdministrationMethod save(AdministrationMethod administrationMethod) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.administrationmethod.AdministrationMetho
 
         administrationMethodRepository.save(administrationMethod)
     }
-
+    
     @Override
     AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode) {
 
         def administrationMethod = administrationMethodRepository.findOne(administrationMethodCode)
 
         if (administrationMethod == null) {
-            throw new AdministrationMethodNotFoundException("Could not find AdministrationMethod with Administration Method Code [${ administrationMethodCode}]")
+            throw new AdministrationMethodNotFoundException("Could not find AdministrationMethod with code [${ administrationMethodCode}]")
         }
 
         administrationMethod

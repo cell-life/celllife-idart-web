@@ -9,8 +9,8 @@
             <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="current_username" type="varchar(31)"/>
-            <column name="current_password" type="varchar(255)"/>
+            <column name="username" type="varchar(31)"/>
+            <column name="password" type="varchar(255)"/>
         </createTable>
 
     </changeSet>

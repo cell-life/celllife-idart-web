@@ -1,12 +1,14 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.domain.party.Party
-import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.domain.person.Person
+import org.celllife.idart.application.patient.dto.PatientDto
+import org.celllife.idart.application.person.dto.PersonDto
+import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 import org.celllife.idart.integration.prehmis.PrehmisGender
-import org.celllife.idart.integration.prehmis.PrehmisPatientIdType
 
 import java.text.SimpleDateFormat
+
+import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
 
 /**
  * User: Kevin W. Sewell
@@ -21,30 +23,30 @@ class PatientBuilder {
 
     static final DATA_OF_BIRTH_FORMAT = 'yyyy-MM-dd'
 
-    static Patient buildIdartPatient(envelope) {
+    static PatientDto buildIdartPatient(envelope) {
 
         envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
 
         def prehmisPatient = envelope.'soap:Body'.'prehmis:getPatientResponse'.result
 
-        Patient patient = new Patient()
-        Person person = new Person()
+        PatientDto patient = new PatientDto()
+        PersonDto person = new PersonDto()
 
         String prehmisId = prehmisPatient.id.text()
         if (prehmisId == null || prehmisId.empty) {
             return null
         }
 
-        patient.addId(PrehmisPatientIdType.PREHMIS.system, prehmisId)
+        patient.identifiers << newIdentifier(AuthorityId.PREHMIS, prehmisId)
 
         String pgwcPatientNumber = prehmisPatient.pgwc_patient_number.text()
         if (pgwcPatientNumber != null && !pgwcPatientNumber.empty) {
-            patient.addId(PrehmisPatientIdType.PGWC.system, pgwcPatientNumber)
+            patient.identifiers << newIdentifier(AuthorityId.PGWC, pgwcPatientNumber)
         }
 
         String saId = prehmisPatient.sa_id_number.text()
         if (saId != null && !saId.empty) {
-            ((Party) person).addId(PrehmisPatientIdType.SAID.system, saId)
+            patient.identifiers << newIdentifier(AuthorityId.SAID, saId)
         }
 
         person.firstName = prehmisPatient.first_name.text()
@@ -55,14 +57,14 @@ class PatientBuilder {
 
         person.gender = PrehmisGender.findByPrehmisCode(prehmisPatient.gender.text())
 
-        person.addMobileTelephoneNumber(getMobileTelephoneNumber(prehmisPatient.cellphone_number.text()))
+        person.addContactMechanism(getMobileTelephoneNumber(prehmisPatient.cellphone_number.text()))
 
-        patient.setPerson(person)
+        patient.person = person
 
         patient
     }
 
-    private static Date getDate(String dateOfBirth) {
+    static Date getDate(String dateOfBirth) {
         if (dateOfBirth == null || dateOfBirth.empty) {
             return null
         }
@@ -70,7 +72,7 @@ class PatientBuilder {
         new SimpleDateFormat(DATA_OF_BIRTH_FORMAT).parse(dateOfBirth)
     }
 
-    private static LinkedHashMap<String, String> getMobileTelephoneNumber(String mobileNumber) {
+    static MobileTelephoneNumber getMobileTelephoneNumber(String mobileNumber) {
 
         if (mobileNumber == null || mobileNumber.trim().empty) {
             return null
@@ -83,6 +85,6 @@ class PatientBuilder {
             return [countryCode: mobileNumber.substring(0, 2), contactNumber: "0" + mobileNumber.substring(2)]
         }
 
-        return [countryCode: "27", contactNumber: mobileNumber]
+        return new MobileTelephoneNumber(countryCode: "27", contactNumber: mobileNumber)
     }
 }

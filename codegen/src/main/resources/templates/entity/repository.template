@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ${repository.className} {
 
+    boolean exists(${id.className} ${id.fieldName})
+
     ${entity.className} save(${entity.className} ${entity.fieldName})
 
     ${entity.className} findOne(${id.className} ${id.fieldName})

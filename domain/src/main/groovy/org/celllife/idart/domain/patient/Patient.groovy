@@ -4,6 +4,8 @@ import org.celllife.idart.common.PatientId
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PersonId
 
+import static org.celllife.idart.common.Period.newPeriod
+
 /**
  * Party Role -> Person Role -> Patient
  *
@@ -21,7 +23,7 @@ class Patient {
     /**
      * Valid during
      */
-    Period valid
+    Period valid = newPeriod()
 
     /**
      * Acted by
@@ -34,7 +36,9 @@ class Patient {
             return
         }
 
-        this.valid = that.valid
+        if (that.valid != null) {
+            this.valid = that.valid
+        }
 
         if (that.person != null) {
             this.person = that.person

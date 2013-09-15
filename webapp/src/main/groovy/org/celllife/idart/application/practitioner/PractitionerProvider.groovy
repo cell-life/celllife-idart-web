@@ -1,6 +1,6 @@
 package org.celllife.idart.application.practitioner
 
-import org.celllife.idart.domain.practitioner.Practitioner
+import org.celllife.idart.application.practitioner.dto.PractitionerDto
 
 /**
  * User: Kevin W. Sewell
@@ -9,5 +9,5 @@ import org.celllife.idart.domain.practitioner.Practitioner
  */
 interface PractitionerProvider {
 
-    Set<Practitioner> findAll(String clinicIdValue)
+    Set<PractitionerDto> findAll(String clinicIdValue)
 }

@@ -3,8 +3,12 @@ package org.celllife.idart.domain.practitioner
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.PractitionerId
+import org.celllife.idart.common.PractitionerType
 
+import javax.validation.Valid
 import javax.validation.constraints.NotNull
+
+import static org.celllife.idart.common.Period.newPeriod
 
 /**
  * Party Role -> Person Role -> Practitioner
@@ -16,24 +20,23 @@ import javax.validation.constraints.NotNull
 class Practitioner {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/practitioners"
-
-    /**
      * Identified by
      */
     PractitionerId id
 
     /**
+     * Of Type
+     */
+    PractitionerType type
+
+    /**
      * Valid during
      */
-    Period valid
+    Period valid = newPeriod()
 
     /**
      * Acted by
      */
-    @NotNull
     PersonId person
 
     def merge(Practitioner that) {
@@ -42,7 +45,13 @@ class Practitioner {
             return
         }
 
-        this.valid = that.valid
+        if (that.type != null) {
+            this.type = that.type
+        }
+
+        if (that.valid != null) {
+            this.valid = that.valid
+        }
 
         if (that.person != null) {
             this.person = that.person

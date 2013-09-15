@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageIn
     @Inject DefaultDosageInstructionValidator defaultDosageInstructionValidator
 
     @Inject DefaultDosageInstructionEventPublisher defaultDosageInstructionEventPublisher
-
+    
+    @Inject DefaultDosageInstructionSequence defaultDosageInstructionSequence
+    
+    @Override
+    Boolean exists(DefaultDosageInstructionId defaultDosageInstructionId) {
+        defaultDosageInstructionRepository.exists(defaultDosageInstructionId)
+    }
+    
     @Override
     DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
-        defaultDosageInstructionValidator.validate(defaultDosageInstruction)
+        def existingDefaultDosageInstruction = null
 
-        defaultDosageInstructionEventPublisher.publish(newDefaultDosageInstructionEvent(defaultDosageInstruction, SAVED))
+        if (defaultDosageInstruction.id != null) {
+            existingDefaultDosageInstruction = defaultDosageInstructionRepository.findOne(defaultDosageInstruction.id)
+        } else {
+            defaultDosageInstruction.id = defaultDosageInstructionSequence.nextValue()
+        }
 
-        defaultDosageInstructionRepository.save(defaultDosageInstruction)
+        if (existingDefaultDosageInstruction == null) {
+            existingDefaultDosageInstruction = defaultDosageInstruction
+        } else {
+            existingDefaultDosageInstruction.merge(defaultDosageInstruction)
+        }
+
+        defaultDosageInstructionValidator.validate(existingDefaultDosageInstruction)
+
+        defaultDosageInstructionEventPublisher.publish(newDefaultDosageInstructionEvent(existingDefaultDosageInstruction, SAVED))
+
+        defaultDosageInstructionRepository.save(existingDefaultDosageInstruction)
     }
-
+    
     @Override
     DefaultDosageInstruction findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) {
 
         def defaultDosageInstruction = defaultDosageInstructionRepository.findOne(defaultDosageInstructionId)
 
         if (defaultDosageInstruction == null) {
-            throw new DefaultDosageInstructionNotFoundException("Could not find DefaultDosageInstruction with Default Dosage Instruction Id [${ defaultDosageInstructionId}]")
+            throw new DefaultDosageInstructionNotFoundException("Could not find DefaultDosageInstruction with id [${ defaultDosageInstructionId}]")
         }
 
         defaultDosageInstruction

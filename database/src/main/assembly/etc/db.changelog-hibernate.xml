@@ -6,7 +6,7 @@
     <changeSet author="kevin.sewell" id="hibernate-1">
         <createTable tableName="hibernate_sequences">
             <column name="sequence_name" type="varchar(255)"/>
-            <column name="sequence_next_hi_value" type="INT"/>
+            <column name="next_val" type="int"/>
         </createTable>
     </changeSet>
 

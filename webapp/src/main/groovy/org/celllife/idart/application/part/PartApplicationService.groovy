@@ -1,7 +1,8 @@
 package org.celllife.idart.application.part
 
+import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.common.PartId
-import org.celllife.idart.domain.part.Part
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PartApplicationService {
 
-    Part save(Part part)
+    Boolean exists(PartId partId)
 
-    Part findByPartId(PartId partId)
+    PartId save(PartDto partDto)
+
+    PartDto findByPartId(PartId partId)
+
+    PartDto findByIdentifier(Identifier identifier)
 
 }

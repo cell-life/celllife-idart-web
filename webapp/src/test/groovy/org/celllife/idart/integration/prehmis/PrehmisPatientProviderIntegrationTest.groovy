@@ -27,7 +27,7 @@ class PrehmisPatientProviderIntegrationTest {
 
     @Test
     void testFindById() throws Exception {
-        Set<Patient> patients = prehmisPatientProvider.findById("WES", "72254311")
+        Set<Patient> patients = prehmisPatientProvider.findByIdentifier("WES", "72254311")
         Assert.assertNotNull(patients)
         Assert.assertFalse(patients.empty)
     }

@@ -9,8 +9,6 @@ import org.celllife.idart.common.PartId
  */
 class Medication extends Product {
 
-    static String IDART_SYSTEM = "http://www.cell-life.org/idart/medications"
-
     /**
      * Offered using
      */

@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
     @Inject PrescriptionValidator prescriptionValidator
 
     @Inject PrescriptionEventPublisher prescriptionEventPublisher
-
+    
+    @Inject PrescriptionSequence prescriptionSequence
+    
+    @Override
+    Boolean exists(PrescriptionId prescriptionId) {
+        prescriptionRepository.exists(prescriptionId)
+    }
+    
     @Override
     Prescription save(Prescription prescription) {
 
-        prescriptionValidator.validate(prescription)
+        def existingPrescription = null
 
-        prescriptionEventPublisher.publish(newPrescriptionEvent(prescription, SAVED))
+        if (prescription.id != null) {
+            existingPrescription = prescriptionRepository.findOne(prescription.id)
+        } else {
+            prescription.id = prescriptionSequence.nextValue()
+        }
 
-        prescriptionRepository.save(prescription)
+        if (existingPrescription == null) {
+            existingPrescription = prescription
+        } else {
+            existingPrescription.merge(prescription)
+        }
+
+        prescriptionValidator.validate(existingPrescription)
+
+        prescriptionEventPublisher.publish(newPrescriptionEvent(existingPrescription, SAVED))
+
+        prescriptionRepository.save(existingPrescription)
     }
-
+    
     @Override
     Prescription findByPrescriptionId(PrescriptionId prescriptionId) {
 
         def prescription = prescriptionRepository.findOne(prescriptionId)
 
         if (prescription == null) {
-            throw new PrescriptionNotFoundException("Could not find Prescription with Prescription Id [${ prescriptionId}]")
+            throw new PrescriptionNotFoundException("Could not find Prescription with id [${ prescriptionId}]")
         }
 
         prescription

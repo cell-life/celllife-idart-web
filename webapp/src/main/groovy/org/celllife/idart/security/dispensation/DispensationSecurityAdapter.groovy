@@ -1,7 +1,8 @@
 package org.celllife.idart.security.dispensation
 
+import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.common.DispensationId
-import org.celllife.idart.domain.dispensation.Dispensation
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.dispensation.DispensationApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject DispensationApplicationService dispensationApplicationService
 
-    Dispensation save(Principal principal, Dispensation dispensation) {
-        dispensationApplicationService.save(dispensation)
+    DispensationId save(Principal principal, dispensationDto) {
+        dispensationApplicationService.save(dispensationDto)
     }
 
-    Dispensation findByDispensationId(Principal principal, DispensationId dispensationId) {
+    DispensationDto findByDispensationId(Principal principal, DispensationId dispensationId) {
         dispensationApplicationService.findByDispensationId(dispensationId)
+    }
+
+    DispensationDto findByIdentifier(Principal principal, Identifier identifier) {
+        dispensationApplicationService.findByIdentifier(identifier)
     }
 
 }

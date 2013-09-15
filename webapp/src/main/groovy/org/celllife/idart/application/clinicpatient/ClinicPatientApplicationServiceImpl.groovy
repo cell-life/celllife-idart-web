@@ -5,7 +5,6 @@ import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.domain.facility.Facility
 import org.celllife.idart.domain.patient.Patient
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 /**
  */
@@ -99,7 +98,7 @@ class ClinicPatientApplicationServiceImpl {
             String clinicId = ((Facility) clinic).getIdValue(idSystem)
             switch (idSystem) {
                 case "http://prehmis.capetown.gov.za":
-                    patients << prehmisPatientProvider.findById(clinicId, patientId)
+                    patients << prehmisPatientProvider.findByIdentifier(clinicId, patientId)
                     break
                 default:
                     break

@@ -9,6 +9,7 @@
             <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="application_key" type="varchar(255)"/>
         </createTable>
 
     </changeSet>

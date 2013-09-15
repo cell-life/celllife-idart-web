@@ -19,4 +19,13 @@ class Authority {
 
     String description
 
+    def merge(Authority that) {
+
+        if (that == null) {
+            return
+        }
+
+        this.name = that.name
+        this.description = that.description
+    }
 }

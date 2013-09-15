@@ -1,7 +1,8 @@
 package org.celllife.idart.security.person
 
+import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.PersonId
-import org.celllife.idart.domain.person.Person
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.person.PersonApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject PersonApplicationService personApplicationService
 
-    Person save(Principal principal, Person person) {
-        personApplicationService.save(person)
+    PersonId save(Principal principal, personDto) {
+        personApplicationService.save(personDto)
     }
 
-    Person findByPersonId(Principal principal, PersonId personId) {
+    PersonDto findByPersonId(Principal principal, PersonId personId) {
         personApplicationService.findByPersonId(personId)
+    }
+
+    PersonDto findByIdentifier(Principal principal, Identifier identifier) {
+        personApplicationService.findByIdentifier(identifier)
     }
 
 }

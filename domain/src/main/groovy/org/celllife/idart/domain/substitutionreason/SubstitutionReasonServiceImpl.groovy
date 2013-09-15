@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEve
     @Inject SubstitutionReasonValidator substitutionReasonValidator
 
     @Inject SubstitutionReasonEventPublisher substitutionReasonEventPublisher
-
+    
+    @Override
+    Boolean exists(SubstitutionReasonCode substitutionReasonCode) {
+        substitutionReasonRepository.exists(substitutionReasonCode)
+    }
+    
     @Override
     SubstitutionReason save(SubstitutionReason substitutionReason) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.substitutionreason.SubstitutionReasonEve
 
         substitutionReasonRepository.save(substitutionReason)
     }
-
+    
     @Override
     SubstitutionReason findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode) {
 
         def substitutionReason = substitutionReasonRepository.findOne(substitutionReasonCode)
 
         if (substitutionReason == null) {
-            throw new SubstitutionReasonNotFoundException("Could not find SubstitutionReason with Substitution Reason Code [${ substitutionReasonCode}]")
+            throw new SubstitutionReasonNotFoundException("Could not find SubstitutionReason with code [${ substitutionReasonCode}]")
         }
 
         substitutionReason

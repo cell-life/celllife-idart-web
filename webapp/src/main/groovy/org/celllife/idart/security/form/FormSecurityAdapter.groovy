@@ -1,7 +1,8 @@
 package org.celllife.idart.security.form
 
+import org.celllife.idart.application.form.dto.FormDto
 import org.celllife.idart.common.FormCode
-import org.celllife.idart.domain.form.Form
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.form.FormApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject FormApplicationService formApplicationService
 
-    Form save(Principal principal, Form form) {
-        formApplicationService.save(form)
+    FormCode save(Principal principal, formDto) {
+        formApplicationService.save(formDto)
     }
 
-    Form findByFormCode(Principal principal, FormCode formCode) {
+    FormDto findByFormCode(Principal principal, FormCode formCode) {
         formApplicationService.findByFormCode(formCode)
+    }
+
+    FormDto findByIdentifier(Principal principal, Identifier identifier) {
+        formApplicationService.findByIdentifier(identifier)
     }
 
 }

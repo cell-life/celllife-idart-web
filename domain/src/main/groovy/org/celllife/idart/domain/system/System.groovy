@@ -9,13 +9,19 @@ import org.celllife.idart.common.SystemId
 class System {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/systems"
-
-    /**
      * Id
      */
     SystemId id
 
+    /**
+     * Application Key
+     */
+    String applicationKey
+
+    def merge(System that) {
+
+        if (that.applicationKey != null) {
+            this.applicationKey = that.applicationKey
+        }
+    }
 }

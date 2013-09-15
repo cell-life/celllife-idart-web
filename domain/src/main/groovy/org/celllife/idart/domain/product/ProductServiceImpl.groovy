@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.product.ProductEvent.newProductEvent
     @Inject ProductValidator productValidator
 
     @Inject ProductEventPublisher productEventPublisher
-
+    
+    @Inject ProductSequence productSequence
+    
+    @Override
+    Boolean exists(ProductId productId) {
+        productRepository.exists(productId)
+    }
+    
     @Override
     Product save(Product product) {
 
-        productValidator.validate(product)
+        def existingProduct = null
 
-        productEventPublisher.publish(newProductEvent(product, SAVED))
+        if (product.id != null) {
+            existingProduct = productRepository.findOne(product.id)
+        } else {
+            product.id = productSequence.nextValue()
+        }
 
-        productRepository.save(product)
+        if (existingProduct == null) {
+            existingProduct = product
+        } else {
+            existingProduct.merge(product)
+        }
+
+        productValidator.validate(existingProduct)
+
+        productEventPublisher.publish(newProductEvent(existingProduct, SAVED))
+
+        productRepository.save(existingProduct)
     }
-
+    
     @Override
     Product findByProductId(ProductId productId) {
 
         def product = productRepository.findOne(productId)
 
         if (product == null) {
-            throw new ProductNotFoundException("Could not find Product with Product Id [${ productId}]")
+            throw new ProductNotFoundException("Could not find Product with id [${ productId}]")
         }
 
         product

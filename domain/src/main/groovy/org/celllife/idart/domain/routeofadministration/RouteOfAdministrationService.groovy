@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface RouteOfAdministrationService {
 
+    Boolean exists(RouteOfAdministrationCode routeOfAdministrationCode)
+
     RouteOfAdministration save(RouteOfAdministration routeOfAdministration)
 
     RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode)

@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface LifeEventRepository {
 
+    boolean exists(LifeEventCode lifeEventCode)
+
     LifeEvent save(LifeEvent lifeEvent)
 
     LifeEvent findOne(LifeEventCode lifeEventCode)

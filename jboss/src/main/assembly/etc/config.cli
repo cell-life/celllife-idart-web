@@ -154,6 +154,7 @@ jms-topic add \
 jms-topic add \
     --topic-address=userEvent \
     --entries=topic/userEvent
+
 #######################################################################################################################
 # Adding Logging entries
 #######################################################################################################################
@@ -165,6 +166,19 @@ jms-topic add \
 /subsystem=logging/logger=org.springframework:add(level=WARN)
 /subsystem=logging/logger=org.jboss.as.clustering.infinispan:add(level=WARN)
 /subsystem=logging/logger=org.infinispan.jmx:add(level=WARN)
+
+/subsystem=logging/periodic-rotating-file-handler=AUDIT/:add( \
+    suffix=.yyyy-MM-dd, \
+    formatter=%s%n, \
+    level=TRACE, \
+    file={"relative-to" => "jboss.server.log.dir", \
+    "path" => "audit.log"} \
+)
+
+/subsystem=logging/logger=org.celllife.idart.framework.auditing/:add( \
+    level=TRACE, \
+    category=org.jboss.security.audit,handlers=["AUDIT"] \
+)
 
 #######################################################################################################################
 # Enabling Statistics for JTA

@@ -12,7 +12,15 @@ import javax.annotation.Generated
 @EqualsAndHashCode
 class AuthorityId implements Serializable {
 
-    public static final AuthorityId IDART = valueOf("99999999")
+    public static final AuthorityId IDART = valueOf("IDART")
+
+    public static final AuthorityId PREHMIS = valueOf("PREHMIS")
+
+    public static final AuthorityId PGWC = valueOf("PGWC")
+
+    public static final AuthorityId SA_IDENTITY_NUMBER = valueOf("SA_IDENTITY_NUMBER")
+
+    public static final AuthorityId SA_PASSPART_NUMBER = valueOf("SA_PASSPART_NUMBER")
 
     /**
      * Value

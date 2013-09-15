@@ -9,9 +9,11 @@
             <column name="pk" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="system" type="varchar(31)"/>
+            <column name="facility" type="varchar(31)"/>
             <column name="relationship" type="varchar(31)"/>
-            <column name="from_system" type="varchar(31)"/>
-            <column name="to_facility" type="varchar(31)"/>
+            <column name="valid_from_date" type="date"/>
+            <column name="valid_thru_date" type="date"/>
         </createTable>
 
     </changeSet>

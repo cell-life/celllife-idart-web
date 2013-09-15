@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.substitution.SubstitutionEvent.newSubsti
     @Inject SubstitutionValidator substitutionValidator
 
     @Inject SubstitutionEventPublisher substitutionEventPublisher
-
+    
+    @Override
+    Boolean exists(SubstitutionCode substitutionCode) {
+        substitutionRepository.exists(substitutionCode)
+    }
+    
     @Override
     Substitution save(Substitution substitution) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.substitution.SubstitutionEvent.newSubsti
 
         substitutionRepository.save(substitution)
     }
-
+    
     @Override
     Substitution findBySubstitutionCode(SubstitutionCode substitutionCode) {
 
         def substitution = substitutionRepository.findOne(substitutionCode)
 
         if (substitution == null) {
-            throw new SubstitutionNotFoundException("Could not find Substitution with Substitution Code [${ substitutionCode}]")
+            throw new SubstitutionNotFoundException("Could not find Substitution with code [${ substitutionCode}]")
         }
 
         substitution

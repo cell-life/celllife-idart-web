@@ -1,7 +1,8 @@
 package org.celllife.idart.security.routeofadministration
 
+import org.celllife.idart.application.routeofadministration.dto.RouteOfAdministrationDto
 import org.celllife.idart.common.RouteOfAdministrationCode
-import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.routeofadministration.RouteOfAdministrationApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject RouteOfAdministrationApplicationService routeOfAdministrationApplicationService
 
-    RouteOfAdministration save(Principal principal, RouteOfAdministration routeOfAdministration) {
-        routeOfAdministrationApplicationService.save(routeOfAdministration)
+    RouteOfAdministrationCode save(Principal principal, routeOfAdministrationDto) {
+        routeOfAdministrationApplicationService.save(routeOfAdministrationDto)
     }
 
-    RouteOfAdministration findByRouteOfAdministrationCode(Principal principal, RouteOfAdministrationCode routeOfAdministrationCode) {
+    RouteOfAdministrationDto findByRouteOfAdministrationCode(Principal principal, RouteOfAdministrationCode routeOfAdministrationCode) {
         routeOfAdministrationApplicationService.findByRouteOfAdministrationCode(routeOfAdministrationCode)
+    }
+
+    RouteOfAdministrationDto findByIdentifier(Principal principal, Identifier identifier) {
+        routeOfAdministrationApplicationService.findByIdentifier(identifier)
     }
 
 }

@@ -28,4 +28,24 @@ class PersonDtoAssembler {
         }
         person
     }
+
+    static def toPersonDto(Person person) {
+        def personDto = new PersonDto()
+        personDto.with {
+            firstName = person.firstName
+            middleNames = person.middleNames
+            lastName = person.lastName
+            personalTitle = person.personalTitle
+            suffix = person.suffix
+            nickname = person.nickname
+            gender = person.gender
+            birthDate = person.birthDate
+            mothersMaidenName = person.mothersMaidenName
+            maritalStatus = person.maritalStatus
+            totalYearsWorkExperience = person.totalYearsWorkExperience
+            comment = person.comment
+            measurements = person.measurements
+        }
+        personDto
+    }
 }

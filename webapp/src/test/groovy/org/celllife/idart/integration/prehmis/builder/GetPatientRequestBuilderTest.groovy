@@ -1,6 +1,6 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.integration.prehmis.PrehmisPatientIdType
+import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
 import org.junit.Assert
 import org.junit.Test
 
@@ -20,7 +20,7 @@ class GetPatientRequestBuilderTest {
                 applicationKey: "idartApplicationKey",
                 facilityCode: "idartFacilityCode",
                 patientIdValue: "patientIdValue",
-                patientIdType: PrehmisPatientIdType.PREHMIS
+                patientIdType: PrehmisPatientIdentifierType.PREHMIS
         )
 
         Assert.assertNotNull(getPatientRequest)

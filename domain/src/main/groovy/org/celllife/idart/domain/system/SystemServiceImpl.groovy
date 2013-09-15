@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
     @Inject SystemValidator systemValidator
 
     @Inject SystemEventPublisher systemEventPublisher
-
+    
+    @Inject SystemSequence systemSequence
+    
+    @Override
+    Boolean exists(SystemId systemId) {
+        systemRepository.exists(systemId)
+    }
+    
     @Override
     System save(System system) {
 
-        systemValidator.validate(system)
+        def existingSystem = null
 
-        systemEventPublisher.publish(newSystemEvent(system, SAVED))
+        if (system.id != null) {
+            existingSystem = systemRepository.findOne(system.id)
+        } else {
+            system.id = systemSequence.nextValue()
+        }
 
-        systemRepository.save(system)
+        if (existingSystem == null) {
+            existingSystem = system
+        } else {
+            existingSystem.merge(system)
+        }
+
+        systemValidator.validate(existingSystem)
+
+        systemEventPublisher.publish(newSystemEvent(existingSystem, SAVED))
+
+        systemRepository.save(existingSystem)
     }
-
+    
     @Override
     System findBySystemId(SystemId systemId) {
 
         def system = systemRepository.findOne(systemId)
 
         if (system == null) {
-            throw new SystemNotFoundException("Could not find System with System Id [${ systemId}]")
+            throw new SystemNotFoundException("Could not find System with id [${ systemId}]")
         }
 
         system

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- Facility -->
+
+    <entity class="org.celllife.idart.relationship.practitionerorganisation.PractitionerOrganisation">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="relationship">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <embedded name="practitioner">
+                <attribute-override name="value">
+                    <column name="practitioner"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="organisation">
+                <attribute-override name="value">
+                    <column name="organisation"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+
+    </entity>
+
+</entity-mappings>

@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface AuthorityService {
 
+    Boolean exists(AuthorityId authorityId)
+
     Authority save(Authority authority)
 
     Authority findByAuthorityId(AuthorityId authorityId)

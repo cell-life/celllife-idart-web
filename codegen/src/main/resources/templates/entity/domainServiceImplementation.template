@@ -19,7 +19,38 @@ import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEve
     @Inject ${validator.className} ${validator.fieldName}
 
     @Inject ${eventPublisher.className} ${eventPublisher.fieldName}
+    <% if (features.includes.contains("sequence")) { %>
+    @Inject ${sequence.className} ${sequence.fieldName}
+    <% } %>
+    @Override
+    Boolean exists(${id.className} ${id.fieldName}) {
+        ${repository.fieldName}.exists(${id.fieldName})
+    }
+    <% if (features.includes.contains("sequence")) { %>
+    @Override
+    ${entity.className} save(${entity.className} ${entity.fieldName}) {
 
+        def existing${entity.className} = null
+
+        if (${entity.fieldName}.id != null) {
+            existing${entity.className} = ${repository.fieldName}.findOne(${entity.fieldName}.id)
+        } else {
+            ${entity.fieldName}.id = ${sequence.fieldName}.nextValue()
+        }
+
+        if (existing${entity.className} == null) {
+            existing${entity.className} = ${entity.fieldName}
+        } else {
+            existing${entity.className}.merge(${entity.fieldName})
+        }
+
+        ${validator.fieldName}.validate(existing${entity.className})
+
+        ${eventPublisher.fieldName}.publish(new${domainEvent.className}(existing${entity.className}, SAVED))
+
+        ${repository.fieldName}.save(existing${entity.className})
+    }
+    <% } else { %>
     @Override
     ${entity.className} save(${entity.className} ${entity.fieldName}) {
 
@@ -29,14 +60,14 @@ import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEve
 
         ${repository.fieldName}.save(${entity.fieldName})
     }
-
+    <% } %>
     @Override
     ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) {
 
         def ${entity.fieldName} = ${repository.fieldName}.findOne(${id.fieldName})
 
         if (${entity.fieldName} == null) {
-            throw new ${entity.className}NotFoundException("Could not find ${entity.className} with ${id.name} [\${ ${id.fieldName}}]")
+            throw new ${entity.className}NotFoundException("Could not find ${entity.className} with ${id.shortFieldName} [\${ ${id.fieldName}}]")
         }
 
         ${entity.fieldName}

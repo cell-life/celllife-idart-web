@@ -17,26 +17,18 @@ abstract class Party {
     Set<PartyClassificationApplication> classifications = []
 
     /**
-     * Contacted via
+     * Contactable via
      */
     Set<PartyContactMechanism> contactMechanisms = []
 
     def merge(Party that) {
-        this.classifications.addAll(that.classifications)
-        this.contactMechanisms.addAll(that.contactMechanisms)
-    }
 
-    def addMobileTelephoneNumber(args) {
-
-        if (args == null) {
-            return
+        if (that.classifications != null) {
+            this.classifications.addAll(that.classifications)
         }
 
-        contactMechanisms << new PartyContactMechanism(
-                contactMechanism: new MobileTelephoneNumber(
-                        countryCode: args.countryCode,
-                        contactNumber: args.contactNumber
-                )
-        )
+        if (that.contactMechanisms != null) {
+            this.contactMechanisms.addAll(that.contactMechanisms)
+        }
     }
 }

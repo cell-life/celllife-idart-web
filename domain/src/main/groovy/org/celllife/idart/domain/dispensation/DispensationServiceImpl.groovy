@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
     @Inject DispensationValidator dispensationValidator
 
     @Inject DispensationEventPublisher dispensationEventPublisher
-
+    
+    @Inject DispensationSequence dispensationSequence
+    
+    @Override
+    Boolean exists(DispensationId dispensationId) {
+        dispensationRepository.exists(dispensationId)
+    }
+    
     @Override
     Dispensation save(Dispensation dispensation) {
 
-        dispensationValidator.validate(dispensation)
+        def existingDispensation = null
 
-        dispensationEventPublisher.publish(newDispensationEvent(dispensation, SAVED))
+        if (dispensation.id != null) {
+            existingDispensation = dispensationRepository.findOne(dispensation.id)
+        } else {
+            dispensation.id = dispensationSequence.nextValue()
+        }
 
-        dispensationRepository.save(dispensation)
+        if (existingDispensation == null) {
+            existingDispensation = dispensation
+        } else {
+            existingDispensation.merge(dispensation)
+        }
+
+        dispensationValidator.validate(existingDispensation)
+
+        dispensationEventPublisher.publish(newDispensationEvent(existingDispensation, SAVED))
+
+        dispensationRepository.save(existingDispensation)
     }
-
+    
     @Override
     Dispensation findByDispensationId(DispensationId dispensationId) {
 
         def dispensation = dispensationRepository.findOne(dispensationId)
 
         if (dispensation == null) {
-            throw new DispensationNotFoundException("Could not find Dispensation with Dispensation Id [${ dispensationId}]")
+            throw new DispensationNotFoundException("Could not find Dispensation with id [${ dispensationId}]")
         }
 
         dispensation

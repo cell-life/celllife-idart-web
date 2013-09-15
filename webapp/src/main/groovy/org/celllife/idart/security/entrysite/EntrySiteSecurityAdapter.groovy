@@ -1,7 +1,8 @@
 package org.celllife.idart.security.entrysite
 
+import org.celllife.idart.application.entrysite.dto.EntrySiteDto
 import org.celllife.idart.common.EntrySiteCode
-import org.celllife.idart.domain.entrysite.EntrySite
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.entrysite.EntrySiteApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject EntrySiteApplicationService entrySiteApplicationService
 
-    EntrySite save(Principal principal, EntrySite entrySite) {
-        entrySiteApplicationService.save(entrySite)
+    EntrySiteCode save(Principal principal, entrySiteDto) {
+        entrySiteApplicationService.save(entrySiteDto)
     }
 
-    EntrySite findByEntrySiteCode(Principal principal, EntrySiteCode entrySiteCode) {
+    EntrySiteDto findByEntrySiteCode(Principal principal, EntrySiteCode entrySiteCode) {
         entrySiteApplicationService.findByEntrySiteCode(entrySiteCode)
+    }
+
+    EntrySiteDto findByIdentifier(Principal principal, Identifier identifier) {
+        entrySiteApplicationService.findByIdentifier(identifier)
     }
 
 }

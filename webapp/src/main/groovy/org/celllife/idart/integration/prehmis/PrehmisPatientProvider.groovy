@@ -3,7 +3,7 @@ package org.celllife.idart.integration.prehmis
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.patient.PatientProvider
-import org.celllife.idart.domain.patient.Patient
+import org.celllife.idart.application.patient.dto.PatientDto
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -34,13 +34,13 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
-    Set<Patient> findById(String clinicIdValue, String patientIdValue) {
+    Set<PatientDto> findByIdentifier(String clinicIdentifierValue, String patientIdentifierValue) {
 
-        Set<Patient> patients = []
+        Set<PatientDto> patients = []
 
-        PrehmisPatientIdType.values().each { patientIdType ->
+        PrehmisPatientIdentifierType.values().each { PrehmisPatientIdentifierType identifierType ->
 
-            def patient = getPatient(clinicIdValue, patientIdValue, patientIdType)
+            def patient = getPatient(clinicIdentifierValue, patientIdentifierValue, identifierType)
             if (patient != null) {
                 patients << patient
             }
@@ -49,15 +49,17 @@ import static org.springframework.util.Assert.notNull
         patients
     }
 
-    Patient getPatient(String clinicIdValue, String patientIdValue, PrehmisPatientIdType patientIdType) {
+    PatientDto getPatient(String clinicIdentifierValue,
+                          String patientIdentifierValue,
+                          PrehmisPatientIdentifierType identifierType) {
 
         String getPatientRequest = buildGetPatientRequest(
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
-                facilityCode: clinicIdValue,
-                patientIdValue: patientIdValue,
-                patientIdType: patientIdType.toString().toLowerCase()
+                facilityCode: clinicIdentifierValue,
+                patientIdentifierValue: patientIdentifierValue,
+                patientIdentifierType: identifierType.toString().toLowerCase()
         )
 
         def getPatientResponse = prehmisRestClient.post(

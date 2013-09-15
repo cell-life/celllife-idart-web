@@ -16,9 +16,26 @@ class PatientDtoAssembler {
     static copyToPatient(PatientDto patientDto, Patient patient) {
 
         patient.with {
-            valid = patientDto.valid
+            if (patientDto.valid != null) {
+                valid = patientDto.valid
+            }
         }
 
         patient
+    }
+
+    static PatientDto toPatientDto(Patient patient) {
+        copyToPatientDto(patient, new PatientDto())
+    }
+
+    static copyToPatientDto(Patient patient, PatientDto patientDto) {
+
+        patientDto.with {
+            if (patient.valid != null) {
+                valid = patient.valid
+            }
+        }
+
+        patientDto
     }
 }

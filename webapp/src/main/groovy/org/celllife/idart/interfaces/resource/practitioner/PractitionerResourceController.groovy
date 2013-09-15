@@ -1,31 +1,22 @@
 package org.celllife.idart.interfaces.resource.practitioner
 
-import org.celllife.idart.common.PractitionerId
-import org.celllife.idart.domain.practitioner.Practitioner
+import org.celllife.idart.application.practitioner.dto.PractitionerDto
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.domain.practitioner.PractitionerNotFoundException
 import org.celllife.idart.domain.practitioner.PractitionerValidationException
 import org.celllife.idart.security.practitioner.PractitionerSecurityAdapter
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.servlet.http.HttpServletResponse
 import java.security.Principal
 
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
-import static javax.servlet.http.HttpServletResponse.SC_CREATED
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
-import static org.springframework.web.bind.annotation.RequestMethod.GET
-import static org.springframework.web.bind.annotation.RequestMethod.POST
+import static javax.servlet.http.HttpServletResponse.*
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Controller class PractitionerResourceController {
 
     @Inject PractitionerSecurityAdapter practitionerSecurityAdapter
@@ -33,28 +24,31 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST
     @Value('${external.base.url}') String baseUrl
 
     @ResponseBody
-    @RequestMapping(value = "/practitioners/{practitionerId}", method = GET, produces = "application/json")
-    Practitioner findByPractitionerId(@PathVariable("practitionerId") PractitionerId practitionerId,
-                                              Principal principal,
-                                              HttpServletResponse response) {
+    @RequestMapping(value = "/practitioners/findByIdentifier", method = RequestMethod.GET, produces = "application/json")
+    Set<PractitionerDto> findAll(@ModelAttribute Identifier identifier,
+                                 Principal principal,
+                                 HttpServletResponse response) {
 
         try {
 
-            practitionerSecurityAdapter.findByPractitionerId(principal, practitionerId)
+            return practitionerSecurityAdapter.findByIdentifier(principal, identifier)
 
-        } catch (PractitionerNotFoundException e) {
+        } catch (PractitionerNotFoundException ignore) {
+
             response.setStatus(SC_NOT_FOUND)
+
+            return null
         }
     }
 
-    @RequestMapping(value = "/practitioners", method = POST)
-    void save(@RequestBody Practitioner practitioner, Principal principal, HttpServletResponse response) {
+    @RequestMapping(value = "/practitioners", method = RequestMethod.POST)
+    void save(@RequestBody PractitionerDto practitionerDto, Principal principal, HttpServletResponse response) {
 
         try {
 
-            practitioner = practitionerSecurityAdapter.save(principal, practitioner)
+            def practitionerId = practitionerSecurityAdapter.save(principal, practitionerDto)
 
-            response.setHeader("Location", "${baseUrl}/practitioners/${practitioner.id}")
+            response.setHeader("Location", "${baseUrl}/practitioners/${practitionerId}")
             response.setStatus(SC_CREATED)
 
         } catch (PractitionerValidationException e) {

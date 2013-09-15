@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent
     @Inject UnitOfMeasureTypeValidator unitOfMeasureTypeValidator
 
     @Inject UnitOfMeasureTypeEventPublisher unitOfMeasureTypeEventPublisher
-
+    
+    @Override
+    Boolean exists(UnitOfMeasureTypeCode unitOfMeasureTypeCode) {
+        unitOfMeasureTypeRepository.exists(unitOfMeasureTypeCode)
+    }
+    
     @Override
     UnitOfMeasureType save(UnitOfMeasureType unitOfMeasureType) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeEvent
 
         unitOfMeasureTypeRepository.save(unitOfMeasureType)
     }
-
+    
     @Override
     UnitOfMeasureType findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode) {
 
         def unitOfMeasureType = unitOfMeasureTypeRepository.findOne(unitOfMeasureTypeCode)
 
         if (unitOfMeasureType == null) {
-            throw new UnitOfMeasureTypeNotFoundException("Could not find UnitOfMeasureType with Unit Of Measure Type Code [${ unitOfMeasureTypeCode}]")
+            throw new UnitOfMeasureTypeNotFoundException("Could not find UnitOfMeasureType with code [${ unitOfMeasureTypeCode}]")
         }
 
         unitOfMeasureType

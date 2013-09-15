@@ -3,7 +3,10 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/configuration http://www.jboss.org/xml/ns/javax/validation/configuration/validation-configuration-1.1.xsd">
 
+    <constraint-mapping>META-INF/constraints/common.xml</constraint-mapping>
+    <constraint-mapping>META-INF/constraints/patient.xml</constraint-mapping>
     <constraint-mapping>META-INF/constraints/person.xml</constraint-mapping>
+    <constraint-mapping>META-INF/constraints/practitioner.xml</constraint-mapping>
     <constraint-mapping>META-INF/constraints/prescription.xml</constraint-mapping>
 
 </validation-config>

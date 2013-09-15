@@ -1,11 +1,16 @@
 package org.celllife.idart.codegen.entity
 
+import org.celllife.idart.codegen.transform.CounterSequenceModelEnricher
 import org.celllife.idart.codegen.transform.SecurityAdapterModelEnricher
+import org.celllife.idart.codegen.transform.SequenceModelEnricher
 
 import static org.celllife.idart.codegen.transform.ApplicationServiceModelEnricher.enrichModelWithApplicationService
 import static org.celllife.idart.codegen.transform.CamelEventPublisherModelEnricher.enrichModelWithCamelEventPublisher
+import static org.celllife.idart.codegen.transform.CounterSequenceModelEnricher.enrichModelWithCounterSequence
 import static org.celllife.idart.codegen.transform.DomainEventModelEnricher.enrichModelWithDomainEvent
 import static org.celllife.idart.codegen.transform.DomainServiceModelEnricher.enrichModelWithDomainService
+import static org.celllife.idart.codegen.transform.DtoAssemblerModelEnricher.enrichModelWithDtoAssembler
+import static org.celllife.idart.codegen.transform.DtoModelEnricher.enrichModelWithDto
 import static org.celllife.idart.codegen.transform.EntityModelEnricher.enrichModelWithEntity
 import static org.celllife.idart.codegen.transform.EventPublisherModelEnricher.enrichModelWithEventPublisher
 import static org.celllife.idart.codegen.transform.RepositoryModelEnricher.enrichModelWithRepository
@@ -15,6 +20,7 @@ import static org.celllife.idart.codegen.transform.Jsr303ValidatorModelEnricher.
 import static org.celllife.idart.codegen.transform.ModelEnricher.enrichModel
 import static org.celllife.idart.codegen.transform.ResourceControllerServiceModelEnricher.enrichModelWithResourceController
 import static org.celllife.idart.codegen.transform.SecurityAdapterModelEnricher.enrichModelWithSecurityAdapter
+import static org.celllife.idart.codegen.transform.SequenceModelEnricher.enrichModelWithSequence
 import static org.celllife.idart.codegen.transform.SpringDataRepositoryModelEnricher.enrichModelWithSpringDataRepository
 import static org.celllife.idart.codegen.transform.ValidatorModelEnricher.enrichModelWithValidator
 
@@ -42,6 +48,8 @@ class EntityModelTransform {
 
         enrichModelWithDomainService(baseNamespace, model)
         enrichModelWithApplicationService(baseNamespace, model)
+        enrichModelWithDto(baseNamespace, model)
+        enrichModelWithDtoAssembler(baseNamespace, model)
 
         enrichModelWithSecurityAdapter(baseNamespace, model)
         enrichModelWithResourceController(baseNamespace, model)
@@ -49,5 +57,8 @@ class EntityModelTransform {
         enrichModelWithDomainEvent(baseNamespace, model)
         enrichModelWithEventPublisher(baseNamespace, model)
         enrichModelWithCamelEventPublisher(baseNamespace, model)
+
+        enrichModelWithSequence(baseNamespace, model)
+        enrichModelWithCounterSequence(baseNamespace, model)
     }
 }

@@ -1,7 +1,8 @@
 package org.celllife.idart.application.lifeevent
 
+import org.celllife.idart.application.lifeevent.dto.LifeEventDto
 import org.celllife.idart.common.LifeEventCode
-import org.celllife.idart.domain.lifeevent.LifeEvent
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface LifeEventApplicationService {
 
-    LifeEvent save(LifeEvent lifeEvent)
+    Boolean exists(LifeEventCode lifeEventCode)
 
-    LifeEvent findByLifeEventCode(LifeEventCode lifeEventCode)
+    LifeEventCode save(LifeEventDto lifeEventDto)
+
+    LifeEventDto findByLifeEventCode(LifeEventCode lifeEventCode)
+
+    LifeEventDto findByIdentifier(Identifier identifier)
 
 }

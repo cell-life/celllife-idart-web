@@ -14,12 +14,12 @@
                     <column name="id"/>
                 </attribute-override>
             </embedded-id>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
             <embedded name="person">
                 <attribute-override name="value">
-                    <column name="person_id"/>
-                </attribute-override>
-                <attribute-override name="type">
-                    <column name="person_type"/>
+                    <column name="person"/>
                 </attribute-override>
             </embedded>
             <embedded name="valid">

@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface ProductService {
 
+    Boolean exists(ProductId productId)
+
     Product save(Product product)
 
     Product findByProductId(ProductId productId)

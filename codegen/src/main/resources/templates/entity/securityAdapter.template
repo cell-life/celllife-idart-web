@@ -1,7 +1,8 @@
 package ${securityAdapter.packageName}
 
+import ${dto.packageName}.${dto.className}
 import ${id.packageName}.${id.className}
-import ${entity.packageName}.${entity.className}
+import org.celllife.idart.domain.identifiable.Identifier
 import ${applicationService.packageName}.${applicationService.className}
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject ${applicationService.className} ${applicationService.fieldName}
 
-    ${entity.className} save(Principal principal, ${entity.className} ${entity.fieldName}) {
-        ${applicationService.fieldName}.save(${entity.fieldName})
+    ${id.className} save(Principal principal, ${dto.fieldName}) {
+        ${applicationService.fieldName}.save(${dto.fieldName})
     }
 
-    ${entity.className} findBy${id.className}(Principal principal, ${id.className} ${id.fieldName}) {
+    ${dto.className} findBy${id.className}(Principal principal, ${id.className} ${id.fieldName}) {
         ${applicationService.fieldName}.findBy${id.className}(${id.fieldName})
+    }
+
+    ${dto.className} findByIdentifier(Principal principal, Identifier identifier) {
+        ${applicationService.fieldName}.findByIdentifier(identifier)
     }
 
 }

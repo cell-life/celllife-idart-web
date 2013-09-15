@@ -1,7 +1,7 @@
 package org.celllife.idart.interfaces.resource.authority
 
 import org.celllife.idart.common.AuthorityId
-import org.celllife.idart.domain.authority.Authority
+import org.celllife.idart.application.authority.dto.AuthorityDto
 import org.celllife.idart.domain.authority.AuthorityNotFoundException
 import org.celllife.idart.domain.authority.AuthorityValidationException
 import org.celllife.idart.security.authority.AuthoritySecurityAdapter
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.annotation.Generated
@@ -20,8 +21,6 @@ import java.security.Principal
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
 import static javax.servlet.http.HttpServletResponse.SC_CREATED
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
-import static org.springframework.web.bind.annotation.RequestMethod.GET
-import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 /**
  */
@@ -33,28 +32,31 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST
     @Value('${external.base.url}') String baseUrl
 
     @ResponseBody
-    @RequestMapping(value = "/authorities/{authorityId}", method = GET, produces = "application/json")
-    Authority findByAuthorityId(@PathVariable("authorityId") AuthorityId authorityId,
+    @RequestMapping(value = "/authorities/{authorityId}", method = RequestMethod.GET, produces = "application/json")
+    AuthorityDto findByAuthorityId(@PathVariable("authorityId") AuthorityId authorityId,
                                               Principal principal,
                                               HttpServletResponse response) {
 
         try {
 
-            authoritySecurityAdapter.findByAuthorityId(principal, authorityId)
+            return authoritySecurityAdapter.findByAuthorityId(principal, authorityId)
 
-        } catch (AuthorityNotFoundException e) {
+        } catch (AuthorityNotFoundException ignore) {
+
             response.setStatus(SC_NOT_FOUND)
+
+            return null
         }
     }
 
-    @RequestMapping(value = "/authorities", method = POST)
-    void save(@RequestBody Authority authority, Principal principal, HttpServletResponse response) {
+    @RequestMapping(value = "/authorities", method = RequestMethod.POST)
+    void save(@RequestBody AuthorityDto authorityDto, Principal principal, HttpServletResponse response) {
 
         try {
 
-            authority = authoritySecurityAdapter.save(principal, authority)
+            AuthorityId authorityId = authoritySecurityAdapter.save(principal, authorityDto)
 
-            response.setHeader("Location", "${baseUrl}/authoritys/${authority.id}")
+            response.setHeader("Location", "${baseUrl}/authoritiess/${authorityId}")
             response.setStatus(SC_CREATED)
 
         } catch (AuthorityValidationException e) {

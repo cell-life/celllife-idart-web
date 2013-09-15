@@ -1,34 +1,50 @@
 package org.celllife.idart.application.patient
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import org.celllife.idart.application.facility.FacilityApplicationService
+import org.celllife.idart.application.facility.dto.FacilityDto
+import org.celllife.idart.application.organisation.OrganisationApplicationService
+import org.celllife.idart.application.organisation.dto.LegalOrganisationDto
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.Period
 import org.celllife.idart.domain.counter.CounterRepository
+import org.celllife.idart.domain.facility.FacilityRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
 import org.celllife.idart.domain.identifiable.IdentifiableService
+import org.celllife.idart.domain.organisation.OrganisationRepository
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.patient.PatientRepository
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.person.PersonRepository
 import org.celllife.idart.infrastructure.springdata.counter.SpringDataCounterRepository
+import org.celllife.idart.infrastructure.springdata.facility.SpringDataFacilityRepository
+import org.celllife.idart.infrastructure.springdata.facilityorganisation.SpringDataFacilityOrganisationRepository
 import org.celllife.idart.infrastructure.springdata.identifiable.SpringDataIdentifiableRepository
+import org.celllife.idart.infrastructure.springdata.organisation.SpringDataOrganisationRepository
 import org.celllife.idart.infrastructure.springdata.patient.SpringDataPatientRepository
 import org.celllife.idart.infrastructure.springdata.person.SpringDataPersonRepository
+import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationRepository
+import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
+import javax.inject.Inject
+
 import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.AuthorityId.PREHMIS
 import static org.celllife.idart.common.AuthorityId.newAuthorityId
 import static org.celllife.idart.common.PatientId.patientId
+import static org.celllife.idart.common.PersonId.personId
 import static org.celllife.idart.domain.identifiable.Identifiable.newIdentifiable
 import static org.celllife.idart.domain.identifiable.IdentifiableType.PATIENT
-import static org.celllife.idart.domain.identifiable.Identifier.newIdentifier
+import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.junit.Assert.*
 
 /**
@@ -40,21 +56,35 @@ import static org.junit.Assert.*
 @ContextConfiguration(classes = TestConfiguration)
 class PatientApplicationServiceIntegrationTest {
 
-    @Autowired PatientApplicationService patientApplicationService
+    @Inject PatientApplicationService patientApplicationService
 
-    @Autowired PatientService patientService
+    @Inject PatientService patientService
 
-    @Autowired PatientRepository patientRepository
+    @Inject PatientRepository patientRepository
 
-    @Autowired PersonApplicationService personApplicationService
+    @Inject PersonApplicationService personApplicationService
 
-    @Autowired PersonRepository personRepository
+    @Inject PersonRepository personRepository
 
-    @Autowired IdentifiableRepository identifiableRepository
+    @Inject IdentifiableRepository identifiableRepository
 
-    @Autowired IdentifiableService identifiableService
+    @Inject IdentifiableService identifiableService
 
-    @Autowired CounterRepository counterRepository
+    @Inject CounterRepository counterRepository
+
+    @Inject FacilityApplicationService facilityApplicationService
+
+    @Inject FacilityRepository facilityRepository
+
+    @Inject OrganisationApplicationService organisationApplicationService
+
+    @Inject OrganisationRepository organisationRepository
+
+    @Inject FacilityOrganisationService facilityOrganisationService
+
+    @Inject FacilityOrganisationRepository facilityOrganisationRepository
+
+    @Inject ObjectMapper objectMapper
 
     @Before
     public void setUp() throws Exception {
@@ -66,6 +96,12 @@ class PatientApplicationServiceIntegrationTest {
         ((SpringDataPersonRepository) personRepository).deleteAll()
 
         ((SpringDataPatientRepository) patientRepository).deleteAll()
+
+        ((SpringDataOrganisationRepository) organisationRepository).deleteAll()
+
+        ((SpringDataFacilityRepository) facilityRepository).deleteAll()
+
+        ((SpringDataFacilityOrganisationRepository) facilityOrganisationRepository).deleteAll()
 
     }
 
@@ -119,6 +155,7 @@ class PatientApplicationServiceIntegrationTest {
         patient.with {
             id = patientId("00000000")
             valid = new Period(fromDate: new Date())
+            person = personId("00000005")
         }
         patientService.save(patient)
 
@@ -207,5 +244,38 @@ class PatientApplicationServiceIntegrationTest {
 
         def patientId = patientApplicationService.save(patientDto)
         assertNotNull(patientId)
+    }
+
+    @Test
+    public void shouldFindByIdentifierFacility() throws Exception {
+
+        def organisation = new LegalOrganisationDto()
+        organisation.with {
+            name = "Cape Town Metropolitan Municipality"
+            taxRegistrationNumber = "00/0/0000/0000"
+        }
+
+        def organisationId = organisationApplicationService.save(organisation)
+
+        def facility = new FacilityDto()
+        facility.with {
+            identifiers = [
+                    newIdentifier(PREHMIS, "WES")
+            ]
+        }
+
+        def facilityId = facilityApplicationService.save(facility)
+
+        facilityOrganisationService.save(facilityId, organisationId, OPERATED_BY)
+
+        ["72254311", "17768102", "17768102"].each { patientIdentifier ->
+            patientApplicationService.findByIdentifierAndFacility(patientIdentifier, facilityId).each { patient ->
+                println toJson(patient)
+            }
+        }
+    }
+
+    def String toJson(PatientDto patient) {
+        objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(patient)
     }
 }

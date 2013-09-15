@@ -16,4 +16,7 @@ class Period {
 
     Date thruDate
 
+    static Period newPeriod() {
+        new Period(fromDate: new Date())
+    }
 }

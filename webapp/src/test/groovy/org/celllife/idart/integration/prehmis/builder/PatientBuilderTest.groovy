@@ -2,11 +2,15 @@ package org.celllife.idart.integration.prehmis.builder
 
 import org.celllife.idart.common.Gender
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
-import org.celllife.idart.integration.prehmis.PrehmisPatientIdType
+import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
 import org.junit.Assert
 import org.junit.Test
 
 import java.text.SimpleDateFormat
+
+import static org.celllife.idart.domain.identifiable.Identifiers.getIdentifierValue
+import static org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType.PGWC
+import static org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType.PREHMIS
 
 /**
  * User: Kevin W. Sewell
@@ -53,8 +57,8 @@ class PatientBuilderTest {
 
         Assert.assertEquals("AEIGHT", patient.person.firstName)
         Assert.assertEquals("TEST", patient.person.lastName)
-        Assert.assertEquals("72254311", patient.getIdValue(PrehmisPatientIdType.PGWC.system))
-        Assert.assertEquals("1", patient.getIdValue(PrehmisPatientIdType.PREHMIS.system))
+        Assert.assertEquals("72254311", getIdentifierValue(patient.identifiers, PGWC.authority))
+        Assert.assertEquals("1", getIdentifierValue(patient.identifiers, PREHMIS.authority))
         Assert.assertEquals(Gender.MALE, patient.person.gender)
         Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("1981-01-01"), patient.person.birthDate)
 

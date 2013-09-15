@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.form.FormEvent.newFormEvent
     @Inject FormValidator formValidator
 
     @Inject FormEventPublisher formEventPublisher
-
+    
+    @Override
+    Boolean exists(FormCode formCode) {
+        formRepository.exists(formCode)
+    }
+    
     @Override
     Form save(Form form) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.form.FormEvent.newFormEvent
 
         formRepository.save(form)
     }
-
+    
     @Override
     Form findByFormCode(FormCode formCode) {
 
         def form = formRepository.findOne(formCode)
 
         if (form == null) {
-            throw new FormNotFoundException("Could not find Form with Form Code [${ formCode}]")
+            throw new FormNotFoundException("Could not find Form with code [${ formCode}]")
         }
 
         form

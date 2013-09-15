@@ -1,7 +1,7 @@
 package org.celllife.idart.interfaces.resource.person
 
 import org.celllife.idart.common.PersonId
-import org.celllife.idart.domain.person.Person
+import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.domain.person.PersonNotFoundException
 import org.celllife.idart.domain.person.PersonValidationException
 import org.celllife.idart.security.person.PersonSecurityAdapter
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.annotation.Generated
@@ -20,8 +21,6 @@ import java.security.Principal
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
 import static javax.servlet.http.HttpServletResponse.SC_CREATED
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
-import static org.springframework.web.bind.annotation.RequestMethod.GET
-import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 /**
  */
@@ -33,28 +32,31 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST
     @Value('${external.base.url}') String baseUrl
 
     @ResponseBody
-    @RequestMapping(value = "/persons/{personId}", method = GET, produces = "application/json")
-    Person findByPersonId(@PathVariable("personId") PersonId personId,
+    @RequestMapping(value = "/people/{personId}", method = RequestMethod.GET, produces = "application/json")
+    PersonDto findByPersonId(@PathVariable("personId") PersonId personId,
                                               Principal principal,
                                               HttpServletResponse response) {
 
         try {
 
-            personSecurityAdapter.findByPersonId(principal, personId)
+            return personSecurityAdapter.findByPersonId(principal, personId)
 
-        } catch (PersonNotFoundException e) {
+        } catch (PersonNotFoundException ignore) {
+
             response.setStatus(SC_NOT_FOUND)
+
+            return null
         }
     }
 
-    @RequestMapping(value = "/persons", method = POST)
-    void save(@RequestBody Person person, Principal principal, HttpServletResponse response) {
+    @RequestMapping(value = "/people", method = RequestMethod.POST)
+    void save(@RequestBody PersonDto personDto, Principal principal, HttpServletResponse response) {
 
         try {
 
-            person = personSecurityAdapter.save(principal, person)
+            PersonId personId = personSecurityAdapter.save(principal, personDto)
 
-            response.setHeader("Location", "${baseUrl}/persons/${person.id}")
+            response.setHeader("Location", "${baseUrl}/peoples/${personId}")
             response.setStatus(SC_CREATED)
 
         } catch (PersonValidationException e) {

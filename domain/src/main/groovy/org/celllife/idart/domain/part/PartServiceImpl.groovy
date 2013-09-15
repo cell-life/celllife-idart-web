@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
     @Inject PartValidator partValidator
 
     @Inject PartEventPublisher partEventPublisher
-
+    
+    @Inject PartSequence partSequence
+    
+    @Override
+    Boolean exists(PartId partId) {
+        partRepository.exists(partId)
+    }
+    
     @Override
     Part save(Part part) {
 
-        partValidator.validate(part)
+        def existingPart = null
 
-        partEventPublisher.publish(newPartEvent(part, SAVED))
+        if (part.id != null) {
+            existingPart = partRepository.findOne(part.id)
+        } else {
+            part.id = partSequence.nextValue()
+        }
 
-        partRepository.save(part)
+        if (existingPart == null) {
+            existingPart = part
+        } else {
+            existingPart.merge(part)
+        }
+
+        partValidator.validate(existingPart)
+
+        partEventPublisher.publish(newPartEvent(existingPart, SAVED))
+
+        partRepository.save(existingPart)
     }
-
+    
     @Override
     Part findByPartId(PartId partId) {
 
         def part = partRepository.findOne(partId)
 
         if (part == null) {
-            throw new PartNotFoundException("Could not find Part with Part Id [${ partId}]")
+            throw new PartNotFoundException("Could not find Part with id [${ partId}]")
         }
 
         part

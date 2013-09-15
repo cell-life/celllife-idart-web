@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrat
     @Inject RouteOfAdministrationValidator routeOfAdministrationValidator
 
     @Inject RouteOfAdministrationEventPublisher routeOfAdministrationEventPublisher
-
+    
+    @Override
+    Boolean exists(RouteOfAdministrationCode routeOfAdministrationCode) {
+        routeOfAdministrationRepository.exists(routeOfAdministrationCode)
+    }
+    
     @Override
     RouteOfAdministration save(RouteOfAdministration routeOfAdministration) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrat
 
         routeOfAdministrationRepository.save(routeOfAdministration)
     }
-
+    
     @Override
     RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) {
 
         def routeOfAdministration = routeOfAdministrationRepository.findOne(routeOfAdministrationCode)
 
         if (routeOfAdministration == null) {
-            throw new RouteOfAdministrationNotFoundException("Could not find RouteOfAdministration with Route Of Administration Code [${ routeOfAdministrationCode}]")
+            throw new RouteOfAdministrationNotFoundException("Could not find RouteOfAdministration with code [${ routeOfAdministrationCode}]")
         }
 
         routeOfAdministration

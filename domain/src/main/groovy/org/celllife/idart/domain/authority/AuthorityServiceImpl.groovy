@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.authority.AuthorityEvent.newAuthorityEve
     @Inject AuthorityValidator authorityValidator
 
     @Inject AuthorityEventPublisher authorityEventPublisher
-
+    
+    @Inject AuthoritySequence authoritySequence
+    
+    @Override
+    Boolean exists(AuthorityId authorityId) {
+        authorityRepository.exists(authorityId)
+    }
+    
     @Override
     Authority save(Authority authority) {
 
-        authorityValidator.validate(authority)
+        def existingAuthority = null
 
-        authorityEventPublisher.publish(newAuthorityEvent(authority, SAVED))
+        if (authority.id != null) {
+            existingAuthority = authorityRepository.findOne(authority.id)
+        } else {
+            authority.id = authoritySequence.nextValue()
+        }
 
-        authorityRepository.save(authority)
+        if (existingAuthority == null) {
+            existingAuthority = authority
+        } else {
+            existingAuthority.merge(authority)
+        }
+
+        authorityValidator.validate(existingAuthority)
+
+        authorityEventPublisher.publish(newAuthorityEvent(existingAuthority, SAVED))
+
+        authorityRepository.save(existingAuthority)
     }
-
+    
     @Override
     Authority findByAuthorityId(AuthorityId authorityId) {
 
         def authority = authorityRepository.findOne(authorityId)
 
         if (authority == null) {
-            throw new AuthorityNotFoundException("Could not find Authority with Authority Id [${ authorityId}]")
+            throw new AuthorityNotFoundException("Could not find Authority with id [${ authorityId}]")
         }
 
         authority

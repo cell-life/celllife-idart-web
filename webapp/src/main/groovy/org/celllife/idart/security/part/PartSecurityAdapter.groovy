@@ -1,7 +1,8 @@
 package org.celllife.idart.security.part
 
+import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.common.PartId
-import org.celllife.idart.domain.part.Part
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.part.PartApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject PartApplicationService partApplicationService
 
-    Part save(Principal principal, Part part) {
-        partApplicationService.save(part)
+    PartId save(Principal principal, partDto) {
+        partApplicationService.save(partDto)
     }
 
-    Part findByPartId(Principal principal, PartId partId) {
+    PartDto findByPartId(Principal principal, PartId partId) {
         partApplicationService.findByPartId(partId)
+    }
+
+    PartDto findByIdentifier(Principal principal, Identifier identifier) {
+        partApplicationService.findByIdentifier(identifier)
     }
 
 }

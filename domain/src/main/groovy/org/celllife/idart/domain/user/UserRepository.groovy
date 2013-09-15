@@ -6,11 +6,13 @@ import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface UserRepository {
+
+    boolean exists(UserId userId)
 
     User save(User user)
 
     User findOne(UserId userId)
 
+    UserId findByUsername(String username)
 }

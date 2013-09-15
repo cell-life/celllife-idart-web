@@ -1,7 +1,8 @@
 package org.celllife.idart.security.substitutionreason
 
+import org.celllife.idart.application.substitutionreason.dto.SubstitutionReasonDto
 import org.celllife.idart.common.SubstitutionReasonCode
-import org.celllife.idart.domain.substitutionreason.SubstitutionReason
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.substitutionreason.SubstitutionReasonApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject SubstitutionReasonApplicationService substitutionReasonApplicationService
 
-    SubstitutionReason save(Principal principal, SubstitutionReason substitutionReason) {
-        substitutionReasonApplicationService.save(substitutionReason)
+    SubstitutionReasonCode save(Principal principal, substitutionReasonDto) {
+        substitutionReasonApplicationService.save(substitutionReasonDto)
     }
 
-    SubstitutionReason findBySubstitutionReasonCode(Principal principal, SubstitutionReasonCode substitutionReasonCode) {
+    SubstitutionReasonDto findBySubstitutionReasonCode(Principal principal, SubstitutionReasonCode substitutionReasonCode) {
         substitutionReasonApplicationService.findBySubstitutionReasonCode(substitutionReasonCode)
+    }
+
+    SubstitutionReasonDto findByIdentifier(Principal principal, Identifier identifier) {
+        substitutionReasonApplicationService.findByIdentifier(identifier)
     }
 
 }

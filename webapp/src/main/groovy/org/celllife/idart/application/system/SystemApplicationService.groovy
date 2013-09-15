@@ -1,7 +1,8 @@
 package org.celllife.idart.application.system
 
+import org.celllife.idart.application.system.dto.SystemDto
 import org.celllife.idart.common.SystemId
-import org.celllife.idart.domain.system.System
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface SystemApplicationService {
 
-    System save(System system)
+    Boolean exists(SystemId systemId)
 
-    System findBySystemId(SystemId systemId)
+    SystemId save(SystemDto systemDto)
+
+    SystemDto findBySystemId(SystemId systemId)
+
+    SystemDto findByIdentifier(Identifier identifier)
 
 }

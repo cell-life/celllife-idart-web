@@ -9,11 +9,6 @@ import org.celllife.idart.common.UserId
 class User {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/users"
-
-    /**
      * Id 
      */
     UserId id
@@ -21,10 +16,10 @@ class User {
     /**
      * Current Username 
      */
-    String currentUsername
+    String username
 
     /**
      * Current Password 
      */
-    String currentPassword
+    String password
 }

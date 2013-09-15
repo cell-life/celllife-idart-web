@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <typedef class="org.celllife.idart.framework.persistence.EncryptedClobType" name="encryptedClob">
+        <param name="encryptorRegisteredName">hibernateStringEncryptor</param>
+    </typedef>
+
+    <typedef class="org.celllife.idart.framework.persistence.EncryptedStringType" name="encryptedString">
+        <param name="encryptorRegisteredName">hibernateStringEncryptor</param>
+    </typedef>
+
+</hibernate-mapping>

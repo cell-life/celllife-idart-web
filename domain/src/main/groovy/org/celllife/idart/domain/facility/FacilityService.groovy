@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface FacilityService {
 
+    Boolean exists(FacilityId facilityId)
+
     Facility save(Facility facility)
 
     Facility findByFacilityId(FacilityId facilityId)

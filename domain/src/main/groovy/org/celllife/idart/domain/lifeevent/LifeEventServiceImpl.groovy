@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.lifeevent.LifeEventEvent.newLifeEventEve
     @Inject LifeEventValidator lifeEventValidator
 
     @Inject LifeEventEventPublisher lifeEventEventPublisher
-
+    
+    @Override
+    Boolean exists(LifeEventCode lifeEventCode) {
+        lifeEventRepository.exists(lifeEventCode)
+    }
+    
     @Override
     LifeEvent save(LifeEvent lifeEvent) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.lifeevent.LifeEventEvent.newLifeEventEve
 
         lifeEventRepository.save(lifeEvent)
     }
-
+    
     @Override
     LifeEvent findByLifeEventCode(LifeEventCode lifeEventCode) {
 
         def lifeEvent = lifeEventRepository.findOne(lifeEventCode)
 
         if (lifeEvent == null) {
-            throw new LifeEventNotFoundException("Could not find LifeEvent with Life Event Code [${ lifeEventCode}]")
+            throw new LifeEventNotFoundException("Could not find LifeEvent with code [${ lifeEventCode}]")
         }
 
         lifeEvent

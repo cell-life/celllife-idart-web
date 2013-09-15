@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.indication.IndicationEvent.newIndication
     @Inject IndicationValidator indicationValidator
 
     @Inject IndicationEventPublisher indicationEventPublisher
-
+    
+    @Override
+    Boolean exists(IndicationCode indicationCode) {
+        indicationRepository.exists(indicationCode)
+    }
+    
     @Override
     Indication save(Indication indication) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.indication.IndicationEvent.newIndication
 
         indicationRepository.save(indication)
     }
-
+    
     @Override
     Indication findByIndicationCode(IndicationCode indicationCode) {
 
         def indication = indicationRepository.findOne(indicationCode)
 
         if (indication == null) {
-            throw new IndicationNotFoundException("Could not find Indication with Indication Code [${ indicationCode}]")
+            throw new IndicationNotFoundException("Could not find Indication with code [${ indicationCode}]")
         }
 
         indication

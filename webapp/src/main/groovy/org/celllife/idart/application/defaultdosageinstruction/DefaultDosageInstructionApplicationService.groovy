@@ -1,7 +1,8 @@
 package org.celllife.idart.application.defaultdosageinstruction
 
+import org.celllife.idart.application.defaultdosageinstruction.dto.DefaultDosageInstructionDto
 import org.celllife.idart.common.DefaultDosageInstructionId
-import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface DefaultDosageInstructionApplicationService {
 
-    DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction)
+    Boolean exists(DefaultDosageInstructionId defaultDosageInstructionId)
 
-    DefaultDosageInstruction findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId)
+    DefaultDosageInstructionId save(DefaultDosageInstructionDto defaultDosageInstructionDto)
+
+    DefaultDosageInstructionDto findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId)
+
+    DefaultDosageInstructionDto findByIdentifier(Identifier identifier)
 
 }

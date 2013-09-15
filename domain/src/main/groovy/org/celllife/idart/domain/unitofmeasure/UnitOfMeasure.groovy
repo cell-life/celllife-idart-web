@@ -12,11 +12,6 @@ import javax.annotation.Generated
 class UnitOfMeasure {
 
     /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/unitsOfMeasure"
-
-    /**
      * Unit Of Measure Code 
      */
     UnitOfMeasureCode code

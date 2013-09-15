@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicatio
     @Inject PrescribedMedicationValidator prescribedMedicationValidator
 
     @Inject PrescribedMedicationEventPublisher prescribedMedicationEventPublisher
-
+    
+    @Inject PrescribedMedicationSequence prescribedMedicationSequence
+    
+    @Override
+    Boolean exists(PrescribedMedicationId prescribedMedicationId) {
+        prescribedMedicationRepository.exists(prescribedMedicationId)
+    }
+    
     @Override
     PrescribedMedication save(PrescribedMedication prescribedMedication) {
 
-        prescribedMedicationValidator.validate(prescribedMedication)
+        def existingPrescribedMedication = null
 
-        prescribedMedicationEventPublisher.publish(newPrescribedMedicationEvent(prescribedMedication, SAVED))
+        if (prescribedMedication.id != null) {
+            existingPrescribedMedication = prescribedMedicationRepository.findOne(prescribedMedication.id)
+        } else {
+            prescribedMedication.id = prescribedMedicationSequence.nextValue()
+        }
 
-        prescribedMedicationRepository.save(prescribedMedication)
+        if (existingPrescribedMedication == null) {
+            existingPrescribedMedication = prescribedMedication
+        } else {
+            existingPrescribedMedication.merge(prescribedMedication)
+        }
+
+        prescribedMedicationValidator.validate(existingPrescribedMedication)
+
+        prescribedMedicationEventPublisher.publish(newPrescribedMedicationEvent(existingPrescribedMedication, SAVED))
+
+        prescribedMedicationRepository.save(existingPrescribedMedication)
     }
-
+    
     @Override
     PrescribedMedication findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) {
 
         def prescribedMedication = prescribedMedicationRepository.findOne(prescribedMedicationId)
 
         if (prescribedMedication == null) {
-            throw new PrescribedMedicationNotFoundException("Could not find PrescribedMedication with PrescribedMedication Id [${ prescribedMedicationId}]")
+            throw new PrescribedMedicationNotFoundException("Could not find PrescribedMedication with id [${ prescribedMedicationId}]")
         }
 
         prescribedMedication

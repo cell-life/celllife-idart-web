@@ -1,7 +1,8 @@
 package org.celllife.idart.security.facility
 
+import org.celllife.idart.application.facility.dto.FacilityDto
 import org.celllife.idart.common.FacilityId
-import org.celllife.idart.domain.facility.Facility
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.facility.FacilityApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject FacilityApplicationService facilityApplicationService
 
-    Facility save(Principal principal, Facility facility) {
-        facilityApplicationService.save(facility)
+    FacilityId save(Principal principal, facilityDto) {
+        facilityApplicationService.save(facilityDto)
     }
 
-    Facility findByFacilityId(Principal principal, FacilityId facilityId) {
+    FacilityDto findByFacilityId(Principal principal, FacilityId facilityId) {
         facilityApplicationService.findByFacilityId(facilityId)
+    }
+
+    FacilityDto findByIdentifier(Principal principal, Identifier identifier) {
+        facilityApplicationService.findByIdentifier(identifier)
     }
 
 }

@@ -35,7 +35,7 @@ class PatientServiceAcceptanceTest {
     void shouldFindPatientByIdValue() throws Exception {
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254311")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "17768102")
-        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "72254212")
+        assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "17768102")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "1")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "2")
         assertPatientExists("2AEFB796-8501-45C3-A0CE-3818088D338D", "Green Point Clinic", "3")

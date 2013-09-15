@@ -1,7 +1,5 @@
 package org.celllife.idart.codegen.entity
 
-import org.celllife.idart.codegen.StdOutWriter
-
 import static org.celllife.idart.codegen.FileWriter.toFile
 import static org.celllife.idart.codegen.StdOutWriter.toStdOut
 import static org.celllife.idart.codegen.entity.EntityModelTransform.transform
@@ -54,6 +52,8 @@ class EntityCodeGenerator {
                     generateJsr303Validator(baseDirectory, model)
                     break
                 case "applicationService":
+                    generateDto(baseDirectory, model)
+                    generateDtoAssembler(baseDirectory, model)
                     generateApplicationServiceInterface(baseDirectory, model)
                     generateApplicationServiceImplementation(baseDirectory, model)
                     break
@@ -62,6 +62,12 @@ class EntityCodeGenerator {
                     break
                 case "resourceController":
                     generateResourceController(baseDirectory, model)
+                    break
+                case "sequence":
+                    generateSequence(baseDirectory, model)
+                    break
+                case "counterSequence":
+                    generateCounterSequence(baseDirectory, model)
                     break
                 case "": break
             }
@@ -191,6 +197,24 @@ class EntityCodeGenerator {
         )
     }
 
+    static generateDto(String baseDirectory, model) {
+        toFile(
+                templateReader: "/templates/entity/dto.template",
+                model: model,
+                directory: baseDirectory + "/webapp/src/main/groovy/" + model.dto.packageName.replaceAll("\\.", "/"),
+                fileName: model.dto.className + ".groovy"
+        )
+    }
+
+    static generateDtoAssembler(String baseDirectory, model) {
+        toFile(
+                templateReader: "/templates/entity/dtoAssembler.template",
+                model: model,
+                directory: baseDirectory + "/webapp/src/main/groovy/" + model.dtoAssembler.packageName.replaceAll("\\.", "/"),
+                fileName: model.dtoAssembler.className + ".groovy"
+        )
+    }
+
     static generateApplicationServiceInterface(String baseDirectory, model) {
         toFile(
                 templateReader: "/templates/entity/applicationServiceInterface.template",
@@ -224,6 +248,24 @@ class EntityCodeGenerator {
                 model: model,
                 directory: baseDirectory + "/webapp/src/main/groovy/" + model.resourceController.packageName.replaceAll("\\.", "/"),
                 fileName: model.resourceController.className + ".groovy"
+        )
+    }
+
+    static generateSequence(String baseDirectory, model) {
+        toFile(
+                templateReader: "/templates/entity/sequence.template",
+                model: model,
+                directory: baseDirectory + "/domain/src/main/groovy/" + model.sequence.packageName.replaceAll("\\.", "/"),
+                fileName: model.sequence.className + ".groovy"
+        )
+    }
+
+    static generateCounterSequence(String baseDirectory, model) {
+        toFile(
+                templateReader: "/templates/entity/counterSequence.template",
+                model: model,
+                directory: baseDirectory + "/webapp/src/main/groovy/" + model.counterSequence.packageName.replaceAll("\\.", "/"),
+                fileName: model.counterSequence.className + ".groovy"
         )
     }
 }

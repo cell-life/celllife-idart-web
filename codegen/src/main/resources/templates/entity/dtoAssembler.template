@@ -1,0 +1,32 @@
+package ${dtoAssembler.packageName}
+
+import ${entity.packageName}.${entity.className}
+import org.celllife.idart.domain.identifiable.Identifier
+
+import javax.annotation.Generated
+
+/**
+ */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
+class ${dtoAssembler.className} {
+
+    static ${entity.className} to${entity.className}(${dto.className} ${dto.fieldName}) {
+
+        def ${entity.fieldName} = new ${entity.className}()
+        ${entity.fieldName}.with {
+
+        }
+
+        ${entity.fieldName}
+    }
+
+    static ${dto.className} to${dto.className}(${entity.className} ${entity.fieldName}) {
+
+        def ${dto.fieldName} = new ${dto.className}()
+        ${dto.fieldName}.with {
+
+        }
+
+        ${dto.fieldName}
+    }
+}

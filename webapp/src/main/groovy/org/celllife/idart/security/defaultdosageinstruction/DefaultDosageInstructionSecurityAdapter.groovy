@@ -1,7 +1,8 @@
 package org.celllife.idart.security.defaultdosageinstruction
 
+import org.celllife.idart.application.defaultdosageinstruction.dto.DefaultDosageInstructionDto
 import org.celllife.idart.common.DefaultDosageInstructionId
-import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.defaultdosageinstruction.DefaultDosageInstructionApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject DefaultDosageInstructionApplicationService defaultDosageInstructionApplicationService
 
-    DefaultDosageInstruction save(Principal principal, DefaultDosageInstruction defaultDosageInstruction) {
-        defaultDosageInstructionApplicationService.save(defaultDosageInstruction)
+    DefaultDosageInstructionId save(Principal principal, defaultDosageInstructionDto) {
+        defaultDosageInstructionApplicationService.save(defaultDosageInstructionDto)
     }
 
-    DefaultDosageInstruction findByDefaultDosageInstructionId(Principal principal, DefaultDosageInstructionId defaultDosageInstructionId) {
+    DefaultDosageInstructionDto findByDefaultDosageInstructionId(Principal principal, DefaultDosageInstructionId defaultDosageInstructionId) {
         defaultDosageInstructionApplicationService.findByDefaultDosageInstructionId(defaultDosageInstructionId)
+    }
+
+    DefaultDosageInstructionDto findByIdentifier(Principal principal, Identifier identifier) {
+        defaultDosageInstructionApplicationService.findByIdentifier(identifier)
     }
 
 }

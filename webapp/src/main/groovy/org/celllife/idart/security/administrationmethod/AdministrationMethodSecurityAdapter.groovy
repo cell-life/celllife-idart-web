@@ -1,7 +1,8 @@
 package org.celllife.idart.security.administrationmethod
 
+import org.celllife.idart.application.administrationmethod.dto.AdministrationMethodDto
 import org.celllife.idart.common.AdministrationMethodCode
-import org.celllife.idart.domain.administrationmethod.AdministrationMethod
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.administrationmethod.AdministrationMethodApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject AdministrationMethodApplicationService administrationMethodApplicationService
 
-    AdministrationMethod save(Principal principal, AdministrationMethod administrationMethod) {
-        administrationMethodApplicationService.save(administrationMethod)
+    AdministrationMethodCode save(Principal principal, administrationMethodDto) {
+        administrationMethodApplicationService.save(administrationMethodDto)
     }
 
-    AdministrationMethod findByAdministrationMethodCode(Principal principal, AdministrationMethodCode administrationMethodCode) {
+    AdministrationMethodDto findByAdministrationMethodCode(Principal principal, AdministrationMethodCode administrationMethodCode) {
         administrationMethodApplicationService.findByAdministrationMethodCode(administrationMethodCode)
+    }
+
+    AdministrationMethodDto findByIdentifier(Principal principal, Identifier identifier) {
+        administrationMethodApplicationService.findByIdentifier(identifier)
     }
 
 }

@@ -7,6 +7,8 @@ package org.celllife.idart.domain.identifiable
  */
 public enum IdentifiableType {
 
+    AUTHORITY,
+
     DEFAULT_DOSAGE_INSTRUCTION,
 
     DISPENSATION,

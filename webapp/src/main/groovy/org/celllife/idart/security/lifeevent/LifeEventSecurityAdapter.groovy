@@ -1,7 +1,8 @@
 package org.celllife.idart.security.lifeevent
 
+import org.celllife.idart.application.lifeevent.dto.LifeEventDto
 import org.celllife.idart.common.LifeEventCode
-import org.celllife.idart.domain.lifeevent.LifeEvent
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.lifeevent.LifeEventApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject LifeEventApplicationService lifeEventApplicationService
 
-    LifeEvent save(Principal principal, LifeEvent lifeEvent) {
-        lifeEventApplicationService.save(lifeEvent)
+    LifeEventCode save(Principal principal, lifeEventDto) {
+        lifeEventApplicationService.save(lifeEventDto)
     }
 
-    LifeEvent findByLifeEventCode(Principal principal, LifeEventCode lifeEventCode) {
+    LifeEventDto findByLifeEventCode(Principal principal, LifeEventCode lifeEventCode) {
         lifeEventApplicationService.findByLifeEventCode(lifeEventCode)
+    }
+
+    LifeEventDto findByIdentifier(Principal principal, Identifier identifier) {
+        lifeEventApplicationService.findByIdentifier(identifier)
     }
 
 }

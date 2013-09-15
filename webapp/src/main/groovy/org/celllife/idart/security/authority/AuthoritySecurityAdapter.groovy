@@ -1,7 +1,8 @@
 package org.celllife.idart.security.authority
 
+import org.celllife.idart.application.authority.dto.AuthorityDto
 import org.celllife.idart.common.AuthorityId
-import org.celllife.idart.domain.authority.Authority
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.authority.AuthorityApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject AuthorityApplicationService authorityApplicationService
 
-    Authority save(Principal principal, Authority authority) {
-        authorityApplicationService.save(authority)
+    AuthorityId save(Principal principal, authorityDto) {
+        authorityApplicationService.save(authorityDto)
     }
 
-    Authority findByAuthorityId(Principal principal, AuthorityId authorityId) {
+    AuthorityDto findByAuthorityId(Principal principal, AuthorityId authorityId) {
         authorityApplicationService.findByAuthorityId(authorityId)
+    }
+
+    AuthorityDto findByIdentifier(Principal principal, Identifier identifier) {
+        authorityApplicationService.findByIdentifier(identifier)
     }
 
 }

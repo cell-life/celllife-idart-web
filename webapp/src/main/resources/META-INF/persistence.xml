@@ -17,6 +17,7 @@
         <mapping-file>META-INF/orm/encounter.xml</mapping-file>
         <mapping-file>META-INF/orm/entrysite.xml</mapping-file>
         <mapping-file>META-INF/orm/facility.xml</mapping-file>
+        <mapping-file>META-INF/orm/facilityorganisation.xml</mapping-file>
         <mapping-file>META-INF/orm/form.xml</mapping-file>
         <mapping-file>META-INF/orm/identifiable.xml</mapping-file>
         <mapping-file>META-INF/orm/indication.xml</mapping-file>
@@ -28,20 +29,24 @@
         <mapping-file>META-INF/orm/party.xml</mapping-file>
         <mapping-file>META-INF/orm/partyclassification.xml</mapping-file>
         <mapping-file>META-INF/orm/patient.xml</mapping-file>
+        <mapping-file>META-INF/orm/patientorganisation.xml</mapping-file>
         <mapping-file>META-INF/orm/person.xml</mapping-file>
         <mapping-file>META-INF/orm/practitioner.xml</mapping-file>
+        <mapping-file>META-INF/orm/practitionerorganisation.xml</mapping-file>
         <mapping-file>META-INF/orm/prescribedmedication.xml</mapping-file>
         <mapping-file>META-INF/orm/prescription.xml</mapping-file>
         <mapping-file>META-INF/orm/product.xml</mapping-file>
         <mapping-file>META-INF/orm/routeofadministration.xml</mapping-file>
         <mapping-file>META-INF/orm/substitution.xml</mapping-file>
         <mapping-file>META-INF/orm/substitutionreason.xml</mapping-file>
-        <mapping-file>META-INF/orm/system.xml</mapping-file>
         <mapping-file>META-INF/orm/systemfacility.xml</mapping-file>
         <mapping-file>META-INF/orm/unitofmeasure.xml</mapping-file>
         <mapping-file>META-INF/orm/unitofmeasuretype.xml</mapping-file>
-        <mapping-file>META-INF/orm/user.xml</mapping-file>
         <mapping-file>META-INF/orm/usersystem.xml</mapping-file>
+
+        <!--<mapping-file>META-INF/hbm/jasypt.hbm.xml</mapping-file>-->
+        <!--<mapping-file>META-INF/hbm/system.hbm.xml</mapping-file>-->
+        <!--<mapping-file>META-INF/hbm/user.hbm.xml</mapping-file>-->
 
         <shared-cache-mode>ALL</shared-cache-mode>
 

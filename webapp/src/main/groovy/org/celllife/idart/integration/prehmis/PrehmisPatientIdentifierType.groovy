@@ -1,34 +1,36 @@
 package org.celllife.idart.integration.prehmis
 
+import org.celllife.idart.common.AuthorityId
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25
  * Time: 15h22
  */
-enum PrehmisPatientIdType {
+enum PrehmisPatientIdentifierType {
 
-    PGWC("http://www.pgwc.gov.za", "PGWC Patient Number"),
+    PGWC(AuthorityId.PGWC, "PGWC Patient Number"),
 
-    PREHMIS("http://prehmis.capetown.gov.za", "PREHMIS ID"),
+    PREHMIS(AuthorityId.PREHMIS, "PREHMIS ID"),
 
-    SAID("http://www.dha.gov.za/national", "National ID Number"),
+    SAID(AuthorityId.SA_IDENTITY_NUMBER, "National ID Number"),
 
-    PASSPORT("http://www.dha.gov.za/passport", "Passport Number")
+    PASSPORT(AuthorityId.SA_PASSPART_NUMBER, "Passport Number")
 
-    final String system
+    final AuthorityId authority
 
     final String description
 
-    PrehmisPatientIdType(String system, String description) {
-        this.system = system
+    PrehmisPatientIdentifierType(AuthorityId authority, String description) {
+        this.authority = authority
         this.description = description
     }
 
     String getDescription() {
-        return description
+        return this.description
     }
 
-    String getSystem() {
-        return this.system
+    AuthorityId getAuthority() {
+        return this.authority
     }
 }

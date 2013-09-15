@@ -1,7 +1,8 @@
 package org.celllife.idart.security.substitution
 
+import org.celllife.idart.application.substitution.dto.SubstitutionDto
 import org.celllife.idart.common.SubstitutionCode
-import org.celllife.idart.domain.substitution.Substitution
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.substitution.SubstitutionApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject SubstitutionApplicationService substitutionApplicationService
 
-    Substitution save(Principal principal, Substitution substitution) {
-        substitutionApplicationService.save(substitution)
+    SubstitutionCode save(Principal principal, substitutionDto) {
+        substitutionApplicationService.save(substitutionDto)
     }
 
-    Substitution findBySubstitutionCode(Principal principal, SubstitutionCode substitutionCode) {
+    SubstitutionDto findBySubstitutionCode(Principal principal, SubstitutionCode substitutionCode) {
         substitutionApplicationService.findBySubstitutionCode(substitutionCode)
+    }
+
+    SubstitutionDto findByIdentifier(Principal principal, Identifier identifier) {
+        substitutionApplicationService.findByIdentifier(identifier)
     }
 
 }

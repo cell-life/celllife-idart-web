@@ -16,12 +16,9 @@
             ]
         },
         "features": {
-            "excludes": []
+            "excludes": [ "sequence", "counterSequence" ]
         }
 
-    },
-    {
-        "name": "Application"
     },
     {
         "name": "Authority",
@@ -50,6 +47,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -70,6 +70,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -86,6 +89,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -102,6 +108,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -114,7 +123,8 @@
         "name": "Patient"
     },
     {
-        "name": "Person"
+        "name": "Person",
+        "namePlural": "People"
     },
     {
         "name": "Practitioner"
@@ -143,6 +153,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -160,6 +173,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -176,6 +192,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -193,6 +212,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {
@@ -209,6 +231,9 @@
                     "name": "Description"
                 }
             ]
+        },
+        "features": {
+            "excludes": [ "sequence", "counterSequence" ]
         }
     },
     {

@@ -1,7 +1,8 @@
 package org.celllife.idart.security.prescription
 
+import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.common.PrescriptionId
-import org.celllife.idart.domain.prescription.Prescription
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.prescription.PrescriptionApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject PrescriptionApplicationService prescriptionApplicationService
 
-    Prescription save(Principal principal, Prescription prescription) {
-        prescriptionApplicationService.save(prescription)
+    PrescriptionId save(Principal principal, prescriptionDto) {
+        prescriptionApplicationService.save(prescriptionDto)
     }
 
-    Prescription findByPrescriptionId(Principal principal, PrescriptionId prescriptionId) {
+    PrescriptionDto findByPrescriptionId(Principal principal, PrescriptionId prescriptionId) {
         prescriptionApplicationService.findByPrescriptionId(prescriptionId)
+    }
+
+    PrescriptionDto findByIdentifier(Principal principal, Identifier identifier) {
+        prescriptionApplicationService.findByIdentifier(identifier)
     }
 
 }

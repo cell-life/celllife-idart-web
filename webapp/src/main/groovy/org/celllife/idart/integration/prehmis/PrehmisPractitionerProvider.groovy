@@ -3,6 +3,7 @@ package org.celllife.idart.integration.prehmis
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.practitioner.PractitionerProvider
+import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.domain.practitioner.Practitioner
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
@@ -30,7 +31,7 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
-    Set<Practitioner> findAll(String clinicIdValue) {
+    Set<PractitionerDto> findAll(String clinicIdValue) {
 
         String getPractitionerListRequest = buildGetPractitionerListRequest(
                 username: prehmisUsername,

@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.partclassification
 
 import org.celllife.idart.common.PartClassificationCode
+import org.celllife.idart.common.PartClassificationType
 
 /**
  * User: Kevin W. Sewell

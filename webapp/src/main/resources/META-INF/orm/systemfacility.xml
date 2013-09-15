@@ -6,7 +6,7 @@
 
     <!-- System For Facility -->
 
-    <entity class="org.celllife.idart.domain.systemfacility.SystemFacility">
+    <entity class="org.celllife.idart.relationship.systemfacility.SystemFacility">
         <attributes>
             <id name="pk">
                 <generated-value strategy="TABLE"/>
@@ -14,16 +14,25 @@
             <basic name="relationship">
                 <enumerated>STRING</enumerated>
             </basic>
-            <embedded name="fromSystem">
+            <embedded name="system">
                 <attribute-override name="value">
-                    <column name="from_system"/>
+                    <column name="system"/>
                 </attribute-override>
             </embedded>
-            <embedded name="toFacility">
+            <embedded name="facility">
                 <attribute-override name="value">
-                    <column name="to_facility"/>
+                    <column name="facility"/>
                 </attribute-override>
             </embedded>
+            <embedded name="valid">
+                <attribute-override name="fromDate">
+                    <column name="valid_from_date"/>
+                </attribute-override>
+                <attribute-override name="thruDate">
+                    <column name="valid_thru_date"/>
+                </attribute-override>
+            </embedded>
+
         </attributes>
     </entity>
 

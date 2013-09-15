@@ -5,7 +5,6 @@
             <!--<module name="javax.jcr" />-->
             <module name="org.hibernate" />
             <module name="org.dom4j" />
-            <!--<module name="org.infinispan" />-->
             <!--<module name="org.jboss.as.clustering.infinispan" />-->
         </dependencies>
     </deployment>

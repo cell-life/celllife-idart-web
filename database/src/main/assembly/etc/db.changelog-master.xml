@@ -29,6 +29,7 @@
     <include file="db.changelog-dosageinstruction.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-encounter.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-facility.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-facilityorganisation.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-identifiable.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-inventoryitem.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-organisation.xml" relativeToChangelogFile="true"/>
@@ -36,8 +37,10 @@
     <include file="db.changelog-partclassification.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-partyclassification.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-patient.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-patientorganisation.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-person.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-practitioner.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-practitionerorganisation.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-prescription.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-product.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-system.xml" relativeToChangelogFile="true"/>

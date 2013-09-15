@@ -11,11 +11,20 @@
     <security:global-method-security pre-post-annotations="enabled"/>
 
     <security:authentication-manager id="authenticationManager">
+        <security:authentication-provider user-service-ref="idartSystemDetailService">
+            <security:password-encoder ref="plaintextPasswordEncoder" />
+        </security:authentication-provider>
+        <security:authentication-provider user-service-ref="idartUserDetailService">
+            <security:password-encoder ref="plaintextPasswordEncoder" />
+        </security:authentication-provider>
         <security:authentication-provider>
             <security:user-service>
                 <security:user name="${internal.username}" authorities="SYSTEM" password="${internal.password}"/>
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>
+
+    <bean id="plaintextPasswordEncoder"
+          class="org.springframework.security.authentication.encoding.PlaintextPasswordEncoder"/>
 
 </beans>

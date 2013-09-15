@@ -1,7 +1,7 @@
 package org.celllife.idart.interfaces.resource.encounter
 
 import org.celllife.idart.common.EncounterId
-import org.celllife.idart.domain.encounter.Encounter
+import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.domain.encounter.EncounterNotFoundException
 import org.celllife.idart.domain.encounter.EncounterValidationException
 import org.celllife.idart.security.encounter.EncounterSecurityAdapter
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.annotation.Generated
@@ -20,8 +21,6 @@ import java.security.Principal
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
 import static javax.servlet.http.HttpServletResponse.SC_CREATED
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
-import static org.springframework.web.bind.annotation.RequestMethod.GET
-import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 /**
  */
@@ -33,28 +32,31 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST
     @Value('${external.base.url}') String baseUrl
 
     @ResponseBody
-    @RequestMapping(value = "/encounters/{encounterId}", method = GET, produces = "application/json")
-    Encounter findByEncounterId(@PathVariable("encounterId") EncounterId encounterId,
+    @RequestMapping(value = "/encounters/{encounterId}", method = RequestMethod.GET, produces = "application/json")
+    EncounterDto findByEncounterId(@PathVariable("encounterId") EncounterId encounterId,
                                               Principal principal,
                                               HttpServletResponse response) {
 
         try {
 
-            encounterSecurityAdapter.findByEncounterId(principal, encounterId)
+            return encounterSecurityAdapter.findByEncounterId(principal, encounterId)
 
-        } catch (EncounterNotFoundException e) {
+        } catch (EncounterNotFoundException ignore) {
+
             response.setStatus(SC_NOT_FOUND)
+
+            return null
         }
     }
 
-    @RequestMapping(value = "/encounters", method = POST)
-    void save(@RequestBody Encounter encounter, Principal principal, HttpServletResponse response) {
+    @RequestMapping(value = "/encounters", method = RequestMethod.POST)
+    void save(@RequestBody EncounterDto encounterDto, Principal principal, HttpServletResponse response) {
 
         try {
 
-            encounter = encounterSecurityAdapter.save(principal, encounter)
+            EncounterId encounterId = encounterSecurityAdapter.save(principal, encounterDto)
 
-            response.setHeader("Location", "${baseUrl}/encounters/${encounter.id}")
+            response.setHeader("Location", "${baseUrl}/encounterss/${encounterId}")
             response.setStatus(SC_CREATED)
 
         } catch (EncounterValidationException e) {

@@ -1,7 +1,8 @@
 package org.celllife.idart.application.product
 
+import org.celllife.idart.application.product.dto.ProductDto
 import org.celllife.idart.common.ProductId
-import org.celllife.idart.domain.product.Product
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface ProductApplicationService {
 
-    Product save(Product product)
+    Boolean exists(ProductId productId)
 
-    Product findByProductId(ProductId productId)
+    ProductId save(ProductDto productDto)
+
+    ProductDto findByProductId(ProductId productId)
+
+    ProductDto findByIdentifier(Identifier identifier)
 
 }

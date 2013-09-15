@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.facility
 
 import org.celllife.idart.common.FacilityId
+import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.Quantity
 
 /**
@@ -8,11 +9,6 @@ import org.celllife.idart.common.Quantity
  *
  */
 class Facility {
-
-    /**
-     * Namespace
-     */
-    static NAMESPACE = "http://www.cell-life.org/idart/facilities"
 
     /**
      * Facility Id

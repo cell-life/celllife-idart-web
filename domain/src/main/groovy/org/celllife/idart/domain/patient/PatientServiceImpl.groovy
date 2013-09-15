@@ -14,6 +14,7 @@ import static org.celllife.idart.domain.patient.PatientEvent.newPatientEvent
 
 /**
  */
+
 @Named class PatientServiceImpl implements PatientService {
 
     @Inject PatientRepository patientRepository

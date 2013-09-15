@@ -13,8 +13,8 @@
                     <column name="id"/>
                 </attribute-override>
             </embedded-id>
-            <basic name="currentUsername"/>
-            <basic name="currentPassword"/>
+            <basic name="username"/>
+            <basic name="password"/>
         </attributes>
     </entity>
 

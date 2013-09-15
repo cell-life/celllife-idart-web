@@ -1,7 +1,7 @@
 package org.celllife.idart.interfaces.resource.facility
 
 import org.celllife.idart.common.FacilityId
-import org.celllife.idart.domain.facility.Facility
+import org.celllife.idart.application.facility.dto.FacilityDto
 import org.celllife.idart.domain.facility.FacilityNotFoundException
 import org.celllife.idart.domain.facility.FacilityValidationException
 import org.celllife.idart.security.facility.FacilitySecurityAdapter
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.annotation.Generated
@@ -20,8 +21,6 @@ import java.security.Principal
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
 import static javax.servlet.http.HttpServletResponse.SC_CREATED
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
-import static org.springframework.web.bind.annotation.RequestMethod.GET
-import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 /**
  */
@@ -33,28 +32,31 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST
     @Value('${external.base.url}') String baseUrl
 
     @ResponseBody
-    @RequestMapping(value = "/facilities/{facilityId}", method = GET, produces = "application/json")
-    Facility findByFacilityId(@PathVariable("facilityId") FacilityId facilityId,
+    @RequestMapping(value = "/facilities/{facilityId}", method = RequestMethod.GET, produces = "application/json")
+    FacilityDto findByFacilityId(@PathVariable("facilityId") FacilityId facilityId,
                                               Principal principal,
                                               HttpServletResponse response) {
 
         try {
 
-            facilitySecurityAdapter.findByFacilityId(principal, facilityId)
+            return facilitySecurityAdapter.findByFacilityId(principal, facilityId)
 
-        } catch (FacilityNotFoundException e) {
+        } catch (FacilityNotFoundException ignore) {
+
             response.setStatus(SC_NOT_FOUND)
+
+            return null
         }
     }
 
-    @RequestMapping(value = "/facilities", method = POST)
-    void save(@RequestBody Facility facility, Principal principal, HttpServletResponse response) {
+    @RequestMapping(value = "/facilities", method = RequestMethod.POST)
+    void save(@RequestBody FacilityDto facilityDto, Principal principal, HttpServletResponse response) {
 
         try {
 
-            facility = facilitySecurityAdapter.save(principal, facility)
+            FacilityId facilityId = facilitySecurityAdapter.save(principal, facilityDto)
 
-            response.setHeader("Location", "${baseUrl}/facilitys/${facility.id}")
+            response.setHeader("Location", "${baseUrl}/facilitiess/${facilityId}")
             response.setStatus(SC_CREATED)
 
         } catch (FacilityValidationException e) {

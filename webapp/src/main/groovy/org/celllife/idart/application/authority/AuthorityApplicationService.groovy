@@ -1,7 +1,8 @@
 package org.celllife.idart.application.authority
 
+import org.celllife.idart.application.authority.dto.AuthorityDto
 import org.celllife.idart.common.AuthorityId
-import org.celllife.idart.domain.authority.Authority
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface AuthorityApplicationService {
 
-    Authority save(Authority authority)
+    Boolean exists(AuthorityId authorityId)
 
-    Authority findByAuthorityId(AuthorityId authorityId)
+    AuthorityId save(AuthorityDto authorityDto)
+
+    AuthorityDto findByAuthorityId(AuthorityId authorityId)
+
+    AuthorityDto findByIdentifier(Identifier identifier)
 
 }

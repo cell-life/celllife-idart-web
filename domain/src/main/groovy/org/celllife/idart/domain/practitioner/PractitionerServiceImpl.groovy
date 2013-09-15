@@ -19,24 +19,45 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
     @Inject PractitionerValidator practitionerValidator
 
     @Inject PractitionerEventPublisher practitionerEventPublisher
-
+    
+    @Inject PractitionerSequence practitionerSequence
+    
+    @Override
+    Boolean exists(PractitionerId practitionerId) {
+        practitionerRepository.exists(practitionerId)
+    }
+    
     @Override
     Practitioner save(Practitioner practitioner) {
 
-        practitionerValidator.validate(practitioner)
+        def existingPractitioner = null
 
-        practitionerEventPublisher.publish(newPractitionerEvent(practitioner, SAVED))
+        if (practitioner.id != null) {
+            existingPractitioner = practitionerRepository.findOne(practitioner.id)
+        } else {
+            practitioner.id = practitionerSequence.nextValue()
+        }
 
-        practitionerRepository.save(practitioner)
+        if (existingPractitioner == null) {
+            existingPractitioner = practitioner
+        } else {
+            existingPractitioner.merge(practitioner)
+        }
+
+        practitionerValidator.validate(existingPractitioner)
+
+        practitionerEventPublisher.publish(newPractitionerEvent(existingPractitioner, SAVED))
+
+        practitionerRepository.save(existingPractitioner)
     }
-
+    
     @Override
     Practitioner findByPractitionerId(PractitionerId practitionerId) {
 
         def practitioner = practitionerRepository.findOne(practitionerId)
 
         if (practitioner == null) {
-            throw new PractitionerNotFoundException("Could not find Practitioner with Practitioner Id [${ practitionerId}]")
+            throw new PractitionerNotFoundException("Could not find Practitioner with id [${ practitionerId}]")
         }
 
         practitioner

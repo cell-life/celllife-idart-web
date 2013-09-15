@@ -9,6 +9,8 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface AdministrationMethodRepository {
 
+    boolean exists(AdministrationMethodCode administrationMethodCode)
+
     AdministrationMethod save(AdministrationMethod administrationMethod)
 
     AdministrationMethod findOne(AdministrationMethodCode administrationMethodCode)

@@ -1,7 +1,8 @@
 package org.celllife.idart.application.encounter
 
+import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.common.EncounterId
-import org.celllife.idart.domain.encounter.Encounter
+import org.celllife.idart.domain.identifiable.Identifier
 
 import javax.annotation.Generated
 
@@ -10,8 +11,12 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 interface EncounterApplicationService {
 
-    Encounter save(Encounter encounter)
+    Boolean exists(EncounterId encounterId)
 
-    Encounter findByEncounterId(EncounterId encounterId)
+    EncounterId save(EncounterDto encounterDto)
+
+    EncounterDto findByEncounterId(EncounterId encounterId)
+
+    EncounterDto findByIdentifier(Identifier identifier)
 
 }

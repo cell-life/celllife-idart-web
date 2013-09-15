@@ -19,7 +19,12 @@ import static org.celllife.idart.domain.entrysite.EntrySiteEvent.newEntrySiteEve
     @Inject EntrySiteValidator entrySiteValidator
 
     @Inject EntrySiteEventPublisher entrySiteEventPublisher
-
+    
+    @Override
+    Boolean exists(EntrySiteCode entrySiteCode) {
+        entrySiteRepository.exists(entrySiteCode)
+    }
+    
     @Override
     EntrySite save(EntrySite entrySite) {
 
@@ -29,14 +34,14 @@ import static org.celllife.idart.domain.entrysite.EntrySiteEvent.newEntrySiteEve
 
         entrySiteRepository.save(entrySite)
     }
-
+    
     @Override
     EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) {
 
         def entrySite = entrySiteRepository.findOne(entrySiteCode)
 
         if (entrySite == null) {
-            throw new EntrySiteNotFoundException("Could not find EntrySite with Entry Site Code [${ entrySiteCode}]")
+            throw new EntrySiteNotFoundException("Could not find EntrySite with code [${ entrySiteCode}]")
         }
 
         entrySite

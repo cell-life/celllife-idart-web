@@ -1,7 +1,8 @@
 package org.celllife.idart.security.product
 
+import org.celllife.idart.application.product.dto.ProductDto
 import org.celllife.idart.common.ProductId
-import org.celllife.idart.domain.product.Product
+import org.celllife.idart.domain.identifiable.Identifier
 import org.celllife.idart.application.product.ProductApplicationService
 
 import javax.annotation.Generated
@@ -16,12 +17,16 @@ import java.security.Principal
 
     @Inject ProductApplicationService productApplicationService
 
-    Product save(Principal principal, Product product) {
-        productApplicationService.save(product)
+    ProductId save(Principal principal, productDto) {
+        productApplicationService.save(productDto)
     }
 
-    Product findByProductId(Principal principal, ProductId productId) {
+    ProductDto findByProductId(Principal principal, ProductId productId) {
         productApplicationService.findByProductId(productId)
+    }
+
+    ProductDto findByIdentifier(Principal principal, Identifier identifier) {
+        productApplicationService.findByIdentifier(identifier)
     }
 
 }

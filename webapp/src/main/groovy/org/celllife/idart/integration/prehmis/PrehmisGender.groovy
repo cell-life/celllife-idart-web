@@ -10,7 +10,7 @@ import org.celllife.idart.common.Gender
 enum PrehmisGender {
 
     MALE("male", Gender.MALE),
-    FEMALE("female", Gender.F)
+    FEMALE("female", Gender.FEMALE)
 
     final String prehmisCode
 

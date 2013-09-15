@@ -15,7 +15,4 @@ class Identifier {
 
     String value
 
-    static Identifier newIdentifier(AuthorityId authority, String value) {
-        new Identifier(authority: authority, value: value)
-    }
 }

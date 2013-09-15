@@ -24,13 +24,17 @@
             <tx:method name="exists*" propagation="REQUIRES_NEW" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRES_NEW" read-only="true"/>
             <tx:method name="save*" propagation="REQUIRES_NEW" read-only="false"/>
+            <tx:method name="getNextValue*" propagation="REQUIRES_NEW" read-only="false"/>
         </tx:attributes>
     </tx:advice>
 
     <aop:config>
         <aop:pointcut id="allDomainServices"
-                      expression="execution(public * org.celllife.idart.domain.*.*ServiceImpl.*(..))"/>
+                      expression="execution(public * org.celllife.idart.domain..*ServiceImpl.*(..))"/>
+        <aop:pointcut id="allRelationshipServices"
+                      expression="execution(public * org.celllife.idart.relationship..*ServiceImpl.*(..))"/>
         <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allDomainServices"/>
+        <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allRelationshipServices"/>
     </aop:config>
 
 </beans>
