@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.domain.dispensation.DispensationService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.DispensationId.dispensationId
 import static org.celllife.idart.common.IdentifiableType.DISPENSATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, dispensationDto.identifiers)
 
-        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART))
+        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB))
 
         def dispensation = dispensationDtoAssembler.toDispensation(dispensationDto)
         dispensation.id = dispensationId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     DispensationDto findByDispensationId(DispensationId dispensationId) {
-        def identifier = newIdentifier(IDART, dispensationId.value)
+        def identifier = newIdentifier(IDART_WEB, dispensationId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new DispensationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART))
+        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB))
 
         def dispensation = dispensationService.findByDispensationId(dispensationId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         dispensationId(idartIdentifierValue)
     }

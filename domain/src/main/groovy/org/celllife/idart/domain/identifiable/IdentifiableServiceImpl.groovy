@@ -45,7 +45,7 @@ import javax.inject.Named
         for (identifier in identifiers) {
 
             def existingIdentifiable = identifiableRepository
-                    .findByTypeAndAuthorityAndValue(identifiableType, identifier.authority, identifier.value)
+                    .findByTypeAndSystemAndValue(identifiableType, identifier.system, identifier.value)
 
             if (existingIdentifiable != null) {
                 return existingIdentifiable

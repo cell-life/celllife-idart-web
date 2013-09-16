@@ -9,137 +9,137 @@
 
         <camel:route>
             <camel:from uri="direct:administrationMethodEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleAdministrationMethodEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:defaultDosageInstructionEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleDefaultDosageInstructionEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:dispensationEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleDispensationEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:encounterEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleEncounterEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:entrySiteEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleEntrySiteEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:facilityEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleFacilityEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:formEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleFormEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:indicationEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleIndicationEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:legalOrganisationEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleLegalOrganisationEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:lifeEventEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleLifeEventEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:organisationEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleOrganisationEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:partEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handlePatientEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:patientEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handlePatientEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:personEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handlePersonEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:practitionerEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handlePractitionerEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:prescribedMedicationEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handlePrescribedMedicationEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:prescriptionEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handlePrescriptionEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:productEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleProductEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:routeOfAdministrationEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleRouteOfAdministrationEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:substitutionEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleSubstitutionEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:substitutionReasonEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleSubstitutionReasonEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:systemEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleSystemEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:systemFacilityEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleSystemFacilityEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:unitOfMeasureEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleUnitOfMeasureEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:unitOfMeasureTypeEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleUnitOfMeasureTypeEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:userEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleUserEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
         <camel:route>
             <camel:from uri="direct:userSystemEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleUserSystemEvent"/>
+            <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
     </camel:routeContext>

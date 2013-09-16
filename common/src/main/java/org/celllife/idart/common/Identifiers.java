@@ -10,19 +10,19 @@ import java.util.Set;
  */
 public final class Identifiers implements Serializable {
 
-    public static Identifier newIdentifier(AuthorityId authority, String value) {
+    public static Identifier newIdentifier(SystemId system, String value) {
 
         Identifier identifier = new Identifier();
-        identifier.setAuthority(authority);
+        identifier.setSystem(system);
         identifier.setValue(value);
 
         return identifier;
     }
 
-    public static String getIdentifierValue(Set<Identifier> identifiers, AuthorityId authorityId) {
+    public static String getIdentifierValue(Set<Identifier> identifiers, SystemId systemId) {
 
         for (Identifier identifier : identifiers) {
-            if (identifier.getAuthority().equals(authorityId)) {
+            if (identifier.getSystem().equals(systemId)) {
                 return identifier.getValue();
             }
         }

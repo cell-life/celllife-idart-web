@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.indication.IndicationNotFoundException
 import org.celllife.idart.domain.indication.IndicationService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.IndicationCode.indicationCode
 import static org.celllife.idart.common.IdentifiableType.INDICATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(INDICATION, indicationDto.identifiers)
 
-        def indicationCode = indicationCode(identifiable.getIdentifierValue(IDART))
+        def indicationCode = indicationCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def indication = indicationDtoAssembler.toIndication(indicationDto)
         indication.id = indicationCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     IndicationDto findByIndicationCode(IndicationCode indicationCode) {
-        def identifier = newIdentifier(IDART, indicationCode.value)
+        def identifier = newIdentifier(IDART_WEB, indicationCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new IndicationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def indicationCode = indicationCode(identifiable.getIdentifierValue(IDART))
+        def indicationCode = indicationCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def indication = indicationService.findByIndicationCode(indicationCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(INDICATION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         indicationCode(idartIdentifierValue)
     }

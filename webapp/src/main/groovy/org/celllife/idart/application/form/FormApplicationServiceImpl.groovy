@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.form.FormNotFoundException
 import org.celllife.idart.domain.form.FormService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.FormCode.formCode
 import static org.celllife.idart.common.IdentifiableType.FORM
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(FORM, formDto.identifiers)
 
-        def formCode = formCode(identifiable.getIdentifierValue(IDART))
+        def formCode = formCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def form = formDtoAssembler.toForm(formDto)
         form.id = formCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     FormDto findByFormCode(FormCode formCode) {
-        def identifier = newIdentifier(IDART, formCode.value)
+        def identifier = newIdentifier(IDART_WEB, formCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new FormNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def formCode = formCode(identifiable.getIdentifierValue(IDART))
+        def formCode = formCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def form = formService.findByFormCode(formCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(FORM, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         formCode(idartIdentifierValue)
     }

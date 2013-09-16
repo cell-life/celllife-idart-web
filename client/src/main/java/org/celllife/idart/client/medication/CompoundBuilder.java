@@ -1,6 +1,6 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.common.AuthorityId;
+import org.celllife.idart.common.SystemId;
 import org.celllife.idart.common.Code;
 import org.celllife.idart.common.FormCode;
 import org.celllife.idart.common.Id;
@@ -26,8 +26,8 @@ public class CompoundBuilder {
                 String.format("http://www.cell-life.org/idart/clinics/%s/compounds", clinicId);
     }
 
-    public CompoundBuilder setIdentifier(AuthorityId authority, String idValue) {
-        this.compound.identifiers.add(newIdentifier(authority, idValue));
+    public CompoundBuilder setIdentifier(SystemId system, String idValue) {
+        this.compound.identifiers.add(newIdentifier(system, idValue));
         return this;
     }
 

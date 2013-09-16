@@ -3,7 +3,7 @@ package org.celllife.idart.client.medication;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
-import org.celllife.idart.common.AuthorityId;
+import org.celllife.idart.common.SystemId;
 import org.celllife.idart.common.FormCode;
 import org.celllife.idart.common.PartClassificationCode;
 import org.celllife.idart.common.PartClassificationType;
@@ -33,8 +33,8 @@ public class DrugBuilder {
         return this;
     }
 
-    public DrugBuilder setIdentifier(AuthorityId authority, String idValue) {
-        this.drug.identifiers.add(newIdentifier(authority, idValue));
+    public DrugBuilder setIdentifier(SystemId system, String idValue) {
+        this.drug.identifiers.add(newIdentifier(system, idValue));
         return this;
     }
 

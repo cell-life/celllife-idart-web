@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.person.PersonNotFoundException
 import org.celllife.idart.domain.person.PersonService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.PersonId.personId
 import static org.celllife.idart.common.IdentifiableType.PERSON
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PERSON, personDto.identifiers)
 
-        def personId = personId(identifiable.getIdentifierValue(IDART))
+        def personId = personId(identifiable.getIdentifierValue(IDART_WEB))
 
         def person = personDtoAssembler.toPerson(personDto)
         person.id = personId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     PersonDto findByPersonId(PersonId personId) {
-        def identifier = newIdentifier(IDART, personId.value)
+        def identifier = newIdentifier(IDART_WEB, personId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new PersonNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def personId = personId(identifiable.getIdentifierValue(IDART))
+        def personId = personId(identifiable.getIdentifierValue(IDART_WEB))
 
         def person = personService.findByPersonId(personId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PERSON, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         personId(idartIdentifierValue)
     }

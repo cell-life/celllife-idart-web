@@ -22,9 +22,9 @@
 
     <embeddable class="org.celllife.idart.common.Identifier">
         <attributes>
-            <embedded name="authority">
+            <embedded name="system">
                 <attribute-override name="value">
-                    <column name="authority"/>
+                    <column name="system"/>
                 </attribute-override>
             </embedded>
         </attributes>

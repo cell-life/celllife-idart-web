@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureNotFoundException
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasureService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
 import static org.celllife.idart.common.IdentifiableType.UNIT_OF_MEASURE
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(UNIT_OF_MEASURE, unitOfMeasureDto.identifiers)
 
-        def unitOfMeasureCode = unitOfMeasureCode(identifiable.getIdentifierValue(IDART))
+        def unitOfMeasureCode = unitOfMeasureCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def unitOfMeasure = unitOfMeasureDtoAssembler.toUnitOfMeasure(unitOfMeasureDto)
         unitOfMeasure.id = unitOfMeasureCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     UnitOfMeasureDto findByUnitOfMeasureCode(UnitOfMeasureCode unitOfMeasureCode) {
-        def identifier = newIdentifier(IDART, unitOfMeasureCode.value)
+        def identifier = newIdentifier(IDART_WEB, unitOfMeasureCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new UnitOfMeasureNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def unitOfMeasureCode = unitOfMeasureCode(identifiable.getIdentifierValue(IDART))
+        def unitOfMeasureCode = unitOfMeasureCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def unitOfMeasure = unitOfMeasureService.findByUnitOfMeasureCode(unitOfMeasureCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(UNIT_OF_MEASURE, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         unitOfMeasureCode(idartIdentifierValue)
     }

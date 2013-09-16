@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.entrysite.EntrySiteNotFoundException
 import org.celllife.idart.domain.entrysite.EntrySiteService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.EntrySiteCode.entrySiteCode
 import static org.celllife.idart.common.IdentifiableType.ENTRY_SITE
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ENTRY_SITE, entrySiteDto.identifiers)
 
-        def entrySiteCode = entrySiteCode(identifiable.getIdentifierValue(IDART))
+        def entrySiteCode = entrySiteCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def entrySite = entrySiteDtoAssembler.toEntrySite(entrySiteDto)
         entrySite.id = entrySiteCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     EntrySiteDto findByEntrySiteCode(EntrySiteCode entrySiteCode) {
-        def identifier = newIdentifier(IDART, entrySiteCode.value)
+        def identifier = newIdentifier(IDART_WEB, entrySiteCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new EntrySiteNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def entrySiteCode = entrySiteCode(identifiable.getIdentifierValue(IDART))
+        def entrySiteCode = entrySiteCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def entrySite = entrySiteService.findByEntrySiteCode(entrySiteCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ENTRY_SITE, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         entrySiteCode(idartIdentifierValue)
     }

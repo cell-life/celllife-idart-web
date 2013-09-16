@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.identifiable
 
-import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.common.SystemId
 import org.celllife.idart.common.IdentifiableType
 
 /**
@@ -12,6 +12,6 @@ interface IdentifiableRepository {
 
     Identifiable save(Identifiable identifiable)
 
-    Identifiable findByTypeAndAuthorityAndValue(IdentifiableType type, AuthorityId authority, String value)
+    Identifiable findByTypeAndSystemAndValue(IdentifiableType type, SystemId system, String value)
 
 }

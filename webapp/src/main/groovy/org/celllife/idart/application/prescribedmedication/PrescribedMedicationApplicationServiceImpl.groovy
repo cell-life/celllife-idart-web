@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationNotFoundException
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.PrescribedMedicationId.prescribedMedicationId
 import static org.celllife.idart.common.IdentifiableType.PRESCRIBED_MEDICATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, prescribedMedicationDto.identifiers)
 
-        def prescribedMedicationId = prescribedMedicationId(identifiable.getIdentifierValue(IDART))
+        def prescribedMedicationId = prescribedMedicationId(identifiable.getIdentifierValue(IDART_WEB))
 
         def prescribedMedication = prescribedMedicationDtoAssembler.toPrescribedMedication(prescribedMedicationDto)
         prescribedMedication.id = prescribedMedicationId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     PrescribedMedicationDto findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) {
-        def identifier = newIdentifier(IDART, prescribedMedicationId.value)
+        def identifier = newIdentifier(IDART_WEB, prescribedMedicationId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new PrescribedMedicationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def prescribedMedicationId = prescribedMedicationId(identifiable.getIdentifierValue(IDART))
+        def prescribedMedicationId = prescribedMedicationId(identifiable.getIdentifierValue(IDART_WEB))
 
         def prescribedMedication = prescribedMedicationService.findByPrescribedMedicationId(prescribedMedicationId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         prescribedMedicationId(idartIdentifierValue)
     }

@@ -21,7 +21,6 @@
 
     <!-- Domain Aggregates -->
 
-    <include file="db.changelog-authority.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-contactmechanism.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-counter.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-defaultdosageinstruction.xml" relativeToChangelogFile="true"/>

@@ -1,6 +1,6 @@
 package org.celllife.idart.common;
 
-import org.celllife.idart.common.AuthorityId;
+import org.celllife.idart.common.SystemId;
 
 import java.io.Serializable;
 
@@ -11,19 +11,19 @@ import java.io.Serializable;
  */
 public class Identifier implements Serializable {
 
-    private AuthorityId authority;
+    private SystemId system;
 
     private String value;
 
     public Identifier() {
     }
 
-    public AuthorityId getAuthority() {
-        return authority;
+    public SystemId getSystem() {
+        return system;
     }
 
-    public void setAuthority(AuthorityId authority) {
-        this.authority = authority;
+    public void setSystem(SystemId system) {
+        this.system = system;
     }
 
     public String getValue() {
@@ -41,7 +41,7 @@ public class Identifier implements Serializable {
 
         Identifier that = (Identifier) o;
 
-        if (authority != null ? !authority.equals(that.authority) : that.authority != null) return false;
+        if (system != null ? !system.equals(that.system) : that.system != null) return false;
         if (value != null ? !value.equals(that.value) : that.value != null) return false;
 
         return true;
@@ -49,7 +49,7 @@ public class Identifier implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = authority != null ? authority.hashCode() : 0;
+        int result = system != null ? system.hashCode() : 0;
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }

@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.encounter.EncounterNotFoundException
 import org.celllife.idart.domain.encounter.EncounterService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.EncounterId.encounterId
 import static org.celllife.idart.common.IdentifiableType.ENCOUNTER
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, encounterDto.identifiers)
 
-        def encounterId = encounterId(identifiable.getIdentifierValue(IDART))
+        def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB))
 
         def encounter = encounterDtoAssembler.toEncounter(encounterDto)
         encounter.id = encounterId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     EncounterDto findByEncounterId(EncounterId encounterId) {
-        def identifier = newIdentifier(IDART, encounterId.value)
+        def identifier = newIdentifier(IDART_WEB, encounterId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new EncounterNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def encounterId = encounterId(identifiable.getIdentifierValue(IDART))
+        def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB))
 
         def encounter = encounterService.findByEncounterId(encounterId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         encounterId(idartIdentifierValue)
     }

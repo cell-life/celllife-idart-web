@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.substitution.SubstitutionNotFoundException
 import org.celllife.idart.domain.substitution.SubstitutionService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.SubstitutionCode.substitutionCode
 import static org.celllife.idart.common.IdentifiableType.SUBSTITUTION
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION, substitutionDto.identifiers)
 
-        def substitutionCode = substitutionCode(identifiable.getIdentifierValue(IDART))
+        def substitutionCode = substitutionCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def substitution = substitutionDtoAssembler.toSubstitution(substitutionDto)
         substitution.id = substitutionCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     SubstitutionDto findBySubstitutionCode(SubstitutionCode substitutionCode) {
-        def identifier = newIdentifier(IDART, substitutionCode.value)
+        def identifier = newIdentifier(IDART_WEB, substitutionCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new SubstitutionNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def substitutionCode = substitutionCode(identifiable.getIdentifierValue(IDART))
+        def substitutionCode = substitutionCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def substitution = substitutionService.findBySubstitutionCode(substitutionCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         substitutionCode(idartIdentifierValue)
     }

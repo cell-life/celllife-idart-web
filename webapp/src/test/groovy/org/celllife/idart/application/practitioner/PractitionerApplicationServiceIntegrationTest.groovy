@@ -37,7 +37,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 import javax.inject.Inject
 
-import static org.celllife.idart.common.AuthorityId.*
+import static org.celllife.idart.common.SystemId.*
 import static org.celllife.idart.common.PersonId.personId
 import static org.celllife.idart.common.PractitionerId.practitionerId
 import static org.celllife.idart.common.PractitionerType.PHARMACIST
@@ -116,7 +116,7 @@ class PractitionerApplicationServiceIntegrationTest {
         def practitionerDto = new PractitionerDto()
         practitionerDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002"),
+                    newIdentifier(systemId("00000001"), "00000002"),
             ]
 
             type = PHARMACIST
@@ -124,7 +124,7 @@ class PractitionerApplicationServiceIntegrationTest {
             person = new PersonDto()
             person.with {
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000003"), "00000004"),
+                        newIdentifier(systemId("00000003"), "00000004"),
                 ]
                 firstName = "Geoff"
                 lastName = "Vader"
@@ -149,8 +149,8 @@ class PractitionerApplicationServiceIntegrationTest {
     public void shouldSavePractitionerScenario2() throws Exception {
 
         def practitionerIdentifiers = [
-                newIdentifier(IDART, "00000000"),
-                newIdentifier(newAuthorityId("00000001"), "00000002")
+                newIdentifier(IDART_WEB, "00000000"),
+                newIdentifier(systemId("00000001"), "00000002")
         ]
 
         identifiableService.resolveIdentifiable(PRACTITIONER, practitionerIdentifiers as Set<Identifier>)
@@ -168,7 +168,7 @@ class PractitionerApplicationServiceIntegrationTest {
         def practitionerDto = new PractitionerDto()
         practitionerDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002"),
+                    newIdentifier(systemId("00000001"), "00000002"),
             ]
 
             type = PHARMACIST
@@ -176,7 +176,7 @@ class PractitionerApplicationServiceIntegrationTest {
             person = new PersonDto()
             person.with {
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000003"), "00000004"),
+                        newIdentifier(systemId("00000003"), "00000004"),
                 ]
                 firstName = "Geoff"
                 lastName = "Vader"
@@ -197,7 +197,7 @@ class PractitionerApplicationServiceIntegrationTest {
         def personDto = new PersonDto()
         personDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002"),
+                    newIdentifier(systemId("00000001"), "00000002"),
             ]
             firstName = "Geoff"
             lastName = "Vader"
@@ -208,7 +208,7 @@ class PractitionerApplicationServiceIntegrationTest {
         def practitionerDto = new PractitionerDto()
         practitionerDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000003"), "00000004"),
+                    newIdentifier(systemId("00000003"), "00000004"),
             ]
 
             type = PHARMACIST
@@ -216,7 +216,7 @@ class PractitionerApplicationServiceIntegrationTest {
             person = new PersonDto()
             person.with {
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000001"), "00000002"),
+                        newIdentifier(systemId("00000001"), "00000002"),
                 ]
                 firstName = "Geoff"
                 lastName = "Vader"
@@ -239,7 +239,7 @@ class PractitionerApplicationServiceIntegrationTest {
         practitionerDto.with {
 
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002")
+                    newIdentifier(systemId("00000001"), "00000002")
             ]
 
             type = PHARMACIST
@@ -248,7 +248,7 @@ class PractitionerApplicationServiceIntegrationTest {
             person.with {
 
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000003"), "00000004")
+                        newIdentifier(systemId("00000003"), "00000004")
                 ]
 
                 firstName = "Geoff"

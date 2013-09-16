@@ -25,7 +25,6 @@ import org.springframework.context.annotation.ImportResource
 "classpath:/META-INF/spring/spring-jasypt.xml",
 "classpath:/META-INF/spring/spring-jdbc.xml",
 "classpath:/META-INF/spring/spring-jms.xml",
-"classpath:/META-INF/spring/spring-neo4j.xml",
 "classpath:/META-INF/spring/spring-orm.xml",
 "classpath:/META-INF/spring/spring-relationship.xml",
 "classpath:/META-INF/spring/spring-task.xml",

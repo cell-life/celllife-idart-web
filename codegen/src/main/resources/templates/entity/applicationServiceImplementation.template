@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import ${entity.packageName}.${entity.className}NotFoundException
 import ${domainService.packageName}.${domainService.className}
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static IDART_WEB
 import static ${id.packageName}.${id.className}.${id.fieldName}
 import static org.celllife.idart.common.IdentifiableType.${entity.identifiableType}
 import static org.celllife.idart.common.Identifiers.newIdentifier

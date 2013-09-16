@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.substitutionreason.SubstitutionReasonNotFoundException
 import org.celllife.idart.domain.substitutionreason.SubstitutionReasonService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.SubstitutionReasonCode.substitutionReasonCode
 import static org.celllife.idart.common.IdentifiableType.SUBSTITUTION_REASON
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION_REASON, substitutionReasonDto.identifiers)
 
-        def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifierValue(IDART))
+        def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def substitutionReason = substitutionReasonDtoAssembler.toSubstitutionReason(substitutionReasonDto)
         substitutionReason.id = substitutionReasonCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     SubstitutionReasonDto findBySubstitutionReasonCode(SubstitutionReasonCode substitutionReasonCode) {
-        def identifier = newIdentifier(IDART, substitutionReasonCode.value)
+        def identifier = newIdentifier(IDART_WEB, substitutionReasonCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new SubstitutionReasonNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifierValue(IDART))
+        def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def substitutionReason = substitutionReasonService.findBySubstitutionReasonCode(substitutionReasonCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION_REASON, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         substitutionReasonCode(idartIdentifierValue)
     }

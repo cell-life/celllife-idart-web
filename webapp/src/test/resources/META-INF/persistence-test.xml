@@ -6,7 +6,6 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <mapping-file>META-INF/orm/administrationmethod.xml</mapping-file>
-        <mapping-file>META-INF/orm/authority.xml</mapping-file>
         <mapping-file>META-INF/orm/atc.xml</mapping-file>
         <mapping-file>META-INF/orm/common.xml</mapping-file>
         <mapping-file>META-INF/orm/contactmechanism.xml</mapping-file>

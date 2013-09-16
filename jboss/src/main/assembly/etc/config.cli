@@ -64,10 +64,6 @@ jms-topic add \
     --entries=topic/administrationMethodEvent
 
 jms-topic add \
-    --topic-address=authorityEvent \
-    --entries=topic/authorityEvent
-
-jms-topic add \
     --topic-address=defaultDosageInstructionEvent \
     --entries=topic/defaultDosageInstructionEvent
 

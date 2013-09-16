@@ -1,6 +1,6 @@
 package org.celllife.idart.datawarehouse.patient
 
-import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.common.SystemId
 import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.PatientId
 import org.celllife.idart.relationship.patientorganisation.PatientOrganisation
@@ -42,7 +42,7 @@ import static org.celllife.idart.common.PatientId.patientId
                 "  patient_organisation patient_organisation, " +
                 "  organisation organisation " +
                 "WHERE patient.id = patient_idart_id.value " +
-                "      AND patient_idart_id.authority = :idartAuthority " +
+                "      AND patient_idart_id.system = :idartSystem " +
                 "      AND patient_external_id.identifiable = patient_idart_id.identifiable " +
                 "      AND lower(patient_external_id.value) like :patientIdentifier  " +
                 "      AND patient_organisation.patient = patient.id " +
@@ -53,7 +53,7 @@ import static org.celllife.idart.common.PatientId.patientId
                 patientIdentifier: patientIdentifier,
                 organisation: organisation.value,
                 relationship: relationship.toString(),
-                idartAuthority: AuthorityId.IDART.value
+                idartSystem: SystemId.IDART_WEB.value
         ]
 
         namedParameterJdbcTemplate.query(query, parameters, PATIENT_ID_ROW_MAPPER)

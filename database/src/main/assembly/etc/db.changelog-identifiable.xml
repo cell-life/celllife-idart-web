@@ -16,7 +16,7 @@
             <column name="identifiable" type="bigint">
                 <constraints references="identifiable(pk)" foreignKeyName="identifiable_identifiers_fk"/>
             </column>
-            <column name="authority" type="varchar(31)"/>
+            <column name="system" type="varchar(31)"/>
             <column name="value" type="varchar(31)"/>
         </createTable>
 

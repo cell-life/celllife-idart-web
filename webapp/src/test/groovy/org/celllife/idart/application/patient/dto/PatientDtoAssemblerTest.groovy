@@ -5,7 +5,7 @@ import org.celllife.idart.common.PersonId
 import org.junit.Test
 
 import static org.celllife.idart.application.patient.dto.PatientDtoAssembler.getPerson
-import static org.celllife.idart.common.AuthorityId.getIDART
+import static org.celllife.idart.common.SystemId.getIDART
 import static org.celllife.idart.common.Gender.MALE
 import static org.celllife.idart.common.MaritalStatus.MARRIED
 import static org.celllife.idart.common.Measurement.newMeasurement

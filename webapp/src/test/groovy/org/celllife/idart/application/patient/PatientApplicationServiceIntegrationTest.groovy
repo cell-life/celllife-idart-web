@@ -37,9 +37,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 import javax.inject.Inject
 
-import static org.celllife.idart.common.AuthorityId.IDART
-import static org.celllife.idart.common.AuthorityId.PREHMIS
-import static org.celllife.idart.common.AuthorityId.newAuthorityId
+import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.SystemId.PREHMIS
+import static org.celllife.idart.common.SystemId.systemId
 import static org.celllife.idart.common.PatientId.patientId
 import static org.celllife.idart.common.PersonId.personId
 import static org.celllife.idart.common.IdentifiableType.PATIENT
@@ -116,13 +116,13 @@ class PatientApplicationServiceIntegrationTest {
         def patientDto = new PatientDto()
         patientDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002"),
+                    newIdentifier(systemId("00000001"), "00000002"),
             ]
 
             person = new PersonDto()
             person.with {
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000003"), "00000004"),
+                        newIdentifier(systemId("00000003"), "00000004"),
                 ]
                 firstName = "Geoff"
                 lastName = "Vader"
@@ -147,8 +147,8 @@ class PatientApplicationServiceIntegrationTest {
     public void shouldSavePatientScenario2() throws Exception {
 
         def patientIdentifiers = [
-                newIdentifier(IDART, "00000000"),
-                newIdentifier(newAuthorityId("00000001"), "00000002")
+                newIdentifier(IDART_WEB, "00000000"),
+                newIdentifier(systemId("00000001"), "00000002")
         ]
 
         identifiableService.resolveIdentifiable(PATIENT, patientIdentifiers as Set<Identifier>)
@@ -165,13 +165,13 @@ class PatientApplicationServiceIntegrationTest {
         def patientDto = new PatientDto()
         patientDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002"),
+                    newIdentifier(systemId("00000001"), "00000002"),
             ]
 
             person = new PersonDto()
             person.with {
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000003"), "00000004"),
+                        newIdentifier(systemId("00000003"), "00000004"),
                 ]
                 firstName = "Geoff"
                 lastName = "Vader"
@@ -192,7 +192,7 @@ class PatientApplicationServiceIntegrationTest {
         def personDto = new PersonDto()
         personDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002"),
+                    newIdentifier(systemId("00000001"), "00000002"),
             ]
             firstName = "Geoff"
             lastName = "Vader"
@@ -203,13 +203,13 @@ class PatientApplicationServiceIntegrationTest {
         def patientDto = new PatientDto()
         patientDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000003"), "00000004"),
+                    newIdentifier(systemId("00000003"), "00000004"),
             ]
 
             person = new PersonDto()
             person.with {
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000001"), "00000002"),
+                        newIdentifier(systemId("00000001"), "00000002"),
                 ]
                 firstName = "Geoff"
                 lastName = "Vader"
@@ -231,13 +231,13 @@ class PatientApplicationServiceIntegrationTest {
         def patientDto = new PatientDto()
         patientDto.with {
             identifiers = [
-                    newIdentifier(newAuthorityId("00000001"), "00000002"),
+                    newIdentifier(systemId("00000001"), "00000002"),
             ]
 
             person = new PersonDto()
             person.with {
                 identifiers = [
-                        newIdentifier(newAuthorityId("00000003"), "00000004"),
+                        newIdentifier(systemId("00000003"), "00000004"),
                 ]
                 firstName = "Geoff"
                 lastName = "Vader"

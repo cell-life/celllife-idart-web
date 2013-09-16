@@ -1,11 +1,11 @@
 {
     "identifiers": [
         {
-            "authority": "PREHMIS",
+            "system": "PREHMIS",
             "value": "WES"
         },
         {
-            "authority": "IDART",
+            "system": "IDART",
             "value": "99999999"
         }
     ]

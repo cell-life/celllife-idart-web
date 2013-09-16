@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.part.PartNotFoundException
 import org.celllife.idart.domain.part.PartService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.PartId.partId
 import static org.celllife.idart.common.IdentifiableType.PART
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PART, partDto.identifiers)
 
-        def partId = partId(identifiable.getIdentifierValue(IDART))
+        def partId = partId(identifiable.getIdentifierValue(IDART_WEB))
 
         def part = partDtoAssembler.toPart(partDto)
         part.id = partId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     PartDto findByPartId(PartId partId) {
-        def identifier = newIdentifier(IDART, partId.value)
+        def identifier = newIdentifier(IDART_WEB, partId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new PartNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def partId = partId(identifiable.getIdentifierValue(IDART))
+        def partId = partId(identifiable.getIdentifierValue(IDART_WEB))
 
         def part = partService.findByPartId(partId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PART, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         partId(idartIdentifierValue)
     }

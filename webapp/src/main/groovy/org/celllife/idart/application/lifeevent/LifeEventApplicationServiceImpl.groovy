@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.lifeevent.LifeEventNotFoundException
 import org.celllife.idart.domain.lifeevent.LifeEventService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.LifeEventCode.lifeEventCode
 import static org.celllife.idart.common.IdentifiableType.LIFE_EVENT
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(LIFE_EVENT, lifeEventDto.identifiers)
 
-        def lifeEventCode = lifeEventCode(identifiable.getIdentifierValue(IDART))
+        def lifeEventCode = lifeEventCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def lifeEvent = lifeEventDtoAssembler.toLifeEvent(lifeEventDto)
         lifeEvent.id = lifeEventCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     LifeEventDto findByLifeEventCode(LifeEventCode lifeEventCode) {
-        def identifier = newIdentifier(IDART, lifeEventCode.value)
+        def identifier = newIdentifier(IDART_WEB, lifeEventCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new LifeEventNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def lifeEventCode = lifeEventCode(identifiable.getIdentifierValue(IDART))
+        def lifeEventCode = lifeEventCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def lifeEvent = lifeEventService.findByLifeEventCode(lifeEventCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(LIFE_EVENT, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         lifeEventCode(idartIdentifierValue)
     }

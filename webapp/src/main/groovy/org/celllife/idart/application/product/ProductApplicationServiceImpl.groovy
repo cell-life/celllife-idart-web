@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.product.ProductNotFoundException
 import org.celllife.idart.domain.product.ProductService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.ProductId.productId
 import static org.celllife.idart.common.IdentifiableType.PRODUCT
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PRODUCT, productDto.identifiers)
 
-        def productId = productId(identifiable.getIdentifierValue(IDART))
+        def productId = productId(identifiable.getIdentifierValue(IDART_WEB))
 
         def product = productDtoAssembler.toProduct(productDto)
         product.id = productId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     ProductDto findByProductId(ProductId productId) {
-        def identifier = newIdentifier(IDART, productId.value)
+        def identifier = newIdentifier(IDART_WEB, productId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new ProductNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def productId = productId(identifiable.getIdentifierValue(IDART))
+        def productId = productId(identifiable.getIdentifierValue(IDART_WEB))
 
         def product = productService.findByProductId(productId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PRODUCT, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         productId(idartIdentifierValue)
     }

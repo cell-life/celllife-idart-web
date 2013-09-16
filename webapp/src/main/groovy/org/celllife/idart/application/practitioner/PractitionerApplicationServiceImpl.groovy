@@ -15,7 +15,7 @@ import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.PractitionerId.practitionerId
 import static IdentifiableType.FACILITY
 import static IdentifiableType.PRACTITIONER
@@ -57,7 +57,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
         if (practitionerExists) {
 
             def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, practitionerDto.identifiers)
-            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART))
+            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
             def practitioner = practitionerDtoAssembler.toPractitioner(practitionerDto)
             practitioner.id = practitionerId
 
@@ -83,7 +83,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             // Scenario 4 - Practitioner and Person don't exist
 
             def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, practitionerDto.identifiers)
-            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART))
+            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
             def practitioner = practitionerDtoAssembler.toPractitioner(practitionerDto)
             practitioner.id = practitionerId
             practitioner.person = personApplicationService.save(personDto)
@@ -96,7 +96,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Override
     PractitionerDto findByPractitionerId(PractitionerId practitionerId) {
 
-        findByIdentifier(newIdentifier(IDART, practitionerId.value))
+        findByIdentifier(newIdentifier(IDART_WEB, practitionerId.value))
     }
 
     @Override
@@ -108,7 +108,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             throw new PractitionerNotFoundException("Could not find Practitioner with id [${identifier.value}]")
         }
 
-        def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART))
+        def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
 
         def practitioner = practitionerService.findByPractitionerId(practitionerId)
 
@@ -124,7 +124,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         practitionerId(idartIdentifierValue)
     }
@@ -169,12 +169,12 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
     Set<PractitionerDto> lookupFromExternalProviders(FacilityId facility) {
 
-        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART, facility.value)] as Set)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB, facility.value)] as Set)
 
         def practitioners = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
-            switch (facilityIdentifier.authority) {
-                case AuthorityId.PREHMIS:
+            switch (facilityIdentifier.system) {
+                case SystemId.PREHMIS:
                     return prehmisPractitionerProvider.findAll(facilityIdentifier.value)
                 default:
                     return [] as Set<PractitionerDto>

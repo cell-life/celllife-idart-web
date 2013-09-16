@@ -1,6 +1,6 @@
 package org.celllife.idart.domain.identifiable
 
-import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.common.SystemId
 import org.celllife.idart.common.IdentifiableType
 import org.celllife.idart.common.Identifier
 
@@ -23,8 +23,8 @@ class Identifiable implements Serializable {
         new Identifiable(type: type)
     }
 
-    def getIdentifierValue(AuthorityId authorityId) {
-        getIdentifierValue(identifiers, authorityId)
+    def getIdentifierValue(SystemId systemId) {
+        getIdentifierValue(identifiers, systemId)
     }
 
     def addIdentifiers(Set<Identifier> identifiers) {

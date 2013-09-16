@@ -9,8 +9,17 @@ import javax.annotation.Generated;
  * System Id
  *
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public class SystemId implements Serializable {
+
+    public static final SystemId IDART_WEB = valueOf("IDART_WEB");
+
+    public static final SystemId PREHMIS = valueOf("PREHMIS");
+
+    public static final SystemId PGWC = valueOf("PGWC");
+
+    public static final SystemId SA_IDENTITY_NUMBER = valueOf("SA_IDENTITY_NUMBER");
+
+    public static final SystemId SA_PASSPART_NUMBER = valueOf("SA_PASSPART_NUMBER");
 
     /**
      * Value

@@ -3,7 +3,7 @@ package org.celllife.idart.application.patient
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.patient.dto.PatientDtoAssembler
 import org.celllife.idart.application.person.PersonApplicationService
-import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.common.SystemId
 import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.PatientId
@@ -18,7 +18,7 @@ import org.celllife.idart.relationship.patientorganisation.PatientOrganisationSe
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.PatientId.patientId
 import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.IdentifiableType.PATIENT
@@ -59,7 +59,7 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
         if (patientExists) {
 
             def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
-            def patientId = patientId(identifiable.getIdentifierValue(IDART))
+            def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
             def patient = patientDtoAssembler.toPatient(patientDto)
             patient.id = patientId
 
@@ -85,7 +85,7 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
             // Scenario 4 - Patient and Person don't exist
 
             def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
-            def patientId = patientId(identifiable.getIdentifierValue(IDART))
+            def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
             def patient = patientDtoAssembler.toPatient(patientDto)
             patient.id = patientId
             patient.person = personApplicationService.save(personDto)
@@ -98,7 +98,7 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
     @Override
     PatientDto findByPatientId(PatientId patientId) {
 
-        findByIdentifier(newIdentifier(IDART, patientId.value))
+        findByIdentifier(newIdentifier(IDART_WEB, patientId.value))
     }
 
     @Override
@@ -110,7 +110,7 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
             throw new PatientNotFoundException("Could not find Patient with id [${identifier.value}]")
         }
 
-        def patientId = patientId(identifiable.getIdentifierValue(IDART))
+        def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
 
         def patient = patientService.findByPatientId(patientId)
 
@@ -126,7 +126,7 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
 
         def identifiable = identifiableService.resolveIdentifiable(PATIENT, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         patientId(idartIdentifierValue)
     }
@@ -166,12 +166,12 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
 
     Set<PatientDto> lookupFromExternalProviders(String patientIdentifier, FacilityId facility) {
 
-        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART, facility.value)] as Set)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB, facility.value)] as Set)
 
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
-            switch (facilityIdentifier.authority) {
-                case AuthorityId.PREHMIS:
+            switch (facilityIdentifier.system) {
+                case SystemId.PREHMIS:
                     return prehmisPatientProvider.findByIdentifier(facilityIdentifier.value, patientIdentifier)
                 default:
                     return [] as Set<PatientDto>

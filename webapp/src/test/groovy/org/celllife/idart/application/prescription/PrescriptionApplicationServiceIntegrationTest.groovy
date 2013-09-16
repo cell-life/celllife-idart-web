@@ -25,9 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import static org.celllife.idart.common.AuthorityId.IDART
-import static org.celllife.idart.common.AuthorityId.PREHMIS
-import static org.celllife.idart.common.AuthorityId.SA_IDENTITY_NUMBER
+import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.SystemId.PREHMIS
+import static org.celllife.idart.common.SystemId.SA_IDENTITY_NUMBER
 import static org.celllife.idart.common.Label.label
 import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -86,7 +86,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         medication.with {
 
             identifiers = [
-                    newIdentifier(IDART, "Abacavir 20mg/ml 240ml")
+                    newIdentifier(IDART_WEB, "Abacavir 20mg/ml 240ml")
             ]
 
             name = "Abacavir 20mg/ml 240ml"

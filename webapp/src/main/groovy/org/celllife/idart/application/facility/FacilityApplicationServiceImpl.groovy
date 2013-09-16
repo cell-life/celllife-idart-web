@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.facility.FacilityNotFoundException
 import org.celllife.idart.domain.facility.FacilityService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.FacilityId.facilityId
 import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(FACILITY, facilityDto.identifiers)
 
-        def facilityId = facilityId(identifiable.getIdentifierValue(IDART))
+        def facilityId = facilityId(identifiable.getIdentifierValue(IDART_WEB))
 
         def facility = facilityDtoAssembler.toFacility(facilityDto)
         facility.id = facilityId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     FacilityDto findByFacilityId(FacilityId facilityId) {
-        def identifier = newIdentifier(IDART, facilityId.value)
+        def identifier = newIdentifier(IDART_WEB, facilityId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new FacilityNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def facilityId = facilityId(identifiable.getIdentifierValue(IDART))
+        def facilityId = facilityId(identifiable.getIdentifierValue(IDART_WEB))
 
         def facility = facilityService.findByFacilityId(facilityId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(FACILITY, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         facilityId(idartIdentifierValue)
     }

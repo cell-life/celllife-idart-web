@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationNotFoundException
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.RouteOfAdministrationCode.routeOfAdministrationCode
 import static org.celllife.idart.common.IdentifiableType.ROUTE_OF_ADMINISTRATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ROUTE_OF_ADMINISTRATION, routeOfAdministrationDto.identifiers)
 
-        def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifierValue(IDART))
+        def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def routeOfAdministration = routeOfAdministrationDtoAssembler.toRouteOfAdministration(routeOfAdministrationDto)
         routeOfAdministration.id = routeOfAdministrationCode
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     RouteOfAdministrationDto findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) {
-        def identifier = newIdentifier(IDART, routeOfAdministrationCode.value)
+        def identifier = newIdentifier(IDART_WEB, routeOfAdministrationCode.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new RouteOfAdministrationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifierValue(IDART))
+        def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifierValue(IDART_WEB))
 
         def routeOfAdministration = routeOfAdministrationService.findByRouteOfAdministrationCode(routeOfAdministrationCode)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ROUTE_OF_ADMINISTRATION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         routeOfAdministrationCode(idartIdentifierValue)
     }

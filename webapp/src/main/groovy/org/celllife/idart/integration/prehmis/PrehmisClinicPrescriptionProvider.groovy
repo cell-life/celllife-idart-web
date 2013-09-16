@@ -5,15 +5,15 @@ import groovyx.net.http.RESTClient
 import org.celllife.idart.application.prescription.PrescriptionNotSavedException
 import org.celllife.idart.application.prescription.PrescriptionProvider
 import org.celllife.idart.application.prescription.dto.PrescriptionDto
-import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.common.SystemId
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 import java.text.SimpleDateFormat
 
-import static org.celllife.idart.common.AuthorityId.PGWC
-import static org.celllife.idart.common.AuthorityId.SA_IDENTITY_NUMBER
-import static org.celllife.idart.common.AuthorityId.PREHMIS
+import static org.celllife.idart.common.SystemId.PGWC
+import static org.celllife.idart.common.SystemId.SA_IDENTITY_NUMBER
+import static org.celllife.idart.common.SystemId.PREHMIS
 import static org.celllife.idart.common.PartClassificationType.ATC
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
@@ -100,7 +100,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
         prescription.with {
 
-            prehmisPrescription.id = getIdentifierValue(identifiers, AuthorityId.IDART)
+            prehmisPrescription.id = getIdentifierValue(identifiers, SystemId.IDART_WEB)
             prehmisPrescription.patientSaIdNumber = getIdentifierValue(patient?.person?.identifiers, SA_IDENTITY_NUMBER)
             prehmisPrescription.prehmisPatientId = getIdentifierValue(patient?.identifiers, PREHMIS)
             prehmisPrescription.pgwcPatientNumber = getIdentifierValue(patient?.identifiers, PGWC)

@@ -8,7 +8,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.organisation.OrganisationNotFoundException
 import org.celllife.idart.domain.organisation.OrganisationService
 
-import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.OrganisationId.organisationId
 import static org.celllife.idart.common.IdentifiableType.ORGANISATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, organisationDto.identifiers)
 
-        def organisationId = organisationId(identifiable.getIdentifierValue(IDART))
+        def organisationId = organisationId(identifiable.getIdentifierValue(IDART_WEB))
 
         def organisation = organisationDtoAssembler.toOrganisation(organisationDto)
         organisation.id = organisationId
@@ -51,7 +51,7 @@ import javax.inject.Named
 
     @Override
     OrganisationDto findByOrganisationId(OrganisationId organisationId) {
-        def identifier = newIdentifier(IDART, organisationId.value)
+        def identifier = newIdentifier(IDART_WEB, organisationId.value)
         findByIdentifier(identifier)
     }
 
@@ -64,7 +64,7 @@ import javax.inject.Named
             throw new OrganisationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def organisationId = organisationId(identifiable.getIdentifierValue(IDART))
+        def organisationId = organisationId(identifiable.getIdentifierValue(IDART_WEB))
 
         def organisation = organisationService.findByOrganisationId(organisationId)
 
@@ -79,7 +79,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         organisationId(idartIdentifierValue)
     }

@@ -1,25 +1,25 @@
 {
     "identifiers": [
         {
-            "authority": "IDART-00000",
+            "system": "IDART_WEB-00000",
             "value": "00001"
         }
     ],
     "prescriber": [
         {
-            "authority": "PREHMIS",
+            "system": "PREHMIS",
             "value": "00000"
         }
     ],
     "patient": [
         {
-            "authority": "PREHMIS",
+            "system": "PREHMIS",
             "value": "00000"
         }
     ],
     "encounter": [
         {
-            "authority": "IDART",
+            "system": "IDART_WEB",
             "value": "00001"
         }
     ],
@@ -28,7 +28,7 @@
         {
             "medication": [
                 {
-                    "authority": "IDART",
+                    "system": "IDART_WEB",
                     "value": "Abacavir 20mg/ml 240ml"
                 }
             ],
