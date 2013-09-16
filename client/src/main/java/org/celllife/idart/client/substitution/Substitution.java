@@ -1,7 +1,6 @@
 package org.celllife.idart.client.substitution;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.common.SubstitutionCode;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -13,11 +12,11 @@ import java.util.Set;
  */
 public final class Substitution implements Serializable {
 
-    public Set<Code> codes;
+    public SubstitutionCode code;
 
-    public Set<LocalisedText> names;
+    public String name;
 
-    public Set<LocalisedText> descriptions;
+    public String description;
 
     public Substitution() {
     }

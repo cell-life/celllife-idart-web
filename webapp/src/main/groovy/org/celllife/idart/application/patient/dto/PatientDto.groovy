@@ -2,9 +2,7 @@ package org.celllife.idart.application.patient.dto
 
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.Period
-import org.celllife.idart.domain.identifiable.Identifier
-
-import static org.celllife.idart.common.Period.newPeriod
+import org.celllife.idart.common.Identifier
 
 /**
  * User: Kevin W. Sewell

@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
     @Inject DispensationValidator dispensationValidator
 
     @Inject DispensationEventPublisher dispensationEventPublisher
-    
-    @Inject DispensationSequence dispensationSequence
-    
+
     @Override
     Boolean exists(DispensationId dispensationId) {
         dispensationRepository.exists(dispensationId)
     }
-    
+
     @Override
     Dispensation save(Dispensation dispensation) {
 
-        def existingDispensation = null
-
-        if (dispensation.id != null) {
-            existingDispensation = dispensationRepository.findOne(dispensation.id)
-        } else {
-            dispensation.id = dispensationSequence.nextValue()
-        }
+        def existingDispensation = dispensationRepository.findOne(dispensation.id)
 
         if (existingDispensation == null) {
             existingDispensation = dispensation
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
 
         dispensationRepository.save(existingDispensation)
     }
-    
+
     @Override
     Dispensation findByDispensationId(DispensationId dispensationId) {
 

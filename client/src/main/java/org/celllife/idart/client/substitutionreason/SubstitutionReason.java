@@ -1,7 +1,6 @@
 package org.celllife.idart.client.substitutionreason;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.common.SubstitutionReasonCode;
 
 import java.util.Set;
 
@@ -12,11 +11,11 @@ import java.util.Set;
  */
 public final class SubstitutionReason {
 
-    public Set<Code> codes;
+    public SubstitutionReasonCode code;
 
-    public Set<LocalisedText> names;
+    public String name;
 
-    public Set<LocalisedText> descriptions;
+    public String description;
 
     public SubstitutionReason() {
     }

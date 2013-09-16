@@ -1,7 +1,10 @@
 {
-    "identifier": {
-            "value": "0001"
-    },
-    "currentUsername": "user00001",
-    "currentPassword": "user00001"
+    "identifiers": [
+        {
+            "authority": "IDART",
+            "value": "99999999"
+        }
+    ],
+    "username": "user00001",
+    "password": "user00001"
 }

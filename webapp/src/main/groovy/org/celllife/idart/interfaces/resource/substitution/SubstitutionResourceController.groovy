@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             SubstitutionCode substitutionCode = substitutionSecurityAdapter.save(principal, substitutionDto)
 
-            response.setHeader("Location", "${baseUrl}/substitutionss/${substitutionCode}")
+            response.setHeader("Location", "${baseUrl}/substitutions/${substitutionCode}")
             response.setStatus(SC_CREATED)
 
         } catch (SubstitutionValidationException e) {

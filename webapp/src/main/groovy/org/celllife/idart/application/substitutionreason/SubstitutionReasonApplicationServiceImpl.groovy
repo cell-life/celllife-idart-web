@@ -1,19 +1,18 @@
 package org.celllife.idart.application.substitutionreason
 
 import org.celllife.idart.application.substitutionreason.dto.SubstitutionReasonDto
+import org.celllife.idart.application.substitutionreason.dto.SubstitutionReasonDtoAssembler
 import org.celllife.idart.common.SubstitutionReasonCode
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.substitutionreason.SubstitutionReasonNotFoundException
 import org.celllife.idart.domain.substitutionreason.SubstitutionReasonService
 
-import static org.celllife.idart.application.substitutionreason.dto.SubstitutionReasonDtoAssembler.toSubstitutionReason
-import static org.celllife.idart.application.substitutionreason.dto.SubstitutionReasonDtoAssembler.toSubstitutionReasonDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.SubstitutionReasonCode.substitutionReasonCode
-import static org.celllife.idart.domain.identifiable.IdentifiableType.SUBSTITUTION_REASON
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.SUBSTITUTION_REASON
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject SubstitutionReasonService substitutionReasonService   
 
+    @Inject SubstitutionReasonDtoAssembler substitutionReasonDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         substitutionReasonService.exists(substitutionReasonCode)
     }
 
+    @Override
     SubstitutionReasonCode save(SubstitutionReasonDto substitutionReasonDto) {
 
-        def substitutionReason = toSubstitutionReason(substitutionReasonDto)
+        def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION_REASON, substitutionReasonDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(SUBSTITUTION_REASON, substitutionReasonDto.identifiers)
-        if (identifiable == null) {
+        def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifierValue(IDART))
 
-            substitutionReason = substitutionReasonService.save(substitutionReason)
+        def substitutionReason = substitutionReasonDtoAssembler.toSubstitutionReason(substitutionReasonDto)
+        substitutionReason.id = substitutionReasonCode
 
-            identifiable = new Identifiable(type: SUBSTITUTION_REASON, identifiers: substitutionReasonDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, substitutionReason.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            substitutionReason.id = substitutionReasonCode(identifiable.getIdentifier(IDART).value)
-            substitutionReasonService.save(substitutionReason)
-
-        }
+        substitutionReasonService.save(substitutionReason)
 
         substitutionReason.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     SubstitutionReasonDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(SUBSTITUTION_REASON, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION_REASON, [identifier] as Set)
 
         if (identifiable == null) {
             throw new SubstitutionReasonNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifier(IDART).value)
+        def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifierValue(IDART))
 
         def substitutionReason = substitutionReasonService.findBySubstitutionReasonCode(substitutionReasonCode)
 
-        def substitutionReasonDto = toSubstitutionReasonDto(substitutionReason)
+        def substitutionReasonDto = substitutionReasonDtoAssembler.toSubstitutionReasonDto(substitutionReason)
         substitutionReasonDto.identifiers = identifiable.identifiers
 
         substitutionReasonDto
+    }
+
+    @Override
+    SubstitutionReasonCode findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION_REASON, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        substitutionReasonCode(idartIdentifierValue)
     }
 }

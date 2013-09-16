@@ -13,7 +13,7 @@ import static org.celllife.idart.common.Period.newPeriod
  * Date: 2013-06-16
  * Time: 09h14
  */
-class Patient {
+class Patient implements Serializable {
 
     /**
      * Identified by

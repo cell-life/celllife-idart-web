@@ -1,12 +1,17 @@
 package org.celllife.idart.application.facility.dto
 
+import org.celllife.idart.application.facility.FacilityApplicationService
 import org.celllife.idart.domain.facility.Facility
+
+import javax.inject.Named
 
 /**
  */
-class FacilityDtoAssembler {
+@Named class FacilityDtoAssembler {
 
-    static Facility toFacility(FacilityDto facilityDto) {
+    @Named FacilityApplicationService facilityApplicationService
+
+    Facility toFacility(FacilityDto facilityDto) {
 
         def facility = new Facility()
         facility.with {
@@ -18,7 +23,7 @@ class FacilityDtoAssembler {
         facility
     }
 
-    static FacilityDto toFacilityDto(Facility facility) {
+    FacilityDto toFacilityDto(Facility facility) {
 
         def facilityDto = new FacilityDto()
         facilityDto.with {

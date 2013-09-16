@@ -2,7 +2,7 @@ package org.celllife.idart.security.person
 
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.PersonId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.person.PersonApplicationService
 
 import javax.annotation.Generated

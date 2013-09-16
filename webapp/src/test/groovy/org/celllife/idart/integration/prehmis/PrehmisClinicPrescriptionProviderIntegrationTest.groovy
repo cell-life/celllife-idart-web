@@ -1,7 +1,6 @@
 package org.celllife.idart.integration.prehmis
 
 import org.celllife.idart.application.prescription.PrescriptionProvider
-import org.celllife.idart.domain.clinic.Clinic
 import org.celllife.idart.common.Duration
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Quantity
@@ -40,8 +39,8 @@ class PrehmisClinicPrescriptionProviderIntegrationTest {
     @Test
     void testFindById() throws Exception {
 
-        def clinic = new Clinic()
-        ((Facility) clinic).addId("http://prehmis.capetown.gov.za", "WES")
+        def facility = new Facility()
+        facility.addId("http://prehmis.capetown.gov.za", "WES")
 
         def patient = new Patient()
         patient.with {
@@ -87,7 +86,7 @@ class PrehmisClinicPrescriptionProviderIntegrationTest {
         prescription.dateWritten = new Date()
         prescription.prescribedMedications.add(prescribedMedication1)
 
-        prehmisClinicPrescriptionProvider.save(clinic, prescription)
+        prehmisClinicPrescriptionProvider.save(facility, prescription)
     }
 
     static Date getOneMonthFromToday() {

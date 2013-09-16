@@ -2,14 +2,10 @@ package org.celllife.idart.application.practitioner
 
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.common.FacilityId
-import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.PractitionerId
 import org.celllife.idart.common.SystemId
-import org.celllife.idart.domain.identifiable.Identifier
-import org.celllife.idart.domain.organisation.Organisation
-
-import javax.annotation.Generated
+import org.celllife.idart.common.Identifier
 
 /**
  */
@@ -20,6 +16,8 @@ interface PractitionerApplicationService {
     PractitionerDto findByPractitionerId(PractitionerId practitionerId)
 
     PractitionerDto findByIdentifier(Identifier identifier)
+
+    PractitionerId findByIdentifiers(Set<Identifier> identifiers)
 
     Set<PractitionerDto> findByFacility(FacilityId facility)
 

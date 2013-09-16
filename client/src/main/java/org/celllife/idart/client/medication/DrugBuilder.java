@@ -1,12 +1,15 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.Id;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
-import org.celllife.idart.client.part.PartClassification;
-import org.celllife.idart.client.part.PartClassificationType;
+import org.celllife.idart.common.AuthorityId;
+import org.celllife.idart.common.FormCode;
+import org.celllife.idart.common.PartClassificationCode;
+import org.celllife.idart.common.PartClassificationType;
+
+import static org.celllife.idart.common.FormCode.formCode;
+import static org.celllife.idart.common.Identifiers.newIdentifier;
 
 /**
  * User: Kevin W. Sewell
@@ -17,21 +20,21 @@ public class DrugBuilder {
 
     private final Drug drug;
 
-    private final String clinicDrugsIdSystem;
+    private final String clinicDrugsidentifiersystem;
 
     public DrugBuilder(String clinicId) {
         this.drug = new Drug();
-        this.clinicDrugsIdSystem =
+        this.clinicDrugsidentifiersystem =
                 String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicId);
     }
 
     public DrugBuilder setId(String idValue) {
-        this.drug.ids.add(new Id(idValue));
+        this.drug.identifiers.add(newIdentifier(idValue));
         return this;
     }
 
-    public DrugBuilder setId(String idSystem, String idValue) {
-        this.drug.ids.add(new Id(idValue));
+    public DrugBuilder setIdentifier(AuthorityId authority, String idValue) {
+        this.drug.identifiers.add(newIdentifier(authority, idValue));
         return this;
     }
 
@@ -45,13 +48,15 @@ public class DrugBuilder {
     }
 
     public DrugBuilder setForm(String formCodeValue) {
-        this.drug.form = new Form();
-        this.drug.form.codes.add(new Code(formCodeValue));
+        this.drug.form = formCode(formCodeValue);
         return this;
     }
 
     public DrugBuilder addClassification(PartClassificationType type, String classificationCode) {
-        this.drug.classifications.add(new PartClassification(type, classificationCode));
+        PartClassificationCode code = new PartClassificationCode();
+        code.setType(type);
+        code.setValue(classificationCode);
+        this.drug.classifications.add(code);
         return this;
     }
 }

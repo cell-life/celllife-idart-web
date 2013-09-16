@@ -1,18 +1,13 @@
 package org.celllife.idart.domain.part
 
-import org.celllife.idart.common.FormCode
-import org.celllife.idart.common.Label
-import org.celllife.idart.common.PartClassificationCode
-import org.celllife.idart.common.PartClassificationType
-import org.celllife.idart.common.PartId
-import org.celllife.idart.common.UnitOfMeasureCode
+import org.celllife.idart.common.*
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-16
  * Time: 18h17
  */
-abstract class Part {
+abstract class Part implements Serializable {
 
     /**
      * Identified by
@@ -62,6 +57,6 @@ abstract class Part {
     }
 
     def addClassification(PartClassificationType type, String code) {
-        this.classifications.add(new PartClassificationApplication(classification: new PartClassificationCode(type:type, value: code)))
+        this.classifications.add(new PartClassificationApplication(classification: new PartClassificationCode(type: type, value: code)))
     }
 }

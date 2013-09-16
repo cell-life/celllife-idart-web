@@ -9,7 +9,7 @@ import javax.annotation.Generated
  *
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class ${entity.className} {
+class ${entity.className} implements Serializable {
 
     /**
      * ${id.name} <% if (id.description != null) { %>- ${id.description} <% } %>

@@ -22,9 +22,7 @@ class IncludedFeatureModelEnricher {
             "domainService",
             "applicationService",
             "resourceController",
-            "securityAdapter",
-            "sequence",
-            "counterSequence"
+            "securityAdapter"
     ]
 
     static enrichModelWithIncludedFeatures(baseNamespace, model) {

@@ -2,7 +2,7 @@ package org.celllife.idart.application.authority
 
 import org.celllife.idart.application.authority.dto.AuthorityDto
 import org.celllife.idart.common.AuthorityId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface AuthorityApplicationService {
     AuthorityDto findByAuthorityId(AuthorityId authorityId)
 
     AuthorityDto findByIdentifier(Identifier identifier)
+
+    AuthorityId findByIdentifiers(Set<Identifier> identifiers)
 
 }

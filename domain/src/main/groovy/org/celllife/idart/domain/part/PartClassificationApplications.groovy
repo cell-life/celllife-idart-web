@@ -7,7 +7,7 @@ import org.celllife.idart.common.PartClassificationType
  * Date: 2013-06-16
  * Time: 10h23
  */
-class PartClassificationApplications {
+class PartClassificationApplications implements Serializable {
 
 
     static getClassificationCode(Set<PartClassificationApplication> partClassificationApplications,

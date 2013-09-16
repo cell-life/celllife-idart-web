@@ -1,16 +1,18 @@
 package org.celllife.idart.application.unitofmeasure.dto
 
 import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
+import javax.inject.Named
+import javax.inject.Inject
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class UnitOfMeasureDtoAssembler {
+@Named class UnitOfMeasureDtoAssembler {
 
-    static UnitOfMeasure toUnitOfMeasure(UnitOfMeasureDto unitOfMeasureDto) {
+    UnitOfMeasure toUnitOfMeasure(UnitOfMeasureDto unitOfMeasureDto) {
 
         def unitOfMeasure = new UnitOfMeasure()
         unitOfMeasure.with {
@@ -20,7 +22,7 @@ class UnitOfMeasureDtoAssembler {
         unitOfMeasure
     }
 
-    static UnitOfMeasureDto toUnitOfMeasureDto(UnitOfMeasure unitOfMeasure) {
+    UnitOfMeasureDto toUnitOfMeasureDto(UnitOfMeasure unitOfMeasure) {
 
         def unitOfMeasureDto = new UnitOfMeasureDto()
         unitOfMeasureDto.with {

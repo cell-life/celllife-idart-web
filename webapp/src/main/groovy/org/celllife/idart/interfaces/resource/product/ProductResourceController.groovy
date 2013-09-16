@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             ProductId productId = productSecurityAdapter.save(principal, productDto)
 
-            response.setHeader("Location", "${baseUrl}/productss/${productId}")
+            response.setHeader("Location", "${baseUrl}/products/${productId}")
             response.setStatus(SC_CREATED)
 
         } catch (ProductValidationException e) {

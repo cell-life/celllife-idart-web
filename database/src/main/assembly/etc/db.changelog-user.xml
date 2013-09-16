@@ -11,6 +11,7 @@
             </column>
             <column name="username" type="varchar(31)"/>
             <column name="password" type="varchar(255)"/>
+            <column name="person" type="varchar(31)"/>
         </createTable>
 
     </changeSet>

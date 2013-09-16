@@ -2,8 +2,6 @@ package org.celllife.idart.domain.person
 
 import org.celllife.idart.common.PersonId
 
-import javax.annotation.Generated
-
 /**
  */
 public interface PersonService {

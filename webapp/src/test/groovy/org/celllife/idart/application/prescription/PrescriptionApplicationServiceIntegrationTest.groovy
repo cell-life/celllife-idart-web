@@ -2,20 +2,22 @@ package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.celllife.idart.application.part.PartApplicationService
+import org.celllife.idart.application.part.dto.CompoundDto
+import org.celllife.idart.application.part.dto.DrugDto
+import org.celllife.idart.application.part.dto.PartBillOfMaterialsItemDto
 import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
+import org.celllife.idart.application.practitioner.dto.PractitionerDto
+import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.application.product.ProductApplicationService
+import org.celllife.idart.application.product.dto.MedicationDto
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
-import org.celllife.idart.common.PartId
+import org.celllife.idart.common.PractitionerType
+import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
-import org.celllife.idart.domain.product.Medication
-import org.celllife.idart.domain.part.Compound
-import org.celllife.idart.domain.part.Drug
-import org.celllife.idart.domain.practitioner.Practitioner
-import org.celllife.idart.domain.prescription.Prescription
-import org.celllife.idart.domain.unitofmeasure.UnitOfMeasure
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,11 +25,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
+import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.AuthorityId.PREHMIS
+import static org.celllife.idart.common.AuthorityId.SA_IDENTITY_NUMBER
 import static org.celllife.idart.common.Label.label
-import static org.celllife.idart.common.PersonId.personId
-import static org.celllife.idart.common.PractitionerId.practitionerId
-import static org.celllife.idart.common.ProductId.productId
 import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
 
 /**
  * User: Kevin W. Sewell
@@ -55,86 +59,91 @@ class PrescriptionApplicationServiceIntegrationTest {
     @Test
     void shouldUnmarshal() throws Exception {
 
-        UnitOfMeasure milligrams = createMilligrams()
-        unitOfMeasureApplicationService.save(milligrams)
-
-        UnitOfMeasure millilitres = createMillilitres()
-        unitOfMeasureApplicationService.save(millilitres)
-
-        def each = createEach()
-        unitOfMeasureApplicationService.save(each)
-
-        def compound = createCompound(milligrams.code)
+        def compound =  new CompoundDto()
+        compound.with {
+            label = label("Abacavir")
+            unitOfMeasure = unitOfMeasureCode("mg")
+        }
         partApplicationService.save(compound)
 
-        def drug = createDrug(millilitres.code, compound.id, milligrams.code)
+        DrugDto drug = new DrugDto()
+        drug.with {
+            label = label("Abacavir 20mg/ml")
+            unitOfMeasure = unitOfMeasureCode("ml")
+            billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, unitOfMeasureCode("mg"))]
+        }
         partApplicationService.save(drug)
 
-        def finishedDrug = createFinishedDrug(each.code, drug.id, millilitres.code)
+        DrugDto finishedDrug = new DrugDto()
+        finishedDrug.with {
+            label = label("Abacavir 20mg/ml 240ml")
+            unitOfMeasure = unitOfMeasureCode("each")
+            billOfMaterials = [newEngineeringPart(drug.identifiers, 240.0D, unitOfMeasureCode("ml"))]
+        }
         partApplicationService.save(finishedDrug)
 
-        Medication medication = new Medication(drug: drug.id)
-        medication.id = productId("00001")
-        medication.name = "Abacavir 20mg/ml 240ml"
+        MedicationDto medication = new MedicationDto(drug: drug.identifiers)
+        medication.with {
+
+            identifiers = [
+                    newIdentifier(IDART, "Abacavir 20mg/ml 240ml")
+            ]
+
+            name = "Abacavir 20mg/ml 240ml"
+        }
         productApplicationService.save(medication)
 
         PatientDto patient = new PatientDto()
-        patient.person = new PersonDto()
+        patient.with {
+
+            identifiers = [
+                    newIdentifier(PREHMIS, "00000")
+            ]
+
+            person = new PersonDto()
+            person.with {
+                firstName = "Peter"
+                lastName = "Patient"
+            }
+        }
         patientApplicationService.save(patient)
 
-        Practitioner practitioner = new Practitioner()
-        practitioner.id = practitionerId("00001")
-        practitioner.person = personId("00001")
+        PractitionerDto practitioner = new PractitionerDto()
+        practitioner.with {
+
+            identifiers = [
+                    newIdentifier(PREHMIS, "00000")
+            ]
+
+            type = PractitionerType.AGENCY_DOCTORS
+
+            person = new PersonDto()
+            person.with {
+
+                identifiers = [
+                        newIdentifier(SA_IDENTITY_NUMBER, "7501015434082")
+                ]
+
+                firstName = "Derek"
+                lastName = "Doctor"
+            }
+        }
         practitionerApplicationService.save(practitioner)
 
         InputStream inputStream = getClass().getResourceAsStream("/data/prescription/0000.json")
-        Prescription prescription = objectMapper.readValue(inputStream, Prescription.class)
-        System.out.println(prescription)
+        PrescriptionDto prescription = objectMapper.readValue(inputStream, PrescriptionDto.class)
 
         prescriptionApplicationService.save(prescription)
     }
 
-    static UnitOfMeasure createMillilitres() {
-        UnitOfMeasure millilitres = new UnitOfMeasure()
-        millilitres.name = "Millilitres"
-        millilitres.code = unitOfMeasureCode("ml")
-        millilitres
-    }
-
-    static UnitOfMeasure createMilligrams() {
-        UnitOfMeasure milligrams = new UnitOfMeasure()
-        milligrams.name = "Milligrams"
-        milligrams.code = unitOfMeasureCode("mg")
-        milligrams
-    }
-
-    static UnitOfMeasure createEach() {
-        UnitOfMeasure each = new UnitOfMeasure()
-        each.code = unitOfMeasureCode("ea")
-        each.name = "Each"
-        each
-    }
-
-    static Compound createCompound(UnitOfMeasureCode milligrams) {
-        Compound abacavirCompound = new Compound()
-        abacavirCompound.label = label("Abacavir")
-        abacavirCompound.unitOfMeasure = milligrams
-        abacavirCompound
-    }
-
-    static Drug createDrug(UnitOfMeasureCode millilitres, PartId abacavirCompound, UnitOfMeasureCode milligrams) {
-        Drug abacavir20mg = new Drug()
-        abacavir20mg.label = label("Abacavir 20mg/ml")
-        abacavir20mg.unitOfMeasure = millilitres
-        abacavir20mg.addEngineeringPart(abacavirCompound, 20.0D, milligrams)
-        abacavir20mg
-    }
-
-    static Drug createFinishedDrug(UnitOfMeasureCode each, PartId abacavir20mg, UnitOfMeasureCode millilitres) {
-        Drug drug = new Drug()
-        drug.label = label("Abacavir 20mg/ml 240ml")
-        drug.unitOfMeasure = each
-        drug.addEngineeringPart(abacavir20mg, 240.0D, millilitres)
-        drug
+    static PartBillOfMaterialsItemDto newEngineeringPart(Set<Identifier> part, Double quantity, UnitOfMeasureCode unitOfMeasure) {
+        new PartBillOfMaterialsItemDto(
+                type: ENGINEERING,
+                part: part,
+                quantityUsed: new Quantity(
+                        value: quantity,
+                        unitOfMeasure: unitOfMeasure
+                )
+        )
     }
 }

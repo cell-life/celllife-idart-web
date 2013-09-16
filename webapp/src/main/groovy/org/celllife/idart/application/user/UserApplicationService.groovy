@@ -2,7 +2,7 @@ package org.celllife.idart.application.user
 
 import org.celllife.idart.application.user.dto.UserDto
 import org.celllife.idart.common.UserId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface UserApplicationService {
     UserDto findByUserId(UserId userId)
 
     UserDto findByIdentifier(Identifier identifier)
+
+    UserId findByIdentifiers(Set<Identifier> identifiers)
 
 }

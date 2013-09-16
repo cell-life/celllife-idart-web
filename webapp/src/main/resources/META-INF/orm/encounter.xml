@@ -13,7 +13,44 @@
                     <column name="id"/>
                 </attribute-override>
             </embedded-id>
+            <basic name="startedAt">
+                <temporal>TIMESTAMP</temporal>
+            </basic>
+            <element-collection name="participants" fetch="EAGER">
+                <collection-table name="encounter_participant"/>
+            </element-collection>
+            <embedded name="patient">
+                <attribute-override name="value">
+                    <column name="patient"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="facility">
+                <attribute-override name="value">
+                    <column name="facility"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="duration">
+                <attribute-override name="value">
+                    <column name="duration"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="duration_uom"/>
+                </attribute-override>
+            </embedded>
         </attributes>
     </entity>
+
+    <embeddable class="org.celllife.idart.domain.encounter.Participant">
+        <attributes>
+            <basic name="type">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <embedded name="practitioner">
+                <attribute-override name="value">
+                    <column name="practitioner"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
 
 </entity-mappings>

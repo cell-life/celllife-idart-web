@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             SubstitutionReasonCode substitutionReasonCode = substitutionReasonSecurityAdapter.save(principal, substitutionReasonDto)
 
-            response.setHeader("Location", "${baseUrl}/substitutionReasonss/${substitutionReasonCode}")
+            response.setHeader("Location", "${baseUrl}/substitutionReasons/${substitutionReasonCode}")
             response.setStatus(SC_CREATED)
 
         } catch (SubstitutionReasonValidationException e) {

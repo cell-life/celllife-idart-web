@@ -5,9 +5,6 @@ import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.PractitionerId
 import org.celllife.idart.common.PractitionerType
 
-import javax.validation.Valid
-import javax.validation.constraints.NotNull
-
 import static org.celllife.idart.common.Period.newPeriod
 
 /**
@@ -17,7 +14,7 @@ import static org.celllife.idart.common.Period.newPeriod
  * Date: 2013-06-16
  * Time: 09h14
  */
-class Practitioner {
+class Practitioner implements Serializable {
 
     /**
      * Identified by

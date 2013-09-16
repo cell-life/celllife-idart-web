@@ -1,6 +1,6 @@
 package org.celllife.idart.application.organisation.dto
 
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.party.PartyClassificationApplication
 import org.celllife.idart.domain.party.PartyContactMechanism
 

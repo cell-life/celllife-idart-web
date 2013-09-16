@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             PartId partId = partSecurityAdapter.save(principal, partDto)
 
-            response.setHeader("Location", "${baseUrl}/partss/${partId}")
+            response.setHeader("Location", "${baseUrl}/parts/${partId}")
             response.setStatus(SC_CREATED)
 
         } catch (PartValidationException e) {

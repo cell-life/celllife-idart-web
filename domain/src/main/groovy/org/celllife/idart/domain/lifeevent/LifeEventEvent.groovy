@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.lifeevent
 
 import org.celllife.idart.common.EventHeader
-import org.celllife.idart.common.EventType
 
 import static org.celllife.idart.common.EventHeader.newEventHeader
 
@@ -11,7 +10,7 @@ import javax.annotation.Generated
  * Life Event Domain Event
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class LifeEventEvent {
+class LifeEventEvent implements Serializable {
 
     EventHeader header
 

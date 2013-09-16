@@ -2,7 +2,7 @@ package org.celllife.idart.application.entrysite
 
 import org.celllife.idart.application.entrysite.dto.EntrySiteDto
 import org.celllife.idart.common.EntrySiteCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface EntrySiteApplicationService {
     EntrySiteDto findByEntrySiteCode(EntrySiteCode entrySiteCode)
 
     EntrySiteDto findByIdentifier(Identifier identifier)
+
+    EntrySiteCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

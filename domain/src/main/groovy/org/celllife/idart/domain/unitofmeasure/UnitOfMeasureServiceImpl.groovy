@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.unitofmeasure.UnitOfMeasureEvent.newUnit
     @Inject UnitOfMeasureValidator unitOfMeasureValidator
 
     @Inject UnitOfMeasureEventPublisher unitOfMeasureEventPublisher
-    
+
     @Override
     Boolean exists(UnitOfMeasureCode unitOfMeasureCode) {
         unitOfMeasureRepository.exists(unitOfMeasureCode)
     }
-    
+
     @Override
     UnitOfMeasure save(UnitOfMeasure unitOfMeasure) {
 
-        unitOfMeasureValidator.validate(unitOfMeasure)
+        def existingUnitOfMeasure = unitOfMeasureRepository.findOne(unitOfMeasure.id)
 
-        unitOfMeasureEventPublisher.publish(newUnitOfMeasureEvent(unitOfMeasure, SAVED))
+        if (existingUnitOfMeasure == null) {
+            existingUnitOfMeasure = unitOfMeasure
+        } else {
+            existingUnitOfMeasure.merge(unitOfMeasure)
+        }
 
-        unitOfMeasureRepository.save(unitOfMeasure)
+        unitOfMeasureValidator.validate(existingUnitOfMeasure)
+
+        unitOfMeasureEventPublisher.publish(newUnitOfMeasureEvent(existingUnitOfMeasure, SAVED))
+
+        unitOfMeasureRepository.save(existingUnitOfMeasure)
     }
-    
+
     @Override
     UnitOfMeasure findByUnitOfMeasureCode(UnitOfMeasureCode unitOfMeasureCode) {
 

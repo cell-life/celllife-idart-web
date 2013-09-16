@@ -18,6 +18,7 @@
             <tx:method name="exists*" propagation="REQUIRES_NEW" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRES_NEW" read-only="true"/>
             <tx:method name="save*" propagation="REQUIRES_NEW" read-only="false"/>
+            <tx:method name="resolve*" propagation="REQUIRES_NEW" read-only="false"/>
         </tx:attributes>
     </tx:advice>
 

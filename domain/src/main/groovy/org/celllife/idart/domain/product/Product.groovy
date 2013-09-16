@@ -7,7 +7,7 @@ import org.celllife.idart.common.ProductId
  * Date: 2013-06-16
  * Time: 18h13
  */
-abstract class Product {
+abstract class Product implements Serializable {
 
     /**
      * Identified by

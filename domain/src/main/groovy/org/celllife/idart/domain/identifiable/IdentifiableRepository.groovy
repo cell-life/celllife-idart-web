@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.identifiable
 
 import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.common.IdentifiableType
 
 /**
  * User: Kevin W. Sewell

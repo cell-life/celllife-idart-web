@@ -1,16 +1,18 @@
 package org.celllife.idart.application.routeofadministration.dto
 
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministration
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
+import javax.inject.Named
+import javax.inject.Inject
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class RouteOfAdministrationDtoAssembler {
+@Named class RouteOfAdministrationDtoAssembler {
 
-    static RouteOfAdministration toRouteOfAdministration(RouteOfAdministrationDto routeOfAdministrationDto) {
+    RouteOfAdministration toRouteOfAdministration(RouteOfAdministrationDto routeOfAdministrationDto) {
 
         def routeOfAdministration = new RouteOfAdministration()
         routeOfAdministration.with {
@@ -20,7 +22,7 @@ class RouteOfAdministrationDtoAssembler {
         routeOfAdministration
     }
 
-    static RouteOfAdministrationDto toRouteOfAdministrationDto(RouteOfAdministration routeOfAdministration) {
+    RouteOfAdministrationDto toRouteOfAdministrationDto(RouteOfAdministration routeOfAdministration) {
 
         def routeOfAdministrationDto = new RouteOfAdministrationDto()
         routeOfAdministrationDto.with {

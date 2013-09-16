@@ -1,7 +1,4 @@
 package org.celllife.idart.domain.atc
-
-import org.celllife.idart.domain.partclassification.PartClassification
-
 /**
  * Anatomical Therapeutic Chemical Classification
  *
@@ -20,7 +17,7 @@ import org.celllife.idart.domain.partclassification.PartClassification
  * Date: 2013-06-17
  * Time: 13h23
  */
-class AtcClassification {
+class AtcClassification implements Serializable {
 
     /**
      * The first level of the code indicates the anatomical main group and consists of one letter.

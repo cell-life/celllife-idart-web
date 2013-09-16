@@ -13,6 +13,7 @@ import org.celllife.idart.domain.counter.CounterRepository
 import org.celllife.idart.domain.facility.FacilityRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
 import org.celllife.idart.domain.identifiable.IdentifiableService
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.organisation.OrganisationRepository
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.patient.PatientRepository
@@ -41,9 +42,8 @@ import static org.celllife.idart.common.AuthorityId.PREHMIS
 import static org.celllife.idart.common.AuthorityId.newAuthorityId
 import static org.celllife.idart.common.PatientId.patientId
 import static org.celllife.idart.common.PersonId.personId
-import static org.celllife.idart.domain.identifiable.Identifiable.newIdentifiable
-import static org.celllife.idart.domain.identifiable.IdentifiableType.PATIENT
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.PATIENT
+import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.junit.Assert.*
 
@@ -146,10 +146,12 @@ class PatientApplicationServiceIntegrationTest {
     @Test(expected = PatientWithoutAPersonException)
     public void shouldSavePatientScenario2() throws Exception {
 
-        def identifiable = newIdentifiable(PATIENT)
-        identifiable.addIdentifier(newIdentifier(IDART, "00000000"))
-        identifiable.addIdentifier(newIdentifier(newAuthorityId("00000001"), "00000002"))
-        identifiableService.save(identifiable)
+        def patientIdentifiers = [
+                newIdentifier(IDART, "00000000"),
+                newIdentifier(newAuthorityId("00000001"), "00000002")
+        ]
+
+        identifiableService.resolveIdentifiable(PATIENT, patientIdentifiers as Set<Identifier>)
 
         def patient = new Patient()
         patient.with {

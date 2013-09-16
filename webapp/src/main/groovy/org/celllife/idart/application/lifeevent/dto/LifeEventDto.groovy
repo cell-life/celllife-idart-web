@@ -1,13 +1,13 @@
 package org.celllife.idart.application.lifeevent.dto
 
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class LifeEventDto {
+class LifeEventDto implements Serializable {
 
     /**
      * Identified by

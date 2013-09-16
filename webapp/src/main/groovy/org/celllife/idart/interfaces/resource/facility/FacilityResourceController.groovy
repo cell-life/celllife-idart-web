@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             FacilityId facilityId = facilitySecurityAdapter.save(principal, facilityDto)
 
-            response.setHeader("Location", "${baseUrl}/facilitiess/${facilityId}")
+            response.setHeader("Location", "${baseUrl}/facilities/${facilityId}")
             response.setStatus(SC_CREATED)
 
         } catch (FacilityValidationException e) {

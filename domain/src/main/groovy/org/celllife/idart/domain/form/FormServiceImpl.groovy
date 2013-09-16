@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.form.FormEvent.newFormEvent
     @Inject FormValidator formValidator
 
     @Inject FormEventPublisher formEventPublisher
-    
+
     @Override
     Boolean exists(FormCode formCode) {
         formRepository.exists(formCode)
     }
-    
+
     @Override
     Form save(Form form) {
 
-        formValidator.validate(form)
+        def existingForm = formRepository.findOne(form.id)
 
-        formEventPublisher.publish(newFormEvent(form, SAVED))
+        if (existingForm == null) {
+            existingForm = form
+        } else {
+            existingForm.merge(form)
+        }
 
-        formRepository.save(form)
+        formValidator.validate(existingForm)
+
+        formEventPublisher.publish(newFormEvent(existingForm, SAVED))
+
+        formRepository.save(existingForm)
     }
-    
+
     @Override
     Form findByFormCode(FormCode formCode) {
 

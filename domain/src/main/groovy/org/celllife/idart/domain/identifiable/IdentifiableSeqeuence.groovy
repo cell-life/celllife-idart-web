@@ -1,5 +1,8 @@
 package org.celllife.idart.domain.identifiable
 
+import org.celllife.idart.common.IdentifiableType
+import org.celllife.idart.common.Identifier
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-24
@@ -7,6 +10,6 @@ package org.celllife.idart.domain.identifiable
  */
 interface IdentifiableSeqeuence {
 
-    Long nextValue(IdentifiableType type)
+    Identifier nextValue(IdentifiableType type)
 
 }

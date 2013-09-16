@@ -1,7 +1,6 @@
 package org.celllife.idart.client;
 
 import org.celllife.idart.client.clinic.Clinic;
-import org.celllife.idart.client.common.LocalisedText;
 import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.medication.BillOfMaterialsItemBuilder;
 import org.celllife.idart.client.medication.CompoundBuilder;
@@ -9,7 +8,6 @@ import org.celllife.idart.client.medication.DrugBuilder;
 import org.celllife.idart.client.medication.MedicationBuilder;
 import org.celllife.idart.client.part.Compound;
 import org.celllife.idart.client.part.Drug;
-import org.celllife.idart.client.part.PartClassificationType;
 import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
@@ -18,6 +16,7 @@ import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasures;
+import org.celllife.idart.common.PartClassificationType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,10 +46,10 @@ public class IdartClientIntegrationTest {
 
         for (PartyRole patient : patients) {
             Assert.assertNotNull(patient);
-            Assert.assertNotNull(patient.ids);
-            Assert.assertTrue(patient.ids.size() != 0);
+            Assert.assertNotNull(patient.identifiers);
+            Assert.assertTrue(patient.identifiers.size() != 0);
             Assert.assertNotNull(patient.person);
-            Assert.assertTrue(patient.person.ids.size() != 0);
+            Assert.assertTrue(patient.person.identifiers.size() != 0);
         }
     }
 
@@ -62,10 +61,10 @@ public class IdartClientIntegrationTest {
 
         for (PartyRole practitioner : practitioners) {
             Assert.assertNotNull(practitioner);
-            Assert.assertNotNull(practitioner.ids);
-            Assert.assertTrue(practitioner.ids.size() != 0);
+            Assert.assertNotNull(practitioner.identifiers);
+            Assert.assertTrue(practitioner.identifiers.size() != 0);
             Assert.assertNotNull(practitioner.person);
-            Assert.assertTrue(practitioner.person.ids.size() != 0);
+            Assert.assertTrue(practitioner.person.identifiers.size() != 0);
         }
     }
 
@@ -78,8 +77,8 @@ public class IdartClientIntegrationTest {
 
         for (Compound compound : compounds) {
             Assert.assertNotNull(compound);
-            Assert.assertNotNull(compound.ids);
-            Assert.assertTrue(compound.ids.size() != 0);
+            Assert.assertNotNull(compound.identifiers);
+            Assert.assertTrue(compound.identifiers.size() != 0);
         }
     }
 
@@ -92,11 +91,9 @@ public class IdartClientIntegrationTest {
 
         for (Drug drug : drugs) {
             Assert.assertNotNull(drug);
-            Assert.assertNotNull(drug.ids);
-            Assert.assertTrue(drug.ids.size() != 0);
-            if (drug.form != null) {
-                Assert.assertNotNull(drug.form.codes);
-            }
+            Assert.assertNotNull(drug.identifiers);
+            Assert.assertTrue(drug.identifiers.size() != 0);
+            Assert.assertNotNull(drug.form);
         }
     }
 
@@ -109,17 +106,9 @@ public class IdartClientIntegrationTest {
 
         for (Form form : forms) {
             Assert.assertNotNull(form);
-            Assert.assertNotNull(form.codes);
-            Assert.assertTrue(form.codes.size() != 0);
-            Assert.assertNotNull(form.names);
-            Assert.assertTrue(form.names.size() != 0);
-            if (form.descriptions != null) {
-                for (LocalisedText description : form.descriptions) {
-                    Assert.assertNotNull(description);
-                    Assert.assertNotNull(description.locale);
-                    Assert.assertNotNull(description.value);
-                }
-            }
+            Assert.assertNotNull(form.code);
+            Assert.assertNotNull(form.name);
+            Assert.assertNotNull(form.description);
         }
     }
 
@@ -132,24 +121,16 @@ public class IdartClientIntegrationTest {
 
         for (UnitOfMeasure unitOfMeasure : unitsOfMeasure) {
             Assert.assertNotNull(unitOfMeasure);
-            Assert.assertNotNull(unitOfMeasure.codes);
-            Assert.assertTrue(unitOfMeasure.codes.size() != 0);
-            Assert.assertNotNull(unitOfMeasure.names);
-            Assert.assertTrue(unitOfMeasure.names.size() != 0);
-            if (unitOfMeasure.descriptions != null) {
-                for (LocalisedText description : unitOfMeasure.descriptions) {
-                    Assert.assertNotNull(description);
-                    Assert.assertNotNull(description.locale);
-                    Assert.assertNotNull(description.value);
-                }
-            }
+            Assert.assertNotNull(unitOfMeasure.code);
+            Assert.assertNotNull(unitOfMeasure.name);
+            Assert.assertNotNull(unitOfMeasure.description);
         }
     }
 
     @Test
     public void testCreateClinic() throws Exception {
         Clinic clinic = new Clinic();
-        clinic.addId("http://www.cell-life.org/idart/clinics", "00000001");
+        clinic.addIdentifier("http://www.cell-life.org/idart/clinics", "00000001");
     }
 
     @Test
@@ -197,7 +178,7 @@ public class IdartClientIntegrationTest {
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")
                                                 .addPart(newCompound(clinicId)
-                                                        .setId(Compound.INN_SYSTEM, "Abacavir")
+                                                        .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
                                                         .finishCompound()
                                                 )
                                                 .finishBillOfMaterialsItem()

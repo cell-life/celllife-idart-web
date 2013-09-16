@@ -1,10 +1,12 @@
 package org.celllife.idart.client.part;
 
-import org.celllife.idart.client.common.Id;
+import org.celllife.idart.common.Id;
 import org.celllife.idart.client.form.Form;
-import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.celllife.idart.common.FormCode;
+import org.celllife.idart.common.Identifier;
+import org.celllife.idart.common.PartClassificationCode;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -17,29 +19,19 @@ import java.util.Set;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
-        @JsonSubTypes.Type(name = "compound", value = Compound.class),
-        @JsonSubTypes.Type(name = "drug", value = Drug.class)
+        @JsonSubTypes.Type(name = "DRUG", value = Drug.class),
+        @JsonSubTypes.Type(name = "COMPOUND", value = Compound.class)
 })
 public abstract class Part implements Serializable {
 
-    public Set<Id> ids = new HashSet<Id>();
+    public Set<Identifier> identifiers = new HashSet<Identifier>();
 
-    public UnitOfMeasure unitOfMeasure;
+    public Set<Identifier> unitOfMeasure;
 
-    public Form form;
+    public FormCode form;
 
-    public Set<PartClassification> classifications = new HashSet<PartClassification>();
+    public Set<PartClassificationCode> classifications = new HashSet<PartClassificationCode>();
 
     protected Part() {
-    }
-
-    @Override
-    public String toString() {
-        return "Part{" +
-                "ids=" + ids +
-                ", unitOfMeasure=" + unitOfMeasure +
-                ", form=" + form +
-                ", classifications=" + classifications +
-                '}';
     }
 }

@@ -1,6 +1,6 @@
 package org.celllife.idart.client.prescription;
 
-import org.celllife.idart.client.common.*;
+import org.celllife.idart.common.*;
 import org.celllife.idart.client.dosageinstruction.DosageInstruction;
 import org.celllife.idart.client.indication.Indication;
 import org.celllife.idart.client.medication.Medication;
@@ -22,26 +22,26 @@ public final class PrescribedMedicationBuilder implements Serializable {
 
     private PrescribedMedication prescribedMedication;
 
-    private String clinicMedicationsIdSystem;
+    private String clinicMedicationsidentifiersystem;
 
-    private String clinicPrescribedMedicationsIdSystem;
+    private String clinicPrescribedMedicationsidentifiersystem;
 
     public PrescribedMedicationBuilder(String clinicId) {
         this.prescribedMedication = new PrescribedMedication();
-        this.clinicMedicationsIdSystem =
+        this.clinicMedicationsidentifiersystem =
                 String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicId);
-        this.clinicPrescribedMedicationsIdSystem =
+        this.clinicPrescribedMedicationsidentifiersystem =
                 String.format("http://www.cell-life.org/idart/clinics/%s/prescribedMedications", clinicId);
     }
 
     public PrescribedMedicationBuilder setId(String prescribedMedicationId) {
-        this.prescribedMedication.ids.add(new Id(prescribedMedicationId));
+        this.prescribedMedication.identifiers.add(newIdentifier(prescribedMedicationId));
         return this;
     }
 
     public PrescribedMedicationBuilder setMedication(String id) {
         this.prescribedMedication.medication = new Medication();
-        this.prescribedMedication.medication.ids.add(new Id(id));
+        this.prescribedMedication.medication.identifiers.add(newIdentifier(id));
         return this;
     }
 

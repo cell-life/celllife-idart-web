@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.unitofmeasuretype
 
 import org.celllife.idart.common.EventHeader
-import org.celllife.idart.common.EventType
 
 import static org.celllife.idart.common.EventHeader.newEventHeader
 
@@ -11,7 +10,7 @@ import javax.annotation.Generated
  * Unit Of Measure Type Domain Event
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class UnitOfMeasureTypeEvent {
+class UnitOfMeasureTypeEvent implements Serializable {
 
     EventHeader header
 

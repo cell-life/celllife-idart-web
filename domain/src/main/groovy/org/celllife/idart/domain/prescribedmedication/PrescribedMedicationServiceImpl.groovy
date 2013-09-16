@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicatio
     @Inject PrescribedMedicationValidator prescribedMedicationValidator
 
     @Inject PrescribedMedicationEventPublisher prescribedMedicationEventPublisher
-    
-    @Inject PrescribedMedicationSequence prescribedMedicationSequence
-    
+
     @Override
     Boolean exists(PrescribedMedicationId prescribedMedicationId) {
         prescribedMedicationRepository.exists(prescribedMedicationId)
     }
-    
+
     @Override
     PrescribedMedication save(PrescribedMedication prescribedMedication) {
 
-        def existingPrescribedMedication = null
-
-        if (prescribedMedication.id != null) {
-            existingPrescribedMedication = prescribedMedicationRepository.findOne(prescribedMedication.id)
-        } else {
-            prescribedMedication.id = prescribedMedicationSequence.nextValue()
-        }
+        def existingPrescribedMedication = prescribedMedicationRepository.findOne(prescribedMedication.id)
 
         if (existingPrescribedMedication == null) {
             existingPrescribedMedication = prescribedMedication
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.prescribedmedication.PrescribedMedicatio
 
         prescribedMedicationRepository.save(existingPrescribedMedication)
     }
-    
+
     @Override
     PrescribedMedication findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) {
 

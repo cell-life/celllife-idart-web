@@ -19,24 +19,16 @@ import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEve
     @Inject ${validator.className} ${validator.fieldName}
 
     @Inject ${eventPublisher.className} ${eventPublisher.fieldName}
-    <% if (features.includes.contains("sequence")) { %>
-    @Inject ${sequence.className} ${sequence.fieldName}
-    <% } %>
+
     @Override
     Boolean exists(${id.className} ${id.fieldName}) {
         ${repository.fieldName}.exists(${id.fieldName})
     }
-    <% if (features.includes.contains("sequence")) { %>
+
     @Override
     ${entity.className} save(${entity.className} ${entity.fieldName}) {
 
-        def existing${entity.className} = null
-
-        if (${entity.fieldName}.id != null) {
-            existing${entity.className} = ${repository.fieldName}.findOne(${entity.fieldName}.id)
-        } else {
-            ${entity.fieldName}.id = ${sequence.fieldName}.nextValue()
-        }
+        def existing${entity.className} = ${repository.fieldName}.findOne(${entity.fieldName}.id)
 
         if (existing${entity.className} == null) {
             existing${entity.className} = ${entity.fieldName}
@@ -50,17 +42,7 @@ import static ${domainEvent.packageName}.${domainEvent.className}.new${domainEve
 
         ${repository.fieldName}.save(existing${entity.className})
     }
-    <% } else { %>
-    @Override
-    ${entity.className} save(${entity.className} ${entity.fieldName}) {
 
-        ${validator.fieldName}.validate(${entity.fieldName})
-
-        ${eventPublisher.fieldName}.publish(new${domainEvent.className}(${entity.fieldName}, SAVED))
-
-        ${repository.fieldName}.save(${entity.fieldName})
-    }
-    <% } %>
     @Override
     ${entity.className} findBy${id.className}(${id.className} ${id.fieldName}) {
 

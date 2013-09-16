@@ -1,0 +1,12 @@
+package org.celllife.idart.relationship.usersystem
+
+/**
+ * User: Kevin W. Sewell
+ * Date: 2013-08-05
+ * Time: 19h03
+ */
+interface UserSystemEventPublisher {
+
+    void publish(UserSystemEvent userSystemEvent)
+
+}

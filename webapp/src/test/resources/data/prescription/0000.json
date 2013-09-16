@@ -1,62 +1,48 @@
 {
     "identifiers": [
         {
-            "system": "http://www.cell-life.org/idart/prescriptions",
+            "authority": "IDART-00000",
             "value": "00001"
         }
     ],
-    "prescriber": {
-        "identifiers": [
-            {
-                "system": "http://www.cell-life.org/idart/practitioners",
-                "value": "00001"
-            }
-        ]
-    },
-    "patient": {
-        "identifiers": [
-            {
-                "system": "http://www.cell-life.org/idart/patients",
-                "value": "00001"
-            }
-        ]
-    },
+    "prescriber": [
+        {
+            "authority": "PREHMIS",
+            "value": "00000"
+        }
+    ],
+    "patient": [
+        {
+            "authority": "PREHMIS",
+            "value": "00000"
+        }
+    ],
+    "encounter": [
+        {
+            "authority": "IDART",
+            "value": "00001"
+        }
+    ],
     "dateWritten": "2013-01-01",
     "prescribedMedications": [
         {
-            "medication": {
-                "identifiers": [
-                    {
-                        "system": "http://www.cell-life.org/idart/medications",
-                        "value": "Abacavir 20mg/ml 240ml"
-                    }
-                ]
-            },
+            "medication": [
+                {
+                    "authority": "IDART",
+                    "value": "Abacavir 20mg/ml 240ml"
+                }
+            ],
             "dosageInstruction": {
                 "doseQuantity": {
                     "value": 100,
-                    "unitOfMeasure": {
-                        "codes": [
-                            {
-                                "system": "http://unitsofmeasure.org",
-                                "value": "mg"
-                            }
-                        ]
-                    }
+                    "unitOfMeasure": "mg"
                 },
                 "timing": {
                     "repeat": {
                         "frequency": 2,
                         "duration": {
                             "value": 2,
-                            "unitOfMeasure": {
-                                "codes": [
-                                    {
-                                        "system": "http://unitsofmeasure.org",
-                                        "value": "mg"
-                                    }
-                                ]
-                            }
+                            "unitOfMeasure": "mg"
                         }
                     }
                 }

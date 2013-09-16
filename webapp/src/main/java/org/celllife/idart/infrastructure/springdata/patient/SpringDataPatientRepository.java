@@ -1,16 +1,19 @@
 package org.celllife.idart.infrastructure.springdata.patient;
 
 import org.celllife.idart.common.PatientId;
+import org.celllife.idart.common.PersonId;
 import org.celllife.idart.domain.patient.Patient;
 import org.celllife.idart.domain.patient.PatientRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-
-import javax.annotation.Generated;
+import org.springframework.data.repository.query.Param;
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
-public interface SpringDataPatientRepository extends PatientRepository,
-        PagingAndSortingRepository<Patient, PatientId> {
+public interface SpringDataPatientRepository extends PatientRepository, PagingAndSortingRepository<Patient, PatientId> {
+
+    @Query("select patient.person from Patient patient where patient.id = :patientId")
+    PersonId findPersonByPatientId(@Param("patientId") PatientId patientId);
 
 }
+

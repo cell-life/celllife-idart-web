@@ -1,5 +1,6 @@
 package org.celllife.idart.framework.security
 
+import org.celllife.idart.domain.system.SystemNotFoundException
 import org.celllife.idart.domain.system.SystemService
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -23,8 +24,15 @@ import static org.celllife.idart.common.SystemId.systemId
     @Override
     UserDetails loadUserByUsername(String systemIdValue) throws UsernameNotFoundException {
 
-        def system = systemService.findBySystemId(systemId(systemIdValue))
+        try {
 
-        return new IdartSystem(system.id.value, system.applicationKey, [] as Collection<? extends GrantedAuthority>);
+            def system = systemService.findBySystemId(systemId(systemIdValue))
+
+            return new IdartSystem(system.id.value, system.applicationKey, [] as Collection<? extends GrantedAuthority>);
+
+        } catch (SystemNotFoundException e) {
+
+            throw new UsernameNotFoundException(e.message)
+        }
     }
 }

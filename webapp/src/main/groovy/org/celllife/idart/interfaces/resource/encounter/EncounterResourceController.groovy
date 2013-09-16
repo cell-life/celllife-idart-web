@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             EncounterId encounterId = encounterSecurityAdapter.save(principal, encounterDto)
 
-            response.setHeader("Location", "${baseUrl}/encounterss/${encounterId}")
+            response.setHeader("Location", "${baseUrl}/encounters/${encounterId}")
             response.setStatus(SC_CREATED)
 
         } catch (EncounterValidationException e) {

@@ -64,6 +64,10 @@ jms-topic add \
     --entries=topic/administrationMethodEvent
 
 jms-topic add \
+    --topic-address=authorityEvent \
+    --entries=topic/authorityEvent
+
+jms-topic add \
     --topic-address=defaultDosageInstructionEvent \
     --entries=topic/defaultDosageInstructionEvent
 
@@ -96,10 +100,6 @@ jms-topic add \
     --entries=topic/lifeEventEvent
 
 jms-topic add \
-    --topic-address=medicationEvent \
-    --entries=topic/medicationEvent
-
-jms-topic add \
     --topic-address=organisationEvent \
     --entries=topic/organisationEvent
 
@@ -126,6 +126,10 @@ jms-topic add \
 jms-topic add \
     --topic-address=prescriptionEvent \
     --entries=topic/prescriptionEvent
+
+jms-topic add \
+    --topic-address=productEvent \
+    --entries=topic/productEvent
 
 jms-topic add \
     --topic-address=routeOfAdministrationEvent \

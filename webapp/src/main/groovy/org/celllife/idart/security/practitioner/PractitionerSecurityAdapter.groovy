@@ -3,7 +3,7 @@ package org.celllife.idart.security.practitioner
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.common.PractitionerId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.framework.security.IdartSystem
 import org.celllife.idart.framework.security.IdartUser
 

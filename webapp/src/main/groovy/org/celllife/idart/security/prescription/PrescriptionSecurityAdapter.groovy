@@ -2,7 +2,7 @@ package org.celllife.idart.security.prescription
 
 import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.common.PrescriptionId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.prescription.PrescriptionApplicationService
 
 import javax.annotation.Generated

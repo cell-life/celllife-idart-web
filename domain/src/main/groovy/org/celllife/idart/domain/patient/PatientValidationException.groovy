@@ -1,8 +1,7 @@
 package org.celllife.idart.domain.patient
 
-import javax.validation.ConstraintViolation
-
 import javax.annotation.Generated
+import javax.validation.ConstraintViolation
 
 /**
  */

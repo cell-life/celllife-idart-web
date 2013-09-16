@@ -1,18 +1,24 @@
 package org.celllife.idart.application.part.dto
 
+import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.domain.part.Compound
 import org.celllife.idart.domain.part.Drug
 import org.celllife.idart.domain.part.Part
 import org.celllife.idart.domain.part.PartBillOfMaterialsItem
+
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-25
  * Time: 09h10
  */
-class PartDtoAssembler {
+@Named class PartDtoAssembler {
 
-    static Part toPart(PartDto partDto) {
+    @Inject PartApplicationService partApplicationService
+
+    Part toPart(PartDto partDto) {
         switch (partDto.class) {
             case DrugDto:
                 return toDrug(partDto as DrugDto)
@@ -23,7 +29,7 @@ class PartDtoAssembler {
         }
     }
 
-    static Drug toDrug(DrugDto drugDto) {
+    Drug toDrug(DrugDto drugDto) {
 
         def drug = new Drug()
         drug.with {
@@ -37,7 +43,7 @@ class PartDtoAssembler {
         drug
     }
 
-    static Compound toCompound(CompoundDto compoundDto) {
+    Compound toCompound(CompoundDto compoundDto) {
 
         def compound = new Compound()
         compound.with {
@@ -50,11 +56,12 @@ class PartDtoAssembler {
         compound
     }
 
-    static PartBillOfMaterialsItem toPartBillOfMaterialsItem(PartBillOfMaterialsItemDto partBillOfMaterialsItemDto) {
+    PartBillOfMaterialsItem toPartBillOfMaterialsItem(PartBillOfMaterialsItemDto partBillOfMaterialsItemDto) {
 
         def partBillOfMaterialsItem = new PartBillOfMaterialsItem()
         partBillOfMaterialsItem.with {
             type = partBillOfMaterialsItemDto.type
+            part = partApplicationService.findByIdentifiers(partBillOfMaterialsItemDto.part)
             valid = partBillOfMaterialsItemDto.valid
             quantityUsed = partBillOfMaterialsItemDto.quantityUsed
             instructions = partBillOfMaterialsItemDto.instructions
@@ -64,7 +71,7 @@ class PartDtoAssembler {
         partBillOfMaterialsItem
     }
 
-    static PartDto toPartDto(Part part) {
+    PartDto toPartDto(Part part) {
         switch (part.class) {
             case Drug:
                 return toDrugDto(part as Drug)
@@ -75,7 +82,7 @@ class PartDtoAssembler {
         }
     }
 
-    static DrugDto toDrugDto(Drug drug) {
+    DrugDto toDrugDto(Drug drug) {
 
         def drugDto = new DrugDto()
         drugDto.with {
@@ -89,7 +96,7 @@ class PartDtoAssembler {
         drugDto
     }
 
-    static CompoundDto toCompoundDto(Compound compound) {
+    CompoundDto toCompoundDto(Compound compound) {
 
         def compoundDto = new CompoundDto()
         compoundDto.with {
@@ -102,11 +109,12 @@ class PartDtoAssembler {
         compoundDto
     }
 
-    static PartBillOfMaterialsItemDto toPartBillOfMaterialsItemDto(PartBillOfMaterialsItem partBillOfMaterialsItem) {
+    PartBillOfMaterialsItemDto toPartBillOfMaterialsItemDto(PartBillOfMaterialsItem partBillOfMaterialsItem) {
 
         def partBillOfMaterialsItemDto = new PartBillOfMaterialsItemDto()
         partBillOfMaterialsItemDto.with {
             type = partBillOfMaterialsItem.type
+            part = partApplicationService.findByPartId(partBillOfMaterialsItem.part).identifiers
             valid = partBillOfMaterialsItem.valid
             quantityUsed = partBillOfMaterialsItem.quantityUsed
             instructions = partBillOfMaterialsItem.instructions

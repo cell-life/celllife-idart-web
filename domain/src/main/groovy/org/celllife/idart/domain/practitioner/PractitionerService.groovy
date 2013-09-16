@@ -1,12 +1,10 @@
 package org.celllife.idart.domain.practitioner
 
+import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.PractitionerId
-
-import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PractitionerService {
 
     Boolean exists(PractitionerId practitionerId)
@@ -14,5 +12,7 @@ public interface PractitionerService {
     Practitioner save(Practitioner practitioner)
 
     Practitioner findByPractitionerId(PractitionerId practitionerId)
+
+    PersonId findPersonByPractitionerId(PractitionerId practitionerId)
 
 }

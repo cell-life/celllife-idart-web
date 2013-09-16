@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.product.ProductEvent.newProductEvent
     @Inject ProductValidator productValidator
 
     @Inject ProductEventPublisher productEventPublisher
-    
-    @Inject ProductSequence productSequence
-    
+
     @Override
     Boolean exists(ProductId productId) {
         productRepository.exists(productId)
     }
-    
+
     @Override
     Product save(Product product) {
 
-        def existingProduct = null
-
-        if (product.id != null) {
-            existingProduct = productRepository.findOne(product.id)
-        } else {
-            product.id = productSequence.nextValue()
-        }
+        def existingProduct = productRepository.findOne(product.id)
 
         if (existingProduct == null) {
             existingProduct = product
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.product.ProductEvent.newProductEvent
 
         productRepository.save(existingProduct)
     }
-    
+
     @Override
     Product findByProductId(ProductId productId) {
 

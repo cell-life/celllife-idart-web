@@ -1,15 +1,14 @@
 package org.celllife.idart.application.system.dto
 
 import org.celllife.idart.domain.system.System
-import org.celllife.idart.domain.identifiable.Identifier
 
-import javax.annotation.Generated
+import javax.inject.Named
 
 /**
  */
-class SystemDtoAssembler {
+@Named class SystemDtoAssembler {
 
-    static System toSystem(SystemDto systemDto) {
+    System toSystem(SystemDto systemDto) {
 
         def system = new System()
         system.with {
@@ -19,7 +18,7 @@ class SystemDtoAssembler {
         system
     }
 
-    static SystemDto toSystemDto(System system) {
+    SystemDto toSystemDto(System system) {
 
         def systemDto = new SystemDto()
         systemDto.with {

@@ -1,8 +1,6 @@
 package org.celllife.idart.application.system.dto
 
-import org.celllife.idart.domain.identifiable.Identifier
-
-import javax.annotation.Generated
+import org.celllife.idart.common.Identifier
 
 /**
  */

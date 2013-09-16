@@ -10,6 +10,8 @@ import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
+import static org.celllife.idart.framework.security.Principals.currentUsername
+
 /**
  * Camel Entry Site Event Publisher
  */
@@ -22,6 +24,9 @@ import javax.inject.Named
 
     @Override
     void publish(EntrySiteEvent entrySiteEvent) {
+
+        entrySiteEvent.header.username = currentUsername
+
         producerTemplate.sendBody(objectMapper.writeValueAsString(entrySiteEvent))
     }
 }

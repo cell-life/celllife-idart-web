@@ -1,19 +1,18 @@
 package org.celllife.idart.application.dispensation
 
 import org.celllife.idart.application.dispensation.dto.DispensationDto
+import org.celllife.idart.application.dispensation.dto.DispensationDtoAssembler
 import org.celllife.idart.common.DispensationId
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.domain.dispensation.DispensationService
 
-import static org.celllife.idart.application.dispensation.dto.DispensationDtoAssembler.toDispensation
-import static org.celllife.idart.application.dispensation.dto.DispensationDtoAssembler.toDispensationDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.DispensationId.dispensationId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.DISPENSATION
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.DISPENSATION
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject DispensationService dispensationService   
 
+    @Inject DispensationDtoAssembler dispensationDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         dispensationService.exists(dispensationId)
     }
 
+    @Override
     DispensationId save(DispensationDto dispensationDto) {
 
-        def dispensation = toDispensation(dispensationDto)
+        def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, dispensationDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(DISPENSATION, dispensationDto.identifiers)
-        if (identifiable == null) {
+        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART))
 
-            dispensation = dispensationService.save(dispensation)
+        def dispensation = dispensationDtoAssembler.toDispensation(dispensationDto)
+        dispensation.id = dispensationId
 
-            identifiable = new Identifiable(type: DISPENSATION, identifiers: dispensationDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, dispensation.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            dispensation.id = dispensationId(identifiable.getIdentifier(IDART).value)
-            dispensationService.save(dispensation)
-
-        }
+        dispensationService.save(dispensation)
 
         dispensation.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     DispensationDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(DISPENSATION, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, [identifier] as Set)
 
         if (identifiable == null) {
             throw new DispensationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def dispensationId = dispensationId(identifiable.getIdentifier(IDART).value)
+        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART))
 
         def dispensation = dispensationService.findByDispensationId(dispensationId)
 
-        def dispensationDto = toDispensationDto(dispensation)
+        def dispensationDto = dispensationDtoAssembler.toDispensationDto(dispensation)
         dispensationDto.identifiers = identifiable.identifiers
 
         dispensationDto
+    }
+
+    @Override
+    DispensationId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        dispensationId(idartIdentifierValue)
     }
 }

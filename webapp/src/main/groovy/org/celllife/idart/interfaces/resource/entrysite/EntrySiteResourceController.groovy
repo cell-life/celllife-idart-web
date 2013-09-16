@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             EntrySiteCode entrySiteCode = entrySiteSecurityAdapter.save(principal, entrySiteDto)
 
-            response.setHeader("Location", "${baseUrl}/entrySitess/${entrySiteCode}")
+            response.setHeader("Location", "${baseUrl}/entrySites/${entrySiteCode}")
             response.setStatus(SC_CREATED)
 
         } catch (EntrySiteValidationException e) {

@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             AdministrationMethodCode administrationMethodCode = administrationMethodSecurityAdapter.save(principal, administrationMethodDto)
 
-            response.setHeader("Location", "${baseUrl}/administrationMethodss/${administrationMethodCode}")
+            response.setHeader("Location", "${baseUrl}/administrationMethods/${administrationMethodCode}")
             response.setStatus(SC_CREATED)
 
         } catch (AdministrationMethodValidationException e) {

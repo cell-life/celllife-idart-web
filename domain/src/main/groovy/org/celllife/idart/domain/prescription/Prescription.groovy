@@ -9,7 +9,7 @@ import org.celllife.idart.common.*
  * Date: 2013-06-17
  * Time: 20h49
  */
-class Prescription {
+class Prescription implements Serializable {
 
     /**
      * Identified by

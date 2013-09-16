@@ -1,9 +1,8 @@
 package org.celllife.idart.application.prescribedmedication.dto
 
-import org.celllife.idart.application.product.dto.MedicationDto
 import org.celllife.idart.common.*
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 /**
  * User: Kevin W. Sewell
@@ -20,7 +19,7 @@ class PrescribedMedicationDto implements Serializable {
     /**
      * Medication
      */
-    MedicationDto medication
+    Set<Identifier> medication
 
     /**
      * Reason For Prescribing

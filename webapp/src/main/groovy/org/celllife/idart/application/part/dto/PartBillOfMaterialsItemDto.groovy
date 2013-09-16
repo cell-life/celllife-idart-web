@@ -2,6 +2,7 @@ package org.celllife.idart.application.part.dto
 
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Quantity
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.part.PartBillOfMaterialsType
 
 /**
@@ -24,7 +25,7 @@ class PartBillOfMaterialsItemDto implements Serializable {
     /**
      *  Made up of
      */
-    PartDto part
+    Set<Identifier> part
 
     /**
      * Quantity Used

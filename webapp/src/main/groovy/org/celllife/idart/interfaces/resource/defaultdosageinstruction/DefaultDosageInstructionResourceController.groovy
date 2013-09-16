@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             DefaultDosageInstructionId defaultDosageInstructionId = defaultDosageInstructionSecurityAdapter.save(principal, defaultDosageInstructionDto)
 
-            response.setHeader("Location", "${baseUrl}/defaultDosageInstructionss/${defaultDosageInstructionId}")
+            response.setHeader("Location", "${baseUrl}/defaultDosageInstructions/${defaultDosageInstructionId}")
             response.setStatus(SC_CREATED)
 
         } catch (DefaultDosageInstructionValidationException e) {

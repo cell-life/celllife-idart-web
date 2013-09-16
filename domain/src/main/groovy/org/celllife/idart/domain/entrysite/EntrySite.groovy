@@ -9,7 +9,7 @@ import javax.annotation.Generated
  *
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class EntrySite {
+class EntrySite implements Serializable {
 
     /**
      * Entry Site Code 

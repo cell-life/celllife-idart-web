@@ -6,7 +6,7 @@ import org.celllife.idart.domain.system.System
 import org.celllife.idart.domain.system.SystemService
 import org.celllife.idart.domain.user.User
 import org.celllife.idart.domain.user.UserService
-import org.celllife.idart.domain.usersystem.UserSystemService
+import org.celllife.idart.relationship.usersystem.UserSystemService
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Test
 import org.junit.runner.RunWith

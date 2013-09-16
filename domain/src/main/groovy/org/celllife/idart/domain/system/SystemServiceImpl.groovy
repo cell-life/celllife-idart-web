@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
     @Inject SystemValidator systemValidator
 
     @Inject SystemEventPublisher systemEventPublisher
-    
-    @Inject SystemSequence systemSequence
-    
+
     @Override
     Boolean exists(SystemId systemId) {
         systemRepository.exists(systemId)
     }
-    
+
     @Override
     System save(System system) {
 
-        def existingSystem = null
-
-        if (system.id != null) {
-            existingSystem = systemRepository.findOne(system.id)
-        } else {
-            system.id = systemSequence.nextValue()
-        }
+        def existingSystem = systemRepository.findOne(system.id)
 
         if (existingSystem == null) {
             existingSystem = system
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
 
         systemRepository.save(existingSystem)
     }
-    
+
     @Override
     System findBySystemId(SystemId systemId) {
 

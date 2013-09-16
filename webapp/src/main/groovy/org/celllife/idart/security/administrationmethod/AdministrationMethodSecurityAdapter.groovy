@@ -2,7 +2,7 @@ package org.celllife.idart.security.administrationmethod
 
 import org.celllife.idart.application.administrationmethod.dto.AdministrationMethodDto
 import org.celllife.idart.common.AdministrationMethodCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.administrationmethod.AdministrationMethodApplicationService
 
 import javax.annotation.Generated

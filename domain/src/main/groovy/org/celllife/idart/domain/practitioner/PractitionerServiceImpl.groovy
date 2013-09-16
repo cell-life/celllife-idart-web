@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.practitioner
 
+import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.PractitionerId
 
 import javax.annotation.Generated
@@ -11,7 +12,6 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class PractitionerServiceImpl implements PractitionerService {
 
     @Inject PractitionerRepository practitionerRepository
@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
     @Inject PractitionerValidator practitionerValidator
 
     @Inject PractitionerEventPublisher practitionerEventPublisher
-    
-    @Inject PractitionerSequence practitionerSequence
-    
+
     @Override
     Boolean exists(PractitionerId practitionerId) {
         practitionerRepository.exists(practitionerId)
     }
-    
+
     @Override
     Practitioner save(Practitioner practitioner) {
 
-        def existingPractitioner = null
-
-        if (practitioner.id != null) {
-            existingPractitioner = practitionerRepository.findOne(practitioner.id)
-        } else {
-            practitioner.id = practitionerSequence.nextValue()
-        }
+        def existingPractitioner = practitionerRepository.findOne(practitioner.id)
 
         if (existingPractitioner == null) {
             existingPractitioner = practitioner
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
 
         practitionerRepository.save(existingPractitioner)
     }
-    
+
     @Override
     Practitioner findByPractitionerId(PractitionerId practitionerId) {
 
@@ -61,5 +53,10 @@ import static org.celllife.idart.domain.practitioner.PractitionerEvent.newPracti
         }
 
         practitioner
+    }
+
+    @Override
+    PersonId findPersonByPractitionerId(PractitionerId practitionerId) {
+        practitionerRepository.findPersonByPractitionerId(practitionerId)
     }
 }

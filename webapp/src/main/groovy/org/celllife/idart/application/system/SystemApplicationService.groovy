@@ -2,7 +2,7 @@ package org.celllife.idart.application.system
 
 import org.celllife.idart.application.system.dto.SystemDto
 import org.celllife.idart.common.SystemId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface SystemApplicationService {
     SystemDto findBySystemId(SystemId systemId)
 
     SystemDto findByIdentifier(Identifier identifier)
+
+    SystemId findByIdentifiers(Set<Identifier> identifiers)
 
 }

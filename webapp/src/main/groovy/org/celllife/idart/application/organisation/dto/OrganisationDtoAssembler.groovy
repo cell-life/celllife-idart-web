@@ -4,14 +4,16 @@ import org.celllife.idart.domain.organisation.InformalOrganisation
 import org.celllife.idart.domain.organisation.LegalOrganisation
 import org.celllife.idart.domain.organisation.Organisation
 
+import javax.inject.Named
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-25
  * Time: 09h10
  */
-class OrganisationDtoAssembler {
+@Named class OrganisationDtoAssembler {
 
-    static Organisation toOrganisation(OrganisationDto organisationDto) {
+    Organisation toOrganisation(OrganisationDto organisationDto) {
         switch (organisationDto.class) {
             case LegalOrganisationDto:
                 return toLegalOrganisation(organisationDto as LegalOrganisationDto)
@@ -22,7 +24,7 @@ class OrganisationDtoAssembler {
         }
     }
 
-    static LegalOrganisation toLegalOrganisation(LegalOrganisationDto legalOrganisationDto) {
+    LegalOrganisation toLegalOrganisation(LegalOrganisationDto legalOrganisationDto) {
 
         def legalOrganisation = new LegalOrganisation()
         legalOrganisation.with {
@@ -36,7 +38,7 @@ class OrganisationDtoAssembler {
         legalOrganisation
     }
 
-    static InformalOrganisation toInformalOrganisation(InformalOrganisationDto informalOrganisationDto) {
+    InformalOrganisation toInformalOrganisation(InformalOrganisationDto informalOrganisationDto) {
 
         def informalOrganisation = new InformalOrganisation()
         informalOrganisation.with {
@@ -49,7 +51,7 @@ class OrganisationDtoAssembler {
         informalOrganisation
     }
 
-    static OrganisationDto toOrganisationDto(Organisation organisation) {
+    OrganisationDto toOrganisationDto(Organisation organisation) {
         switch (organisation.class) {
             case LegalOrganisation:
                 return toLegalOrganisationDto(organisation as LegalOrganisation)
@@ -61,7 +63,7 @@ class OrganisationDtoAssembler {
     }
 
 
-    static LegalOrganisationDto toLegalOrganisationDto(LegalOrganisation legalOrganisation) {
+    LegalOrganisationDto toLegalOrganisationDto(LegalOrganisation legalOrganisation) {
 
         def legalOrganisationDto = new LegalOrganisationDto()
         legalOrganisationDto.with {
@@ -75,7 +77,7 @@ class OrganisationDtoAssembler {
         legalOrganisationDto
     }
 
-    static InformalOrganisationDto toInformalOrganisationDto(InformalOrganisation informalOrganisation) {
+    InformalOrganisationDto toInformalOrganisationDto(InformalOrganisation informalOrganisation) {
 
         def informalOrganisationDto = new InformalOrganisationDto()
         informalOrganisationDto.with {

@@ -1,10 +1,10 @@
 package org.celllife.idart.client.partyrole;
 
-import org.celllife.idart.client.common.Gender;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.celllife.idart.client.person.MobileTelephoneNumber;
 import org.celllife.idart.client.person.PartyContactMechanism;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
+import org.celllife.idart.common.Gender;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,13 +34,13 @@ public class PartyRoleSerializationTest {
         PartyRole partyRole = objectMapper.reader(PartyRole.class).readValue(inputStream);
 
         Assert.assertNotNull(partyRole);
-        Assert.assertNotNull(partyRole.ids);
-        Assert.assertTrue(partyRole.ids.size() != 0);
+        Assert.assertNotNull(partyRole.identifiers);
+        Assert.assertTrue(partyRole.identifiers.size() != 0);
         Assert.assertNotNull(partyRole.person);
-        Assert.assertTrue(partyRole.person.ids.size() != 0);
+        Assert.assertTrue(partyRole.person.identifiers.size() != 0);
         Assert.assertEquals("MIHLALI", partyRole.person.firstName);
         Assert.assertEquals("PAPU", partyRole.person.lastName);
-        Assert.assertEquals(Gender.F, partyRole.person.gender);
+        Assert.assertEquals(Gender.FEMALE, partyRole.person.gender);
         Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2006-06-02"), partyRole.person.birthDate);
 
         for (PartyContactMechanism contactMechanism : partyRole.person.contactMechanisms) {
@@ -60,10 +60,10 @@ public class PartyRoleSerializationTest {
 
         for (PartyRole partyRole : partyRoles) {
             Assert.assertNotNull(partyRole);
-            Assert.assertNotNull(partyRole.ids);
-            Assert.assertTrue(partyRole.ids.size() != 0);
+            Assert.assertNotNull(partyRole.identifiers);
+            Assert.assertTrue(partyRole.identifiers.size() != 0);
             Assert.assertNotNull(partyRole.person);
-            Assert.assertTrue(partyRole.person.ids.size() != 0);
+            Assert.assertTrue(partyRole.person.identifiers.size() != 0);
         }
     }
 }

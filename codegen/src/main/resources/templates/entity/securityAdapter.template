@@ -2,7 +2,7 @@ package ${securityAdapter.packageName}
 
 import ${dto.packageName}.${dto.className}
 import ${id.packageName}.${id.className}
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import ${applicationService.packageName}.${applicationService.className}
 
 import javax.annotation.Generated

@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             UserId userId = userSecurityAdapter.save(principal, userDto)
 
-            response.setHeader("Location", "${baseUrl}/userss/${userId}")
+            response.setHeader("Location", "${baseUrl}/users/${userId}")
             response.setStatus(SC_CREATED)
 
         } catch (UserValidationException e) {

@@ -2,8 +2,8 @@ package org.celllife.idart.infrastructure.camel.usersystem
 
 import org.apache.camel.EndpointInject
 import org.apache.camel.ProducerTemplate
-import org.celllife.idart.domain.usersystem.UserSystemEvent
-import org.celllife.idart.domain.usersystem.UserSystemEventPublisher
+import org.celllife.idart.relationship.usersystem.UserSystemEvent
+import org.celllife.idart.relationship.usersystem.UserSystemEventPublisher
 import org.springframework.stereotype.Component
 
 import javax.annotation.Generated

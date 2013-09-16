@@ -2,7 +2,7 @@ package org.celllife.idart.application.indication
 
 import org.celllife.idart.application.indication.dto.IndicationDto
 import org.celllife.idart.common.IndicationCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface IndicationApplicationService {
     IndicationDto findByIndicationCode(IndicationCode indicationCode)
 
     IndicationDto findByIdentifier(Identifier identifier)
+
+    IndicationCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

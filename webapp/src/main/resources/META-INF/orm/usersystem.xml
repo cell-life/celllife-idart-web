@@ -6,7 +6,7 @@
 
     <!-- User For System -->
 
-    <entity class="org.celllife.idart.domain.usersystem.UserSystem">
+    <entity class="org.celllife.idart.relationship.usersystem.UserSystem">
         <attributes>
             <id name="pk">
                 <generated-value strategy="TABLE"/>

@@ -1,6 +1,6 @@
 package org.celllife.idart.application.product.dto
 
-import org.celllife.idart.application.part.dto.DrugDto
+import org.celllife.idart.common.Identifier
 
 /**
  * User: Kevin W. Sewell
@@ -12,6 +12,6 @@ class MedicationDto extends ProductDto {
     /**
      * Offered using
      */
-    DrugDto drug
+    Set<Identifier> drug
 
 }

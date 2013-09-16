@@ -26,8 +26,6 @@ public interface GraphDomainEventConsumer {
 
     void handleLifeEventEvent(String message)
 
-    void handleMedicationEvent(String message)
-
     void handleOrganisationEvent(String message)
 
     void handlePartEvent(String message)
@@ -41,6 +39,8 @@ public interface GraphDomainEventConsumer {
     void handlePrescribedMedicationEvent(String message)
 
     void handlePrescriptionEvent(String message)
+
+    void handleProductEvent(String message)
 
     void handleRouteOfAdministrationEvent(String message)
 

@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
     @Inject PartValidator partValidator
 
     @Inject PartEventPublisher partEventPublisher
-    
-    @Inject PartSequence partSequence
-    
+
     @Override
     Boolean exists(PartId partId) {
         partRepository.exists(partId)
     }
-    
+
     @Override
     Part save(Part part) {
 
-        def existingPart = null
-
-        if (part.id != null) {
-            existingPart = partRepository.findOne(part.id)
-        } else {
-            part.id = partSequence.nextValue()
-        }
+        def existingPart = partRepository.findOne(part.id)
 
         if (existingPart == null) {
             existingPart = part
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
 
         partRepository.save(existingPart)
     }
-    
+
     @Override
     Part findByPartId(PartId partId) {
 

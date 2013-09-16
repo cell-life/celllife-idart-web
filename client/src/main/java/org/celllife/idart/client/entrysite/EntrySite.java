@@ -1,7 +1,6 @@
 package org.celllife.idart.client.entrysite;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.common.EntrySiteCode;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -13,11 +12,11 @@ import java.util.Set;
  */
 public final class EntrySite implements Serializable {
 
-    public Set<Code> codes;
+    public EntrySiteCode code;
 
-    public Set<LocalisedText> names;
+    public String name;
 
-    public Set<LocalisedText> descriptions;
+    public String description;
 
     public EntrySite() {
     }

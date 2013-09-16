@@ -58,11 +58,6 @@
         </camel:route>
 
         <camel:route>
-            <camel:from uri="direct:medicationEvent"/>
-            <camel:bean ref="graphDomainEventConsumer" method="handleMedicationEvent"/>
-        </camel:route>
-
-        <camel:route>
             <camel:from uri="direct:organisationEvent"/>
             <camel:bean ref="graphDomainEventConsumer" method="handleOrganisationEvent"/>
         </camel:route>
@@ -95,6 +90,11 @@
         <camel:route>
             <camel:from uri="direct:prescriptionEvent"/>
             <camel:bean ref="graphDomainEventConsumer" method="handlePrescriptionEvent"/>
+        </camel:route>
+
+        <camel:route>
+            <camel:from uri="direct:productEvent"/>
+            <camel:bean ref="graphDomainEventConsumer" method="handleProductEvent"/>
         </camel:route>
 
         <camel:route>

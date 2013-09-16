@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             PatientId patientId = patientSecurityAdapter.save(principal, patientDto)
 
-            response.setHeader("Location", "${baseUrl}/patientss/${patientId}")
+            response.setHeader("Location", "${baseUrl}/patients/${patientId}")
             response.setStatus(SC_CREATED)
 
         } catch (PatientValidationException e) {

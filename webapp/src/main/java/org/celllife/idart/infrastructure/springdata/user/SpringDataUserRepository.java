@@ -14,6 +14,6 @@ import javax.annotation.Generated;
 public interface SpringDataUserRepository extends UserRepository,
         PagingAndSortingRepository<User, UserId> {
 
-    @Query("select user.id from User user where user.currentUsername = :username")
+    @Query("select user.id from User user where user.username = :username")
     UserId findByUsername(@Param("username") String username);
 }

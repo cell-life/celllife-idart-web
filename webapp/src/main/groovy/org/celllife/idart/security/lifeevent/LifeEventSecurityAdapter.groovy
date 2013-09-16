@@ -2,7 +2,7 @@ package org.celllife.idart.security.lifeevent
 
 import org.celllife.idart.application.lifeevent.dto.LifeEventDto
 import org.celllife.idart.common.LifeEventCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.lifeevent.LifeEventApplicationService
 
 import javax.annotation.Generated

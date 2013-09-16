@@ -1,8 +1,7 @@
 package org.celllife.idart.domain.patient
 
 import org.celllife.idart.common.PatientId
-
-import javax.annotation.Generated
+import org.celllife.idart.common.PersonId
 
 /**
  */
@@ -12,4 +11,5 @@ public interface PatientService {
 
     Patient findByPatientId(PatientId patientId)
 
+    PersonId findPersonByPatientId(PatientId patientId)
 }

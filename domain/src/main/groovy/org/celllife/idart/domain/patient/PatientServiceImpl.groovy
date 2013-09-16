@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.patient
 
 import org.celllife.idart.common.PatientId
+import org.celllife.idart.common.PersonId
 import org.celllife.idart.domain.identifiable.IdentifiableSeqeuence
 
 import javax.inject.Inject
@@ -8,7 +9,7 @@ import javax.inject.Named
 
 import static java.lang.String.format
 import static org.celllife.idart.common.PatientId.patientId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.PATIENT
+import static org.celllife.idart.common.IdentifiableType.PATIENT
 import static org.celllife.idart.domain.patient.PatientEvent.EventType.SAVED
 import static org.celllife.idart.domain.patient.PatientEvent.newPatientEvent
 
@@ -60,5 +61,10 @@ import static org.celllife.idart.domain.patient.PatientEvent.newPatientEvent
         }
 
         patient
+    }
+
+    @Override
+    PersonId findPersonByPatientId(PatientId patientId) {
+        patientRepository.findPersonByPatientId(patientId)
     }
 }

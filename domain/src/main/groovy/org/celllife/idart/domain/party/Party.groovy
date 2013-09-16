@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.party
 
 import groovy.transform.EqualsAndHashCode
-import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 
 /**
  * User: Kevin W. Sewell
@@ -9,7 +8,7 @@ import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
  * Time: 13h45
  */
 @EqualsAndHashCode(includes = "ids")
-abstract class Party {
+abstract class Party implements Serializable {
 
     /**
      * Classified into

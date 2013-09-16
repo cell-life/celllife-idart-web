@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             LifeEventCode lifeEventCode = lifeEventSecurityAdapter.save(principal, lifeEventDto)
 
-            response.setHeader("Location", "${baseUrl}/lifeEventss/${lifeEventCode}")
+            response.setHeader("Location", "${baseUrl}/lifeEvents/${lifeEventCode}")
             response.setStatus(SC_CREATED)
 
         } catch (LifeEventValidationException e) {

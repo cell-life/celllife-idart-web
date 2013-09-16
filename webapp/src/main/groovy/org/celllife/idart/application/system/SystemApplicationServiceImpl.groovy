@@ -1,19 +1,18 @@
 package org.celllife.idart.application.system
 
 import org.celllife.idart.application.system.dto.SystemDto
+import org.celllife.idart.application.system.dto.SystemDtoAssembler
 import org.celllife.idart.common.SystemId
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.system.SystemNotFoundException
 import org.celllife.idart.domain.system.SystemService
 
-import static org.celllife.idart.application.system.dto.SystemDtoAssembler.toSystem
-import static org.celllife.idart.application.system.dto.SystemDtoAssembler.toSystemDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.SystemId.systemId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.SYSTEM
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.SYSTEM
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject SystemService systemService   
 
+    @Inject SystemDtoAssembler systemDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         systemService.exists(systemId)
     }
 
+    @Override
     SystemId save(SystemDto systemDto) {
 
-        def system = toSystem(systemDto)
+        def identifiable = identifiableService.resolveIdentifiable(SYSTEM, systemDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(SYSTEM, systemDto.identifiers)
-        if (identifiable == null) {
+        def systemId = systemId(identifiable.getIdentifierValue(IDART))
 
-            system = systemService.save(system)
+        def system = systemDtoAssembler.toSystem(systemDto)
+        system.id = systemId
 
-            identifiable = new Identifiable(type: SYSTEM, identifiers: systemDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, system.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            system.id = systemId(identifiable.getIdentifier(IDART).value)
-            systemService.save(system)
-
-        }
+        systemService.save(system)
 
         system.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     SystemDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(SYSTEM, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(SYSTEM, [identifier] as Set)
 
         if (identifiable == null) {
             throw new SystemNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def systemId = systemId(identifiable.getIdentifier(IDART).value)
+        def systemId = systemId(identifiable.getIdentifierValue(IDART))
 
         def system = systemService.findBySystemId(systemId)
 
-        def systemDto = toSystemDto(system)
+        def systemDto = systemDtoAssembler.toSystemDto(system)
         systemDto.identifiers = identifiable.identifiers
 
         systemDto
+    }
+
+    @Override
+    SystemId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(SYSTEM, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        systemId(idartIdentifierValue)
     }
 }

@@ -1,7 +1,6 @@
 package org.celllife.idart.client.unitofmeasure;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.common.UnitOfMeasureCode;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -14,16 +13,16 @@ import java.util.Set;
  */
 public final class UnitOfMeasure implements Serializable {
 
-    public Set<Code> codes = new HashSet<Code>();
+    public UnitOfMeasureCode code;
 
-    public Set<LocalisedText> names;
+    public String name;
 
-    public Set<LocalisedText> descriptions;
+    public String description;
 
     public UnitOfMeasure() {
     }
 
-    public UnitOfMeasure(String codeValue) {
-        codes.add(new Code(codeValue));
+    public UnitOfMeasure(UnitOfMeasureCode code) {
+        this.code = code;
     }
 }

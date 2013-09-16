@@ -9,7 +9,7 @@ import javax.annotation.Generated
  *
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class RouteOfAdministration {
+class RouteOfAdministration implements Serializable {
 
     /**
      * Route Of Administration Code 

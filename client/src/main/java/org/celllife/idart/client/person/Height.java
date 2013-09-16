@@ -1,6 +1,6 @@
 package org.celllife.idart.client.person;
 
-import org.celllife.idart.client.common.Quantity;
+import org.celllife.idart.common.Quantity;
 
 /**
  * Kevin W. Sewell

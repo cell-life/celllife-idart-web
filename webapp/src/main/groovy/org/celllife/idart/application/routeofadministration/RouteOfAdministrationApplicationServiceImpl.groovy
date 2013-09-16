@@ -1,19 +1,18 @@
 package org.celllife.idart.application.routeofadministration
 
 import org.celllife.idart.application.routeofadministration.dto.RouteOfAdministrationDto
+import org.celllife.idart.application.routeofadministration.dto.RouteOfAdministrationDtoAssembler
 import org.celllife.idart.common.RouteOfAdministrationCode
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationNotFoundException
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationService
 
-import static org.celllife.idart.application.routeofadministration.dto.RouteOfAdministrationDtoAssembler.toRouteOfAdministration
-import static org.celllife.idart.application.routeofadministration.dto.RouteOfAdministrationDtoAssembler.toRouteOfAdministrationDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.RouteOfAdministrationCode.routeOfAdministrationCode
-import static org.celllife.idart.domain.identifiable.IdentifiableType.ROUTE_OF_ADMINISTRATION
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.ROUTE_OF_ADMINISTRATION
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject RouteOfAdministrationService routeOfAdministrationService   
 
+    @Inject RouteOfAdministrationDtoAssembler routeOfAdministrationDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         routeOfAdministrationService.exists(routeOfAdministrationCode)
     }
 
+    @Override
     RouteOfAdministrationCode save(RouteOfAdministrationDto routeOfAdministrationDto) {
 
-        def routeOfAdministration = toRouteOfAdministration(routeOfAdministrationDto)
+        def identifiable = identifiableService.resolveIdentifiable(ROUTE_OF_ADMINISTRATION, routeOfAdministrationDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(ROUTE_OF_ADMINISTRATION, routeOfAdministrationDto.identifiers)
-        if (identifiable == null) {
+        def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifierValue(IDART))
 
-            routeOfAdministration = routeOfAdministrationService.save(routeOfAdministration)
+        def routeOfAdministration = routeOfAdministrationDtoAssembler.toRouteOfAdministration(routeOfAdministrationDto)
+        routeOfAdministration.id = routeOfAdministrationCode
 
-            identifiable = new Identifiable(type: ROUTE_OF_ADMINISTRATION, identifiers: routeOfAdministrationDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, routeOfAdministration.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            routeOfAdministration.id = routeOfAdministrationCode(identifiable.getIdentifier(IDART).value)
-            routeOfAdministrationService.save(routeOfAdministration)
-
-        }
+        routeOfAdministrationService.save(routeOfAdministration)
 
         routeOfAdministration.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     RouteOfAdministrationDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(ROUTE_OF_ADMINISTRATION, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(ROUTE_OF_ADMINISTRATION, [identifier] as Set)
 
         if (identifiable == null) {
             throw new RouteOfAdministrationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifier(IDART).value)
+        def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifierValue(IDART))
 
         def routeOfAdministration = routeOfAdministrationService.findByRouteOfAdministrationCode(routeOfAdministrationCode)
 
-        def routeOfAdministrationDto = toRouteOfAdministrationDto(routeOfAdministration)
+        def routeOfAdministrationDto = routeOfAdministrationDtoAssembler.toRouteOfAdministrationDto(routeOfAdministration)
         routeOfAdministrationDto.identifiers = identifiable.identifiers
 
         routeOfAdministrationDto
+    }
+
+    @Override
+    RouteOfAdministrationCode findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(ROUTE_OF_ADMINISTRATION, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        routeOfAdministrationCode(idartIdentifierValue)
     }
 }

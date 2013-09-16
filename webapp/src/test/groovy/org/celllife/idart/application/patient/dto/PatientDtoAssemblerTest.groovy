@@ -12,7 +12,7 @@ import static org.celllife.idart.common.Measurement.newMeasurement
 import static org.celllife.idart.common.MeasurementType.HIEGHT
 import static org.celllife.idart.common.Quantity.newQuantity
 import static org.celllife.idart.common.UnitOfMeasureCode.newUnitOfMeasureCode
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
 

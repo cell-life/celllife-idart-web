@@ -7,7 +7,7 @@ import org.celllife.idart.common.PartId
  * Date: 2013-06-16
  * Time: 18h47
  */
-abstract class InventoryItem {
+abstract class InventoryItem implements Serializable {
 
     /**
      * Persistence Key

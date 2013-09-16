@@ -8,7 +8,7 @@ import javax.inject.Named
 
 import static java.lang.String.format
 import static org.celllife.idart.common.PersonId.personId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.PERSON
+import static org.celllife.idart.common.IdentifiableType.PERSON
 import static org.celllife.idart.domain.person.PersonEvent.EventType.SAVED
 import static org.celllife.idart.domain.person.PersonEvent.newPersonEvent
 

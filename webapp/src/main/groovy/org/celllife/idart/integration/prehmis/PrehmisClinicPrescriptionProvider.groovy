@@ -15,7 +15,7 @@ import static org.celllife.idart.common.AuthorityId.PGWC
 import static org.celllife.idart.common.AuthorityId.SA_IDENTITY_NUMBER
 import static org.celllife.idart.common.AuthorityId.PREHMIS
 import static org.celllife.idart.common.PartClassificationType.ATC
-import static org.celllife.idart.domain.identifiable.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStorePrescriptionRequest

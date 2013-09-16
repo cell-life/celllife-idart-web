@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.substitution
 
 import org.celllife.idart.common.EventHeader
-import org.celllife.idart.common.EventType
 
 import static org.celllife.idart.common.EventHeader.newEventHeader
 
@@ -11,7 +10,7 @@ import javax.annotation.Generated
  * Substitution Domain Event
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class SubstitutionEvent {
+class SubstitutionEvent implements Serializable {
 
     EventHeader header
 

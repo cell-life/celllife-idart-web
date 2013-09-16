@@ -1,5 +1,8 @@
 package org.celllife.idart.domain.identifiable
 
+import org.celllife.idart.common.IdentifiableType
+import org.celllife.idart.common.Identifier
+
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -12,31 +15,44 @@ import javax.inject.Named
 
     @Inject IdentifiableRepository identifiableRepository
 
-    Identifiable save(Identifiable identifiable) {
+    @Inject IdentifiableSeqeuence identifiableSeqeuence
 
-        def existingIdentifiable = findByIdentifiers(identifiable.type, identifiable.identifiers)
+    @Override
+    Identifiable resolveIdentifiable(IdentifiableType identifiableType, Set<Identifier> identifiers) {
+
+        def existingIdentifiable = doFindByIdentifiers(identifiableType, identifiers)
 
         if (existingIdentifiable == null) {
-            existingIdentifiable = new Identifiable(type: identifiable.type)
+            existingIdentifiable = new Identifiable(type: identifiableType)
+
+            existingIdentifiable.addIdentifier(identifiableSeqeuence.nextValue(identifiableType))
         }
 
-        existingIdentifiable.addIdentifiers(identifiable.identifiers)
+        existingIdentifiable.addIdentifiers(identifiers)
 
         identifiableRepository.save(existingIdentifiable)
+
+        return existingIdentifiable
     }
 
-    Identifiable findByIdentifiers(IdentifiableType type, Set<Identifier> identifiers) {
+    @Override
+    Boolean exists(IdentifiableType type, Set<Identifier> identifiers) {
+        doFindByIdentifiers(type, identifiers) != null
+    }
+
+    Identifiable doFindByIdentifiers(IdentifiableType identifiableType, Set<Identifier> identifiers) {
 
         for (identifier in identifiers) {
 
-            def identifiable =
-                identifiableRepository.findByTypeAndAuthorityAndValue(type, identifier.authority, identifier.value)
+            def existingIdentifiable = identifiableRepository
+                    .findByTypeAndAuthorityAndValue(identifiableType, identifier.authority, identifier.value)
 
-            if (identifiable != null) {
-                return identifiable
+            if (existingIdentifiable != null) {
+                return existingIdentifiable
             }
         }
 
         return null
+
     }
 }

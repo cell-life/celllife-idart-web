@@ -2,19 +2,18 @@ package org.celllife.idart.application.patient.dto
 
 import org.celllife.idart.domain.patient.Patient
 
+import javax.inject.Named
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-25
  * Time: 09h10
  */
-class PatientDtoAssembler {
+@Named class PatientDtoAssembler {
 
-    static Patient toPatient(PatientDto patientDto) {
-        copyToPatient(patientDto, new Patient())
-    }
+    Patient toPatient(PatientDto patientDto) {
 
-    static copyToPatient(PatientDto patientDto, Patient patient) {
-
+        def patient = new Patient()
         patient.with {
             if (patientDto.valid != null) {
                 valid = patientDto.valid
@@ -24,13 +23,11 @@ class PatientDtoAssembler {
         patient
     }
 
-    static PatientDto toPatientDto(Patient patient) {
-        copyToPatientDto(patient, new PatientDto())
-    }
+    PatientDto toPatientDto(Patient patient) {
 
-    static copyToPatientDto(Patient patient, PatientDto patientDto) {
-
+        def patientDto = new PatientDto()
         patientDto.with {
+
             if (patient.valid != null) {
                 valid = patient.valid
             }

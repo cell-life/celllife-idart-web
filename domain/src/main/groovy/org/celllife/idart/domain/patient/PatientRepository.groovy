@@ -1,12 +1,10 @@
 package org.celllife.idart.domain.patient
 
 import org.celllife.idart.common.PatientId
-
-import javax.annotation.Generated
+import org.celllife.idart.common.PersonId
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PatientRepository {
 
     boolean exists(PatientId patientId)
@@ -15,4 +13,5 @@ public interface PatientRepository {
 
     Patient findOne(PatientId patientId)
 
+    PersonId findPersonByPatientId(PatientId patientId)
 }

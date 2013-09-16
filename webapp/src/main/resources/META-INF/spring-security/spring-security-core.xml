@@ -8,7 +8,7 @@
 
     <context:component-scan base-package="org.celllife.idart.security"/>
 
-    <security:global-method-security pre-post-annotations="enabled"/>
+    <security:global-method-security pre-post-annotations="enabled" />
 
     <security:authentication-manager id="authenticationManager">
         <security:authentication-provider user-service-ref="idartSystemDetailService">

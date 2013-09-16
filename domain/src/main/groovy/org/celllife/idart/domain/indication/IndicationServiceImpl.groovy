@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.indication.IndicationEvent.newIndication
     @Inject IndicationValidator indicationValidator
 
     @Inject IndicationEventPublisher indicationEventPublisher
-    
+
     @Override
     Boolean exists(IndicationCode indicationCode) {
         indicationRepository.exists(indicationCode)
     }
-    
+
     @Override
     Indication save(Indication indication) {
 
-        indicationValidator.validate(indication)
+        def existingIndication = indicationRepository.findOne(indication.id)
 
-        indicationEventPublisher.publish(newIndicationEvent(indication, SAVED))
+        if (existingIndication == null) {
+            existingIndication = indication
+        } else {
+            existingIndication.merge(indication)
+        }
 
-        indicationRepository.save(indication)
+        indicationValidator.validate(existingIndication)
+
+        indicationEventPublisher.publish(newIndicationEvent(existingIndication, SAVED))
+
+        indicationRepository.save(existingIndication)
     }
-    
+
     @Override
     Indication findByIndicationCode(IndicationCode indicationCode) {
 

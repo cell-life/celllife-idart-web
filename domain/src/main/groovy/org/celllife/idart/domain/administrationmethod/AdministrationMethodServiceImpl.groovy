@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.administrationmethod.AdministrationMetho
     @Inject AdministrationMethodValidator administrationMethodValidator
 
     @Inject AdministrationMethodEventPublisher administrationMethodEventPublisher
-    
+
     @Override
     Boolean exists(AdministrationMethodCode administrationMethodCode) {
         administrationMethodRepository.exists(administrationMethodCode)
     }
-    
+
     @Override
     AdministrationMethod save(AdministrationMethod administrationMethod) {
 
-        administrationMethodValidator.validate(administrationMethod)
+        def existingAdministrationMethod = administrationMethodRepository.findOne(administrationMethod.id)
 
-        administrationMethodEventPublisher.publish(newAdministrationMethodEvent(administrationMethod, SAVED))
+        if (existingAdministrationMethod == null) {
+            existingAdministrationMethod = administrationMethod
+        } else {
+            existingAdministrationMethod.merge(administrationMethod)
+        }
 
-        administrationMethodRepository.save(administrationMethod)
+        administrationMethodValidator.validate(existingAdministrationMethod)
+
+        administrationMethodEventPublisher.publish(newAdministrationMethodEvent(existingAdministrationMethod, SAVED))
+
+        administrationMethodRepository.save(existingAdministrationMethod)
     }
-    
+
     @Override
     AdministrationMethod findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode) {
 

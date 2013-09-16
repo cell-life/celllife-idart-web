@@ -2,18 +2,23 @@ package org.celllife.idart.application.person
 
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.PersonId
-import org.celllife.idart.domain.identifiable.Identifier
-import org.celllife.idart.domain.person.Person
+import org.celllife.idart.common.Identifier
+
+import javax.annotation.Generated
 
 /**
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PersonApplicationService {
 
     Boolean exists(PersonId personId)
 
-    PersonId save(PersonDto person)
+    PersonId save(PersonDto personDto)
+
+    PersonDto findByPersonId(PersonId personId)
 
     PersonDto findByIdentifier(Identifier identifier)
 
-    PersonDto findByPersonId(PersonId personId)
+    PersonId findByIdentifiers(Set<Identifier> identifiers)
+
 }

@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             IndicationCode indicationCode = indicationSecurityAdapter.save(principal, indicationDto)
 
-            response.setHeader("Location", "${baseUrl}/indicationss/${indicationCode}")
+            response.setHeader("Location", "${baseUrl}/indications/${indicationCode}")
             response.setStatus(SC_CREATED)
 
         } catch (IndicationValidationException e) {

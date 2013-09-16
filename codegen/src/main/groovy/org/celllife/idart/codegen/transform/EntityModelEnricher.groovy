@@ -49,6 +49,10 @@ class EntityModelEnricher {
                     tableName = toSnakeCase(className)
                 }
 
+                if (identifiableType == null) {
+                    identifiableType = toSnakeCase(className).toUpperCase()
+                }
+
                 /*
                  * Properties
                  */

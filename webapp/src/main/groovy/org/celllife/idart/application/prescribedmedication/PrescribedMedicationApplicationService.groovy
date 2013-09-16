@@ -2,7 +2,7 @@ package org.celllife.idart.application.prescribedmedication
 
 import org.celllife.idart.application.prescribedmedication.dto.PrescribedMedicationDto
 import org.celllife.idart.common.PrescribedMedicationId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface PrescribedMedicationApplicationService {
     PrescribedMedicationDto findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId)
 
     PrescribedMedicationDto findByIdentifier(Identifier identifier)
+
+    PrescribedMedicationId findByIdentifiers(Set<Identifier> identifiers)
 
 }

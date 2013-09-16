@@ -2,7 +2,7 @@ package org.celllife.idart.security.form
 
 import org.celllife.idart.application.form.dto.FormDto
 import org.celllife.idart.common.FormCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.form.FormApplicationService
 
 import javax.annotation.Generated

@@ -2,8 +2,6 @@ package org.celllife.idart.domain.user
 
 import org.celllife.idart.common.UserId
 
-import javax.annotation.Generated
-
 /**
  */
 public interface UserRepository {

@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             RouteOfAdministrationCode routeOfAdministrationCode = routeOfAdministrationSecurityAdapter.save(principal, routeOfAdministrationDto)
 
-            response.setHeader("Location", "${baseUrl}/routesOfAdministrations/${routeOfAdministrationCode}")
+            response.setHeader("Location", "${baseUrl}/routesOfAdministration/${routeOfAdministrationCode}")
             response.setStatus(SC_CREATED)
 
         } catch (RouteOfAdministrationValidationException e) {

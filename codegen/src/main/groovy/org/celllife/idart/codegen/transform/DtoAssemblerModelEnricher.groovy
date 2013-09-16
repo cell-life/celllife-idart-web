@@ -33,6 +33,10 @@ class DtoAssemblerModelEnricher {
                     packageName = "${basePackageName}.application.${model.packageName}.dto"
                 }
 
+                if (fieldName == null) {
+                    fieldName = "${toFieldName(className)}"
+                }
+
                 if (collectionFieldName == null) {
                     collectionFieldName = "${fieldName}s"
                 }

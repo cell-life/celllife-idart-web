@@ -2,7 +2,7 @@ package org.celllife.idart.application.part
 
 import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.common.PartId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface PartApplicationService {
     PartDto findByPartId(PartId partId)
 
     PartDto findByIdentifier(Identifier identifier)
+
+    PartId findByIdentifiers(Set<Identifier> identifiers)
 
 }

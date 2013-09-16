@@ -2,7 +2,7 @@ package org.celllife.idart.security.unitofmeasure
 
 import org.celllife.idart.application.unitofmeasure.dto.UnitOfMeasureDto
 import org.celllife.idart.common.UnitOfMeasureCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
 
 import javax.annotation.Generated

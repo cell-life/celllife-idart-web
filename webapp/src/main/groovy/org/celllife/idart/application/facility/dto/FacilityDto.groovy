@@ -1,7 +1,7 @@
 package org.celllife.idart.application.facility.dto
 
 import org.celllife.idart.common.Quantity
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 /**
  * User: Kevin W. Sewell

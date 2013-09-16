@@ -12,7 +12,7 @@ import org.celllife.idart.domain.dosageinstruction.DosageInstruction
  */
 @ToString
 @EqualsAndHashCode(excludes = "pk")
-class DefaultDosageInstruction {
+class DefaultDosageInstruction implements Serializable {
 
     Long pk
 

@@ -1,17 +1,40 @@
 package org.celllife.idart.application.encounter.dto
 
-import org.celllife.idart.domain.identifiable.Identifier
-
-import javax.annotation.Generated
+import org.celllife.idart.common.Duration
+import org.celllife.idart.common.Identifier
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
-class EncounterDto {
+class EncounterDto implements Serializable {
 
     /**
      * Identified by
      */
     Set<Identifier> identifiers = [] as Set
-    
+
+    /**
+     * Participants
+     */
+    Set<ParticipantDto> participants
+
+    /**
+     * Patient
+     */
+    Set<Identifier> patient
+
+    /**
+     * Location
+     */
+    Set<Identifier> facility
+
+    /**
+     * Started at
+     */
+    Date startedAt
+
+    /**
+     * Duration
+     */
+    Duration duration
+
 }

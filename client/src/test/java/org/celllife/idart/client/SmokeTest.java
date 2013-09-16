@@ -83,7 +83,7 @@ public class SmokeTest {
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")
                                                 .addPart(newCompound(clinicId)
-                                                        .setId(Compound.INN_SYSTEM, "Abacavir")
+                                                        .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
                                                         .finishCompound()
                                                 )
                                                 .finishBillOfMaterialsItem()

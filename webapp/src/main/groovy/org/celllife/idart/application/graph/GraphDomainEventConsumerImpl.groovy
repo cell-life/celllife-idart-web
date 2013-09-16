@@ -116,11 +116,6 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
     }
 
     @Override
-    void handleMedicationEvent(String message) {
-        println message
-    }
-
-    @Override
     void handleOrganisationEvent(String message) {
         println message
     }
@@ -152,6 +147,11 @@ import static org.neo4j.graphdb.DynamicRelationshipType.withName
 
     @Override
     void handlePrescriptionEvent(String message) {
+        println message
+    }
+
+    @Override
+    void handleProductEvent(String message) {
         println message
     }
 

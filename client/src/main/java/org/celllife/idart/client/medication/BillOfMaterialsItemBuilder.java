@@ -1,6 +1,6 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.client.common.Quantity;
+import org.celllife.idart.common.Quantity;
 import org.celllife.idart.client.part.EngineeringPartBillOfMaterialsItem;
 import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;

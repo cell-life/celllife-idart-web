@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             FormCode formCode = formSecurityAdapter.save(principal, formDto)
 
-            response.setHeader("Location", "${baseUrl}/formss/${formCode}")
+            response.setHeader("Location", "${baseUrl}/forms/${formCode}")
             response.setStatus(SC_CREATED)
 
         } catch (FormValidationException e) {

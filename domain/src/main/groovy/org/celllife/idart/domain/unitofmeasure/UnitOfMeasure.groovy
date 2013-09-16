@@ -3,24 +3,22 @@ package org.celllife.idart.domain.unitofmeasure
 import org.celllife.idart.common.UnitOfMeasureCode
 import org.celllife.idart.common.UnitOfMeasureTypeCode
 
-import javax.annotation.Generated
-
 /**
  * Unit Of Measure 
  *
  */
-class UnitOfMeasure {
+class UnitOfMeasure implements Serializable {
 
     /**
      * Unit Of Measure Code 
      */
     UnitOfMeasureCode code
-    
+
     /**
      * Name 
      */
     String name
-    
+
     /**
      * Description 
      */
@@ -30,5 +28,5 @@ class UnitOfMeasure {
      * Has Type
      */
     UnitOfMeasureTypeCode type
-    
+
 }

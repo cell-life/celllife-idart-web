@@ -1,18 +1,13 @@
 package org.celllife.idart.domain.dosageinstruction
 
-import org.celllife.idart.common.AdministrationMethodCode
-import org.celllife.idart.common.EntrySiteCode
-import org.celllife.idart.common.RouteOfAdministrationCode
-import org.celllife.idart.common.Quantity
-import org.celllife.idart.common.Ratio
-import org.celllife.idart.common.Schedule
+import org.celllife.idart.common.*
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-17
  * Time: 22h29
  */
-class DosageInstruction {
+class DosageInstruction implements Serializable {
 
     Long pk
 

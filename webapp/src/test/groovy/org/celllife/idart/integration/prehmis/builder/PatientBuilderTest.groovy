@@ -2,13 +2,12 @@ package org.celllife.idart.integration.prehmis.builder
 
 import org.celllife.idart.common.Gender
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
-import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
 import org.junit.Assert
 import org.junit.Test
 
 import java.text.SimpleDateFormat
 
-import static org.celllife.idart.domain.identifiable.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType.PGWC
 import static org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType.PREHMIS
 

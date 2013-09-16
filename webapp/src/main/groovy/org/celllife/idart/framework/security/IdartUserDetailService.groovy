@@ -1,5 +1,6 @@
 package org.celllife.idart.framework.security
 
+import org.celllife.idart.domain.user.UserNotFoundException
 import org.celllife.idart.domain.user.UserService
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.User
@@ -22,10 +23,20 @@ import javax.inject.Named
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        def userId = userService.findByUsername(username)
+        try {
+            def userId = userService.findByUsername(username)
 
-        def user = userService.findByUserId(userId)
+            if (userId == null) {
+                throw new UsernameNotFoundException("Could not find")
+            }
 
-        return new IdartUser(username, user.password, [] as Collection<? extends GrantedAuthority>);
+            def user = userService.findByUserId(userId)
+
+            return new IdartUser(username, user.password, [] as Collection<? extends GrantedAuthority>, user.person);
+
+        } catch (UserNotFoundException e) {
+
+            throw new UsernameNotFoundException(e.message)
+        }
     }
 }

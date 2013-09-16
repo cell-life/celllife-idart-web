@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
     @Inject PrescriptionValidator prescriptionValidator
 
     @Inject PrescriptionEventPublisher prescriptionEventPublisher
-    
-    @Inject PrescriptionSequence prescriptionSequence
-    
+
     @Override
     Boolean exists(PrescriptionId prescriptionId) {
         prescriptionRepository.exists(prescriptionId)
     }
-    
+
     @Override
     Prescription save(Prescription prescription) {
 
-        def existingPrescription = null
-
-        if (prescription.id != null) {
-            existingPrescription = prescriptionRepository.findOne(prescription.id)
-        } else {
-            prescription.id = prescriptionSequence.nextValue()
-        }
+        def existingPrescription = prescriptionRepository.findOne(prescription.id)
 
         if (existingPrescription == null) {
             existingPrescription = prescription
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
 
         prescriptionRepository.save(existingPrescription)
     }
-    
+
     @Override
     Prescription findByPrescriptionId(PrescriptionId prescriptionId) {
 

@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             PrescribedMedicationId prescribedMedicationId = prescribedMedicationSecurityAdapter.save(principal, prescribedMedicationDto)
 
-            response.setHeader("Location", "${baseUrl}/prescribedMedicationss/${prescribedMedicationId}")
+            response.setHeader("Location", "${baseUrl}/prescribedMedications/${prescribedMedicationId}")
             response.setStatus(SC_CREATED)
 
         } catch (PrescribedMedicationValidationException e) {

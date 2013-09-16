@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.lifeevent.LifeEventEvent.newLifeEventEve
     @Inject LifeEventValidator lifeEventValidator
 
     @Inject LifeEventEventPublisher lifeEventEventPublisher
-    
+
     @Override
     Boolean exists(LifeEventCode lifeEventCode) {
         lifeEventRepository.exists(lifeEventCode)
     }
-    
+
     @Override
     LifeEvent save(LifeEvent lifeEvent) {
 
-        lifeEventValidator.validate(lifeEvent)
+        def existingLifeEvent = lifeEventRepository.findOne(lifeEvent.id)
 
-        lifeEventEventPublisher.publish(newLifeEventEvent(lifeEvent, SAVED))
+        if (existingLifeEvent == null) {
+            existingLifeEvent = lifeEvent
+        } else {
+            existingLifeEvent.merge(lifeEvent)
+        }
 
-        lifeEventRepository.save(lifeEvent)
+        lifeEventValidator.validate(existingLifeEvent)
+
+        lifeEventEventPublisher.publish(newLifeEventEvent(existingLifeEvent, SAVED))
+
+        lifeEventRepository.save(existingLifeEvent)
     }
-    
+
     @Override
     LifeEvent findByLifeEventCode(LifeEventCode lifeEventCode) {
 

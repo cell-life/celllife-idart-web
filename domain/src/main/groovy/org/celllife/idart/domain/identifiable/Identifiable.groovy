@@ -1,13 +1,17 @@
 package org.celllife.idart.domain.identifiable
 
 import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.common.IdentifiableType
+import org.celllife.idart.common.Identifier
+
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-24
  * Time: 17h34
  */
-class Identifiable {
+class Identifiable implements Serializable {
 
     Long pk
 
@@ -19,15 +23,8 @@ class Identifiable {
         new Identifiable(type: type)
     }
 
-    def getIdentifier(AuthorityId authorityId) {
-
-        for (identifier in identifiers) {
-            if (identifier.authority.equals(authorityId)) {
-                return identifier
-            }
-        }
-
-        null
+    def getIdentifierValue(AuthorityId authorityId) {
+        getIdentifierValue(identifiers, authorityId)
     }
 
     def addIdentifiers(Set<Identifier> identifiers) {

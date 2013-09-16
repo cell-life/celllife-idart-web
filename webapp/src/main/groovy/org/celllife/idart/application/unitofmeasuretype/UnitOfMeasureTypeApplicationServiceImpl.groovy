@@ -1,19 +1,18 @@
 package org.celllife.idart.application.unitofmeasuretype
 
 import org.celllife.idart.application.unitofmeasuretype.dto.UnitOfMeasureTypeDto
+import org.celllife.idart.application.unitofmeasuretype.dto.UnitOfMeasureTypeDtoAssembler
 import org.celllife.idart.common.UnitOfMeasureTypeCode
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeNotFoundException
 import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeService
 
-import static org.celllife.idart.application.unitofmeasuretype.dto.UnitOfMeasureTypeDtoAssembler.toUnitOfMeasureType
-import static org.celllife.idart.application.unitofmeasuretype.dto.UnitOfMeasureTypeDtoAssembler.toUnitOfMeasureTypeDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.UnitOfMeasureTypeCode.unitOfMeasureTypeCode
-import static org.celllife.idart.domain.identifiable.IdentifiableType.UNIT_OF_MEASURE_TYPE
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.UNIT_OF_MEASURE_TYPE
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject UnitOfMeasureTypeService unitOfMeasureTypeService   
 
+    @Inject UnitOfMeasureTypeDtoAssembler unitOfMeasureTypeDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         unitOfMeasureTypeService.exists(unitOfMeasureTypeCode)
     }
 
+    @Override
     UnitOfMeasureTypeCode save(UnitOfMeasureTypeDto unitOfMeasureTypeDto) {
 
-        def unitOfMeasureType = toUnitOfMeasureType(unitOfMeasureTypeDto)
+        def identifiable = identifiableService.resolveIdentifiable(UNIT_OF_MEASURE_TYPE, unitOfMeasureTypeDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(UNIT_OF_MEASURE_TYPE, unitOfMeasureTypeDto.identifiers)
-        if (identifiable == null) {
+        def unitOfMeasureTypeCode = unitOfMeasureTypeCode(identifiable.getIdentifierValue(IDART))
 
-            unitOfMeasureType = unitOfMeasureTypeService.save(unitOfMeasureType)
+        def unitOfMeasureType = unitOfMeasureTypeDtoAssembler.toUnitOfMeasureType(unitOfMeasureTypeDto)
+        unitOfMeasureType.id = unitOfMeasureTypeCode
 
-            identifiable = new Identifiable(type: UNIT_OF_MEASURE_TYPE, identifiers: unitOfMeasureTypeDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, unitOfMeasureType.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            unitOfMeasureType.id = unitOfMeasureTypeCode(identifiable.getIdentifier(IDART).value)
-            unitOfMeasureTypeService.save(unitOfMeasureType)
-
-        }
+        unitOfMeasureTypeService.save(unitOfMeasureType)
 
         unitOfMeasureType.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     UnitOfMeasureTypeDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(UNIT_OF_MEASURE_TYPE, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(UNIT_OF_MEASURE_TYPE, [identifier] as Set)
 
         if (identifiable == null) {
             throw new UnitOfMeasureTypeNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def unitOfMeasureTypeCode = unitOfMeasureTypeCode(identifiable.getIdentifier(IDART).value)
+        def unitOfMeasureTypeCode = unitOfMeasureTypeCode(identifiable.getIdentifierValue(IDART))
 
         def unitOfMeasureType = unitOfMeasureTypeService.findByUnitOfMeasureTypeCode(unitOfMeasureTypeCode)
 
-        def unitOfMeasureTypeDto = toUnitOfMeasureTypeDto(unitOfMeasureType)
+        def unitOfMeasureTypeDto = unitOfMeasureTypeDtoAssembler.toUnitOfMeasureTypeDto(unitOfMeasureType)
         unitOfMeasureTypeDto.identifiers = identifiable.identifiers
 
         unitOfMeasureTypeDto
+    }
+
+    @Override
+    UnitOfMeasureTypeCode findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(UNIT_OF_MEASURE_TYPE, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        unitOfMeasureTypeCode(idartIdentifierValue)
     }
 }

@@ -3,7 +3,7 @@ package org.celllife.idart.infrastructure.springdata.identifiable;
 import org.celllife.idart.common.AuthorityId;
 import org.celllife.idart.domain.identifiable.Identifiable;
 import org.celllife.idart.domain.identifiable.IdentifiableRepository;
-import org.celllife.idart.domain.identifiable.IdentifiableType;
+import org.celllife.idart.common.IdentifiableType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

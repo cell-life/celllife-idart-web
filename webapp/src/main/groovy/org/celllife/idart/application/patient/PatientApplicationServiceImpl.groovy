@@ -1,16 +1,15 @@
 package org.celllife.idart.application.patient
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.celllife.idart.application.patient.dto.PatientDto
+import org.celllife.idart.application.patient.dto.PatientDtoAssembler
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.common.AuthorityId
 import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.PatientId
 import org.celllife.idart.datawarehouse.patient.PatientDataWarehouse
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.patient.PatientNotFoundException
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
@@ -19,12 +18,12 @@ import org.celllife.idart.relationship.patientorganisation.PatientOrganisationSe
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.application.patient.dto.PatientDtoAssembler.*
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.PatientId.patientId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.FACILITY
-import static org.celllife.idart.domain.identifiable.IdentifiableType.PATIENT
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.FACILITY
+import static org.celllife.idart.common.IdentifiableType.PATIENT
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.celllife.idart.relationship.patientorganisation.PatientOrganisation.Relationship.REGISTERED_WITH
 
@@ -36,6 +35,8 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
 @Named class PatientApplicationServiceImpl implements PatientApplicationService {
 
     @Inject PatientService patientService
+
+    @Inject PatientDtoAssembler patientDtoAssembler
 
     @Inject PatientProvider prehmisPatientProvider
 
@@ -54,31 +55,28 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
 
         def personDto = patientDto.person
 
-        def identifiable = identifiableService.findByIdentifiers(PATIENT, patientDto.identifiers)
-        if (identifiable != null) {
+        def patientExists = identifiableService.exists(PATIENT, patientDto.identifiers)
+        if (patientExists) {
 
-            def patientId = patientId(identifiable.getIdentifier(IDART).value)
-            def patient = patientService.findByPatientId(patientId)
+            def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
+            def patientId = patientId(identifiable.getIdentifierValue(IDART))
+            def patient = patientDtoAssembler.toPatient(patientDto)
+            patient.id = patientId
 
-            def personExists = personApplicationService.exists(patient.person)
-            if (personExists) {
-
-                // Scenario 1 - Both Patient and Person exists
-
-                personApplicationService.save(personDto)
-
-                copyToPatient(patientDto, patient)
-                patient = patientService.save(patient)
-
-                patient.id
-
-            } else {
-
+            def person = patientService.findPersonByPatientId(patient.id)
+            def personExists = personApplicationService.exists(person)
+            if (!personExists) {
                 // Scenario 2 - Patient exists but Person does not
 
                 // How did we manage to create a Patient without a Person... very very bad
                 throw new PatientWithoutAPersonException("Something bad happened")
             }
+
+            // Scenario 1 - Both Patient and Person exists
+            patient.person = personApplicationService.save(personDto)
+            patient = patientService.save(patient)
+
+            patient.id
 
         } else {
 
@@ -86,14 +84,12 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
 
             // Scenario 4 - Patient and Person don't exist
 
-            def patient = toPatient(patientDto)
+            def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
+            def patientId = patientId(identifiable.getIdentifierValue(IDART))
+            def patient = patientDtoAssembler.toPatient(patientDto)
+            patient.id = patientId
             patient.person = personApplicationService.save(personDto)
-
             patient = patientService.save(patient)
-
-            identifiable = new Identifiable(type: PATIENT, identifiers: patientDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, patient.id.value))
-            identifiableService.save(identifiable)
 
             patient.id
         }
@@ -108,21 +104,31 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
     @Override
     PatientDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(PATIENT, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(PATIENT, [identifier] as Set)
 
         if (identifiable == null) {
             throw new PatientNotFoundException("Could not find Patient with id [${identifier.value}]")
         }
 
-        def patientId = patientId(identifiable.getIdentifier(IDART).value)
+        def patientId = patientId(identifiable.getIdentifierValue(IDART))
 
         def patient = patientService.findByPatientId(patientId)
 
-        def patientDto = toPatientDto(patient)
+        def patientDto = patientDtoAssembler.toPatientDto(patient)
         patientDto.identifiers = identifiable.identifiers
         patientDto.person = personApplicationService.findByPersonId(patient.person)
 
         return patientDto
+    }
+
+    @Override
+    PatientId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(PATIENT, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        patientId(idartIdentifierValue)
     }
 
     @Override
@@ -160,7 +166,7 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
 
     Set<PatientDto> lookupFromExternalProviders(String patientIdentifier, FacilityId facility) {
 
-        def facilityIdentifiable = identifiableService.findByIdentifiers(FACILITY, [newIdentifier(IDART, facility.value)] as Set)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART, facility.value)] as Set)
 
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 

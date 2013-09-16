@@ -2,7 +2,7 @@ package org.celllife.idart.application.lifeevent
 
 import org.celllife.idart.application.lifeevent.dto.LifeEventDto
 import org.celllife.idart.common.LifeEventCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface LifeEventApplicationService {
     LifeEventDto findByLifeEventCode(LifeEventCode lifeEventCode)
 
     LifeEventDto findByIdentifier(Identifier identifier)
+
+    LifeEventCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

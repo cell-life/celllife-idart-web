@@ -1,19 +1,18 @@
 package org.celllife.idart.application.encounter
 
 import org.celllife.idart.application.encounter.dto.EncounterDto
+import org.celllife.idart.application.encounter.dto.EncounterDtoAssembler
 import org.celllife.idart.common.EncounterId
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.encounter.EncounterNotFoundException
 import org.celllife.idart.domain.encounter.EncounterService
 
-import static org.celllife.idart.application.encounter.dto.EncounterDtoAssembler.toEncounter
-import static org.celllife.idart.application.encounter.dto.EncounterDtoAssembler.toEncounterDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.EncounterId.encounterId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.ENCOUNTER
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.ENCOUNTER
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject EncounterService encounterService   
 
+    @Inject EncounterDtoAssembler encounterDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         encounterService.exists(encounterId)
     }
 
+    @Override
     EncounterId save(EncounterDto encounterDto) {
 
-        def encounter = toEncounter(encounterDto)
+        def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, encounterDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(ENCOUNTER, encounterDto.identifiers)
-        if (identifiable == null) {
+        def encounterId = encounterId(identifiable.getIdentifierValue(IDART))
 
-            encounter = encounterService.save(encounter)
+        def encounter = encounterDtoAssembler.toEncounter(encounterDto)
+        encounter.id = encounterId
 
-            identifiable = new Identifiable(type: ENCOUNTER, identifiers: encounterDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, encounter.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            encounter.id = encounterId(identifiable.getIdentifier(IDART).value)
-            encounterService.save(encounter)
-
-        }
+        encounterService.save(encounter)
 
         encounter.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     EncounterDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(ENCOUNTER, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, [identifier] as Set)
 
         if (identifiable == null) {
             throw new EncounterNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def encounterId = encounterId(identifiable.getIdentifier(IDART).value)
+        def encounterId = encounterId(identifiable.getIdentifierValue(IDART))
 
         def encounter = encounterService.findByEncounterId(encounterId)
 
-        def encounterDto = toEncounterDto(encounter)
+        def encounterDto = encounterDtoAssembler.toEncounterDto(encounter)
         encounterDto.identifiers = identifiable.identifiers
 
         encounterDto
+    }
+
+    @Override
+    EncounterId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        encounterId(idartIdentifierValue)
     }
 }

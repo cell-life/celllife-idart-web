@@ -1,10 +1,7 @@
 package org.celllife.idart.application.prescription.dto
 
-import org.celllife.idart.application.patient.dto.PatientDto
-import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.application.prescribedmedication.dto.PrescribedMedicationDto
-import org.celllife.idart.common.EncounterId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 /**
  * User: Kevin W. Sewell
@@ -21,12 +18,12 @@ class PrescriptionDto implements Serializable {
     /**
      * Prescribed by
      */
-    PractitionerDto prescriber
+    Set<Identifier> prescriber
 
     /**
      * Prescribed to
      */
-    PatientDto patient
+    Set<Identifier> patient
 
     /**
      * Written on
@@ -36,7 +33,7 @@ class PrescriptionDto implements Serializable {
     /**
      * During
      */
-    EncounterId encounter
+    Set<Identifier> encounter
 
     /**
      * Contains

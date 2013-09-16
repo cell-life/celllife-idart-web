@@ -2,7 +2,7 @@ package org.celllife.idart.application.routeofadministration
 
 import org.celllife.idart.application.routeofadministration.dto.RouteOfAdministrationDto
 import org.celllife.idart.common.RouteOfAdministrationCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface RouteOfAdministrationApplicationService {
     RouteOfAdministrationDto findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode)
 
     RouteOfAdministrationDto findByIdentifier(Identifier identifier)
+
+    RouteOfAdministrationCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

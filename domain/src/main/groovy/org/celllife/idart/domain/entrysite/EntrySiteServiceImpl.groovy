@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.entrysite.EntrySiteEvent.newEntrySiteEve
     @Inject EntrySiteValidator entrySiteValidator
 
     @Inject EntrySiteEventPublisher entrySiteEventPublisher
-    
+
     @Override
     Boolean exists(EntrySiteCode entrySiteCode) {
         entrySiteRepository.exists(entrySiteCode)
     }
-    
+
     @Override
     EntrySite save(EntrySite entrySite) {
 
-        entrySiteValidator.validate(entrySite)
+        def existingEntrySite = entrySiteRepository.findOne(entrySite.id)
 
-        entrySiteEventPublisher.publish(newEntrySiteEvent(entrySite, SAVED))
+        if (existingEntrySite == null) {
+            existingEntrySite = entrySite
+        } else {
+            existingEntrySite.merge(entrySite)
+        }
 
-        entrySiteRepository.save(entrySite)
+        entrySiteValidator.validate(existingEntrySite)
+
+        entrySiteEventPublisher.publish(newEntrySiteEvent(existingEntrySite, SAVED))
+
+        entrySiteRepository.save(existingEntrySite)
     }
-    
+
     @Override
     EntrySite findByEntrySiteCode(EntrySiteCode entrySiteCode) {
 

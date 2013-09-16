@@ -2,7 +2,7 @@ package org.celllife.idart.security.entrysite
 
 import org.celllife.idart.application.entrysite.dto.EntrySiteDto
 import org.celllife.idart.common.EntrySiteCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.entrysite.EntrySiteApplicationService
 
 import javax.annotation.Generated

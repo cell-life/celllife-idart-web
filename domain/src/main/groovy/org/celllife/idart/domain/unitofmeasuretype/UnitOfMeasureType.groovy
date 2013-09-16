@@ -9,7 +9,7 @@ import javax.annotation.Generated
  *
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class UnitOfMeasureType {
+class UnitOfMeasureType implements Serializable {
 
     /**
      * Unit Of Measure Type Code 

@@ -2,18 +2,20 @@ package org.celllife.idart.application.practitioner.dto
 
 import org.celllife.idart.domain.practitioner.Practitioner
 
+import javax.inject.Named
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-25
  * Time: 09h10
  */
-class PractitionerDtoAssembler {
+@Named class PractitionerDtoAssembler {
 
-    static Practitioner toPractitioner(PractitionerDto practitionerDto) {
+    Practitioner toPractitioner(PractitionerDto practitionerDto) {
         copyToPractitioner(practitionerDto, new Practitioner())
     }
 
-    static copyToPractitioner(PractitionerDto practitionerDto, Practitioner practitioner) {
+    Practitioner copyToPractitioner(PractitionerDto practitionerDto, Practitioner practitioner) {
 
         practitioner.with {
 
@@ -27,12 +29,9 @@ class PractitionerDtoAssembler {
         practitioner
     }
 
-    static PractitionerDto toPractitionerDto(Practitioner practitioner) {
-        copyToPractitionerDto(practitioner, new PractitionerDto())
-    }
+    PractitionerDto toPractitionerDto(Practitioner practitioner) {
 
-    static copyToPractitionerDto(Practitioner practitioner, PractitionerDto practitionerDto) {
-
+        def practitionerDto = new PractitionerDto()
         practitionerDto.with {
 
             type = practitioner.type

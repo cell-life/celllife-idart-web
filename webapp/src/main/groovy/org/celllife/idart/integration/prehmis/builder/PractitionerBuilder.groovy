@@ -5,7 +5,7 @@ import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.integration.prehmis.PrehmisPractitionerType
 
 import static org.celllife.idart.common.AuthorityId.PREHMIS
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifier
 
 /**
  * User: Kevin W. Sewell

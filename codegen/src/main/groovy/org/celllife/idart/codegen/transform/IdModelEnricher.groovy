@@ -52,46 +52,6 @@ class IdModelEnricher {
                 if (packageName == null) {
                     packageName = basePackageName + ".common"
                 }
-
-                /*
-                 * Id Properties
-                 */
-
-                if (_properties == null) {
-                    _properties = [[name: "Value"]]
-                }
-
-                _properties.each { property ->
-
-                    /*
-                     * Id Property
-                     */
-
-                    property.with {
-
-                        if (property.name == null) {
-                            throw new RuntimeException()
-                        }
-
-                        property.with {
-                            if (type == null) {
-                                type = "String"
-                            }
-                            if (fieldName == null) {
-                                fieldName = toFieldName(property.name)
-                            }
-                            if (className == null) {
-                                className = toCamelCase(property.name)
-                            }
-                            if (columnName == null) {
-                                columnName = toSnakeCase(fieldName)
-                            }
-                            if (columnType == null) {
-                                columnType = "varchar(31)"
-                            }
-                        }
-                    }
-                }
             }
         }
 

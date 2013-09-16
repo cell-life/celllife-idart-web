@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             SystemId systemId = systemSecurityAdapter.save(principal, systemDto)
 
-            response.setHeader("Location", "${baseUrl}/systemss/${systemId}")
+            response.setHeader("Location", "${baseUrl}/systems/${systemId}")
             response.setStatus(SC_CREATED)
 
         } catch (SystemValidationException e) {

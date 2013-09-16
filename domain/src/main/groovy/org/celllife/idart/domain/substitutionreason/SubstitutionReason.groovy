@@ -9,7 +9,7 @@ import javax.annotation.Generated
  *
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class SubstitutionReason {
+class SubstitutionReason implements Serializable {
 
     /**
      * Substitution Reason Code 

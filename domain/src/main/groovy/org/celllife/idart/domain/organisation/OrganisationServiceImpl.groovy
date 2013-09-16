@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrgani
     @Inject OrganisationValidator organisationValidator
 
     @Inject OrganisationEventPublisher organisationEventPublisher
-    
-    @Inject OrganisationSequence organisationSequence
-    
+
     @Override
     Boolean exists(OrganisationId organisationId) {
         organisationRepository.exists(organisationId)
     }
-    
+
     @Override
     Organisation save(Organisation organisation) {
 
-        def existingOrganisation = null
-
-        if (organisation.id != null) {
-            existingOrganisation = organisationRepository.findOne(organisation.id)
-        } else {
-            organisation.id = organisationSequence.nextValue()
-        }
+        def existingOrganisation = organisationRepository.findOne(organisation.id)
 
         if (existingOrganisation == null) {
             existingOrganisation = organisation
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrgani
 
         organisationRepository.save(existingOrganisation)
     }
-    
+
     @Override
     Organisation findByOrganisationId(OrganisationId organisationId) {
 

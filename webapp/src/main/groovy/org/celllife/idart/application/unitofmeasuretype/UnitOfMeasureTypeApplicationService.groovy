@@ -2,7 +2,7 @@ package org.celllife.idart.application.unitofmeasuretype
 
 import org.celllife.idart.application.unitofmeasuretype.dto.UnitOfMeasureTypeDto
 import org.celllife.idart.common.UnitOfMeasureTypeCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface UnitOfMeasureTypeApplicationService {
     UnitOfMeasureTypeDto findByUnitOfMeasureTypeCode(UnitOfMeasureTypeCode unitOfMeasureTypeCode)
 
     UnitOfMeasureTypeDto findByIdentifier(Identifier identifier)
+
+    UnitOfMeasureTypeCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

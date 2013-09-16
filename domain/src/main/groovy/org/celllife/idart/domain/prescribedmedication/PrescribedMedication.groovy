@@ -1,9 +1,6 @@
 package org.celllife.idart.domain.prescribedmedication
 
 import org.celllife.idart.common.*
-import org.celllife.idart.common.Duration
-import org.celllife.idart.common.Period
-import org.celllife.idart.common.Quantity
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 
 /**
@@ -11,7 +8,7 @@ import org.celllife.idart.domain.dosageinstruction.DosageInstruction
  * Date: 2013-06-17
  * Time: 20h52
  */
-class PrescribedMedication {
+class PrescribedMedication implements Serializable {
 
     /**
      * Identified by

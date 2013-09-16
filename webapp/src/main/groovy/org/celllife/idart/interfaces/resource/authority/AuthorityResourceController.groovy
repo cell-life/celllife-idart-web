@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             AuthorityId authorityId = authoritySecurityAdapter.save(principal, authorityDto)
 
-            response.setHeader("Location", "${baseUrl}/authoritiess/${authorityId}")
+            response.setHeader("Location", "${baseUrl}/authorities/${authorityId}")
             response.setStatus(SC_CREATED)
 
         } catch (AuthorityValidationException e) {

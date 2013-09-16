@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.substitution.SubstitutionEvent.newSubsti
     @Inject SubstitutionValidator substitutionValidator
 
     @Inject SubstitutionEventPublisher substitutionEventPublisher
-    
+
     @Override
     Boolean exists(SubstitutionCode substitutionCode) {
         substitutionRepository.exists(substitutionCode)
     }
-    
+
     @Override
     Substitution save(Substitution substitution) {
 
-        substitutionValidator.validate(substitution)
+        def existingSubstitution = substitutionRepository.findOne(substitution.id)
 
-        substitutionEventPublisher.publish(newSubstitutionEvent(substitution, SAVED))
+        if (existingSubstitution == null) {
+            existingSubstitution = substitution
+        } else {
+            existingSubstitution.merge(substitution)
+        }
 
-        substitutionRepository.save(substitution)
+        substitutionValidator.validate(existingSubstitution)
+
+        substitutionEventPublisher.publish(newSubstitutionEvent(existingSubstitution, SAVED))
+
+        substitutionRepository.save(existingSubstitution)
     }
-    
+
     @Override
     Substitution findBySubstitutionCode(SubstitutionCode substitutionCode) {
 

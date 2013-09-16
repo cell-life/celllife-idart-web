@@ -3,7 +3,7 @@ package org.celllife.idart.application.patient
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.PatientId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 /**
  */
@@ -15,6 +15,7 @@ interface PatientApplicationService {
 
     PatientDto findByIdentifier(Identifier identifier)
 
-    Set<PatientDto> findByIdentifierAndFacility(String identifier, FacilityId facilityId)
+    PatientId findByIdentifiers(Set<Identifier> identifiers)
 
+    Set<PatientDto> findByIdentifierAndFacility(String identifier, FacilityId facilityId)
 }

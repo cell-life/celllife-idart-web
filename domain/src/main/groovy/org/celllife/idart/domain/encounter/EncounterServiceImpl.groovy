@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.encounter.EncounterEvent.newEncounterEve
     @Inject EncounterValidator encounterValidator
 
     @Inject EncounterEventPublisher encounterEventPublisher
-    
-    @Inject EncounterSequence encounterSequence
-    
+
     @Override
     Boolean exists(EncounterId encounterId) {
         encounterRepository.exists(encounterId)
     }
-    
+
     @Override
     Encounter save(Encounter encounter) {
 
-        def existingEncounter = null
-
-        if (encounter.id != null) {
-            existingEncounter = encounterRepository.findOne(encounter.id)
-        } else {
-            encounter.id = encounterSequence.nextValue()
-        }
+        def existingEncounter = encounterRepository.findOne(encounter.id)
 
         if (existingEncounter == null) {
             existingEncounter = encounter
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.encounter.EncounterEvent.newEncounterEve
 
         encounterRepository.save(existingEncounter)
     }
-    
+
     @Override
     Encounter findByEncounterId(EncounterId encounterId) {
 

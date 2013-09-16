@@ -1,19 +1,18 @@
 package org.celllife.idart.application.product
 
 import org.celllife.idart.application.product.dto.ProductDto
+import org.celllife.idart.application.product.dto.ProductDtoAssembler
 import org.celllife.idart.common.ProductId
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.product.ProductNotFoundException
 import org.celllife.idart.domain.product.ProductService
 
-import static org.celllife.idart.application.product.dto.ProductDtoAssembler.toProduct
-import static org.celllife.idart.application.product.dto.ProductDtoAssembler.toProductDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.ProductId.productId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.PRODUCT
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.PRODUCT
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject ProductService productService   
 
+    @Inject ProductDtoAssembler productDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         productService.exists(productId)
     }
 
+    @Override
     ProductId save(ProductDto productDto) {
 
-        def product = toProduct(productDto)
+        def identifiable = identifiableService.resolveIdentifiable(PRODUCT, productDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(PRODUCT, productDto.identifiers)
-        if (identifiable == null) {
+        def productId = productId(identifiable.getIdentifierValue(IDART))
 
-            product = productService.save(product)
+        def product = productDtoAssembler.toProduct(productDto)
+        product.id = productId
 
-            identifiable = new Identifiable(type: PRODUCT, identifiers: productDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, product.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            product.id = productId(identifiable.getIdentifier(IDART).value)
-            productService.save(product)
-
-        }
+        productService.save(product)
 
         product.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     ProductDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(PRODUCT, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(PRODUCT, [identifier] as Set)
 
         if (identifiable == null) {
             throw new ProductNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def productId = productId(identifiable.getIdentifier(IDART).value)
+        def productId = productId(identifiable.getIdentifierValue(IDART))
 
         def product = productService.findByProductId(productId)
 
-        def productDto = toProductDto(product)
+        def productDto = productDtoAssembler.toProductDto(product)
         productDto.identifiers = identifiable.identifiers
 
         productDto
+    }
+
+    @Override
+    ProductId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(PRODUCT, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        productId(idartIdentifierValue)
     }
 }

@@ -1,16 +1,18 @@
 package org.celllife.idart.application.substitution.dto
 
 import org.celllife.idart.domain.substitution.Substitution
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
+import javax.inject.Named
+import javax.inject.Inject
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class SubstitutionDtoAssembler {
+@Named class SubstitutionDtoAssembler {
 
-    static Substitution toSubstitution(SubstitutionDto substitutionDto) {
+    Substitution toSubstitution(SubstitutionDto substitutionDto) {
 
         def substitution = new Substitution()
         substitution.with {
@@ -20,7 +22,7 @@ class SubstitutionDtoAssembler {
         substitution
     }
 
-    static SubstitutionDto toSubstitutionDto(Substitution substitution) {
+    SubstitutionDto toSubstitutionDto(Substitution substitution) {
 
         def substitutionDto = new SubstitutionDto()
         substitutionDto.with {

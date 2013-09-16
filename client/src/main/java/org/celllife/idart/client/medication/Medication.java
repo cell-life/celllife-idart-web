@@ -1,6 +1,6 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.client.common.Id;
+import org.celllife.idart.common.Id;
 import org.celllife.idart.client.part.Drug;
 
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public final class Medication implements Serializable {
 
-    public Set<Id> ids = new HashSet<Id>();
+    public Set<Identifier> identifiers = new HashSet<Identifier>();
 
     public String name;
 

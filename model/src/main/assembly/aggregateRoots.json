@@ -16,7 +16,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": []
         }
 
     },
@@ -49,7 +49,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -72,7 +72,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -91,7 +91,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -110,7 +110,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -155,7 +155,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -175,7 +175,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -194,7 +194,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -214,7 +214,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {
@@ -233,7 +233,7 @@
             ]
         },
         "features": {
-            "excludes": [ "sequence", "counterSequence" ]
+            "excludes": [  ]
         }
     },
     {

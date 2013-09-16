@@ -1,29 +1,31 @@
 package org.celllife.idart.application.person
 
 import org.celllife.idart.application.person.dto.PersonDto
-import org.celllife.idart.common.AuthorityId
+import org.celllife.idart.application.person.dto.PersonDtoAssembler
 import org.celllife.idart.common.PersonId
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.person.PersonNotFoundException
 import org.celllife.idart.domain.person.PersonService
 
+import static org.celllife.idart.common.AuthorityId.IDART
+import static org.celllife.idart.common.PersonId.personId
+import static org.celllife.idart.common.IdentifiableType.PERSON
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
+
+import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.application.person.dto.PersonDtoAssembler.toPerson
-import static org.celllife.idart.application.person.dto.PersonDtoAssembler.toPersonDto
-import static org.celllife.idart.common.AuthorityId.IDART
-import static org.celllife.idart.common.PersonId.personId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.PERSON
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
-
 /**
  */
+@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class PersonApplicationServiceImpl implements PersonApplicationService {
 
-    @Inject PersonService personService
+    @Inject PersonService personService   
+
+    @Inject PersonDtoAssembler personDtoAssembler
 
     @Inject IdentifiableService identifiableService
 
@@ -35,23 +37,14 @@ import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
     @Override
     PersonId save(PersonDto personDto) {
 
-        def person = toPerson(personDto)
+        def identifiable = identifiableService.resolveIdentifiable(PERSON, personDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(PERSON, personDto.identifiers)
-        if (identifiable == null) {
+        def personId = personId(identifiable.getIdentifierValue(IDART))
 
-            person = personService.save(person)
+        def person = personDtoAssembler.toPerson(personDto)
+        person.id = personId
 
-            identifiable = new Identifiable(type: PERSON, identifiers: personDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, person.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            person.id = personId(identifiable.getIdentifier(IDART).value)
-            personService.save(person)
-
-        }
+        personService.save(person)
 
         person.id
     }
@@ -65,19 +58,29 @@ import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
     @Override
     PersonDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(PERSON, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(PERSON, [identifier] as Set)
 
         if (identifiable == null) {
-            throw new PersonNotFoundException("Could not find Person with id [${identifier.value}]")
+            throw new PersonNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def personId = personId(identifiable.getIdentifier(IDART).value)
+        def personId = personId(identifiable.getIdentifierValue(IDART))
 
         def person = personService.findByPersonId(personId)
 
-        def personDto = toPersonDto(person)
+        def personDto = personDtoAssembler.toPersonDto(person)
         personDto.identifiers = identifiable.identifiers
 
         personDto
+    }
+
+    @Override
+    PersonId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(PERSON, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        personId(idartIdentifierValue)
     }
 }

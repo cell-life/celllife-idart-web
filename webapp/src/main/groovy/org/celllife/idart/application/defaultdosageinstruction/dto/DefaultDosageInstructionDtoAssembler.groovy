@@ -1,16 +1,18 @@
 package org.celllife.idart.application.defaultdosageinstruction.dto
 
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
+import javax.inject.Named
+import javax.inject.Inject
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class DefaultDosageInstructionDtoAssembler {
+@Named class DefaultDosageInstructionDtoAssembler {
 
-    static DefaultDosageInstruction toDefaultDosageInstruction(DefaultDosageInstructionDto defaultDosageInstructionDto) {
+    DefaultDosageInstruction toDefaultDosageInstruction(DefaultDosageInstructionDto defaultDosageInstructionDto) {
 
         def defaultDosageInstruction = new DefaultDosageInstruction()
         defaultDosageInstruction.with {
@@ -20,7 +22,7 @@ class DefaultDosageInstructionDtoAssembler {
         defaultDosageInstruction
     }
 
-    static DefaultDosageInstructionDto toDefaultDosageInstructionDto(DefaultDosageInstruction defaultDosageInstruction) {
+    DefaultDosageInstructionDto toDefaultDosageInstructionDto(DefaultDosageInstruction defaultDosageInstruction) {
 
         def defaultDosageInstructionDto = new DefaultDosageInstructionDto()
         defaultDosageInstructionDto.with {

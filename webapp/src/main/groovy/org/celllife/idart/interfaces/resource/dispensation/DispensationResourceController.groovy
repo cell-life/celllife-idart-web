@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             DispensationId dispensationId = dispensationSecurityAdapter.save(principal, dispensationDto)
 
-            response.setHeader("Location", "${baseUrl}/dispensationss/${dispensationId}")
+            response.setHeader("Location", "${baseUrl}/dispensations/${dispensationId}")
             response.setStatus(SC_CREATED)
 
         } catch (DispensationValidationException e) {

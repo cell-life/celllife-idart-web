@@ -2,7 +2,7 @@ package org.celllife.idart.application.substitution
 
 import org.celllife.idart.application.substitution.dto.SubstitutionDto
 import org.celllife.idart.common.SubstitutionCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface SubstitutionApplicationService {
     SubstitutionDto findBySubstitutionCode(SubstitutionCode substitutionCode)
 
     SubstitutionDto findByIdentifier(Identifier identifier)
+
+    SubstitutionCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

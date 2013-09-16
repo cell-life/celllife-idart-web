@@ -2,7 +2,7 @@ package org.celllife.idart.security.routeofadministration
 
 import org.celllife.idart.application.routeofadministration.dto.RouteOfAdministrationDto
 import org.celllife.idart.common.RouteOfAdministrationCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.routeofadministration.RouteOfAdministrationApplicationService
 
 import javax.annotation.Generated

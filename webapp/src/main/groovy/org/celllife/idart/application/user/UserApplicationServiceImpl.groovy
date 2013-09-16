@@ -1,19 +1,18 @@
 package org.celllife.idart.application.user
 
 import org.celllife.idart.application.user.dto.UserDto
+import org.celllife.idart.application.user.dto.UserDtoAssembler
 import org.celllife.idart.common.UserId
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.user.UserNotFoundException
 import org.celllife.idart.domain.user.UserService
 
-import static org.celllife.idart.application.user.dto.UserDtoAssembler.toUser
-import static org.celllife.idart.application.user.dto.UserDtoAssembler.toUserDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.UserId.userId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.USER
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.USER
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject UserService userService   
 
+    @Inject UserDtoAssembler userDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         userService.exists(userId)
     }
 
+    @Override
     UserId save(UserDto userDto) {
 
-        def user = toUser(userDto)
+        def identifiable = identifiableService.resolveIdentifiable(USER, userDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(USER, userDto.identifiers)
-        if (identifiable == null) {
+        def userId = userId(identifiable.getIdentifierValue(IDART))
 
-            user = userService.save(user)
+        def user = userDtoAssembler.toUser(userDto)
+        user.id = userId
 
-            identifiable = new Identifiable(type: USER, identifiers: userDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, user.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            user.id = userId(identifiable.getIdentifier(IDART).value)
-            userService.save(user)
-
-        }
+        userService.save(user)
 
         user.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     UserDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(USER, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(USER, [identifier] as Set)
 
         if (identifiable == null) {
             throw new UserNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def userId = userId(identifiable.getIdentifier(IDART).value)
+        def userId = userId(identifiable.getIdentifierValue(IDART))
 
         def user = userService.findByUserId(userId)
 
-        def userDto = toUserDto(user)
+        def userDto = userDtoAssembler.toUserDto(user)
         userDto.identifiers = identifiable.identifiers
 
         userDto
+    }
+
+    @Override
+    UserId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(USER, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        userId(idartIdentifierValue)
     }
 }

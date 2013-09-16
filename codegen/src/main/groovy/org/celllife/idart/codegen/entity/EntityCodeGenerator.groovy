@@ -63,12 +63,6 @@ class EntityCodeGenerator {
                 case "resourceController":
                     generateResourceController(baseDirectory, model)
                     break
-                case "sequence":
-                    generateSequence(baseDirectory, model)
-                    break
-                case "counterSequence":
-                    generateCounterSequence(baseDirectory, model)
-                    break
                 case "": break
             }
 
@@ -79,8 +73,8 @@ class EntityCodeGenerator {
         toFile(
                 templateReader: "/templates/entity/id.template",
                 model: model,
-                directory: baseDirectory + "/common/src/main/groovy/" + model.id.packageName.replaceAll("\\.", "/"),
-                fileName: model.id.className + ".groovy"
+                directory: baseDirectory + "/common/src/main/java/" + model.id.packageName.replaceAll("\\.", "/"),
+                fileName: model.id.className + ".java"
         )
     }
 
@@ -248,24 +242,6 @@ class EntityCodeGenerator {
                 model: model,
                 directory: baseDirectory + "/webapp/src/main/groovy/" + model.resourceController.packageName.replaceAll("\\.", "/"),
                 fileName: model.resourceController.className + ".groovy"
-        )
-    }
-
-    static generateSequence(String baseDirectory, model) {
-        toFile(
-                templateReader: "/templates/entity/sequence.template",
-                model: model,
-                directory: baseDirectory + "/domain/src/main/groovy/" + model.sequence.packageName.replaceAll("\\.", "/"),
-                fileName: model.sequence.className + ".groovy"
-        )
-    }
-
-    static generateCounterSequence(String baseDirectory, model) {
-        toFile(
-                templateReader: "/templates/entity/counterSequence.template",
-                model: model,
-                directory: baseDirectory + "/webapp/src/main/groovy/" + model.counterSequence.packageName.replaceAll("\\.", "/"),
-                fileName: model.counterSequence.className + ".groovy"
         )
     }
 }

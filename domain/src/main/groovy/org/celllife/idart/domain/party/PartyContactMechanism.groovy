@@ -12,7 +12,7 @@ import org.celllife.idart.domain.contactmechanism.ContactMechanism
  */
 @ToString
 @EqualsAndHashCode(includes = "contactMechanism")
-class PartyContactMechanism {
+class PartyContactMechanism implements Serializable {
 
     /**
      * Valid during

@@ -7,6 +7,4 @@ package org.celllife.idart.client.part;
  */
 public class Compound extends Part {
 
-    public static final String INN_SYSTEM = "http://www.who.int/medicines/services/inn";
-
 }

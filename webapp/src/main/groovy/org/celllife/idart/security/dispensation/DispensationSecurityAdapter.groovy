@@ -2,7 +2,7 @@ package org.celllife.idart.security.dispensation
 
 import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.common.DispensationId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.dispensation.DispensationApplicationService
 
 import javax.annotation.Generated

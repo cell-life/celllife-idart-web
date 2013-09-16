@@ -1,10 +1,9 @@
 package org.celllife.idart.client.dosageinstruction;
 
 import org.celllife.idart.client.administrationmethod.AdministrationMethod;
-import org.celllife.idart.client.common.LocalisedText;
-import org.celllife.idart.client.common.Quantity;
-import org.celllife.idart.client.common.Ratio;
-import org.celllife.idart.client.common.Schedule;
+import org.celllife.idart.common.Quantity;
+import org.celllife.idart.common.Ratio;
+import org.celllife.idart.common.Schedule;
 import org.celllife.idart.client.entrysite.EntrySite;
 import org.celllife.idart.client.routeofadministration.RouteOfAdministration;
 
@@ -18,7 +17,7 @@ import java.util.Set;
  */
 public final class DosageInstruction implements Serializable {
 
-    public Set<LocalisedText> texts;
+    public String text;
 
     //public  CodedDosageInstructions additionalDosageInstructions
 

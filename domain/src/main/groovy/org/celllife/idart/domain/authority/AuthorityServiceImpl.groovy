@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.authority.AuthorityEvent.newAuthorityEve
     @Inject AuthorityValidator authorityValidator
 
     @Inject AuthorityEventPublisher authorityEventPublisher
-    
-    @Inject AuthoritySequence authoritySequence
-    
+
     @Override
     Boolean exists(AuthorityId authorityId) {
         authorityRepository.exists(authorityId)
     }
-    
+
     @Override
     Authority save(Authority authority) {
 
-        def existingAuthority = null
-
-        if (authority.id != null) {
-            existingAuthority = authorityRepository.findOne(authority.id)
-        } else {
-            authority.id = authoritySequence.nextValue()
-        }
+        def existingAuthority = authorityRepository.findOne(authority.id)
 
         if (existingAuthority == null) {
             existingAuthority = authority
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.authority.AuthorityEvent.newAuthorityEve
 
         authorityRepository.save(existingAuthority)
     }
-    
+
     @Override
     Authority findByAuthorityId(AuthorityId authorityId) {
 

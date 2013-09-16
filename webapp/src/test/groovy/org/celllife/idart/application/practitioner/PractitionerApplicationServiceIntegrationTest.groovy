@@ -13,6 +13,7 @@ import org.celllife.idart.domain.counter.CounterRepository
 import org.celllife.idart.domain.facility.FacilityRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
 import org.celllife.idart.domain.identifiable.IdentifiableService
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.organisation.OrganisationRepository
 import org.celllife.idart.domain.person.PersonRepository
 import org.celllife.idart.domain.practitioner.Practitioner
@@ -40,9 +41,8 @@ import static org.celllife.idart.common.AuthorityId.*
 import static org.celllife.idart.common.PersonId.personId
 import static org.celllife.idart.common.PractitionerId.practitionerId
 import static org.celllife.idart.common.PractitionerType.PHARMACIST
-import static org.celllife.idart.domain.identifiable.Identifiable.newIdentifiable
-import static org.celllife.idart.domain.identifiable.IdentifiableType.PRACTITIONER
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.PRACTITIONER
+import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
@@ -148,10 +148,12 @@ class PractitionerApplicationServiceIntegrationTest {
     @Test(expected = PractitionerWithoutAPersonException)
     public void shouldSavePractitionerScenario2() throws Exception {
 
-        def identifiable = newIdentifiable(PRACTITIONER)
-        identifiable.addIdentifier(newIdentifier(IDART, "00000000"))
-        identifiable.addIdentifier(newIdentifier(newAuthorityId("00000001"), "00000002"))
-        identifiableService.save(identifiable)
+        def practitionerIdentifiers = [
+                newIdentifier(IDART, "00000000"),
+                newIdentifier(newAuthorityId("00000001"), "00000002")
+        ]
+
+        identifiableService.resolveIdentifiable(PRACTITIONER, practitionerIdentifiers as Set<Identifier>)
 
         def practitioner = new Practitioner()
         practitioner.with {

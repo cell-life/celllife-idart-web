@@ -1,7 +1,7 @@
 package org.celllife.idart.interfaces.resource.practitioner
 
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.practitioner.PractitionerNotFoundException
 import org.celllife.idart.domain.practitioner.PractitionerValidationException
 import org.celllife.idart.security.practitioner.PractitionerSecurityAdapter

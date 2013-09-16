@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             PersonId personId = personSecurityAdapter.save(principal, personDto)
 
-            response.setHeader("Location", "${baseUrl}/peoples/${personId}")
+            response.setHeader("Location", "${baseUrl}/people/${personId}")
             response.setStatus(SC_CREATED)
 
         } catch (PersonValidationException e) {

@@ -11,7 +11,7 @@ import org.celllife.idart.domain.dosageinstruction.DosageInstruction
  * Date: 2013-06-17
  * Time: 20h52
  */
-class DispensedMedication {
+class DispensedMedication implements Serializable {
 
     /**
      * Medication

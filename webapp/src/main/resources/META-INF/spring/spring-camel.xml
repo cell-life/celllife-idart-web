@@ -22,7 +22,7 @@
                         unmarshalTypeName="org.celllife.idart.domain.user.UserEvent"/>
             <camel:json id="userSystemEvent"
                         library="Jackson"
-                        unmarshalTypeName="org.celllife.idart.domain.usersystem.UserSystemEvent"/>
+                        unmarshalTypeName="org.celllife.idart.relationship.usersystem.UserSystemEvent"/>
         </camel:dataFormats>
 
     </camel:camelContext>

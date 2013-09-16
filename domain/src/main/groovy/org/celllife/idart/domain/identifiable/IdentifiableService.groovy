@@ -1,4 +1,8 @@
 package org.celllife.idart.domain.identifiable
+
+import org.celllife.idart.common.IdentifiableType
+import org.celllife.idart.common.Identifier
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-24
@@ -6,7 +10,7 @@ package org.celllife.idart.domain.identifiable
  */
 public interface IdentifiableService {
 
-    Identifiable save(Identifiable identifiable)
+    Identifiable resolveIdentifiable(IdentifiableType type, Set<Identifier> identifiers)
 
-    Identifiable findByIdentifiers(IdentifiableType type, Set<Identifier> identifiers)
+    Boolean exists(IdentifiableType type, Set<Identifier> identifiers)
 }

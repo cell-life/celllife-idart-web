@@ -1,10 +1,8 @@
 package org.celllife.idart.client.administrationmethod;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.common.AdministrationMethodCode;
 
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * User: Kevin W. Sewell
@@ -13,11 +11,11 @@ import java.util.Set;
  */
 public final class AdministrationMethod implements Serializable {
 
-    public Set<Code> codes;
+    public AdministrationMethodCode code;
 
-    public Set<LocalisedText> names;
+    public String name;
 
-    public Set<LocalisedText> descriptions;
+    public String description;
 
     public AdministrationMethod() {
     }

@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageIn
     @Inject DefaultDosageInstructionValidator defaultDosageInstructionValidator
 
     @Inject DefaultDosageInstructionEventPublisher defaultDosageInstructionEventPublisher
-    
-    @Inject DefaultDosageInstructionSequence defaultDosageInstructionSequence
-    
+
     @Override
     Boolean exists(DefaultDosageInstructionId defaultDosageInstructionId) {
         defaultDosageInstructionRepository.exists(defaultDosageInstructionId)
     }
-    
+
     @Override
     DefaultDosageInstruction save(DefaultDosageInstruction defaultDosageInstruction) {
 
-        def existingDefaultDosageInstruction = null
-
-        if (defaultDosageInstruction.id != null) {
-            existingDefaultDosageInstruction = defaultDosageInstructionRepository.findOne(defaultDosageInstruction.id)
-        } else {
-            defaultDosageInstruction.id = defaultDosageInstructionSequence.nextValue()
-        }
+        def existingDefaultDosageInstruction = defaultDosageInstructionRepository.findOne(defaultDosageInstruction.id)
 
         if (existingDefaultDosageInstruction == null) {
             existingDefaultDosageInstruction = defaultDosageInstruction
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageIn
 
         defaultDosageInstructionRepository.save(existingDefaultDosageInstruction)
     }
-    
+
     @Override
     DefaultDosageInstruction findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) {
 

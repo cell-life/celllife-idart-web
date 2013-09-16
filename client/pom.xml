@@ -33,10 +33,32 @@
 
     <dependencies>
 
+        <!-- iDART - Common -->
+
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.12</version>
+            <groupId>org.celllife.idart</groupId>
+            <artifactId>celllife-idart-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Jackson -->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
+            <version>2.1.1</version>
         </dependency>
 
         <dependency>

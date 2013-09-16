@@ -1,16 +1,18 @@
 package org.celllife.idart.application.administrationmethod.dto
 
 import org.celllife.idart.domain.administrationmethod.AdministrationMethod
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
+import javax.inject.Named
+import javax.inject.Inject
 
 /**
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class AdministrationMethodDtoAssembler {
+@Named class AdministrationMethodDtoAssembler {
 
-    static AdministrationMethod toAdministrationMethod(AdministrationMethodDto administrationMethodDto) {
+    AdministrationMethod toAdministrationMethod(AdministrationMethodDto administrationMethodDto) {
 
         def administrationMethod = new AdministrationMethod()
         administrationMethod.with {
@@ -20,7 +22,7 @@ class AdministrationMethodDtoAssembler {
         administrationMethod
     }
 
-    static AdministrationMethodDto toAdministrationMethodDto(AdministrationMethod administrationMethod) {
+    AdministrationMethodDto toAdministrationMethodDto(AdministrationMethod administrationMethod) {
 
         def administrationMethodDto = new AdministrationMethodDto()
         administrationMethodDto.with {

@@ -1,42 +1,65 @@
-package ${id.packageName}
+package ${id.packageName};
 
-import com.fasterxml.jackson.annotation.JsonValue
-import groovy.transform.EqualsAndHashCode
+import com.fasterxml.jackson.annotation.JsonValue;
 
-import javax.annotation.Generated
+import java.io.Serializable;
+import javax.annotation.Generated;
 
 /**
  * ${id.name}
  *
  */
-@EqualsAndHashCode
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class ${id.className} implements Serializable {
-    <% id._properties.each { property -> %>
+public class ${id.className} implements Serializable {
+
     /**
-     * ${property.name}
+     * Value
      */
-    ${property.type} ${property.fieldName}
-    <% } %>
-    static ${id.className} valueOf(String string) {
-        ${id.fieldName}(string)
+    private String value;
+
+    public ${id.className}() {
     }
 
-    static ${id.className} ${id.fieldName}(String string) {
-        new ${id.className} (<% id._properties.each { property -> %> ${property.fieldName}: string <% } %>)
+    public static ${id.className} valueOf(String string) {
+        return ${id.fieldName}(string);
     }
-    <% id._properties.each { property -> %>
+
+    public static ${id.className} ${id.fieldName}(String value) {
+
+        ${id.className} ${id.fieldName} = new ${id.className}();
+        ${id.fieldName}.value = value;
+
+        return ${id.fieldName};
+    }
+
     @JsonValue
-    ${property.type} get${property.className}() {
-         this.${property.fieldName}
+    public String getValue() {
+         return this.value;
     }
 
-    def set${property.className}(${property.type} ${property.fieldName}) {
-         this.${property.fieldName} = ${property.fieldName}
+    public void setValue(String value) {
+         this.value = value;
     }
-    <% } %>
+
     @Override
-    String toString() {
-        <% id._properties.each { property -> %> ${property.fieldName} <% } %>
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ${id.className} that = (${id.className}) o;
+
+        if (!value.equals(that.value)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getValue();
     }
 }

@@ -1,19 +1,18 @@
 package org.celllife.idart.application.indication
 
 import org.celllife.idart.application.indication.dto.IndicationDto
+import org.celllife.idart.application.indication.dto.IndicationDtoAssembler
 import org.celllife.idart.common.IndicationCode
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.indication.IndicationNotFoundException
 import org.celllife.idart.domain.indication.IndicationService
 
-import static org.celllife.idart.application.indication.dto.IndicationDtoAssembler.toIndication
-import static org.celllife.idart.application.indication.dto.IndicationDtoAssembler.toIndicationDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.IndicationCode.indicationCode
-import static org.celllife.idart.domain.identifiable.IdentifiableType.INDICATION
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.INDICATION
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject IndicationService indicationService   
 
+    @Inject IndicationDtoAssembler indicationDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         indicationService.exists(indicationCode)
     }
 
+    @Override
     IndicationCode save(IndicationDto indicationDto) {
 
-        def indication = toIndication(indicationDto)
+        def identifiable = identifiableService.resolveIdentifiable(INDICATION, indicationDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(INDICATION, indicationDto.identifiers)
-        if (identifiable == null) {
+        def indicationCode = indicationCode(identifiable.getIdentifierValue(IDART))
 
-            indication = indicationService.save(indication)
+        def indication = indicationDtoAssembler.toIndication(indicationDto)
+        indication.id = indicationCode
 
-            identifiable = new Identifiable(type: INDICATION, identifiers: indicationDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, indication.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            indication.id = indicationCode(identifiable.getIdentifier(IDART).value)
-            indicationService.save(indication)
-
-        }
+        indicationService.save(indication)
 
         indication.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     IndicationDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(INDICATION, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(INDICATION, [identifier] as Set)
 
         if (identifiable == null) {
             throw new IndicationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def indicationCode = indicationCode(identifiable.getIdentifier(IDART).value)
+        def indicationCode = indicationCode(identifiable.getIdentifierValue(IDART))
 
         def indication = indicationService.findByIndicationCode(indicationCode)
 
-        def indicationDto = toIndicationDto(indication)
+        def indicationDto = indicationDtoAssembler.toIndicationDto(indication)
         indicationDto.identifiers = identifiable.identifiers
 
         indicationDto
+    }
+
+    @Override
+    IndicationCode findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(INDICATION, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        indicationCode(idartIdentifierValue)
     }
 }

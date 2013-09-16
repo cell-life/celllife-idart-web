@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             UnitOfMeasureTypeCode unitOfMeasureTypeCode = unitOfMeasureTypeSecurityAdapter.save(principal, unitOfMeasureTypeDto)
 
-            response.setHeader("Location", "${baseUrl}/unitOfMeasureTypess/${unitOfMeasureTypeCode}")
+            response.setHeader("Location", "${baseUrl}/unitOfMeasureTypes/${unitOfMeasureTypeCode}")
             response.setStatus(SC_CREATED)
 
         } catch (UnitOfMeasureTypeValidationException e) {

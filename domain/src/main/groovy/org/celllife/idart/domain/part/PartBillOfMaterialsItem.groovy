@@ -9,7 +9,7 @@ import org.celllife.idart.common.Quantity
  * Date: 2013-06-16
  * Time: 18h34
  */
-class PartBillOfMaterialsItem {
+class PartBillOfMaterialsItem implements Serializable {
 
     /**
      * Of type

@@ -1,19 +1,18 @@
 package org.celllife.idart.application.organisation
 
 import org.celllife.idart.application.organisation.dto.OrganisationDto
+import org.celllife.idart.application.organisation.dto.OrganisationDtoAssembler
 import org.celllife.idart.common.OrganisationId
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.organisation.OrganisationNotFoundException
 import org.celllife.idart.domain.organisation.OrganisationService
 
-import static org.celllife.idart.application.organisation.dto.OrganisationDtoAssembler.toOrganisation
-import static org.celllife.idart.application.organisation.dto.OrganisationDtoAssembler.toOrganisationDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.OrganisationId.organisationId
-import static org.celllife.idart.domain.identifiable.IdentifiableType.ORGANISATION
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.ORGANISATION
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject OrganisationService organisationService   
 
+    @Inject OrganisationDtoAssembler organisationDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         organisationService.exists(organisationId)
     }
 
+    @Override
     OrganisationId save(OrganisationDto organisationDto) {
 
-        def organisation = toOrganisation(organisationDto)
+        def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, organisationDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(ORGANISATION, organisationDto.identifiers)
-        if (identifiable == null) {
+        def organisationId = organisationId(identifiable.getIdentifierValue(IDART))
 
-            organisation = organisationService.save(organisation)
+        def organisation = organisationDtoAssembler.toOrganisation(organisationDto)
+        organisation.id = organisationId
 
-            identifiable = new Identifiable(type: ORGANISATION, identifiers: organisationDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, organisation.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            organisation.id = organisationId(identifiable.getIdentifier(IDART).value)
-            organisationService.save(organisation)
-
-        }
+        organisationService.save(organisation)
 
         organisation.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     OrganisationDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(ORGANISATION, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, [identifier] as Set)
 
         if (identifiable == null) {
             throw new OrganisationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def organisationId = organisationId(identifiable.getIdentifier(IDART).value)
+        def organisationId = organisationId(identifiable.getIdentifierValue(IDART))
 
         def organisation = organisationService.findByOrganisationId(organisationId)
 
-        def organisationDto = toOrganisationDto(organisation)
+        def organisationDto = organisationDtoAssembler.toOrganisationDto(organisation)
         organisationDto.identifiers = identifiable.identifiers
 
         organisationDto
+    }
+
+    @Override
+    OrganisationId findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        organisationId(idartIdentifierValue)
     }
 }

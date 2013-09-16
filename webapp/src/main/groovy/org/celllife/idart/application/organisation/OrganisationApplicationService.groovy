@@ -2,7 +2,7 @@ package org.celllife.idart.application.organisation
 
 import org.celllife.idart.application.organisation.dto.OrganisationDto
 import org.celllife.idart.common.OrganisationId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface OrganisationApplicationService {
     OrganisationDto findByOrganisationId(OrganisationId organisationId)
 
     OrganisationDto findByIdentifier(Identifier identifier)
+
+    OrganisationId findByIdentifiers(Set<Identifier> identifiers)
 
 }

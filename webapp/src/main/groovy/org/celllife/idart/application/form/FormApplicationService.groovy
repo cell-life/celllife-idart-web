@@ -2,7 +2,7 @@ package org.celllife.idart.application.form
 
 import org.celllife.idart.application.form.dto.FormDto
 import org.celllife.idart.common.FormCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface FormApplicationService {
     FormDto findByFormCode(FormCode formCode)
 
     FormDto findByIdentifier(Identifier identifier)
+
+    FormCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

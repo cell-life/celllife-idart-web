@@ -19,22 +19,30 @@ import static org.celllife.idart.domain.routeofadministration.RouteOfAdministrat
     @Inject RouteOfAdministrationValidator routeOfAdministrationValidator
 
     @Inject RouteOfAdministrationEventPublisher routeOfAdministrationEventPublisher
-    
+
     @Override
     Boolean exists(RouteOfAdministrationCode routeOfAdministrationCode) {
         routeOfAdministrationRepository.exists(routeOfAdministrationCode)
     }
-    
+
     @Override
     RouteOfAdministration save(RouteOfAdministration routeOfAdministration) {
 
-        routeOfAdministrationValidator.validate(routeOfAdministration)
+        def existingRouteOfAdministration = routeOfAdministrationRepository.findOne(routeOfAdministration.id)
 
-        routeOfAdministrationEventPublisher.publish(newRouteOfAdministrationEvent(routeOfAdministration, SAVED))
+        if (existingRouteOfAdministration == null) {
+            existingRouteOfAdministration = routeOfAdministration
+        } else {
+            existingRouteOfAdministration.merge(routeOfAdministration)
+        }
 
-        routeOfAdministrationRepository.save(routeOfAdministration)
+        routeOfAdministrationValidator.validate(existingRouteOfAdministration)
+
+        routeOfAdministrationEventPublisher.publish(newRouteOfAdministrationEvent(existingRouteOfAdministration, SAVED))
+
+        routeOfAdministrationRepository.save(existingRouteOfAdministration)
     }
-    
+
     @Override
     RouteOfAdministration findByRouteOfAdministrationCode(RouteOfAdministrationCode routeOfAdministrationCode) {
 

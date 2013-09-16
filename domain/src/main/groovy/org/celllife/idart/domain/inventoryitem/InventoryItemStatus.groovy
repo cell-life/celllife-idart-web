@@ -4,7 +4,7 @@ package org.celllife.idart.domain.inventoryitem
  * Date: 2013-06-16
  * Time: 18h53
  */
-class InventoryItemStatus {
+class InventoryItemStatus implements Serializable {
 
     Date dateTime
 

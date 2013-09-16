@@ -19,24 +19,16 @@ import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
     @Inject FacilityValidator facilityValidator
 
     @Inject FacilityEventPublisher facilityEventPublisher
-    
-    @Inject FacilitySequence facilitySequence
-    
+
     @Override
     Boolean exists(FacilityId facilityId) {
         facilityRepository.exists(facilityId)
     }
-    
+
     @Override
     Facility save(Facility facility) {
 
-        def existingFacility = null
-
-        if (facility.id != null) {
-            existingFacility = facilityRepository.findOne(facility.id)
-        } else {
-            facility.id = facilitySequence.nextValue()
-        }
+        def existingFacility = facilityRepository.findOne(facility.id)
 
         if (existingFacility == null) {
             existingFacility = facility
@@ -50,7 +42,7 @@ import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
 
         facilityRepository.save(existingFacility)
     }
-    
+
     @Override
     Facility findByFacilityId(FacilityId facilityId) {
 

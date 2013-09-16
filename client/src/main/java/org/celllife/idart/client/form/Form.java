@@ -1,7 +1,6 @@
 package org.celllife.idart.client.form;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.common.FormCode;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -14,11 +13,11 @@ import java.util.Set;
  */
 public final class Form implements Serializable {
 
-    public Set<Code> codes = new HashSet<Code>();
+    public FormCode code;
 
-    public Set<LocalisedText> names;
+    public String name;
 
-    public Set<LocalisedText> descriptions;
+    public String description;
 
     public Form() {
     }

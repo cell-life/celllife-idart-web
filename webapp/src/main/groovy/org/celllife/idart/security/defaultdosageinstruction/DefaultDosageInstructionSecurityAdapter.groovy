@@ -2,7 +2,7 @@ package org.celllife.idart.security.defaultdosageinstruction
 
 import org.celllife.idart.application.defaultdosageinstruction.dto.DefaultDosageInstructionDto
 import org.celllife.idart.common.DefaultDosageInstructionId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.defaultdosageinstruction.DefaultDosageInstructionApplicationService
 
 import javax.annotation.Generated

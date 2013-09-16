@@ -6,7 +6,7 @@ import org.celllife.idart.common.SystemId
  * System 
  *
  */
-class System {
+class System implements Serializable {
 
     /**
      * Id

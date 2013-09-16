@@ -9,7 +9,36 @@
             <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="patient" type="varchar(31)"/>
+            <column name="facility" type="varchar(31)"/>
+            <column name="started_at" type="datetime"/>
+            <column name="duration" type="numeric"/>
+            <column name="duration_uom" type="varchar(31)"/>
         </createTable>
+
+        <createIndex tableName="encounter" indexName="encounter_patient_idx">
+            <column name="patient"/>
+        </createIndex>
+
+        <createIndex tableName="encounter" indexName="encounter_facility_idx">
+            <column name="facility"/>
+        </createIndex>
+
+        <createIndex tableName="encounter" indexName="encounter_duration_uom_idx">
+            <column name="duration_uom"/>
+        </createIndex>
+
+        <createTable tableName="encounter_participant">
+            <column name="encounter" type="varchar(31)">
+                <constraints references="encounter(id)" foreignKeyName="encounter_participant_fk"/>
+            </column>
+            <column name="type" type="varchar(31)"/>
+            <column name="practitioner" type="varchar(31)"/>
+        </createTable>
+
+        <createIndex tableName="encounter_participant" indexName="encounter_participant_practitioner_idx">
+            <column name="practitioner"/>
+        </createIndex>
 
     </changeSet>
 

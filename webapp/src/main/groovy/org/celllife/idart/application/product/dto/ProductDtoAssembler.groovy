@@ -1,16 +1,19 @@
 package org.celllife.idart.application.product.dto
 
+import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.product.Product
-import org.celllife.idart.domain.identifiable.Identifier
 
-import javax.annotation.Generated
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  */
-class ProductDtoAssembler {
+@Named class ProductDtoAssembler {
 
-    static Product toProduct(ProductDto productDto) {
+    @Inject PartApplicationService partApplicationService
+
+    Product toProduct(ProductDto productDto) {
 
         switch (productDto.class) {
             case MedicationDto:
@@ -20,17 +23,18 @@ class ProductDtoAssembler {
         }
     }
 
-    static Medication toMedication(MedicationDto medicationDto) {
+    Medication toMedication(MedicationDto medicationDto) {
 
         def medication = new Medication()
         medication.with {
             name = medicationDto.name
+            drug = partApplicationService.findByIdentifiers(medicationDto.drug)
         }
 
         medication
     }
 
-    static ProductDto toProductDto(Product product) {
+    ProductDto toProductDto(Product product) {
 
         switch (product.class) {
             case MedicationDto:
@@ -40,11 +44,12 @@ class ProductDtoAssembler {
         }
     }
 
-    static MedicationDto toMedicationDto(Medication medication) {
+    MedicationDto toMedicationDto(Medication medication) {
 
         def medicationDto = new MedicationDto()
         medicationDto.with {
             name = medication.name
+            drug = partApplicationService.findByPartId(medicationDto.drug).identifiers
         }
 
         medicationDto

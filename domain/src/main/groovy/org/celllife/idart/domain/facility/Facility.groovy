@@ -1,14 +1,13 @@
 package org.celllife.idart.domain.facility
 
 import org.celllife.idart.common.FacilityId
-import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.Quantity
 
 /**
  * Facility 
  *
  */
-class Facility {
+class Facility implements Serializable {
 
     /**
      * Facility Id

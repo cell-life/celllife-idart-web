@@ -10,7 +10,7 @@ import org.celllife.idart.common.Period
  * Time: 10h23
  */
 @EqualsAndHashCode
-class PartyClassificationApplication {
+class PartyClassificationApplication implements Serializable {
 
     /**
      * Application of

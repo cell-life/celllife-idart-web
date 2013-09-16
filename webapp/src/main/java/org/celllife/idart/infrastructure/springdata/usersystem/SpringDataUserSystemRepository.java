@@ -2,9 +2,9 @@ package org.celllife.idart.infrastructure.springdata.usersystem;
 
 import org.celllife.idart.common.SystemId;
 import org.celllife.idart.common.UserId;
-import org.celllife.idart.domain.usersystem.UserSystem;
-import org.celllife.idart.domain.usersystem.UserSystemRelationship;
-import org.celllife.idart.domain.usersystem.UserSystemRepository;
+import org.celllife.idart.relationship.usersystem.UserSystem;
+import org.celllife.idart.relationship.usersystem.UserSystemRelationship;
+import org.celllife.idart.relationship.usersystem.UserSystemRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;

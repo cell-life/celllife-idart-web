@@ -2,7 +2,7 @@ package org.celllife.idart.security.encounter
 
 import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.common.EncounterId
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.encounter.EncounterApplicationService
 
 import javax.annotation.Generated

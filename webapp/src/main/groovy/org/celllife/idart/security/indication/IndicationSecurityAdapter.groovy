@@ -2,7 +2,7 @@ package org.celllife.idart.security.indication
 
 import org.celllife.idart.application.indication.dto.IndicationDto
 import org.celllife.idart.common.IndicationCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.indication.IndicationApplicationService
 
 import javax.annotation.Generated

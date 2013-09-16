@@ -11,7 +11,7 @@ import org.celllife.idart.common.PractitionerId
  * Date: 2013-07-22
  * Time: 01h13
  */
-class Dispensation {
+class Dispensation implements Serializable {
 
     /**
      * Identified by

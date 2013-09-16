@@ -2,7 +2,7 @@ package org.celllife.idart.application.administrationmethod
 
 import org.celllife.idart.application.administrationmethod.dto.AdministrationMethodDto
 import org.celllife.idart.common.AdministrationMethodCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 
 import javax.annotation.Generated
 
@@ -18,5 +18,7 @@ interface AdministrationMethodApplicationService {
     AdministrationMethodDto findByAdministrationMethodCode(AdministrationMethodCode administrationMethodCode)
 
     AdministrationMethodDto findByIdentifier(Identifier identifier)
+
+    AdministrationMethodCode findByIdentifiers(Set<Identifier> identifiers)
 
 }

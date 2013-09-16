@@ -1,30 +1,29 @@
 package org.celllife.idart.application.user.dto
 
 import org.celllife.idart.domain.user.User
-import org.celllife.idart.domain.identifiable.Identifier
 
-import javax.annotation.Generated
+import javax.inject.Named
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
-class UserDtoAssembler {
+@Named class UserDtoAssembler {
 
-    static User toUser(UserDto userDto) {
+    User toUser(UserDto userDto) {
 
         def user = new User()
         user.with {
-
+            username = userDto.username
+            password = userDto.password
         }
 
         user
     }
 
-    static UserDto toUserDto(User user) {
+    UserDto toUserDto(User user) {
 
         def userDto = new UserDto()
         userDto.with {
-
+            username = user.username
         }
 
         userDto

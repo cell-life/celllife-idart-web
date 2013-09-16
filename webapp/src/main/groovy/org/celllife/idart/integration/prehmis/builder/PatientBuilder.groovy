@@ -8,7 +8,7 @@ import org.celllife.idart.integration.prehmis.PrehmisGender
 
 import java.text.SimpleDateFormat
 
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifier
 
 /**
  * User: Kevin W. Sewell

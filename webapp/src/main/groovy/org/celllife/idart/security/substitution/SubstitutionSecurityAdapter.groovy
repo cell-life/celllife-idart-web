@@ -2,7 +2,7 @@ package org.celllife.idart.security.substitution
 
 import org.celllife.idart.application.substitution.dto.SubstitutionDto
 import org.celllife.idart.common.SubstitutionCode
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.substitution.SubstitutionApplicationService
 
 import javax.annotation.Generated

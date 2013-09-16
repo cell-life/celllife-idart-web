@@ -13,7 +13,12 @@
         </composite-id>
 
         <property name="username" />
+
         <property name="password" type="encryptedString"/>
+
+        <component name="person">
+            <property name="value" column="person"/>
+        </component>
 
     </class>
 

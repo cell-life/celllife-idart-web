@@ -20,7 +20,7 @@
 
     <!-- Identifiers -->
 
-    <embeddable class="org.celllife.idart.domain.identifiable.Identifier">
+    <embeddable class="org.celllife.idart.common.Identifier">
         <attributes>
             <embedded name="authority">
                 <attribute-override name="value">

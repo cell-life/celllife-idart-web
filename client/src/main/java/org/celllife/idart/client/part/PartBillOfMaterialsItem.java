@@ -1,8 +1,8 @@
 package org.celllife.idart.client.part;
 
-import org.celllife.idart.client.common.Quantity;
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
+import org.celllife.idart.common.Quantity;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.Date;
 

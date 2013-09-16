@@ -1,19 +1,18 @@
 package org.celllife.idart.application.entrysite
 
 import org.celllife.idart.application.entrysite.dto.EntrySiteDto
+import org.celllife.idart.application.entrysite.dto.EntrySiteDtoAssembler
 import org.celllife.idart.common.EntrySiteCode
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.identifiable.Identifier
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.entrysite.EntrySiteNotFoundException
 import org.celllife.idart.domain.entrysite.EntrySiteService
 
-import static org.celllife.idart.application.entrysite.dto.EntrySiteDtoAssembler.toEntrySite
-import static org.celllife.idart.application.entrysite.dto.EntrySiteDtoAssembler.toEntrySiteDto
 import static org.celllife.idart.common.AuthorityId.IDART
 import static org.celllife.idart.common.EntrySiteCode.entrySiteCode
-import static org.celllife.idart.domain.identifiable.IdentifiableType.ENTRY_SITE
-import static org.celllife.idart.domain.identifiable.Identifiers.newIdentifier
+import static org.celllife.idart.common.IdentifiableType.ENTRY_SITE
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -26,6 +25,8 @@ import javax.inject.Named
 
     @Inject EntrySiteService entrySiteService   
 
+    @Inject EntrySiteDtoAssembler entrySiteDtoAssembler
+
     @Inject IdentifiableService identifiableService
 
     @Override
@@ -33,25 +34,17 @@ import javax.inject.Named
         entrySiteService.exists(entrySiteCode)
     }
 
+    @Override
     EntrySiteCode save(EntrySiteDto entrySiteDto) {
 
-        def entrySite = toEntrySite(entrySiteDto)
+        def identifiable = identifiableService.resolveIdentifiable(ENTRY_SITE, entrySiteDto.identifiers)
 
-        def identifiable = identifiableService.findByIdentifiers(ENTRY_SITE, entrySiteDto.identifiers)
-        if (identifiable == null) {
+        def entrySiteCode = entrySiteCode(identifiable.getIdentifierValue(IDART))
 
-            entrySite = entrySiteService.save(entrySite)
+        def entrySite = entrySiteDtoAssembler.toEntrySite(entrySiteDto)
+        entrySite.id = entrySiteCode
 
-            identifiable = new Identifiable(type: ENTRY_SITE, identifiers: entrySiteDto.identifiers)
-            identifiable.addIdentifier(newIdentifier(IDART, entrySite.id.value))
-            identifiableService.save(identifiable)
-
-        } else {
-
-            entrySite.id = entrySiteCode(identifiable.getIdentifier(IDART).value)
-            entrySiteService.save(entrySite)
-
-        }
+        entrySiteService.save(entrySite)
 
         entrySite.id
     }
@@ -65,19 +58,29 @@ import javax.inject.Named
     @Override
     EntrySiteDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.findByIdentifiers(ENTRY_SITE, [identifier] as Set)
+        def identifiable = identifiableService.resolveIdentifiable(ENTRY_SITE, [identifier] as Set)
 
         if (identifiable == null) {
             throw new EntrySiteNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def entrySiteCode = entrySiteCode(identifiable.getIdentifier(IDART).value)
+        def entrySiteCode = entrySiteCode(identifiable.getIdentifierValue(IDART))
 
         def entrySite = entrySiteService.findByEntrySiteCode(entrySiteCode)
 
-        def entrySiteDto = toEntrySiteDto(entrySite)
+        def entrySiteDto = entrySiteDtoAssembler.toEntrySiteDto(entrySite)
         entrySiteDto.identifiers = identifiable.identifiers
 
         entrySiteDto
+    }
+
+    @Override
+    EntrySiteCode findByIdentifiers(Set<Identifier> identifiers) {
+
+        def identifiable = identifiableService.resolveIdentifiable(ENTRY_SITE, identifiers)
+
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART)
+
+        entrySiteCode(idartIdentifierValue)
     }
 }

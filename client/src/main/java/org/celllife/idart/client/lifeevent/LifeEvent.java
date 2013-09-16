@@ -1,7 +1,6 @@
 package org.celllife.idart.client.lifeevent;
 
-import org.celllife.idart.client.common.Code;
-import org.celllife.idart.client.common.LocalisedText;
+import org.celllife.idart.common.LifeEventCode;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -13,11 +12,11 @@ import java.util.Set;
  */
 public final class LifeEvent implements Serializable {
 
-    public Set<Code> codes;
+    public LifeEventCode code;
 
-    public Set<LocalisedText> names;
+    public String name;
 
-    public Set<LocalisedText> descriptions;
+    public String description;
 
     public LifeEvent() {
     }

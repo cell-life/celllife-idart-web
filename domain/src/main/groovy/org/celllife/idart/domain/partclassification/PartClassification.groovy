@@ -1,14 +1,13 @@
 package org.celllife.idart.domain.partclassification
 
 import org.celllife.idart.common.PartClassificationCode
-import org.celllife.idart.common.PartClassificationType
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-17
  * Time: 13h22
  */
-class PartClassification {
+class PartClassification implements Serializable {
 
     /**
      * Identified by

@@ -56,7 +56,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             OrganisationId organisationId = organisationSecurityAdapter.save(principal, organisationDto)
 
-            response.setHeader("Location", "${baseUrl}/organisationss/${organisationId}")
+            response.setHeader("Location", "${baseUrl}/organisations/${organisationId}")
             response.setStatus(SC_CREATED)
 
         } catch (OrganisationValidationException e) {

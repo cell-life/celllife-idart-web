@@ -1,7 +1,6 @@
 package org.celllife.idart.domain.entrysite
 
 import org.celllife.idart.common.EventHeader
-import org.celllife.idart.common.EventType
 
 import static org.celllife.idart.common.EventHeader.newEventHeader
 
@@ -11,7 +10,7 @@ import javax.annotation.Generated
  * Entry Site Domain Event
  */
 @Generated("org.celllife.idart.codegen.CodeGenerator")
-class EntrySiteEvent {
+class EntrySiteEvent implements Serializable {
 
     EventHeader header
 

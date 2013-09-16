@@ -1,8 +1,6 @@
 package org.celllife.idart.client.prescription;
 
-import org.celllife.idart.client.common.Id;
-import org.celllife.idart.client.partyrole.PartyRole;
-import org.celllife.idart.client.visit.Encounter;
+import org.celllife.idart.common.Identifier;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,15 +14,15 @@ import java.util.Set;
  */
 public final class Prescription implements Serializable {
 
-    public Set<Id> ids = new HashSet<Id>();
+    public Set<Identifier> identifiers = new HashSet<Identifier>();
 
-    public PartyRole prescriber;
+    public Set<Identifier> prescriber;
 
-    public PartyRole patient;
+    public Set<Identifier> patient;
 
     public Date dateWritten;
 
-    public Encounter encounter;
+    public Set<Identifier> encounter;
 
     public Set<PrescribedMedication> prescribedMedications = new HashSet<PrescribedMedication>();
 
