@@ -6,53 +6,42 @@
     <changeSet id="organisation-1" author="kevin.sewell">
 
         <createTable tableName="organisation">
-            <column name="id" type="varchar(31)"/>
+            <column name="id" type="varchar(31)">
+                <constraints primaryKey="true"/>
+            </column>
             <column name="name" type="varchar(255)"/>
+            <column name="parent" type="varchar(255)">
+                <constraints references="organisation(id)" foreignKeyName="organisation_parent_fk"/>
+            </column>
         </createTable>
 
-        <addPrimaryKey tableName="organisation" columnNames="id"/>
-
         <createTable tableName="legal_organisation">
-            <column name="id" type="varchar(31)"/>
+            <column name="id" type="varchar(31)">
+                <constraints primaryKey="true" references="organisation(id)" foreignKeyName="legal_organisation_fk"/>
+            </column>
             <column name="tax_registration_number" type="varchar(40)"/>
         </createTable>
 
-        <addPrimaryKey tableName="legal_organisation" columnNames="id"/>
-
-        <addForeignKeyConstraint baseTableName="legal_organisation"
-                                 baseColumnNames="id"
-                                 constraintName="legal_organisation_fk"
-                                 referencedTableName="organisation"
-                                 referencedColumnNames="id"/>
-
         <createTable tableName="informal_organisation">
-            <column name="id" type="varchar(31)"/>
+            <column name="id" type="varchar(31)">
+                <constraints primaryKey="true" references="organisation(id)" foreignKeyName="informal_organisation_fk"/>
+            </column>
         </createTable>
 
-        <addPrimaryKey tableName="informal_organisation" columnNames="id"/>
-
-        <addForeignKeyConstraint baseTableName="informal_organisation"
-                                 baseColumnNames="id"
-                                 constraintName="informal_organisation_fk"
-                                 referencedTableName="organisation"
-                                 referencedColumnNames="id"/>
-
         <createTable tableName="organisation_classifications">
-            <column name="organisation_applied_to" type="varchar(31)"/>
+            <column name="organisation_applied_to" type="varchar(31)">
+                <constraints references="organisation(id)" foreignKeyName="organisation_classifications_fk"/>
+            </column>
             <column name="classification_code" type="varchar(31)"/>
             <column name="classification_type" type="varchar(31)"/>
             <column name="valid_from_date" type="date"/>
             <column name="valid_thru_date" type="date"/>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="organisation_classifications"
-                                 baseColumnNames="organisation_applied_to"
-                                 constraintName="organisation_classifications_fk"
-                                 referencedTableName="organisation"
-                                 referencedColumnNames="id"/>
-
         <createTable tableName="organisation_contact_mechanisms">
-            <column name="organisation_for" type="varchar(31)"/>
+            <column name="organisation_for" type="varchar(31)">
+                <constraints references="organisation(id)" foreignKeyName="organisation_contact_mechanisms_fk"/>
+            </column>
             <column name="contact_mechanism" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -62,12 +51,6 @@
             <column name="extension" type="varchar(10)"/>
             <column name="comment" type="varchar(2000)"/>
         </createTable>
-
-        <addForeignKeyConstraint baseTableName="organisation_contact_mechanisms"
-                                 baseColumnNames="organisation_for"
-                                 constraintName="organisation_contact_mechanisms_fk"
-                                 referencedTableName="organisation"
-                                 referencedColumnNames="id"/>
 
     </changeSet>
 

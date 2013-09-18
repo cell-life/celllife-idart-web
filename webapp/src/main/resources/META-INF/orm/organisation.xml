@@ -27,6 +27,11 @@
                     <join-column name="organisation_for"/>
                 </collection-table>
             </element-collection>
+            <embedded name="parent">
+                <attribute-override name="value">
+                    <column name="parent"/>
+                </attribute-override>
+            </embedded>
         </attributes>
     </entity>
 

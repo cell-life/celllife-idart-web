@@ -15,6 +15,14 @@ abstract class Organisation extends Party {
      */
     OrganisationId id
 
+    /**
+     * Named as
+     */
     String name
+
+    /**
+     * Child of
+     */
+    OrganisationId parent
 
 }
