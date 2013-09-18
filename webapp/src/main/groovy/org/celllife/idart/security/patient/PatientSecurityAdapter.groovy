@@ -7,7 +7,6 @@ import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.framework.security.IdartSystem
 import org.celllife.idart.framework.security.IdartUser
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 import java.security.Principal

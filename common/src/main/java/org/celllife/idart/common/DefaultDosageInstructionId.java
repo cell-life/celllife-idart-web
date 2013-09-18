@@ -3,13 +3,11 @@ package org.celllife.idart.common;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
-import javax.annotation.Generated;
 
 /**
  * Default Dosage Instruction Id
  *
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public class DefaultDosageInstructionId implements Serializable {
 
     /**

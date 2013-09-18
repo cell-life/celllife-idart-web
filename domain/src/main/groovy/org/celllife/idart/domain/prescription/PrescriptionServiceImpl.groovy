@@ -2,7 +2,6 @@ package org.celllife.idart.domain.prescription
 
 import org.celllife.idart.common.PrescriptionId
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -11,7 +10,6 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class PrescriptionServiceImpl implements PrescriptionService {
 
     @Inject PrescriptionRepository prescriptionRepository

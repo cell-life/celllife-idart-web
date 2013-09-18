@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.encounter
 
-import javax.annotation.Generated
 
 /**
  * Encounter Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class EncounterEvent implements Serializable {
 
     Date timestamp

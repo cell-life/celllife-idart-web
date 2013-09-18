@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.part
 
-import javax.annotation.Generated
 
 /**
  * Part Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class PartEvent implements Serializable {
 
     Date timestamp

@@ -2,7 +2,6 @@ package org.celllife.idart.domain.system
 
 import org.celllife.idart.common.SystemId
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -11,7 +10,6 @@ import static org.celllife.idart.domain.system.SystemEvent.newSystemEvent
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class SystemServiceImpl implements SystemService {
 
     @Inject SystemRepository systemRepository

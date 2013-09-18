@@ -5,11 +5,9 @@ import org.celllife.idart.domain.person.Person;
 import org.celllife.idart.domain.person.PersonRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import javax.annotation.Generated;
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface SpringDataPersonRepository extends PersonRepository,
         PagingAndSortingRepository<Person, PersonId> {
 

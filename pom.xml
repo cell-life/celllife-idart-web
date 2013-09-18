@@ -13,13 +13,11 @@
 
     <modules>
         <module>client</module>
-        <module>codegen</module>
         <module>common</module>
         <module>database</module>
         <module>domain</module>
         <module>jboss</module>
         <module>model</module>
-        <module>test</module>
         <module>seed</module>
         <module>webapp</module>
     </modules>

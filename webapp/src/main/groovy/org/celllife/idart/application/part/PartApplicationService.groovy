@@ -5,7 +5,6 @@ import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.PartType
 
-import javax.annotation.Generated
 
 /**
  */

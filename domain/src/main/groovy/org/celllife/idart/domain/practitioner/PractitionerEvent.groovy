@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.practitioner
 
-import javax.annotation.Generated
 
 /**
  * Practitioner Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class PractitionerEvent implements Serializable {
 
     Date timestamp

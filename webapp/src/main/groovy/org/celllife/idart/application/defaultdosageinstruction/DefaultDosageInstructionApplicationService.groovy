@@ -4,11 +4,9 @@ import org.celllife.idart.application.defaultdosageinstruction.dto.DefaultDosage
 import org.celllife.idart.common.DefaultDosageInstructionId
 import org.celllife.idart.common.Identifier
 
-import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface DefaultDosageInstructionApplicationService {
 
     Boolean exists(DefaultDosageInstructionId defaultDosageInstructionId)

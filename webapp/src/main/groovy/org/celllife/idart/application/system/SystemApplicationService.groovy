@@ -4,11 +4,9 @@ import org.celllife.idart.application.system.dto.SystemDto
 import org.celllife.idart.common.SystemId
 import org.celllife.idart.common.Identifier
 
-import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface SystemApplicationService {
 
     Boolean exists(SystemId systemId)

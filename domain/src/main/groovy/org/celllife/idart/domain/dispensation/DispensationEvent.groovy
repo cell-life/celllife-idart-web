@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.dispensation
 
-import javax.annotation.Generated
 
 /**
  * Dispensation Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class DispensationEvent implements Serializable {
 
     Date timestamp

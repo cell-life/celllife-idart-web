@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.prescribedmedication
 
-import javax.annotation.Generated
 
 /**
  * PrescribedMedication Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class PrescribedMedicationEvent implements Serializable {
 
     Date timestamp

@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.organisation
 
-import javax.annotation.Generated
 
 /**
  * Organisation Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class OrganisationEvent implements Serializable {
 
     Date timestamp

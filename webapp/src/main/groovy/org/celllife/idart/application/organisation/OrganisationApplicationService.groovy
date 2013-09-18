@@ -4,11 +4,9 @@ import org.celllife.idart.application.organisation.dto.OrganisationDto
 import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.Identifier
 
-import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface OrganisationApplicationService {
 
     Boolean exists(OrganisationId organisationId)

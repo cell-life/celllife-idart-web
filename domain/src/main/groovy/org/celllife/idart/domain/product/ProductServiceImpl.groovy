@@ -2,7 +2,6 @@ package org.celllife.idart.domain.product
 
 import org.celllife.idart.common.ProductId
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -11,7 +10,6 @@ import static org.celllife.idart.domain.product.ProductEvent.newProductEvent
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class ProductServiceImpl implements ProductService {
 
     @Inject ProductRepository productRepository

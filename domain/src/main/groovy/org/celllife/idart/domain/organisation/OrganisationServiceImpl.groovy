@@ -2,7 +2,6 @@ package org.celllife.idart.domain.organisation
 
 import org.celllife.idart.common.OrganisationId
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -11,7 +10,6 @@ import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrgani
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class OrganisationServiceImpl implements OrganisationService {
 
     @Inject OrganisationRepository organisationRepository

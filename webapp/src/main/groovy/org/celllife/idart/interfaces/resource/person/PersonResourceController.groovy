@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.servlet.http.HttpServletResponse
 import java.security.Principal
@@ -24,7 +23,6 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Controller class PersonResourceController {
 
     @Inject PersonSecurityAdapter personSecurityAdapter

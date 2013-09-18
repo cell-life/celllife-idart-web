@@ -3,7 +3,6 @@ package org.celllife.idart.domain.practitioner
 import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.PractitionerId
 
-import javax.annotation.Generated
 
 /**
  */

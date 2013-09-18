@@ -3,13 +3,11 @@ package org.celllife.idart.common;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
-import javax.annotation.Generated;
 
 /**
  * Unit Of Measure Type Code
  *
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public class UnitOfMeasureTypeCode implements Serializable {
 
     /**

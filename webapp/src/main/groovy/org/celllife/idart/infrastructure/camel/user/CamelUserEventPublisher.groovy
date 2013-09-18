@@ -6,7 +6,6 @@ import org.apache.camel.ProducerTemplate
 import org.celllife.idart.domain.user.UserEvent
 import org.celllife.idart.domain.user.UserEventPublisher
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -15,7 +14,6 @@ import static org.celllife.idart.framework.security.Principals.currentUsername
 /**
  * Camel User Event Publisher
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class CamelUserEventPublisher implements UserEventPublisher {
 
     @EndpointInject(uri = "direct:userEvent") ProducerTemplate producerTemplate

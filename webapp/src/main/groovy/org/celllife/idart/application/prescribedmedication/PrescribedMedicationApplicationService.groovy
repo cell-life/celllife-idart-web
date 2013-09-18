@@ -4,11 +4,9 @@ import org.celllife.idart.application.prescribedmedication.dto.PrescribedMedicat
 import org.celllife.idart.common.PrescribedMedicationId
 import org.celllife.idart.common.Identifier
 
-import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PrescribedMedicationApplicationService {
 
     Boolean exists(PrescribedMedicationId prescribedMedicationId)

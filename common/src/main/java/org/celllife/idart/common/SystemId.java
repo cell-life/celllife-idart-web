@@ -3,7 +3,6 @@ package org.celllife.idart.common;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
-import javax.annotation.Generated;
 
 /**
  * System Id

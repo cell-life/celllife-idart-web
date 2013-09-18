@@ -6,7 +6,6 @@ import org.apache.camel.ProducerTemplate
 import org.celllife.idart.domain.part.PartEvent
 import org.celllife.idart.domain.part.PartEventPublisher
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -15,7 +14,6 @@ import static org.celllife.idart.framework.security.Principals.currentUsername
 /**
  * Camel Part Event Publisher
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class CamelPartEventPublisher implements PartEventPublisher {
 
     @EndpointInject(uri = "direct:partEvent") ProducerTemplate producerTemplate

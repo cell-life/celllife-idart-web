@@ -2,7 +2,6 @@ package org.celllife.idart.domain.facility
 
 import org.celllife.idart.common.FacilityId
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -11,7 +10,6 @@ import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class FacilityServiceImpl implements FacilityService {
 
     @Inject FacilityRepository facilityRepository

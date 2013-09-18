@@ -2,7 +2,6 @@ package org.celllife.idart.domain.encounter
 
 import org.celllife.idart.common.EncounterId
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -11,7 +10,6 @@ import static org.celllife.idart.domain.encounter.EncounterEvent.newEncounterEve
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class EncounterServiceImpl implements EncounterService {
 
     @Inject EncounterRepository encounterRepository

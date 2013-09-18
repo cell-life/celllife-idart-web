@@ -6,7 +6,6 @@ import org.apache.camel.ProducerTemplate
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionEvent
 import org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstructionEventPublisher
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -15,7 +14,6 @@ import static org.celllife.idart.framework.security.Principals.currentUsername
 /**
  * Camel Default Dosage Instruction Event Publisher
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class CamelDefaultDosageInstructionEventPublisher implements DefaultDosageInstructionEventPublisher {
 
     @EndpointInject(uri = "direct:defaultDosageInstructionEvent") ProducerTemplate producerTemplate

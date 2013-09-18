@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.patient
 
-import javax.annotation.Generated
 
 /**
  * Patient Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class PatientEvent implements Serializable {
 
     Date timestamp

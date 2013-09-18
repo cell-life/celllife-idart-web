@@ -1,11 +1,9 @@
 package org.celllife.idart.domain.defaultdosageinstruction
 
-import javax.annotation.Generated
 
 /**
  * Default Dosage Instruction Domain Event
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class DefaultDosageInstructionEvent implements Serializable {
 
     Date timestamp

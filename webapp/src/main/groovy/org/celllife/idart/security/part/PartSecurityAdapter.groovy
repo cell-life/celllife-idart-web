@@ -6,7 +6,6 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.common.PartType
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 import java.security.Principal

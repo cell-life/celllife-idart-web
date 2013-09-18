@@ -4,11 +4,9 @@ import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.Identifier
 
-import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PersonApplicationService {
 
     Boolean exists(PersonId personId)

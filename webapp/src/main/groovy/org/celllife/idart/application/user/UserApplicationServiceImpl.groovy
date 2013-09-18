@@ -14,13 +14,11 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Systems.IDART_WEB
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class UserApplicationServiceImpl implements UserApplicationService {
 
     @Inject UserService userService   
