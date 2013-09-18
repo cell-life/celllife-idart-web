@@ -28,7 +28,7 @@ public abstract class Part implements Serializable {
 
     private FormCode form;
 
-    private Set<PartClassificationCode> classifications = new HashSet<PartClassificationCode>();
+    private Set<PartClassificationApplication> classifications = new HashSet<PartClassificationApplication>();
 
     protected Part() {
     }
@@ -65,11 +65,11 @@ public abstract class Part implements Serializable {
         this.form = form;
     }
 
-    public Set<PartClassificationCode> getClassifications() {
+    public Set<PartClassificationApplication> getClassifications() {
         return classifications;
     }
 
-    public void setClassifications(Set<PartClassificationCode> classifications) {
+    public void setClassifications(Set<PartClassificationApplication> classifications) {
         this.classifications = classifications;
     }
 }

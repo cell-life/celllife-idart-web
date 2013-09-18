@@ -2,15 +2,15 @@ package org.celllife.idart.application.patient.dto
 
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.person.dto.PersonDtoAssembler
+import org.celllife.idart.common.UnitsOfMeasure
 import org.junit.Test
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.common.Gender.MALE
 import static org.celllife.idart.common.MaritalStatus.MARRIED
 import static org.celllife.idart.common.Measurement.newMeasurement
 import static org.celllife.idart.common.MeasurementType.HIEGHT
 import static org.celllife.idart.common.Quantity.newQuantity
-import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
@@ -31,7 +31,7 @@ class PatientDtoAssemblerTest {
 
         def personDto = new PersonDto()
         personDto.with {
-            identifiers = [newIdentifier(IDART_WEB, "00000")]
+            identifiers = [newIdentifier(IDART_WEB.id, "00000")]
             firstName = "Geoff"
             middleNames = "Ernest"
             lastName = "Vader"
@@ -67,6 +67,6 @@ class PatientDtoAssemblerTest {
     }
 
     static newMeasurements(Date today) {
-        [newMeasurement(HIEGHT, newQuantity(160, unitOfMeasureCode("cm")), today)] as Set
+        [newMeasurement(HIEGHT, newQuantity(160, UnitsOfMeasure.cm.code), today)] as Set
     }
 }

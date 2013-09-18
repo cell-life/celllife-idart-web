@@ -12,7 +12,7 @@ import static ${id.packageName}.${id.className}.${id.fieldName}
 import static org.celllife.idart.common.IdentifiableType.${entity.identifiableType}
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -40,7 +40,7 @@ import javax.inject.Named
         def identifiable = identifiableService.resolveIdentifiable(${entity.identifiableType}, ${dto.fieldName}.identifiers)
         ${dto.fieldName}.identifiers = identifiable.identifiers
 
-        def ${id.fieldName} = ${id.fieldName}(identifiable.getIdentifierValue(IDART_WEB))
+        def ${id.fieldName} = ${id.fieldName}(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def ${entity.fieldName} = ${dtoAssembler.fieldName}.to${entity.className}(${dto.fieldName})
         ${entity.fieldName}.id = ${id.fieldName}
@@ -52,7 +52,7 @@ import javax.inject.Named
 
     @Override
     ${dto.className} findBy${id.className}(${id.className} ${id.fieldName}) {
-        def identifier = newIdentifier(IDART_WEB, ${id.fieldName}.value)
+        def identifier = newIdentifier(IDART_WEB.id, ${id.fieldName}.value)
         findByIdentifier(identifier)
     }
 
@@ -65,7 +65,7 @@ import javax.inject.Named
             throw new ${entity.className}NotFoundException("Could not find ${entity.name} with id [\${ identifier.value}]")
         }
 
-        def ${id.fieldName} = ${id.fieldName}(identifiable.getIdentifierValue(IDART_WEB))
+        def ${id.fieldName} = ${id.fieldName}(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def ${entity.fieldName} = ${domainService.fieldName}.findBy${id.className}(${id.fieldName})
 
@@ -80,7 +80,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(${entity.identifiableType}, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         ${id.fieldName}(idartIdentifierValue)
     }

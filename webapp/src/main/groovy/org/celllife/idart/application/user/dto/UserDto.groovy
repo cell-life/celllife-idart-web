@@ -4,7 +4,7 @@ import org.celllife.idart.common.Identifier
 
 /**
  */
-class UserDto {
+class UserDto implements Serializable  {
 
     /**
      * Identified by

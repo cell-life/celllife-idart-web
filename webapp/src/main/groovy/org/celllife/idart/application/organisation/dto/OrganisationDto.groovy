@@ -9,7 +9,7 @@ import org.celllife.idart.domain.party.PartyContactMechanism
  * Date: 2013-09-15
  * Time: 13h16
  */
-class OrganisationDto {
+abstract class OrganisationDto implements Serializable {
 
     /**
      * Identified by

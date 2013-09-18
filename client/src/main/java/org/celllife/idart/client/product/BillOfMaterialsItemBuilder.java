@@ -1,13 +1,13 @@
-package org.celllife.idart.client.medication;
+package org.celllife.idart.client.product;
 
 import org.celllife.idart.client.part.EngineeringPartBillOfMaterialsItem;
-import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
+import org.celllife.idart.common.Identifier;
 import org.celllife.idart.common.Quantity;
+import org.celllife.idart.common.UnitOfMeasureCode;
 
 import java.math.BigDecimal;
-
-import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode;
+import java.util.Set;
 
 /**
  * User: Kevin W. Sewell
@@ -22,10 +22,10 @@ public class BillOfMaterialsItemBuilder {
         this.engineeringPartBillOfMaterialsItem = new EngineeringPartBillOfMaterialsItem();
     }
 
-    public BillOfMaterialsItemBuilder setQuantity(int quantity, String uomCodeValue) {
+    public BillOfMaterialsItemBuilder setQuantity(int quantity, UnitOfMeasureCode unitOfMeasure) {
         Quantity quantityUsed = new Quantity();
         quantityUsed.setValue(new BigDecimal(quantity));
-        quantityUsed.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+        quantityUsed.setUnitOfMeasure(unitOfMeasure);
 
         this.engineeringPartBillOfMaterialsItem.setQuantityUsed(quantityUsed);
         return this;
@@ -35,7 +35,7 @@ public class BillOfMaterialsItemBuilder {
         return engineeringPartBillOfMaterialsItem;
     }
 
-    public BillOfMaterialsItemBuilder addPart(Part part) {
+    public BillOfMaterialsItemBuilder addPart(Set<Identifier> part) {
         this.engineeringPartBillOfMaterialsItem.setPart(part);
         return this;
     }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 /**
  * User: Kevin W. Sewell
@@ -29,7 +29,7 @@ import static org.celllife.idart.common.SystemId.IDART_WEB
         if (existingIdentifiable == null) {
             existingIdentifiable = new Identifiable(type: identifiableType)
 
-            if (getIdentifierValue(identifiers, IDART_WEB) == null) {
+            if (getIdentifierValue(identifiers, IDART_WEB.id) == null) {
                 existingIdentifiable.addIdentifier(identifiableSeqeuence.nextValue(identifiableType))
             }
         }

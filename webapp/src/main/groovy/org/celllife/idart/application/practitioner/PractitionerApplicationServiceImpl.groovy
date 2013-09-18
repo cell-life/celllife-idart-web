@@ -15,12 +15,13 @@ import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.common.PractitionerId.practitionerId
 import static IdentifiableType.FACILITY
 import static IdentifiableType.PRACTITIONER
 import static Identifiers.getIdentifierValue
 import static Identifiers.newIdentifier
+import static org.celllife.idart.common.Systems.PREHMIS
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.celllife.idart.relationship.practitionerorganisation.PractitionerOrganisation.Relationship.CONTRACTED_BY
 import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
@@ -59,7 +60,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, practitionerDto.identifiers)
             practitionerDto.identifiers = identifiable.identifiers
 
-            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
+            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB.id))
             def practitioner = practitionerDtoAssembler.toPractitioner(practitionerDto)
             practitioner.id = practitionerId
 
@@ -87,7 +88,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, practitionerDto.identifiers)
             practitionerDto.identifiers = identifiable.identifiers
 
-            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
+            def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB.id))
             def practitioner = practitionerDtoAssembler.toPractitioner(practitionerDto)
             practitioner.id = practitionerId
 
@@ -101,7 +102,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Override
     PractitionerDto findByPractitionerId(PractitionerId practitionerId) {
 
-        findByIdentifier(newIdentifier(IDART_WEB, practitionerId.value))
+        findByIdentifier(newIdentifier(IDART_WEB.id, practitionerId.value))
     }
 
     @Override
@@ -113,7 +114,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             throw new PractitionerNotFoundException("Could not find Practitioner with id [${identifier.value}]")
         }
 
-        def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
+        def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def practitioner = practitionerService.findByPractitionerId(practitionerId)
 
@@ -129,7 +130,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         practitionerId(idartIdentifierValue)
     }
@@ -174,12 +175,12 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
     Set<PractitionerDto> lookupFromExternalProviders(FacilityId facility) {
 
-        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB, facility.value)] as Set)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB.id, facility.value)] as Set)
 
         def practitioners = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
             switch (facilityIdentifier.system) {
-                case SystemId.PREHMIS:
+                case PREHMIS.id:
                     return prehmisPractitionerProvider.findAll(facilityIdentifier.value)
                 default:
                     return [] as Set<PractitionerDto>

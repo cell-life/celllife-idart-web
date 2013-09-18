@@ -105,6 +105,15 @@
             </exclusions>
         </dependency>
 
+        <!-- Groovy CSV -->
+
+        <dependency>
+            <groupId>com.xlson.groovycsv</groupId>
+            <artifactId>groovycsv</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
         <!-- Ant -->
 
         <dependency>

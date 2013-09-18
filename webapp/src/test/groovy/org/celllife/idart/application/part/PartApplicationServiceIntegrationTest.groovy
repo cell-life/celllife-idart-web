@@ -18,7 +18,7 @@ import javax.inject.Inject
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.PartType.COMPOUND
 import static org.celllife.idart.common.PartType.DRUG
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.junit.Assert.*
 
 /**
@@ -61,11 +61,11 @@ class PartApplicationServiceIntegrationTest {
         def partDtos = partApplicationService.findByType(COMPOUND)
         assertEquals(1, partDtos.size())
         assertTrue(partDtos.first() instanceof CompoundDto)
-        assertEquals("99999999", getIdentifierValue(partDtos.first().identifiers, IDART_WEB))
+        assertEquals("99999999", getIdentifierValue(partDtos.first().identifiers, IDART_WEB.id))
 
         partDtos = partApplicationService.findByType(DRUG)
         assertEquals(1, partDtos.size())
         assertTrue(partDtos.first() instanceof DrugDto)
-        assertEquals("99999998", getIdentifierValue(partDtos.first().identifiers, IDART_WEB))
+        assertEquals("99999998", getIdentifierValue(partDtos.first().identifiers, IDART_WEB.id))
     }
 }

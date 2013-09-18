@@ -4,7 +4,7 @@ import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.integration.prehmis.PrehmisPractitionerType
 
-import static org.celllife.idart.common.SystemId.PREHMIS
+import static org.celllife.idart.common.Systems.PREHMIS
 import static org.celllife.idart.common.Identifiers.newIdentifier
 
 /**
@@ -45,7 +45,7 @@ class PractitionerBuilder {
             practitioner.type = PrehmisPractitionerType.getPractitionerType(prehmisPractitionerType)
         }
 
-        practitioner.identifiers = [newIdentifier(PREHMIS, prehmisPractitionerCode)] as Set
+        practitioner.identifiers = [newIdentifier(PREHMIS.id, prehmisPractitionerCode)] as Set
 
         PersonDto person = new PersonDto()
 

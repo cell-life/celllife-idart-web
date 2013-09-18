@@ -1,10 +1,12 @@
 package org.celllife.idart.client.part;
 
+import org.celllife.idart.common.Identifier;
 import org.celllife.idart.common.Quantity;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Kevin W. Sewell
@@ -22,7 +24,7 @@ public abstract class PartBillOfMaterialsItem {
 
     private Date thruDate;
 
-    private Part part;
+    private Set<Identifier> part;
 
     private Quantity quantityUsed;
 
@@ -49,11 +51,11 @@ public abstract class PartBillOfMaterialsItem {
         this.thruDate = thruDate;
     }
 
-    public Part getPart() {
+    public Set<Identifier> getPart() {
         return part;
     }
 
-    public void setPart(Part part) {
+    public void setPart(Set<Identifier> part) {
         this.part = part;
     }
 

@@ -1,14 +1,7 @@
 package org.celllife.idart.client.prescription;
 
-import org.celllife.idart.common.Duration;
-import org.celllife.idart.common.Period;
-import org.celllife.idart.common.Quantity;
 import org.celllife.idart.client.dosageinstruction.DosageInstruction;
-import org.celllife.idart.client.indication.Indication;
-import org.celllife.idart.client.medication.Medication;
-import org.celllife.idart.client.substitution.Substitution;
-import org.celllife.idart.client.substitutionreason.SubstitutionReason;
-import org.celllife.idart.common.Identifier;
+import org.celllife.idart.common.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -27,7 +20,7 @@ public final class PrescribedMedication implements Serializable {
 
     private String reasonForPrescribing;
 
-    private Set<Indication> indications;
+    private Set<IndicationCode> indications;
 
     private Period valid;
 
@@ -37,9 +30,9 @@ public final class PrescribedMedication implements Serializable {
 
     private Duration expectedSupplyDuration;
 
-    private Substitution substitution;
+    private SubstitutionCode substitution;
 
-    private SubstitutionReason substitutionReason;
+    private SubstitutionReasonCode substitutionReason;
 
     private DosageInstruction dosageInstruction;
 
@@ -70,11 +63,11 @@ public final class PrescribedMedication implements Serializable {
         this.reasonForPrescribing = reasonForPrescribing;
     }
 
-    public Set<Indication> getIndications() {
+    public Set<IndicationCode> getIndications() {
         return indications;
     }
 
-    public void setIndications(Set<Indication> indications) {
+    public void setIndications(Set<IndicationCode> indications) {
         this.indications = indications;
     }
 
@@ -110,19 +103,19 @@ public final class PrescribedMedication implements Serializable {
         this.expectedSupplyDuration = expectedSupplyDuration;
     }
 
-    public Substitution getSubstitution() {
+    public SubstitutionCode getSubstitution() {
         return substitution;
     }
 
-    public void setSubstitution(Substitution substitution) {
+    public void setSubstitution(SubstitutionCode substitution) {
         this.substitution = substitution;
     }
 
-    public SubstitutionReason getSubstitutionReason() {
+    public SubstitutionReasonCode getSubstitutionReason() {
         return substitutionReason;
     }
 
-    public void setSubstitutionReason(SubstitutionReason substitutionReason) {
+    public void setSubstitutionReason(SubstitutionReasonCode substitutionReason) {
         this.substitutionReason = substitutionReason;
     }
 

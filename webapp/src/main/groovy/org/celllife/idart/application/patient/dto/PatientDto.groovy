@@ -9,7 +9,7 @@ import org.celllife.idart.common.Identifier
  * Date: 2013-08-23
  * Time: 18h36
  */
-class PatientDto {
+class PatientDto implements Serializable {
 
     /**
      * Identified by

@@ -12,7 +12,7 @@ import static org.celllife.idart.common.EncounterId.encounterId
 import static org.celllife.idart.common.IdentifiableType.ENCOUNTER
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -40,7 +40,7 @@ import javax.inject.Named
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, encounterDto.identifiers)
         encounterDto.identifiers = identifiable.identifiers
 
-        def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB))
+        def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def encounter = encounterDtoAssembler.toEncounter(encounterDto)
         encounter.id = encounterId
@@ -52,7 +52,7 @@ import javax.inject.Named
 
     @Override
     EncounterDto findByEncounterId(EncounterId encounterId) {
-        def identifier = newIdentifier(IDART_WEB, encounterId.value)
+        def identifier = newIdentifier(IDART_WEB.id, encounterId.value)
         findByIdentifier(identifier)
     }
 
@@ -65,7 +65,7 @@ import javax.inject.Named
             throw new EncounterNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB))
+        def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def encounter = encounterService.findByEncounterId(encounterId)
 
@@ -80,7 +80,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         encounterId(idartIdentifierValue)
     }

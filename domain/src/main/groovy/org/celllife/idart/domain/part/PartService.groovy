@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.common.Label
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.PartType
 
@@ -13,5 +14,7 @@ public interface PartService {
 
     Part findByPartId(PartId partId)
 
-    Set<Part> findByType(PartType type)
+    Set<PartId> findByType(PartType type)
+
+    PartId findByLabel(Label label)
 }

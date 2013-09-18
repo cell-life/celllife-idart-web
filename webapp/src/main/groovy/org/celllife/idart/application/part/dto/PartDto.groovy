@@ -11,7 +11,7 @@ import org.celllife.idart.domain.part.PartClassificationApplication
  * Date: 2013-09-04
  * Time: 17h47
  */
-class PartDto {
+abstract class PartDto implements Serializable {
 
     /**
      * Identified by

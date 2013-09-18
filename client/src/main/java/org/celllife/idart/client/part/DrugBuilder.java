@@ -1,7 +1,6 @@
-package org.celllife.idart.client.medication;
+package org.celllife.idart.client.part;
 
-import org.celllife.idart.client.part.Drug;
-import org.celllife.idart.client.part.PartBillOfMaterialsItem;
+import org.celllife.idart.common.Label;
 import org.celllife.idart.common.PartClassificationCode;
 import org.celllife.idart.common.PartClassificationType;
 import org.celllife.idart.common.SystemId;
@@ -26,18 +25,9 @@ public class DrugBuilder {
         this.systemId = systemId(systemId);
     }
 
-    public DrugBuilder setIdentifier(String idValue) {
-        this.drug.getIdentifiers().add(newIdentifier(systemId, idValue));
+    public DrugBuilder setIdentifier(String identifier) {
+        this.drug.getIdentifiers().add(newIdentifier(systemId, identifier));
         return this;
-    }
-
-    public DrugBuilder setIdentifier(SystemId system, String idValue) {
-        this.drug.getIdentifiers().add(newIdentifier(system, idValue));
-        return this;
-    }
-
-    public Drug finishDrug() {
-        return drug;
     }
 
     public DrugBuilder addBillOfMaterialsItem(PartBillOfMaterialsItem partBillOfMaterialsItem) {
@@ -54,7 +44,16 @@ public class DrugBuilder {
         PartClassificationCode code = new PartClassificationCode();
         code.setType(type);
         code.setValue(classificationCode);
-        this.drug.getClassifications().add(code);
+        this.drug.getClassifications().add(new PartClassificationApplication(code));
         return this;
+    }
+
+    public DrugBuilder setLabel(Label label) {
+        this.drug.setLabel(label);
+        return this;
+    }
+
+    public Drug finishDrug() {
+        return drug;
     }
 }

@@ -19,6 +19,7 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.PractitionerType
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
+import org.celllife.idart.common.UnitsOfMeasure
 import org.celllife.idart.domain.counter.CounterRepository
 import org.celllife.idart.domain.encounter.EncounterRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
@@ -32,7 +33,6 @@ import org.celllife.idart.test.TestConfiguration
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.springframework.beans.factory.annotation.Inject
 import org.springframework.data.repository.CrudRepository
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
@@ -41,10 +41,8 @@ import javax.inject.Inject
 
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Label.label
-import static org.celllife.idart.common.PartClassificationCode.partClassificationCode
 import static org.celllife.idart.common.PartClassificationType.ATC
-import static org.celllife.idart.common.SystemId.*
-import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
+import static org.celllife.idart.common.Systems.*
 import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
 import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
 
@@ -105,15 +103,15 @@ class PrescriptionApplicationServiceIntegrationTest {
         def compound = new CompoundDto()
         compound.with {
             label = label("Abacavir")
-            unitOfMeasure = unitOfMeasureCode("mg")
+            unitOfMeasure = UnitsOfMeasure.mg.code
         }
         partApplicationService.save(compound)
 
         DrugDto drug = new DrugDto()
         drug.with {
             label = label("Abacavir 20mg/ml")
-            unitOfMeasure = unitOfMeasureCode("ml")
-            billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, unitOfMeasureCode("mg"))]
+            unitOfMeasure = UnitsOfMeasure.mL.code
+            billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, UnitsOfMeasure.mg.code)]
             classifications = partClassificationApplications("J05AF06", ATC)
         }
         partApplicationService.save(drug)
@@ -121,8 +119,8 @@ class PrescriptionApplicationServiceIntegrationTest {
         DrugDto finishedDrug = new DrugDto()
         finishedDrug.with {
             label = label("Abacavir 20mg/ml 240ml")
-            unitOfMeasure = unitOfMeasureCode("each")
-            billOfMaterials = [newEngineeringPart(drug.identifiers, 240.0D, unitOfMeasureCode("ml"))]
+            unitOfMeasure = UnitsOfMeasure.each.code
+            billOfMaterials = [newEngineeringPart(drug.identifiers, 240.0D, UnitsOfMeasure.mL.code)]
             classifications = partClassificationApplications("J05AF06", ATC)
         }
         partApplicationService.save(finishedDrug)
@@ -131,7 +129,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         medication.with {
 
             identifiers = [
-                    newIdentifier(IDART_WEB, "Abacavir 20mg/ml 240ml")
+                    newIdentifier(IDART_WEB.id, "Abacavir 20mg/ml 240ml")
             ]
 
             name = "Abacavir 20mg/ml 240ml"
@@ -157,7 +155,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         practitioner.with {
 
             identifiers = [
-                    newIdentifier(PREHMIS, "715")
+                    newIdentifier(PREHMIS.id, "715")
             ]
 
             type = PractitionerType.AGENCY_DOCTORS
@@ -166,7 +164,7 @@ class PrescriptionApplicationServiceIntegrationTest {
             person.with {
 
                 identifiers = [
-                        newIdentifier(SA_IDENTITY_NUMBER, "7501015434082")
+                        newIdentifier(SA_IDENTITY_NUMBER.id, "7501015434082")
                 ]
 
                 firstName = "Derek"
@@ -179,11 +177,11 @@ class PrescriptionApplicationServiceIntegrationTest {
         encounter.with {
 
             identifiers = [
-                    newIdentifier(IDART_WEB, "00001")
+                    newIdentifier(IDART_WEB.id, "00001")
             ]
 
             facility = [
-                    newIdentifier(PREHMIS, "WES")
+                    newIdentifier(PREHMIS.id, "WES")
             ]
         }
         encounterApplicationService.save(encounter)
@@ -192,7 +190,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         InputStream inputStream = getClass().getResourceAsStream("/data/prescription/0000.json")
         PrescriptionDto prescription = objectMapper.readValue(inputStream, PrescriptionDto.class)
 
-        prescription.identifiers = [newIdentifier(IDART_WEB, "${System.currentTimeMillis()}")] as Set
+        prescription.identifiers = [newIdentifier(IDART_WEB.id, "${System.currentTimeMillis()}")] as Set
 
         prescriptionApplicationService.save(prescription)
 

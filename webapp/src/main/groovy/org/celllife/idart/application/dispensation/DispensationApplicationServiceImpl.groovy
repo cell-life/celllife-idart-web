@@ -12,7 +12,7 @@ import static org.celllife.idart.common.DispensationId.dispensationId
 import static org.celllife.idart.common.IdentifiableType.DISPENSATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -40,7 +40,7 @@ import javax.inject.Named
         def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, dispensationDto.identifiers)
         dispensationDto.identifiers = identifiable.identifiers
 
-        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB))
+        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def dispensation = dispensationDtoAssembler.toDispensation(dispensationDto)
         dispensation.id = dispensationId
@@ -52,7 +52,7 @@ import javax.inject.Named
 
     @Override
     DispensationDto findByDispensationId(DispensationId dispensationId) {
-        def identifier = newIdentifier(IDART_WEB, dispensationId.value)
+        def identifier = newIdentifier(IDART_WEB.id, dispensationId.value)
         findByIdentifier(identifier)
     }
 
@@ -65,7 +65,7 @@ import javax.inject.Named
             throw new DispensationNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB))
+        def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def dispensation = dispensationService.findByDispensationId(dispensationId)
 
@@ -80,7 +80,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         dispensationId(idartIdentifierValue)
     }

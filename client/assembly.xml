@@ -15,7 +15,7 @@
     <dependencySets>
         <dependencySet>
             <scope>runtime</scope>
-            <outputDirectory>/lib</outputDirectory>
+            <outputDirectory>/</outputDirectory>
         </dependencySet>
     </dependencySets>
 

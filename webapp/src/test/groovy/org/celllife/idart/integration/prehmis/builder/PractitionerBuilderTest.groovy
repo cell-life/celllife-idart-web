@@ -1,12 +1,11 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.common.SystemId
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 import org.junit.Assert
 import org.junit.Test
 
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.PREHMIS
+import static org.celllife.idart.common.Systems.PREHMIS
 
 /**
  * User: Kevin W. Sewell
@@ -53,7 +52,7 @@ class PractitionerBuilderTest {
 
         Assert.assertEquals("AEIGHT", practitioner.person.firstName)
         Assert.assertEquals("TEST", practitioner.person.lastName)
-        Assert.assertEquals("72254311", getIdentifierValue(practitioner.identifiers, PREHMIS))
+        Assert.assertEquals("72254311", getIdentifierValue(practitioner.identifiers, PREHMIS.id))
 
         practitioner.person.contactMechanisms.each { contactMechanism ->
             if (contactMechanism.contactMechanism instanceof MobileTelephoneNumber) {

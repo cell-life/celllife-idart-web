@@ -12,7 +12,7 @@ import static org.celllife.idart.common.DefaultDosageInstructionId.defaultDosage
 import static org.celllife.idart.common.IdentifiableType.DEFAULT_DOSAGE_INSTRUCTION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -40,7 +40,7 @@ import javax.inject.Named
         def identifiable = identifiableService.resolveIdentifiable(DEFAULT_DOSAGE_INSTRUCTION, defaultDosageInstructionDto.identifiers)
         defaultDosageInstructionDto.identifiers = identifiable.identifiers
 
-        def defaultDosageInstructionId = defaultDosageInstructionId(identifiable.getIdentifierValue(IDART_WEB))
+        def defaultDosageInstructionId = defaultDosageInstructionId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def defaultDosageInstruction = defaultDosageInstructionDtoAssembler.toDefaultDosageInstruction(defaultDosageInstructionDto)
         defaultDosageInstruction.id = defaultDosageInstructionId
@@ -52,7 +52,7 @@ import javax.inject.Named
 
     @Override
     DefaultDosageInstructionDto findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) {
-        def identifier = newIdentifier(IDART_WEB, defaultDosageInstructionId.value)
+        def identifier = newIdentifier(IDART_WEB.id, defaultDosageInstructionId.value)
         findByIdentifier(identifier)
     }
 
@@ -65,7 +65,7 @@ import javax.inject.Named
             throw new DefaultDosageInstructionNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def defaultDosageInstructionId = defaultDosageInstructionId(identifiable.getIdentifierValue(IDART_WEB))
+        def defaultDosageInstructionId = defaultDosageInstructionId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def defaultDosageInstruction = defaultDosageInstructionService.findByDefaultDosageInstructionId(defaultDosageInstructionId)
 
@@ -80,7 +80,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(DEFAULT_DOSAGE_INSTRUCTION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         defaultDosageInstructionId(idartIdentifierValue)
     }

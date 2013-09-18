@@ -34,6 +34,7 @@ abstract class Part implements Serializable {
         }
 
         this.unitOfMeasure = that.unitOfMeasure
+        this.label = that.label
         this.form = that.form
         that.classifications?.each { classification -> this.classifications << classification }
     }
@@ -44,7 +45,7 @@ abstract class Part implements Serializable {
             return false
         }
 
-        return this.id == that.id
+        return this.label.value.toLowerCase() == that.label.value.toLowerCase()
     }
 
     def getClassificationCode(PartClassificationType type) {

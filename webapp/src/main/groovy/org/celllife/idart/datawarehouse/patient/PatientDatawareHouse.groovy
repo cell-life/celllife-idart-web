@@ -1,6 +1,6 @@
 package org.celllife.idart.datawarehouse.patient
 
-import org.celllife.idart.common.SystemId
+import org.celllife.idart.common.Systems
 import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.PatientId
 import org.celllife.idart.relationship.patientorganisation.PatientOrganisation
@@ -53,7 +53,7 @@ import static org.celllife.idart.common.PatientId.patientId
                 patientIdentifier: patientIdentifier,
                 organisation: organisation.value,
                 relationship: relationship.toString(),
-                idartSystem: SystemId.IDART_WEB.value
+                idartSystem: Systems.IDART_WEB.id.value
         ]
 
         namedParameterJdbcTemplate.query(query, parameters, PATIENT_ID_ROW_MAPPER)

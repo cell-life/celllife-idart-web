@@ -13,11 +13,8 @@ import org.celllife.idart.domain.prescription.PrescriptionService
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
-import static org.celllife.idart.common.SystemId.PREHMIS
-import static org.celllife.idart.common.EncounterId.encounterId
+import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.common.PrescriptionId.prescriptionId
-import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.IdentifiableType.PRESCRIPTION
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Identifiers.newIdentifier
@@ -49,7 +46,7 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, prescriptionDto.identifiers)
         prescriptionDto.identifiers = identifiable.identifiers
 
-        def prescriptionId = prescriptionId(identifiable.getIdentifierValue(IDART_WEB))
+        def prescriptionId = prescriptionId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def prescription = prescriptionDtoAssembler.toPrescription(prescriptionDto)
         prescription.id = prescriptionId
@@ -64,7 +61,7 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
 
     @Override
     PrescriptionDto findByPrescriptionId(PrescriptionId prescriptionId) {
-        def identifier = newIdentifier(IDART_WEB, prescriptionId.value)
+        def identifier = newIdentifier(IDART_WEB.id, prescriptionId.value)
         findByIdentifier(identifier)
     }
 
@@ -77,7 +74,7 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
             throw new PrescriptionNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def prescriptionId = prescriptionId(identifiable.getIdentifierValue(IDART_WEB))
+        def prescriptionId = prescriptionId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def prescription = prescriptionService.findByPrescriptionId(prescriptionId)
 
@@ -97,7 +94,7 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         prescriptionId(idartIdentifierValue)
     }

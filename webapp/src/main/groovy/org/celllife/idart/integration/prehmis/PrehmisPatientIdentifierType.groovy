@@ -1,6 +1,7 @@
 package org.celllife.idart.integration.prehmis
 
 import org.celllife.idart.common.SystemId
+import org.celllife.idart.common.Systems
 
 /**
  * User: Kevin W. Sewell
@@ -9,13 +10,13 @@ import org.celllife.idart.common.SystemId
  */
 enum PrehmisPatientIdentifierType {
 
-    PGWC(SystemId.PGWC, "PGWC Patient Number"),
+    PGWC(Systems.PGWC.id, "PGWC Patient Number"),
 
-    PREHMIS(SystemId.PREHMIS, "PREHMIS ID"),
+    PREHMIS(Systems.PREHMIS.id, "PREHMIS ID"),
 
-    SAID(SystemId.SA_IDENTITY_NUMBER, "National ID Number"),
+    SAID(Systems.SA_IDENTITY_NUMBER.id, "National ID Number"),
 
-    PASSPORT(SystemId.SA_PASSPART_NUMBER, "Passport Number")
+    PASSPORT(Systems.SA_PASSPART_NUMBER.id, "Passport Number")
 
     final SystemId system
 

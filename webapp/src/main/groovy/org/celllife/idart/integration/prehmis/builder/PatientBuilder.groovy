@@ -2,7 +2,7 @@ package org.celllife.idart.integration.prehmis.builder
 
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.person.dto.PersonDto
-import org.celllife.idart.common.SystemId
+import org.celllife.idart.common.Systems
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 import org.celllife.idart.integration.prehmis.PrehmisGender
 
@@ -37,16 +37,16 @@ class PatientBuilder {
             return null
         }
 
-        patient.identifiers << newIdentifier(SystemId.PREHMIS, prehmisId)
+        patient.identifiers << newIdentifier(Systems.PREHMIS.id, prehmisId)
 
         String pgwcPatientNumber = prehmisPatient.pgwc_patient_number.text()
         if (pgwcPatientNumber != null && !pgwcPatientNumber.empty) {
-            patient.identifiers << newIdentifier(SystemId.PGWC, pgwcPatientNumber)
+            patient.identifiers << newIdentifier(Systems.PGWC.id, pgwcPatientNumber)
         }
 
         String saId = prehmisPatient.sa_id_number.text()
         if (saId != null && !saId.empty) {
-            patient.identifiers << newIdentifier(SystemId.SAID, saId)
+            patient.identifiers << newIdentifier(Systems.SA_IDENTITY_NUMBER.id, saId)
         }
 
         person.firstName = prehmisPatient.first_name.text()

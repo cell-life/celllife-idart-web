@@ -1,11 +1,11 @@
 package org.celllife.idart.client;
 
-import org.celllife.idart.client.medication.Medication;
-import org.celllife.idart.client.part.Compound;
-import org.celllife.idart.client.part.Drug;
+import org.celllife.idart.client.encounter.Encounter;
+import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
+import org.celllife.idart.client.product.Product;
 
 import java.util.List;
 
@@ -16,12 +16,15 @@ import java.util.List;
  */
 public interface IdartClient {
 
-    void saveMedication(Medication medication);
+    void saveEncounter(Encounter encounter);
+
+    void savePart(Part part);
+
+    void saveProduct(Product product);
 
     void savePrescription(Prescription prescription);
 
     List<Patient> getPatients(String patientIdValue);
 
     List<Practitioner> getPractitioners();
-
 }

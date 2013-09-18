@@ -1,8 +1,8 @@
-package org.celllife.idart.client.medication;
+package org.celllife.idart.client.part;
 
-import org.celllife.idart.common.SystemId;
 import org.celllife.idart.common.FormCode;
-import org.celllife.idart.client.part.Compound;
+import org.celllife.idart.common.Label;
+import org.celllife.idart.common.SystemId;
 
 import static org.celllife.idart.common.Identifiers.newIdentifier;
 import static org.celllife.idart.common.SystemId.systemId;
@@ -23,17 +23,22 @@ public class CompoundBuilder {
         this.systemId = systemId(systemId);
     }
 
-    public CompoundBuilder setIdentifier(SystemId system, String idValue) {
-        this.compound.getIdentifiers().add(newIdentifier(system, idValue));
+    public CompoundBuilder setIdentifier(String idValue) {
+        this.compound.getIdentifiers().add(newIdentifier(systemId, idValue));
+        return this;
+    }
+
+    public CompoundBuilder setForm(FormCode formCode) {
+        this.compound.setForm(formCode);
+        return this;
+    }
+
+    public CompoundBuilder setLabel(Label label) {
+        this.compound.setLabel(label);
         return this;
     }
 
     public Compound finishCompound() {
         return compound;
-    }
-
-    public CompoundBuilder setForm(String formCodeValue) {
-        this.compound.setForm(FormCode.formCode(formCodeValue));
-        return this;
     }
 }

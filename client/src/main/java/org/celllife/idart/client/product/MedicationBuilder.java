@@ -1,7 +1,9 @@
-package org.celllife.idart.client.medication;
+package org.celllife.idart.client.product;
 
-import org.celllife.idart.client.part.Drug;
+import org.celllife.idart.common.Identifier;
 import org.celllife.idart.common.SystemId;
+
+import java.util.Set;
 
 import static org.celllife.idart.common.Identifiers.newIdentifier;
 import static org.celllife.idart.common.SystemId.systemId;
@@ -19,20 +21,17 @@ public final class MedicationBuilder {
 
     public MedicationBuilder(String systemId) {
         this.medication = new Medication();
-        this.medication.drug = new Drug();
         this.systemId = systemId(systemId);
 
     }
 
-    public MedicationBuilder setIdentifier(String id) {
-        this.medication.identifiers.add(newIdentifier(systemId, id));
-        this.medication.drug = new Drug();
-        this.medication.drug.getIdentifiers().add(newIdentifier(systemId, id));
+    public MedicationBuilder setIdentifier(String identifier) {
+        this.medication.getIdentifiers().add(newIdentifier(systemId, identifier));
         return this;
     }
 
     public MedicationBuilder setName(String name) {
-        this.medication.name = name;
+        this.medication.setName(name);
         return this;
     }
 
@@ -40,8 +39,8 @@ public final class MedicationBuilder {
         return medication;
     }
 
-    public MedicationBuilder addDrug(Drug drug) {
-        this.medication.drug = drug;
+    public MedicationBuilder addDrug(Set<Identifier> drug) {
+        this.medication.setDrug(drug);
         return this;
     }
 }

@@ -3,30 +3,25 @@ package org.celllife.idart.application.patient
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.patient.dto.PatientDtoAssembler
 import org.celllife.idart.application.person.PersonApplicationService
-import org.celllife.idart.common.PersonId
-import org.celllife.idart.common.SystemId
-import org.celllife.idart.common.FacilityId
-import org.celllife.idart.common.OrganisationId
-import org.celllife.idart.common.PatientId
+import org.celllife.idart.common.*
 import org.celllife.idart.datawarehouse.patient.PatientDataWarehouse
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.patient.PatientNotFoundException
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
 import org.celllife.idart.relationship.patientorganisation.PatientOrganisationService
-import org.celllife.idart.relationship.systemfacility.SystemFacility
 import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
-import static org.celllife.idart.common.PatientId.patientId
 import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.IdentifiableType.PATIENT
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.PatientId.patientId
+import static org.celllife.idart.common.Systems.IDART_WEB
+import static org.celllife.idart.common.Systems.PREHMIS
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.celllife.idart.relationship.patientorganisation.PatientOrganisation.Relationship.REGISTERED_WITH
 import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
@@ -67,7 +62,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
             patientDto.identifiers = identifiable.identifiers
 
-            def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
+            def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB.id))
             def patient = patientDtoAssembler.toPatient(patientDto)
             patient.id = patientId
 
@@ -95,7 +90,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
             patientDto.identifiers = identifiable.identifiers
 
-            def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
+            def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB.id))
             def patient = patientDtoAssembler.toPatient(patientDto)
             patient.id = patientId
 
@@ -109,7 +104,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Override
     PatientDto findByPatientId(PatientId patientId) {
 
-        findByIdentifier(newIdentifier(IDART_WEB, patientId.value))
+        findByIdentifier(newIdentifier(IDART_WEB.id, patientId.value))
     }
 
     @Override
@@ -121,7 +116,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             throw new PatientNotFoundException("Could not find Patient with id [${identifier.value}]")
         }
 
-        def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
+        def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def patient = patientService.findByPatientId(patientId)
 
@@ -137,7 +132,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         def identifiable = identifiableService.resolveIdentifiable(PATIENT, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         patientId(idartIdentifierValue)
     }
@@ -191,12 +186,12 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
     Set<PatientDto> lookupFromExternalProviders(String patientIdentifier, FacilityId facility) {
 
-        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB, facility.value)] as Set)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB.id, facility.value)] as Set)
 
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
             switch (facilityIdentifier.system) {
-                case SystemId.PREHMIS:
+                case PREHMIS.id:
                     return prehmisPatientProvider.findByIdentifier(facilityIdentifier.value, patientIdentifier)
                 default:
                     return [] as Set<PatientDto>

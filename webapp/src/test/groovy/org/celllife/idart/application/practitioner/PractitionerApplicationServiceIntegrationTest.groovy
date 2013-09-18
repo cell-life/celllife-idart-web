@@ -37,7 +37,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 import javax.inject.Inject
 
-import static org.celllife.idart.common.SystemId.*
+import static org.celllife.idart.common.SystemId.systemId
+import static org.celllife.idart.common.Systems.PREHMIS
 import static org.celllife.idart.common.PersonId.personId
 import static org.celllife.idart.common.PractitionerId.practitionerId
 import static org.celllife.idart.common.PractitionerType.PHARMACIST
@@ -149,7 +150,7 @@ class PractitionerApplicationServiceIntegrationTest {
     public void shouldSavePractitionerScenario2() throws Exception {
 
         def practitionerIdentifiers = [
-                newIdentifier(IDART_WEB, "00000000"),
+                newIdentifier(IDART_WEB.id, "00000000"),
                 newIdentifier(systemId("00000001"), "00000002")
         ]
 
@@ -274,7 +275,7 @@ class PractitionerApplicationServiceIntegrationTest {
         def facility = new FacilityDto()
         facility.with {
             identifiers = [
-                    newIdentifier(PREHMIS, "WES")
+                    newIdentifier(PREHMIS.id, "WES")
             ]
         }
 

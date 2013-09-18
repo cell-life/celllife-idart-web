@@ -1,14 +1,8 @@
 package org.celllife.idart.client.dosageinstruction;
 
-import org.celllife.idart.client.administrationmethod.AdministrationMethod;
-import org.celllife.idart.common.Quantity;
-import org.celllife.idart.common.Ratio;
-import org.celllife.idart.common.Schedule;
-import org.celllife.idart.client.entrysite.EntrySite;
-import org.celllife.idart.client.routeofadministration.RouteOfAdministration;
+import org.celllife.idart.common.*;
 
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * User: Kevin W. Sewell
@@ -23,11 +17,11 @@ public final class DosageInstruction implements Serializable {
 
     private Schedule timing;
 
-    private EntrySite site;
+    private EntrySiteCode site;
 
-    private RouteOfAdministration route;
+    private RouteOfAdministrationCode route;
 
-    private AdministrationMethod method;
+    private AdministrationMethodCode method;
 
     private Quantity doseQuantity;
 
@@ -54,27 +48,27 @@ public final class DosageInstruction implements Serializable {
         this.timing = timing;
     }
 
-    public EntrySite getSite() {
+    public EntrySiteCode getSite() {
         return site;
     }
 
-    public void setSite(EntrySite site) {
+    public void setSite(EntrySiteCode site) {
         this.site = site;
     }
 
-    public RouteOfAdministration getRoute() {
+    public RouteOfAdministrationCode getRoute() {
         return route;
     }
 
-    public void setRoute(RouteOfAdministration route) {
+    public void setRoute(RouteOfAdministrationCode route) {
         this.route = route;
     }
 
-    public AdministrationMethod getMethod() {
+    public AdministrationMethodCode getMethod() {
         return method;
     }
 
-    public void setMethod(AdministrationMethod method) {
+    public void setMethod(AdministrationMethodCode method) {
         this.method = method;
     }
 

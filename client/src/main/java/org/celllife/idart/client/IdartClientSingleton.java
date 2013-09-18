@@ -11,12 +11,13 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.BasicScheme;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.celllife.idart.client.medication.Medication;
+import org.celllife.idart.client.encounter.Encounter;
+import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
+import org.celllife.idart.client.product.Product;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,39 +68,43 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void saveMedication(Medication medication) {
+    public void saveEncounter(Encounter encounter) {
 
-        PutMethod putMedication = new PutMethod(String.format("%s/medications", idartWebUrl));
+        postToUrl(encounter, String.format("%s/encounters", idartWebUrl));
+    }
 
-        putMedication.setRequestEntity(getStringRequestEntity(medication));
+    @Override
+    public void savePart(Part part) {
 
-        decorateMethodWithAuth(putMedication);
-        decorateMethodWithContentType(putMedication);
+        postToUrl(part, String.format("%s/parts", idartWebUrl));
+    }
 
-        int status = executeMethod(putMedication);
+    @Override
+    public void saveProduct(Product product) {
 
-        if (status != HttpStatus.SC_CREATED) {
-            throw new RuntimeException();
-        }
-
+        postToUrl(product, String.format("%s/products", idartWebUrl));
     }
 
     @Override
     public void savePrescription(Prescription prescription) {
 
-        PostMethod postPrescription = new PostMethod(String.format("%s/prescriptions", idartWebUrl));
+        postToUrl(prescription, String.format("%s/prescriptions", idartWebUrl));
+    }
 
-        postPrescription.setRequestEntity(getStringRequestEntity(prescription));
+    private void postToUrl(Object object, String url) {
 
-        decorateMethodWithAuth(postPrescription);
-        decorateMethodWithContentType(postPrescription);
+        PostMethod postPart = new PostMethod(url);
 
-        int status = executeMethod(postPrescription);
+        postPart.setRequestEntity(getStringRequestEntity(object));
+
+        decorateMethodWithAuth(postPart);
+        decorateMethodWithContentType(postPart);
+
+        int status = executeMethod(postPart);
 
         if (status != HttpStatus.SC_CREATED) {
             throw new RuntimeException();
         }
-
     }
 
     private StringRequestEntity getStringRequestEntity(Object object) {

@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.common.Label
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.PartType
 
@@ -57,7 +58,7 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
     }
 
     @Override
-    Set<Part> findByType(PartType type) {
+    Set<PartId> findByType(PartType type) {
 
         switch (type) {
             case COMPOUND:
@@ -69,5 +70,10 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
             default:
                 return new HashSet<Part>()
         }
+    }
+
+    @Override
+    PartId findByLabel(Label label) {
+        partRepository.findByLabelValue(label.value)
     }
 }

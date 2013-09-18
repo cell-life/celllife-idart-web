@@ -48,6 +48,11 @@ public final class PrescriptionBuilder {
         return this;
     }
 
+    public PrescriptionBuilder setEncounter(String value) {
+        this.prescription.encounter.add(newIdentifier(systemId, value));
+        return this;
+    }
+
     public PrescriptionBuilder setDateWritten(Date dateWritten) {
         this.prescription.dateWritten = dateWritten;
         return this;

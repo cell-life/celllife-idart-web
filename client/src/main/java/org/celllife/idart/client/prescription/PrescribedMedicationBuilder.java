@@ -2,10 +2,6 @@ package org.celllife.idart.client.prescription;
 
 import org.celllife.idart.common.*;
 import org.celllife.idart.client.dosageinstruction.DosageInstruction;
-import org.celllife.idart.client.indication.Indication;
-import org.celllife.idart.client.medication.Medication;
-import org.celllife.idart.client.substitution.Substitution;
-import org.celllife.idart.client.substitutionreason.SubstitutionReason;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.celllife.idart.common.Identifiers.newIdentifier;
-import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode;
 
 /**
  * User: Kevin W. Sewell
@@ -51,7 +46,7 @@ public final class PrescribedMedicationBuilder implements Serializable {
         return this;
     }
 
-    public PrescribedMedicationBuilder setIndications(Set<Indication> indications) {
+    public PrescribedMedicationBuilder setIndications(Set<IndicationCode> indications) {
         this.prescribedMedication.setIndications(indications);
         return this;
     }
@@ -81,22 +76,22 @@ public final class PrescribedMedicationBuilder implements Serializable {
         return this;
     }
 
-    public PrescribedMedicationBuilder setExpectedSupplyDuration(int quantity, String uomCodeValue) {
+    public PrescribedMedicationBuilder setExpectedSupplyDuration(int quantity, UnitOfMeasureCode unitOfMeasure) {
         Duration expectedSupplyDuration = new Duration();
         expectedSupplyDuration.setValue(new BigDecimal(quantity));
-        expectedSupplyDuration.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+        expectedSupplyDuration.setUnitOfMeasure(unitOfMeasure);
 
         this.prescribedMedication.setExpectedSupplyDuration(expectedSupplyDuration);
 
         return this;
     }
 
-    public PrescribedMedicationBuilder setSubstitution(Substitution substitution) {
+    public PrescribedMedicationBuilder setSubstitution(SubstitutionCode substitution) {
         this.prescribedMedication.setSubstitution(substitution);
         return this;
     }
 
-    public PrescribedMedicationBuilder setSubstitutionReason(SubstitutionReason substitutionReason) {
+    public PrescribedMedicationBuilder setSubstitutionReason(SubstitutionReasonCode substitutionReason) {
         this.prescribedMedication.setSubstitutionReason(substitutionReason);
         return this;
     }
@@ -106,11 +101,11 @@ public final class PrescribedMedicationBuilder implements Serializable {
         return this;
     }
 
-    public PrescribedMedicationBuilder setDosageQuantity(double quantity, String uomCodeValue) {
+    public PrescribedMedicationBuilder setDosageQuantity(double quantity, UnitOfMeasureCode unitOfMeasure) {
 
         Quantity doseQuantity = new Quantity();
         doseQuantity.setValue(new BigDecimal(quantity));
-        doseQuantity.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+        doseQuantity.setUnitOfMeasure(unitOfMeasure);
 
         getDosageInstructions().setDoseQuantity(doseQuantity);
 
@@ -122,10 +117,10 @@ public final class PrescribedMedicationBuilder implements Serializable {
         return this;
     }
 
-    public PrescribedMedicationBuilder every(int quantity, String uomCodeValue) {
+    public PrescribedMedicationBuilder every(int quantity, UnitOfMeasureCode unitOfMeasure) {
         Duration duration = new Duration();
         duration.setValue(new BigDecimal(quantity));
-        duration.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+        duration.setUnitOfMeasure(unitOfMeasure);
         getRepeat().setDuration(duration);
         return this;
     }

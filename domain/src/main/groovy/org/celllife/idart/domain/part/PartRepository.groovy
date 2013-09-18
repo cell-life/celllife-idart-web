@@ -15,5 +15,7 @@ public interface PartRepository {
 
     Part findOne(PartId partId)
 
-    Collection<Part> findByClass(Class<? extends Part> clazz);
+    Collection<PartId> findByClass(Class<? extends Part> clazz);
+
+    PartId findByLabelValue(String labelValue)
 }

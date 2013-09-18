@@ -9,7 +9,7 @@ import org.celllife.idart.common.Identifiers
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 /**
  * User: Kevin W. Sewell
@@ -23,6 +23,6 @@ import static org.celllife.idart.common.SystemId.IDART_WEB
     @Override
     Identifier nextValue(IdentifiableType type) {
         def value = counterService.getNextValue(type.toString())
-        return Identifiers.newIdentifier(IDART_WEB, String.format("%08d", value))
+        return Identifiers.newIdentifier(IDART_WEB.id, String.format("%08d", value))
     }
 }

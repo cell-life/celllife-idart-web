@@ -13,7 +13,10 @@ import java.util.Collection;
  */
 public interface SpringDataPartRepository extends PartRepository, PagingAndSortingRepository<Part, PartId> {
 
-    @Query("select part from Part part where type(part) = :clazz")
-    Collection<Part> findByClass(@Param("clazz") Class<? extends Part> clazz);
+    @Query("select part.id from Part part where type(part) = :clazz")
+    Collection<PartId> findByClass(@Param("clazz") Class<? extends Part> clazz);
+
+    @Query("select part.id from Part part where lower(label.value) = lower(:labelValue)")
+    PartId findByLabelValue(@Param("labelValue") String labelValue);
 
 }

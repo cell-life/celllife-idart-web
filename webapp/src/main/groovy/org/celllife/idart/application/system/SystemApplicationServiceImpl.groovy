@@ -12,7 +12,7 @@ import static org.celllife.idart.common.SystemId.systemId
 import static org.celllife.idart.common.IdentifiableType.SYSTEM
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -40,7 +40,7 @@ import javax.inject.Named
         def identifiable = identifiableService.resolveIdentifiable(SYSTEM, systemDto.identifiers)
         systemDto.identifiers = identifiable.identifiers
 
-        def systemId = systemId(identifiable.getIdentifierValue(IDART_WEB))
+        def systemId = systemId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def system = systemDtoAssembler.toSystem(systemDto)
         system.id = systemId
@@ -52,7 +52,7 @@ import javax.inject.Named
 
     @Override
     SystemDto findBySystemId(SystemId systemId) {
-        def identifier = newIdentifier(IDART_WEB, systemId.value)
+        def identifier = newIdentifier(IDART_WEB.id, systemId.value)
         findByIdentifier(identifier)
     }
 
@@ -65,7 +65,7 @@ import javax.inject.Named
             throw new SystemNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def systemId = systemId(identifiable.getIdentifierValue(IDART_WEB))
+        def systemId = systemId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def system = systemService.findBySystemId(systemId)
 
@@ -80,7 +80,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(SYSTEM, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         systemId(idartIdentifierValue)
     }

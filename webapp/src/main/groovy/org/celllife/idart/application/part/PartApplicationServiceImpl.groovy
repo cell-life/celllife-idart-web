@@ -1,5 +1,6 @@
 package org.celllife.idart.application.part
 
+import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.application.part.dto.PartDtoAssembler
 import org.celllife.idart.common.PartId
@@ -9,12 +10,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.part.PartNotFoundException
 import org.celllife.idart.domain.part.PartService
 
-import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.PartId.partId
 import static org.celllife.idart.common.IdentifiableType.PART
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.inject.Inject
 import javax.inject.Named
@@ -37,10 +37,15 @@ import javax.inject.Named
     @Override
     PartId save(PartDto partDto) {
 
+        def existingPartId = findMatchingPart(partDto)
+        if (existingPartId != null) {
+            partDto.identifiers << newIdentifier(IDART_WEB.id, existingPartId.value)
+        }
+
         def identifiable = identifiableService.resolveIdentifiable(PART, partDto.identifiers)
         partDto.identifiers = identifiable.identifiers
 
-        def partId = partId(identifiable.getIdentifierValue(IDART_WEB))
+        def partId = partId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def part = partDtoAssembler.toPart(partDto)
         part.id = partId
@@ -50,9 +55,20 @@ import javax.inject.Named
         part.id
     }
 
+    private PartId findMatchingPart(PartDto partDto) {
+
+        if (partDto instanceof CompoundDto) {
+            if (partDto.label != null) {
+                return partService.findByLabel(partDto.label)
+            }
+        }
+
+        null
+    }
+
     @Override
     PartDto findByPartId(PartId partId) {
-        def identifier = newIdentifier(IDART_WEB, partId.value)
+        def identifier = newIdentifier(IDART_WEB.id, partId.value)
         findByIdentifier(identifier)
     }
 
@@ -65,7 +81,7 @@ import javax.inject.Named
             throw new PartNotFoundException("Could not find null with id [${ identifier.value}]")
         }
 
-        def partId = partId(identifiable.getIdentifierValue(IDART_WEB))
+        def partId = partId(identifiable.getIdentifierValue(IDART_WEB.id))
 
         def part = partService.findByPartId(partId)
 
@@ -80,7 +96,7 @@ import javax.inject.Named
 
         def identifiable = identifiableService.resolveIdentifiable(PART, identifiers)
 
-        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
+        def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         partId(idartIdentifierValue)
     }
@@ -88,15 +104,8 @@ import javax.inject.Named
     @Override
     Set<PartDto> findByType(PartType type) {
 
-        def parts = partService.findByType(type)
-        parts.collect { part ->
+        def partIds = partService.findByType(type)
 
-            def partDto = partDtoAssembler.toPartDto(part)
-
-            def identifiable = identifiableService.resolveIdentifiable(PART, newIdentifiers(IDART_WEB, part.id.value))
-            partDto.identifiers = identifiable.identifiers
-
-            partDto
-        }
+        partIds.collect { partId -> findByPartId(partId) }
     }
 }

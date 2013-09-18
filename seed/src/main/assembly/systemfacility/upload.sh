@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 CREDENTIALS="internal:password"
 CONTENT_TYPE_HEADER="Content-Type: application/json"
 
