@@ -7,18 +7,6 @@
 
     <include file="db.changelog-hibernate.xml" relativeToChangelogFile="true"/>
 
-    <!-- Codes -->
-
-    <include file="db.changelog-administrationmethod.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-entrysite.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-form.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-indication.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-lifeevent.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-routeofadministration.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-substitution.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-substitutionreason.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-unitofmeasure.xml" relativeToChangelogFile="true"/>
-
     <!-- Domain Aggregates -->
 
     <include file="db.changelog-contactmechanism.xml" relativeToChangelogFile="true"/>
@@ -45,6 +33,5 @@
     <include file="db.changelog-system.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-systemfacility.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-user.xml" relativeToChangelogFile="true"/>
-    <include file="db.changelog-usersystem.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

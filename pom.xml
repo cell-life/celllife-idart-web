@@ -493,52 +493,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- Poi -->
-
-            <dependency>
-                <groupId>net.sf.jxls</groupId>
-                <artifactId>jxls-reader</artifactId>
-                <version>1.0.1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>dom4j</groupId>
-                        <artifactId>dom4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>stax</groupId>
-                        <artifactId>stax-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.geronimo.specs</groupId>
-                        <artifactId>geronimo-stax-api_1.0_spec</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>3.9</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- Groovy CSV -->
-
-            <dependency>
-                <groupId>com.xlson.groovycsv</groupId>
-                <artifactId>groovycsv</artifactId>
-                <version>1.0</version>
-            </dependency>
-
             <!-- Guava -->
 
             <dependency>

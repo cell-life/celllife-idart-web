@@ -15,7 +15,6 @@ import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.application.product.ProductApplicationService
 import org.celllife.idart.application.product.dto.MedicationDto
-import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.PractitionerType
 import org.celllife.idart.common.Quantity
@@ -81,8 +80,6 @@ class PrescriptionApplicationServiceIntegrationTest {
     @Inject EncounterApplicationService encounterApplicationService
 
     @Inject EncounterRepository encounterRepository
-
-    @Inject UnitOfMeasureApplicationService unitOfMeasureApplicationService
 
     @Inject PersonRepository personRepository
 

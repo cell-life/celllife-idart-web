@@ -364,25 +364,6 @@
             <artifactId>http-builder</artifactId>
         </dependency>
 
-        <!-- jXLS -->
-
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.jxls</groupId>
-            <artifactId>jxls-reader</artifactId>
-        </dependency>
-
-        <!-- Groovy CSV -->
-
-        <dependency>
-            <groupId>com.xlson.groovycsv</groupId>
-            <artifactId>groovycsv</artifactId>
-        </dependency>
-
         <!-- Guava -->
 
         <dependency>

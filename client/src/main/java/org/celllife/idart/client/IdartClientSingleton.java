@@ -13,16 +13,10 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.celllife.idart.client.clinic.Clinic;
-import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.medication.Medication;
-import org.celllife.idart.client.part.Compound;
-import org.celllife.idart.client.part.Drug;
-import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
-import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,23 +64,6 @@ public final class IdartClientSingleton implements IdartClient {
 
         this.objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
-    @Override
-    public void saveClinic(Clinic clinic) {
-
-        PostMethod postClinic = new PostMethod(String.format("%s/clinics", idartWebUrl));
-
-        postClinic.setRequestEntity(getStringRequestEntity(clinic));
-
-        decorateMethodWithAuth(postClinic);
-        decorateMethodWithContentType(postClinic);
-
-        int status = executeMethod(postClinic);
-
-        if (status != HttpStatus.SC_CREATED) {
-            throw new RuntimeException();
-        }
     }
 
     @Override
@@ -173,82 +150,6 @@ public final class IdartClientSingleton implements IdartClient {
         return mapJsonToPartyPractitioners(body);
     }
 
-    @Override
-    public List<Compound> getCompounds() {
-
-        GetMethod getRawMaterials = new GetMethod(String.format("%s/parts/search/findByType?type=COMPOUND", idartWebUrl));
-
-        decorateMethodWithAuth(getRawMaterials);
-        decorateMethodWithAccept(getRawMaterials);
-
-        int status = executeMethod(getRawMaterials);
-
-        InputStream body = getResponseBodyAsString(getRawMaterials);
-
-        if (status != HttpStatus.SC_OK) {
-             throw new RuntimeException("" + status);
-        }
-
-        return mapJsonToParts(body);
-    }
-
-    @Override
-    public List<Drug> getDrugs() {
-
-        GetMethod getDrugs = new GetMethod(String.format("%s/products/search/findByType?type=MEDICATION", idartWebUrl));
-
-        decorateMethodWithAuth(getDrugs);
-        decorateMethodWithAccept(getDrugs);
-
-        int status = executeMethod(getDrugs);
-
-        InputStream body = getResponseBodyAsString(getDrugs);
-
-        if (status != HttpStatus.SC_OK) {
-            throw new RuntimeException("" + status);
-        }
-
-        return mapJsonToParts(body);
-    }
-
-    @Override
-    public List<Form> getForms() {
-
-        GetMethod getForms = new GetMethod(String.format("%s/forms", idartWebUrl));
-
-        decorateMethodWithAuth(getForms);
-        decorateMethodWithAccept(getForms);
-
-        int status = executeMethod(getForms);
-
-        InputStream body = getResponseBodyAsString(getForms);
-
-        if (status != HttpStatus.SC_OK) {
-            throw new RuntimeException("" + status);
-        }
-
-        return mapJsonToForms(body);
-    }
-
-    @Override
-    public List<UnitOfMeasure> getUnitsOfMeasure() {
-
-        GetMethod getUnitsOfMeasure = new GetMethod(String.format("%s/unitsOfMeasure", idartWebUrl));
-
-        decorateMethodWithAuth(getUnitsOfMeasure);
-        decorateMethodWithAccept(getUnitsOfMeasure);
-
-        int status = executeMethod(getUnitsOfMeasure);
-
-        InputStream body = getResponseBodyAsString(getUnitsOfMeasure);
-
-        if (status != HttpStatus.SC_OK) {
-            throw new RuntimeException("" + status);
-        }
-
-        return mapJsonTounitsOfMeasure(body);
-    }
-
     private List<Patient> mapJsonToPartyPatients(InputStream json) {
 
         try {
@@ -263,36 +164,6 @@ public final class IdartClientSingleton implements IdartClient {
 
         try {
             return objectMapper.readValue(json, new TypeReference<List<Practitioner>>() {
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private <E extends Part> List<E> mapJsonToParts(InputStream json) {
-
-        try {
-            return objectMapper.reader(new TypeReference<List<Part>>() {
-            }).readValue(json);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private List<Form> mapJsonToForms(InputStream json) {
-
-        try {
-            return objectMapper.readValue(json, new TypeReference<List<Form>>() {
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private List<UnitOfMeasure> mapJsonTounitsOfMeasure(InputStream json) {
-
-        try {
-            return objectMapper.readValue(json, new TypeReference<List<UnitOfMeasure>>() {
             });
         } catch (IOException e) {
             throw new RuntimeException(e);

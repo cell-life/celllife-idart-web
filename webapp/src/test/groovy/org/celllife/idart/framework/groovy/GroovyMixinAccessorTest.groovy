@@ -1,6 +1,6 @@
 package org.celllife.idart.framework.groovy
 
-import junit.framework.Assert
+import org.junit.Assert
 import org.junit.Test
 
 /**

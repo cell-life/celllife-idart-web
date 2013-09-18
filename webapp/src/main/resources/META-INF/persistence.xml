@@ -5,7 +5,6 @@
 
         <jta-data-source>jdbc/idart</jta-data-source>
 
-        <mapping-file>META-INF/orm/administrationmethod.xml</mapping-file>
         <mapping-file>META-INF/orm/atc.xml</mapping-file>
         <mapping-file>META-INF/orm/common.xml</mapping-file>
         <mapping-file>META-INF/orm/contactmechanism.xml</mapping-file>
@@ -14,14 +13,10 @@
         <mapping-file>META-INF/orm/dispensation.xml</mapping-file>
         <mapping-file>META-INF/orm/dosageinstruction.xml</mapping-file>
         <mapping-file>META-INF/orm/encounter.xml</mapping-file>
-        <mapping-file>META-INF/orm/entrysite.xml</mapping-file>
         <mapping-file>META-INF/orm/facility.xml</mapping-file>
         <mapping-file>META-INF/orm/facilityorganisation.xml</mapping-file>
-        <mapping-file>META-INF/orm/form.xml</mapping-file>
         <mapping-file>META-INF/orm/identifiable.xml</mapping-file>
-        <mapping-file>META-INF/orm/indication.xml</mapping-file>
         <mapping-file>META-INF/orm/inventoryitem.xml</mapping-file>
-        <mapping-file>META-INF/orm/lifeevent.xml</mapping-file>
         <mapping-file>META-INF/orm/organisation.xml</mapping-file>
         <mapping-file>META-INF/orm/part.xml</mapping-file>
         <mapping-file>META-INF/orm/partclassification.xml</mapping-file>
@@ -35,13 +30,7 @@
         <mapping-file>META-INF/orm/prescribedmedication.xml</mapping-file>
         <mapping-file>META-INF/orm/prescription.xml</mapping-file>
         <mapping-file>META-INF/orm/product.xml</mapping-file>
-        <mapping-file>META-INF/orm/routeofadministration.xml</mapping-file>
-        <mapping-file>META-INF/orm/substitution.xml</mapping-file>
-        <mapping-file>META-INF/orm/substitutionreason.xml</mapping-file>
         <mapping-file>META-INF/orm/systemfacility.xml</mapping-file>
-        <mapping-file>META-INF/orm/unitofmeasure.xml</mapping-file>
-        <mapping-file>META-INF/orm/unitofmeasuretype.xml</mapping-file>
-        <mapping-file>META-INF/orm/usersystem.xml</mapping-file>
 
         <!--<mapping-file>META-INF/hbm/jasypt.hbm.xml</mapping-file>-->
         <!--<mapping-file>META-INF/hbm/system.hbm.xml</mapping-file>-->

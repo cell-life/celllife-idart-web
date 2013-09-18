@@ -8,11 +8,6 @@
     <camel:routeContext id="eventRouteContext">
 
         <camel:route>
-            <camel:from uri="direct:administrationMethodEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
             <camel:from uri="direct:defaultDosageInstructionEvent"/>
             <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
@@ -28,32 +23,7 @@
         </camel:route>
 
         <camel:route>
-            <camel:from uri="direct:entrySiteEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
             <camel:from uri="direct:facilityEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:formEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:indicationEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:legalOrganisationEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:lifeEventEvent"/>
             <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
@@ -107,37 +77,7 @@
         </camel:route>
 
         <camel:route>
-            <camel:from uri="direct:routeOfAdministrationEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:substitutionEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:substitutionReasonEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
             <camel:from uri="direct:systemEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:systemFacilityEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:unitOfMeasureEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
-        </camel:route>
-
-        <camel:route>
-            <camel:from uri="direct:unitOfMeasureTypeEvent"/>
             <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
 
