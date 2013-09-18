@@ -18,12 +18,11 @@ import static org.celllife.idart.common.Period.newPeriod
     @Inject FacilityOrganisationRepository facilityOrganisationRepository
 
     @Override
-    Iterable<OrganisationId> findOrganisations(FacilityId facility, FacilityOrganisation.Relationship relationship) {
-        facilityOrganisationRepository
-                .findByFacilityRelationshipValid(facility, relationship, new Date())
-                .collect { facilityOrganisation -> facilityOrganisation.organisation }
+    void save(FacilityOrganisation facilityOrganisation) {
+        save(facilityOrganisation.facility, facilityOrganisation.organisation, facilityOrganisation.relationship)
     }
 
+    @Override
     void save(FacilityId facility, OrganisationId organisation, FacilityOrganisation.Relationship relationship) {
 
         def facilityOrganisation = facilityOrganisationRepository
@@ -39,5 +38,12 @@ import static org.celllife.idart.common.Period.newPeriod
 
             facilityOrganisationRepository.save(facilityOrganisation)
         }
+    }
+
+    @Override
+    Iterable<OrganisationId> findOrganisations(FacilityId facility, FacilityOrganisation.Relationship relationship) {
+        facilityOrganisationRepository
+                .findByFacilityRelationshipValid(facility, relationship, new Date())
+                .collect { facilityOrganisation -> facilityOrganisation.organisation }
     }
 }

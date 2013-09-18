@@ -1,7 +1,4 @@
 package org.celllife.idart.application.product.dto
-
-import org.celllife.idart.application.product.dto.ProductDto
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-09-15

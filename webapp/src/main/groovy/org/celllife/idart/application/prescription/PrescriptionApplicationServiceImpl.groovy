@@ -47,11 +47,15 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
     PrescriptionId save(PrescriptionDto prescriptionDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, prescriptionDto.identifiers)
+        prescriptionDto.identifiers = identifiable.identifiers
 
         def prescriptionId = prescriptionId(identifiable.getIdentifierValue(IDART_WEB))
 
         def prescription = prescriptionDtoAssembler.toPrescription(prescriptionDto)
         prescription.id = prescriptionId
+        prescription.prescribedMedications = prescriptionDto.prescribedMedications.collect { prescribedMedicationDto ->
+            prescribedMedicationApplicationService.save(prescribedMedicationDto)
+        }
 
         prescriptionService.save(prescription)
 
@@ -96,29 +100,5 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         prescriptionId(idartIdentifierValue)
-    }
-    /**
-     * TODO publish event rather than execute synchronously
-     *
-     * @param facility
-     * @param prescription
-     */
-    void postToExternalProviders(PrescriptionDto prescription) {
-
-        def encounter = encounterService.findByEncounterId(encounterId(getIdentifierValue(prescription.encounter, IDART_WEB)))
-
-        def facilityIdentifiable = identifiableService
-                .resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB, encounter.facility.value)] as Set<Identifier>)
-
-        facilityIdentifiable.identifiers.each { facilityIdentifier ->
-
-            switch (facilityIdentifier.system) {
-                case PREHMIS:
-                    prehmisClinicPrescriptionProvider.save(facilityIdentifier.value, prescription)
-                    break
-                default:
-                    break
-            }
-        }
     }
 }

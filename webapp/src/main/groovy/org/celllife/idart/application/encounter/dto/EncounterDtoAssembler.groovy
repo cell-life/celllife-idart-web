@@ -23,14 +23,21 @@ import javax.inject.Named
 
         def encounter = new Encounter()
         encounter.with {
-            participants = encounterDto.participants.collect { participantDto ->
+            participants = encounterDto.participants?.collect { participantDto ->
                 new Participant(
                         type: participantDto.type,
                         practitioner: practitionerApplicationService.findByIdentifiers(participantDto.practitioner)
                 )
             }
-            patient = patientApplicationService.findByIdentifiers(encounterDto.patient)
-            facility = facilityApplicationService.findByIdentifiers(encounterDto.facility)
+
+            if (encounterDto.patient != null) {
+                patient = patientApplicationService.findByIdentifiers(encounterDto.patient)
+            }
+
+            if (encounterDto.facility != null) {
+                facility = facilityApplicationService.findByIdentifiers(encounterDto.facility)
+            }
+
             startedAt = encounterDto.startedAt
             duration = encounterDto.duration
         }
@@ -42,14 +49,22 @@ import javax.inject.Named
 
         def encounterDto = new EncounterDto()
         encounterDto.with {
-            participants = encounter.participants.collect { participant ->
+
+            participants = encounter.participants?.collect { participant ->
                 new ParticipantDto(
                         type: participant.type,
                         practitioner: practitionerApplicationService.findByPractitionerId(participant.practitioner).identifiers
                 )
             }
-            patient = patientApplicationService.findByPatientId(encounter.patient).identifiers
-            facility = facilityApplicationService.findByFacilityId(encounter.facility).identifiers
+
+            if (encounter.patient != null) {
+                patient = patientApplicationService.findByPatientId(encounter.patient)?.identifiers
+            }
+
+            if (encounter.facility != null) {
+                facility = facilityApplicationService.findByFacilityId(encounter.facility)?.identifiers
+            }
+
             startedAt = encounter.startedAt
             duration = encounter.duration
         }

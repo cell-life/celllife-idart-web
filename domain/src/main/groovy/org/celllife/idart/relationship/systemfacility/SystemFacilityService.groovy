@@ -10,6 +10,8 @@ import org.celllife.idart.common.SystemId
  */
 public interface SystemFacilityService {
 
+    void save(SystemFacility systemFacility)
+
     void save(SystemId system, FacilityId facility, SystemFacility.Relationship relationship)
 
     Iterable<FacilityId> findFacilities(SystemId system, SystemFacility.Relationship relationship)

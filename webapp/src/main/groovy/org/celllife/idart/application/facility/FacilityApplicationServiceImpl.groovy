@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.facility.FacilityNotFoundException
 import org.celllife.idart.domain.facility.FacilityService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.FacilityId.facilityId
 import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     FacilityId save(FacilityDto facilityDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(FACILITY, facilityDto.identifiers)
+        facilityDto.identifiers = identifiable.identifiers
 
         def facilityId = facilityId(identifiable.getIdentifierValue(IDART_WEB))
 

@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.substitutionreason.SubstitutionReasonNotFoundException
 import org.celllife.idart.domain.substitutionreason.SubstitutionReasonService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.SubstitutionReasonCode.substitutionReasonCode
 import static org.celllife.idart.common.IdentifiableType.SUBSTITUTION_REASON
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     SubstitutionReasonCode save(SubstitutionReasonDto substitutionReasonDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(SUBSTITUTION_REASON, substitutionReasonDto.identifiers)
+        substitutionReasonDto.identifiers = identifiable.identifiers
 
         def substitutionReasonCode = substitutionReasonCode(identifiable.getIdentifierValue(IDART_WEB))
 

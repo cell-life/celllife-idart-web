@@ -25,6 +25,7 @@ import javax.inject.Named
             prescriber = practitionerApplicationService.findByIdentifiers(prescriptionDto.prescriber)
             patient = patientApplicationService.findByIdentifiers(prescriptionDto.patient)
             encounter = encounterApplicationService.findByIdentifiers(prescriptionDto.encounter)
+            dateWritten = prescriptionDto.dateWritten
         }
 
         prescription
@@ -37,6 +38,7 @@ import javax.inject.Named
             prescriber = practitionerApplicationService.findByPractitionerId(prescription.prescriber).identifiers
             patient = patientApplicationService.findByPatientId(prescription.patient).identifiers
             encounter = encounterApplicationService.findByEncounterId(prescription.encounter).identifiers
+            dateWritten = prescription.dateWritten
         }
 
         prescriptionDto

@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject SubstitutionReasonApplicationService substitutionReasonApplicationService
 
-    SubstitutionReasonCode save(Principal principal, substitutionReasonDto) {
+    SubstitutionReasonCode save(Principal principal, SubstitutionReasonDto substitutionReasonDto) {
         substitutionReasonApplicationService.save(substitutionReasonDto)
     }
 

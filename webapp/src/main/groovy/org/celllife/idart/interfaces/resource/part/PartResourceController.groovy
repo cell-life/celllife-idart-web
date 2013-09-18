@@ -1,30 +1,24 @@
 package org.celllife.idart.interfaces.resource.part
 
-import org.celllife.idart.common.PartId
 import org.celllife.idart.application.part.dto.PartDto
+import org.celllife.idart.common.PartId
+import org.celllife.idart.common.PartType
 import org.celllife.idart.domain.part.PartNotFoundException
 import org.celllife.idart.domain.part.PartValidationException
 import org.celllife.idart.security.part.PartSecurityAdapter
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 
 import javax.annotation.Generated
 import javax.inject.Inject
 import javax.servlet.http.HttpServletResponse
 import java.security.Principal
 
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
-import static javax.servlet.http.HttpServletResponse.SC_CREATED
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
+import static javax.servlet.http.HttpServletResponse.*
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Controller class PartResourceController {
 
     @Inject PartSecurityAdapter partSecurityAdapter
@@ -34,8 +28,8 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
     @ResponseBody
     @RequestMapping(value = "/parts/{partId}", method = RequestMethod.GET, produces = "application/json")
     PartDto findByPartId(@PathVariable("partId") PartId partId,
-                                              Principal principal,
-                                              HttpServletResponse response) {
+                         Principal principal,
+                         HttpServletResponse response) {
 
         try {
 
@@ -47,6 +41,13 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
             return null
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/parts/search/findByType", method = RequestMethod.GET, produces = "application/json")
+    Set<PartDto> findByType(@RequestParam("type") PartType type, Principal principal) {
+
+        return partSecurityAdapter.findByType(principal, type)
     }
 
     @RequestMapping(value = "/parts", method = RequestMethod.POST)

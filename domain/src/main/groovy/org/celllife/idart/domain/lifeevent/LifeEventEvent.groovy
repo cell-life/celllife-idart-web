@@ -1,9 +1,5 @@
 package org.celllife.idart.domain.lifeevent
 
-import org.celllife.idart.common.EventHeader
-
-import static org.celllife.idart.common.EventHeader.newEventHeader
-
 import javax.annotation.Generated
 
 /**
@@ -12,15 +8,27 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 class LifeEventEvent implements Serializable {
 
-    EventHeader header
+    Date timestamp
+
+    UUID uuid
+
+    EventType type
+
+    String username
 
     LifeEvent lifeEvent
 
     static LifeEventEvent newLifeEventEvent(LifeEvent lifeEvent, LifeEventEvent.EventType eventType) {
-        new LifeEventEvent(lifeEvent: lifeEvent, header: newEventHeader(eventType))
+
+        new LifeEventEvent(
+            lifeEvent: lifeEvent,
+            type: eventType,
+            timestamp: new Date(),
+            uuid: UUID.randomUUID()
+        )
     }
 
-    enum EventType implements org.celllife.idart.common.EventType {
+    enum EventType {
         SAVED
     }
 }

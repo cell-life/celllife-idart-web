@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject OrganisationApplicationService organisationApplicationService
 
-    OrganisationId save(Principal principal, organisationDto) {
+    OrganisationId save(Principal principal, OrganisationDto organisationDto) {
         organisationApplicationService.save(organisationDto)
     }
 

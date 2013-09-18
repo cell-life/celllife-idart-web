@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999996"
+        }
+    ],
+    "name": "Stavudine 15mg (60 Tablets)",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999992"
+        }
+    ]
+}

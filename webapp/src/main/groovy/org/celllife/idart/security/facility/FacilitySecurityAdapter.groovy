@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject FacilityApplicationService facilityApplicationService
 
-    FacilityId save(Principal principal, facilityDto) {
+    FacilityId save(Principal principal, FacilityDto facilityDto) {
         facilityApplicationService.save(facilityDto)
     }
 

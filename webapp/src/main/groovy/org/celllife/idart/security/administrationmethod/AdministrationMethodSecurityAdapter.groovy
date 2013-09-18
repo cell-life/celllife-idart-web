@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject AdministrationMethodApplicationService administrationMethodApplicationService
 
-    AdministrationMethodCode save(Principal principal, administrationMethodDto) {
+    AdministrationMethodCode save(Principal principal, AdministrationMethodDto administrationMethodDto) {
         administrationMethodApplicationService.save(administrationMethodDto)
     }
 

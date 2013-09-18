@@ -1,9 +1,5 @@
 package org.celllife.idart.domain.indication
 
-import org.celllife.idart.common.EventHeader
-
-import static org.celllife.idart.common.EventHeader.newEventHeader
-
 import javax.annotation.Generated
 
 /**
@@ -12,15 +8,27 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 class IndicationEvent implements Serializable {
 
-    EventHeader header
+    Date timestamp
+
+    UUID uuid
+
+    EventType type
+
+    String username
 
     Indication indication
 
     static IndicationEvent newIndicationEvent(Indication indication, IndicationEvent.EventType eventType) {
-        new IndicationEvent(indication: indication, header: newEventHeader(eventType))
+
+        new IndicationEvent(
+            indication: indication,
+            type: eventType,
+            timestamp: new Date(),
+            uuid: UUID.randomUUID()
+        )
     }
 
-    enum EventType implements org.celllife.idart.common.EventType {
+    enum EventType {
         SAVED
     }
 }

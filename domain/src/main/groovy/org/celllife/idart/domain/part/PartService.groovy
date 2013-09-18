@@ -1,12 +1,10 @@
 package org.celllife.idart.domain.part
 
 import org.celllife.idart.common.PartId
-
-import javax.annotation.Generated
+import org.celllife.idart.common.PartType
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 public interface PartService {
 
     Boolean exists(PartId partId)
@@ -15,4 +13,5 @@ public interface PartService {
 
     Part findByPartId(PartId partId)
 
+    Set<Part> findByType(PartType type)
 }

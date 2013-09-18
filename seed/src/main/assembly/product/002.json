@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999998"
+        }
+    ],
+    "name": "Zidovudine 10mg/ml (200 ml)",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999996"
+        }
+    ]
+}

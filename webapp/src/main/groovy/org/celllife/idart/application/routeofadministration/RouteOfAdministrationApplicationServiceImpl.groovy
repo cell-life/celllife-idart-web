@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationNotFoundException
 import org.celllife.idart.domain.routeofadministration.RouteOfAdministrationService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.RouteOfAdministrationCode.routeOfAdministrationCode
 import static org.celllife.idart.common.IdentifiableType.ROUTE_OF_ADMINISTRATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     RouteOfAdministrationCode save(RouteOfAdministrationDto routeOfAdministrationDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(ROUTE_OF_ADMINISTRATION, routeOfAdministrationDto.identifiers)
+        routeOfAdministrationDto.identifiers = identifiable.identifiers
 
         def routeOfAdministrationCode = routeOfAdministrationCode(identifiable.getIdentifierValue(IDART_WEB))
 

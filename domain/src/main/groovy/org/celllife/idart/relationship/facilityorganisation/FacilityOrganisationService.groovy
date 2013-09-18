@@ -10,6 +10,8 @@ import org.celllife.idart.common.OrganisationId
  */
 public interface FacilityOrganisationService {
 
+    void save(FacilityOrganisation facilityOrganisation)
+
     void save(FacilityId facility, OrganisationId organisation, FacilityOrganisation.Relationship relationship)
 
     Iterable<OrganisationId> findOrganisations(FacilityId facility, FacilityOrganisation.Relationship relationship)

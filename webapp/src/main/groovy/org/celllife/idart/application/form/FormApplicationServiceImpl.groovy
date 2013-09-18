@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.form.FormNotFoundException
 import org.celllife.idart.domain.form.FormService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.FormCode.formCode
 import static org.celllife.idart.common.IdentifiableType.FORM
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     FormCode save(FormDto formDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(FORM, formDto.identifiers)
+        formDto.identifiers = identifiable.identifiers
 
         def formCode = formCode(identifiable.getIdentifierValue(IDART_WEB))
 

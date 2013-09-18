@@ -9,6 +9,6 @@ for FILE in `find $(cd $(dirname $0); pwd;) -name *.json`; do
     -u "${CREDENTIALS}" \
     -d @$FILE \
     -H "${CONTENT_TYPE_HEADER}" \
-    http://localhost:8080/idart/clinics
+    http://localhost:8080/idart/facilities
   cat /tmp/headers
 done

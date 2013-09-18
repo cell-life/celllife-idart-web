@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.annotation.Generated
@@ -24,12 +25,18 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Controller class PatientResourceController {
 
     @Inject PatientSecurityAdapter patientSecurityAdapter
 
     @Value('${external.base.url}') String baseUrl
+
+    @ResponseBody
+    @RequestMapping(value = "/patients/search/findByIdentifier", method = RequestMethod.GET, produces = "application/json")
+    Set<PatientDto> findByIdentifier(@RequestParam("identifier") String identifier, Principal principal) {
+
+        patientSecurityAdapter.findByIdentifier(principal, identifier)
+    }
 
     @ResponseBody
     @RequestMapping(value = "/patients/{patientId}", method = RequestMethod.GET, produces = "application/json")

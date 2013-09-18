@@ -89,7 +89,16 @@
 
         <camel:route>
             <camel:from uri="direct:prescriptionEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
+            <camel:multicast>
+                <!--<camel:to uri="stream:out" pattern="InOnly"/>-->
+                <camel:to uri="direct:prehmisPrescriptionProvider" pattern="InOnly"/>
+            </camel:multicast>
+        </camel:route>
+
+        <camel:route>
+            <camel:from uri="direct:prehmisPrescriptionProvider"/>
+            <camel:unmarshal ref="prescriptionEvent"/>
+            <camel:bean ref="prehmisPrescriptionProvider" method="save"/>
         </camel:route>
 
         <camel:route>

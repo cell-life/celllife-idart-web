@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.organisation.OrganisationNotFoundException
 import org.celllife.idart.domain.organisation.OrganisationService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.OrganisationId.organisationId
 import static org.celllife.idart.common.IdentifiableType.ORGANISATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     OrganisationId save(OrganisationDto organisationDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, organisationDto.identifiers)
+        organisationDto.identifiers = identifiable.identifiers
 
         def organisationId = organisationId(identifiable.getIdentifierValue(IDART_WEB))
 

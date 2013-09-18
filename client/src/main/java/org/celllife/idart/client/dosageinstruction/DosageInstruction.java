@@ -17,24 +17,88 @@ import java.util.Set;
  */
 public final class DosageInstruction implements Serializable {
 
-    public String text;
+    private String text;
 
     //public  CodedDosageInstructions additionalDosageInstructions
 
-    public Schedule timing;
+    private Schedule timing;
 
-    public EntrySite site;
+    private EntrySite site;
 
-    public RouteOfAdministration route;
+    private RouteOfAdministration route;
 
-    public AdministrationMethod method;
+    private AdministrationMethod method;
 
-    public Quantity doseQuantity;
+    private Quantity doseQuantity;
 
-    public Ratio rate;
+    private Ratio rate;
 
-    public Ratio maxDosePerPeriod;
+    private Ratio maxDosePerPeriod;
 
     public DosageInstruction() {
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Schedule getTiming() {
+        return timing;
+    }
+
+    public void setTiming(Schedule timing) {
+        this.timing = timing;
+    }
+
+    public EntrySite getSite() {
+        return site;
+    }
+
+    public void setSite(EntrySite site) {
+        this.site = site;
+    }
+
+    public RouteOfAdministration getRoute() {
+        return route;
+    }
+
+    public void setRoute(RouteOfAdministration route) {
+        this.route = route;
+    }
+
+    public AdministrationMethod getMethod() {
+        return method;
+    }
+
+    public void setMethod(AdministrationMethod method) {
+        this.method = method;
+    }
+
+    public Quantity getDoseQuantity() {
+        return doseQuantity;
+    }
+
+    public void setDoseQuantity(Quantity doseQuantity) {
+        this.doseQuantity = doseQuantity;
+    }
+
+    public Ratio getRate() {
+        return rate;
+    }
+
+    public void setRate(Ratio rate) {
+        this.rate = rate;
+    }
+
+    public Ratio getMaxDosePerPeriod() {
+        return maxDosePerPeriod;
+    }
+
+    public void setMaxDosePerPeriod(Ratio maxDosePerPeriod) {
+        this.maxDosePerPeriod = maxDosePerPeriod;
     }
 }

@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject RouteOfAdministrationApplicationService routeOfAdministrationApplicationService
 
-    RouteOfAdministrationCode save(Principal principal, routeOfAdministrationDto) {
+    RouteOfAdministrationCode save(Principal principal, RouteOfAdministrationDto routeOfAdministrationDto) {
         routeOfAdministrationApplicationService.save(routeOfAdministrationDto)
     }
 

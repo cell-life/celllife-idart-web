@@ -1,4 +1,5 @@
 package org.celllife.idart.domain.organisation
+
 /**
  * Legal Organisation 
  *

@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeNotFoundException
 import org.celllife.idart.domain.unitofmeasuretype.UnitOfMeasureTypeService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.UnitOfMeasureTypeCode.unitOfMeasureTypeCode
 import static org.celllife.idart.common.IdentifiableType.UNIT_OF_MEASURE_TYPE
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     UnitOfMeasureTypeCode save(UnitOfMeasureTypeDto unitOfMeasureTypeDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(UNIT_OF_MEASURE_TYPE, unitOfMeasureTypeDto.identifiers)
+        unitOfMeasureTypeDto.identifiers = identifiable.identifiers
 
         def unitOfMeasureTypeCode = unitOfMeasureTypeCode(identifiable.getIdentifierValue(IDART_WEB))
 

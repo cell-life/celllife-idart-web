@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject SystemApplicationService systemApplicationService
 
-    SystemId save(Principal principal, systemDto) {
+    SystemId save(Principal principal, SystemDto systemDto) {
         systemApplicationService.save(systemDto)
     }
 

@@ -1,7 +1,10 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.common.Id;
 import org.celllife.idart.client.part.Drug;
+import org.celllife.idart.common.SystemId;
+
+import static org.celllife.idart.common.Identifiers.newIdentifier;
+import static org.celllife.idart.common.SystemId.systemId;
 
 /**
  * User: Kevin W. Sewell
@@ -12,26 +15,19 @@ public final class MedicationBuilder {
 
     private final Medication medication;
 
-    private final String clinicMedicationsidentifiersystem;
+    private final SystemId systemId;
 
-    private final String clinicDrugsidentifiersystem;
-
-    public MedicationBuilder(String clinicId) {
+    public MedicationBuilder(String systemId) {
         this.medication = new Medication();
         this.medication.drug = new Drug();
-
-        this.clinicMedicationsidentifiersystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicId);
-
-        this.clinicDrugsidentifiersystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicId);
+        this.systemId = systemId(systemId);
 
     }
 
-    public MedicationBuilder setId(String id) {
-        this.medication.identifiers.add(newIdentifier(id));
+    public MedicationBuilder setIdentifier(String id) {
+        this.medication.identifiers.add(newIdentifier(systemId, id));
         this.medication.drug = new Drug();
-        this.medication.drug.identifiers.add(newIdentifier(id));
+        this.medication.drug.getIdentifiers().add(newIdentifier(systemId, id));
         return this;
     }
 

@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.encounter.EncounterNotFoundException
 import org.celllife.idart.domain.encounter.EncounterService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.EncounterId.encounterId
 import static org.celllife.idart.common.IdentifiableType.ENCOUNTER
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     EncounterId save(EncounterDto encounterDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, encounterDto.identifiers)
+        encounterDto.identifiers = identifiable.identifiers
 
         def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB))
 

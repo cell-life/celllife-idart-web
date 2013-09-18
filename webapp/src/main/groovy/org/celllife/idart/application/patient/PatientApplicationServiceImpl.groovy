@@ -3,6 +3,7 @@ package org.celllife.idart.application.patient
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.patient.dto.PatientDtoAssembler
 import org.celllife.idart.application.person.PersonApplicationService
+import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.SystemId
 import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.OrganisationId
@@ -14,6 +15,8 @@ import org.celllife.idart.domain.patient.PatientNotFoundException
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
 import org.celllife.idart.relationship.patientorganisation.PatientOrganisationService
+import org.celllife.idart.relationship.systemfacility.SystemFacility
+import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 
 import javax.inject.Inject
 import javax.inject.Named
@@ -26,6 +29,7 @@ import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.celllife.idart.relationship.patientorganisation.PatientOrganisation.Relationship.REGISTERED_WITH
+import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
 
 /**
  * User: Kevin W. Sewell
@@ -50,6 +54,8 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
 
     @Inject PatientDataWarehouse patientDataWarehouse
 
+    @Inject SystemFacilityService systemFacilityService
+
     @Override
     PatientId save(PatientDto patientDto) {
 
@@ -59,6 +65,8 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
         if (patientExists) {
 
             def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
+            patientDto.identifiers = identifiable.identifiers
+
             def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
             def patient = patientDtoAssembler.toPatient(patientDto)
             patient.id = patientId
@@ -85,9 +93,12 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
             // Scenario 4 - Patient and Person don't exist
 
             def identifiable = identifiableService.resolveIdentifiable(PATIENT, patientDto.identifiers)
+            patientDto.identifiers = identifiable.identifiers
+
             def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB))
             def patient = patientDtoAssembler.toPatient(patientDto)
             patient.id = patientId
+
             patient.person = personApplicationService.save(personDto)
             patient = patientService.save(patient)
 
@@ -147,6 +158,20 @@ import static org.celllife.idart.relationship.patientorganisation.PatientOrganis
         def patients = flattenedPatientIds.collect { patientId -> findByPatientId(patientId) }
 
         patients
+    }
+
+    @Override
+    Set<PatientDto> findByIdentifierAndSystem(String identifier, SystemId system) {
+
+        systemFacilityService.findFacilities(system, DEPLOYED_AT)
+                .collect { facility -> findByIdentifierAndFacility(identifier, facility) }
+                .flatten()
+
+    }
+
+    @Override
+    Set<PatientDto> findByIdentifierAndPerson(String identifier, PersonId personId) {
+        return null
     }
 
     def lookupFromExternalProvidersAndSave(String patientIdentifier,

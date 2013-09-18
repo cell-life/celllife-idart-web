@@ -1,7 +1,7 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.common.Id;
 import org.celllife.idart.client.part.Drug;
+import org.celllife.idart.common.Identifier;
 
 import java.io.Serializable;
 import java.util.HashSet;

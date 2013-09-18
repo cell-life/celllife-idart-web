@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject EntrySiteApplicationService entrySiteApplicationService
 
-    EntrySiteCode save(Principal principal, entrySiteDto) {
+    EntrySiteCode save(Principal principal, EntrySiteDto entrySiteDto) {
         entrySiteApplicationService.save(entrySiteDto)
     }
 

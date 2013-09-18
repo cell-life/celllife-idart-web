@@ -23,6 +23,9 @@
             <camel:json id="userSystemEvent"
                         library="Jackson"
                         unmarshalTypeName="org.celllife.idart.relationship.usersystem.UserSystemEvent"/>
+            <camel:json id="prescriptionEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.prescription.PrescriptionEvent"/>
         </camel:dataFormats>
 
     </camel:camelContext>

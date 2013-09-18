@@ -1,7 +1,7 @@
 package org.celllife.idart.client.person;
 
 import org.celllife.idart.common.Gender;
-import org.celllife.idart.common.Id;
+import org.celllife.idart.common.Identifier;
 import org.celllife.idart.common.MaritalStatus;
 
 import java.io.Serializable;

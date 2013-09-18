@@ -1,9 +1,5 @@
 package org.celllife.idart.domain.administrationmethod
 
-import org.celllife.idart.common.EventHeader
-
-import static org.celllife.idart.common.EventHeader.newEventHeader
-
 import javax.annotation.Generated
 
 /**
@@ -12,15 +8,27 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 class AdministrationMethodEvent implements Serializable {
 
-    EventHeader header
+    Date timestamp
+
+    UUID uuid
+
+    EventType type
+
+    String username
 
     AdministrationMethod administrationMethod
 
     static AdministrationMethodEvent newAdministrationMethodEvent(AdministrationMethod administrationMethod, AdministrationMethodEvent.EventType eventType) {
-        new AdministrationMethodEvent(administrationMethod: administrationMethod, header: newEventHeader(eventType))
+
+        new AdministrationMethodEvent(
+            administrationMethod: administrationMethod,
+            type: eventType,
+            timestamp: new Date(),
+            uuid: UUID.randomUUID()
+        )
     }
 
-    enum EventType implements org.celllife.idart.common.EventType {
+    enum EventType {
         SAVED
     }
 }

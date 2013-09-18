@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationNotFoundException
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.PrescribedMedicationId.prescribedMedicationId
 import static org.celllife.idart.common.IdentifiableType.PRESCRIBED_MEDICATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     PrescribedMedicationId save(PrescribedMedicationDto prescribedMedicationDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, prescribedMedicationDto.identifiers)
+        prescribedMedicationDto.identifiers = identifiable.identifiers
 
         def prescribedMedicationId = prescribedMedicationId(identifiable.getIdentifierValue(IDART_WEB))
 

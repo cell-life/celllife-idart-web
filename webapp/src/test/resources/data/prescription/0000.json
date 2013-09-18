@@ -1,20 +1,18 @@
 {
-    "identifiers": [
-        {
-            "system": "IDART_WEB-00000",
-            "value": "00001"
-        }
-    ],
     "prescriber": [
         {
             "system": "PREHMIS",
-            "value": "00000"
+            "value": "715"
         }
     ],
     "patient": [
         {
+            "system": "PGWC",
+            "value": "72254311"
+        },
+        {
             "system": "PREHMIS",
-            "value": "00000"
+            "value": "1"
         }
     ],
     "encounter": [
@@ -42,10 +40,18 @@
                         "frequency": 2,
                         "duration": {
                             "value": 2,
-                            "unitOfMeasure": "mg"
+                            "unitOfMeasure": "h"
                         }
                     }
                 }
+            },
+            "expectedSupplyDuration": {
+                "value": 4,
+                "unitOfMeasure": "wk"
+            },
+            "reasonForPrescribing": "Because I said so",
+            "valid": {
+                "thruDate": "2015-01-01"
             }
         }
     ]

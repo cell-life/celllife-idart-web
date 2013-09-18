@@ -1,6 +1,8 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.celllife.idart.application.encounter.EncounterApplicationService
+import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.DrugDto
@@ -14,24 +16,38 @@ import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.application.product.ProductApplicationService
 import org.celllife.idart.application.product.dto.MedicationDto
 import org.celllife.idart.application.unitofmeasure.UnitOfMeasureApplicationService
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.PractitionerType
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
-import org.celllife.idart.common.Identifier
+import org.celllife.idart.domain.counter.CounterRepository
+import org.celllife.idart.domain.encounter.EncounterRepository
+import org.celllife.idart.domain.identifiable.IdentifiableRepository
+import org.celllife.idart.domain.part.PartRepository
+import org.celllife.idart.domain.patient.PatientRepository
+import org.celllife.idart.domain.person.PersonRepository
+import org.celllife.idart.domain.practitioner.PractitionerRepository
+import org.celllife.idart.domain.prescription.PrescriptionRepository
+import org.celllife.idart.domain.product.ProductRepository
 import org.celllife.idart.test.TestConfiguration
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Inject
+import org.springframework.data.repository.CrudRepository
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
-import static org.celllife.idart.common.SystemId.PREHMIS
-import static org.celllife.idart.common.SystemId.SA_IDENTITY_NUMBER
-import static org.celllife.idart.common.Label.label
-import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
+import javax.inject.Inject
+
 import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Label.label
+import static org.celllife.idart.common.PartClassificationCode.partClassificationCode
+import static org.celllife.idart.common.PartClassificationType.ATC
+import static org.celllife.idart.common.SystemId.*
+import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
 import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
+import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
 
 /**
  * User: Kevin W. Sewell
@@ -42,24 +58,54 @@ import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
 @RunWith(SpringJUnit4ClassRunner.class)
 class PrescriptionApplicationServiceIntegrationTest {
 
-    @Autowired ProductApplicationService productApplicationService
+    @Inject ProductApplicationService productApplicationService
 
-    @Autowired PartApplicationService partApplicationService
+    @Inject ProductRepository productRepository
 
-    @Autowired PrescriptionApplicationService prescriptionApplicationService
+    @Inject PartApplicationService partApplicationService
 
-    @Autowired PractitionerApplicationService practitionerApplicationService
+    @Inject PartRepository partRepository
 
-    @Autowired PatientApplicationService patientApplicationService
+    @Inject PrescriptionApplicationService prescriptionApplicationService
 
-    @Autowired UnitOfMeasureApplicationService unitOfMeasureApplicationService
+    @Inject PrescriptionRepository prescriptionRepository
 
-    @Autowired ObjectMapper objectMapper
+    @Inject PractitionerApplicationService practitionerApplicationService
+
+    @Inject PractitionerRepository practitionerRepository
+
+    @Inject PatientApplicationService patientApplicationService
+
+    @Inject PatientRepository patientRepository
+
+    @Inject EncounterApplicationService encounterApplicationService
+
+    @Inject EncounterRepository encounterRepository
+
+    @Inject UnitOfMeasureApplicationService unitOfMeasureApplicationService
+
+    @Inject PersonRepository personRepository
+
+    @Inject IdentifiableRepository identifiableRepository
+
+    @Inject CounterRepository counterRepository
+
+    @Inject ObjectMapper objectMapper
+
+    @Before
+    public void setUp() throws Exception {
+
+        [counterRepository, identifiableRepository, personRepository, patientRepository, practitionerRepository,
+                encounterRepository, prescriptionRepository, productRepository, partRepository].each { repository ->
+            ((CrudRepository) repository).deleteAll()
+        }
+
+    }
 
     @Test
     void shouldUnmarshal() throws Exception {
 
-        def compound =  new CompoundDto()
+        def compound = new CompoundDto()
         compound.with {
             label = label("Abacavir")
             unitOfMeasure = unitOfMeasureCode("mg")
@@ -71,6 +117,7 @@ class PrescriptionApplicationServiceIntegrationTest {
             label = label("Abacavir 20mg/ml")
             unitOfMeasure = unitOfMeasureCode("ml")
             billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, unitOfMeasureCode("mg"))]
+            classifications = partClassificationApplications("J05AF06", ATC)
         }
         partApplicationService.save(drug)
 
@@ -79,6 +126,7 @@ class PrescriptionApplicationServiceIntegrationTest {
             label = label("Abacavir 20mg/ml 240ml")
             unitOfMeasure = unitOfMeasureCode("each")
             billOfMaterials = [newEngineeringPart(drug.identifiers, 240.0D, unitOfMeasureCode("ml"))]
+            classifications = partClassificationApplications("J05AF06", ATC)
         }
         partApplicationService.save(finishedDrug)
 
@@ -97,7 +145,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         patient.with {
 
             identifiers = [
-                    newIdentifier(PREHMIS, "00000")
+                    newIdentifier(PGWC, "72254311")
             ]
 
             person = new PersonDto()
@@ -112,7 +160,7 @@ class PrescriptionApplicationServiceIntegrationTest {
         practitioner.with {
 
             identifiers = [
-                    newIdentifier(PREHMIS, "00000")
+                    newIdentifier(PREHMIS, "715")
             ]
 
             type = PractitionerType.AGENCY_DOCTORS
@@ -130,10 +178,28 @@ class PrescriptionApplicationServiceIntegrationTest {
         }
         practitionerApplicationService.save(practitioner)
 
+        def encounter = new EncounterDto()
+        encounter.with {
+
+            identifiers = [
+                    newIdentifier(IDART_WEB, "00001")
+            ]
+
+            facility = [
+                    newIdentifier(PREHMIS, "WES")
+            ]
+        }
+        encounterApplicationService.save(encounter)
+
+
         InputStream inputStream = getClass().getResourceAsStream("/data/prescription/0000.json")
         PrescriptionDto prescription = objectMapper.readValue(inputStream, PrescriptionDto.class)
 
+        prescription.identifiers = [newIdentifier(IDART_WEB, "${System.currentTimeMillis()}")] as Set
+
         prescriptionApplicationService.save(prescription)
+
+        Thread.sleep(10000L)
     }
 
     static PartBillOfMaterialsItemDto newEngineeringPart(Set<Identifier> part, Double quantity, UnitOfMeasureCode unitOfMeasure) {

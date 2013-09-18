@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject FormApplicationService formApplicationService
 
-    FormCode save(Principal principal, formDto) {
+    FormCode save(Principal principal, FormDto formDto) {
         formApplicationService.save(formDto)
     }
 

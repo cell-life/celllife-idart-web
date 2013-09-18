@@ -1,9 +1,5 @@
 package org.celllife.idart.domain.form
 
-import org.celllife.idart.common.EventHeader
-
-import static org.celllife.idart.common.EventHeader.newEventHeader
-
 import javax.annotation.Generated
 
 /**
@@ -12,15 +8,27 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 class FormEvent implements Serializable {
 
-    EventHeader header
+    Date timestamp
+
+    UUID uuid
+
+    EventType type
+
+    String username
 
     Form form
 
     static FormEvent newFormEvent(Form form, FormEvent.EventType eventType) {
-        new FormEvent(form: form, header: newEventHeader(eventType))
+
+        new FormEvent(
+            form: form,
+            type: eventType,
+            timestamp: new Date(),
+            uuid: UUID.randomUUID()
+        )
     }
 
-    enum EventType implements org.celllife.idart.common.EventType {
+    enum EventType {
         SAVED
     }
 }

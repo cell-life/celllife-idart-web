@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.indication.IndicationNotFoundException
 import org.celllife.idart.domain.indication.IndicationService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.IndicationCode.indicationCode
 import static org.celllife.idart.common.IdentifiableType.INDICATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     IndicationCode save(IndicationDto indicationDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(INDICATION, indicationDto.identifiers)
+        indicationDto.identifiers = identifiable.identifiers
 
         def indicationCode = indicationCode(identifiable.getIdentifierValue(IDART_WEB))
 

@@ -25,7 +25,7 @@ import static org.celllife.idart.framework.security.Principals.currentUsername
     @Override
     void publish(SystemEvent systemEvent) {
 
-        systemEvent.header.username = currentUsername
+        systemEvent.username = currentUsername
 
         producerTemplate.sendBody(objectMapper.writeValueAsString(systemEvent))
     }

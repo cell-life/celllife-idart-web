@@ -1,8 +1,10 @@
 {
-    "medication": {
-        "@type": "drug",
-        "identifier": "00000002"
-    },
+    "medication": [
+        {
+            "system": "IDART_WEB",
+            "value": "00000002"
+        }
+    ],
     "dosageInstruction": {
         "doseQuantity": {
             "unitOfMeasure": "each",

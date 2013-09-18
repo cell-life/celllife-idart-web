@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject DefaultDosageInstructionApplicationService defaultDosageInstructionApplicationService
 
-    DefaultDosageInstructionId save(Principal principal, defaultDosageInstructionDto) {
+    DefaultDosageInstructionId save(Principal principal, DefaultDosageInstructionDto defaultDosageInstructionDto) {
         defaultDosageInstructionApplicationService.save(defaultDosageInstructionDto)
     }
 

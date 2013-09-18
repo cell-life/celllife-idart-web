@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999999"
+        }
+    ],
+    "name": "Zidovudine 100mg (100 Tablets)",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999998"
+        }
+    ]
+}

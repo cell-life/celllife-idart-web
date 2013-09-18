@@ -112,6 +112,12 @@
         </camel:route>
 
         <camel:route>
+            <camel:from uri="jms:topic:prescriptionEvent?clientId=prehmisPrescriptionProvider&amp;durableSubscriptionName=prehmisPrescriptionProvider"/>
+            <camel:unmarshal ref="prescriptionEvent"/>
+            <camel:bean ref="prehmisPrescriptionProvider" method="save"/>
+        </camel:route>
+
+        <camel:route>
             <camel:from uri="direct:productEvent"/>
             <camel:to uri="jms:topic:productEvent" pattern="InOnly"/>
         </camel:route>

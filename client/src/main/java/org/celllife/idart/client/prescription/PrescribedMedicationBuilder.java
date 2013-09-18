@@ -6,12 +6,15 @@ import org.celllife.idart.client.indication.Indication;
 import org.celllife.idart.client.medication.Medication;
 import org.celllife.idart.client.substitution.Substitution;
 import org.celllife.idart.client.substitutionreason.SubstitutionReason;
-import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
+
+import static org.celllife.idart.common.Identifiers.newIdentifier;
+import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode;
 
 /**
  * User: Kevin W. Sewell
@@ -22,115 +25,123 @@ public final class PrescribedMedicationBuilder implements Serializable {
 
     private PrescribedMedication prescribedMedication;
 
-    private String clinicMedicationsidentifiersystem;
+    private SystemId systemId;
 
-    private String clinicPrescribedMedicationsidentifiersystem;
-
-    public PrescribedMedicationBuilder(String clinicId) {
+    public PrescribedMedicationBuilder(String systemId) {
         this.prescribedMedication = new PrescribedMedication();
-        this.clinicMedicationsidentifiersystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/medications", clinicId);
-        this.clinicPrescribedMedicationsidentifiersystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/prescribedMedications", clinicId);
+        this.systemId = SystemId.systemId(systemId);
     }
 
     public PrescribedMedicationBuilder setId(String prescribedMedicationId) {
-        this.prescribedMedication.identifiers.add(newIdentifier(prescribedMedicationId));
+        this.prescribedMedication.getIdentifiers().add(newIdentifier(systemId, prescribedMedicationId));
         return this;
     }
 
     public PrescribedMedicationBuilder setMedication(String id) {
-        this.prescribedMedication.medication = new Medication();
-        this.prescribedMedication.medication.identifiers.add(newIdentifier(id));
+
+        HashSet<Identifier> medication = new HashSet<Identifier>();
+        medication.add(newIdentifier(systemId, id));
+        this.prescribedMedication.setMedication(medication);
+
         return this;
     }
 
     public PrescribedMedicationBuilder setReasonForPrescribing(String reasonForPrescribing) {
-        this.prescribedMedication.reasonForPrescribing = reasonForPrescribing;
+        this.prescribedMedication.setReasonForPrescribing(reasonForPrescribing);
         return this;
     }
 
     public PrescribedMedicationBuilder setIndications(Set<Indication> indications) {
-        this.prescribedMedication.indications = indications;
+        this.prescribedMedication.setIndications(indications);
         return this;
     }
 
     public PrescribedMedicationBuilder setValid(Date fromDate, Date thruDate) {
-        this.prescribedMedication.valid = new Period();
-        this.prescribedMedication.valid.fromDate = fromDate;
-        this.prescribedMedication.valid.thruDate = thruDate;
+
+        Period valid = new Period();
+        valid.setFromDate(fromDate);
+        valid.setThruDate(thruDate);
+
+        this.prescribedMedication.setValid(valid);
         return this;
     }
 
     public PrescribedMedicationBuilder setNumberOfRepeats(Integer numberOfRepeats) {
-        this.prescribedMedication.numberOfRepeats = numberOfRepeats;
+        this.prescribedMedication.setNumberOfRepeats(numberOfRepeats);
         return this;
     }
 
     public PrescribedMedicationBuilder setQuantity(Quantity quantity) {
-        this.prescribedMedication.quantity = quantity;
+        this.prescribedMedication.setQuantity(quantity);
         return this;
     }
 
     public PrescribedMedicationBuilder setExpectedSupplyDuration(Duration expectedSupplyDuration) {
-        this.prescribedMedication.expectedSupplyDuration = expectedSupplyDuration;
+        this.prescribedMedication.setExpectedSupplyDuration(expectedSupplyDuration);
         return this;
     }
 
     public PrescribedMedicationBuilder setExpectedSupplyDuration(int quantity, String uomCodeValue) {
-        this.prescribedMedication.expectedSupplyDuration = new Duration();
-        this.prescribedMedication.expectedSupplyDuration.value = new BigDecimal(quantity);
-        this.prescribedMedication.expectedSupplyDuration.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
+        Duration expectedSupplyDuration = new Duration();
+        expectedSupplyDuration.setValue(new BigDecimal(quantity));
+        expectedSupplyDuration.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+
+        this.prescribedMedication.setExpectedSupplyDuration(expectedSupplyDuration);
+
         return this;
     }
 
     public PrescribedMedicationBuilder setSubstitution(Substitution substitution) {
-        this.prescribedMedication.substitution = substitution;
+        this.prescribedMedication.setSubstitution(substitution);
         return this;
     }
 
     public PrescribedMedicationBuilder setSubstitutionReason(SubstitutionReason substitutionReason) {
-        this.prescribedMedication.substitutionReason = substitutionReason;
+        this.prescribedMedication.setSubstitutionReason(substitutionReason);
         return this;
     }
 
     public PrescribedMedicationBuilder setDosageInstruction(DosageInstruction dosageInstruction) {
-        this.prescribedMedication.dosageInstruction = dosageInstruction;
+        this.prescribedMedication.setDosageInstruction(dosageInstruction);
         return this;
     }
 
     public PrescribedMedicationBuilder setDosageQuantity(double quantity, String uomCodeValue) {
-        DosageInstruction dosageInstruction = getDosageInstructions();
-        dosageInstruction.doseQuantity = new Quantity();
-        dosageInstruction.doseQuantity.value = new BigDecimal(quantity);
-        dosageInstruction.doseQuantity.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
+
+        Quantity doseQuantity = new Quantity();
+        doseQuantity.setValue(new BigDecimal(quantity));
+        doseQuantity.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+
+        getDosageInstructions().setDoseQuantity(doseQuantity);
+
         return this;
     }
 
     public PrescribedMedicationBuilder repeat(int frequency) {
-        getRepeat().frequency = frequency;
+        getRepeat().setFrequency(frequency);
         return this;
     }
 
     public PrescribedMedicationBuilder every(int quantity, String uomCodeValue) {
-        getRepeat().duration = new Duration();
-        getRepeat().duration.value = new BigDecimal(quantity);
-        getRepeat().duration.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
+        Duration duration = new Duration();
+        duration.setValue(new BigDecimal(quantity));
+        duration.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+        getRepeat().setDuration(duration);
         return this;
     }
 
     private Repeat getRepeat() {
-        if (getTiming().repeat == null) {
-            getTiming().repeat = new Repeat();
+        if (getTiming().getRepeat() == null) {
+            getTiming().setRepeat(new Repeat());
         }
-        return getTiming().repeat;
+        return getTiming().getRepeat();
     }
 
     private Schedule getTiming() {
-        if (getDosageInstructions().timing == null) {
-            getDosageInstructions().timing = new Schedule();
+        if (getDosageInstructions().getTiming() == null) {
+            getDosageInstructions().setTiming(new Schedule());
         }
-        return getDosageInstructions().timing;
+        return getDosageInstructions().getTiming();
     }
 
     public PrescribedMedication finishPrescribedMedication() {
@@ -138,9 +149,9 @@ public final class PrescribedMedicationBuilder implements Serializable {
     }
 
     private DosageInstruction getDosageInstructions() {
-        if (prescribedMedication.dosageInstruction == null) {
-            prescribedMedication.dosageInstruction = new DosageInstruction();
+        if (prescribedMedication.getDosageInstruction() == null) {
+            prescribedMedication.setDosageInstruction(new DosageInstruction());
         }
-        return prescribedMedication.dosageInstruction;
+        return prescribedMedication.getDosageInstruction();
     }
 }

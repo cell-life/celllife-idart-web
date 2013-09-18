@@ -75,7 +75,7 @@ import javax.inject.Named
         switch (part.class) {
             case Drug:
                 return toDrugDto(part as Drug)
-            case CompoundDto:
+            case Compound:
                 return toCompoundDto(part as Compound)
             default:
                 throw new UnsupportedPartType(part.class)

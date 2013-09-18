@@ -1,17 +1,18 @@
 package org.celllife.idart.domain.part
 
 import org.celllife.idart.common.PartId
+import org.celllife.idart.common.PartType
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
+import static org.celllife.idart.common.PartType.COMPOUND
+import static org.celllife.idart.common.PartType.DRUG
 import static org.celllife.idart.domain.part.PartEvent.EventType.SAVED
 import static org.celllife.idart.domain.part.PartEvent.newPartEvent
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class PartServiceImpl implements PartService {
 
     @Inject PartRepository partRepository
@@ -53,5 +54,20 @@ import static org.celllife.idart.domain.part.PartEvent.newPartEvent
         }
 
         part
+    }
+
+    @Override
+    Set<Part> findByType(PartType type) {
+
+        switch (type) {
+            case COMPOUND:
+                def parts = partRepository.findByClass(Compound)
+                return parts as Set
+            case DRUG:
+                def parts = partRepository.findByClass(Drug)
+                return parts as Set
+            default:
+                return new HashSet<Part>()
+        }
     }
 }

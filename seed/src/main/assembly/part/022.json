@@ -1,0 +1,11 @@
+{
+    "type": "COMPOUND",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999978"
+        }
+    ],
+    "label": "Stavudine",
+    "unitOfMeasure": "mg"
+}

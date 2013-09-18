@@ -57,6 +57,8 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
         if (practitionerExists) {
 
             def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, practitionerDto.identifiers)
+            practitionerDto.identifiers = identifiable.identifiers
+
             def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
             def practitioner = practitionerDtoAssembler.toPractitioner(practitionerDto)
             practitioner.id = practitionerId
@@ -83,9 +85,12 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             // Scenario 4 - Practitioner and Person don't exist
 
             def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, practitionerDto.identifiers)
+            practitionerDto.identifiers = identifiable.identifiers
+
             def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB))
             def practitioner = practitionerDtoAssembler.toPractitioner(practitionerDto)
             practitioner.id = practitionerId
+
             practitioner.person = personApplicationService.save(personDto)
             practitioner = practitionerService.save(practitioner)
 

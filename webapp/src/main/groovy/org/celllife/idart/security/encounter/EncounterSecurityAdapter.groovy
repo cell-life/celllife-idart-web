@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject EncounterApplicationService encounterApplicationService
 
-    EncounterId save(Principal principal, encounterDto) {
+    EncounterId save(Principal principal, EncounterDto encounterDto) {
         encounterApplicationService.save(encounterDto)
     }
 

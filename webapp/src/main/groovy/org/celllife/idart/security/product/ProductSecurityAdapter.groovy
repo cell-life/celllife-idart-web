@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject ProductApplicationService productApplicationService
 
-    ProductId save(Principal principal, productDto) {
+    ProductId save(Principal principal, ProductDto productDto) {
         productApplicationService.save(productDto)
     }
 

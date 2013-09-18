@@ -3,12 +3,12 @@ package org.celllife.idart.application.part
 import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.PartType
 
 import javax.annotation.Generated
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 interface PartApplicationService {
 
     Boolean exists(PartId partId)
@@ -21,4 +21,5 @@ interface PartApplicationService {
 
     PartId findByIdentifiers(Set<Identifier> identifiers)
 
+    Set<PartDto> findByType(PartType type)
 }

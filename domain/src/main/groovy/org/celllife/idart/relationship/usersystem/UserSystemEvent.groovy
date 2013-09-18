@@ -1,25 +1,28 @@
 package org.celllife.idart.relationship.usersystem
-
-import org.celllife.idart.common.EventHeader
-
-import javax.annotation.Generated
-
-import static org.celllife.idart.common.EventHeader.newEventHeader
-
 /**
  * User: Kevin W. Sewell
  * Date: 2013-08-10
  * Time: 12h28
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 class UserSystemEvent {
 
-    EventHeader header
+    Date timestamp
+
+    UUID uuid
+
+    EventType type
+
+    String username
 
     UserSystem userSystem
 
     static UserSystemEvent newUserSystemEvent(UserSystem userSystem, UserSystemEvent.EventType eventType) {
-        new UserSystemEvent(userSystem: userSystem, header: newEventHeader(eventType))
+        new UserSystemEvent(
+                userSystem: userSystem,
+                type: eventType,
+                timestamp: new Date(),
+                uuid: UUID.randomUUID()
+        )
     }
 
     enum EventType implements org.celllife.idart.common.EventType {

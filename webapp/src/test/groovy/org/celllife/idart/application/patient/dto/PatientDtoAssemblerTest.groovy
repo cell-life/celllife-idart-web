@@ -1,17 +1,16 @@
 package org.celllife.idart.application.patient.dto
 
 import org.celllife.idart.application.person.dto.PersonDto
-import org.celllife.idart.common.PersonId
+import org.celllife.idart.application.person.dto.PersonDtoAssembler
 import org.junit.Test
 
-import static org.celllife.idart.application.patient.dto.PatientDtoAssembler.getPerson
-import static org.celllife.idart.common.SystemId.getIDART
+import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.Gender.MALE
 import static org.celllife.idart.common.MaritalStatus.MARRIED
 import static org.celllife.idart.common.Measurement.newMeasurement
 import static org.celllife.idart.common.MeasurementType.HIEGHT
 import static org.celllife.idart.common.Quantity.newQuantity
-import static org.celllife.idart.common.UnitOfMeasureCode.newUnitOfMeasureCode
+import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
@@ -23,6 +22,7 @@ import static org.junit.Assert.assertNotNull
  */
 class PatientDtoAssemblerTest {
 
+    private PersonDtoAssembler personDtoAssembler = new PersonDtoAssembler()
 
     @Test
     public void shouldMap() throws Exception {
@@ -31,7 +31,7 @@ class PatientDtoAssemblerTest {
 
         def personDto = new PersonDto()
         personDto.with {
-            identifiers = [newIdentifier(IDART, 0)]
+            identifiers = [newIdentifier(IDART_WEB, "00000")]
             firstName = "Geoff"
             middleNames = "Ernest"
             lastName = "Vader"
@@ -47,7 +47,7 @@ class PatientDtoAssemblerTest {
             measurements = newMeasurements(today)
         }
 
-        def person = getPerson(personDto, PersonId.valueOf("000001"))
+        def person = personDtoAssembler.toPerson(personDto)
         assertNotNull(person)
         assertEquals("Geoff", person.firstName)
         assertEquals("Ernest", person.middleNames)
@@ -67,6 +67,6 @@ class PatientDtoAssemblerTest {
     }
 
     static newMeasurements(Date today) {
-        [newMeasurement(HIEGHT, newQuantity(160, newUnitOfMeasureCode("cm")), today)] as Set
+        [newMeasurement(HIEGHT, newQuantity(160, unitOfMeasureCode("cm")), today)] as Set
     }
 }

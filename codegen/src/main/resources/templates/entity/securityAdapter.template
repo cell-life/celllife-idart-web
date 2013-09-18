@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject ${applicationService.className} ${applicationService.fieldName}
 
-    ${id.className} save(Principal principal, ${dto.fieldName}) {
+    ${id.className} save(Principal principal, ${dto.className} ${dto.fieldName}) {
         ${applicationService.fieldName}.save(${dto.fieldName})
     }
 

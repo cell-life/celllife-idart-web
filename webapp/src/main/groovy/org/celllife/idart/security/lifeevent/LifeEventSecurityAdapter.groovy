@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject LifeEventApplicationService lifeEventApplicationService
 
-    LifeEventCode save(Principal principal, lifeEventDto) {
+    LifeEventCode save(Principal principal, LifeEventDto lifeEventDto) {
         lifeEventApplicationService.save(lifeEventDto)
     }
 

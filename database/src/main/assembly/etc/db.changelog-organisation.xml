@@ -14,9 +14,7 @@
 
         <createTable tableName="legal_organisation">
             <column name="id" type="varchar(31)"/>
-            <column name="tax_registration_number" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="tax_registration_number" type="varchar(40)"/>
         </createTable>
 
         <addPrimaryKey tableName="legal_organisation" columnNames="id"/>

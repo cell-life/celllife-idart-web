@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999995"
+        }
+    ],
+    "name": "Stavudine 1mg/ml (200 ml)",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999990"
+        }
+    ]
+}

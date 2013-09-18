@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.domain.dispensation.DispensationService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.DispensationId.dispensationId
 import static org.celllife.idart.common.IdentifiableType.DISPENSATION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     DispensationId save(DispensationDto dispensationDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, dispensationDto.identifiers)
+        dispensationDto.identifiers = identifiable.identifiers
 
         def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB))
 

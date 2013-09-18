@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.system.SystemNotFoundException
 import org.celllife.idart.domain.system.SystemService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.SystemId.systemId
 import static org.celllife.idart.common.IdentifiableType.SYSTEM
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     SystemId save(SystemDto systemDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(SYSTEM, systemDto.identifiers)
+        systemDto.identifiers = identifiable.identifiers
 
         def systemId = systemId(identifiable.getIdentifierValue(IDART_WEB))
 

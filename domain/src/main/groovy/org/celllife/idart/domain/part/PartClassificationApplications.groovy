@@ -1,6 +1,9 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.common.PartClassificationCode
 import org.celllife.idart.common.PartClassificationType
+
+import static org.celllife.idart.common.PartClassificationCode.partClassificationCode
 
 /**
  * User: Kevin W. Sewell
@@ -9,6 +12,9 @@ import org.celllife.idart.common.PartClassificationType
  */
 class PartClassificationApplications implements Serializable {
 
+    static partClassificationApplications(String value, PartClassificationType type) {
+        [new PartClassificationApplication(classification: partClassificationCode(value, type))] as Set
+    }
 
     static getClassificationCode(Set<PartClassificationApplication> partClassificationApplications,
                                  PartClassificationType partClassificationType) {

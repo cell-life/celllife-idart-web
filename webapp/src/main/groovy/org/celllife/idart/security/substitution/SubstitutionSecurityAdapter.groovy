@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject SubstitutionApplicationService substitutionApplicationService
 
-    SubstitutionCode save(Principal principal, substitutionDto) {
+    SubstitutionCode save(Principal principal, SubstitutionDto substitutionDto) {
         substitutionApplicationService.save(substitutionDto)
     }
 

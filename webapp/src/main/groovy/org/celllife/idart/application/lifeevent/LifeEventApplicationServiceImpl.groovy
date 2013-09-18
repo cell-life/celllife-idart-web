@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.lifeevent.LifeEventNotFoundException
 import org.celllife.idart.domain.lifeevent.LifeEventService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.LifeEventCode.lifeEventCode
 import static org.celllife.idart.common.IdentifiableType.LIFE_EVENT
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     LifeEventCode save(LifeEventDto lifeEventDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(LIFE_EVENT, lifeEventDto.identifiers)
+        lifeEventDto.identifiers = identifiable.identifiers
 
         def lifeEventCode = lifeEventCode(identifiable.getIdentifierValue(IDART_WEB))
 

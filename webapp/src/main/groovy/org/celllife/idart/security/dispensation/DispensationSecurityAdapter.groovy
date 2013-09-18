@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject DispensationApplicationService dispensationApplicationService
 
-    DispensationId save(Principal principal, dispensationDto) {
+    DispensationId save(Principal principal, DispensationDto dispensationDto) {
         dispensationApplicationService.save(dispensationDto)
     }
 

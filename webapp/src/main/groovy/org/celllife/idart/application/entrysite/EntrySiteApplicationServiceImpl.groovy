@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.entrysite.EntrySiteNotFoundException
 import org.celllife.idart.domain.entrysite.EntrySiteService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.EntrySiteCode.entrySiteCode
 import static org.celllife.idart.common.IdentifiableType.ENTRY_SITE
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     EntrySiteCode save(EntrySiteDto entrySiteDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(ENTRY_SITE, entrySiteDto.identifiers)
+        entrySiteDto.identifiers = identifiable.identifiers
 
         def entrySiteCode = entrySiteCode(identifiable.getIdentifierValue(IDART_WEB))
 

@@ -1,15 +1,14 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Drug;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
-import org.celllife.idart.common.SystemId;
-import org.celllife.idart.common.FormCode;
 import org.celllife.idart.common.PartClassificationCode;
 import org.celllife.idart.common.PartClassificationType;
+import org.celllife.idart.common.SystemId;
 
 import static org.celllife.idart.common.FormCode.formCode;
 import static org.celllife.idart.common.Identifiers.newIdentifier;
+import static org.celllife.idart.common.SystemId.systemId;
 
 /**
  * User: Kevin W. Sewell
@@ -20,21 +19,20 @@ public class DrugBuilder {
 
     private final Drug drug;
 
-    private final String clinicDrugsidentifiersystem;
+    private final SystemId systemId;
 
-    public DrugBuilder(String clinicId) {
+    public DrugBuilder(String systemId) {
         this.drug = new Drug();
-        this.clinicDrugsidentifiersystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/drugs", clinicId);
+        this.systemId = systemId(systemId);
     }
 
-    public DrugBuilder setId(String idValue) {
-        this.drug.identifiers.add(newIdentifier(idValue));
+    public DrugBuilder setIdentifier(String idValue) {
+        this.drug.getIdentifiers().add(newIdentifier(systemId, idValue));
         return this;
     }
 
     public DrugBuilder setIdentifier(SystemId system, String idValue) {
-        this.drug.identifiers.add(newIdentifier(system, idValue));
+        this.drug.getIdentifiers().add(newIdentifier(system, idValue));
         return this;
     }
 
@@ -48,7 +46,7 @@ public class DrugBuilder {
     }
 
     public DrugBuilder setForm(String formCodeValue) {
-        this.drug.form = formCode(formCodeValue);
+        this.drug.setForm(formCode(formCodeValue));
         return this;
     }
 
@@ -56,7 +54,7 @@ public class DrugBuilder {
         PartClassificationCode code = new PartClassificationCode();
         code.setType(type);
         code.setValue(classificationCode);
-        this.drug.classifications.add(code);
+        this.drug.getClassifications().add(code);
         return this;
     }
 }

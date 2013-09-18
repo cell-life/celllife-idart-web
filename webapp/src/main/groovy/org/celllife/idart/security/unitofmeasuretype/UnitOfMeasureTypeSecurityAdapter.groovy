@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject UnitOfMeasureTypeApplicationService unitOfMeasureTypeApplicationService
 
-    UnitOfMeasureTypeCode save(Principal principal, unitOfMeasureTypeDto) {
+    UnitOfMeasureTypeCode save(Principal principal, UnitOfMeasureTypeDto unitOfMeasureTypeDto) {
         unitOfMeasureTypeApplicationService.save(unitOfMeasureTypeDto)
     }
 

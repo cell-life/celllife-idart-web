@@ -1,13 +1,11 @@
 package org.celllife.idart.client.medication;
 
 import org.celllife.idart.common.SystemId;
-import org.celllife.idart.common.Code;
 import org.celllife.idart.common.FormCode;
-import org.celllife.idart.common.Id;
-import org.celllife.idart.client.form.Form;
 import org.celllife.idart.client.part.Compound;
 
 import static org.celllife.idart.common.Identifiers.newIdentifier;
+import static org.celllife.idart.common.SystemId.systemId;
 
 /**
  * User: Kevin W. Sewell
@@ -18,16 +16,15 @@ public class CompoundBuilder {
 
     private final Compound compound;
 
-    private final String clinicDrugsidentifiersystem;
+    private final SystemId systemId;
 
-    public CompoundBuilder(String clinicId) {
+    public CompoundBuilder(String systemId) {
         this.compound = new Compound();
-        this.clinicDrugsidentifiersystem =
-                String.format("http://www.cell-life.org/idart/clinics/%s/compounds", clinicId);
+        this.systemId = systemId(systemId);
     }
 
     public CompoundBuilder setIdentifier(SystemId system, String idValue) {
-        this.compound.identifiers.add(newIdentifier(system, idValue));
+        this.compound.getIdentifiers().add(newIdentifier(system, idValue));
         return this;
     }
 
@@ -36,7 +33,7 @@ public class CompoundBuilder {
     }
 
     public CompoundBuilder setForm(String formCodeValue) {
-        this.compound.form = FormCode.formCode(formCodeValue);
+        this.compound.setForm(FormCode.formCode(formCodeValue));
         return this;
     }
 }

@@ -1,8 +1,0 @@
-{
-    "identifier": "00000004",
-    "name": "Stavudine 15mg (60 Tablets)",
-    "drug": {
-        "@type": "drug",
-        "identifier": "00000008"
-    }
-}

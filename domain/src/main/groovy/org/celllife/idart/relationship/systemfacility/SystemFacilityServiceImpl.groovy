@@ -14,31 +14,17 @@ import static org.celllife.idart.common.Period.newPeriod
  * Date: 2013-09-04
  * Time: 15h04
  */
-@Named class SystemFacilitieserviceImpl implements SystemFacilityService {
+@Named class SystemFacilityServiceImpl implements SystemFacilityService {
 
     @Inject SystemFacilityRepository systemFacilityRepository
 
     @Override
-    Iterable<FacilityId> findFacilities(SystemId system,
-                                               SystemFacility.Relationship relationship) {
-
-        systemFacilityRepository
-                .findBySystemRelationshipValid(system, relationship, new Date())
-                .collect { systemFacility -> systemFacility.facility }
+    void save(SystemFacility systemFacility) {
+        save(systemFacility.system, systemFacility.facility, systemFacility.relationship)
     }
 
     @Override
-    Iterable<SystemId> findSystems(FacilityId facilityId,
-                                               SystemFacility.Relationship relationship) {
-
-        systemFacilityRepository
-                .findByFacilityRelationshipValid(facilityId, relationship, new Date())
-                .collect { systemFacility -> systemFacility.system }
-    }
-
-    void save(SystemId system,
-              FacilityId facility,
-              SystemFacility.Relationship relationship) {
+    void save(SystemId system, FacilityId facility, SystemFacility.Relationship relationship) {
 
         def systemFacility = systemFacilityRepository
                 .findBySystemFacilityRelationshipValid(system, facility, relationship, new Date())
@@ -53,5 +39,21 @@ import static org.celllife.idart.common.Period.newPeriod
 
             systemFacilityRepository.save(systemFacility)
         }
+    }
+
+    @Override
+    Iterable<FacilityId> findFacilities(SystemId system, SystemFacility.Relationship relationship) {
+
+        systemFacilityRepository
+                .findBySystemRelationshipValid(system, relationship, new Date())
+                .collect { systemFacility -> systemFacility.facility }
+    }
+
+    @Override
+    Iterable<SystemId> findSystems(FacilityId facilityId, SystemFacility.Relationship relationship) {
+
+        systemFacilityRepository
+                .findByFacilityRelationshipValid(facilityId, relationship, new Date())
+                .collect { systemFacility -> systemFacility.system }
     }
 }

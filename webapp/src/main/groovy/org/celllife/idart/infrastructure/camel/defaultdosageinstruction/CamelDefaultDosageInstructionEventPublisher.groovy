@@ -25,7 +25,7 @@ import static org.celllife.idart.framework.security.Principals.currentUsername
     @Override
     void publish(DefaultDosageInstructionEvent defaultDosageInstructionEvent) {
 
-        defaultDosageInstructionEvent.header.username = currentUsername
+        defaultDosageInstructionEvent.username = currentUsername
 
         producerTemplate.sendBody(objectMapper.writeValueAsString(defaultDosageInstructionEvent))
     }

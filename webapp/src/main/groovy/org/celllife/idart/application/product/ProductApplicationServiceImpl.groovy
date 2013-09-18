@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.product.ProductNotFoundException
 import org.celllife.idart.domain.product.ProductService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.ProductId.productId
 import static org.celllife.idart.common.IdentifiableType.PRODUCT
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     ProductId save(ProductDto productDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRODUCT, productDto.identifiers)
+        productDto.identifiers = identifiable.identifiers
 
         def productId = productId(identifiable.getIdentifierValue(IDART_WEB))
 

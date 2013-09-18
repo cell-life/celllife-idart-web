@@ -2,6 +2,7 @@ package org.celllife.idart.interfaces.resource.practitioner
 
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.PractitionerId
 import org.celllife.idart.domain.practitioner.PractitionerNotFoundException
 import org.celllife.idart.domain.practitioner.PractitionerValidationException
 import org.celllife.idart.security.practitioner.PractitionerSecurityAdapter
@@ -24,14 +25,12 @@ import static javax.servlet.http.HttpServletResponse.*
     @Value('${external.base.url}') String baseUrl
 
     @ResponseBody
-    @RequestMapping(value = "/practitioners/findByIdentifier", method = RequestMethod.GET, produces = "application/json")
-    Set<PractitionerDto> findAll(@ModelAttribute Identifier identifier,
-                                 Principal principal,
-                                 HttpServletResponse response) {
+    @RequestMapping(value = "/practitioners/{practitionerId}", method = RequestMethod.GET, produces = "application/json")
+    PractitionerDto findOne(PractitionerId practitionerId, Principal principal, HttpServletResponse response) {
 
         try {
 
-            return practitionerSecurityAdapter.findByIdentifier(principal, identifier)
+            return practitionerSecurityAdapter.findByPractitionerId(principal, practitionerId)
 
         } catch (PractitionerNotFoundException ignore) {
 
@@ -54,5 +53,13 @@ import static javax.servlet.http.HttpServletResponse.*
         } catch (PractitionerValidationException e) {
             response.setStatus(SC_BAD_REQUEST)
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/practitioners", method = RequestMethod.GET, produces = "application/json")
+    Set<PractitionerDto> findAll(Principal principal) {
+
+        practitionerSecurityAdapter.findAll(principal)
+
     }
 }

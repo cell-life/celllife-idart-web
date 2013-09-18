@@ -3,24 +3,24 @@ package org.celllife.idart.application.part
 import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.application.part.dto.PartDtoAssembler
 import org.celllife.idart.common.PartId
+import org.celllife.idart.common.PartType
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.part.PartNotFoundException
 import org.celllife.idart.domain.part.PartService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.PartId.partId
 import static org.celllife.idart.common.IdentifiableType.PART
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
-import javax.annotation.Generated
 import javax.inject.Inject
 import javax.inject.Named
 
 /**
  */
-@Generated("org.celllife.idart.codegen.CodeGenerator")
 @Named class PartApplicationServiceImpl implements PartApplicationService {
 
     @Inject PartService partService   
@@ -38,6 +38,7 @@ import javax.inject.Named
     PartId save(PartDto partDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PART, partDto.identifiers)
+        partDto.identifiers = identifiable.identifiers
 
         def partId = partId(identifiable.getIdentifierValue(IDART_WEB))
 
@@ -82,5 +83,20 @@ import javax.inject.Named
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB)
 
         partId(idartIdentifierValue)
+    }
+
+    @Override
+    Set<PartDto> findByType(PartType type) {
+
+        def parts = partService.findByType(type)
+        parts.collect { part ->
+
+            def partDto = partDtoAssembler.toPartDto(part)
+
+            def identifiable = identifiableService.resolveIdentifiable(PART, newIdentifiers(IDART_WEB, part.id.value))
+            partDto.identifiers = identifiable.identifiers
+
+            partDto
+        }
     }
 }

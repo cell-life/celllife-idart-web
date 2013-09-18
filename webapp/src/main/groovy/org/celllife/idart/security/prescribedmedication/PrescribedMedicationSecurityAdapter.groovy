@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject PrescribedMedicationApplicationService prescribedMedicationApplicationService
 
-    PrescribedMedicationId save(Principal principal, prescribedMedicationDto) {
+    PrescribedMedicationId save(Principal principal, PrescribedMedicationDto prescribedMedicationDto) {
         prescribedMedicationApplicationService.save(prescribedMedicationDto)
     }
 

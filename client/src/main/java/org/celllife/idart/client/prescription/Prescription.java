@@ -16,13 +16,13 @@ public final class Prescription implements Serializable {
 
     public Set<Identifier> identifiers = new HashSet<Identifier>();
 
-    public Set<Identifier> prescriber;
+    public Set<Identifier> prescriber = new HashSet<Identifier>();
 
-    public Set<Identifier> patient;
+    public Set<Identifier> patient = new HashSet<Identifier>();
 
     public Date dateWritten;
 
-    public Set<Identifier> encounter;
+    public Set<Identifier> encounter = new HashSet<Identifier>();
 
     public Set<PrescribedMedication> prescribedMedications = new HashSet<PrescribedMedication>();
 

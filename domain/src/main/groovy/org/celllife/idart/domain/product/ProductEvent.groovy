@@ -1,9 +1,5 @@
 package org.celllife.idart.domain.product
 
-import org.celllife.idart.common.EventHeader
-
-import static org.celllife.idart.common.EventHeader.newEventHeader
-
 import javax.annotation.Generated
 
 /**
@@ -12,15 +8,27 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 class ProductEvent implements Serializable {
 
-    EventHeader header
+    Date timestamp
+
+    UUID uuid
+
+    EventType type
+
+    String username
 
     Product product
 
     static ProductEvent newProductEvent(Product product, ProductEvent.EventType eventType) {
-        new ProductEvent(product: product, header: newEventHeader(eventType))
+
+        new ProductEvent(
+            product: product,
+            type: eventType,
+            timestamp: new Date(),
+            uuid: UUID.randomUUID()
+        )
     }
 
-    enum EventType implements org.celllife.idart.common.EventType {
+    enum EventType {
         SAVED
     }
 }

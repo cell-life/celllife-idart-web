@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject UserApplicationService userApplicationService
 
-    UserId save(Principal principal, userDto) {
+    UserId save(Principal principal, UserDto userDto) {
         userApplicationService.save(userDto)
     }
 

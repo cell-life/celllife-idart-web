@@ -18,18 +18,66 @@ import java.util.Date;
 })
 public abstract class PartBillOfMaterialsItem {
 
-    public Date fromDate;
+    private Date fromDate;
 
-    public Date thruDate;
+    private Date thruDate;
 
-    public Part part;
+    private Part part;
 
-    public Quantity quantityUsed;
+    private Quantity quantityUsed;
 
-    public String instructions;
+    private String instructions;
 
-    public String comment;
+    private String comment;
 
     public PartBillOfMaterialsItem() {
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getThruDate() {
+        return thruDate;
+    }
+
+    public void setThruDate(Date thruDate) {
+        this.thruDate = thruDate;
+    }
+
+    public Part getPart() {
+        return part;
+    }
+
+    public void setPart(Part part) {
+        this.part = part;
+    }
+
+    public Quantity getQuantityUsed() {
+        return quantityUsed;
+    }
+
+    public void setQuantityUsed(Quantity quantityUsed) {
+        this.quantityUsed = quantityUsed;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

@@ -8,11 +8,11 @@ import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.person.PersonNotFoundException
 import org.celllife.idart.domain.person.PersonService
 
-import static org.celllife.idart.common.SystemId.IDART_WEB
 import static org.celllife.idart.common.PersonId.personId
 import static org.celllife.idart.common.IdentifiableType.PERSON
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.SystemId.IDART_WEB
 
 import javax.annotation.Generated
 import javax.inject.Inject
@@ -38,6 +38,7 @@ import javax.inject.Named
     PersonId save(PersonDto personDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PERSON, personDto.identifiers)
+        personDto.identifiers = identifiable.identifiers
 
         def personId = personId(identifiable.getIdentifierValue(IDART_WEB))
 

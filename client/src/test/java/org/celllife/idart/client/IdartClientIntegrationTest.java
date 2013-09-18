@@ -24,6 +24,10 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.List;
 
+import static org.celllife.idart.common.SystemId.PGWC;
+import static org.celllife.idart.common.SystemId.PREHMIS;
+import static org.celllife.idart.common.SystemId.systemId;
+
 /**
  * Kevin W. Sewell
  * Date: 2013-07-18
@@ -35,7 +39,7 @@ public class IdartClientIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        idartClient = IdartClientSingleton.getInstance("http://localhost:9000/idart", "user@test.cell-life.org", "P@ssw0rd1", "00000001");
+        idartClient = IdartClientSingleton.getInstance("http://localhost:8080/idart", "99999999", "E8246BF0-B058-440C-A3D4-783F1A983722");
     }
 
     @Test
@@ -77,8 +81,8 @@ public class IdartClientIntegrationTest {
 
         for (Compound compound : compounds) {
             Assert.assertNotNull(compound);
-            Assert.assertNotNull(compound.identifiers);
-            Assert.assertTrue(compound.identifiers.size() != 0);
+            Assert.assertNotNull(compound.getIdentifiers());
+            Assert.assertTrue(compound.getIdentifiers().size() != 0);
         }
     }
 
@@ -91,9 +95,9 @@ public class IdartClientIntegrationTest {
 
         for (Drug drug : drugs) {
             Assert.assertNotNull(drug);
-            Assert.assertNotNull(drug.identifiers);
-            Assert.assertTrue(drug.identifiers.size() != 0);
-            Assert.assertNotNull(drug.form);
+            Assert.assertNotNull(drug.getIdentifiers());
+            Assert.assertTrue(drug.getIdentifiers().size() != 0);
+            Assert.assertNotNull(drug.getForm());
         }
     }
 
@@ -130,7 +134,7 @@ public class IdartClientIntegrationTest {
     @Test
     public void testCreateClinic() throws Exception {
         Clinic clinic = new Clinic();
-        clinic.addIdentifier("http://www.cell-life.org/idart/clinics", "00000001");
+        clinic.addIdentifier(systemId("00000000"), "00000001");
     }
 
     @Test
@@ -139,8 +143,9 @@ public class IdartClientIntegrationTest {
         String clinicId = "00000001";
 
         Prescription prescription = new PrescriptionBuilder(clinicId)
-                .setPatient("http://www.pgwc.gov.za", "72254311")
-                .setPrescriber("http://prehmis.capetown.gov.za", "1299")
+                .setIdentifier("00000001")
+                .setPatient(PGWC, "72254311")
+                .setPrescriber(PREHMIS, "1299")
                 .setDateWritten(new Date())
                 .addPrescribedMedication(newPrescribedMedication(clinicId)
                         .setId("00000001")
@@ -154,7 +159,7 @@ public class IdartClientIntegrationTest {
                         .finishPrescribedMedication())
                 .finishPrescription();
 
-        idartClient.savePrescription("00000001", prescription);
+        idartClient.savePrescription(prescription);
 
         System.out.println(((IdartClientSingleton) idartClient).mapToJson(prescription));
     }
@@ -162,23 +167,24 @@ public class IdartClientIntegrationTest {
     @Test
     public void testCreateMedication() throws Exception {
 
-        String clinicId = "00000001";
+        String systemId = "00000001";
 
-        MedicationBuilder medicationBuilder = new MedicationBuilder(clinicId)
+        MedicationBuilder medicationBuilder = new MedicationBuilder(systemId)
+                .setIdentifier("00000001")
                 .setName("[ABC] Abacavir 300mg")
-                .addDrug(newDrug(clinicId)
+                .addDrug(newDrug(systemId)
                         .setForm("CAP")
                         .addClassification(PartClassificationType.ATC, "J05AF06")
                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                 .setQuantity(60, UnitOfMeasures.EACH)
-                                .addPart(newDrug(clinicId)
-                                        .setId("00000002")
+                                .addPart(newDrug(systemId)
+                                        .setIdentifier("00000002")
                                         .setForm("CAP")
                                         .addClassification(PartClassificationType.ATC, "J05AF06")
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")
-                                                .addPart(newCompound(clinicId)
-                                                        .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
+                                                .addPart(newCompound(systemId)
+                                                        .setIdentifier(systemId("IDART_WEB"), "Abacavir")
                                                         .finishCompound()
                                                 )
                                                 .finishBillOfMaterialsItem()
@@ -190,7 +196,7 @@ public class IdartClientIntegrationTest {
                         .finishDrug()
                 );
 
-        idartClient.saveMedication("00000001", medicationBuilder.finishMedication());
+        idartClient.saveMedication(medicationBuilder.finishMedication());
     }
 
     private static PrescribedMedicationBuilder newPrescribedMedication(String clinicId) {

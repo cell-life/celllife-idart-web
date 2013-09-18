@@ -7,7 +7,7 @@ import org.celllife.idart.common.Identifier
  * Date: 2013-09-04
  * Time: 17h46
  */
-class ProductDto {
+abstract class ProductDto {
 
     /**
      * Identified by

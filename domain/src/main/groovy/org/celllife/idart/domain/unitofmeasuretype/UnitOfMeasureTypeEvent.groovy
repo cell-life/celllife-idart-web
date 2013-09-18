@@ -1,9 +1,5 @@
 package org.celllife.idart.domain.unitofmeasuretype
 
-import org.celllife.idart.common.EventHeader
-
-import static org.celllife.idart.common.EventHeader.newEventHeader
-
 import javax.annotation.Generated
 
 /**
@@ -12,15 +8,27 @@ import javax.annotation.Generated
 @Generated("org.celllife.idart.codegen.CodeGenerator")
 class UnitOfMeasureTypeEvent implements Serializable {
 
-    EventHeader header
+    Date timestamp
+
+    UUID uuid
+
+    EventType type
+
+    String username
 
     UnitOfMeasureType unitOfMeasureType
 
     static UnitOfMeasureTypeEvent newUnitOfMeasureTypeEvent(UnitOfMeasureType unitOfMeasureType, UnitOfMeasureTypeEvent.EventType eventType) {
-        new UnitOfMeasureTypeEvent(unitOfMeasureType: unitOfMeasureType, header: newEventHeader(eventType))
+
+        new UnitOfMeasureTypeEvent(
+            unitOfMeasureType: unitOfMeasureType,
+            type: eventType,
+            timestamp: new Date(),
+            uuid: UUID.randomUUID()
+        )
     }
 
-    enum EventType implements org.celllife.idart.common.EventType {
+    enum EventType {
         SAVED
     }
 }

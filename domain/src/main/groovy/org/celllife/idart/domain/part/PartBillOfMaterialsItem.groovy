@@ -61,7 +61,7 @@ class PartBillOfMaterialsItem implements Serializable {
             return false
         }
 
-        return this.part.matches(that.part) &&
+        return this.part.equals(that.part) &&
                 (this.type == that.type) &&
                 (this.quantityUsed == that.quantityUsed)
     }

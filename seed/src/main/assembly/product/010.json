@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999990"
+        }
+    ],
+    "name": "Tenofovir 300mg (30 Tablets)",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999980"
+        }
+    ]
+}

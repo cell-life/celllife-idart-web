@@ -25,12 +25,17 @@ public class PartClassificationCode implements Serializable {
         Pattern pattern = Pattern.compile("([^-]*)-([0-9]*)");
         Matcher matcher = pattern.matcher(string);
         if (!matcher.matches()) {
-            throw new RuntimeException("Unknown PartClassificationCode [${string}]");
+            throw new RuntimeException("Unknown PartClassificationCode [" + string + "]");
         }
 
+        return partClassificationCode(matcher.group(2), PartClassificationType.valueOf(matcher.group(1)));
+    }
+
+    public static PartClassificationCode partClassificationCode(String value, PartClassificationType type) {
+
         PartClassificationCode partClassificationCode = new PartClassificationCode();
-        partClassificationCode.value = matcher.group(2);
-        partClassificationCode.type = PartClassificationType.valueOf(matcher.group(1));
+        partClassificationCode.value = value;
+        partClassificationCode.type = type;
 
         return partClassificationCode;
     }

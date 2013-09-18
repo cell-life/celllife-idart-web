@@ -23,8 +23,8 @@ import static org.celllife.idart.framework.security.Principals.getUser
         practitionerApplicationService.save(practitionerDto)
     }
 
-    PractitionerDto findByIdentifier(Principal principal, Identifier identifier) {
-        practitionerApplicationService.findByIdentifier(identifier)
+    PractitionerDto findByPractitionerId(Principal principal, PractitionerId practitionerId) {
+        practitionerApplicationService.findByPractitionerId(practitionerId)
     }
 
     Set<PractitionerDto> findAll(Principal principal) {

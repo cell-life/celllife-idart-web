@@ -17,7 +17,7 @@ import java.security.Principal
 
     @Inject IndicationApplicationService indicationApplicationService
 
-    IndicationCode save(Principal principal, indicationDto) {
+    IndicationCode save(Principal principal, IndicationDto indicationDto) {
         indicationApplicationService.save(indicationDto)
     }
 

@@ -1,12 +1,13 @@
 package org.celllife.idart.client.medication;
 
-import org.celllife.idart.common.Quantity;
 import org.celllife.idart.client.part.EngineeringPartBillOfMaterialsItem;
 import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
-import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
+import org.celllife.idart.common.Quantity;
 
 import java.math.BigDecimal;
+
+import static org.celllife.idart.common.UnitOfMeasureCode.unitOfMeasureCode;
 
 /**
  * User: Kevin W. Sewell
@@ -22,9 +23,11 @@ public class BillOfMaterialsItemBuilder {
     }
 
     public BillOfMaterialsItemBuilder setQuantity(int quantity, String uomCodeValue) {
-        this.engineeringPartBillOfMaterialsItem.quantityUsed = new Quantity();
-        this.engineeringPartBillOfMaterialsItem.quantityUsed.value = new BigDecimal(quantity);
-        this.engineeringPartBillOfMaterialsItem.quantityUsed.unitOfMeasure = new UnitOfMeasure(uomCodeValue);
+        Quantity quantityUsed = new Quantity();
+        quantityUsed.setValue(new BigDecimal(quantity));
+        quantityUsed.setUnitOfMeasure(unitOfMeasureCode(uomCodeValue));
+
+        this.engineeringPartBillOfMaterialsItem.setQuantityUsed(quantityUsed);
         return this;
     }
 
@@ -33,7 +36,7 @@ public class BillOfMaterialsItemBuilder {
     }
 
     public BillOfMaterialsItemBuilder addPart(Part part) {
-        this.engineeringPartBillOfMaterialsItem.part = part;
+        this.engineeringPartBillOfMaterialsItem.setPart(part);
         return this;
     }
 }

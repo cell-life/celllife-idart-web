@@ -1,6 +1,7 @@
 package org.celllife.idart.common;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -30,4 +31,11 @@ public final class Identifiers implements Serializable {
         return null;
     }
 
+    public static Set<Identifier> newIdentifiers(SystemId system, String value) {
+
+        Set<Identifier> identifiers = new HashSet<Identifier>();
+        identifiers.add(newIdentifier(system, value));
+
+        return identifiers;
+    }
 }

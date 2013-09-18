@@ -4,8 +4,6 @@ import org.celllife.idart.client.medication.BillOfMaterialsItemBuilder;
 import org.celllife.idart.client.medication.CompoundBuilder;
 import org.celllife.idart.client.medication.DrugBuilder;
 import org.celllife.idart.client.medication.MedicationBuilder;
-import org.celllife.idart.client.part.Compound;
-import org.celllife.idart.client.part.PartClassificationType;
 import org.celllife.idart.client.partyrole.PartyRole;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
@@ -13,12 +11,15 @@ import org.celllife.idart.client.prescription.PrescribedMedicationBuilder;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasures;
+import org.celllife.idart.common.PartClassificationType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.List;
+
+import static org.celllife.idart.common.SystemId.*;
 
 /**
  * User: Kevin W. Sewell
@@ -31,7 +32,7 @@ public class SmokeTest {
 
     @Before
     public void setUp() throws Exception {
-        idartClient = IdartClientSingleton.getInstance("http://localhost:9000/idart", "user@test.cell-life.org", "P@ssw0rd1", "00000001");
+        idartClient = IdartClientSingleton.getInstance("http://localhost:9000/idart", "user@test.cell-life.org", "P@ssw0rd1");
     }
 
     @Test
@@ -45,10 +46,10 @@ public class SmokeTest {
 
         for (PartyRole patient : patients) {
             Assert.assertNotNull(patient);
-            Assert.assertNotNull(patient.ids);
-            Assert.assertTrue(patient.ids.size() != 0);
+            Assert.assertNotNull(patient.identifiers);
+            Assert.assertTrue(patient.identifiers.size() != 0);
             Assert.assertNotNull(patient.person);
-            Assert.assertTrue(patient.person.ids.size() != 0);
+            Assert.assertTrue(patient.person.identifiers.size() != 0);
         }
 
         // ********************************************************************************************************
@@ -59,31 +60,32 @@ public class SmokeTest {
 
         for (PartyRole practitioner : practitioners) {
             Assert.assertNotNull(practitioner);
-            Assert.assertNotNull(practitioner.ids);
-            Assert.assertTrue(practitioner.ids.size() != 0);
+            Assert.assertNotNull(practitioner.identifiers);
+            Assert.assertTrue(practitioner.identifiers.size() != 0);
             Assert.assertNotNull(practitioner.person);
-            Assert.assertTrue(practitioner.person.ids.size() != 0);
+            Assert.assertTrue(practitioner.person.identifiers.size() != 0);
         }
 
         // ********************************************************************************************************
 
-        String clinicId = "00000001";
+        String systemId = "00000001";
 
-        MedicationBuilder medicationBuilder = new MedicationBuilder(clinicId)
+        MedicationBuilder medicationBuilder = new MedicationBuilder(systemId)
+                .setIdentifier("00000001")
                 .setName("[ABC] Abacavir 300mg")
-                .addDrug(newDrug(clinicId)
+                .addDrug(newDrug(systemId)
                         .setForm("CAP")
                         .addClassification(PartClassificationType.ATC, "J05AF06")
                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                 .setQuantity(60, UnitOfMeasures.EACH)
-                                .addPart(newDrug(clinicId)
-                                        .setId("00000002")
+                                .addPart(newDrug(systemId)
+                                        .setIdentifier("00000002")
                                         .setForm("CAP")
                                         .addClassification(PartClassificationType.ATC, "J05AF06")
                                         .addBillOfMaterialsItem(newBillOfMaterialsItem()
                                                 .setQuantity(300, "mg")
-                                                .addPart(newCompound(clinicId)
-                                                        .setIdentifier(Compound.INN_SYSTEM, "Abacavir")
+                                                .addPart(newCompound(systemId)
+                                                        .setIdentifier(IDART_WEB, "Abacavir")
                                                         .finishCompound()
                                                 )
                                                 .finishBillOfMaterialsItem()
@@ -95,16 +97,16 @@ public class SmokeTest {
                         .finishDrug()
                 );
 
-        idartClient.saveMedication("00000001", medicationBuilder.finishMedication());
+        idartClient.saveMedication(medicationBuilder.finishMedication());
 
         // ********************************************************************************************************
 
-        Prescription prescription = new PrescriptionBuilder(clinicId)
-                .addId("http://www.cell-life.org/idart/prescriptions", System.currentTimeMillis() + "")
-                .setPatient("http://www.pgwc.gov.za", "72254311")
-                .setPrescriber("http://prehmis.capetown.gov.za", "1299")
+        Prescription prescription = new PrescriptionBuilder(systemId)
+                .addIdentifier(systemId("99999999"), System.currentTimeMillis() + "")
+                .setPatient(PGWC, "72254311")
+                .setPrescriber(PREHMIS, "1299")
                 .setDateWritten(new Date())
-                .addPrescribedMedication(newPrescribedMedication(clinicId)
+                .addPrescribedMedication(newPrescribedMedication(systemId)
                         .setId(System.currentTimeMillis() + "")
                         .setMedication("00000001")
                         .setReasonForPrescribing("Because I said so")
@@ -116,7 +118,7 @@ public class SmokeTest {
                         .finishPrescribedMedication())
                 .finishPrescription();
 
-        idartClient.savePrescription(System.currentTimeMillis() + "", prescription);
+        idartClient.savePrescription(prescription);
 
         System.out.println(((IdartClientSingleton) idartClient).mapToJson(prescription));
     }

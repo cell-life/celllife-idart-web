@@ -1,5 +1,9 @@
 package org.celllife.idart.client;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
@@ -19,10 +23,6 @@ import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.unitofmeasure.UnitOfMeasure;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.type.TypeReference;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,22 +46,18 @@ public final class IdartClientSingleton implements IdartClient {
 
     private String idartWebUrl;
 
-    private String idartClinicId;
-
-    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicId) {
+    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword) {
 
         if (instance == null) {
-            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, idartClinicId);
+            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword);
         }
 
         return instance;
     }
 
-    private IdartClientSingleton(String idartWebUrl, String idartWebUsername, String idartWebPassword, String idartClinicId) {
+    private IdartClientSingleton(String idartWebUrl, String idartWebUsername, String idartWebPassword) {
 
         this.idartWebUrl = idartWebUrl;
-
-        this.idartClinicId = idartClinicId;
 
         this.httpClient = new HttpClient();
 
@@ -71,19 +67,15 @@ public final class IdartClientSingleton implements IdartClient {
         this.authenticate = BasicScheme.authenticate(credentials, "US-ASCII");
 
         this.objectMapper = new ObjectMapper();
-        this.objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        this.objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+        this.objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     @Override
     public void saveClinic(Clinic clinic) {
 
-        PostMethod postClinic = new PostMethod(
-                String.format(
-                        "%s/clinics",
-                        idartWebUrl
-                )
-        );
+        PostMethod postClinic = new PostMethod(String.format("%s/clinics", idartWebUrl));
 
         postClinic.setRequestEntity(getStringRequestEntity(clinic));
 
@@ -98,16 +90,9 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void saveMedication(String medicationId, Medication medication) {
+    public void saveMedication(Medication medication) {
 
-        PutMethod putMedication = new PutMethod(
-                String.format(
-                        "%s/clinics/%s/medications/%s",
-                        idartWebUrl,
-                        idartClinicId,
-                        medicationId
-                )
-        );
+        PutMethod putMedication = new PutMethod(String.format("%s/medications", idartWebUrl));
 
         putMedication.setRequestEntity(getStringRequestEntity(medication));
 
@@ -123,23 +108,16 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public void savePrescription(String prescriptionId, Prescription prescription) {
+    public void savePrescription(Prescription prescription) {
 
-        PutMethod putPrescription = new PutMethod(
-                String.format(
-                        "%s/clinics/%s/prescriptions/%s",
-                        idartWebUrl,
-                        idartClinicId,
-                        prescriptionId
-                )
-        );
+        PostMethod postPrescription = new PostMethod(String.format("%s/prescriptions", idartWebUrl));
 
-        putPrescription.setRequestEntity(getStringRequestEntity(prescription));
+        postPrescription.setRequestEntity(getStringRequestEntity(prescription));
 
-        decorateMethodWithAuth(putPrescription);
-        decorateMethodWithContentType(putPrescription);
+        decorateMethodWithAuth(postPrescription);
+        decorateMethodWithContentType(postPrescription);
 
-        int status = executeMethod(putPrescription);
+        int status = executeMethod(postPrescription);
 
         if (status != HttpStatus.SC_CREATED) {
             throw new RuntimeException();
@@ -148,6 +126,7 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     private StringRequestEntity getStringRequestEntity(Object object) {
+
         try {
             return new StringRequestEntity(mapToJson(object), "application/json", "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -156,16 +135,10 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
-    public List<Patient> getPatients(String patientIdValue) {
+    public List<Patient> getPatients(String identifier) {
 
-        GetMethod getPatients = new GetMethod(
-                String.format(
-                        "%s/clinics/%s/patients/search/findById?patientId=%s",
-                        idartWebUrl,
-                        idartClinicId,
-                        patientIdValue
-                )
-        );
+        String url = String.format("%s/patients/search/findByIdentifier?identifier=%s", idartWebUrl, identifier);
+        GetMethod getPatients = new GetMethod(url);
 
         decorateMethodWithAuth(getPatients);
         decorateMethodWithAccept(getPatients);
@@ -184,13 +157,7 @@ public final class IdartClientSingleton implements IdartClient {
     @Override
     public List<Practitioner> getPractitioners() {
 
-        GetMethod getPractitioners = new GetMethod(
-                String.format(
-                        "%s/clinics/%s/practitioners",
-                        idartWebUrl,
-                        idartClinicId
-                )
-        );
+        GetMethod getPractitioners = new GetMethod(String.format("%s/practitioners", idartWebUrl));
 
         decorateMethodWithAuth(getPractitioners);
         decorateMethodWithAccept(getPractitioners);
@@ -208,12 +175,8 @@ public final class IdartClientSingleton implements IdartClient {
 
     @Override
     public List<Compound> getCompounds() {
-        GetMethod getRawMaterials = new GetMethod(
-                String.format(
-                        "%s/compounds",
-                        idartWebUrl
-                )
-        );
+
+        GetMethod getRawMaterials = new GetMethod(String.format("%s/parts/search/findByType?type=COMPOUND", idartWebUrl));
 
         decorateMethodWithAuth(getRawMaterials);
         decorateMethodWithAccept(getRawMaterials);
@@ -223,7 +186,7 @@ public final class IdartClientSingleton implements IdartClient {
         InputStream body = getResponseBodyAsString(getRawMaterials);
 
         if (status != HttpStatus.SC_OK) {
-            throw new RuntimeException("" + status);
+             throw new RuntimeException("" + status);
         }
 
         return mapJsonToParts(body);
@@ -231,13 +194,8 @@ public final class IdartClientSingleton implements IdartClient {
 
     @Override
     public List<Drug> getDrugs() {
-        GetMethod getDrugs = new GetMethod(
-                String.format(
-                        "%s/clinics/%s/drugs",
-                        idartWebUrl,
-                        idartClinicId
-                )
-        );
+
+        GetMethod getDrugs = new GetMethod(String.format("%s/products/search/findByType?type=MEDICATION", idartWebUrl));
 
         decorateMethodWithAuth(getDrugs);
         decorateMethodWithAccept(getDrugs);
@@ -255,12 +213,8 @@ public final class IdartClientSingleton implements IdartClient {
 
     @Override
     public List<Form> getForms() {
-        GetMethod getForms = new GetMethod(
-                String.format(
-                        "%s/forms",
-                        idartWebUrl
-                )
-        );
+
+        GetMethod getForms = new GetMethod(String.format("%s/forms", idartWebUrl));
 
         decorateMethodWithAuth(getForms);
         decorateMethodWithAccept(getForms);
@@ -278,12 +232,8 @@ public final class IdartClientSingleton implements IdartClient {
 
     @Override
     public List<UnitOfMeasure> getUnitsOfMeasure() {
-        GetMethod getUnitsOfMeasure = new GetMethod(
-                String.format(
-                        "%s/unitsOfMeasure",
-                        idartWebUrl
-                )
-        );
+
+        GetMethod getUnitsOfMeasure = new GetMethod(String.format("%s/unitsOfMeasure", idartWebUrl));
 
         decorateMethodWithAuth(getUnitsOfMeasure);
         decorateMethodWithAccept(getUnitsOfMeasure);

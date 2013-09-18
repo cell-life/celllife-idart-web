@@ -21,9 +21,9 @@ public interface IdartClient {
 
     void saveClinic(Clinic clinic);
 
-    void saveMedication(String medicationId, Medication medication);
+    void saveMedication(Medication medication);
 
-    void savePrescription(String prescriptionId, Prescription prescription);
+    void savePrescription(Prescription prescription);
 
     List<Patient> getPatients(String patientIdValue);
 

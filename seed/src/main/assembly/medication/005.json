@@ -1,8 +1,0 @@
-{
-    "identifier": "00000005",
-    "name": "Stavudine 1mg/ml (200 ml)",
-    "drug": {
-        "@type": "drug",
-        "identifier": "00000010"
-    }
-}
