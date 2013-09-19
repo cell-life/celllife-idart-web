@@ -1,9 +1,10 @@
 package org.celllife.idart.infrastructure.jackson.part
 
+import org.celllife.idart.application.part.dto.CompoundDto
+import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.domain.part.Compound
 import org.celllife.idart.domain.part.Part
 import org.celllife.idart.framework.json.IdartObjectMapper
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
@@ -32,9 +33,9 @@ class PartDtoMixinTest {
     "label": "Zidovudine"
 }"""
 
-        def part = objectMapper.readValue(json, Part.class)
+        def part = objectMapper.readValue(json, PartDto.class)
 
         assertNotNull(part)
-        assertTrue(part instanceof Compound)
+        assertTrue(part instanceof CompoundDto)
     }
 }

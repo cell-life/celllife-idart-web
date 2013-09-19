@@ -37,7 +37,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 import javax.inject.Inject
 
-import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.common.Systems.PREHMIS
 import static org.celllife.idart.common.SystemId.systemId
 import static org.celllife.idart.common.PatientId.patientId
@@ -147,7 +146,7 @@ class PatientApplicationServiceIntegrationTest {
     public void shouldSavePatientScenario2() throws Exception {
 
         def patientIdentifiers = [
-                newIdentifier(IDART_WEB.id, "00000000"),
+                newIdentifier("00000000"),
                 newIdentifier(systemId("00000001"), "00000002")
         ]
 

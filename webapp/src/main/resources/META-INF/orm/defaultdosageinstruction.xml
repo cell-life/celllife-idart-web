@@ -8,9 +8,11 @@
 
     <entity class="org.celllife.idart.domain.defaultdosageinstruction.DefaultDosageInstruction">
         <attributes>
-            <id name="pk">
-                <generated-value strategy="TABLE"/>
-            </id>
+            <embedded-id name="id">
+                <attribute-override name="value">
+                    <column name="id"/>
+                </attribute-override>
+            </embedded-id>
             <one-to-one name="dosageInstruction" fetch="EAGER" orphan-removal="true">
                 <cascade>
                     <cascade-all/>

@@ -47,6 +47,12 @@
         </camel:route>
 
         <camel:route>
+            <camel:from uri="jms:topic:dispensationEvent?clientId=prehmisDispensationProvider&amp;durableSubscriptionName=prehmisDispensationProvider"/>
+            <camel:unmarshal ref="dispensationEvent"/>
+            <camel:bean ref="prehmisDispensationProvider" method="save"/>
+        </camel:route>
+
+        <camel:route>
             <camel:from uri="direct:encounterEvent"/>
             <camel:to uri="jms:topic:encounterEvent" pattern="InOnly"/>
         </camel:route>

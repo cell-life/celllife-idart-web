@@ -26,6 +26,9 @@
             <camel:json id="prescriptionEvent"
                         library="Jackson"
                         unmarshalTypeName="org.celllife.idart.domain.prescription.PrescriptionEvent"/>
+            <camel:json id="dispensationEvent"
+                        library="Jackson"
+                        unmarshalTypeName="org.celllife.idart.domain.dispensation.DispensationEvent"/>
         </camel:dataFormats>
 
     </camel:camelContext>

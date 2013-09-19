@@ -19,6 +19,7 @@ import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.IdentifiableType.PATIENT
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.PatientId.patientId
 import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.common.Systems.PREHMIS
@@ -104,7 +105,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Override
     PatientDto findByPatientId(PatientId patientId) {
 
-        findByIdentifier(newIdentifier(IDART_WEB.id, patientId.value))
+        findByIdentifier(newIdentifier(patientId.value))
     }
 
     @Override
@@ -158,10 +159,11 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Override
     Set<PatientDto> findByIdentifierAndSystem(String identifier, SystemId system) {
 
-        systemFacilityService.findFacilities(system, DEPLOYED_AT)
-                .collect { facility -> findByIdentifierAndFacility(identifier, facility) }
-                .flatten()
+        def facility = systemFacilityService.findFacility(system, DEPLOYED_AT)
 
+        def patients = findByIdentifierAndFacility(identifier, facility)
+
+        patients
     }
 
     @Override
@@ -186,7 +188,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
     Set<PatientDto> lookupFromExternalProviders(String patientIdentifier, FacilityId facility) {
 
-        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB.id, facility.value)] as Set)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(IDART_WEB.id, facility.value))
 
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 

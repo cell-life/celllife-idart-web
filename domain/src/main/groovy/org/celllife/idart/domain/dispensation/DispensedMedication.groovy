@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.dispensation
 
+import org.celllife.idart.common.Duration
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PrescribedMedicationId
 import org.celllife.idart.common.ProductId
@@ -29,20 +30,19 @@ class DispensedMedication implements Serializable {
     Period prepared
 
     /**
-     * Handed over during
-     */
-    Period handedOver
-
-    /**
      * Dosage Instruction
      */
     DosageInstruction dosageInstruction
 
     /**
+     * Expected Supply Duration
+     */
+    Duration expectedSupplyDuration
+
+    /**
      * Authorized by
      */
     PrescribedMedicationId authorizingPrescribedMedication
-
 
     def merge(DispensedMedication that) {
 
@@ -53,7 +53,7 @@ class DispensedMedication implements Serializable {
         this.medication = that.medication
         this.quantity = that.quantity
         this.prepared = that.prepared
-        this.handedOver = that.handedOver
+        this.expectedSupplyDuration = that.expectedSupplyDuration
         this.authorizingPrescribedMedication = that.authorizingPrescribedMedication
     }
 

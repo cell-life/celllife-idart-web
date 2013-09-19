@@ -36,9 +36,9 @@ public interface SpringDataSystemFacilityRepository extends SystemFacilityReposi
             "   and systemFacility.relationship = :relationship " +
             "   and systemFacility.valid.fromDate <= :validDate" +
             "   and (systemFacility.valid.thruDate is null or systemFacility.valid.thruDate > :validDate)")
-    Iterable<SystemFacility> findBySystemRelationshipValid(@Param("system") SystemId system,
-                                                           @Param("relationship") SystemFacility.Relationship relationship,
-                                                           @Param("validDate") Date validDate);
+    SystemFacility findBySystemRelationshipValid(@Param("system") SystemId system,
+                                                 @Param("relationship") SystemFacility.Relationship relationship,
+                                                 @Param("validDate") Date validDate);
 
     @Query("select systemFacility " +
             "   from SystemFacility systemFacility " +
@@ -46,9 +46,9 @@ public interface SpringDataSystemFacilityRepository extends SystemFacilityReposi
             "   and systemFacility.relationship = :relationship " +
             "   and systemFacility.valid.fromDate <= :validDate" +
             "   and (systemFacility.valid.thruDate is null or systemFacility.valid.thruDate > :validDate)")
-    Iterable<SystemFacility> findByFacilityRelationshipValid(@Param("facility") FacilityId facility,
-                                                             @Param("relationship") SystemFacility.Relationship relationship,
-                                                             @Param("validDate") Date validDate);
+    SystemFacility findByFacilityRelationshipValid(@Param("facility") FacilityId facility,
+                                                   @Param("relationship") SystemFacility.Relationship relationship,
+                                                   @Param("validDate") Date validDate);
 
 
 }

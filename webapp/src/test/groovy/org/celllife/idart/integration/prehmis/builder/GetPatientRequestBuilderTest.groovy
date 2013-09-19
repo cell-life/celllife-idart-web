@@ -19,8 +19,8 @@ class GetPatientRequestBuilderTest {
                 password: "idartPassword",
                 applicationKey: "idartApplicationKey",
                 facilityCode: "idartFacilityCode",
-                patientIdValue: "patientIdValue",
-                patientIdType: PrehmisPatientIdentifierType.PREHMIS
+                patientIdentifierValue: "patientIdentifierValue",
+                patientIdentifierType: PrehmisPatientIdentifierType.PREHMIS
         )
 
         Assert.assertNotNull(getPatientRequest)

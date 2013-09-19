@@ -1,6 +1,9 @@
 package org.celllife.idart.domain.dispensation
 
 import org.celllife.idart.common.DispensationId
+import org.celllife.idart.common.FacilityId
+import org.celllife.idart.common.PatientId
+import org.celllife.idart.common.Period
 import org.celllife.idart.common.PractitionerId
 
 /**
@@ -24,12 +27,22 @@ class Dispensation implements Serializable {
      * Although the patient could be inferred from the prescription, this is put here explicitly because the dispense
      * action may take place without a prescription.
      */
-    PractitionerId patient
+    PatientId patient
 
     /**
      * Dispensed by
      */
     PractitionerId dispenser
+
+    /**
+     * Dispensed at
+     */
+    FacilityId facility
+
+    /**
+     * Handed over at
+     */
+    Date handedOver
 
     /**
      * Contains
@@ -44,6 +57,8 @@ class Dispensation implements Serializable {
 
         this.patient = that.patient
         this.dispenser = that.dispenser
+        this.facility = that.facility
+        this.handedOver = that.handedOver
         this.dispensedMedications?.addAll(that.dispensedMedications)
     }
 }

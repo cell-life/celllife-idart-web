@@ -6,7 +6,7 @@
     <changeSet id="defaultdosageinstruction-1" author="kevin.sewell">
 
         <createTable tableName="default_dosage_instruction">
-            <column name="pk" type="bigint">
+            <column name="id" type="varchar(31)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="drug" type="varchar(31)"/>

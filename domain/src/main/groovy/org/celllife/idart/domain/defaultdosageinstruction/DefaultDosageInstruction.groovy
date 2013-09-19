@@ -2,6 +2,7 @@ package org.celllife.idart.domain.defaultdosageinstruction
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import org.celllife.idart.common.DefaultDosageInstructionId
 import org.celllife.idart.common.PartId
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 
@@ -11,10 +12,10 @@ import org.celllife.idart.domain.dosageinstruction.DosageInstruction
  * Time: 17h02
  */
 @ToString
-@EqualsAndHashCode(excludes = "pk")
+@EqualsAndHashCode(excludes = "id")
 class DefaultDosageInstruction implements Serializable {
 
-    Long pk
+    DefaultDosageInstructionId id
 
     PartId drug
 

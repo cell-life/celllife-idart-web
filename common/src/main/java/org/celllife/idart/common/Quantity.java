@@ -22,6 +22,15 @@ public class Quantity {
         return quantity;
     }
 
+    public static Quantity newQuantity(Double value, UnitOfMeasureCode unitOfMeasure) {
+
+        Quantity quantity = new Quantity();
+        quantity.value = new BigDecimal(value);
+        quantity.unitOfMeasure = unitOfMeasure;
+
+        return quantity;
+    }
+
     public Quantity() {
     }
 

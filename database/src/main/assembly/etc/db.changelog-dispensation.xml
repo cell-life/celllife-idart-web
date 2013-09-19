@@ -11,6 +11,8 @@
             </column>
             <column name="dispenser" type="varchar(31)"/>
             <column name="patient" type="varchar(31)"/>
+            <column name="facility" type="varchar(31)"/>
+            <column name="handed_over" type="datetime"/>
         </createTable>
 
         <createTable tableName="dispensed_medication">
@@ -21,11 +23,11 @@
             <column name="medication" type="varchar(31)"/>
             <column name="prepared_from_date" type="date"/>
             <column name="prepared_thru_date" type="date"/>
-            <column name="handed_over_from_date" type="date"/>
-            <column name="handed_over_thru_date" type="date"/>
             <column name="quantity" type="numeric"/>
             <column name="quantity_uom" type="varchar(31)"/>
             <column name="dosage_instruction" type="bigint"/>
+            <column name="expected_supply_duration" type="numeric"/>
+            <column name="expected_supply_duration_uom" type="varchar(31)"/>
         </createTable>
 
     </changeSet>

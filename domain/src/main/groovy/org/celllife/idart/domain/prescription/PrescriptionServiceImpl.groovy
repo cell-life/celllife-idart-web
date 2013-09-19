@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.prescription
 
+import org.celllife.idart.common.PrescribedMedicationId
 import org.celllife.idart.common.PrescriptionId
 
 import javax.inject.Inject
@@ -51,5 +52,12 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
         }
 
         prescription
+    }
+
+    @Override
+    PrescriptionId findByPrescribedMedication(PrescribedMedicationId prescribedMedication) {
+
+        prescriptionRepository.findByPrescribedMedication(prescribedMedication)
+
     }
 }

@@ -1,8 +1,7 @@
-package org.celllife.idart.application.prescription
+package org.celllife.idart.application.dispensation
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.celllife.idart.application.encounter.EncounterApplicationService
-import org.celllife.idart.application.encounter.dto.EncounterDto
+import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.DrugDto
@@ -12,15 +11,13 @@ import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.practitioner.PractitionerApplicationService
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
+import org.celllife.idart.application.prescription.PrescriptionApplicationService
 import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.application.product.ProductApplicationService
 import org.celllife.idart.application.product.dto.MedicationDto
-import org.celllife.idart.common.Identifier
-import org.celllife.idart.common.PractitionerType
-import org.celllife.idart.common.Quantity
-import org.celllife.idart.common.UnitOfMeasureCode
-import org.celllife.idart.common.UnitsOfMeasure
+import org.celllife.idart.common.*
 import org.celllife.idart.domain.counter.CounterRepository
+import org.celllife.idart.domain.dispensation.DispensationRepository
 import org.celllife.idart.domain.encounter.EncounterRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
 import org.celllife.idart.domain.part.PartRepository
@@ -55,7 +52,7 @@ import static org.celllife.idart.domain.part.PartClassificationApplications.part
  */
 @ContextConfiguration(classes = TestConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-class PrescriptionApplicationServiceIntegrationTest {
+class DispensationApplicationServiceIntegrationTest {
 
     @Inject ProductApplicationService productApplicationService
 
@@ -70,6 +67,10 @@ class PrescriptionApplicationServiceIntegrationTest {
     @Inject PrescriptionRepository prescriptionRepository
 
     @Inject PrescribedMedicationRepository prescribedMedicationRepository
+
+    @Inject DispensationApplicationService dispensationApplicationService
+
+    @Inject DispensationRepository dispensationRepository
 
     @Inject PractitionerApplicationService practitionerApplicationService
 
@@ -94,10 +95,9 @@ class PrescriptionApplicationServiceIntegrationTest {
 
         [counterRepository, identifiableRepository, personRepository, patientRepository,
                 practitionerRepository, encounterRepository, prescriptionRepository, prescribedMedicationRepository,
-                productRepository, partRepository].each { repository ->
+                dispensationRepository, productRepository, partRepository].each { repository ->
             ((CrudRepository) repository).deleteAll()
         }
-
     }
 
     @Test
@@ -196,6 +196,15 @@ class PrescriptionApplicationServiceIntegrationTest {
         prescription.identifiers = newIdentifiers("${System.currentTimeMillis()}")
 
         prescriptionApplicationService.save(prescription)
+
+        // ***************************************** Create Dispensation ********************************************
+
+        InputStream dispensationInputStream = getClass().getResourceAsStream("/data/dispensation/0000.json")
+        DispensationDto dispensation = objectMapper.readValue(dispensationInputStream, DispensationDto.class)
+
+        dispensation.identifiers = newIdentifiers("${System.currentTimeMillis()}")
+
+        dispensationApplicationService.save(dispensation)
 
         Thread.sleep(10000L)
     }

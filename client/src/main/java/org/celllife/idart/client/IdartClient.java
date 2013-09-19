@@ -1,5 +1,6 @@
 package org.celllife.idart.client;
 
+import org.celllife.idart.client.dispensation.Dispensation;
 import org.celllife.idart.client.encounter.Encounter;
 import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.partyrole.Patient;
@@ -23,6 +24,8 @@ public interface IdartClient {
     void saveProduct(Product product);
 
     void savePrescription(Prescription prescription);
+
+    void saveDispensation(Dispensation dispensation);
 
     List<Patient> getPatients(String patientIdValue);
 

@@ -15,17 +15,17 @@ class EncounterDto implements Serializable {
     /**
      * Participants
      */
-    Set<ParticipantDto> participants
+    Set<ParticipantDto> participants = [] as Set
 
     /**
      * Patient
      */
-    Set<Identifier> patient
+    Set<Identifier> patient = [] as Set
 
     /**
      * Location
      */
-    Set<Identifier> facility
+    Set<Identifier> facility = [] as Set
 
     /**
      * Started at

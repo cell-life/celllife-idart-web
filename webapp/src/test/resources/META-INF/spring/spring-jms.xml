@@ -11,10 +11,19 @@
             <camel:from uri="direct:defaultDosageInstructionEvent"/>
             <camel:to uri="stream:out" pattern="InOnly"/>
         </camel:route>
-
+        
         <camel:route>
             <camel:from uri="direct:dispensationEvent"/>
-            <camel:to uri="stream:out" pattern="InOnly"/>
+            <camel:multicast>
+                <camel:to uri="stream:out" pattern="InOnly"/>
+                <camel:to uri="direct:prehmisDispensationProvider" pattern="InOnly"/>
+            </camel:multicast>
+        </camel:route>
+
+        <camel:route>
+            <camel:from uri="direct:prehmisDispensationProvider"/>
+            <camel:unmarshal ref="dispensationEvent"/>
+            <camel:bean ref="prehmisDispensationProvider" method="save"/>
         </camel:route>
 
         <camel:route>
@@ -60,7 +69,7 @@
         <camel:route>
             <camel:from uri="direct:prescriptionEvent"/>
             <camel:multicast>
-                <!--<camel:to uri="stream:out" pattern="InOnly"/>-->
+                <camel:to uri="stream:out" pattern="InOnly"/>
                 <camel:to uri="direct:prehmisPrescriptionProvider" pattern="InOnly"/>
             </camel:multicast>
         </camel:route>

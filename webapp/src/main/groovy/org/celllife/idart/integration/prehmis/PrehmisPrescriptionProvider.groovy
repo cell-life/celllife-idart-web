@@ -15,6 +15,8 @@ import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionEvent
 import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.product.ProductService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 
 import javax.inject.Inject
@@ -24,6 +26,7 @@ import java.text.SimpleDateFormat
 import static org.celllife.idart.common.IdentifiableType.*
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.PartClassificationType.ATC
 import static org.celllife.idart.common.Systems.*
 import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
@@ -36,6 +39,8 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
  * Time: 15h17
  */
 @Named class PrehmisPrescriptionProvider implements PrescriptionProvider {
+
+    static final Logger LOGGER = LoggerFactory.getLogger(PrehmisPrescriptionProvider)
 
     static final SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
 
@@ -71,7 +76,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
         def encounter = encounterService.findByEncounterId(prescriptionEvent.prescription.encounter)
 
         def facilityIdentifiable =
-            identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB.id, encounter.facility.value)] as Set)
+            identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(encounter.facility.value))
 
         def prehmisFacilityIdentifier = getIdentifierValue(facilityIdentifiable.identifiers, PREHMIS.id)
         if (prehmisFacilityIdentifier == null) {
@@ -97,6 +102,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                     ]
             )
         } catch (Exception e) {
+            LOGGER.error(e.message, e)
             throw new PrescriptionNotSavedException(e.message)
         }
 
@@ -112,6 +118,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                     ]
             )
         } catch (Exception e) {
+            LOGGER.error(e.message, e)
             throw new PrescriptionNotSavedException(e.message)
         }
 
@@ -133,26 +140,26 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
         prescription.with {
 
             def prescriptionIdentifiable = identifiableService
-                    .resolveIdentifiable(PRESCRIBED_MEDICATION, [newIdentifier(IDART_WEB.id, prescription.id.value)] as Set)
+                    .resolveIdentifiable(PRESCRIBED_MEDICATION, newIdentifiers(prescription.id.value))
 
             prehmisPrescription.id = getIdentifierValue(prescriptionIdentifiable.identifiers, IDART_WEB.id)
 
             def patient = patientService.findByPatientId(prescription.patient)
             def patientIdentifiable = identifiableService
-                    .resolveIdentifiable(PATIENT, [newIdentifier(IDART_WEB.id, patient.id.value)] as Set)
+                    .resolveIdentifiable(PATIENT, newIdentifiers(patient.id.value))
 
             prehmisPrescription.prehmisPatientId = getIdentifierValue(patientIdentifiable?.identifiers, PREHMIS.id)
             prehmisPrescription.pgwcPatientNumber = getIdentifierValue(patientIdentifiable?.identifiers, PGWC.id)
 
             def person = personService.findByPersonId(patient.person)
             def personIdentifiable = identifiableService
-                    .resolveIdentifiable(PERSON, [newIdentifier(IDART_WEB.id, person.id.value)] as Set)
+                    .resolveIdentifiable(PERSON, newIdentifiers(person.id.value))
 
             prehmisPrescription.patientSaIdNumber = getIdentifierValue(personIdentifiable?.identifiers, SA_IDENTITY_NUMBER.id)
 
             def prescriber = practitionerService.findByPractitionerId(prescription.prescriber)
             def prescriberIdentifiable = identifiableService
-                    .resolveIdentifiable(PRACTITIONER, [newIdentifier(IDART_WEB.id, prescriber.id.value)] as Set)
+                    .resolveIdentifiable(PRACTITIONER, newIdentifiers(prescriber.id.value))
 
             prehmisPrescription.practitionerCode = getIdentifierValue(prescriberIdentifiable?.identifiers, PREHMIS.id)
 

@@ -150,7 +150,7 @@ class PractitionerApplicationServiceIntegrationTest {
     public void shouldSavePractitionerScenario2() throws Exception {
 
         def practitionerIdentifiers = [
-                newIdentifier(IDART_WEB.id, "00000000"),
+                newIdentifier("00000000"),
                 newIdentifier(systemId("00000001"), "00000002")
         ]
 

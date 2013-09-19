@@ -17,11 +17,11 @@ interface SystemFacilityRepository {
                                                          SystemFacility.Relationship relationship,
                                                          Date validDate)
 
-    Iterable<SystemFacility> findBySystemRelationshipValid(SystemId system,
-                                                           SystemFacility.Relationship relationship,
-                                                           Date validDate)
+    SystemFacility findBySystemRelationshipValid(SystemId system,
+                                                 SystemFacility.Relationship relationship,
+                                                 Date validDate)
 
-    Iterable<SystemFacility> findByFacilityRelationshipValid(FacilityId facility,
-                                                             SystemFacility.Relationship relationship,
-                                                             Date validDate)
+    SystemFacility findByFacilityRelationshipValid(FacilityId facility,
+                                                   SystemFacility.Relationship relationship,
+                                                   Date validDate)
 }

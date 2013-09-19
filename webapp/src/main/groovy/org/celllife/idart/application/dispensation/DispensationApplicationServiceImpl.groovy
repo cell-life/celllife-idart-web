@@ -3,10 +3,12 @@ package org.celllife.idart.application.dispensation
 import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.application.dispensation.dto.DispensationDtoAssembler
 import org.celllife.idart.common.DispensationId
+import org.celllife.idart.common.SystemId
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.domain.dispensation.DispensationService
+import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 
 import static org.celllife.idart.common.DispensationId.dispensationId
 import static org.celllife.idart.common.IdentifiableType.DISPENSATION
@@ -16,6 +18,8 @@ import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.inject.Inject
 import javax.inject.Named
+
+import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
 
 /**
  */
@@ -27,9 +31,21 @@ import javax.inject.Named
 
     @Inject IdentifiableService identifiableService
 
+    @Inject SystemFacilityService systemFacilityService
+
     @Override
     Boolean exists(DispensationId dispensationId) {
         dispensationService.exists(dispensationId)
+    }
+
+    @Override
+    DispensationId save(SystemId system, DispensationDto dispensationDto) {
+
+        def facility = systemFacilityService.findFacility(system, DEPLOYED_AT)
+
+        dispensationDto.facility << newIdentifier(facility.value)
+
+        save(dispensationDto)
     }
 
     @Override
@@ -50,7 +66,7 @@ import javax.inject.Named
 
     @Override
     DispensationDto findByDispensationId(DispensationId dispensationId) {
-        def identifier = newIdentifier(IDART_WEB.id, dispensationId.value)
+        def identifier = newIdentifier(dispensationId.value)
         findByIdentifier(identifier)
     }
 

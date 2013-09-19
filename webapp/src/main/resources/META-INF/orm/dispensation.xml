@@ -14,6 +14,9 @@
                     <column name="id"/>
                 </attribute-override>
             </embedded-id>
+            <basic name="handedOver">
+                <temporal>TIMESTAMP</temporal>
+            </basic>
             <element-collection name="dispensedMedications" fetch="EAGER">
                 <collection-table name="dispensed_medication"/>
             </element-collection>
@@ -25,6 +28,11 @@
             <embedded name="dispenser">
                 <attribute-override name="value">
                     <column name="dispenser"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="facility">
+                <attribute-override name="value">
+                    <column name="facility"/>
                 </attribute-override>
             </embedded>
         </attributes>
@@ -58,20 +66,20 @@
                     <column name="quantity_uom"/>
                 </attribute-override>
             </embedded>
-            <embedded name="handedOver">
-                <attribute-override name="fromDate">
-                    <column name="handed_over_from_date"/>
-                </attribute-override>
-                <attribute-override name="thruDate">
-                    <column name="handed_over_thru_date"/>
-                </attribute-override>
-            </embedded>
             <embedded name="prepared">
                 <attribute-override name="fromDate">
                     <column name="prepared_from_date"/>
                 </attribute-override>
                 <attribute-override name="thruDate">
                     <column name="prepared_thru_date"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="expectedSupplyDuration">
+                <attribute-override name="value">
+                    <column name="expected_supply_duration"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="expected_supply_duration_uom"/>
                 </attribute-override>
             </embedded>
         </attributes>

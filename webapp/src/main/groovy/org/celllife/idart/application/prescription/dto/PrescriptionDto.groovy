@@ -1,5 +1,6 @@
 package org.celllife.idart.application.prescription.dto
 
+import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.application.prescribedmedication.dto.PrescribedMedicationDto
 import org.celllife.idart.common.Identifier
 
@@ -33,7 +34,7 @@ class PrescriptionDto implements Serializable {
     /**
      * During
      */
-    Set<Identifier> encounter
+    EncounterDto encounter
 
     /**
      * Contains

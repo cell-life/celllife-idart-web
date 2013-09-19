@@ -12,6 +12,7 @@ import static org.celllife.idart.common.DefaultDosageInstructionId.defaultDosage
 import static org.celllife.idart.common.IdentifiableType.DEFAULT_DOSAGE_INSTRUCTION
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.inject.Inject
@@ -50,7 +51,7 @@ import javax.inject.Named
 
     @Override
     DefaultDosageInstructionDto findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) {
-        def identifier = newIdentifier(IDART_WEB.id, defaultDosageInstructionId.value)
+        def identifier = newIdentifier(defaultDosageInstructionId.value)
         findByIdentifier(identifier)
     }
 

@@ -14,7 +14,7 @@ public interface SystemFacilityService {
 
     void save(SystemId system, FacilityId facility, SystemFacility.Relationship relationship)
 
-    Iterable<FacilityId> findFacilities(SystemId system, SystemFacility.Relationship relationship)
+    FacilityId findFacility(SystemId system, SystemFacility.Relationship relationship)
 
-    Iterable<SystemId> findSystems(FacilityId facilityId, SystemFacility.Relationship relationship)
+    SystemId findSystem(FacilityId facilityId, SystemFacility.Relationship relationship)
 }

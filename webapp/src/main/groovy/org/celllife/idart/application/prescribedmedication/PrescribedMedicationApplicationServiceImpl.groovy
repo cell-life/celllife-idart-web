@@ -50,7 +50,7 @@ import javax.inject.Named
 
     @Override
     PrescribedMedicationDto findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) {
-        def identifier = newIdentifier(IDART_WEB.id, prescribedMedicationId.value)
+        def identifier = newIdentifier(prescribedMedicationId.value)
         findByIdentifier(identifier)
     }
 

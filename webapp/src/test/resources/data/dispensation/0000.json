@@ -1,5 +1,5 @@
 {
-    "prescriber": [
+    "dispenser": [
         {
             "system": "PREHMIS",
             "value": "715"
@@ -15,30 +15,35 @@
             "value": "1"
         }
     ],
-    "encounter": {
-        "facility" : [
-            {
-                "system": "PREHMIS",
-                "value": "WES"
-            }
-        ],
-        "startedAt": "2013-01-01"
-    },
-    "dateWritten": "2013-01-01",
-    "prescribedMedications": [
+    "facility": [
         {
-            "identifiers": [
-                {
-                    "system": "IDART_WEB",
-                    "value": "99999999"
-                }
-            ],
+            "system": "PREHMIS",
+            "value": "WES"
+        },
+        {
+            "system": "IDART_WEB",
+            "value": "00001"
+        }
+    ],
+    "handedOver": "2013-01-01",
+    "dispensedMedications": [
+        {
             "medication": [
                 {
                     "system": "IDART_WEB",
                     "value": "Abacavir 20mg/ml 240ml"
                 }
             ],
+            "authorizingPrescribedMedication": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "99999999"
+                }
+            ],
+            "quantity": {
+                "value": 100,
+                "unitOfMeasure": "each"
+            },
             "dosageInstruction": {
                 "doseQuantity": {
                     "value": 100,
@@ -57,10 +62,6 @@
             "expectedSupplyDuration": {
                 "value": 4,
                 "unitOfMeasure": "wk"
-            },
-            "reasonForPrescribing": "Because I said so",
-            "valid": {
-                "thruDate": "2015-01-01"
             }
         }
     ]

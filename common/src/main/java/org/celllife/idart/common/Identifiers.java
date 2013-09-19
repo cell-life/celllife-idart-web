@@ -11,6 +11,11 @@ import java.util.Set;
  */
 public final class Identifiers implements Serializable {
 
+    public static Identifier newIdentifier(String value) {
+
+        return newIdentifier(Systems.IDART_WEB.id, value);
+    }
+
     public static Identifier newIdentifier(SystemId system, String value) {
 
         Identifier identifier = new Identifier();
@@ -37,5 +42,9 @@ public final class Identifiers implements Serializable {
         identifiers.add(newIdentifier(system, value));
 
         return identifiers;
+    }
+
+    public static Set<Identifier> newIdentifiers(String value) {
+        return newIdentifiers(Systems.IDART_WEB.id, value);
     }
 }

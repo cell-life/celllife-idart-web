@@ -5,7 +5,6 @@ import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.application.practitioner.dto.PractitionerDtoAssembler
 import org.celllife.idart.common.*
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.practitioner.PractitionerNotFoundException
 import org.celllife.idart.domain.practitioner.PractitionerService
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
@@ -15,12 +14,13 @@ import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.common.Systems.IDART_WEB
-import static org.celllife.idart.common.PractitionerId.practitionerId
 import static IdentifiableType.FACILITY
 import static IdentifiableType.PRACTITIONER
 import static Identifiers.getIdentifierValue
 import static Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
+import static org.celllife.idart.common.PractitionerId.practitionerId
+import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.common.Systems.PREHMIS
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.celllife.idart.relationship.practitionerorganisation.PractitionerOrganisation.Relationship.CONTRACTED_BY
@@ -102,7 +102,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Override
     PractitionerDto findByPractitionerId(PractitionerId practitionerId) {
 
-        findByIdentifier(newIdentifier(IDART_WEB.id, practitionerId.value))
+        findByIdentifier(newIdentifier(practitionerId.value))
     }
 
     @Override
@@ -151,9 +151,11 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
     Set<PractitionerDto> findBySystem(SystemId system) {
 
-        systemFacilityService.findFacilities(system, DEPLOYED_AT)
-                .collect { facility -> findByFacility(facility) }
-                .flatten()
+        def facility = systemFacilityService.findFacility(system, DEPLOYED_AT)
+
+        def practitioners = findByFacility(facility)
+
+        practitioners
     }
 
     Set<PractitionerDto> findByPerson(PersonId personId) {
@@ -175,7 +177,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
     Set<PractitionerDto> lookupFromExternalProviders(FacilityId facility) {
 
-        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, [newIdentifier(IDART_WEB.id, facility.value)] as Set)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(facility.value))
 
         def practitioners = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 

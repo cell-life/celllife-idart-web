@@ -23,6 +23,6 @@ import static org.celllife.idart.common.Systems.IDART_WEB
     @Override
     Identifier nextValue(IdentifiableType type) {
         def value = counterService.getNextValue(type.toString())
-        return Identifiers.newIdentifier(IDART_WEB.id, String.format("%08d", value))
+        return Identifiers.newIdentifier(String.format("%08d", value))
     }
 }

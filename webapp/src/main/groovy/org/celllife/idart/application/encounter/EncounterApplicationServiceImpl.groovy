@@ -50,7 +50,7 @@ import javax.inject.Named
 
     @Override
     EncounterDto findByEncounterId(EncounterId encounterId) {
-        def identifier = newIdentifier(IDART_WEB.id, encounterId.value)
+        def identifier = newIdentifier(encounterId.value)
         findByIdentifier(identifier)
     }
 

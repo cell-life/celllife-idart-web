@@ -50,7 +50,7 @@ import javax.inject.Named
 
     @Override
     FacilityDto findByFacilityId(FacilityId facilityId) {
-        def identifier = newIdentifier(IDART_WEB.id, facilityId.value)
+        def identifier = newIdentifier(facilityId.value)
         findByIdentifier(identifier)
     }
 

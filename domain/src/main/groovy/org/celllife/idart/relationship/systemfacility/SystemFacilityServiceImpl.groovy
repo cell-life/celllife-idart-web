@@ -42,18 +42,20 @@ import static org.celllife.idart.common.Period.newPeriod
     }
 
     @Override
-    Iterable<FacilityId> findFacilities(SystemId system, SystemFacility.Relationship relationship) {
+    FacilityId findFacility(SystemId system, SystemFacility.Relationship relationship) {
 
-        systemFacilityRepository
+        def systemFacility = systemFacilityRepository
                 .findBySystemRelationshipValid(system, relationship, new Date())
-                .collect { systemFacility -> systemFacility.facility }
+
+        systemFacility?.facility
     }
 
     @Override
-    Iterable<SystemId> findSystems(FacilityId facilityId, SystemFacility.Relationship relationship) {
+    SystemId findSystem(FacilityId facilityId, SystemFacility.Relationship relationship) {
 
-        systemFacilityRepository
+        def systemFacility = systemFacilityRepository
                 .findByFacilityRelationshipValid(facilityId, relationship, new Date())
-                .collect { systemFacility -> systemFacility.system }
+
+        systemFacility?.system
     }
 }

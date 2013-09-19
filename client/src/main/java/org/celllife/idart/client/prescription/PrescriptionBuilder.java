@@ -1,5 +1,6 @@
 package org.celllife.idart.client.prescription;
 
+import org.celllife.idart.client.encounter.Encounter;
 import org.celllife.idart.common.SystemId;
 
 import java.util.Date;
@@ -24,51 +25,46 @@ public final class PrescriptionBuilder {
     }
 
     public PrescriptionBuilder setIdentifier(String value) {
-        this.prescription.identifiers.add(newIdentifier(systemId, value));
+        this.prescription.getIdentifiers().add(newIdentifier(systemId, value));
         return this;
     }
 
     public PrescriptionBuilder setPatient(String value) {
-        this.prescription.patient.add(newIdentifier(systemId, value));
+        this.prescription.getPatient().add(newIdentifier(systemId, value));
         return this;
     }
 
     public PrescriptionBuilder setPatient(SystemId systemId, String value) {
-        this.prescription.patient.add(newIdentifier(systemId, value));
+        this.prescription.getPatient().add(newIdentifier(systemId, value));
         return this;
     }
 
     public PrescriptionBuilder setPrescriber(String value) {
-        this.prescription.prescriber.add(newIdentifier(systemId, value));
+        this.prescription.getPrescriber().add(newIdentifier(systemId, value));
         return this;
     }
 
     public PrescriptionBuilder setPrescriber(SystemId systemId, String value) {
-        this.prescription.prescriber.add(newIdentifier(systemId, value));
+        this.prescription.getPrescriber().add(newIdentifier(systemId, value));
         return this;
     }
 
-    public PrescriptionBuilder setEncounter(String value) {
-        this.prescription.encounter.add(newIdentifier(systemId, value));
+    public PrescriptionBuilder setEncounter(Encounter encounter) {
+        this.prescription.setEncounter(encounter);
         return this;
     }
 
     public PrescriptionBuilder setDateWritten(Date dateWritten) {
-        this.prescription.dateWritten = dateWritten;
+        this.prescription.setDateWritten(dateWritten);
         return this;
     }
 
     public PrescriptionBuilder addPrescribedMedication(PrescribedMedication prescribedMedication) {
-        this.prescription.prescribedMedications.add(prescribedMedication);
+        this.prescription.getPrescribedMedications().add(prescribedMedication);
         return this;
     }
 
     public Prescription finishPrescription() {
         return this.prescription;
-    }
-
-    public PrescriptionBuilder addIdentifier(SystemId systemId, String value) {
-        this.prescription.identifiers.add(newIdentifier(systemId, value));
-        return this;
     }
 }

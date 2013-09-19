@@ -1,5 +1,8 @@
 package org.celllife.idart.client;
 
+import org.celllife.idart.client.dispensation.Dispensation;
+import org.celllife.idart.client.dispensation.DispensationBuilder;
+import org.celllife.idart.client.dispensation.DispensedMedicationBuilder;
 import org.celllife.idart.client.encounter.Encounter;
 import org.celllife.idart.client.encounter.EncounterBuilder;
 import org.celllife.idart.client.part.Compound;
@@ -14,6 +17,7 @@ import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
 import org.celllife.idart.client.product.*;
 import org.celllife.idart.common.PartClassificationType;
+import org.celllife.idart.common.Quantity;
 import org.celllife.idart.common.UnitsOfMeasure;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,6 +28,7 @@ import java.util.List;
 
 import static org.celllife.idart.common.Identifiers.newIdentifiers;
 import static org.celllife.idart.common.Label.label;
+import static org.celllife.idart.common.Quantity.newQuantity;
 import static org.celllife.idart.common.SystemId.systemId;
 import static org.celllife.idart.common.Systems.*;
 
@@ -131,14 +136,15 @@ public class SmokeTest {
 
         // ********************************************************************************************************
 
+        String prescribedMedicationIdentifier = System.currentTimeMillis() + "";
+
         Prescription prescription = new PrescriptionBuilder(systemId)
-                .addIdentifier(systemId("99999999"), System.currentTimeMillis() + "")
+                .setIdentifier(System.currentTimeMillis() + "")
                 .setPatient(PGWC.id, "72254311")
                 .setPrescriber(PREHMIS.id, "1299")
-                .setEncounter("00000001")
                 .setDateWritten(new Date())
                 .addPrescribedMedication(newPrescribedMedication(systemId)
-                        .setId(System.currentTimeMillis() + "")
+                        .setId(prescribedMedicationIdentifier)
                         .setMedication("00000001")
                         .setReasonForPrescribing("Because I said so")
                         .setValid(null, new Date())
@@ -151,11 +157,33 @@ public class SmokeTest {
 
         idartClient.savePrescription(prescription);
 
-        System.out.println(((IdartClientSingleton) idartClient).mapToJson(prescription));
+        // ********************************************************************************************************
+
+        Dispensation dispensation = new DispensationBuilder(systemId)
+                .setIdentifier(System.currentTimeMillis() + "")
+                .setPatient(PGWC.id, "72254311")
+                .setDispenser(PREHMIS.id, "1299")
+                .setHandedOver(new Date())
+                .addDispensedMedication(newDispensedMedication(systemId)
+                        .setAuthorizingPrescribedMedication(prescribedMedicationIdentifier)
+                        .setQuantity(newQuantity(100.0, UnitsOfMeasure.each.code))
+                        .setMedication("00000001")
+                        .setExpectedSupplyDuration(4, UnitsOfMeasure.wk.code)
+                        .setDosageQuantity(1d, UnitsOfMeasure.each.code)
+                        .repeat(2)
+                        .every(1, UnitsOfMeasure.d.code)
+                        .finishPrescribedMedication())
+                .finishPrescription();
+
+        idartClient.saveDispensation(dispensation);
     }
 
     private static PrescribedMedicationBuilder newPrescribedMedication(String clinicId) {
         return new PrescribedMedicationBuilder(clinicId);
+    }
+
+    private static DispensedMedicationBuilder newDispensedMedication(String clinicId) {
+        return new DispensedMedicationBuilder(clinicId);
     }
 
     private static BillOfMaterialsItemBuilder newBillOfMaterialsItem() {

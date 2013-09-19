@@ -5,6 +5,7 @@ import org.celllife.idart.application.person.dto.PersonDtoAssembler
 import org.celllife.idart.common.UnitsOfMeasure
 import org.junit.Test
 
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.common.Gender.MALE
 import static org.celllife.idart.common.MaritalStatus.MARRIED
@@ -31,7 +32,7 @@ class PatientDtoAssemblerTest {
 
         def personDto = new PersonDto()
         personDto.with {
-            identifiers = [newIdentifier(IDART_WEB.id, "00000")]
+            identifiers = newIdentifiers("00000")
             firstName = "Geoff"
             middleNames = "Ernest"
             lastName = "Vader"

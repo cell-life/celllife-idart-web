@@ -39,7 +39,7 @@ import javax.inject.Named
 
         def existingPartId = findMatchingPart(partDto)
         if (existingPartId != null) {
-            partDto.identifiers << newIdentifier(IDART_WEB.id, existingPartId.value)
+            partDto.identifiers << newIdentifier(existingPartId.value)
         }
 
         def identifiable = identifiableService.resolveIdentifiable(PART, partDto.identifiers)
@@ -68,7 +68,7 @@ import javax.inject.Named
 
     @Override
     PartDto findByPartId(PartId partId) {
-        def identifier = newIdentifier(IDART_WEB.id, partId.value)
+        def identifier = newIdentifier(partId.value)
         findByIdentifier(identifier)
     }
 

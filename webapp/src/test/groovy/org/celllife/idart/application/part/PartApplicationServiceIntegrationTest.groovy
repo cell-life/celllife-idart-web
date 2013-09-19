@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import javax.inject.Inject
 
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.PartType.COMPOUND
 import static org.celllife.idart.common.PartType.DRUG
 import static org.celllife.idart.common.Systems.IDART_WEB
@@ -48,13 +49,13 @@ class PartApplicationServiceIntegrationTest {
 
         def compoundDto = new CompoundDto()
         compoundDto.with {
-            identifiers = Identifiers.newIdentifiers(IDART_WEB, "99999999")
+            identifiers = newIdentifiers("99999999")
         }
         partApplicationService.save(compoundDto)
 
         def drugDto = new DrugDto()
         drugDto.with {
-            identifiers = Identifiers.newIdentifiers(IDART_WEB, "99999998")
+            identifiers = newIdentifiers("99999998")
         }
         partApplicationService.save(drugDto)
 

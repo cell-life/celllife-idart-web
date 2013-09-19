@@ -12,12 +12,15 @@ import org.apache.commons.httpclient.auth.BasicScheme;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.celllife.idart.client.dispensation.Dispensation;
 import org.celllife.idart.client.encounter.Encounter;
 import org.celllife.idart.client.part.Part;
 import org.celllife.idart.client.partyrole.Patient;
 import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.product.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +33,8 @@ import java.util.List;
  * Time: 19h22
  */
 public final class IdartClientSingleton implements IdartClient {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(IdartClientSingleton.class);
 
     private static IdartClient instance;
 
@@ -91,18 +96,31 @@ public final class IdartClientSingleton implements IdartClient {
         postToUrl(prescription, String.format("%s/prescriptions", idartWebUrl));
     }
 
+    @Override
+    public void saveDispensation(Dispensation dispensation) {
+
+        postToUrl(dispensation, String.format("%s/dispensations", idartWebUrl));
+    }
+
     private void postToUrl(Object object, String url) {
 
-        PostMethod postPart = new PostMethod(url);
+        PostMethod postMethod = new PostMethod(url);
 
-        postPart.setRequestEntity(getStringRequestEntity(object));
+        postMethod.setRequestEntity(getStringRequestEntity(object));
 
-        decorateMethodWithAuth(postPart);
-        decorateMethodWithContentType(postPart);
+        decorateMethodWithAuth(postMethod);
+        decorateMethodWithContentType(postMethod);
 
-        int status = executeMethod(postPart);
+        int status = executeMethod(postMethod);
 
         if (status != HttpStatus.SC_CREATED) {
+
+            try {
+                LOGGER.error(postMethod.getResponseBodyAsString());
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+
             throw new RuntimeException();
         }
     }

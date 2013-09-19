@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.prescription
 
+import org.celllife.idart.common.PrescribedMedicationId
 import org.celllife.idart.common.PrescriptionId
 
 
@@ -13,4 +14,5 @@ public interface PrescriptionService {
 
     Prescription findByPrescriptionId(PrescriptionId prescriptionId)
 
+    PrescriptionId findByPrescribedMedication(PrescribedMedicationId prescribedMedication)
 }

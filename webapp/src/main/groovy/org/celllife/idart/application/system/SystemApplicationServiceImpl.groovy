@@ -50,7 +50,7 @@ import javax.inject.Named
 
     @Override
     SystemDto findBySystemId(SystemId systemId) {
-        def identifier = newIdentifier(IDART_WEB.id, systemId.value)
+        def identifier = newIdentifier(systemId.value)
         findByIdentifier(identifier)
     }
 
