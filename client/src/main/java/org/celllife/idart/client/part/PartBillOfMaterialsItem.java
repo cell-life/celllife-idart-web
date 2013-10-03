@@ -1,6 +1,8 @@
 package org.celllife.idart.client.part;
 
 import org.celllife.idart.common.Identifier;
+import org.celllife.idart.common.PartBillOfMaterialsType;
+import org.celllife.idart.common.Period;
 import org.celllife.idart.common.Quantity;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -13,16 +15,11 @@ import java.util.Set;
  * Date: 2013-06-16
  * Time: 18h34
  */
+public class PartBillOfMaterialsItem {
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
-@JsonSubTypes({
-        @JsonSubTypes.Type(name = "engineering", value = EngineeringPartBillOfMaterialsItem.class)
-})
-public abstract class PartBillOfMaterialsItem {
+    private PartBillOfMaterialsType type;
 
-    private Date fromDate;
-
-    private Date thruDate;
+    private Period valid;
 
     private Set<Identifier> part;
 
@@ -35,20 +32,20 @@ public abstract class PartBillOfMaterialsItem {
     public PartBillOfMaterialsItem() {
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public PartBillOfMaterialsType getType() {
+        return type;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
+    public void setType(PartBillOfMaterialsType type) {
+        this.type = type;
     }
 
-    public Date getThruDate() {
-        return thruDate;
+    public Period getValid() {
+        return valid;
     }
 
-    public void setThruDate(Date thruDate) {
-        this.thruDate = thruDate;
+    public void setValid(Period valid) {
+        this.valid = valid;
     }
 
     public Set<Identifier> getPart() {

@@ -31,7 +31,7 @@ public class PartyRoleSerializationTest {
     public void shouldUnmarshalPatient() throws Exception {
 
         InputStream inputStream = getClass().getResourceAsStream("/data/patients/0001.json");
-        PartyRole partyRole = objectMapper.reader(PartyRole.class).readValue(inputStream);
+        Patient partyRole = objectMapper.reader(Patient.class).readValue(inputStream);
 
         Assert.assertNotNull(partyRole);
         Assert.assertNotNull(partyRole.identifiers);
@@ -55,7 +55,7 @@ public class PartyRoleSerializationTest {
     public void shouldUnmarshalPractitioners() throws Exception {
 
         InputStream inputStream = getClass().getResourceAsStream("/data/practitioners/0001.json");
-        List<PartyRole> partyRoles = objectMapper.reader(new TypeReference<List<PartyRole>>() {
+        List<Practitioner> partyRoles = objectMapper.reader(new TypeReference<List<Practitioner>>() {
         }).readValue(inputStream);
 
         for (PartyRole partyRole : partyRoles) {

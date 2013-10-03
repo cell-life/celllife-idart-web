@@ -98,7 +98,7 @@ public final class DispensedMedicationBuilder implements Serializable {
         return getDosageInstructions().getTiming();
     }
 
-    public DispensedMedication finishPrescribedMedication() {
+    public DispensedMedication finishDispensedMedication() {
         return dispensedMedication;
     }
 

@@ -4,7 +4,7 @@ import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
 
-import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
+import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
 
 /**
  * User: Kevin W. Sewell

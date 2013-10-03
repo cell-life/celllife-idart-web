@@ -42,7 +42,7 @@ import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.Label.label
 import static org.celllife.idart.common.PartClassificationType.ATC
 import static org.celllife.idart.common.Systems.*
-import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
+import static PartBillOfMaterialsType.ENGINEERING
 import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
 
 /**

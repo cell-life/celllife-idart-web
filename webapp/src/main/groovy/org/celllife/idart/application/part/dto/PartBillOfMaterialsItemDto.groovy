@@ -3,7 +3,7 @@ package org.celllife.idart.application.part.dto
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.Identifier
-import org.celllife.idart.domain.part.PartBillOfMaterialsType
+import org.celllife.idart.common.PartBillOfMaterialsType
 
 /**
  * User: Kevin W. Sewell

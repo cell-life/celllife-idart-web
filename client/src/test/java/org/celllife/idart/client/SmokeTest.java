@@ -17,7 +17,6 @@ import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
 import org.celllife.idart.client.product.*;
 import org.celllife.idart.common.PartClassificationType;
-import org.celllife.idart.common.Quantity;
 import org.celllife.idart.common.UnitsOfMeasure;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +28,6 @@ import java.util.List;
 import static org.celllife.idart.common.Identifiers.newIdentifiers;
 import static org.celllife.idart.common.Label.label;
 import static org.celllife.idart.common.Quantity.newQuantity;
-import static org.celllife.idart.common.SystemId.systemId;
 import static org.celllife.idart.common.Systems.*;
 
 /**
@@ -172,8 +170,8 @@ public class SmokeTest {
                         .setDosageQuantity(1d, UnitsOfMeasure.each.code)
                         .repeat(2)
                         .every(1, UnitsOfMeasure.d.code)
-                        .finishPrescribedMedication())
-                .finishPrescription();
+                        .finishDispensedMedication())
+                .finishDispensation();
 
         idartClient.saveDispensation(dispensation);
     }

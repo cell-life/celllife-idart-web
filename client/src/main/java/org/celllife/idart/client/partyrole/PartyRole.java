@@ -2,6 +2,7 @@ package org.celllife.idart.client.partyrole;
 
 import org.celllife.idart.client.person.Person;
 import org.celllife.idart.common.Identifier;
+import org.celllife.idart.common.Period;
 import org.celllife.idart.common.SystemId;
 
 import java.io.Serializable;
@@ -16,13 +17,11 @@ import java.util.Set;
  */
 public abstract class PartyRole implements Serializable {
 
-    public Person person;
-
     public Set<Identifier> identifiers = new HashSet<Identifier>();
 
-    public Date fromDate;
+    public Period valid;
 
-    public Date thruDate;
+    public Person person;
 
     public PartyRole() {
     }

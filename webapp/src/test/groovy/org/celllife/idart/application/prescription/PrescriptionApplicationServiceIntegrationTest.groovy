@@ -1,8 +1,6 @@
 package org.celllife.idart.application.prescription
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.celllife.idart.application.encounter.EncounterApplicationService
-import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.DrugDto
@@ -45,7 +43,7 @@ import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.Label.label
 import static org.celllife.idart.common.PartClassificationType.ATC
 import static org.celllife.idart.common.Systems.*
-import static org.celllife.idart.domain.part.PartBillOfMaterialsType.ENGINEERING
+import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
 import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
 
 /**

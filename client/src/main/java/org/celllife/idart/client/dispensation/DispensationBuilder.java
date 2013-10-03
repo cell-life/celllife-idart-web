@@ -15,56 +15,56 @@ import static org.celllife.idart.common.SystemId.systemId;
  */
 public final class DispensationBuilder {
 
-    private Dispensation prescription;
+    private Dispensation dispensation;
 
     private SystemId systemId;
 
     public DispensationBuilder(String systemId) {
-        this.prescription = new Dispensation();
+        this.dispensation = new Dispensation();
         this.systemId = systemId(systemId);
     }
 
     public DispensationBuilder setIdentifier(String value) {
-        this.prescription.setIdentifiers(newIdentifiers(systemId, value));
+        this.dispensation.setIdentifiers(newIdentifiers(systemId, value));
         return this;
     }
 
     public DispensationBuilder setPatient(String value) {
-        this.prescription.setPatient(newIdentifiers(systemId, value));
+        this.dispensation.setPatient(newIdentifiers(systemId, value));
         return this;
     }
 
     public DispensationBuilder setPatient(SystemId systemId, String value) {
-        this.prescription.setPatient(newIdentifiers(systemId, value));
+        this.dispensation.setPatient(newIdentifiers(systemId, value));
         return this;
     }
 
     public DispensationBuilder setDispenser(String value) {
-        this.prescription.setDispenser(newIdentifiers(systemId, value));
+        this.dispensation.setDispenser(newIdentifiers(systemId, value));
         return this;
     }
 
     public DispensationBuilder setDispenser(SystemId systemId, String value) {
-        this.prescription.setDispenser(newIdentifiers(systemId, value));
+        this.dispensation.setDispenser(newIdentifiers(systemId, value));
         return this;
     }
 
     public DispensationBuilder setEncounter(String value) {
-        this.prescription.setFacility(newIdentifiers(systemId, value));
+        this.dispensation.setFacility(newIdentifiers(systemId, value));
         return this;
     }
 
     public DispensationBuilder setHandedOver(Date handedOver) {
-        this.prescription.setHandedOver(handedOver);
+        this.dispensation.setHandedOver(handedOver);
         return this;
     }
 
     public DispensationBuilder addDispensedMedication(DispensedMedication dispensedMedication) {
-        this.prescription.getDispensedMedications().add(dispensedMedication);
+        this.dispensation.getDispensedMedications().add(dispensedMedication);
         return this;
     }
 
-    public Dispensation finishPrescription() {
-        return this.prescription;
+    public Dispensation finishDispensation() {
+        return this.dispensation;
     }
 }

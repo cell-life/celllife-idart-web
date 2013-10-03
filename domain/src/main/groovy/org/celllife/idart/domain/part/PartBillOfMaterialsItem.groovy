@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.common.PartBillOfMaterialsType
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Quantity

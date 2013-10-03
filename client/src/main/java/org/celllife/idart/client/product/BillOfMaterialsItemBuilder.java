@@ -1,13 +1,15 @@
 package org.celllife.idart.client.product;
 
-import org.celllife.idart.client.part.EngineeringPartBillOfMaterialsItem;
 import org.celllife.idart.client.part.PartBillOfMaterialsItem;
 import org.celllife.idart.common.Identifier;
+import org.celllife.idart.common.PartBillOfMaterialsType;
 import org.celllife.idart.common.Quantity;
 import org.celllife.idart.common.UnitOfMeasureCode;
 
 import java.math.BigDecimal;
 import java.util.Set;
+
+import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING;
 
 /**
  * User: Kevin W. Sewell
@@ -16,10 +18,11 @@ import java.util.Set;
  */
 public class BillOfMaterialsItemBuilder {
 
-    private final EngineeringPartBillOfMaterialsItem engineeringPartBillOfMaterialsItem;
+    private final PartBillOfMaterialsItem partBillOfMaterialsItem;
 
     public BillOfMaterialsItemBuilder() {
-        this.engineeringPartBillOfMaterialsItem = new EngineeringPartBillOfMaterialsItem();
+        this.partBillOfMaterialsItem = new PartBillOfMaterialsItem();
+        this.partBillOfMaterialsItem.setType(ENGINEERING);
     }
 
     public BillOfMaterialsItemBuilder setQuantity(int quantity, UnitOfMeasureCode unitOfMeasure) {
@@ -27,16 +30,16 @@ public class BillOfMaterialsItemBuilder {
         quantityUsed.setValue(new BigDecimal(quantity));
         quantityUsed.setUnitOfMeasure(unitOfMeasure);
 
-        this.engineeringPartBillOfMaterialsItem.setQuantityUsed(quantityUsed);
+        this.partBillOfMaterialsItem.setQuantityUsed(quantityUsed);
         return this;
     }
 
     public PartBillOfMaterialsItem finishBillOfMaterialsItem() {
-        return engineeringPartBillOfMaterialsItem;
+        return partBillOfMaterialsItem;
     }
 
     public BillOfMaterialsItemBuilder addPart(Set<Identifier> part) {
-        this.engineeringPartBillOfMaterialsItem.setPart(part);
+        this.partBillOfMaterialsItem.setPart(part);
         return this;
     }
 }
