@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
-<project name="idart-database" default="update" basedir="."
+<project name="idart-database" default="schema-update" basedir="."
          xmlns:liquibase="antlib:org.liquibase.ant">
+	
+    <property environment="env"/>
 
     <property file="${basedir}/build.properties"/>
-    <property file="${basedir}/jdbc.properties"/>
+    <property file="${env.IDARTWEB_APPLICATION_PROPERTIES}"/>
 
     <property name="etc.path" value="${basedir}/etc"/>
     <property name="lib.path" value="${basedir}/lib"/>
