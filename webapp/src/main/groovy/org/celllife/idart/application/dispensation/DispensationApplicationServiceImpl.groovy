@@ -3,29 +3,35 @@ package org.celllife.idart.application.dispensation
 import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.application.dispensation.dto.DispensationDtoAssembler
 import org.celllife.idart.common.DispensationId
-import org.celllife.idart.common.SystemId
-import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.SystemId
+import org.celllife.idart.domain.dispensation.Dispensation
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.domain.dispensation.DispensationService
+import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.relationship.systemfacility.SystemFacilityService
-
-import static org.celllife.idart.common.DispensationId.dispensationId
-import static org.celllife.idart.common.IdentifiableType.DISPENSATION
-import static org.celllife.idart.common.Identifiers.newIdentifier
-import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.Systems.IDART_WEB
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import javax.inject.Inject
 import javax.inject.Named
 
+import static org.celllife.idart.common.DispensationId.dispensationId
+import static org.celllife.idart.common.IdentifiableType.DISPENSATION
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Systems.IDART_WEB
 import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
 
 /**
  */
 @Named class DispensationApplicationServiceImpl implements DispensationApplicationService {
 
-    @Inject DispensationService dispensationService   
+    static final Logger LOGGER = LoggerFactory.getLogger(DispensationApplicationServiceImpl)
+
+    @Inject DispensationService dispensationService
+
+    @Inject List<DispensationProvider> dispensationProviders
 
     @Inject DispensationDtoAssembler dispensationDtoAssembler
 
@@ -61,7 +67,19 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         dispensationService.save(dispensation)
 
+        postToThirdPartyProviders(dispensation)
+
         dispensation.id
+    }
+
+    void postToThirdPartyProviders(Dispensation dispensation) {
+        dispensationProviders.each { dispensationProvider ->
+            try {
+                dispensationProvider.save(dispensation)
+            } catch (DispensationNotSavedException e) {
+                LOGGER.error(e.message, e)
+            }
+        }
     }
 
     @Override

@@ -1,0 +1,60 @@
+{
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "1380829240461"
+        }
+    ],
+    "patient": [
+        {
+            "system": "PGWC",
+            "value": "72254311"
+        }
+    ],
+    "dispenser": [
+        {
+            "system": "PREHMIS",
+            "value": "1299"
+        }
+    ],
+    "handedOver": 1380829240461,
+    "dispensedMedications": [
+        {
+            "medication": [
+                {
+                    "system": "99999999",
+                    "value": "00000001"
+                }
+            ],
+            "quantity": {
+                "value": 100,
+                "unitOfMeasure": "each"
+            },
+            "dosageInstruction": {
+                "timing": {
+                    "repeat": {
+                        "frequency": 2,
+                        "duration": {
+                            "value": 1,
+                            "unitOfMeasure": "d"
+                        }
+                    }
+                },
+                "doseQuantity": {
+                    "value": 1,
+                    "unitOfMeasure": "each"
+                }
+            },
+            "expectedSupplyDuration": {
+                "value": 4,
+                "unitOfMeasure": "wk"
+            },
+            "authorizingPrescribedMedication": [
+                {
+                    "system": "99999999",
+                    "value": "1380829240228"
+                }
+            ]
+        }
+    ]
+}

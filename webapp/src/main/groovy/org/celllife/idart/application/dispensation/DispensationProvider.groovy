@@ -1,6 +1,6 @@
 package org.celllife.idart.application.dispensation
 
-import org.celllife.idart.domain.dispensation.DispensationEvent
+import org.celllife.idart.domain.dispensation.Dispensation
 
 /**
  * User: Kevin W. Sewell
@@ -9,6 +9,6 @@ import org.celllife.idart.domain.dispensation.DispensationEvent
  */
 public interface DispensationProvider {
 
-    void save(DispensationEvent dispensationEvent)
+    void save(Dispensation dispensation)
 
 }

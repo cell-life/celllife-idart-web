@@ -30,11 +30,11 @@ import javax.inject.Named
                 )
             }
 
-            if (encounterDto.patient != null) {
+            if (encounterDto.patient != null && !encounterDto.patient.empty) {
                 patient = patientApplicationService.findByIdentifiers(encounterDto.patient)
             }
 
-            if (encounterDto.facility != null) {
+            if (encounterDto.facility != null && !encounterDto.facility.empty) {
                 facility = facilityApplicationService.findByIdentifiers(encounterDto.facility)
             }
 

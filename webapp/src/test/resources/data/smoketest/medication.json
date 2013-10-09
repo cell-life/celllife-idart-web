@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000001"
+        }
+    ],
+    "name": "[ABC] Abacavir 300mg",
+    "drug": [
+        {
+            "system": "99999999",
+            "value": "00000001"
+        }
+    ]
+}

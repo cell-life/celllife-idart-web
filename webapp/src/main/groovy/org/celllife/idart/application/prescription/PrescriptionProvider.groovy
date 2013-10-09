@@ -1,6 +1,6 @@
 package org.celllife.idart.application.prescription
 
-import org.celllife.idart.domain.prescription.PrescriptionEvent
+import org.celllife.idart.domain.prescription.Prescription
 
 /**
  * User: Kevin W. Sewell
@@ -9,6 +9,6 @@ import org.celllife.idart.domain.prescription.PrescriptionEvent
  */
 interface PrescriptionProvider {
 
-    void save(PrescriptionEvent prescriptionEvent)
+    void save(Prescription prescription)
 
 }

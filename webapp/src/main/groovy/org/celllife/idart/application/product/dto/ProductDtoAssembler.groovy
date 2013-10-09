@@ -27,8 +27,12 @@ import javax.inject.Named
 
         def medication = new Medication()
         medication.with {
+
             name = medicationDto.name
-            drug = partApplicationService.findByIdentifiers(medicationDto.drug)
+
+            if (medicationDto.drug != null && !medicationDto.drug.empty) {
+                drug = partApplicationService.findByIdentifiers(medicationDto.drug)
+            }
         }
 
         medication
@@ -37,7 +41,7 @@ import javax.inject.Named
     ProductDto toProductDto(Product product) {
 
         switch (product.class) {
-            case MedicationDto:
+            case Medication:
                 return toMedicationDto(product as Medication)
             default:
                 throw new UnsupportedProductType(product.class)
@@ -48,8 +52,12 @@ import javax.inject.Named
 
         def medicationDto = new MedicationDto()
         medicationDto.with {
+
             name = medication.name
-            drug = partApplicationService.findByPartId(medicationDto.drug).identifiers
+
+            if (medicationDto.drug != null) {
+                drug = partApplicationService.findByPartId(medication.drug)?.identifiers
+            }
         }
 
         medicationDto

@@ -1,0 +1,34 @@
+{
+    "type": "DRUG",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000002"
+        }
+    ],
+    "label": "Abacavir 300mg",
+    "form": "CAP",
+    "classifications": [
+        {
+            "classification": {
+                "value": "J05AF06",
+                "type": "ATC"
+            }
+        }
+    ],
+    "billOfMaterials": [
+        {
+            "type": "ENGINEERING",
+            "part": [
+                {
+                    "system": "99999999",
+                    "value": "Abacavir"
+                }
+            ],
+            "quantityUsed": {
+                "value": 300,
+                "unitOfMeasure": "mg"
+            }
+        }
+    ]
+}

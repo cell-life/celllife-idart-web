@@ -1,0 +1,60 @@
+{
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "1380829240229"
+        }
+    ],
+    "prescriber": [
+        {
+            "system": "PREHMIS",
+            "value": "1299"
+        }
+    ],
+    "patient": [
+        {
+            "system": "PGWC",
+            "value": "72254311"
+        }
+    ],
+    "dateWritten": 1380829240229,
+    "prescribedMedications": [
+        {
+            "identifiers": [
+                {
+                    "system": "99999999",
+                    "value": "1380829240228"
+                }
+            ],
+            "medication": [
+                {
+                    "system": "99999999",
+                    "value": "00000001"
+                }
+            ],
+            "reasonForPrescribing": "Because I said so",
+            "valid": {
+                "thruDate": 1380829240229
+            },
+            "expectedSupplyDuration": {
+                "value": 4,
+                "unitOfMeasure": "wk"
+            },
+            "dosageInstruction": {
+                "timing": {
+                    "repeat": {
+                        "frequency": 2,
+                        "duration": {
+                            "value": 1,
+                            "unitOfMeasure": "d"
+                        }
+                    }
+                },
+                "doseQuantity": {
+                    "value": 1,
+                    "unitOfMeasure": "each"
+                }
+            }
+        }
+    ]
+}
