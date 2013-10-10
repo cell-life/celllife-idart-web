@@ -5,13 +5,10 @@ import org.celllife.idart.application.dispensation.dto.DispensationDtoAssembler
 import org.celllife.idart.common.DispensationId
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.SystemId
-import org.celllife.idart.domain.dispensation.Dispensation
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.domain.dispensation.DispensationService
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.relationship.systemfacility.SystemFacilityService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 import javax.inject.Inject
 import javax.inject.Named
@@ -27,11 +24,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
  */
 @Named class DispensationApplicationServiceImpl implements DispensationApplicationService {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(DispensationApplicationServiceImpl)
-
     @Inject DispensationService dispensationService
-
-    @Inject List<DispensationProvider> dispensationProviders
 
     @Inject DispensationDtoAssembler dispensationDtoAssembler
 
@@ -67,19 +60,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         dispensationService.save(dispensation)
 
-        postToThirdPartyProviders(dispensation)
-
         dispensation.id
-    }
-
-    void postToThirdPartyProviders(Dispensation dispensation) {
-        dispensationProviders.each { dispensationProvider ->
-            try {
-                dispensationProvider.save(dispensation)
-            } catch (DispensationNotSavedException e) {
-                LOGGER.error(e.message, e)
-            }
-        }
     }
 
     @Override

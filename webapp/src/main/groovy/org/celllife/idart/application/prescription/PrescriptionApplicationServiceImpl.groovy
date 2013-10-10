@@ -1,6 +1,5 @@
 package org.celllife.idart.application.prescription
 
-import org.celllife.idart.application.dispensation.DispensationNotSavedException
 import org.celllife.idart.application.encounter.EncounterApplicationService
 import org.celllife.idart.application.encounter.dto.EncounterDto
 import org.celllife.idart.application.prescribedmedication.PrescribedMedicationApplicationService
@@ -9,14 +8,10 @@ import org.celllife.idart.application.prescription.dto.PrescriptionDtoAssembler
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.PrescriptionId
 import org.celllife.idart.common.SystemId
-import org.celllife.idart.domain.dispensation.Dispensation
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionNotFoundException
 import org.celllife.idart.domain.prescription.PrescriptionService
 import org.celllife.idart.relationship.systemfacility.SystemFacilityService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 import javax.inject.Inject
 import javax.inject.Named
@@ -32,15 +27,11 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
  */
 @Named class PrescriptionApplicationServiceImpl implements PrescriptionApplicationService {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(PrescriptionApplicationServiceImpl)
-
     @Inject PrescriptionService prescriptionService
 
     @Inject PrescribedMedicationApplicationService prescribedMedicationApplicationService
 
     @Inject PrescriptionDtoAssembler prescriptionDtoAssembler
-
-    @Inject List<PrescriptionProvider> prescriptionProviders
 
     @Inject IdentifiableService identifiableService
 
@@ -84,19 +75,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         prescriptionService.save(prescription)
 
-        postToThirdPartyProviders(prescription)
-
         prescription.id
-    }
-
-    void postToThirdPartyProviders(Prescription prescription) {
-        prescriptionProviders.each { prescriptionProvider ->
-            try {
-                prescriptionProvider.save(prescription)
-            } catch (PrescriptionNotSavedException e) {
-                LOGGER.error(e.message, e)
-            }
-        }
     }
 
     @Override
