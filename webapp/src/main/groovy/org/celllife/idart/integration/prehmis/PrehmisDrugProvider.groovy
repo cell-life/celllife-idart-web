@@ -33,7 +33,7 @@ import static org.springframework.util.Assert.notNull
 
     RESTClient prehmisRestClient
 
-	@Loggable(LogLevel.DEBUG)
+	@Loggable(LogLevel.INFO)
     def findAll(String clinicIdValue) {
 
         String getDrugListRequest = buildGetDrugListRequest(

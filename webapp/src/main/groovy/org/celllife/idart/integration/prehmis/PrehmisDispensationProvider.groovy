@@ -69,7 +69,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     @Inject PartService partService
 
     @Override
-	@Loggable(LogLevel.DEBUG)
+	@Loggable(LogLevel.INFO)
     void save(DispensationEvent dispensationEvent) {
 
         def facilityIdentifiable = identifiableService

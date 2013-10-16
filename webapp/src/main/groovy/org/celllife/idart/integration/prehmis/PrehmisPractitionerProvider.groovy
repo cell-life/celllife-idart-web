@@ -33,7 +33,7 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
-	@Loggable(LogLevel.DEBUG)
+	@Loggable(LogLevel.INFO)
     Set<PractitionerDto> findAll(String clinicIdValue) {
 
         String getPractitionerListRequest = buildGetPractitionerListRequest(

@@ -36,7 +36,7 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
-	@Loggable(LogLevel.DEBUG)
+	@Loggable(LogLevel.INFO)
     Set<PatientDto> findByIdentifier(String clinicIdentifierValue, String patientIdentifierValue) {
 
         Set<PatientDto> patients = []
