@@ -5,6 +5,8 @@ import groovyx.net.http.RESTClient
 import org.celllife.idart.application.practitioner.PractitionerProvider
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.domain.practitioner.Practitioner
+import org.celllife.idart.framework.aspectj.LogLevel
+import org.celllife.idart.framework.aspectj.Loggable
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -31,6 +33,7 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
+	@Loggable(LogLevel.DEBUG)
     Set<PractitionerDto> findAll(String clinicIdValue) {
 
         String getPractitionerListRequest = buildGetPractitionerListRequest(

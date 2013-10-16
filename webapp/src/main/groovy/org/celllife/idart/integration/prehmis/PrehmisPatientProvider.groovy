@@ -4,6 +4,8 @@ import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.patient.PatientProvider
 import org.celllife.idart.application.patient.dto.PatientDto
+import org.celllife.idart.framework.aspectj.LogLevel
+import org.celllife.idart.framework.aspectj.Loggable
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -34,6 +36,7 @@ import static org.springframework.util.Assert.notNull
     RESTClient prehmisRestClient
 
     @Override
+	@Loggable(LogLevel.DEBUG)
     Set<PatientDto> findByIdentifier(String clinicIdentifierValue, String patientIdentifierValue) {
 
         Set<PatientDto> patients = []

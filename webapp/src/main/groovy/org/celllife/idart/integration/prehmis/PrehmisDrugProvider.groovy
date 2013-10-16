@@ -1,5 +1,8 @@
 package org.celllife.idart.integration.prehmis
 
+import org.celllife.idart.framework.aspectj.LogLevel
+import org.celllife.idart.framework.aspectj.Loggable
+
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.springframework.beans.factory.InitializingBean
@@ -30,6 +33,7 @@ import static org.springframework.util.Assert.notNull
 
     RESTClient prehmisRestClient
 
+	@Loggable(LogLevel.DEBUG)
     def findAll(String clinicIdValue) {
 
         String getDrugListRequest = buildGetDrugListRequest(

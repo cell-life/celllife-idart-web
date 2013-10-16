@@ -15,6 +15,8 @@ import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionEvent
 import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.product.ProductService
+import org.celllife.idart.framework.aspectj.LogLevel
+import org.celllife.idart.framework.aspectj.Loggable
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -71,6 +73,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     @Inject PartService partService
 
     @Override
+	@Loggable(LogLevel.DEBUG)
     void save(PrescriptionEvent prescriptionEvent) {
 
         def encounter = encounterService.findByEncounterId(prescriptionEvent.prescription.encounter)
