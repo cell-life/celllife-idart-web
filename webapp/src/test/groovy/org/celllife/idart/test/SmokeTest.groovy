@@ -18,6 +18,7 @@ import org.celllife.idart.application.system.SystemApplicationService
 import org.celllife.idart.application.system.dto.SystemDto
 import org.celllife.idart.application.systemfacility.SystemFacilityApplicationService
 import org.celllife.idart.application.systemfacility.dto.SystemFacilityDto
+import org.celllife.idart.common.Systems
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,6 +26,8 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 import javax.inject.Inject
+
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 
 /**
  * User: Kevin W. Sewell
@@ -124,6 +127,7 @@ class SmokeTest {
 
         def prescriptionInputStream = getClass().getResourceAsStream("/data/smoketest/prescription.json")
         def prescription = objectMapper.readValue(prescriptionInputStream, PrescriptionDto)
+        prescription.identifiers = newIdentifiers(Systems.IDART_WEB.id, "${System.currentTimeMillis()}")
 
         def prescriptionId = prescriptionApplicationService.save(systemId, prescription)
 
@@ -135,6 +139,7 @@ class SmokeTest {
 
         def dispensationInputStream = getClass().getResourceAsStream("/data/smoketest/dispensation.json")
         def dispensation = objectMapper.readValue(dispensationInputStream, DispensationDto)
+        dispensation.identifiers = newIdentifiers(Systems.IDART_WEB.id, "${System.currentTimeMillis()}")
 
         def dispensationId = dispensationApplicationService.save(systemId, dispensation)
 

@@ -39,13 +39,18 @@ import static org.celllife.idart.common.PatientId.patientId
                 "FROM patient patient, " +
                 "  identifiable_identifiers patient_idart_id, " +
                 "  identifiable_identifiers patient_external_id, " +
+                "  identifiable_identifiers person_idart_id, " +
+                "  identifiable_identifiers person_external_id, " +
                 "  patient_organisation patient_organisation, " +
                 "  organisation organisation " +
                 "WHERE patient.id = patient_idart_id.value " +
-                "      AND patient_idart_id.system = :idartSystem " +
                 "      AND patient_external_id.identifiable = patient_idart_id.identifiable " +
-                "      AND lower(patient_external_id.value) like :patientIdentifier  " +
+                "      AND person_external_id.identifiable = person_idart_id.identifiable " +
                 "      AND patient_organisation.patient = patient.id " +
+                "      AND patient_idart_id.system = :idartSystem " +
+                "      AND lower(patient_external_id.value) like :patientIdentifier  " +
+                "      AND person_idart_id.system = :idartSystem " +
+                "      AND lower(person_external_id.value) like :patientIdentifier  " +
                 "      AND patient_organisation.organisation = :organisation" +
                 "      AND patient_organisation.relationship = :relationship"
 

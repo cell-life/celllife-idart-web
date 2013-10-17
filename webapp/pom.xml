@@ -19,6 +19,16 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
+
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>${project.basedir}/../etc</directory>
+            </testResource>
+        </testResources>
+
         <plugins>
 
             <plugin>
