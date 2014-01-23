@@ -77,6 +77,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             }
 
             // Scenario 1 - Both Patient and Person exists
+            personDto.identifiers << newIdentifier(IDART_WEB.id, person.value)
             patient.person = personApplicationService.save(personDto)
             patient = patientService.save(patient)
 
