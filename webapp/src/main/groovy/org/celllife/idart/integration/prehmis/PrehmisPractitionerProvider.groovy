@@ -22,13 +22,20 @@ import static org.springframework.util.Assert.notNull
  */
 @Service class PrehmisPractitionerProvider implements PractitionerProvider, InitializingBean {
 
-    @Value('${prehmis.endpoint.url}') String prehmisEndpointUrl
+	@Value('${prehmis.endpoint.baseUrl}')
+	String prehmisEndpointBaseUrl
+	
+    @Value('${prehmis.endpoint.url}')
+	String prehmisEndpointUrl
 
-    @Value('${prehmis.username}') String prehmisUsername
+    @Value('${prehmis.username}')
+	String prehmisUsername
 
-    @Value('${prehmis.password}') String prehmisPassword
+    @Value('${prehmis.password}')
+	String prehmisPassword
 
-    @Value('${prehmis.applicationKey}') String prehmisApplicationKey
+    @Value('${prehmis.applicationKey}')
+	String prehmisApplicationKey
 
     RESTClient prehmisRestClient
 
@@ -48,7 +55,7 @@ import static org.springframework.util.Assert.notNull
                 contentType: ContentType.XML,
                 requestContentType: ContentType.XML,
                 headers: [
-                        SOAPAction: "http://prehmis-qa.capetown.gov.za/getPractitionerList"
+                        SOAPAction: prehmisEndpointBaseUrl + "/getPractitionerList"
                 ]
         )
 

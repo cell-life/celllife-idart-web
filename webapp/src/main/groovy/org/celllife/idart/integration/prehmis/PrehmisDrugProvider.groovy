@@ -19,6 +19,9 @@ import static org.springframework.util.Assert.notNull
  */
 @Service class PrehmisDrugProvider implements InitializingBean {
 
+	@Value('${prehmis.endpoint.baseUrl}')
+	String prehmisEndpointBaseUrl
+	
     @Value('${prehmis.endpoint.url}')
     String prehmisEndpointUrl
 
@@ -48,7 +51,7 @@ import static org.springframework.util.Assert.notNull
                 contentType: ContentType.XML,
                 requestContentType: ContentType.XML,
                 headers: [
-                        SOAPAction: "http://prehmis-qa.capetown.gov.za/getDrugList"
+                        SOAPAction: prehmisEndpointBaseUrl + "/getDrugList"
                 ]
         )
 

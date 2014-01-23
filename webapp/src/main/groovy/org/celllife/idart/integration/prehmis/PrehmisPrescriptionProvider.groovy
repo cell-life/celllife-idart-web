@@ -46,15 +46,23 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
     static final SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
 
-    static final PREHMIS_NAMESPACE = 'http://prehmis-qa.capetown.gov.za/'
+    @Value('${prehmis.endpoint.baseUrl}')
+	String PREHMIS_NAMESPACE;
 
-    @Value('${prehmis.endpoint.url}') String prehmisEndpointUrl
+	@Value('${prehmis.endpoint.baseUrl}')
+	String prehmisEndpointBaseUrl
 
-    @Value('${prehmis.username}') String prehmisUsername
+    @Value('${prehmis.endpoint.url}')
+	String prehmisEndpointUrl
 
-    @Value('${prehmis.password}') String prehmisPassword
+    @Value('${prehmis.username}')
+	String prehmisUsername
 
-    @Value('${prehmis.applicationKey}') String prehmisApplicationKey
+    @Value('${prehmis.password}')
+	String prehmisPassword
+
+    @Value('${prehmis.applicationKey}')
+	String prehmisApplicationKey
 
     @Inject IdentifiableService identifiableService
 
@@ -101,7 +109,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                     contentType: ContentType.XML,
                     requestContentType: ContentType.XML,
                     headers: [
-                            SOAPAction: "http://prehmis-qa.capetown.gov.za/apiLogin"
+                            SOAPAction: prehmisEndpointBaseUrl + "/apiLogin"
                     ]
             )
         } catch (Exception e) {
@@ -117,7 +125,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                     contentType: ContentType.XML,
                     requestContentType: ContentType.XML,
                     headers: [
-                            SOAPAction: "http://prehmis-qa.capetown.gov.za/storePrescription"
+                            SOAPAction: prehmisEndpointBaseUrl + "/storePrescription"
                     ]
             )
         } catch (Exception e) {
