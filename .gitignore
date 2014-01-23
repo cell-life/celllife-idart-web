@@ -1,10 +1,24 @@
-*.ipr
-*.iws
-*.iml
-.idea
-target
-.settings
+# Eclipse Files
 .classpath
+.project
+.settings
+
+#IntelliJ Files
+.idea/
+*.iml
+*.iws
+
+# Maven files
+target
+
+# OS generated files 
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 **/.sass-cache/**
 **/webapp/resources/bower_components/**
