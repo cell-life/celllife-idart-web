@@ -38,10 +38,10 @@ public class PartyRoleSerializationTest {
         Assert.assertTrue(partyRole.identifiers.size() != 0);
         Assert.assertNotNull(partyRole.person);
         Assert.assertTrue(partyRole.person.identifiers.size() != 0);
-        Assert.assertEquals("MIHLALI", partyRole.person.firstName);
-        Assert.assertEquals("PAPU", partyRole.person.lastName);
-        Assert.assertEquals(Gender.FEMALE, partyRole.person.gender);
-        Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2006-06-02"), partyRole.person.birthDate);
+        Assert.assertEquals("AEIGHT", partyRole.person.firstName);
+        Assert.assertEquals("TEST", partyRole.person.lastName);
+        Assert.assertEquals(Gender.MALE, partyRole.person.gender);
+        Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("1981-01-01"), partyRole.person.birthDate);
 
         for (PartyContactMechanism contactMechanism : partyRole.person.contactMechanisms) {
             if (contactMechanism.contactMechanism instanceof MobileTelephoneNumber) {
