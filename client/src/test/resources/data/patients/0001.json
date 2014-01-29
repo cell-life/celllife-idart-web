@@ -27,7 +27,6 @@
         "lastName": "TEST",
         "gender": "MALE",
         "birthDate": 347148000000,
-        "measurements": [],
         "contactMechanisms": []
     }
 }
