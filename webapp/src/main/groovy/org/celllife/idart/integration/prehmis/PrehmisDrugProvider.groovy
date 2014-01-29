@@ -1,23 +1,24 @@
 package org.celllife.idart.integration.prehmis
 
+import static org.celllife.idart.integration.prehmis.builder.AtcCodeBuilder.buildAtcCodes
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetDrugListRequest
+import static org.springframework.util.Assert.notNull
+import groovyx.net.http.ContentType
+import groovyx.net.http.HttpResponseDecorator
+import groovyx.net.http.RESTClient
+
+import org.celllife.idart.application.part.DrugProvider
 import org.celllife.idart.framework.aspectj.LogLevel
 import org.celllife.idart.framework.aspectj.Loggable
-
-import groovyx.net.http.ContentType
-import groovyx.net.http.RESTClient
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetDrugListRequest
-import static org.springframework.util.Assert.notNull
-
 /**
- * User: Kevin W. Sewell
- * Date: 2013-04-25
- * Time: 15h17
+ * PREMIS implementation of the DrugProvider interface. Used to retrieve a druglist from PREHMIS
+ * in order to synch ATC codes with iDART.
  */
-@Service class PrehmisDrugProvider implements InitializingBean {
+@Service class PrehmisDrugProvider implements DrugProvider, InitializingBean {
 
 	@Value('${prehmis.endpoint.baseUrl}')
 	String prehmisEndpointBaseUrl
@@ -55,7 +56,7 @@ import static org.springframework.util.Assert.notNull
                 ]
         )
 
-        return getDrugResponse
+        return buildAtcCodes(getDrugResponse)
     }
 
     @Override
