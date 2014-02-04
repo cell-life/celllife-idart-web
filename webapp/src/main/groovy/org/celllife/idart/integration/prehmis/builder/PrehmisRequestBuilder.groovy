@@ -2,12 +2,17 @@ package org.celllife.idart.integration.prehmis.builder
 
 import groovy.text.SimpleTemplateEngine
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-04-25
  * Time: 15h28
  */
 class PrehmisRequestBuilder {
+	
+	static final Logger LOGGER = LoggerFactory.getLogger(PrehmisRequestBuilder)
 
     static engine = new SimpleTemplateEngine()
 
@@ -40,7 +45,9 @@ class PrehmisRequestBuilder {
         def inputStream = PrehmisRequestBuilder.class.getResourceAsStream(templateFilename)
         def inputStreamReader = new InputStreamReader(inputStream)
         def template = engine.createTemplate(inputStreamReader).make(args)
-
-        template.toString()
+		
+        String xml = template.toString() 
+        LOGGER.info("Prehmis template: '"+templateFilename+"' XML: "+xml)
+        return xml
     }
 }
