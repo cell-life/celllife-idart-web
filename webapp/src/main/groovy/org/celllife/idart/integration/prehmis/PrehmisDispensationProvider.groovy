@@ -128,13 +128,15 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
         }
 
         def envelope = storeDispensationResponse.data
+		
+        LOGGER.info("PREHMIS response: "+envelope)
 
         envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
 
         String result = envelope.'soap:Body'.'prehmis:storeDispensationResponse'.result
 
         if (!result.equals("Dispensation saved")) {
-            throw new DispensationNotSavedException(result)
+            throw new DispensationNotSavedException("Error: "+envelope)
         }
     }
 

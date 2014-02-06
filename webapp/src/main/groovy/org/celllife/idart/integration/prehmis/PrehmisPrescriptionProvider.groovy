@@ -132,15 +132,18 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
             LOGGER.error(e.message, e)
             throw new PrescriptionNotSavedException(e.message)
         }
+		
 
         def envelope = storePrescriptionResponse.data
+		
+        LOGGER.info("PREHMIS response: "+envelope)
 
         envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
 
         String result = envelope.'soap:Body'.'prehmis:storePrescriptionResponse'.result
 
         if (!result.equals("Prescription saved")) {
-            throw new PrescriptionNotSavedException(result)
+            throw new PrescriptionNotSavedException("Error: "+envelope)
         }
     }
 
@@ -183,7 +186,6 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                     def prescribedMedication =
                         prescribedMedicationService.findByPrescribedMedicationId(prescribedMedicationId)
 
-                    prescribedMedication
                     if (prehmisPrescription.endDate == null) {
                         prehmisPrescription.endDate = toPrehmisDate(prescribedMedication.valid?.thruDate)
                     }

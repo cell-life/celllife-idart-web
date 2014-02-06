@@ -47,7 +47,7 @@ class PrehmisRequestBuilder {
         def template = engine.createTemplate(inputStreamReader).make(args)
 		
         String xml = template.toString() 
-        LOGGER.info("Prehmis template: '"+templateFilename+"' XML: "+xml)
+        LOGGER.info("PREHMIS request. template: '"+templateFilename+"' XML: "+xml)
         return xml
     }
 }
