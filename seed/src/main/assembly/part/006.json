@@ -1,33 +1,12 @@
 {
-    "type": "DRUG",
+    "type": "COMPOUND",
     "identifiers": [
         {
             "system": "IDART_WEB",
             "value": "99999994"
         }
     ],
-    "billOfMaterials": [
-        {
-            "type": "ENGINEERING",
-            "fromDate": "2013-01-01",
-            "part": [
-                {
-                    "system": "IDART_WEB",
-                    "value": "99999995"
-                }
-            ],
-            "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "60"
-
-            }
-        }
-    ],
-    "classifications": [
-        {
-            "code": "J05AF01",
-            "type": "ATC"
-        }
-    ],
-    "unitOfMeasure": "each"
+    "label": "Ganciclovir",
+    "unitOfMeasure": "mg"
 }
+

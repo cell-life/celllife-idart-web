@@ -1,0 +1,11 @@
+{
+    "type": "COMPOUND",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "9999948"
+        }
+    ],
+    "label": "Maribavir",
+    "unitOfMeasure": "mg"
+}

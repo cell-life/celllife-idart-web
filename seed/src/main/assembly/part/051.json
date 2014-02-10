@@ -1,0 +1,11 @@
+{
+    "type": "COMPOUND",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "9999949"
+        }
+    ],
+    "label": "Maraviroc",
+    "unitOfMeasure": "mg"
+}

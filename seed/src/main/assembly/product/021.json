@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000021"
+        }
+    ],
+    "name": "[LPV/RTV] Kaletra 133.3/33.3 mg",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "00000042"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "type": "DRUG",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "00000013"
+        }
+    ],
+    "billOfMaterials": [
+        {
+            "part": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "99999959"
+                }
+            ],
+            "quantityUsed": {
+                "unitOfMeasure": "mg",
+                "value": "50"
+
+            }
+        }
+    ],
+    "classifications": [
+    	{
+    		"classification": {
+    			"value":"J05AG03",
+    			"type":"ATC"
+    		}
+    	}
+    ],
+    "form": "CAP",
+    "unitOfMeasure": "each"
+}

@@ -1,0 +1,11 @@
+{
+    "type": "COMPOUND",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999972"
+        }
+    ],
+    "label": "Didanosine",
+    "unitOfMeasure": "mg"
+}

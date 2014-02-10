@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999991"
+            "system": "99999999",
+            "value": "00000009"
         }
     ],
-    "name": "Abacavir 300mg (60 Tablets)",
+    "name": "[3TC] Lamivudine 10mg/ml",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999982"
+            "value": "00000018"
         }
     ]
 }

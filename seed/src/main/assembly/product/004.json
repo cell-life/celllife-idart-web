@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999996"
+            "system": "99999999",
+            "value": "00000004"
         }
     ],
-    "name": "Stavudine 15mg (60 Tablets)",
+    "name": "[DDI] Didanosine 25mg",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999992"
+            "value": "00000008"
         }
     ]
 }

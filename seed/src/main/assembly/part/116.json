@@ -1,0 +1,34 @@
+{
+    "type": "DRUG",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "00000017"
+        }
+    ],
+    "billOfMaterials": [
+        {
+            "part": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "99999969"
+                }
+            ],
+            "quantityUsed": {
+                "unitOfMeasure": "mg/mL",
+                "value": "10"
+
+            }
+        }
+    ],
+    "classifications": [
+    	{
+    		"classification": {
+    			"value":"J05AF05",
+    			"type":"ATC"
+    		}
+    	}
+    ],
+    "form": "SYRUP",
+    "unitOfMeasure": "each"
+}

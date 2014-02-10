@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999998"
+            "system": "99999999",
+            "value": "00000002"
         }
     ],
-    "name": "Zidovudine 10mg/ml (200 ml)",
+    "name": "[ABC] Abacavir 300mg",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999996"
+            "value": "00000004"
         }
     ]
 }

@@ -1,0 +1,32 @@
+{
+    "type": "DRUG",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "00000016"
+        }
+    ],
+    "billOfMaterials": [
+        {
+            "part": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "00000015"
+                }
+            ],
+            "quantityUsed": {
+                "unitOfMeasure": "each",
+                "value": "30"
+
+            }
+        }
+    ],
+    "classifications": [
+    	{
+    		"classification": {
+    			"value":"J05AG03",
+    			"type":"ATC"
+    		}
+    	}
+    ]
+}

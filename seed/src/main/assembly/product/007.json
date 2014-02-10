@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999993"
+            "system": "99999999",
+            "value": "00000007"
         }
     ],
-    "name": "Stavudine 30mg (60 Tablets)",
+    "name": "[EFV] Efavirenz 50mg",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999986"
+            "value": "00000014"
         }
     ]
 }

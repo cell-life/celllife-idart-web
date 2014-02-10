@@ -1,33 +1,11 @@
 {
-    "type": "DRUG",
+    "type": "COMPOUND",
     "identifiers": [
         {
             "system": "IDART_WEB",
             "value": "99999990"
         }
     ],
-    "billOfMaterials": [
-        {
-            "type": "ENGINEERING",
-            "fromDate": "2013-01-01",
-            "part": [
-                {
-                    "system": "IDART_WEB",
-                    "value": "99999991"
-                }
-            ],
-            "quantityUsed": {
-                "unitOfMeasure": "mL",
-                "value": "200"
-
-            }
-        }
-    ],
-    "classifications": [
-        {
-            "code": "J05AF04",
-            "type": "ATC"
-        }
-    ],
-    "unitOfMeasure": "each"
+    "label": "Penciclovir",
+    "unitOfMeasure": "mg"
 }

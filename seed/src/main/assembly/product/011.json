@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000011"
+        }
+    ],
+    "name": "[NVP] Nevirapine 200mg",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "00000022"
+        }
+    ]
+}

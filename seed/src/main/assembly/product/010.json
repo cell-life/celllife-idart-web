@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999990"
+            "system": "99999999",
+            "value": "00000010"
         }
     ],
-    "name": "Tenofovir 300mg (30 Tablets)",
+    "name": "[3TC] Lamivudine 150mg",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999980"
+            "value": "00000020"
         }
     ]
 }

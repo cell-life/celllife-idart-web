@@ -1,0 +1,11 @@
+{
+    "type": "COMPOUND",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999966"
+        }
+    ],
+    "label": "Adefovir dipivoxil",
+    "unitOfMeasure": "mg"
+}

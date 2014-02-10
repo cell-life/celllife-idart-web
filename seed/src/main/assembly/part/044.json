@@ -1,0 +1,11 @@
+{
+    "type": "COMPOUND",
+    "identifiers": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999956"
+        }
+    ],
+    "label": "Oseltamivir",
+    "unitOfMeasure": "mg"
+}

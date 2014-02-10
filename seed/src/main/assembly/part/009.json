@@ -1,34 +1,11 @@
 {
-    "type": "DRUG",
+    "type": "COMPOUND",
     "identifiers": [
         {
             "system": "IDART_WEB",
             "value": "99999991"
         }
     ],
-    "billOfMaterials": [
-        {
-            "type": "ENGINEERING",
-            "fromDate": "2013-01-01",
-            "part": [
-                {
-                    "system": "IDART_WEB",
-                    "value": "99999978"
-                }
-            ],
-            "quantityUsed": {
-                "unitOfMeasure": "mg",
-                "value": "1"
-
-            }
-        }
-    ],
-    "classifications": [
-        {
-            "code": "J05AF04",
-            "type": "ATC"
-        }
-    ],
-    "form": "SYRUP",
-    "unitOfMeasure": "mL"
+    "label": "Cidofovir",
+    "unitOfMeasure": "mg"
 }

@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999997"
+            "system": "99999999",
+            "value": "00000003"
         }
     ],
-    "name": "Zidovudine 300mg (60 Tablets)",
+    "name": "[TDF] Tenofovir 300mg",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999994"
+            "value": "00000006"
         }
     ]
 }

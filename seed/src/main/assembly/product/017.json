@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000017"
+        }
+    ],
+    "name": "[D4T] Stavudine 30mg",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "00000034"
+        }
+    ]
+}

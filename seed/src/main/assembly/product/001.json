@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999999"
+            "system": "99999999",
+            "value": "00000001"
         }
     ],
-    "name": "Zidovudine 100mg (100 Tablets)",
+    "name": "[ABC] Abacavir 20mg/ml",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999998"
+            "value": "00000002"
         }
     ]
 }

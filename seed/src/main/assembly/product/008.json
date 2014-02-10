@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999992"
+            "system": "99999999",
+            "value": "00000008"
         }
     ],
-    "name": "Abacavir 20mg/ml (240ml)",
+    "name": "[EFV] Efavirenz 600mg",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999984"
+            "value": "00000016"
         }
     ]
 }

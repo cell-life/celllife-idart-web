@@ -1,34 +1,11 @@
 {
-    "type": "DRUG",
+    "type": "COMPOUND",
     "identifiers": [
         {
             "system": "IDART_WEB",
             "value": "99999981"
         }
     ],
-    "billOfMaterials": [
-        {
-            "type": "ENGINEERING",
-            "fromDate": "2013-01-01",
-            "part": [
-                {
-                    "system": "IDART_WEB",
-                    "value": "99999976"
-                }
-            ],
-            "quantityUsed": {
-                "unitOfMeasure": "mg",
-                "value": "300"
-
-            }
-        }
-    ],
-    "classifications": [
-        {
-            "code": "J05AF07",
-            "type": "ATC"
-        }
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    "label": "Ritonavir",
+    "unitOfMeasure": "mg"
 }

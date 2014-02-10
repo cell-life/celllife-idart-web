@@ -2,15 +2,16 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "IDART_WEB",
-            "value": "99999995"
+            "system": "99999999",
+            "value": "00000005"
         }
     ],
-    "name": "Stavudine 1mg/ml (200 ml)",
+    "name": "[DDI] Didanosine 50mg",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999990"
+            "value": "00000010"
         }
     ]
 }
+

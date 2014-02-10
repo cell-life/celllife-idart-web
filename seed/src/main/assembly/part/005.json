@@ -1,34 +1,11 @@
 {
-    "type": "DRUG",
+    "type": "COMPOUND",
     "identifiers": [
         {
             "system": "IDART_WEB",
             "value": "99999995"
         }
     ],
-    "billOfMaterials": [
-        {
-            "type": "ENGINEERING",
-            "fromDate": "2013-01-01",
-            "part": [
-                {
-                    "system": "IDART_WEB",
-                    "value": "99999979"
-                }
-            ],
-            "quantityUsed": {
-                "unitOfMeasure": "mg",
-                "value": "300"
-
-            }
-        }
-    ],
-    "classifications": [
-        {
-            "code": "J05AF01",
-            "type": "ATC"
-        }
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
-}
+    "label": "Ribavirin",
+    "unitOfMeasure": "mg"
+} 
