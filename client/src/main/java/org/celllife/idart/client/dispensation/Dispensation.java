@@ -1,6 +1,8 @@
 package org.celllife.idart.client.dispensation;
 
 import org.celllife.idart.common.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +15,10 @@ import java.util.Set;
  * Time: 23h51
  */
 public final class Dispensation implements Serializable {
+
+    private static final long serialVersionUID = 2494899951224742476L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Dispensation.class);
 
     private Set<Identifier> identifiers;
 
@@ -35,6 +41,21 @@ public final class Dispensation implements Serializable {
 
     public void setIdentifiers(Set<Identifier> identifiers) {
         this.identifiers = identifiers;
+    }
+
+    public String getFirstIdentifier() {
+        String firstId = "";
+        if (identifiers.size() > 1) {
+            LOGGER.warn("Dispensation has more than 1 identifier. "+this.getIdentifiers());
+        } else if (identifiers.size() == 0) {
+            LOGGER.warn("Dispensation has no identifiers. ");
+        } else {
+            Identifier id = this.identifiers.iterator().next();
+            if (id != null) {
+                firstId = id.getValue();
+            }
+        }
+        return firstId;
     }
 
     public Set<Identifier> getPatient() {

@@ -1,11 +1,15 @@
 package org.celllife.idart.application.prescription
 
+import java.util.Set;
+
 import org.celllife.idart.application.encounter.EncounterApplicationService
 import org.celllife.idart.application.encounter.dto.EncounterDto
+import org.celllife.idart.application.patient.dto.PatientDto;
 import org.celllife.idart.application.prescribedmedication.PrescribedMedicationApplicationService
 import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.application.prescription.dto.PrescriptionDtoAssembler
 import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.PersonId;
 import org.celllife.idart.common.PrescriptionId
 import org.celllife.idart.common.SystemId
 import org.celllife.idart.domain.identifiable.IdentifiableService
@@ -17,10 +21,15 @@ import javax.inject.Inject
 import javax.inject.Named
 
 import static org.celllife.idart.common.IdentifiableType.PRESCRIPTION
+import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.PrescriptionId.prescriptionId
 import static org.celllife.idart.common.Systems.IDART_WEB
+import static org.celllife.idart.common.Systems.PREHMIS
+import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
+import static org.celllife.idart.relationship.patientorganisation.PatientOrganisation.Relationship.REGISTERED_WITH
 import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
 
 /**
@@ -116,5 +125,36 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         prescriptionId(idartIdentifierValue)
+    }
+
+	@Override
+	void deleteByPrescriptionId(PrescriptionId prescriptionId) {
+		prescriptionService.deleteByPrescriptionId(prescriptionId)
+	}
+
+    @Override
+    void deleteByIdentifierAndSystem(String identifier, SystemId system) {
+
+        // get the information about the facility
+        def facility = systemFacilityService.findFacility(system, DEPLOYED_AT)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(IDART_WEB.id, facility.value))
+
+        def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
+
+            // convert the specified prescription id (linked to the facility) to an iDARTweb id
+            def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            def idartwebId = identifiable.getIdentifierValue(IDART_WEB.id)
+            
+            switch (facilityIdentifier.system) {
+                case PREHMIS.id:
+                    prescriptionService.deleteByPrescriptionId(PrescriptionId.prescriptionId(idartwebId))
+            }
+        }
+    }
+
+    @Override
+    void deleteByIdentifierAndPerson(String identifier, PersonId personId) {
+        // no implementation for online system yet
+        
     }
 }

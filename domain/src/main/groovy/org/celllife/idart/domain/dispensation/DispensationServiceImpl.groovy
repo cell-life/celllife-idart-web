@@ -1,11 +1,13 @@
 package org.celllife.idart.domain.dispensation
 
 import org.celllife.idart.common.DispensationId
+import org.celllife.idart.common.PrescriptionId;
 
 import javax.inject.Inject
 import javax.inject.Named
 
 import static org.celllife.idart.domain.dispensation.DispensationEvent.EventType.SAVED
+import static org.celllife.idart.domain.dispensation.DispensationEvent.EventType.DELETED
 import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispensationEvent
 
 /**
@@ -51,5 +53,17 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
         }
 
         dispensation
+    }
+    
+    @Override
+    Dispensation deleteByDispensationId(DispensationId dispensationId) {
+        Dispensation d = findByDispensationId(dispensationId)
+        dispensationEventPublisher.publish(newDispensationEvent(d, DELETED))
+        d
+    }
+    
+    @Override
+    Dispensation finaliseDelete(DispensationId dispensationId) {
+        return dispensationRepository.delete(dispensationId)
     }
 }

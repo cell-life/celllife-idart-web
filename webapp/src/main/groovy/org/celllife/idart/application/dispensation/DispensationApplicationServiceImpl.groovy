@@ -4,6 +4,8 @@ import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.application.dispensation.dto.DispensationDtoAssembler
 import org.celllife.idart.common.DispensationId
 import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.PersonId;
+import org.celllife.idart.common.PrescriptionId;
 import org.celllife.idart.common.SystemId
 import org.celllife.idart.domain.dispensation.DispensationNotFoundException
 import org.celllife.idart.domain.dispensation.DispensationService
@@ -15,9 +17,15 @@ import javax.inject.Named
 
 import static org.celllife.idart.common.DispensationId.dispensationId
 import static org.celllife.idart.common.IdentifiableType.DISPENSATION
+import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
+import static org.celllife.idart.common.DispensationId.dispensationId
 import static org.celllife.idart.common.Systems.IDART_WEB
+import static org.celllife.idart.common.Systems.PREHMIS
+import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
+import static org.celllife.idart.relationship.patientorganisation.PatientOrganisation.Relationship.REGISTERED_WITH
 import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
 
 /**
@@ -96,5 +104,36 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         dispensationId(idartIdentifierValue)
+    }
+
+    @Override
+    void deleteByDispensationId(DispensationId dispensationId) {
+        dispensationService.deleteByDispensationId(dispensationId)
+    }
+
+    @Override
+    void deleteByIdentifierAndSystem(String identifier, SystemId system) {
+
+        // get the information about the facility
+        def facility = systemFacilityService.findFacility(system, DEPLOYED_AT)
+        def facilityIdentifiable = identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(IDART_WEB.id, facility.value))
+
+        def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
+
+            // convert the specified dispensation id (linked to the facility) to an iDARTweb id
+            def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            def idartwebId = identifiable.getIdentifierValue(IDART_WEB.id)
+            
+            switch (facilityIdentifier.system) {
+                case PREHMIS.id:
+                    dispensationService.deleteByDispensationId(PrescriptionId.prescriptionId(idartwebId))
+            }
+        }
+    }
+
+    @Override
+    void deleteByIdentifierAndPerson(String identifier, PersonId personId) {
+        // no implementation for online system yet
+        
     }
 }

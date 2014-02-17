@@ -11,6 +11,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.BasicScheme;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.celllife.idart.client.dispensation.Dispensation;
 import org.celllife.idart.client.encounter.Encounter;
@@ -28,9 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
- * Kevin W. Sewell
- * Date: 2013-07-18
- * Time: 19h22
+ * Default implementation if IdartClient
  */
 public final class IdartClientSingleton implements IdartClient {
 
@@ -46,7 +45,8 @@ public final class IdartClientSingleton implements IdartClient {
 
     private String idartWebUrl;
 
-    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword) {
+    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername,
+            String idartWebPassword) {
 
         if (instance == null) {
             instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword);
@@ -61,8 +61,7 @@ public final class IdartClientSingleton implements IdartClient {
 
         this.httpClient = new HttpClient();
 
-        UsernamePasswordCredentials credentials
-                = new UsernamePasswordCredentials(idartWebUsername, idartWebPassword);
+        UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(idartWebUsername, idartWebPassword);
 
         this.authenticate = BasicScheme.authenticate(credentials, "US-ASCII");
 
@@ -97,9 +96,22 @@ public final class IdartClientSingleton implements IdartClient {
     }
 
     @Override
+    public void deletePrescription(Prescription prescription) {
+        String prescriptionId = prescription.getFirstIdentifier();
+        String url = String.format("%s/prescriptions/deleteByIdentifier?identifier=%s", idartWebUrl, prescriptionId);
+        deleteToUrl(url);
+    }
+
+    @Override
     public void saveDispensation(Dispensation dispensation) {
 
         postToUrl(dispensation, String.format("%s/dispensations", idartWebUrl));
+    }
+
+    @Override
+    public void deleteDispensation(Dispensation dispensation) {
+        String dispensationId = dispensation.getFirstIdentifier();
+        postToUrl(dispensation, String.format("%s/dispensations/deleteByIdentifier?identifier=%s", idartWebUrl, dispensationId));
     }
 
     private void postToUrl(Object object, String url) {
@@ -121,14 +133,37 @@ public final class IdartClientSingleton implements IdartClient {
                 LOGGER.error(e.getMessage(), e);
             }
 
-            throw new RuntimeException();
+            throw new RuntimeException(status + " error occurred while trying to call POST on "+url);
+        }
+    }
+
+    private void deleteToUrl(String url) {
+
+        DeleteMethod deleteMethod = new DeleteMethod(url);
+
+        decorateMethodWithAuth(deleteMethod);
+        decorateMethodWithContentType(deleteMethod);
+
+        int status = executeMethod(deleteMethod);
+
+        if (status != HttpStatus.SC_OK) {
+
+            try {
+                LOGGER.error(deleteMethod.getResponseBodyAsString());
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+
+            throw new RuntimeException(status+" error occurred while trying to call DELETE on "+url);
         }
     }
 
     private StringRequestEntity getStringRequestEntity(Object object) {
 
         try {
-            return new StringRequestEntity(mapToJson(object), "application/json", "UTF-8");
+            String json = mapToJson(object);
+            LOGGER.info("JSON being sent to the webservice " + json);
+            return new StringRequestEntity(json, "application/json", "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e.getMessage());
         }

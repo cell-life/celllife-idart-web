@@ -49,7 +49,7 @@
         <camel:route>
             <camel:from uri="jms:topic:dispensationEvent?clientId=prehmisDispensationProvider&amp;durableSubscriptionName=prehmisDispensationProvider"/>
             <camel:unmarshal ref="dispensationEvent"/>
-            <camel:bean ref="prehmisDispensationProvider" method="save"/>
+            <camel:bean ref="prehmisDispensationProvider" method="processEvent"/>
         </camel:route>
 
         <camel:route>
@@ -120,7 +120,7 @@
         <camel:route>
             <camel:from uri="jms:topic:prescriptionEvent?clientId=prehmisPrescriptionProvider&amp;durableSubscriptionName=prehmisPrescriptionProvider"/>
             <camel:unmarshal ref="prescriptionEvent"/>
-            <camel:bean ref="prehmisPrescriptionProvider" method="save"/>
+            <camel:bean ref="prehmisPrescriptionProvider" method="processEvent"/>
         </camel:route>
 
         <camel:route>

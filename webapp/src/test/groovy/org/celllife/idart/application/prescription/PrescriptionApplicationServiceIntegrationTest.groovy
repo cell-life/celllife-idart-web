@@ -1,5 +1,7 @@
 package org.celllife.idart.application.prescription
 
+import java.util.Set;
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.part.dto.CompoundDto
@@ -18,6 +20,8 @@ import org.celllife.idart.common.PractitionerType
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
 import org.celllife.idart.common.UnitsOfMeasure
+import org.celllife.idart.common.PrescriptionId
+import org.celllife.idart.common.SystemId
 import org.celllife.idart.domain.counter.CounterRepository
 import org.celllife.idart.domain.encounter.EncounterRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
@@ -187,13 +191,19 @@ class PrescriptionApplicationServiceIntegrationTest {
         practitionerApplicationService.save(practitioner)
 
         // ***************************************** Create Prescription ********************************************
-
+        
         InputStream prescriptionInputStream = getClass().getResourceAsStream("/data/prescription/0000.json")
         PrescriptionDto prescription = objectMapper.readValue(prescriptionInputStream, PrescriptionDto.class)
 
         prescription.identifiers = newIdentifiers("${System.currentTimeMillis()}")
+        
+        PrescriptionId prescriptionId = prescriptionApplicationService.save(prescription)
+		
+		Thread.sleep(5000L)
+		
+		// ***************************************** Delete Prescription ********************************************
 
-        prescriptionApplicationService.save(prescription)
+		prescriptionApplicationService.deleteByPrescriptionId(prescriptionId)
 
         Thread.sleep(10000L)
     }

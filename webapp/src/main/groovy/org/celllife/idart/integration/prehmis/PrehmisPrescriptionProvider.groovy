@@ -3,8 +3,11 @@ package org.celllife.idart.integration.prehmis
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.celllife.idart.application.prescription.PrescriptionNotSavedException
+import org.celllife.idart.application.prescription.PrescriptionNotDeletedException
 import org.celllife.idart.application.prescription.PrescriptionProvider
+import org.celllife.idart.common.PrescriptionId
 import org.celllife.idart.domain.encounter.EncounterService
+import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.domain.part.PartService
 import org.celllife.idart.domain.patient.PatientService
@@ -13,6 +16,7 @@ import org.celllife.idart.domain.practitioner.PractitionerService
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationService
 import org.celllife.idart.domain.prescription.Prescription
 import org.celllife.idart.domain.prescription.PrescriptionEvent
+import org.celllife.idart.domain.prescription.PrescriptionService
 import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.product.ProductService
 import org.celllife.idart.framework.aspectj.LogLevel
@@ -34,11 +38,10 @@ import static org.celllife.idart.common.Systems.*
 import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStorePrescriptionRequest
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildDeletePrescriptionRequest
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-04-25
- * Time: 15h17
+ * PREHMIS implementation of the PrescriptionProvider related events
  */
 @Named class PrehmisPrescriptionProvider implements PrescriptionProvider {
 
@@ -47,22 +50,22 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     static final SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
 
     @Value('${prehmis.endpoint.baseUrl}')
-	String PREHMIS_NAMESPACE;
+    String PREHMIS_NAMESPACE;
 
-	@Value('${prehmis.endpoint.baseUrl}')
-	String prehmisEndpointBaseUrl
+    @Value('${prehmis.endpoint.baseUrl}')
+    String prehmisEndpointBaseUrl
 
     @Value('${prehmis.endpoint.url}')
-	String prehmisEndpointUrl
+    String prehmisEndpointUrl
 
     @Value('${prehmis.username}')
-	String prehmisUsername
+    String prehmisUsername
 
     @Value('${prehmis.password}')
-	String prehmisPassword
+    String prehmisPassword
 
     @Value('${prehmis.applicationKey}')
-	String prehmisApplicationKey
+    String prehmisApplicationKey
 
     @Inject IdentifiableService identifiableService
 
@@ -80,75 +83,155 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
     @Inject PartService partService
 
+    @Inject PrescriptionService prescriptionService
+
     @Override
-	@Loggable(LogLevel.INFO)
+    @Loggable(LogLevel.INFO)
+    void processEvent(PrescriptionEvent prescriptionEvent) {
+        if (prescriptionEvent.type == PrescriptionEvent.EventType.SAVED) {
+            save(prescriptionEvent)
+        } else if (prescriptionEvent.type == PrescriptionEvent.EventType.DELETED) {
+            delete(prescriptionEvent)
+        } else {
+            LOGGER.warn("Could not process PrescriptionEvent with type "+prescriptionEvent.type)
+        }
+    }
+
     void save(PrescriptionEvent prescriptionEvent) {
 
-        def encounter = encounterService.findByEncounterId(prescriptionEvent.prescription.encounter)
-
-        def facilityIdentifiable =
-            identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(encounter.facility.value))
-
-        def prehmisFacilityIdentifier = getIdentifierValue(facilityIdentifiable.identifiers, PREHMIS.id)
+        def prehmisFacilityIdentifier = getFacilityIdentifiable(prescriptionEvent)
         if (prehmisFacilityIdentifier == null) {
             return
         }
 
         def prehmisRestClient = new RESTClient(prehmisEndpointUrl)
+        
+        def storePrescriptionRequest
+        try {
+            storePrescriptionRequest = buildStorePrescriptionRequest(prehmisFacilityIdentifier, prescriptionEvent.prescription)
+        } catch (Exception e) {
+            throw new PrescriptionNotDeletedException("Unable to create PREHMIS storeprescription request for prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message, e)
+        }
+        
+        def storePrescriptionResponse
+        try {
+            apiLogin(prehmisRestClient, prehmisFacilityIdentifier)
 
+            storePrescriptionResponse = prehmisRestClient.post(
+                    body: storePrescriptionRequest,
+                    contentType: ContentType.XML,
+                    requestContentType: ContentType.XML,
+                    headers: [
+                        SOAPAction: prehmisEndpointBaseUrl + "/storePrescription"
+                    ]
+                    )
+        } catch (Exception e) {
+            throw new PrescriptionNotSavedException("Unable to communicate with PREHMIS while trying to store prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message, e)
+        }
+
+        def result = storePrescriptionResponse.data
+        LOGGER.info("PREHMIS response: "+result)
+        if (!result.equals("Prescription saved")) {
+            throw new PrescriptionNotSavedException("Unable to store prescription '"+prescriptionEvent.prescription.id+"' on PREHMIS. Error: "+result)
+        }
+    }
+
+    void delete(PrescriptionEvent prescriptionEvent) {
+        def prehmisFacilityIdentifier = getFacilityIdentifiable(prescriptionEvent)
+        if (prehmisFacilityIdentifier == null) {
+            return
+        }
+
+        def prehmisRestClient = new RESTClient(prehmisEndpointUrl)
+        def deletePrescriptionRequest
+        def deletePrescriptionResponse
+        
+        try {
+            deletePrescriptionRequest = buildDeletePrescriptionRequest(prehmisFacilityIdentifier, prescriptionEvent.prescription)
+        } catch (Exception e) {
+            throw new PrescriptionNotDeletedException("Unable to create deleteprescription request for prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message, e)
+        }
+
+        try {
+            apiLogin(prehmisRestClient, prehmisFacilityIdentifier)
+
+            deletePrescriptionResponse = prehmisRestClient.post(
+                    body: deletePrescriptionRequest,
+                    contentType: ContentType.XML,
+                    requestContentType: ContentType.XML,
+                    headers: [
+                        SOAPAction: prehmisEndpointBaseUrl + "/deletePrescription"
+                    ]
+                    )
+        } catch (Exception e) {
+            throw new PrescriptionNotDeletedException("Unable to communicate with PREHMIS while trying to delete prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message, e)
+        }
+
+        def result = deletePrescriptionResponse.data
+        LOGGER.info("PREHMIS response: "+result)
+        if (!result.equals("Prescription deleted")) {
+            throw new PrescriptionNotDeletedException("Unable to delete prescription '"+prescriptionEvent.prescription.id+"' on PREHMIS. Error: "+result)
+        } else {
+            def prescriptionIdentifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, newIdentifiers(prescriptionEvent.prescription.id.value))
+            def prescriptionId = getIdentifierValue(prescriptionIdentifiable.identifiers, IDART_WEB.id)
+            prescriptionService.finaliseDelete(PrescriptionId.prescriptionId(prescriptionId))
+        }
+    }
+
+    String getFacilityIdentifiable(PrescriptionEvent prescriptionEvent) {
+        def encounter = encounterService.findByEncounterId(prescriptionEvent.prescription.encounter)
+
+        def facilityIdentifiable =
+                identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(encounter.facility.value))
+
+        return getIdentifierValue(facilityIdentifiable.identifiers, PREHMIS.id)
+    }
+
+    void apiLogin(RESTClient prehmisRestClient, String prehmisFacilityIdentifier) throws Exception {
         def apiLoginRequest = buildApiLoginRequest([
-                username: prehmisUsername,
-                password: prehmisPassword,
-                applicationKey: prehmisApplicationKey,
-                facilityCode: prehmisFacilityIdentifier,
+            username: prehmisUsername,
+            password: prehmisPassword,
+            applicationKey: prehmisApplicationKey,
+            facilityCode: prehmisFacilityIdentifier,
         ])
 
-        try {
-            prehmisRestClient.post(
-                    body: apiLoginRequest,
-                    contentType: ContentType.XML,
-                    requestContentType: ContentType.XML,
-                    headers: [
-                            SOAPAction: prehmisEndpointBaseUrl + "/apiLogin"
-                    ]
-            )
-        } catch (Exception e) {
-            LOGGER.error(e.message, e)
-            throw new PrescriptionNotSavedException(e.message)
-        }
-
-        def storePrescriptionResponse
-
-        try {
-            storePrescriptionResponse = prehmisRestClient.post(
-                    body: buildStorePrescriptionRequest(prehmisFacilityIdentifier, prescriptionEvent.prescription),
-                    contentType: ContentType.XML,
-                    requestContentType: ContentType.XML,
-                    headers: [
-                            SOAPAction: prehmisEndpointBaseUrl + "/storePrescription"
-                    ]
-            )
-        } catch (Exception e) {
-            LOGGER.error(e.message, e)
-            throw new PrescriptionNotSavedException(e.message)
-        }
-		
-
-        def envelope = storePrescriptionResponse.data
-		
-        LOGGER.info("PREHMIS response: "+envelope)
-
-        envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
-
-        String result = envelope.'soap:Body'.'prehmis:storePrescriptionResponse'.result
-
-        if (!result.equals("Prescription saved")) {
-            throw new PrescriptionNotSavedException("Error: "+envelope)
-        }
+        prehmisRestClient.post(
+                body: apiLoginRequest,
+                contentType: ContentType.XML,
+                requestContentType: ContentType.XML,
+                headers: [
+                    SOAPAction: prehmisEndpointBaseUrl + "/apiLogin"
+                ]
+                )
     }
 
     String buildStorePrescriptionRequest(String facilityCode, Prescription prescription) {
 
+        String storePrescriptionRequest = buildStorePrescriptionRequest([
+            username: prehmisUsername,
+            password: prehmisPassword,
+            applicationKey: prehmisApplicationKey,
+            facilityCode: facilityCode,
+            prescription: getPrehmisPrescriptionMap(facilityCode, prescription, true)
+        ])
+
+        storePrescriptionRequest
+    }
+
+    String buildDeletePrescriptionRequest(String facilityCode, Prescription prescription) {
+
+        String deletePrescriptionRequest = buildDeletePrescriptionRequest([
+            username: prehmisUsername,
+            password: prehmisPassword,
+            applicationKey: prehmisApplicationKey,
+            facilityCode: facilityCode,
+            prescription: getPrehmisPrescriptionMap(facilityCode, prescription, false)
+        ])
+
+        deletePrescriptionRequest
+    }
+
+    Map<String, Object> getPrehmisPrescriptionMap(String facilityCode, Prescription prescription, boolean includeMedications) {
         def prehmisPrescription = [:]
 
         prescription.with {
@@ -179,12 +262,12 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
             prehmisPrescription.prescriptionDate = toPrehmisDate(dateWritten)
 
-            if (prescribedMedications.size() != 0) {
+            if (includeMedications && prescribedMedications.size() != 0) {
 
                 prehmisPrescription.prescribedMedications = prescribedMedications.collect { prescribedMedicationId ->
 
                     def prescribedMedication =
-                        prescribedMedicationService.findByPrescribedMedicationId(prescribedMedicationId)
+                            prescribedMedicationService.findByPrescribedMedicationId(prescribedMedicationId)
 
                     if (prehmisPrescription.endDate == null) {
                         prehmisPrescription.endDate = toPrehmisDate(prescribedMedication.valid?.thruDate)
@@ -203,23 +286,14 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                     def drug = partService.findByPartId((medication as Medication).drug)
 
                     [
-                            atcCode: getClassificationCode(drug.classifications, ATC),
-                            amountPerTime: prescribedMedication.dosageInstruction?.doseQuantity?.value,
-                            timesPerDay: prescribedMedication.dosageInstruction?.timing?.repeat?.frequency
+                        atcCode: getClassificationCode(drug.classifications, ATC),
+                        amountPerTime: prescribedMedication.dosageInstruction?.doseQuantity?.value,
+                        timesPerDay: prescribedMedication.dosageInstruction?.timing?.repeat?.frequency
                     ]
                 }
             }
         }
-
-        String storePrescriptionRequest = buildStorePrescriptionRequest([
-                username: prehmisUsername,
-                password: prehmisPassword,
-                applicationKey: prehmisApplicationKey,
-                facilityCode: facilityCode,
-                prescription: prehmisPrescription
-        ])
-
-        storePrescriptionRequest
+        prehmisPrescription
     }
 
     static toPrehmisDate(Date date) {

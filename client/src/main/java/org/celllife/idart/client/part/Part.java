@@ -1,12 +1,16 @@
 package org.celllife.idart.client.part;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import org.celllife.idart.common.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.celllife.idart.common.FormCode;
+import org.celllife.idart.common.Identifier;
+import org.celllife.idart.common.Label;
+import org.celllife.idart.common.UnitOfMeasureCode;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * Kevin W. Sewell

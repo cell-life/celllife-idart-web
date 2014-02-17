@@ -2,11 +2,14 @@ package org.celllife.idart.integration.prehmis
 
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
+import org.celllife.idart.common.DispensationId
 import org.celllife.idart.application.dispensation.DispensationNotSavedException
+import org.celllife.idart.application.dispensation.DispensationNotDeletedException
 import org.celllife.idart.application.dispensation.DispensationProvider
 import org.celllife.idart.datawarehouse.prescription.PrescriptionDataWarehouse
 import org.celllife.idart.domain.dispensation.Dispensation
 import org.celllife.idart.domain.dispensation.DispensationEvent
+import org.celllife.idart.domain.dispensation.DispensationService
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.domain.part.PartService
 import org.celllife.idart.domain.patient.PatientService
@@ -32,11 +35,10 @@ import static org.celllife.idart.common.Systems.*
 import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStoreDispensationRequest
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildDeleteDispensationRequest
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-04-25
- * Time: 15h17
+ * The PREHMIS implementation for the DispensationProvider related events
  */
 @Named class PrehmisDispensationProvider implements DispensationProvider {
 
@@ -75,73 +77,129 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     @Inject ProductService productService
 
     @Inject PartService partService
-
+    
+    @Inject DispensationService dispensationService
+    
     @Override
-	@Loggable(LogLevel.INFO)
+    @Loggable(LogLevel.INFO)
+    void processEvent(DispensationEvent dispensationEvent) {
+        if (dispensationEvent.type == DispensationEvent.EventType.SAVED) {
+            save(dispensationEvent)
+        } else if (dispensationEvent.type == DispensationEvent.EventType.DELETED) {
+            delete(dispensationEvent)
+        } else {
+            LOGGER.warn("Could not process DispensationEvent with type "+dispensationEvent.type)
+        }
+    }
+
     void save(DispensationEvent dispensationEvent) {
 
-        def facilityIdentifiable = identifiableService
-                .resolveIdentifiable(FACILITY, newIdentifiers(dispensationEvent.dispensation.facility.value))
-
-        def prehmisFacilityIdentifier = getIdentifierValue(facilityIdentifiable.identifiers, PREHMIS.id)
+       def prehmisFacilityIdentifier = getFacilityIdentifiable(dispensationEvent)
         if (prehmisFacilityIdentifier == null) {
             return
         }
 
         def prehmisRestClient = new RESTClient(prehmisEndpointUrl)
-
-        def apiLoginRequest = buildApiLoginRequest([
-                username: prehmisUsername,
-                password: prehmisPassword,
-                applicationKey: prehmisApplicationKey,
-                facilityCode: prehmisFacilityIdentifier,
-        ])
-
-        try {
-            prehmisRestClient.post(
-                    body: apiLoginRequest,
-                    contentType: ContentType.XML,
-                    requestContentType: ContentType.XML,
-                    headers: [
-                            SOAPAction: prehmisEndpointBaseUrl + "/apiLogin"
-                    ]
-            )
-        } catch (Exception e) {
-            LOGGER.error(e.message, e)
-            throw new DispensationNotSavedException(e.message)
-        }
-
+        def storeDispensationRequest
         def storeDispensationResponse
-
+        
         try {
+            storeDispensationRequest = buildStoreDispensationRequest(prehmisFacilityIdentifier, dispensationEvent.dispensation)
+        } catch (Exception e) {
+            throw new DispensationNotSavedException("Unable to create storedispensation request for dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
+        }
+        
+        try {
+            apiLogin(prehmisRestClient, prehmisFacilityIdentifier)
+
             storeDispensationResponse = prehmisRestClient.post(
-                    body: buildStoreDispensationRequest(prehmisFacilityIdentifier, dispensationEvent.dispensation),
+                    body: storeDispensationRequest,
                     contentType: ContentType.XML,
                     requestContentType: ContentType.XML,
                     headers: [
-                            SOAPAction: prehmisEndpointBaseUrl + "/storeDispensation"
+                        SOAPAction: prehmisEndpointBaseUrl + "/storeDispensation"
                     ]
-            )
+                    )
         } catch (Exception e) {
-            LOGGER.error(e.message, e)
-            throw new DispensationNotSavedException(e.message)
+            throw new DispensationNotSavedException("Unable to communicate with PREHMIS while trying to store dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
         }
 
-        def envelope = storeDispensationResponse.data
-		
-        LOGGER.info("PREHMIS response: "+envelope)
-
-        envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
-
-        String result = envelope.'soap:Body'.'prehmis:storeDispensationResponse'.result
-
+        def result = storeDispensationResponse.data
+        LOGGER.info("PREHMIS response: "+result)
         if (!result.equals("Dispensation saved")) {
-            throw new DispensationNotSavedException("Error: "+envelope)
+            throw new DispensationNotSavedException("Unable to store dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result)
         }
     }
+    
+    void delete(DispensationEvent dispensationEvent) {
+        def prehmisFacilityIdentifier = getFacilityIdentifiable(dispensationEvent)
+        if (prehmisFacilityIdentifier == null) {
+            return
+        }
 
+        def prehmisRestClient = new RESTClient(prehmisEndpointUrl)
+        def deleteDispensationRequest
+        def deleteDispensationResponse
+        
+        try {
+            deleteDispensationRequest = buildDeleteDispensationRequest(prehmisFacilityIdentifier, dispensationEvent.dispensation)
+        } catch (Exception e) {
+            throw new DispensationNotDeletedException("Unable to create deletedispensation request for dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
+        }
+
+        try {
+            apiLogin(prehmisRestClient, prehmisFacilityIdentifier)
+
+            deleteDispensationResponse = prehmisRestClient.post(
+                    body: deleteDispensationRequest,
+                    contentType: ContentType.XML,
+                    requestContentType: ContentType.XML,
+                    headers: [
+                        SOAPAction: prehmisEndpointBaseUrl + "/deleteDispensation"
+                    ]
+                    )
+        } catch (Exception e) {
+            throw new DispensationNotDeletedException("Unable to communicate with PREHMIS while trying to delete dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
+        }
+
+        def result = deleteDispensationResponse.data
+        LOGGER.info("PREHMIS response: "+result)
+        if (!result.equals("Dispensation deleted")) {
+            throw new DispensationNotDeletedException("Unable to delete dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result)
+        } else {
+            def dispensationIdentifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, newIdentifiers(dispensationEvent.dispensation.id.value))
+            def dispensationId = getIdentifierValue(dispensationIdentifiable.identifiers, IDART_WEB.id)
+            dispensationService.finaliseDelete(DispensationId.dispensationId(dispensationId))
+        }
+    }
+    
     String buildStoreDispensationRequest(String facilityCode, Dispensation dispensation) {
 
+        String storeDispensationRequest = buildStoreDispensationRequest([
+            username: prehmisUsername,
+            password: prehmisPassword,
+            applicationKey: prehmisApplicationKey,
+            facilityCode: facilityCode,
+            dispensation: getPrehmisDispensationMap(facilityCode, dispensation, true)
+        ])
+
+        storeDispensationRequest
+    }
+        
+    String buildDeleteDispensationRequest(String facilityCode, Dispensation dispensation) {
+
+        String deleteDispensationRequest = buildDeleteDispensationRequest([
+            username: prehmisUsername,
+            password: prehmisPassword,
+            applicationKey: prehmisApplicationKey,
+            facilityCode: facilityCode,
+            dispensation: getPrehmisDispensationMap(facilityCode, dispensation, false)
+        ])
+
+        deleteDispensationRequest
+    }
+    
+    Map<String, Object> getPrehmisDispensationMap(String facilityCode, Dispensation dispensation, boolean includeDrugs) {
         def prehmisDispensation = [:]
 
         dispensation.with {
@@ -188,27 +246,46 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
                     if (prehmisDispensation.supplyDuration == null) {
                         prehmisDispensation.supplyDuration = dispensedMedication.expectedSupplyDuration?.value
                     }
-
-                    def medication = productService.findByProductId(dispensedMedication.medication)
-                    def drug = partService.findByPartId((medication as Medication).drug)
-
-                    [
-                            atcCode: getClassificationCode(drug.classifications, ATC),
-                            quantity: dispensedMedication.quantity?.value,
-                    ]
+                    
+                    if (includeDrugs) {
+                        def medication = productService.findByProductId(dispensedMedication.medication)
+                        def drug = partService.findByPartId((medication as Medication).drug)
+    
+                        [
+                                atcCode: getClassificationCode(drug.classifications, ATC),
+                                quantity: dispensedMedication.quantity?.value,
+                        ]
+                    }
                 }
             }
         }
 
-        String storeDispensationRequest = buildStoreDispensationRequest([
-                username: prehmisUsername,
-                password: prehmisPassword,
-                applicationKey: prehmisApplicationKey,
-                facilityCode: facilityCode,
-                dispensation: prehmisDispensation
+        prehmisDispensation
+    }
+    
+    String getFacilityIdentifiable(DispensationEvent dispensationEvent) {
+        def facilityIdentifiable =
+                identifiableService.resolveIdentifiable(FACILITY, newIdentifiers(dispensationEvent.dispensation.facility.value))
+
+        return getIdentifierValue(facilityIdentifiable.identifiers, PREHMIS.id)
+    }
+
+    void apiLogin(RESTClient prehmisRestClient, String prehmisFacilityIdentifier) throws Exception {
+        def apiLoginRequest = buildApiLoginRequest([
+            username: prehmisUsername,
+            password: prehmisPassword,
+            applicationKey: prehmisApplicationKey,
+            facilityCode: prehmisFacilityIdentifier,
         ])
 
-        storeDispensationRequest
+        prehmisRestClient.post(
+                body: apiLoginRequest,
+                contentType: ContentType.XML,
+                requestContentType: ContentType.XML,
+                headers: [
+                    SOAPAction: prehmisEndpointBaseUrl + "/apiLogin"
+                ]
+                )
     }
 
     static toPrehmisDate(Date date) {

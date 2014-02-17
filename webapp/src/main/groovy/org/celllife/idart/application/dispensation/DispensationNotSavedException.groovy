@@ -10,4 +10,8 @@ class DispensationNotSavedException extends RuntimeException {
     DispensationNotSavedException(String message) {
         super(message)
     }
+    
+    DispensationNotSavedException(String message, Exception e) {
+        super(message, e)
+    }
 }

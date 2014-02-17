@@ -40,6 +40,14 @@ class PrehmisRequestBuilder {
         build("/templates/prehmis/storePrescription.xml", args)
     }
 
+	static buildDeleteDispensationRequest(args) {
+		build("/templates/prehmis/deleteDispensation.xml", args)
+	}
+
+	static buildDeletePrescriptionRequest(args) {
+		build("/templates/prehmis/deletePrescription.xml", args)
+	}
+
     static build(String templateFilename, args) {
 
         def inputStream = PrehmisRequestBuilder.class.getResourceAsStream(templateFilename)

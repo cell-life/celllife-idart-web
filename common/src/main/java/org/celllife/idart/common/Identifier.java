@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 public class Identifier implements Serializable {
 
+    private static final long serialVersionUID = -3242875782209492272L;
+
     private SystemId system;
 
     private String value;

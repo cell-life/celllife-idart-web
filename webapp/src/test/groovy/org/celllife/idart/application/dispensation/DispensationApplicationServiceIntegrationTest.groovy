@@ -195,7 +195,7 @@ class DispensationApplicationServiceIntegrationTest {
 
         prescription.identifiers = newIdentifiers("${System.currentTimeMillis()}")
 
-        prescriptionApplicationService.save(prescription)
+        PrescriptionId prescriptionId = prescriptionApplicationService.save(prescription)
 
         // ***************************************** Create Dispensation ********************************************
 
@@ -204,9 +204,21 @@ class DispensationApplicationServiceIntegrationTest {
 
         dispensation.identifiers = newIdentifiers("${System.currentTimeMillis()}")
 
-        dispensationApplicationService.save(dispensation)
+        DispensationId dispensationId = dispensationApplicationService.save(dispensation)
 
-        Thread.sleep(10000L)
+        Thread.sleep(5000L)
+        
+        // ***************************************** Delete Dispensation ********************************************
+
+        dispensationApplicationService.deleteByDispensationId(dispensationId)
+
+        Thread.sleep(5000L)
+
+        // ***************************************** Delete Prescription ********************************************
+        
+        prescriptionApplicationService.deleteByPrescriptionId(prescriptionId)
+
+        Thread.sleep(5000L)
     }
 
     static PartBillOfMaterialsItemDto newEngineeringPart(Set<Identifier> part, Double quantity, UnitOfMeasureCode unitOfMeasure) {

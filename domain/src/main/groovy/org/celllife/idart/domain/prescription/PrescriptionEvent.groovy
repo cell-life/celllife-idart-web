@@ -27,6 +27,7 @@ class PrescriptionEvent implements Serializable {
     }
 
     enum EventType {
-        SAVED
+        SAVED,
+		DELETED
     }
 }

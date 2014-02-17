@@ -1,13 +1,13 @@
 package org.celllife.idart.domain.prescription
 
-import org.celllife.idart.common.PrescribedMedicationId
-import org.celllife.idart.common.PrescriptionId
-
 import javax.inject.Inject
 import javax.inject.Named
 
 import static org.celllife.idart.domain.prescription.PrescriptionEvent.EventType.SAVED
+import static org.celllife.idart.domain.prescription.PrescriptionEvent.EventType.DELETED
 import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescriptionEvent
+import org.celllife.idart.common.PrescribedMedicationId
+import org.celllife.idart.common.PrescriptionId
 
 /**
  */
@@ -60,4 +60,16 @@ import static org.celllife.idart.domain.prescription.PrescriptionEvent.newPrescr
         prescriptionRepository.findByPrescribedMedication(prescribedMedication)
 
     }
+	
+	@Override
+	Prescription deleteByPrescriptionId(PrescriptionId prescriptionId) {
+		Prescription p = findByPrescriptionId(prescriptionId)
+		prescriptionEventPublisher.publish(newPrescriptionEvent(p, DELETED))
+		p
+	}
+	
+	@Override
+	Prescription finaliseDelete(PrescriptionId prescriptionId) {
+		return prescriptionRepository.delete(prescriptionId)
+	}
 }

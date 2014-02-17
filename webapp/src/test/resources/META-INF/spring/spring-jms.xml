@@ -23,7 +23,7 @@
         <camel:route>
             <camel:from uri="direct:prehmisDispensationProvider"/>
             <camel:unmarshal ref="dispensationEvent"/>
-            <camel:bean ref="prehmisDispensationProvider" method="save"/>
+            <camel:bean ref="prehmisDispensationProvider" method="processEvent"/>
         </camel:route>
 
         <camel:route>
@@ -77,7 +77,7 @@
         <camel:route>
             <camel:from uri="direct:prehmisPrescriptionProvider"/>
             <camel:unmarshal ref="prescriptionEvent"/>
-            <camel:bean ref="prehmisPrescriptionProvider" method="save"/>
+            <camel:bean ref="prehmisPrescriptionProvider" method="processEvent"/>
         </camel:route>
 
         <camel:route>

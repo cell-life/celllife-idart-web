@@ -10,4 +10,8 @@ class PrescriptionNotSavedException extends RuntimeException {
     PrescriptionNotSavedException(String message) {
         super(message)
     }
+	
+	PrescriptionNotSavedException(String message, Exception e) {
+		super(message, e)
+	}
 }
