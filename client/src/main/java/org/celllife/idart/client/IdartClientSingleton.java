@@ -111,7 +111,7 @@ public final class IdartClientSingleton implements IdartClient {
     @Override
     public void deleteDispensation(Dispensation dispensation) {
         String dispensationId = dispensation.getFirstIdentifier();
-        postToUrl(dispensation, String.format("%s/dispensations/deleteByIdentifier?identifier=%s", idartWebUrl, dispensationId));
+        deleteToUrl(String.format("%s/dispensations/deleteByIdentifier?identifier=%s", idartWebUrl, dispensationId));
     }
 
     private void postToUrl(Object object, String url) {

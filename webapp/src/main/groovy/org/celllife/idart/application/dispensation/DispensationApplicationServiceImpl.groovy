@@ -126,7 +126,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             
             switch (facilityIdentifier.system) {
                 case PREHMIS.id:
-                    dispensationService.deleteByDispensationId(PrescriptionId.prescriptionId(idartwebId))
+                    dispensationService.deleteByDispensationId(DispensationId.dispensationId(idartwebId))
             }
         }
     }
