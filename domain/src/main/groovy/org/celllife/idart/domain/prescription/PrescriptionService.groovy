@@ -17,6 +17,4 @@ public interface PrescriptionService {
     PrescriptionId findByPrescribedMedication(PrescribedMedicationId prescribedMedication)
 	
 	Prescription deleteByPrescriptionId(PrescriptionId prescriptionId)
-	
-	Prescription finaliseDelete(PrescriptionId prescriptionId)
 }

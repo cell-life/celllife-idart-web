@@ -59,11 +59,6 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
     Dispensation deleteByDispensationId(DispensationId dispensationId) {
         Dispensation d = findByDispensationId(dispensationId)
         dispensationEventPublisher.publish(newDispensationEvent(d, DELETED))
-        d
-    }
-    
-    @Override
-    Dispensation finaliseDelete(DispensationId dispensationId) {
         return dispensationRepository.delete(dispensationId)
     }
 }

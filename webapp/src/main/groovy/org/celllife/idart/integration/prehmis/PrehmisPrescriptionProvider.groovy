@@ -171,10 +171,6 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
         LOGGER.info("PREHMIS response: "+result)
         if (!result.equals("Prescription deleted")) {
             throw new PrescriptionNotDeletedException("Unable to delete prescription '"+prescriptionEvent.prescription.id+"' on PREHMIS. Error: "+result)
-        } else {
-            def prescriptionIdentifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, newIdentifiers(prescriptionEvent.prescription.id.value))
-            def prescriptionId = getIdentifierValue(prescriptionIdentifiable.identifiers, IDART_WEB.id)
-            prescriptionService.finaliseDelete(PrescriptionId.prescriptionId(prescriptionId))
         }
     }
 

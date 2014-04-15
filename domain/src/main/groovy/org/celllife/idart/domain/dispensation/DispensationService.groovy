@@ -15,6 +15,4 @@ public interface DispensationService {
     Dispensation findByDispensationId(DispensationId dispensationId)
 
     Dispensation deleteByDispensationId(DispensationId dispensationId)
-    
-    Dispensation finaliseDelete(DispensationId dispensationId)
 }

@@ -65,11 +65,6 @@ import org.celllife.idart.common.PrescriptionId
 	Prescription deleteByPrescriptionId(PrescriptionId prescriptionId) {
 		Prescription p = findByPrescriptionId(prescriptionId)
 		prescriptionEventPublisher.publish(newPrescriptionEvent(p, DELETED))
-		p
-	}
-	
-	@Override
-	Prescription finaliseDelete(PrescriptionId prescriptionId) {
 		return prescriptionRepository.delete(prescriptionId)
 	}
 }

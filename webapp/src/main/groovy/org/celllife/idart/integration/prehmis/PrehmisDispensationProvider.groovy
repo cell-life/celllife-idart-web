@@ -166,10 +166,6 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
         LOGGER.info("PREHMIS response: "+result)
         if (!result.equals("Dispensation deleted")) {
             throw new DispensationNotDeletedException("Unable to delete dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result)
-        } else {
-            def dispensationIdentifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, newIdentifiers(dispensationEvent.dispensation.id.value))
-            def dispensationId = getIdentifierValue(dispensationIdentifiable.identifiers, IDART_WEB.id)
-            dispensationService.finaliseDelete(DispensationId.dispensationId(dispensationId))
         }
     }
     
