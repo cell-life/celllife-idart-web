@@ -15,6 +15,8 @@ import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.IdentifiableType.PATIENT
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
@@ -53,6 +55,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Inject SystemFacilityService systemFacilityService
 
     @Override
+    @Transactional
     PatientId save(PatientDto patientDto) {
 
         def personDto = patientDto.person
@@ -104,12 +107,14 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     PatientDto findByPatientId(PatientId patientId) {
 
         findByIdentifier(newIdentifier(patientId.value))
     }
 
     @Override
+    @Transactional(readOnly = true)
     PatientDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(PATIENT, [identifier] as Set)
@@ -130,6 +135,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     PatientId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(PATIENT, identifiers)
@@ -140,6 +146,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     Set<PatientDto> findByIdentifierAndFacility(String patientIdentifier, FacilityId facilityId) {
 
         Iterable<OrganisationId> organisationIds = facilityOrganisationService.findOrganisations(facilityId, OPERATED_BY)
@@ -158,6 +165,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     Set<PatientDto> findByIdentifierAndSystem(String identifier, SystemId system) {
 
         def facility = systemFacilityService.findFacility(system, DEPLOYED_AT)
@@ -168,6 +176,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     Set<PatientDto> findByIdentifierAndPerson(String identifier, PersonId personId) {
         return null
     }

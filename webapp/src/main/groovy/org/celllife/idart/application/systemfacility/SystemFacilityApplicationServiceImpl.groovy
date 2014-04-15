@@ -7,6 +7,8 @@ import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-09-17
@@ -19,6 +21,7 @@ import javax.inject.Named
     @Inject SystemFacilityDtoAssembler systemFacilityDtoAssembler
 
     @Override
+    @Transactional
     void save(SystemFacilityDto systemFacilityDto) {
 
         def systemFacility = systemFacilityDtoAssembler.toSystemFacility(systemFacilityDto)

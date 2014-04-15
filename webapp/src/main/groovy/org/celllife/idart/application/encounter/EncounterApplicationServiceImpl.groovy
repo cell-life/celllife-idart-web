@@ -17,6 +17,8 @@ import static org.celllife.idart.common.Systems.IDART_WEB
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  */
 @Named class EncounterApplicationServiceImpl implements EncounterApplicationService {
@@ -28,11 +30,13 @@ import javax.inject.Named
     @Inject IdentifiableService identifiableService
 
     @Override
+    @Transactional(readOnly = true)
     Boolean exists(EncounterId encounterId) {
         encounterService.exists(encounterId)
     }
 
     @Override
+    @Transactional
     EncounterId save(EncounterDto encounterDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, encounterDto.identifiers)
@@ -49,12 +53,14 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     EncounterDto findByEncounterId(EncounterId encounterId) {
         def identifier = newIdentifier(encounterId.value)
         findByIdentifier(identifier)
     }
 
     @Override
+    @Transactional(readOnly = true)
     EncounterDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, [identifier] as Set)
@@ -74,6 +80,7 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     EncounterId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, identifiers)

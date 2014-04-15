@@ -19,6 +19,8 @@ import static org.celllife.idart.common.Systems.IDART_WEB
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  */
 @Named class PartApplicationServiceImpl implements PartApplicationService {
@@ -30,11 +32,13 @@ import javax.inject.Named
     @Inject IdentifiableService identifiableService
 
     @Override
+    @Transactional(readOnly = true)
     Boolean exists(PartId partId) {
         partService.exists(partId)
     }
 
     @Override
+    @Transactional
     PartId save(PartDto partDto) {
 
         def existingPartId = findMatchingPart(partDto)
@@ -67,12 +71,14 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     PartDto findByPartId(PartId partId) {
         def identifier = newIdentifier(partId.value)
         findByIdentifier(identifier)
     }
 
     @Override
+    @Transactional(readOnly = true)
     PartDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(PART, [identifier] as Set)
@@ -92,6 +98,7 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     PartId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(PART, identifiers)
@@ -102,6 +109,7 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     Set<PartDto> findByType(PartType type) {
 
         def partIds = partService.findByType(type)

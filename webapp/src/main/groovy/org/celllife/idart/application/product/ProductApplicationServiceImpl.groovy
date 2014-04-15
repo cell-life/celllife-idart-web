@@ -17,6 +17,8 @@ import static org.celllife.idart.common.Systems.IDART_WEB
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  */
 @Named class ProductApplicationServiceImpl implements ProductApplicationService {
@@ -28,11 +30,13 @@ import javax.inject.Named
     @Inject IdentifiableService identifiableService
 
     @Override
+    @Transactional(readOnly = true)
     Boolean exists(ProductId productId) {
         productService.exists(productId)
     }
 
     @Override
+    @Transactional
     ProductId save(ProductDto productDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRODUCT, productDto.identifiers)
@@ -49,12 +53,14 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     ProductDto findByProductId(ProductId productId) {
         def identifier = newIdentifier(productId.value)
         findByIdentifier(identifier)
     }
 
     @Override
+    @Transactional(readOnly = true)
     ProductDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRODUCT, [identifier] as Set)
@@ -74,6 +80,7 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     ProductId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRODUCT, identifiers)

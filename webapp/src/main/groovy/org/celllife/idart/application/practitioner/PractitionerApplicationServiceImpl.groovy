@@ -14,6 +14,8 @@ import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 import static IdentifiableType.FACILITY
 import static IdentifiableType.PRACTITIONER
 import static Identifiers.getIdentifierValue
@@ -50,6 +52,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Inject SystemFacilityService systemFacilityService
 
     @Override
+    @Transactional
     PractitionerId save(PractitionerDto practitionerDto) {
 
         def personDto = practitionerDto.person
@@ -101,12 +104,14 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     PractitionerDto findByPractitionerId(PractitionerId practitionerId) {
 
         findByIdentifier(newIdentifier(practitionerId.value))
     }
 
     @Override
+    @Transactional(readOnly = true)
     PractitionerDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, [identifier] as Set)
@@ -127,6 +132,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     PractitionerId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, identifiers)
@@ -137,6 +143,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     Set<PractitionerDto> findByFacility(FacilityId facilityId) {
 
         Iterable<OrganisationId> organisationIds = facilityOrganisationService.findOrganisations(facilityId, OPERATED_BY)

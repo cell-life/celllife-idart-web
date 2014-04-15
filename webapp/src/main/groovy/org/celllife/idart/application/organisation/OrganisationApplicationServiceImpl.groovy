@@ -17,6 +17,8 @@ import static org.celllife.idart.common.Systems.IDART_WEB
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  */
 @Named class OrganisationApplicationServiceImpl implements OrganisationApplicationService {
@@ -28,11 +30,13 @@ import javax.inject.Named
     @Inject IdentifiableService identifiableService
 
     @Override
+    @Transactional(readOnly = true)
     Boolean exists(OrganisationId organisationId) {
         organisationService.exists(organisationId)
     }
 
     @Override
+    @Transactional
     OrganisationId save(OrganisationDto organisationDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, organisationDto.identifiers)
@@ -49,12 +53,14 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     OrganisationDto findByOrganisationId(OrganisationId organisationId) {
         def identifier = newIdentifier(organisationId.value)
         findByIdentifier(identifier)
     }
 
     @Override
+    @Transactional(readOnly = true)
     OrganisationDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, [identifier] as Set)
@@ -74,6 +80,7 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     OrganisationId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, identifiers)

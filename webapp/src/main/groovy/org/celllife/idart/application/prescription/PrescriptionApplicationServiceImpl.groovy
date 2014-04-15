@@ -20,6 +20,8 @@ import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 import static org.celllife.idart.common.IdentifiableType.PRESCRIPTION
 import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
@@ -49,11 +51,13 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Inject SystemFacilityService systemFacilityService
 
     @Override
+    @Transactional(readOnly = true)
     Boolean exists(PrescriptionId prescriptionId) {
         prescriptionService.exists(prescriptionId)
     }
 
     @Override
+    @Transactional
     PrescriptionId save(SystemId systemId, PrescriptionDto prescriptionDto) {
 
         def facility = systemFacilityService.findFacility(systemId, DEPLOYED_AT)
@@ -68,6 +72,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional
     PrescriptionId save(PrescriptionDto prescriptionDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, prescriptionDto.identifiers)
@@ -88,12 +93,14 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional(readOnly = true)
     PrescriptionDto findByPrescriptionId(PrescriptionId prescriptionId) {
         def identifier = newIdentifier(prescriptionId.value)
         findByIdentifier(identifier)
     }
 
     @Override
+    @Transactional(readOnly = true)
     PrescriptionDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, [identifier] as Set)
@@ -118,6 +125,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
 
     @Override
+    @Transactional(readOnly = true)
     PrescriptionId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, identifiers)
@@ -128,11 +136,13 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
 	@Override
+    @Transactional
 	void deleteByPrescriptionId(PrescriptionId prescriptionId) {
 		prescriptionService.deleteByPrescriptionId(prescriptionId)
 	}
 
     @Override
+    @Transactional
     void deleteByIdentifierAndSystem(String identifier, SystemId system) {
 
         // get the information about the facility
@@ -153,6 +163,7 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     }
 
     @Override
+    @Transactional
     void deleteByIdentifierAndPerson(String identifier, PersonId personId) {
         // no implementation for online system yet
         

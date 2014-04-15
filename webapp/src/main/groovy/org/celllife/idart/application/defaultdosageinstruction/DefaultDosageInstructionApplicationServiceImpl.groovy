@@ -18,6 +18,8 @@ import static org.celllife.idart.common.Systems.IDART_WEB
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  */
 @Named class DefaultDosageInstructionApplicationServiceImpl implements DefaultDosageInstructionApplicationService {
@@ -29,11 +31,13 @@ import javax.inject.Named
     @Inject IdentifiableService identifiableService
 
     @Override
+    @Transactional(readOnly = true)
     Boolean exists(DefaultDosageInstructionId defaultDosageInstructionId) {
         defaultDosageInstructionService.exists(defaultDosageInstructionId)
     }
 
     @Override
+    @Transactional
     DefaultDosageInstructionId save(DefaultDosageInstructionDto defaultDosageInstructionDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(DEFAULT_DOSAGE_INSTRUCTION, defaultDosageInstructionDto.identifiers)
@@ -50,12 +54,14 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     DefaultDosageInstructionDto findByDefaultDosageInstructionId(DefaultDosageInstructionId defaultDosageInstructionId) {
         def identifier = newIdentifier(defaultDosageInstructionId.value)
         findByIdentifier(identifier)
     }
 
     @Override
+    @Transactional(readOnly = true)
     DefaultDosageInstructionDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(DEFAULT_DOSAGE_INSTRUCTION, [identifier] as Set)
@@ -75,6 +81,7 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     DefaultDosageInstructionId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(DEFAULT_DOSAGE_INSTRUCTION, identifiers)

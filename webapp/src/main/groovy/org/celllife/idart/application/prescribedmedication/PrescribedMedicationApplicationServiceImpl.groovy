@@ -17,6 +17,8 @@ import static org.celllife.idart.common.Systems.IDART_WEB
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  */
 @Named class PrescribedMedicationApplicationServiceImpl implements PrescribedMedicationApplicationService {
@@ -28,11 +30,13 @@ import javax.inject.Named
     @Inject IdentifiableService identifiableService
 
     @Override
+    @Transactional(readOnly = true)
     Boolean exists(PrescribedMedicationId prescribedMedicationId) {
         prescribedMedicationService.exists(prescribedMedicationId)
     }
 
     @Override
+    @Transactional
     PrescribedMedicationId save(PrescribedMedicationDto prescribedMedicationDto) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, prescribedMedicationDto.identifiers)
@@ -49,12 +53,14 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     PrescribedMedicationDto findByPrescribedMedicationId(PrescribedMedicationId prescribedMedicationId) {
         def identifier = newIdentifier(prescribedMedicationId.value)
         findByIdentifier(identifier)
     }
 
     @Override
+    @Transactional(readOnly = true)
     PrescribedMedicationDto findByIdentifier(Identifier identifier) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, [identifier] as Set)
@@ -74,6 +80,7 @@ import javax.inject.Named
     }
 
     @Override
+    @Transactional(readOnly = true)
     PrescribedMedicationId findByIdentifiers(Set<Identifier> identifiers) {
 
         def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, identifiers)

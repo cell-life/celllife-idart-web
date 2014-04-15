@@ -7,6 +7,8 @@ import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.springframework.transaction.annotation.Transactional
+
 /**
  * User: Kevin W. Sewell
  * Date: 2013-09-17
@@ -19,6 +21,7 @@ import javax.inject.Named
     @Inject FacilityOrganisationDtoAssembler facilityOrganisationDtoAssembler
 
     @Override
+    @Transactional
     void save(FacilityOrganisationDto facilityOrganisationDto) {
 
         def facilityOrganisation = facilityOrganisationDtoAssembler.toFacilityOrganisation(facilityOrganisationDto)
