@@ -6,6 +6,7 @@
             "value": "00000024"
         }
     ],
+    "label": "[NVP] Nevirapine 50mg/5ml",
     "billOfMaterials": [
         {
             "part": [
@@ -28,5 +29,7 @@
     			"type":"ATC"
     		}
     	}
-    ]
+    ],
+    "form": "SYRUP",
+    "unitOfMeasure": "each"
 }

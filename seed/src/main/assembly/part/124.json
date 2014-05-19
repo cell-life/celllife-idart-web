@@ -6,6 +6,7 @@
             "value": "00000025"
         }
     ],
+    "label": "[RTV] Ritonavir 80mg/ml",
     "billOfMaterials": [
         {
             "part": [
@@ -28,7 +29,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "SYRUP",
-    "unitOfMeasure": "each"
+    ]
 }

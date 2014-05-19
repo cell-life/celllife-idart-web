@@ -6,12 +6,13 @@
             "value": "00000004"
         }
     ],
+    "label": "[ABC] Abacavir 300mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000002"
+                    "value": "00000003"
                 }
             ],
             "quantityUsed": {
@@ -28,5 +29,7 @@
     			"type":"ATC"
     		}
     	}
-    ]
+    ],
+    "form": "TAB",
+    "unitOfMeasure": "each"
 }

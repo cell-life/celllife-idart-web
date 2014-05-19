@@ -6,6 +6,7 @@
             "value": "00000005"
         }
     ],
+    "label": "[TDF] Tenofovir 300mg",
     "billOfMaterials": [
         {
             "part": [
@@ -28,7 +29,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

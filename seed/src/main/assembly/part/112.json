@@ -6,6 +6,7 @@
             "value": "00000013"
         }
     ],
+    "label": "[EFV] Efavirenz 50mg",
     "billOfMaterials": [
         {
             "part": [
@@ -28,7 +29,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "CAP",
-    "unitOfMeasure": "each"
+    ]
 }

@@ -6,6 +6,7 @@
             "value": "00000041"
         }
     ],
+    "label": "[LPV/RTV] Kaletra 133.3/33.3 mg",
     "billOfMaterials": [
         {
             "part": [
@@ -17,11 +18,8 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg",
                 "value": "133.3"
-
             }
-        }
-    ],
-    "billOfMaterials": [
+        },
         {
             "part": [
                 {
@@ -32,7 +30,6 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg",
                 "value": "33.3"
-
             }
         }
     ],
@@ -43,7 +40,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "CAP",
-    "unitOfMeasure": "each"
+    ]
 }

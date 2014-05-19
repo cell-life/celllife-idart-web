@@ -6,6 +6,7 @@
             "value": "00000021"
         }
     ],
+    "label": "[NVP] Nevirapine 200mg",
     "billOfMaterials": [
         {
             "part": [
@@ -28,7 +29,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

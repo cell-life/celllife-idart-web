@@ -6,6 +6,7 @@
             "value": "00000051"
         }
     ],
+    "label": "[LPV/r] Aluvia 200/50mg",
     "billOfMaterials": [
         {
             "part": [
@@ -17,11 +18,8 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg",
                 "value": "200"
-
             }
-        }
-    ],
-    "billOfMaterials": [
+        },
         {
             "part": [
                 {
@@ -32,7 +30,6 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg",
                 "value": "50"
-
             }
         }
     ],
@@ -43,7 +40,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

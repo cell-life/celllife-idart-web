@@ -6,6 +6,7 @@
             "value": "00000027"
         }
     ],
+    "label": "[D4T] Stavudine 15mg",
     "billOfMaterials": [
         {
             "part": [
@@ -17,7 +18,6 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg",
                 "value": "15"
-
             }
         }
     ],
@@ -28,7 +28,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "CAP",
-    "unitOfMeasure": "each"
+    ]
 }

@@ -6,6 +6,7 @@
             "value": "00000008"
         }
     ],
+    "label": "[DDI] Didanosine 25mg",
     "billOfMaterials": [
         {
             "part": [
@@ -28,5 +29,7 @@
     			"type":"ATC"
     		}
     	}
-    ]
+    ],
+    "form": "TAB",
+    "unitOfMeasure": "each"
 }

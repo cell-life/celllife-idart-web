@@ -6,6 +6,7 @@
             "value": "00000043"
         }
     ],
+    "label": "[LPV/RTV] Kaletra 80/20 mg/ml",
     "billOfMaterials": [
         {
             "part": [
@@ -17,11 +18,8 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg/mL",
                 "value": "80"
-
             }
-        }
-    ],
-    "billOfMaterials": [
+        },
         {
             "part": [
                 {
@@ -32,7 +30,6 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg/mL",
                 "value": "20"
-
             }
         }
     ],
@@ -43,7 +40,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "SYRUP",
-    "unitOfMeasure": "each"
+    ]
 }

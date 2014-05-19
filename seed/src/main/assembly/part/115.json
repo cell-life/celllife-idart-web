@@ -6,6 +6,7 @@
             "value": "00000016"
         }
     ],
+    "label": "[EFV] Efavirenz 600mg",
     "billOfMaterials": [
         {
             "part": [
@@ -28,5 +29,7 @@
     			"type":"ATC"
     		}
     	}
-    ]
+    ],
+    "form": "TAB",
+    "unitOfMeasure": "each"
 }

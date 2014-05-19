@@ -6,6 +6,7 @@
             "value": "00000050"
         }
     ],
+    "label": "[3TC/AZT] Lamzid 150/300mg",
     "billOfMaterials": [
         {
             "part": [
@@ -17,7 +18,6 @@
             "quantityUsed": {
                 "unitOfMeasure": "each",
                 "value": "60"
-
             }
         }
     ],
@@ -28,5 +28,7 @@
     			"type":"ATC"
     		}
     	}
-    ]
+    ],
+    "form": "TAB",
+    "unitOfMeasure": "each"
 }
