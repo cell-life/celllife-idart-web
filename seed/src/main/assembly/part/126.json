@@ -3,28 +3,45 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000027"
+            "value": "99999026"
         }
     ],
-    "label": "[D4T] Stavudine 15mg",
+    "label": "[LPV/RTV] Aluvia 200/50mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "99999970"
+                    "value": "99999978"
                 }
             ],
             "quantityUsed": {
                 "unitOfMeasure": "mg",
-                "value": "15"
+                "value": "200"
+            }
+        },
+        {
+            "part": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "99999981"
+                }
+            ],
+            "quantityUsed": {
+                "unitOfMeasure": "mg",
+                "value": "50"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "120"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AF04",
+    			"value":"J05AR10",
     			"type":"ATC"
     		}
     	}

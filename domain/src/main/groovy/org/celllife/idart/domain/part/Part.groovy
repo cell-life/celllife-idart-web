@@ -3,9 +3,8 @@ package org.celllife.idart.domain.part
 import org.celllife.idart.common.*
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-16
- * Time: 18h17
+ * A Part is generally a Drug or Compound, but could be any medically related artifact. It is
+ * something that can be dispensed to a patient as part of a medical treatment.
  */
 abstract class Part implements Serializable {
 
@@ -18,10 +17,16 @@ abstract class Part implements Serializable {
      * Labelled as
      */
     Label label
-
-    UnitOfMeasureCode unitOfMeasure
-
-    FormCode form
+    
+    /**
+     * Specifies the quantity of the part, how many capsules or tablets
+     */
+    Quantity quantity;
+    
+    /**
+     * The specific form (e.g. for drugs: CAP, TAB, SYRUP)
+     */
+    FormCode form;
 
     /**
      * Classified into
@@ -33,7 +38,7 @@ abstract class Part implements Serializable {
             return
         }
 
-        this.unitOfMeasure = that.unitOfMeasure
+        this.quantity = that.quantity
         this.label = that.label
         this.form = that.form
         that.classifications?.each { classification -> this.classifications << classification }
@@ -45,7 +50,9 @@ abstract class Part implements Serializable {
             return false
         }
 
-        return this.label.value.toLowerCase() == that.label.value.toLowerCase()
+        return (this.label.value.toLowerCase() == that.label.value.toLowerCase() 
+            & this.quantity == that.quantity 
+            & this.form.value.toLowerCase() == that.form.value.toLowerCase());
     }
 
     def getClassificationCode(PartClassificationType type) {

@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000008"
+            "value": "99999007"
         }
     ],
-    "label": "[DDI] Didanosine 25mg",
+    "label": "[EFV] Efavirenz 50mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000007"
+                    "value": "99999959"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "60"
-
+                "unitOfMeasure": "mg",
+                "value": "50"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "30"
+    },
+    "form": "CAP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AF02",
+    			"value":"J05AG03",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

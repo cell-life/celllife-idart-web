@@ -1,15 +1,13 @@
 package org.celllife.idart.application.part.dto
 
-import org.celllife.idart.common.FormCode
-import org.celllife.idart.common.Label
-import org.celllife.idart.common.UnitOfMeasureCode
+import org.celllife.idart.common.FormCode;
 import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.Label
+import org.celllife.idart.common.Quantity;
 import org.celllife.idart.domain.part.PartClassificationApplication
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-09-04
- * Time: 17h47
+ * A Data Transfer Object (DTO) which represents the Part domain entity.
  */
 abstract class PartDto implements Serializable {
 
@@ -23,8 +21,14 @@ abstract class PartDto implements Serializable {
      */
     Label label
 
-    UnitOfMeasureCode unitOfMeasure
+    /**
+     * The amount
+     */
+    Quantity quantity
 
+    /**
+     * The form (e.g. for drugs: TAB, CAP)
+     */
     FormCode form
 
     /**

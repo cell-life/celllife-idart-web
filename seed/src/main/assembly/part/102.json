@@ -3,7 +3,7 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000003"
+            "value": "99999002"
         }
     ],
     "label": "[ABC] Abacavir 300mg",
@@ -18,10 +18,14 @@
             "quantityUsed": {
                 "unitOfMeasure": "mg",
                 "value": "300"
-
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "60"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {

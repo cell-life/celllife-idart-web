@@ -3,33 +3,47 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000022"
+            "value": "99999021"
         }
     ],
-    "label": "[NVP] Nevirapine 200mg",
+    "label": "[LPV/RTV] Kaletra 133.3/33.3 mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000021"
+                    "value": "99999978"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "60"
-
+                "unitOfMeasure": "mg",
+                "value": "133.3"
+            }
+        },
+        {
+            "part": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "99999981"
+                }
+            ],
+            "quantityUsed": {
+                "unitOfMeasure": "mg",
+                "value": "33.3"
             }
         }
     ],
+	"quantity": {
+	    "unitOfMeasure": "each",
+	    "value": "180"
+	},
+	"form": "CAP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG01",
+    			"value":"J05AR10",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

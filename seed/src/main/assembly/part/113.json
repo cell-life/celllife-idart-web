@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000014"
+            "value": "99999013"
         }
     ],
-    "label": "[EFV] Efavirenz 50mg",
+    "label": "[RTV] Ritonavir 80mg/ml",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000013"
+                    "value": "99999981"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "30"
-
+                "unitOfMeasure": "mg/mL",
+                "value": "80"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "mL",
+        "value": "90"
+    },
+    "form": "SYRUP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG03",
+    			"value":"J05AE03",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "CAP",
-    "unitOfMeasure": "each"
+    ]
 }

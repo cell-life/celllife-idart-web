@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000020"
+            "value": "99999019"
         }
     ],
-    "label": "[3TC] Lamivudine 150mg",
+    "label": "[AZT] Zidovudine 10mg/ml",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000019"
+                    "value": "99999973"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "60"
-
+                "unitOfMeasure": "mg/mL",
+                "value": "10"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "mL",
+        "value": "200"
+    },
+    "form": "SYRUP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AF05",
+    			"value":"J05AF01",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

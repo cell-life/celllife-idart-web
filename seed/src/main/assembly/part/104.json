@@ -3,29 +3,33 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000005"
+            "value": "99999004"
         }
     ],
-    "label": "[TDF] Tenofovir 300mg",
+    "label": "[DDI] Didanosine 25mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "99999967"
+                    "value": "99999972"
                 }
             ],
             "quantityUsed": {
                 "unitOfMeasure": "mg",
-                "value": "300"
-
+                "value": "25"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "60"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AF07",
+    			"value":"J05AF02",
     			"type":"ATC"
     		}
     	}

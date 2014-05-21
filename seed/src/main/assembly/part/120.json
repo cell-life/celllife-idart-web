@@ -3,29 +3,33 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000021"
+            "value": "99999020"
         }
     ],
-    "label": "[NVP] Nevirapine 200mg",
+    "label": "[AZT] Zidovudine 300mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "99999961"
+                    "value": "99999973"
                 }
             ],
             "quantityUsed": {
                 "unitOfMeasure": "mg",
-                "value": "200"
-
+                "value": "300"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "60"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG01",
+    			"value":"J05AF01",
     			"type":"ATC"
     		}
     	}

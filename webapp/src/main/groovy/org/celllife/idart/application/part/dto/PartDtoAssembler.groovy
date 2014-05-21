@@ -35,7 +35,7 @@ import javax.inject.Named
         drug.with {
             label = drugDto.label
             form = drugDto.form
-            unitOfMeasure = drugDto.unitOfMeasure
+            quantity = drugDto.quantity
             classifications = drugDto.classifications
             billOfMaterials = drugDto.billOfMaterials.collect { billOfMaterial -> toPartBillOfMaterialsItem(billOfMaterial) }
         }
@@ -49,7 +49,7 @@ import javax.inject.Named
         compound.with {
             label = compoundDto.label
             form = compoundDto.form
-            unitOfMeasure = compoundDto.unitOfMeasure
+            quantity = compoundDto.quantity
             classifications = compoundDto.classifications
         }
 
@@ -88,7 +88,7 @@ import javax.inject.Named
         drugDto.with {
             label = drug.label
             form = drug.form
-            unitOfMeasure = drug.unitOfMeasure
+            quantity = drug.quantity
             classifications = drug.classifications
             billOfMaterials = drug.billOfMaterials.collect { billOfMaterial -> toPartBillOfMaterialsItemDto(billOfMaterial) }
         }
@@ -102,7 +102,7 @@ import javax.inject.Named
         compoundDto.with {
             label = compound.label
             form = compound.form
-            unitOfMeasure = compound.unitOfMeasure
+            quantity = compound.quantity
             classifications = compound.classifications
         }
 

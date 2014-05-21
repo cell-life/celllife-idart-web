@@ -1,8 +1,10 @@
 package org.celllife.idart.application.part.dto
+
+import org.celllife.idart.common.FormCode;
+import org.celllife.idart.common.Quantity;
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-09-04
- * Time: 17h47
+ * A Data Transfer Object (DTO) for the Part domain entity
  */
 class DrugDto extends PartDto {
 

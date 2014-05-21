@@ -1,5 +1,12 @@
 package org.celllife.idart.client;
 
+import static org.celllife.idart.common.Label.label;
+import static org.celllife.idart.common.Systems.PGWC;
+import static org.celllife.idart.common.Systems.PREHMIS;
+
+import java.util.Date;
+import java.util.List;
+
 import org.celllife.idart.client.part.Compound;
 import org.celllife.idart.client.part.CompoundBuilder;
 import org.celllife.idart.client.part.Drug;
@@ -10,24 +17,22 @@ import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.PrescribedMedicationBuilder;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
-import org.celllife.idart.client.product.*;
+import org.celllife.idart.client.product.BillOfMaterialsItemBuilder;
+import org.celllife.idart.client.product.Medication;
+import org.celllife.idart.client.product.MedicationBuilder;
 import org.celllife.idart.common.PartClassificationType;
 import org.celllife.idart.common.UnitsOfMeasure;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.Date;
-import java.util.List;
-
-import static org.celllife.idart.common.Label.label;
-import static org.celllife.idart.common.Systems.*;
 
 /**
  * Kevin W. Sewell
  * Date: 2013-07-18
  * Time: 19h36
  */
+//@Ignore
 public class IdartClientIntegrationTest {
 
     private IdartClient idartClient;
@@ -104,28 +109,15 @@ public class IdartClientIntegrationTest {
 
         idartClient.savePart(compound);
 
-        Drug pill = newDrug(systemId)
-                .setIdentifier("00000002")
-                .setForm("CAP")
-                .setLabel(label("Abacavir 300mg"))
-                .addClassification(PartClassificationType.ATC, "J05AF06")
-                .addBillOfMaterialsItem(newBillOfMaterialsItem()
-                        .setQuantity(300, UnitsOfMeasure.mg.code)
-                        .addPart(compound.getIdentifiers())
-                        .finishBillOfMaterialsItem()
-                )
-                .finishDrug();
-
-        idartClient.savePart(pill);
-
         Drug pills = newDrug(systemId)
-                .setIdentifier("00000001")
+                .setIdentifier("00000002")
                 .setForm("CAP")
                 .setLabel(label("Abacavir 300mg (60 capsules)"))
                 .addClassification(PartClassificationType.ATC, "J05AF06")
+                .setQuantity(20, UnitsOfMeasure.each.code)
                 .addBillOfMaterialsItem(newBillOfMaterialsItem()
-                        .setQuantity(60, UnitsOfMeasure.each.code)
-                        .addPart(pill.getIdentifiers())
+                        .setQuantity(300, UnitsOfMeasure.mg.code)
+                        .addPart(compound.getIdentifiers())
                         .finishBillOfMaterialsItem()
                 )
                 .finishDrug();

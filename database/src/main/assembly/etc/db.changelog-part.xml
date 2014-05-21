@@ -38,5 +38,19 @@
         </createTable>
 
     </changeSet>
+    
+    <changeSet id="part-2" author="dagmar.timler">
+        <preConditions onFail="MARK_RAN">
+            <not><columnExists tableName="part" columnName="quantity" /></not>
+            <not><columnExists tableName="part" columnName="quantity_uom" /></not>
+            <columnExists tableName="part" columnName="unit_of_measure" />
+        </preConditions>
+        <addColumn tableName="part">
+            <column name="quantity" type="numeric" />
+            <column name="quantity_uom" type="varchar(31)" />
+        </addColumn>
+        <sql>update part set quantity_uom = unit_of_measure</sql>
+        <dropColumn tableName="part" columnName="unit_of_measure" />
+    </changeSet>
 
 </databaseChangeLog>

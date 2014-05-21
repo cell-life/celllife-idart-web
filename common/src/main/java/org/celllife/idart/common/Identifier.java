@@ -5,9 +5,8 @@ import org.celllife.idart.common.SystemId;
 import java.io.Serializable;
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-08-24
- * Time: 17h36
+ * Used to identify a domain entity. An entity can have multiple identifiers for example where there 
+ * are multiple systems and each system has its own identifier.
  */
 public class Identifier implements Serializable {
 
@@ -55,4 +54,10 @@ public class Identifier implements Serializable {
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Identifier [system=" + system + ", value=" + value + "]";
+    }
+
 }

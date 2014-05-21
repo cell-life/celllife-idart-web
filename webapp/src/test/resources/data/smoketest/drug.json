@@ -8,6 +8,10 @@
     ],
     "label": "Abacavir 300mg",
     "form": "CAP",
+    "quantity": {
+       "value": 300,
+       "unitOfMeasure": "each"
+     },
     "classifications": [
         {
             "classification": {

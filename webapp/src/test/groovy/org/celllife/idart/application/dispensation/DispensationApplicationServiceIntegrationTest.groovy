@@ -108,7 +108,6 @@ class DispensationApplicationServiceIntegrationTest {
         def compound = new CompoundDto()
         compound.with {
             label = label("Abacavir")
-            unitOfMeasure = UnitsOfMeasure.mg.code
         }
         partApplicationService.save(compound)
 
@@ -116,23 +115,13 @@ class DispensationApplicationServiceIntegrationTest {
 
         DrugDto drug = new DrugDto()
         drug.with {
-            label = label("Abacavir 20mg/ml")
-            unitOfMeasure = UnitsOfMeasure.mL.code
+            label = label("Abacavir 20mg/ml 240ml")
+            form = FormCode.valueOf("SYRUP")
+            quantity = new Quantity(240, UnitsOfMeasure.mL.code)
             billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, UnitsOfMeasure.mg.code)]
             classifications = partClassificationApplications("J05AF06", ATC)
         }
         partApplicationService.save(drug)
-
-        // ***************************************** Create Finished Drug *******************************************
-
-        DrugDto finishedDrug = new DrugDto()
-        finishedDrug.with {
-            label = label("Abacavir 20mg/ml 240ml")
-            unitOfMeasure = UnitsOfMeasure.each.code
-            billOfMaterials = [newEngineeringPart(drug.identifiers, 240.0D, UnitsOfMeasure.mL.code)]
-            classifications = partClassificationApplications("J05AF06", ATC)
-        }
-        partApplicationService.save(finishedDrug)
 
         // ***************************************** Create Medication **********************************************
 

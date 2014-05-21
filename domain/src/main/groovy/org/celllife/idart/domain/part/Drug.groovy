@@ -1,5 +1,6 @@
 package org.celllife.idart.domain.part
 
+import org.celllife.idart.common.FormCode;
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
@@ -7,9 +8,8 @@ import org.celllife.idart.common.UnitOfMeasureCode
 import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-20
- * Time: 18h31
+ * Drugs are one Part of the Medication given to a Patient. It is a medicine that can be given in many forms 
+ * (e.g. Syrup or Capsules).
  */
 class Drug extends Part {
 

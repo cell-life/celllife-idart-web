@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000016"
+            "value": "99999015"
         }
     ],
-    "label": "[EFV] Efavirenz 600mg",
+    "label": "[D4T] Stavudine 1mg/ml",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000015"
+                    "value": "99999970"
                 }
             ],
-            "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "30"
-
+            "quantity": {
+                "unitOfMeasure": "mg/mL",
+                "value": "1"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "mL",
+        "value": "200"
+    },
+    "form": "SYRUP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG03",
+    			"value":"J05AF04",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

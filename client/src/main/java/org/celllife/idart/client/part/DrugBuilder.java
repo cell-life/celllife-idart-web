@@ -1,18 +1,34 @@
 package org.celllife.idart.client.part;
 
-import org.celllife.idart.common.Label;
-import org.celllife.idart.common.PartClassificationCode;
-import org.celllife.idart.common.PartClassificationType;
-import org.celllife.idart.common.SystemId;
-
 import static org.celllife.idart.common.FormCode.formCode;
 import static org.celllife.idart.common.Identifiers.newIdentifier;
 import static org.celllife.idart.common.SystemId.systemId;
 
+import java.math.BigDecimal;
+
+import org.celllife.idart.common.Label;
+import org.celllife.idart.common.PartClassificationCode;
+import org.celllife.idart.common.PartClassificationType;
+import org.celllife.idart.common.Quantity;
+import org.celllife.idart.common.SystemId;
+import org.celllife.idart.common.UnitOfMeasureCode;
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-23
- * Time: 20h54
+ * Handy class that allows you to build a Drug object. Like so:
+ * <pre>
+           Drug pills = new DrugBuilder(clinicId)
+                .setIdentifier("00000001")
+                .setForm("CAP")
+                .setLabel(label("Abacavir 300mg (60 capsules)"))
+                .setQuantity(60, UnitsOfMeasure.each.code)
+                .addClassification(PartClassificationType.ATC, "J05AF06")
+                .addBillOfMaterialsItem(new BillOfMaterialsItemBuilder()
+                        .setQuantity(300, UnitsOfMeasure.mL.code)
+                        .addPart(pill.getIdentifiers())
+                        .finishBillOfMaterialsItem()
+                )
+                .finishDrug();
+ * </pre>
  */
 public class DrugBuilder {
 
@@ -37,6 +53,14 @@ public class DrugBuilder {
 
     public DrugBuilder setForm(String formCodeValue) {
         this.drug.setForm(formCode(formCodeValue));
+        return this;
+    }
+    
+    public DrugBuilder setQuantity(int quantity, UnitOfMeasureCode unitOfMeasure) {
+        Quantity quantityObj = new Quantity();
+        quantityObj.setValue(new BigDecimal(quantity));
+        quantityObj.setUnitOfMeasure(unitOfMeasure);
+        this.drug.setQuantity(quantityObj);
         return this;
     }
 

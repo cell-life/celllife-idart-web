@@ -1,16 +1,20 @@
 package org.celllife.idart.client.part;
 
-import org.celllife.idart.common.FormCode;
-import org.celllife.idart.common.Label;
-import org.celllife.idart.common.SystemId;
-
 import static org.celllife.idart.common.Identifiers.newIdentifier;
 import static org.celllife.idart.common.SystemId.systemId;
 
+import org.celllife.idart.common.Label;
+import org.celllife.idart.common.SystemId;
+
 /**
- * User: Kevin W. Sewell
- * Date: 2013-07-23
- * Time: 20h54
+ * Handy class that allows you to create Compounds.
+ * Like so
+ * <pre>
+        Compound compound = new CompoundBuilder(clinicId)
+                .setIdentifier("Abacavir")
+                .setLabel(label("Abacavir"))
+                .finishCompound();
+ * </pre>
  */
 public class CompoundBuilder {
 
@@ -25,11 +29,6 @@ public class CompoundBuilder {
 
     public CompoundBuilder setIdentifier(String idValue) {
         this.compound.getIdentifiers().add(newIdentifier(systemId, idValue));
-        return this;
-    }
-
-    public CompoundBuilder setForm(FormCode formCode) {
-        this.compound.setForm(formCode);
         return this;
     }
 

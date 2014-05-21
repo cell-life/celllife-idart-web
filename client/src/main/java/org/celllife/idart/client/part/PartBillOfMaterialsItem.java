@@ -1,32 +1,45 @@
 package org.celllife.idart.client.part;
 
+import java.util.Set;
+
 import org.celllife.idart.common.Identifier;
 import org.celllife.idart.common.PartBillOfMaterialsType;
 import org.celllife.idart.common.Period;
 import org.celllife.idart.common.Quantity;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import java.util.Date;
-import java.util.Set;
 
 /**
- * Kevin W. Sewell
- * Date: 2013-06-16
- * Time: 18h34
+ * The PartBillOfMaterialsItem is used to describe the parts of a Drug that make up the chemical composition.
  */
 public class PartBillOfMaterialsItem {
 
+    /**
+     * FIXME: wtf does this mean?
+     */
     private PartBillOfMaterialsType type;
 
+    /**
+     * The expiry date
+     */
     private Period valid;
 
+    /**
+     * Identifies the part to which this item belongs
+     */
     private Set<Identifier> part;
 
+    /**
+     * How many are or how much is included
+     */
     private Quantity quantityUsed;
 
+    /**
+     * Guidelines on how to use the drug properly
+     */
     private String instructions;
 
+    /**
+     * A random comment for good luck
+     */
     private String comment;
 
     public PartBillOfMaterialsItem() {

@@ -4,12 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Kevin W. Sewell
- * Date: 2013-07-20
- * Time: 18h30
+ * Drugs are one Part of the Medication given to a Patient. It is a medicine that can be given in many forms 
+ * (e.g. Syrup or Capsules).
  */
-public final class Drug extends Part {
+public class Drug extends Part {
 
+    private static final long serialVersionUID = 868835687772404489L;
+
+    /**
+     * Describes the contents/chemical makeup of the drug
+     */
     public Set<PartBillOfMaterialsItem> billOfMaterials = new HashSet<PartBillOfMaterialsItem>();
-
+    
+    public Drug() {
+        
+    }
 }

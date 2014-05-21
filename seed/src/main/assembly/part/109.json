@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000010"
+            "value": "99999009"
         }
     ],
-    "label": "[DDI] Didanosine 50mg",
+    "label": "[3TC] Lamivudine 10mg/ml",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000009"
+                    "value": "99999969"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "60"
-
+                "unitOfMeasure": "mg/mL",
+                "value": "10"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "mL",
+        "value": "240"
+    },
+    "form": "SYRUP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AF02",
+    			"value":"J05AF05",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

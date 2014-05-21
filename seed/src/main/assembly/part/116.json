@@ -3,31 +3,37 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000017"
+            "value": "99999016"
         }
     ],
-    "label": "[3TC] Lamivudine 10mg/ml",
+    "label": "[D4T] Stavudine 30mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "99999969"
+                    "value": "99999970"
                 }
             ],
-            "quantityUsed": {
-                "unitOfMeasure": "mg/mL",
-                "value": "10"
-
+            "quantity": {
+                "unitOfMeasure": "mg",
+                "value": "20"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "60"
+    },
+    "form": "CAP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AF05",
+    			"value":"J05AF04",
     			"type":"ATC"
     		}
     	}
-    ]
+    ],
+    "form": "CAP",
+    "unitOfMeasure": "each"
 }

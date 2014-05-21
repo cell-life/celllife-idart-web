@@ -3,29 +3,45 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000023"
+            "value": "99999022"
         }
     ],
-    "label": "[NVP] Nevirapine 50mg/5ml",
+    "label": "[LPV/RTV] Kaletra 80/20 mg/ml",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "99999961"
+                    "value": "99999978"
                 }
             ],
             "quantityUsed": {
                 "unitOfMeasure": "mg/mL",
-                "value": "50"
-
+                "value": "80"
+            }
+        },
+        {
+            "part": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "99999981"
+                }
+            ],
+            "quantityUsed": {
+                "unitOfMeasure": "mg/mL",
+                "value": "20"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "mL",
+        "value": "60"
+    },
+    "form": "SYRUP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG01",
+    			"value":"J05AR10",
     			"type":"ATC"
     		}
     	}

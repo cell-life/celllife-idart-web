@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000012"
+            "value": "99999011"
         }
     ],
-    "label": "[EFV] Efavirenz 200mg",
+    "label": "[NVP] Nevirapine 200mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000011"
+                    "value": "99999961"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "90"
-
+                "unitOfMeasure": "mg",
+                "value": "200"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "60"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG03",
+    			"value":"J05AG01",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "CAP",
-    "unitOfMeasure": "each"
+    ]
 }

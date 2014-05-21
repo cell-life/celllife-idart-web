@@ -3,29 +3,33 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000013"
+            "value": "99999012"
         }
     ],
-    "label": "[EFV] Efavirenz 50mg",
+    "label": "[NVP] Nevirapine 50mg/5ml",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "99999959"
+                    "value": "99999961"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "mg",
-                "value": "50"
-
+                "unitOfMeasure": "mg/mL",
+                "value": "10"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "mL",
+        "value": "240"
+    },
+    "form": "SYRUP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG03",
+    			"value":"J05AG01",
     			"type":"ATC"
     		}
     	}

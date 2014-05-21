@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000024"
+            "value": "99999023"
         }
     ],
-    "label": "[NVP] Nevirapine 50mg/5ml",
+    "label": "[RTV] Ritonavir 100mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000023"
+                    "value": "99999981"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "mL",
-                "value": "240"
-
+                "unitOfMeasure": "mg",
+                "value": "100"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "84"
+    },
+    "form": "CAP",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG01",
+    			"value":"J05AE03",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "SYRUP",
-    "unitOfMeasure": "each"
+    ]
 }

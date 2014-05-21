@@ -1,10 +1,10 @@
 package org.celllife.idart.client.part;
 
 /**
- * Kevin W. Sewell
- * Date: 2013-07-20
- * Time: 18h30
+ * A compound is the chemical makeup of a Drug - one specific element.
  */
 public class Compound extends Part {
+
+    private static final long serialVersionUID = -4444678873194389350L;
 
 }

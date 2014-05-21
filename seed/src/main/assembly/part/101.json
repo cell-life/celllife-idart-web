@@ -3,7 +3,7 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000002"
+            "value": "99999001"
         }
     ],
     "label": "[ABC] Abacavir 20mg/ml",
@@ -12,16 +12,20 @@
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000001"
+                    "value": "99999968"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "mg",
-                "value": "240"
-
+                "unitOfMeasure": "mg/mL",
+                "value": "20"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "mg",
+        "value": "240"
+    },
+	"form": "SYRUP",
     "classifications": [
     	{
     		"classification": {
@@ -29,7 +33,5 @@
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "SYRUP",
-    "unitOfMeasure": "each"
+    ]
 }

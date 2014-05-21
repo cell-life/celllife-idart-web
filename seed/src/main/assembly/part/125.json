@@ -3,33 +3,47 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000026"
+            "value": "99999025"
         }
     ],
-    "label": "[RTV] Ritonavir 80mg/ml",
-    "billOfMaterials": [
+    "label": "[3TC/AZT] Lamzid 150/300mg",
+	"billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000025"
+                    "value": "99999973"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "mL",
-                "value": "90"
-
+                "unitOfMeasure": "mg",
+                "value": "150"
+            }
+        },
+        {
+            "part": [
+                {
+                    "system": "IDART_WEB",
+                    "value": "99999969"
+                }
+            ],
+            "quantityUsed": {
+                "unitOfMeasure": "mg",
+                "value": "300"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "60"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AE03",
+    			"value":"J05AR01",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "SYRUP",
-    "unitOfMeasure": "each"
+    ]
 }

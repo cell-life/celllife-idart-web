@@ -3,33 +3,35 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000004"
+            "value": "99999003"
         }
     ],
-    "label": "[ABC] Abacavir 300mg",
+    "label": "[TDF] Tenofovir 300mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "00000003"
+                    "value": "99999967"
                 }
             ],
             "quantityUsed": {
-                "unitOfMeasure": "each",
-                "value": "60"
-
+                "unitOfMeasure": "mg",
+                "value": "300"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "30"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AF06",
+    			"value":"J05AF07",
     			"type":"ATC"
     		}
     	}
-    ],
-    "form": "TAB",
-    "unitOfMeasure": "each"
+    ]
 }

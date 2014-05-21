@@ -28,9 +28,12 @@
                     <column name="form"/>
                 </attribute-override>
             </embedded>
-            <embedded name="unitOfMeasure">
+            <embedded name="quantity">
                 <attribute-override name="value">
-                    <column name="unit_of_measure"/>
+                    <column name="quantity"/>
+                </attribute-override>
+                <attribute-override name="unitOfMeasure.value">
+                    <column name="quantity_uom"/>
                 </attribute-override>
             </embedded>
         </attributes>

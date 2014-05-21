@@ -3,29 +3,33 @@
     "identifiers": [
         {
             "system": "IDART_WEB",
-            "value": "00000011"
+            "value": "99999010"
         }
     ],
-    "label": "[EFV] Efavirenz 200mg",
+    "label": "[3TC] Lamivudine 150mg",
     "billOfMaterials": [
         {
             "part": [
                 {
                     "system": "IDART_WEB",
-                    "value": "99999959"
+                    "value": "99999969"
                 }
             ],
             "quantityUsed": {
                 "unitOfMeasure": "mg",
-                "value": "200"
-
+                "value": "150"
             }
         }
     ],
+    "quantity": {
+        "unitOfMeasure": "each",
+        "value": "60"
+    },
+    "form": "TAB",
     "classifications": [
     	{
     		"classification": {
-    			"value":"J05AG03",
+    			"value":"J05AF05",
     			"type":"ATC"
     		}
     	}

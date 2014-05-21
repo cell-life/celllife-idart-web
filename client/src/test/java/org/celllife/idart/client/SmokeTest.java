@@ -1,5 +1,14 @@
 package org.celllife.idart.client;
 
+import static org.celllife.idart.common.Identifiers.newIdentifiers;
+import static org.celllife.idart.common.Label.label;
+import static org.celllife.idart.common.Quantity.newQuantity;
+import static org.celllife.idart.common.Systems.PGWC;
+import static org.celllife.idart.common.Systems.PREHMIS;
+
+import java.util.Date;
+import java.util.List;
+
 import org.celllife.idart.client.dispensation.Dispensation;
 import org.celllife.idart.client.dispensation.DispensationBuilder;
 import org.celllife.idart.client.dispensation.DispensedMedicationBuilder;
@@ -15,20 +24,15 @@ import org.celllife.idart.client.partyrole.Practitioner;
 import org.celllife.idart.client.prescription.PrescribedMedicationBuilder;
 import org.celllife.idart.client.prescription.Prescription;
 import org.celllife.idart.client.prescription.PrescriptionBuilder;
-import org.celllife.idart.client.product.*;
+import org.celllife.idart.client.product.BillOfMaterialsItemBuilder;
+import org.celllife.idart.client.product.Medication;
+import org.celllife.idart.client.product.MedicationBuilder;
 import org.celllife.idart.common.PartClassificationType;
 import org.celllife.idart.common.UnitsOfMeasure;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.Date;
-import java.util.List;
-
-import static org.celllife.idart.common.Identifiers.newIdentifiers;
-import static org.celllife.idart.common.Label.label;
-import static org.celllife.idart.common.Quantity.newQuantity;
-import static org.celllife.idart.common.Systems.*;
 
 /**
  * User: Kevin W. Sewell
@@ -47,6 +51,7 @@ public class SmokeTest {
     }
 
     @Test
+    @Ignore("requires the idartClient to be running")
     public void smokeTest() throws Exception {
 
         // ********************************************************************************************************
