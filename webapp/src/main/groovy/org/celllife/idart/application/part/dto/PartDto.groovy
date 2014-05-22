@@ -1,14 +1,17 @@
 package org.celllife.idart.application.part.dto
 
-import org.celllife.idart.common.FormCode;
+import groovy.transform.EqualsAndHashCode
+
+import org.celllife.idart.common.FormCode
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.Label
-import org.celllife.idart.common.Quantity;
+import org.celllife.idart.common.Quantity
 import org.celllife.idart.domain.part.PartClassificationApplication
 
 /**
  * A Data Transfer Object (DTO) which represents the Part domain entity.
  */
+@EqualsAndHashCode
 abstract class PartDto implements Serializable {
 
     /**
@@ -35,4 +38,10 @@ abstract class PartDto implements Serializable {
      * Classified into
      */
     Set<PartClassificationApplication> classifications = []
+
+    @Override
+    public String toString() {
+        return "PartDto [identifiers=" + identifiers + ", label=" + label + ", quantity=" + quantity + ", form=" + form
+                + ", classifications=" + classifications + "]";
+    }
 }

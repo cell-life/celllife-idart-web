@@ -1,15 +1,16 @@
 package org.celllife.idart.domain.part
 
+import groovy.transform.EqualsAndHashCode;
+
 import org.celllife.idart.common.PartBillOfMaterialsType
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Quantity
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-16
- * Time: 18h34
+ * Describes the compounds of a drug.
  */
+@EqualsAndHashCode
 class PartBillOfMaterialsItem implements Serializable {
 
     /**
@@ -42,7 +43,7 @@ class PartBillOfMaterialsItem implements Serializable {
      */
     String comment
 
-    def merge(PartBillOfMaterialsItem that) {
+    /*def merge(PartBillOfMaterialsItem that) {
 
         if (that == null) {
             return
@@ -65,5 +66,11 @@ class PartBillOfMaterialsItem implements Serializable {
         return this.part.equals(that.part) &&
                 (this.type == that.type) &&
                 (this.quantityUsed == that.quantityUsed)
+    }*/
+
+    @Override
+    public String toString() {
+        return "PartBillOfMaterialsItem [type=" + type + ", valid=" + valid + ", part=" + part + ", quantityUsed="
+                + quantityUsed + ", instructions=" + instructions + ", comment=" + comment + "]";
     }
 }

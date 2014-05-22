@@ -67,4 +67,10 @@ abstract class Part implements Serializable {
     def addClassification(PartClassificationType type, String code) {
         this.classifications.add(new PartClassificationApplication(classification: new PartClassificationCode(type: type, value: code)))
     }
+
+    @Override
+    public String toString() {
+        return "Part [id=" + id + ", label=" + label + ", quantity=" + quantity + ", form=" + form
+                + ", classifications=" + classifications.toString() + "]";
+    }
 }

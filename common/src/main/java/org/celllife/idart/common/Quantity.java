@@ -67,4 +67,9 @@ public class Quantity {
         result = 31 * result + unitOfMeasure.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Quantity [value=" + value + ", unitOfMeasure=" + unitOfMeasure + "]";
+    }
 }

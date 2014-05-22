@@ -1,11 +1,10 @@
 package org.celllife.idart.domain.part
 
-import org.celllife.idart.common.FormCode;
+import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
+
 import org.celllife.idart.common.PartId
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
-
-import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
 
 /**
  * Drugs are one Part of the Medication given to a Patient. It is a medicine that can be given in many forms 
@@ -16,7 +15,7 @@ class Drug extends Part {
     /**
      * Made up of
      */
-    Set<PartBillOfMaterialsItem> billOfMaterials = [] as Set<PartBillOfMaterialsItem>
+    Set<PartBillOfMaterialsItem> billOfMaterials = []
 
     def addEngineeringPart(PartId part, Double quantity, UnitOfMeasureCode unitOfMeasure) {
         this.billOfMaterials << new PartBillOfMaterialsItem(
@@ -36,25 +35,21 @@ class Drug extends Part {
         }
 
         super.merge(that)
-
-        if (that.billOfMaterials != null) {
-            for (thatBillOfMaterial in that.billOfMaterials) {
-                addNewOrMergeExisting(thatBillOfMaterial)
-            }
-        }
+        
+        that.billOfMaterials?.each { billOfMaterial -> this.billOfMaterials << billOfMaterial }
     }
 
-    def addNewOrMergeExisting(PartBillOfMaterialsItem thatBillOfMaterial) {
-
-        for (thisBillOfMaterial in this.billOfMaterials) {
-            if (thisBillOfMaterial.matches(thatBillOfMaterial)) {
-                // Existing bill of materials... merge
-                thisBillOfMaterial.merge(thatBillOfMaterial)
-                return
-            }
+    @Override
+    public String toString() {
+        def str = "Drug [id=" + id + ", label=" + label + ", quantity=" + quantity + ", form=" + form + ", billOfMaterials=["
+        for (b in this.billOfMaterials) {
+            str = str + " " + b
         }
-
-        // Not found in this.billOfMaterials
-        this.billOfMaterials << thatBillOfMaterial
+        str = str + "], classifications=["
+        for (c in this.classifications) {
+            str = str + " " + c
+        }
+        str = str + "] ]";
+        str
     }
 }

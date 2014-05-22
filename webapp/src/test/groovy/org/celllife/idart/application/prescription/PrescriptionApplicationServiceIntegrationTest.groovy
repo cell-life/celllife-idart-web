@@ -1,12 +1,20 @@
 package org.celllife.idart.application.prescription
 
-import java.util.Set;
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
+import static org.celllife.idart.common.Label.label
+import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
+import static org.celllife.idart.common.PartClassificationType.ATC
+import static org.celllife.idart.common.Systems.*
+import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import javax.inject.Inject
+
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.DrugDto
 import org.celllife.idart.application.part.dto.PartBillOfMaterialsItemDto
+import org.celllife.idart.application.part.dto.PartDto
 import org.celllife.idart.application.patient.PatientApplicationService
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.person.dto.PersonDto
@@ -16,15 +24,16 @@ import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.application.product.ProductApplicationService
 import org.celllife.idart.application.product.dto.MedicationDto
 import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.PartId
 import org.celllife.idart.common.PractitionerType
+import org.celllife.idart.common.PrescriptionId
 import org.celllife.idart.common.Quantity
 import org.celllife.idart.common.UnitOfMeasureCode
 import org.celllife.idart.common.UnitsOfMeasure
-import org.celllife.idart.common.PrescriptionId
-import org.celllife.idart.common.SystemId
 import org.celllife.idart.domain.counter.CounterRepository
 import org.celllife.idart.domain.encounter.EncounterRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
+import org.celllife.idart.domain.part.Part
 import org.celllife.idart.domain.part.PartRepository
 import org.celllife.idart.domain.patient.PatientRepository
 import org.celllife.idart.domain.person.PersonRepository
@@ -33,6 +42,7 @@ import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationReposi
 import org.celllife.idart.domain.prescription.PrescriptionRepository
 import org.celllife.idart.domain.product.ProductRepository
 import org.celllife.idart.test.TestConfiguration
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,15 +50,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import javax.inject.Inject
-
-import static org.celllife.idart.common.Identifiers.newIdentifier
-import static org.celllife.idart.common.Identifiers.newIdentifiers
-import static org.celllife.idart.common.Label.label
-import static org.celllife.idart.common.PartClassificationType.ATC
-import static org.celllife.idart.common.Systems.*
-import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
-import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
+import com.fasterxml.jackson.databind.ObjectMapper
 
 /**
  * User: Kevin W. Sewell
@@ -110,7 +112,6 @@ class PrescriptionApplicationServiceIntegrationTest {
         def compound = new CompoundDto()
         compound.with {
             label = label("Abacavir")
-            unitOfMeasure = UnitsOfMeasure.mg.code
         }
         partApplicationService.save(compound)
 
@@ -119,22 +120,11 @@ class PrescriptionApplicationServiceIntegrationTest {
         DrugDto drug = new DrugDto()
         drug.with {
             label = label("Abacavir 20mg/ml")
-            unitOfMeasure = UnitsOfMeasure.mL.code
+            quantity = Quantity.newQuantity(240.0, UnitsOfMeasure.mL.code)
             billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, UnitsOfMeasure.mg.code)]
             classifications = partClassificationApplications("J05AF06", ATC)
         }
         partApplicationService.save(drug)
-
-        // ***************************************** Create Finished Drug *******************************************
-
-        DrugDto finishedDrug = new DrugDto()
-        finishedDrug.with {
-            label = label("Abacavir 20mg/ml 240ml")
-            unitOfMeasure = UnitsOfMeasure.each.code
-            billOfMaterials = [newEngineeringPart(drug.identifiers, 240.0D, UnitsOfMeasure.mL.code)]
-            classifications = partClassificationApplications("J05AF06", ATC)
-        }
-        partApplicationService.save(finishedDrug)
 
         // ***************************************** Create Medication **********************************************
 
@@ -206,6 +196,49 @@ class PrescriptionApplicationServiceIntegrationTest {
 		prescriptionApplicationService.deleteByPrescriptionId(prescriptionId)
 
         Thread.sleep(10000L)
+    }
+
+    @Test
+    void saveDrugOneBillOfParts() throws Exception {
+
+        // ***************************************** Create Compound ************************************************
+
+        def compound = new CompoundDto()
+        compound.with {
+            label = label("Abacavir")
+        }
+        partApplicationService.save(compound)
+
+        // ***************************************** Create Drug ****************************************************
+
+        DrugDto drug = new DrugDto()
+        drug.with {
+            label = label("Abacavir 20mg/ml")
+            quantity = Quantity.newQuantity(240.0, UnitsOfMeasure.mL.code)
+            billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, UnitsOfMeasure.mg.code)]
+            classifications = partClassificationApplications("J05AF06", ATC)
+        }
+        PartId partId1 = partApplicationService.save(drug)
+        Assert.assertNotNull(partId1)
+        PartId partId2 = partApplicationService.findByIdentifiers(drug.getIdentifiers())
+        Assert.assertNotNull(partId2)
+        Assert.assertTrue(partId1.equals(partId2))
+        
+        DrugDto drug1 = (DrugDto)partApplicationService.findByPartId(partId1);
+        Assert.assertNotNull(drug1)
+        Assert.assertNotNull(drug1.getBillOfMaterials())
+        DrugDto drug2 = (DrugDto)partApplicationService.findByPartId(partId2);
+        Assert.assertNotNull(drug2)
+        Assert.assertNotNull(drug2.getBillOfMaterials())
+        Assert.assertEquals(drug.getBillOfMaterials().size(), drug1.getBillOfMaterials().size())
+        Assert.assertEquals(drug.getBillOfMaterials().size(), drug2.getBillOfMaterials().size())
+        
+/*
+        DrugDto drug1 = (DrugDto)partApplicationService.findByPartId(partId2);
+        Assert.assertNotNull(drug1)
+        Assert.assertNotNull(drug1.getBillOfMaterials())
+        Assert.assertEquals(drug.getBillOfMaterials().size(), drug1.getBillOfMaterials().size())
+        */
     }
 
     static PartBillOfMaterialsItemDto newEngineeringPart(Set<Identifier> part, Double quantity, UnitOfMeasureCode unitOfMeasure) {

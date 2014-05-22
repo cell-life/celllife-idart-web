@@ -117,7 +117,7 @@ class DispensationApplicationServiceIntegrationTest {
         drug.with {
             label = label("Abacavir 20mg/ml 240ml")
             form = FormCode.valueOf("SYRUP")
-            quantity = new Quantity(240, UnitsOfMeasure.mL.code)
+            quantity = Quantity.newQuantity(240.0, UnitsOfMeasure.mL.code)
             billOfMaterials = [newEngineeringPart(compound.identifiers, 20.0D, UnitsOfMeasure.mg.code)]
             classifications = partClassificationApplications("J05AF06", ATC)
         }

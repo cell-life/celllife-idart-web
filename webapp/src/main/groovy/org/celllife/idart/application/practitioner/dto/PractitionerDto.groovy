@@ -1,5 +1,7 @@
 package org.celllife.idart.application.practitioner.dto
 
+import groovy.transform.EqualsAndHashCode;
+
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PractitionerType
@@ -10,6 +12,7 @@ import org.celllife.idart.common.Identifier
  * Date: 2013-09-04
  * Time: 13h00
  */
+@EqualsAndHashCode
 class PractitionerDto implements Serializable {
 
     /**
@@ -31,5 +34,4 @@ class PractitionerDto implements Serializable {
      * Acted by
      */
     PersonDto person
-
 }

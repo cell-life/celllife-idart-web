@@ -7,4 +7,10 @@ package org.celllife.idart.domain.part
  */
 class Compound extends Part {
 
+    @Override
+    public String toString() {
+        return "Compound [id=" + id + ", label=" + label + ", quantity=" + quantity + ", form=" + form
+        + ", classifications=" + classifications + "]";
+    }
+
 }

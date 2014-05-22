@@ -13,4 +13,9 @@ class DrugDto extends PartDto {
      */
     Set<PartBillOfMaterialsItemDto> billOfMaterials = [] as Set<PartBillOfMaterialsItemDto>
 
+    @Override
+    public String toString() {
+        return "DrugDto [identifiers=" + identifiers + ", label=" + label + ", quantity=" + quantity + ", form=" + form
+                + ", classifications=" + classifications + ", billOfMaterials=" + billOfMaterials + "]";
+    }
 }

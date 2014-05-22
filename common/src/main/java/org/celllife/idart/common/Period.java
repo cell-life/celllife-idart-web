@@ -59,4 +59,9 @@ public class Period {
         result = 31 * result + (thruDate != null ? thruDate.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Period [fromDate=" + fromDate + ", thruDate=" + thruDate + "]";
+    }
 }

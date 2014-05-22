@@ -5,9 +5,7 @@ import org.celllife.idart.common.PartClassificationCode
 import org.celllife.idart.common.Period
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-06-16
- * Time: 10h23
+ * Classification code of a Part, and the validity of the code. An example of a code is ATC
  */
 @EqualsAndHashCode
 class PartClassificationApplication implements Serializable {
@@ -22,4 +20,8 @@ class PartClassificationApplication implements Serializable {
      */
     Period valid
 
+    @Override
+    public String toString() {
+        return "PartClassificationApplication [classification=" + classification + ", valid=" + valid + "]";
+    }
 }

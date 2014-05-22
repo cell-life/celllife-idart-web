@@ -1,14 +1,15 @@
 package org.celllife.idart.application.patient.dto
 
+import groovy.transform.EqualsAndHashCode;
+
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.Identifier
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-08-23
- * Time: 18h36
+ * A Data Transfer Object for the Patient Entity
  */
+@EqualsAndHashCode
 class PatientDto implements Serializable {
 
     /**
@@ -26,4 +27,8 @@ class PatientDto implements Serializable {
      */
     PersonDto person
 
+    @Override
+    public String toString() {
+        return "PatientDto [identifiers=" + identifiers + ", valid=" + valid + ", person=" + person + "]";
+    }
 }
