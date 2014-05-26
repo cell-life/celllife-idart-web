@@ -13,21 +13,27 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    
+    <!-- <mvc:default-servlet-handler/> -->
+    
+    <!-- 
+    <mvc:annotation-driven/>
+    -->
 
     <!--Tell the servlet where to look for annotated methods-->
-    <context:component-scan base-package="org.celllife.idart.interfaces.service"/>
     <context:component-scan base-package="org.celllife.idart.interfaces.resource"/>
-    <context:component-scan base-package="org.celllife.idart.interfaces.bla"/>
+    <context:component-scan base-package="org.celllife.idart.interfaces.web"/>
+    <context:component-scan base-package="org.celllife.reporting.framework.interfaces.web"/>
 
-    <mvc:view-controller path="/" view-name="index"/>
+    <!-- <mvc:view-controller path="/" view-name="index"/>-->
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:resources mapping="/resources/css/**" location="/css/"/>
-    <mvc:resources mapping="/resources/img/**" location="/img/"/>
-    <mvc:resources mapping="/resources/js/**" location="/js/"/>
-
+    <mvc:resources mapping="/resources/css/**" location="/resources/css/"/>
+    <mvc:resources mapping="/resources/img/**" location="/resources/img/"/>
+    <mvc:resources mapping="/resources/js/**" location="/resources/js/"/>
+    
 </beans>

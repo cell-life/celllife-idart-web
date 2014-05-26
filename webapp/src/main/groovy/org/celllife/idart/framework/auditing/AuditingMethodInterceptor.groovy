@@ -67,13 +67,15 @@ import java.lang.reflect.Method
         SecurityContext securityContext = SecurityContextHolder.getContext()
         if (securityContext != null) {
             Authentication authentication = securityContext.getAuthentication()
-            Object principal = authentication.getPrincipal()
-
-            if (principal instanceof User) {
-                payload.put("username", ((User) principal).getUsername())
-            }
-            if (principal instanceof String) {
-                payload.put("username", principal)
+            if (authentication != null) {
+                Object principal = authentication.getPrincipal()
+    
+                if (principal instanceof User) {
+                    payload.put("username", ((User) principal).getUsername())
+                }
+                if (principal instanceof String) {
+                    payload.put("username", principal)
+                }
             }
         }
 

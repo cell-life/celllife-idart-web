@@ -1,35 +1,47 @@
 package org.celllife.idart.framework.rest
 
+import groovyx.net.http.ContentType
+
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-04-03
- * Time: 13h23
+ * Client that invokes a REST service and returns a map of the data result
  */
-@Component("restClient")
+@Service
 class RESTClient {
-
+    
     @Value('${internal.username}')
-    String username
-
+    def String username;
+    
     @Value('${internal.password}')
-    String password
+    def String password;
 
     def get(String uri) {
 
         def client = new groovyx.net.http.RESTClient(uri)
-        client.auth.basic("internal", "password")
+        client.auth.basic(username, password)
 
         return client.get([:]).data
+    }
+    
+    def postJson(String uri, String query) {
+
+        def client = new groovyx.net.http.RESTClient(uri)
+        client.auth.basic(username, password)
+        
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("requestContentType", ContentType.JSON);
+        body.put("body", query);
+
+        return client.post(body)
     }
 
     def get(String uri, Map<String, Object> query) {
 
         def client = new groovyx.net.http.RESTClient(uri)
-        client.auth.basic("internal", "password")
+        client.auth.basic(username, password)
 
-        return client.get(query: query).data
+        return client.get(query:query).data
     }
 }
