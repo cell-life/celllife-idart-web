@@ -1,27 +1,31 @@
 package org.celllife.idart.application.facility
 
-import org.celllife.idart.application.facility.dto.FacilityDto
-import org.celllife.idart.application.facility.dto.FacilityDtoAssembler
-import org.celllife.idart.common.FacilityId
-import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.common.Identifier
-import org.celllife.idart.domain.facility.FacilityNotFoundException
-import org.celllife.idart.domain.facility.FacilityService
-
 import static org.celllife.idart.common.FacilityId.facilityId
 import static org.celllife.idart.common.IdentifiableType.FACILITY
-import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.celllife.idart.application.facility.dto.FacilityDto
+import org.celllife.idart.application.facility.dto.FacilityDtoAssembler
+import org.celllife.idart.common.FacilityId
+import org.celllife.idart.common.Identifier
+import org.celllife.idart.domain.facility.Facility
+import org.celllife.idart.domain.facility.FacilityNotFoundException
+import org.celllife.idart.domain.facility.FacilityService
+import org.celllife.idart.domain.identifiable.IdentifiableService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.transaction.annotation.Transactional
 
 /**
  */
 @Named class FacilityApplicationServiceImpl implements FacilityApplicationService {
+    
+    static final Logger LOGGER = LoggerFactory.getLogger(FacilityApplicationServiceImpl)
 
     @Inject FacilityService facilityService   
 
@@ -88,5 +92,19 @@ import org.springframework.transaction.annotation.Transactional
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
         facilityId(idartIdentifierValue)
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    List<FacilityDto> findAll() {
+        List<FacilityDto> allDtos = new ArrayList<FacilityDto>();
+        List<Facility> all = facilityService.findAll()
+        for (Facility f : all) {
+            FacilityDto dto = facilityDtoAssembler.toFacilityDto(f)
+            Identifier identifier = newIdentifier(f.getId().value) // have to set the identifier separately (?)
+            dto.setIdentifiers([identifier] as Set)
+            allDtos.add(dto)
+        }
+        return allDtos
     }
 }

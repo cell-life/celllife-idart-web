@@ -52,4 +52,9 @@ import static org.celllife.idart.domain.organisation.OrganisationEvent.newOrgani
 
         organisation
     }
+
+    @Override
+    List<Organisation> findAll() {
+        organisationRepository.findAll()
+    }
 }

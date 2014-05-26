@@ -10,6 +10,8 @@ public interface FacilityService {
     Boolean exists(FacilityId facilityId)
 
     Facility save(Facility facility)
+    
+    List<Facility> findAll()
 
     Facility findByFacilityId(FacilityId facilityId)
 

@@ -12,5 +12,7 @@ public interface OrganisationRepository {
     Organisation save(Organisation organisation)
 
     Organisation findOne(OrganisationId organisationId)
+    
+    List<Organisation> findAll()
 
 }

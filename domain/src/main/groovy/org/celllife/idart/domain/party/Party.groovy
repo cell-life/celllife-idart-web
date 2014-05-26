@@ -1,12 +1,14 @@
 package org.celllife.idart.domain.party
 
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 /**
  * User: Kevin W. Sewell
  * Date: 2013-06-15
  * Time: 13h45
  */
+@ToString
 @EqualsAndHashCode(includes = "ids")
 abstract class Party implements Serializable {
 

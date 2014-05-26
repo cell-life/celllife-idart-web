@@ -18,6 +18,10 @@ import java.security.Principal
     FacilityId save(Principal principal, FacilityDto facilityDto) {
         facilityApplicationService.save(facilityDto)
     }
+    
+    List<FacilityDto> findAll() {
+        facilityApplicationService.findAll()
+    }
 
     FacilityDto findByFacilityId(Principal principal, FacilityId facilityId) {
         facilityApplicationService.findByFacilityId(facilityId)

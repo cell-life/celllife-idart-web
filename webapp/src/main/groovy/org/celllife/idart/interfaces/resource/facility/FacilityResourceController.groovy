@@ -1,7 +1,16 @@
 package org.celllife.idart.interfaces.resource.facility
 
-import org.celllife.idart.common.FacilityId
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
+import static javax.servlet.http.HttpServletResponse.SC_CREATED
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
+
+import java.security.Principal
+
+import javax.inject.Inject
+import javax.servlet.http.HttpServletResponse
+
 import org.celllife.idart.application.facility.dto.FacilityDto
+import org.celllife.idart.common.FacilityId
 import org.celllife.idart.domain.facility.FacilityNotFoundException
 import org.celllife.idart.domain.facility.FacilityValidationException
 import org.celllife.idart.security.facility.FacilitySecurityAdapter
@@ -12,14 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
-
-import javax.inject.Inject
-import javax.servlet.http.HttpServletResponse
-import java.security.Principal
-
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
-import static javax.servlet.http.HttpServletResponse.SC_CREATED
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
 /**
  */
@@ -60,5 +61,11 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
         } catch (FacilityValidationException e) {
             response.setStatus(SC_BAD_REQUEST)
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/facilities", method = RequestMethod.GET, produces = "application/json")
+    List<FacilityDto> findAll(HttpServletResponse response) {
+        return facilitySecurityAdapter.findAll()
     }
 }

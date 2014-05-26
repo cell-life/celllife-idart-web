@@ -27,4 +27,8 @@ import java.security.Principal
         organisationApplicationService.findByIdentifier(identifier)
     }
 
+    List<OrganisationDto> findAll() {
+        organisationApplicationService.findAll()
+    }
+
 }

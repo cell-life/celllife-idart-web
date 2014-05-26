@@ -52,4 +52,10 @@ import static org.celllife.idart.domain.facility.FacilityEvent.newFacilityEvent
 
         facility
     }
+
+    @Override
+    List<Facility> findAll() {
+
+        facilityRepository.findAll()
+    }
 }

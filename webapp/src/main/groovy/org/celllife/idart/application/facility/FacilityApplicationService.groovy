@@ -19,4 +19,5 @@ interface FacilityApplicationService {
 
     FacilityId findByIdentifiers(Set<Identifier> identifiers)
 
+    List<FacilityDto> findAll()
 }

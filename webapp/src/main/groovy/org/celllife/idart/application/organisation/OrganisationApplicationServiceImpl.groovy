@@ -1,27 +1,31 @@
 package org.celllife.idart.application.organisation
 
-import org.celllife.idart.application.organisation.dto.OrganisationDto
-import org.celllife.idart.application.organisation.dto.OrganisationDtoAssembler
-import org.celllife.idart.common.OrganisationId
-import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.common.Identifier
-import org.celllife.idart.domain.organisation.OrganisationNotFoundException
-import org.celllife.idart.domain.organisation.OrganisationService
-
-import static org.celllife.idart.common.OrganisationId.organisationId
 import static org.celllife.idart.common.IdentifiableType.ORGANISATION
-import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.OrganisationId.organisationId
 import static org.celllife.idart.common.Systems.IDART_WEB
 
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.celllife.idart.application.organisation.dto.OrganisationDto
+import org.celllife.idart.application.organisation.dto.OrganisationDtoAssembler
+import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.OrganisationId
+import org.celllife.idart.domain.identifiable.IdentifiableService
+import org.celllife.idart.domain.organisation.Organisation
+import org.celllife.idart.domain.organisation.OrganisationNotFoundException
+import org.celllife.idart.domain.organisation.OrganisationService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.transaction.annotation.Transactional
 
 /**
  */
 @Named class OrganisationApplicationServiceImpl implements OrganisationApplicationService {
+    
+    static final Logger LOGGER = LoggerFactory.getLogger(OrganisationApplicationServiceImpl)
 
     @Inject OrganisationService organisationService   
 
@@ -50,6 +54,20 @@ import org.springframework.transaction.annotation.Transactional
         organisationService.save(organisation)
 
         organisation.id
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    List<OrganisationDto> findAll() {
+        def all = organisationService.findAll()
+        List<OrganisationDto> allDto = new ArrayList<OrganisationDto>()
+        for (Organisation o : all) {
+            OrganisationDto dto = organisationDtoAssembler.toOrganisationDto(o)
+            Identifier identifier = newIdentifier(o.getId().value) // have to set the identifier separately (?)
+            dto.setIdentifiers([identifier] as Set)
+            allDto.add(dto)
+        }
+        return allDto
     }
 
     @Override

@@ -1,0 +1,15 @@
+{
+    "facility": [
+        {
+            "system": "IDART_WEB",
+            "value": "$facilityId"
+        }
+    ],
+    "system": [
+        {
+            "system": "IDART_WEB",
+            "value": "$systemId"
+        }
+    ],
+    "relationship": "DEPLOYED_AT"
+}

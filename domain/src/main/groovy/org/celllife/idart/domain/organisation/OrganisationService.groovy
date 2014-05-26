@@ -13,4 +13,6 @@ public interface OrganisationService {
 
     Organisation findByOrganisationId(OrganisationId organisationId)
 
+    List<Organisation> findAll()
+
 }

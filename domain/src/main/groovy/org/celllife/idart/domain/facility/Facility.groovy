@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.facility
 
+import groovy.transform.ToString;
+
 import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.Quantity
 
@@ -7,6 +9,7 @@ import org.celllife.idart.common.Quantity
  * Facility 
  *
  */
+@ToString
 class Facility implements Serializable {
 
     /**

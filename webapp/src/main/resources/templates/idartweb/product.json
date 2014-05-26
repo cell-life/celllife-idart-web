@@ -2,15 +2,15 @@
     "type": "MEDICATION",
     "identifiers": [
         {
-            "system": "99999999",
-            "value": "00000004"
+            "system": "$systemId",
+            "value": "$productId"
         }
     ],
-    "name": "[DDI] Didanosine 25mg",
+    "name": "$name",
     "drug": [
         {
             "system": "IDART_WEB",
-            "value": "99999004"
+            "value": "$drugId"
         }
     ]
 }

@@ -1,0 +1,10 @@
+{
+    "identifiers": [
+        {
+            "system": "PREHMIS",
+            "value": "$prehmisId"
+        }
+    ],
+    "name": "$name",
+    "description": "$description"
+}

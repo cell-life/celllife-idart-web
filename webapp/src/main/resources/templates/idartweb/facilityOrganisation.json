@@ -1,0 +1,15 @@
+{
+    "facility": [
+        {
+            "system": "IDART_WEB",
+            "value": "$facilityId"
+        }
+    ],
+    "organisation": [
+        {
+            "system": "IDART_WEB",
+            "value": "$organisationId"
+        }
+    ],
+    "relationship": "OPERATED_BY"
+}
