@@ -4,7 +4,6 @@ import org.celllife.idart.framework.aspectj.LogLevel
 import org.celllife.idart.framework.aspectj.Loggable
 
 import groovyx.net.http.ContentType
-import groovyx.net.http.RESTClient
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
