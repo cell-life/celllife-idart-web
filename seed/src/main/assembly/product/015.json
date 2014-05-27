@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000015"
+        }
+    ],
+    "name": "[D4T] Stavudine 1mg/ml",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999015"
+        }
+    ]
+}

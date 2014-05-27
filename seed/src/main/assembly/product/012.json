@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000012"
+        }
+    ],
+    "name": "[NVP] Nevirapine 50mg/5ml",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999012"
+        }
+    ]
+}

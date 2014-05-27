@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000020"
+        }
+    ],
+    "name": "[AZT] Zidovudine 300mg",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999020"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000022"
+        }
+    ],
+    "name": "[LPV/RTV] Kaletra 80/20 mg/ml",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999022"
+        }
+    ]
+}

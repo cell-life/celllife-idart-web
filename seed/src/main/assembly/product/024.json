@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000024"
+        }
+    ],
+    "name": "[DDI] Didanosine 100mg",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999024"
+        }
+    ]
+}

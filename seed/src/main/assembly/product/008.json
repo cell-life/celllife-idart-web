@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000008"
+        }
+    ],
+    "name": "[EFV] Efavirenz 600mg",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999008"
+        }
+    ]
+}

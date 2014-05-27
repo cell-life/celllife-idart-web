@@ -1,0 +1,16 @@
+{
+    "type": "MEDICATION",
+    "identifiers": [
+        {
+            "system": "99999999",
+            "value": "00000025"
+        }
+    ],
+    "name": "[3TC/AZT] Lamzid 150/300mg",
+    "drug": [
+        {
+            "system": "IDART_WEB",
+            "value": "99999025"
+        }
+    ]
+}
