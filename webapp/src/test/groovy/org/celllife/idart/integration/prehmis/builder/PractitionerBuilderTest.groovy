@@ -1,13 +1,11 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
-import org.junit.Assert
-import org.junit.Test
-
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.common.Systems.PREHMIS
-import static org.celllife.idart.integration.prehmis.builder.PractitionerBuilder.getPREHMIS_NAMESPACE
-import static org.celllife.idart.integration.prehmis.builder.PractitionerBuilder.getSOAP_NAMESPACE
+
+import org.junit.Assert
+import org.junit.Before;
+import org.junit.Test
 
 /**
  * User: Kevin W. Sewell
@@ -16,8 +14,10 @@ import static org.celllife.idart.integration.prehmis.builder.PractitionerBuilder
  */
 class PractitionerBuilderTest {
 
+    PractitionerBuilder practitionerBuilder = new PrehmisPractitionerBuilder()
+
     String xml =
-        """<?xml version="1.0" encoding="UTF-8"?>
+    """<?xml version="1.0" encoding="UTF-8"?>
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
                xmlns:prehmis="http://prehmis-qa.capetown.gov.za/"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -45,14 +45,21 @@ class PractitionerBuilderTest {
 </soap:Envelope>
 """
 
+    @Before
+    void setup() throws Exception {
+        ((PrehmisPractitionerBuilder)practitionerBuilder).prehmisNamespace = "http://prehmis-qa.capetown.gov.za/"
+    }
+
     @Test
     void shouldBuildIdartPractitioner() throws Exception {
 
         def envelope = new XmlSlurper().parseText(xml)
-        envelope.declareNamespace(soap: SOAP_NAMESPACE, prehmis: PREHMIS_NAMESPACE)
+        def soapNamespace = 'http://schemas.xmlsoap.org/soap/envelope/'
+        def prehmisNamespace = 'http://prehmis-qa.capetown.gov.za/'
+        envelope.declareNamespace(soap: soapNamespace, prehmis: prehmisNamespace)
 
         def result = envelope.'soap:Body'.'prehmis:getPractitionerListResponse'.result.item[0]
-        def practitioner = PractitionerBuilder.buildPractitioner(result)
+        def practitioner = practitionerBuilder.buildPractitioner(result)
 
         Assert.assertEquals("Berenice", practitioner.person.firstName)
         Assert.assertEquals("Carolus", practitioner.person.lastName)

@@ -15,6 +15,7 @@ class GetPatientRequestBuilderTest {
     void testBuild() throws Exception {
 
         String getPatientRequest = PrehmisRequestBuilder.buildGetPatientRequest(
+                xmlnsPreh: "http://prehmis-qa.capetown.gov.za/",
                 username: "idartUsername",
                 password: "idartPassword",
                 applicationKey: "idartApplicationKey",

@@ -1,15 +1,16 @@
 package org.celllife.idart.integration.prehmis.builder
 
-import org.celllife.idart.common.Gender
-import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
-import org.junit.Assert
-import org.junit.Test
-
-import java.text.SimpleDateFormat
-
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
 import static org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType.PGWC
 import static org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType.PREHMIS
+
+import java.text.SimpleDateFormat
+
+import org.celllife.idart.common.Gender
+import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 
 /**
  * User: Kevin W. Sewell
@@ -17,6 +18,8 @@ import static org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierTyp
  * Time: 17h55
  */
 class PatientBuilderTest {
+    
+    PatientBuilder patientBuilder = new PrehmisPatientBuilder()
 
     String xml =
         """<?xml version="1.0" encoding="UTF-8"?>
@@ -48,11 +51,16 @@ class PatientBuilderTest {
 </SOAP-ENV:Envelope>
 """
 
+    @Before
+    void setup() throws Exception {
+        ((PrehmisPatientBuilder)patientBuilder).prehmisNamespace = "http://prehmis-qa.capetown.gov.za/"
+    }
+
     @Test
     void shouldBuildIdartPatient() throws Exception {
 
         def envelope = new XmlSlurper().parseText(xml)
-        def patient = PatientBuilder.buildIdartPatient(envelope)
+        def patient = patientBuilder.buildIdartPatient(envelope)
 
         Assert.assertEquals("AEIGHT", patient.person.firstName)
         Assert.assertEquals("TEST", patient.person.lastName)

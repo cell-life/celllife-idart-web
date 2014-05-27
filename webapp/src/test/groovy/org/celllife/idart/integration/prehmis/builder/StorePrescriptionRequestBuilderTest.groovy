@@ -13,6 +13,7 @@ class StorePrescriptionRequestBuilderTest {
     public void shouldBuildStorePrescriptionRequest() throws Exception {
 
         def model = [
+                xmlnsPreh: "http://prehmis-qa.capetown.gov.za/",
                 username: "idartUsername",
                 password: "idartPassword",
                 applicationKey: "idartApplicationKey",
