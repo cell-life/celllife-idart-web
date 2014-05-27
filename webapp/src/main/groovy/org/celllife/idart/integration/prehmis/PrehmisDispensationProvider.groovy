@@ -1,10 +1,24 @@
 package org.celllife.idart.integration.prehmis
 
+import static org.celllife.idart.common.IdentifiableType.*
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifiers
+import static org.celllife.idart.common.PartClassificationType.ATC
+import static org.celllife.idart.common.Systems.*
+import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildDeleteDispensationRequest
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStoreDispensationRequest
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
-import org.celllife.idart.common.DispensationId
-import org.celllife.idart.application.dispensation.DispensationNotSavedException
+
+import java.text.SimpleDateFormat
+
+import javax.inject.Inject
+import javax.inject.Named
+
 import org.celllife.idart.application.dispensation.DispensationNotDeletedException
+import org.celllife.idart.application.dispensation.DispensationNotSavedException
 import org.celllife.idart.application.dispensation.DispensationProvider
 import org.celllife.idart.datawarehouse.prescription.PrescriptionDataWarehouse
 import org.celllife.idart.domain.dispensation.Dispensation
@@ -22,33 +36,20 @@ import org.celllife.idart.framework.aspectj.Loggable
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-
-import javax.inject.Inject
-import javax.inject.Named
-import java.text.SimpleDateFormat
-
-import static org.celllife.idart.common.IdentifiableType.*
-import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.Identifiers.newIdentifiers
-import static org.celllife.idart.common.PartClassificationType.ATC
-import static org.celllife.idart.common.Systems.*
-import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStoreDispensationRequest
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildDeleteDispensationRequest
+import org.springframework.stereotype.Service
 
 /**
  * The PREHMIS implementation for the DispensationProvider related events
  */
-@Named class PrehmisDispensationProvider implements DispensationProvider {
+@Service @Named class PrehmisDispensationProvider implements DispensationProvider {
 
     static final Logger LOGGER = LoggerFactory.getLogger(PrehmisDispensationProvider)
 
-    static final SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
-
-    @Value('${prehmis.endpoint.baseUrl}')
-	String PREHMIS_NAMESPACE
+    String SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
 	
+    @Value('${prehmis.namespace}')
+    String prehmisNamespace
+    
 	@Value('${prehmis.endpoint.baseUrl}')
 	String prehmisEndpointBaseUrl
 
@@ -172,6 +173,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     String buildStoreDispensationRequest(String facilityCode, Dispensation dispensation) {
 
         String storeDispensationRequest = buildStoreDispensationRequest([
+            xmlnsPreh: prehmisNamespace,
             username: prehmisUsername,
             password: prehmisPassword,
             applicationKey: prehmisApplicationKey,
@@ -185,6 +187,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     String buildDeleteDispensationRequest(String facilityCode, Dispensation dispensation) {
 
         String deleteDispensationRequest = buildDeleteDispensationRequest([
+            xmlnsPreh: prehmisNamespace,
             username: prehmisUsername,
             password: prehmisPassword,
             applicationKey: prehmisApplicationKey,
@@ -268,6 +271,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
     void apiLogin(RESTClient prehmisRestClient, String prehmisFacilityIdentifier) throws Exception {
         def apiLoginRequest = buildApiLoginRequest([
+            xmlnsPreh: prehmisNamespace,
             username: prehmisUsername,
             password: prehmisPassword,
             applicationKey: prehmisApplicationKey,

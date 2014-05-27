@@ -1,4 +1,4 @@
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:preh="http://prehmis-qa.capetown.gov.za/">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:preh="$xmlnsPreh">
     <soapenv:Header>
         <preh:AuthHeaderElement>
             <username>${username}</username>

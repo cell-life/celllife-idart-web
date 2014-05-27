@@ -1,16 +1,17 @@
 package org.celllife.idart.integration.prehmis
 
-import static org.celllife.idart.integration.prehmis.builder.AtcCodeBuilder.buildAtcCodes
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetDrugListRequest
+import org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder
 import static org.springframework.util.Assert.notNull
 import groovyx.net.http.ContentType
-import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.RESTClient
 
 import org.celllife.idart.application.part.DrugProvider
 import org.celllife.idart.framework.aspectj.LogLevel
 import org.celllife.idart.framework.aspectj.Loggable
+import org.celllife.idart.integration.prehmis.builder.AtcCodeBuilder
+import org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder
 import org.springframework.beans.factory.InitializingBean
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -19,6 +20,9 @@ import org.springframework.stereotype.Service
  * in order to synch ATC codes with iDART.
  */
 @Service class PrehmisDrugProvider implements DrugProvider, InitializingBean {
+
+    @Value('${prehmis.namespace}')
+    String prehmisNamespace
 
 	@Value('${prehmis.endpoint.baseUrl}')
 	String prehmisEndpointBaseUrl
@@ -37,10 +41,14 @@ import org.springframework.stereotype.Service
 
     RESTClient prehmisRestClient
 
+    @Autowired
+    AtcCodeBuilder atcCodeBuilder
+
 	@Loggable(LogLevel.INFO)
     def findAll(String clinicIdValue) {
 
-        String getDrugListRequest = buildGetDrugListRequest(
+        String getDrugListRequest = PrehmisRequestBuilder.buildGetDrugListRequest(
+                xmlnsPreh: prehmisNamespace,
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
@@ -56,7 +64,7 @@ import org.springframework.stereotype.Service
                 ]
         )
 
-        return buildAtcCodes(getDrugResponse)
+        return atcCodeBuilder.buildAtcCodes(getDrugResponse)
     }
 
     @Override

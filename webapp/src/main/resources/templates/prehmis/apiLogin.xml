@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:preh="http://prehmis-qa.capetown.gov.za/">
+                  xmlns:preh="$xmlnsPreh">
     <soapenv:Header>
         <preh:AuthHeaderElement>
             <username>${username}</username>

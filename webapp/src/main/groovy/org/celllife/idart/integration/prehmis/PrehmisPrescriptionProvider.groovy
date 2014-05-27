@@ -1,13 +1,27 @@
 package org.celllife.idart.integration.prehmis
 
+import static org.celllife.idart.common.IdentifiableType.*
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
+import static org.celllife.idart.common.PartClassificationType.ATC
+import static org.celllife.idart.common.Systems.*
+import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildDeletePrescriptionRequest
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStorePrescriptionRequest
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
-import org.celllife.idart.application.prescription.PrescriptionNotSavedException
+
+import java.text.SimpleDateFormat
+
+import javax.inject.Inject
+import javax.inject.Named
+
 import org.celllife.idart.application.prescription.PrescriptionNotDeletedException
+import org.celllife.idart.application.prescription.PrescriptionNotSavedException
 import org.celllife.idart.application.prescription.PrescriptionProvider
-import org.celllife.idart.common.PrescriptionId
 import org.celllife.idart.domain.encounter.EncounterService
-import org.celllife.idart.domain.identifiable.Identifiable
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.domain.part.PartService
 import org.celllife.idart.domain.patient.PatientService
@@ -24,33 +38,17 @@ import org.celllife.idart.framework.aspectj.Loggable
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-
-import javax.inject.Inject
-import javax.inject.Named
-import java.text.SimpleDateFormat
-
-import static org.celllife.idart.common.IdentifiableType.*
-import static org.celllife.idart.common.Identifiers.getIdentifierValue
-import static org.celllife.idart.common.Identifiers.newIdentifier
-import static org.celllife.idart.common.Identifiers.newIdentifiers
-import static org.celllife.idart.common.PartClassificationType.ATC
-import static org.celllife.idart.common.Systems.*
-import static org.celllife.idart.domain.part.PartClassificationApplications.getClassificationCode
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStorePrescriptionRequest
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildDeletePrescriptionRequest
+import org.springframework.stereotype.Service
 
 /**
  * PREHMIS implementation of the PrescriptionProvider related events
  */
-@Named class PrehmisPrescriptionProvider implements PrescriptionProvider {
+@Service @Named class PrehmisPrescriptionProvider implements PrescriptionProvider {
 
     static final Logger LOGGER = LoggerFactory.getLogger(PrehmisPrescriptionProvider)
 
-    static final SOAP_NAMESPACE = 'http://schemas.xmlsoap.org/soap/envelope/'
-
-    @Value('${prehmis.endpoint.baseUrl}')
-    String PREHMIS_NAMESPACE;
+    @Value('${prehmis.namespace}')
+    String prehmisNamespace
 
     @Value('${prehmis.endpoint.baseUrl}')
     String prehmisEndpointBaseUrl
@@ -185,6 +183,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
 
     void apiLogin(RESTClient prehmisRestClient, String prehmisFacilityIdentifier) throws Exception {
         def apiLoginRequest = buildApiLoginRequest([
+            xmlnsPreh: prehmisNamespace,
             username: prehmisUsername,
             password: prehmisPassword,
             applicationKey: prehmisApplicationKey,
@@ -204,6 +203,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     String buildStorePrescriptionRequest(String facilityCode, Prescription prescription) {
 
         String storePrescriptionRequest = buildStorePrescriptionRequest([
+            xmlnsPreh: prehmisNamespace,
             username: prehmisUsername,
             password: prehmisPassword,
             applicationKey: prehmisApplicationKey,
@@ -217,6 +217,7 @@ import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuild
     String buildDeletePrescriptionRequest(String facilityCode, Prescription prescription) {
 
         String deletePrescriptionRequest = buildDeletePrescriptionRequest([
+            xmlnsPreh: prehmisNamespace,
             username: prehmisUsername,
             password: prehmisPassword,
             applicationKey: prehmisApplicationKey,

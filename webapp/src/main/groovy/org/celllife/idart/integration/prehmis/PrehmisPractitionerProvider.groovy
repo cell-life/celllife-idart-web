@@ -1,26 +1,29 @@
 package org.celllife.idart.integration.prehmis
 
+import org.celllife.idart.integration.prehmis.builder.PractitionerBuilder
+import org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder
+import static org.springframework.util.Assert.notNull
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
+
 import org.celllife.idart.application.practitioner.PractitionerProvider
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
-import org.celllife.idart.domain.practitioner.Practitioner
 import org.celllife.idart.framework.aspectj.LogLevel
 import org.celllife.idart.framework.aspectj.Loggable
+import org.celllife.idart.integration.prehmis.builder.PractitionerBuilder
+import org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder
 import org.springframework.beans.factory.InitializingBean
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
-import static org.celllife.idart.integration.prehmis.builder.PractitionerBuilder.buildPractitioners
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetPractitionerListRequest
-import static org.springframework.util.Assert.notNull
-
 /**
- * User: Kevin W. Sewell
- * Date: 2013-04-29
- * Time: 16h13
+ * Provides helpful services used when connecting to PREHMIS and retrieving patients
  */
 @Service class PrehmisPractitionerProvider implements PractitionerProvider, InitializingBean {
+
+    @Value('${prehmis.namespace}')
+    String prehmisNamespace
 
 	@Value('${prehmis.endpoint.baseUrl}')
 	String prehmisEndpointBaseUrl
@@ -36,6 +39,9 @@ import static org.springframework.util.Assert.notNull
 
     @Value('${prehmis.applicationKey}')
 	String prehmisApplicationKey
+    
+    @Autowired
+    PractitionerBuilder practitionerBuilder
 
     RESTClient prehmisRestClient
 
@@ -43,7 +49,8 @@ import static org.springframework.util.Assert.notNull
 	@Loggable(LogLevel.INFO)
     Set<PractitionerDto> findAll(String clinicIdValue) {
 
-        String getPractitionerListRequest = buildGetPractitionerListRequest(
+        String getPractitionerListRequest = PrehmisRequestBuilder.buildGetPractitionerListRequest(
+                xmlnsPreh: prehmisNamespace,
                 username: prehmisUsername,
                 password: prehmisPassword,
                 facilityCode: clinicIdValue,
@@ -59,7 +66,7 @@ import static org.springframework.util.Assert.notNull
                 ]
         )
 
-        return buildPractitioners(getPractionerListResponse)
+        return practitionerBuilder.buildPractitioners(getPractionerListResponse)
     }
 
     @Override

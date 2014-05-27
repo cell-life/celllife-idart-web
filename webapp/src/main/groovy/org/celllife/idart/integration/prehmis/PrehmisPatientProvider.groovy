@@ -1,25 +1,27 @@
 package org.celllife.idart.integration.prehmis
 
+import static org.springframework.util.Assert.notNull
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
+
 import org.celllife.idart.application.patient.PatientProvider
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.framework.aspectj.LogLevel
 import org.celllife.idart.framework.aspectj.Loggable
+import org.celllife.idart.integration.prehmis.builder.PatientBuilder
+import org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder
 import org.springframework.beans.factory.InitializingBean
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
-import static org.celllife.idart.integration.prehmis.builder.PatientBuilder.buildIdartPatient
-import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildGetPatientRequest
-import static org.springframework.util.Assert.notNull
-
 /**
- * User: Kevin W. Sewell
- * Date: 2013-04-25
- * Time: 15h17
+ * Implementation of the PREHMIS patient API
  */
 @Service class PrehmisPatientProvider implements PatientProvider, InitializingBean {
+
+    @Value('${prehmis.namespace}')
+    String prehmisNamespace
 
 	@Value('${prehmis.endpoint.baseUrl}')
 	String prehmisEndpointBaseUrl
@@ -35,6 +37,9 @@ import static org.springframework.util.Assert.notNull
 
     @Value('${prehmis.applicationKey}')
     String prehmisApplicationKey
+    
+    @Autowired
+    PatientBuilder patientBuilder
 
     RESTClient prehmisRestClient
 
@@ -59,7 +64,8 @@ import static org.springframework.util.Assert.notNull
                           String patientIdentifierValue,
                           PrehmisPatientIdentifierType identifierType) {
 
-        String getPatientRequest = buildGetPatientRequest(
+        String getPatientRequest = PrehmisRequestBuilder.buildGetPatientRequest(
+                xmlnsPreh: prehmisNamespace,
                 username: prehmisUsername,
                 password: prehmisPassword,
                 applicationKey: prehmisApplicationKey,
@@ -77,7 +83,7 @@ import static org.springframework.util.Assert.notNull
                 ]
         )
 
-        return buildIdartPatient(getPatientResponse.data)
+        return patientBuilder.buildIdartPatient(getPatientResponse.data)
     }
 
     @Override
