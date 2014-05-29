@@ -39,10 +39,22 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional
     UserId save(UserDto userDto) {
 
+        // see if there is already a user with the same username
+        UserId existingUserId = userService.findByUsername(userDto.getUsername())
+        if (userDto.identifiers.empty && existingUserId != null) {
+            throw new DuplicateUsernameException("There is already a user with the username '"+userDto.getUsername()+"'")
+        }
+
         def identifiable = identifiableService.resolveIdentifiable(USER, userDto.identifiers)
         userDto.identifiers = identifiable.identifiers
 
         def userId = userId(identifiable.getIdentifierValue(IDART_WEB.id))
+
+        // check again to see if there was an existing user with the same username, then the IDs should match
+        if (existingUserId != null && !existingUserId.equals(userId)) {
+            // FIXME: at this point a new ID would be created, so there is some waste (sorry)
+            throw new DuplicateUsernameException("There is already a user with the username '"+userDto.getUsername()+"'")
+        }
 
         def user = userDtoAssembler.toUser(userDto)
         user.id = userId

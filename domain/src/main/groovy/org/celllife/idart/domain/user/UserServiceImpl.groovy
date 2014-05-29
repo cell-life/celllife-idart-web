@@ -1,12 +1,12 @@
 package org.celllife.idart.domain.user
 
-import org.celllife.idart.common.UserId
+import static org.celllife.idart.domain.user.UserEvent.newUserEvent
+import static org.celllife.idart.domain.user.UserEvent.EventType.SAVED
 
 import javax.inject.Inject
 import javax.inject.Named
 
-import static org.celllife.idart.domain.user.UserEvent.EventType.SAVED
-import static org.celllife.idart.domain.user.UserEvent.newUserEvent
+import org.celllife.idart.common.UserId
 
 /**
  */
@@ -26,7 +26,7 @@ import static org.celllife.idart.domain.user.UserEvent.newUserEvent
     @Override
     User save(User user) {
 
-        def existingUser = null
+        def existingUser = userRepository.findOne(user.id)
 
         if (existingUser == null) {
             existingUser = user

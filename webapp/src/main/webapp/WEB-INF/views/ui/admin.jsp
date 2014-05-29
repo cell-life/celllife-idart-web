@@ -133,12 +133,16 @@
 <script src="resources/js/bootstrap-3.0.2.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 function randomString() {
-	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-	var string_length = 64;
+	var chars = "0123456789ABCDEF";
+	var string_length = 36;
 	var randomString = '';
 	for (var i = 0; i < string_length; i++) {
-		var rnum = Math.floor(Math.random() * chars.length);
-		randomString += chars.substring(rnum, rnum + 1);
+		if (i==8 || i==13 || i==17 || i==22) {
+			randomString += "-";
+		} else {
+    		var rnum = Math.floor(Math.random() * chars.length);
+    		randomString += chars.substring(rnum, rnum + 1);
+		}
 	}
 	return randomString;
 }
@@ -146,7 +150,6 @@ function randomString() {
 <script>
     $(document).ready(function () {
         var applicationKey = randomString();
-        //alert("hello "+applicationKey);
         $('input[name="applicationKey"]').val(applicationKey);
     });
 </script>
