@@ -67,10 +67,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     FacilityDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(FACILITY, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(FACILITY, [identifier] as Set)
         if (identifiable == null) {
-            throw new FacilityNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new FacilityNotFoundException("Could not find Facility with id [${identifier}]")
         }
 
         def facilityId = facilityId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -87,7 +86,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     FacilityId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(FACILITY, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(FACILITY, identifiers)
+        if (identifiable == null) {
+            throw new FacilityNotFoundException("Could not find Facility with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

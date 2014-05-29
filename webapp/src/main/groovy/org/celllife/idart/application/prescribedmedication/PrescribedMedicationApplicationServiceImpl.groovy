@@ -63,10 +63,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     PrescribedMedicationDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(PRESCRIBED_MEDICATION, [identifier] as Set)
         if (identifiable == null) {
-            throw new PrescribedMedicationNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new PrescribedMedicationNotFoundException("Could not find PrescribedMedication with id [${identifier}]")
         }
 
         def prescribedMedicationId = prescribedMedicationId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -83,7 +82,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     PrescribedMedicationId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRESCRIBED_MEDICATION, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(PRESCRIBED_MEDICATION, identifiers)
+        if (identifiable == null) {
+            throw new PrescribedMedicationNotFoundException("Could not find PrescribedMedication with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

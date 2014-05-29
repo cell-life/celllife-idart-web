@@ -63,10 +63,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     SystemDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(SYSTEM, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(SYSTEM, [identifier] as Set)
         if (identifiable == null) {
-            throw new SystemNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new SystemNotFoundException("Could not find System with id [${identifier}]")
         }
 
         def systemId = systemId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -83,7 +82,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     SystemId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(SYSTEM, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(SYSTEM, identifiers)
+        if (identifiable == null) {
+            throw new SystemNotFoundException("Could not find System with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

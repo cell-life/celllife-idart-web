@@ -1,16 +1,18 @@
 package org.celllife.idart.domain.identifiable
 
-import org.celllife.idart.common.SystemId
+import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
 import org.celllife.idart.common.IdentifiableType
 import org.celllife.idart.common.Identifier
-
-import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import org.celllife.idart.common.SystemId
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-08-24
- * Time: 17h34
+ * Wrapper for an entity's set of identifiers. Has a type to identify which entity.
  */
+@ToString
+@EqualsAndHashCode
 class Identifiable implements Serializable {
 
     Long pk

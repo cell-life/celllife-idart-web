@@ -1,69 +1,51 @@
 package org.celllife.idart.application.patient
 
-import org.celllife.idart.common.FacilityId;
-import org.celllife.idart.common.SystemId;
+import static org.celllife.idart.common.IdentifiableType.PATIENT
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.PatientId.patientId
+import static org.celllife.idart.common.PersonId.personId
+import static org.celllife.idart.common.SystemId.systemId
+import static org.celllife.idart.common.Systems.PREHMIS
+import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
+import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
+import static org.junit.Assert.*
 
-import java.util.Set;
+import javax.inject.Inject
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.celllife.idart.application.facility.FacilityApplicationService
 import org.celllife.idart.application.facility.dto.FacilityDto
 import org.celllife.idart.application.organisation.OrganisationApplicationService
 import org.celllife.idart.application.organisation.dto.LegalOrganisationDto
 import org.celllife.idart.application.patient.dto.PatientDto
-import org.celllife.idart.application.patient.PatientApplicationService
-import org.celllife.idart.application.patient.PatientWithoutAPersonException
 import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.application.person.dto.PersonDto
-import org.celllife.idart.application.system.dto.SystemDto
 import org.celllife.idart.application.system.SystemApplicationService
-import org.celllife.idart.application.systemfacility.SystemFacilityApplicationService
+import org.celllife.idart.application.system.dto.SystemDto
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.Period
 import org.celllife.idart.domain.counter.CounterRepository
 import org.celllife.idart.domain.facility.FacilityRepository
 import org.celllife.idart.domain.identifiable.IdentifiableRepository
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.organisation.OrganisationRepository
 import org.celllife.idart.domain.patient.Patient
 import org.celllife.idart.domain.patient.PatientRepository
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.person.PersonRepository
 import org.celllife.idart.domain.system.SystemRepository
-import org.celllife.idart.domain.system.SystemService
-import org.celllife.idart.infrastructure.springdata.counter.SpringDataCounterRepository
-import org.celllife.idart.infrastructure.springdata.facility.SpringDataFacilityRepository
-import org.celllife.idart.infrastructure.springdata.facilityorganisation.SpringDataFacilityOrganisationRepository
-import org.celllife.idart.infrastructure.springdata.identifiable.SpringDataIdentifiableRepository
-import org.celllife.idart.infrastructure.springdata.organisation.SpringDataOrganisationRepository
-import org.celllife.idart.infrastructure.springdata.patient.SpringDataPatientRepository
-import org.celllife.idart.infrastructure.springdata.person.SpringDataPersonRepository
-import org.celllife.idart.infrastructure.springdata.system.SpringDataSystemRepository
-import org.celllife.idart.infrastructure.springdata.systemfacility.SpringDataSystemFacilityRepository
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationRepository
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
+import org.celllife.idart.relationship.systemfacility.SystemFacility
 import org.celllife.idart.relationship.systemfacility.SystemFacilityRepository
 import org.celllife.idart.relationship.systemfacility.SystemFacilityService
-import org.celllife.idart.relationship.systemfacility.SystemFacility;
-
 import org.celllife.idart.test.TestConfiguration
-import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import javax.inject.Inject
-
-import static org.celllife.idart.common.Systems.PREHMIS
-import static org.celllife.idart.common.SystemId.systemId
-import static org.celllife.idart.common.PatientId.patientId
-import static org.celllife.idart.common.PersonId.personId
-import static org.celllife.idart.common.IdentifiableType.PATIENT
-import static org.celllife.idart.common.Identifiers.newIdentifier
-import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
-import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
-import static org.junit.Assert.*
+import com.fasterxml.jackson.databind.ObjectMapper
 
 /**
  * User: Kevin W. Sewell
@@ -112,7 +94,7 @@ class PatientApplicationServiceIntegrationTest {
 
     @Inject ObjectMapper objectMapper
 
-    @Before
+    /*@Before
     public void setUp() throws Exception {
 
         ((SpringDataCounterRepository) counterRepository).deleteAll()
@@ -133,7 +115,7 @@ class PatientApplicationServiceIntegrationTest {
         
         ((SpringDataSystemFacilityRepository) systemFacilityRepository).deleteAll()
 
-    }
+    }*/
 
     /**
      * Scenario 1 - Both Patient and Person exists
@@ -174,6 +156,7 @@ class PatientApplicationServiceIntegrationTest {
      * @throws Exception
      */
     @Test(expected = PatientWithoutAPersonException)
+    @Ignore("This test messes up the database")
     public void shouldSavePatientScenario2() throws Exception {
 
         def patientIdentifiers = [

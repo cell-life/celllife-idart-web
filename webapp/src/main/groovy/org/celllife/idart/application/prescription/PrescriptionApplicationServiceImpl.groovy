@@ -103,10 +103,9 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     PrescriptionDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(PRESCRIPTION, [identifier] as Set)
         if (identifiable == null) {
-            throw new PrescriptionNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new PrescriptionNotFoundException("Could not find Prescription with id [${identifier}]")
         }
 
         def prescriptionId = prescriptionId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -128,7 +127,10 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     PrescriptionId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(PRESCRIPTION, identifiers)
+        if (identifiable == null) {
+            throw new PrescriptionNotFoundException("Could not find Prescription with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
@@ -152,7 +154,10 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
             // convert the specified prescription id (linked to the facility) to an iDARTweb id
-            def identifiable = identifiableService.resolveIdentifiable(PRESCRIPTION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            def identifiable = identifiableService.findByIdentifiers(PRESCRIPTION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            if (identifiable == null) {
+                throw new PrescriptionNotFoundException("Could not find Prescription with id [${identifier}]")
+            }
             def idartwebId = identifiable.getIdentifierValue(IDART_WEB.id)
             
             switch (facilityIdentifier.system) {

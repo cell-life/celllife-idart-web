@@ -41,12 +41,12 @@ class AtcCodeApplicationServiceIntegrationTest {
 
 	@Inject ObjectMapper objectMapper
 
-	@Before
+	/*@Before
 	public void setUp() throws Exception {
 
 		((SpringDataFacilityRepository) facilityRepository).deleteAll()
 
-	}
+	}*/
 
 	@Test
 	public void shouldFindByFacility() throws Exception {

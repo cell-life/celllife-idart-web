@@ -63,10 +63,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     ProductDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRODUCT, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(PRODUCT, [identifier] as Set)
         if (identifiable == null) {
-            throw new ProductNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new ProductNotFoundException("Could not find Product with id [${identifier}]")
         }
 
         def productId = productId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -83,7 +82,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     ProductId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRODUCT, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(PRODUCT, identifiers)
+        if (identifiable == null) {
+            throw new ProductNotFoundException("Could not find Product with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

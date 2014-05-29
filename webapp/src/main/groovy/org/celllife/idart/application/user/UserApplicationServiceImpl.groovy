@@ -1,22 +1,22 @@
 package org.celllife.idart.application.user
 
-import org.celllife.idart.application.user.dto.UserDto
-import org.celllife.idart.application.user.dto.UserDtoAssembler
-import org.celllife.idart.common.UserId
-import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.common.Identifier
-import org.celllife.idart.domain.user.UserNotFoundException
-import org.celllife.idart.domain.user.UserService
-
-import static org.celllife.idart.common.UserId.userId
 import static org.celllife.idart.common.IdentifiableType.USER
-import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
+import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Systems.IDART_WEB
+import static org.celllife.idart.common.UserId.userId
 
 import javax.inject.Inject
 import javax.inject.Named
 
+import org.celllife.idart.application.user.dto.UserDto
+import org.celllife.idart.application.user.dto.UserDtoAssembler
+import org.celllife.idart.common.Identifier
+import org.celllife.idart.common.UserId
+import org.celllife.idart.domain.identifiable.IdentifiableService
+import org.celllife.idart.domain.user.DuplicateUsernameException
+import org.celllife.idart.domain.user.UserNotFoundException
+import org.celllife.idart.domain.user.UserService
 import org.springframework.transaction.annotation.Transactional
 
 /**
@@ -63,10 +63,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     UserDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(USER, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(USER, [identifier] as Set)
         if (identifiable == null) {
-            throw new UserNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new UserNotFoundException("Could not find User with id [${identifier}]")
         }
 
         def userId = userId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -83,7 +82,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     UserId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(USER, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(USER, identifiers)
+        if (identifiable == null) {
+            throw new UserNotFoundException("Could not find User with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

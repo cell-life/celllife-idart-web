@@ -63,10 +63,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     PersonDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PERSON, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(PERSON, [identifier] as Set)
         if (identifiable == null) {
-            throw new PersonNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new PersonNotFoundException("Could not find Person with id [${identifier}]")
         }
 
         def personId = personId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -83,7 +82,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     PersonId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PERSON, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(PERSON, identifiers)
+        if (identifiable == null) {
+            throw new PersonNotFoundException("Could not find Person with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

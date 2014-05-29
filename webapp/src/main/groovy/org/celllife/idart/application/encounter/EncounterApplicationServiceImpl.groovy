@@ -63,10 +63,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     EncounterDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(ENCOUNTER, [identifier] as Set)
         if (identifiable == null) {
-            throw new EncounterNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new EncounterNotFoundException("Could not find Encounter with id [${identifier}]")
         }
 
         def encounterId = encounterId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -83,7 +82,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     EncounterId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(ENCOUNTER, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(ENCOUNTER, identifiers)
+        if (identifiable == null) {
+            throw new EncounterNotFoundException("Could not find Encounter with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

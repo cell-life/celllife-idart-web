@@ -1,7 +1,18 @@
 package org.celllife.idart.application.dispensation
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import static org.celllife.idart.common.Identifiers.newIdentifiers
+import static org.celllife.idart.common.Label.label
+import static org.celllife.idart.common.PartBillOfMaterialsType.ENGINEERING
+import static org.celllife.idart.common.PartClassificationType.ATC
+import static org.celllife.idart.common.Systems.*
+import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
+
+import javax.inject.Inject
+
 import org.celllife.idart.application.dispensation.dto.DispensationDto
+import org.celllife.idart.application.facility.FacilityApplicationService
+import org.celllife.idart.application.facility.dto.FacilityDto
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.DrugDto
@@ -35,15 +46,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import javax.inject.Inject
-
-import static org.celllife.idart.common.Identifiers.newIdentifier
-import static org.celllife.idart.common.Identifiers.newIdentifiers
-import static org.celllife.idart.common.Label.label
-import static org.celllife.idart.common.PartClassificationType.ATC
-import static org.celllife.idart.common.Systems.*
-import static PartBillOfMaterialsType.ENGINEERING
-import static org.celllife.idart.domain.part.PartClassificationApplications.partClassificationApplications
+import com.fasterxml.jackson.databind.ObjectMapper
 
 /**
  * User: Kevin W. Sewell
@@ -72,6 +75,8 @@ class DispensationApplicationServiceIntegrationTest {
 
     @Inject DispensationRepository dispensationRepository
 
+    @Inject FacilityApplicationService facilityApplicationService
+
     @Inject PractitionerApplicationService practitionerApplicationService
 
     @Inject PractitionerRepository practitionerRepository
@@ -90,7 +95,7 @@ class DispensationApplicationServiceIntegrationTest {
 
     @Inject ObjectMapper objectMapper
 
-    @Before
+    /*@Before
     public void setUp() throws Exception {
 
         [counterRepository, identifiableRepository, personRepository, patientRepository,
@@ -98,7 +103,7 @@ class DispensationApplicationServiceIntegrationTest {
                 dispensationRepository, productRepository, partRepository].each { repository ->
             ((CrudRepository) repository).deleteAll()
         }
-    }
+    }*/
 
     @Test
     void shouldUnmarshal() throws Exception {

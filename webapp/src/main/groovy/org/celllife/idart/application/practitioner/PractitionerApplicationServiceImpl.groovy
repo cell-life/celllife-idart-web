@@ -114,10 +114,9 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     PractitionerDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(PRACTITIONER, [identifier] as Set)
         if (identifiable == null) {
-            throw new PractitionerNotFoundException("Could not find Practitioner with id [${identifier.value}]")
+            throw new PractitionerNotFoundException("Could not find Practitioner with id [${identifier}]")
         }
 
         def practitionerId = practitionerId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -135,7 +134,10 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     PractitionerId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PRACTITIONER, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(PRACTITIONER, identifiers)
+        if (identifiable == null) {
+            throw new PractitionerNotFoundException("Could not find Practitioner with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

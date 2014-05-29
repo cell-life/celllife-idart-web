@@ -87,10 +87,9 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     DispensationDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(DISPENSATION, [identifier] as Set)
         if (identifiable == null) {
-            throw new DispensationNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new DispensationNotFoundException("Could not find Dispensation with id [${identifier}]")
         }
 
         def dispensationId = dispensationId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -107,7 +106,10 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     DispensationId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(DISPENSATION, identifiers)
+        if (identifiable == null) {
+            throw new DispensationNotFoundException("Could not find Dispensation with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 
@@ -131,7 +133,11 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
             // convert the specified dispensation id (linked to the facility) to an iDARTweb id
-            def identifiable = identifiableService.resolveIdentifiable(DISPENSATION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            def identifiable = identifiableService.findByIdentifiers(DISPENSATION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            if (facilityIdentifiable == null) {
+                throw new DispensationNotFoundException("Could not find Dispensation with id [${identifier}]")
+            }
+    
             def idartwebId = identifiable.getIdentifierValue(IDART_WEB.id)
             
             switch (facilityIdentifier.system) {

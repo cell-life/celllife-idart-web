@@ -117,10 +117,9 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     PatientDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PATIENT, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(PATIENT, [identifier] as Set)
         if (identifiable == null) {
-            throw new PatientNotFoundException("Could not find Patient with id [${identifier.value}]")
+            throw new PatientNotFoundException("Could not find Patient with id [${identifier}]")
         }
 
         def patientId = patientId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -138,7 +137,10 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
     @Transactional(readOnly = true)
     PatientId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PATIENT, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(PATIENT, identifiers)
+        if (identifiable == null) {
+            throw new PatientNotFoundException("Could not find Patient with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

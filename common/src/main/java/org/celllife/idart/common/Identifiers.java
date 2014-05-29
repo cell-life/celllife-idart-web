@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * User: Kevin W. Sewell
- * Date: 2013-09-04
- * Time: 17h40
+ * A Utility class for the Identifier entity
  */
 public final class Identifiers implements Serializable {
+
+    private static final long serialVersionUID = 1030744602903028152L;
 
     public static Identifier newIdentifier(String value) {
 

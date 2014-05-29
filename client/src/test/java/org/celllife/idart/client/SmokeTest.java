@@ -51,7 +51,7 @@ public class SmokeTest {
     }
 
     @Test
-    @Ignore("requires the idartClient to be running")
+    //@Ignore("requires the idartClient to be running")
     public void smokeTest() throws Exception {
 
         // ********************************************************************************************************

@@ -24,7 +24,6 @@ import org.celllife.idart.common.PartClassificationType;
 import org.celllife.idart.common.UnitsOfMeasure;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**

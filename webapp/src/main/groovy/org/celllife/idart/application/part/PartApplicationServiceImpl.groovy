@@ -81,10 +81,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     PartDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PART, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(PART, [identifier] as Set)
         if (identifiable == null) {
-            throw new PartNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new PartNotFoundException("Could not find Part with id [${identifier}]")
         }
 
         def partId = partId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -101,7 +100,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     PartId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(PART, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(PART, identifiers)
+        if (identifiable == null) {
+            throw new PartNotFoundException("Could not find Part with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

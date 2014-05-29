@@ -64,10 +64,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     DefaultDosageInstructionDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(DEFAULT_DOSAGE_INSTRUCTION, [identifier] as Set)
+        def identifiable = identifiableService.findByIdentifiers(DEFAULT_DOSAGE_INSTRUCTION, [identifier] as Set)
 
         if (identifiable == null) {
-            throw new DefaultDosageInstructionNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new DefaultDosageInstructionNotFoundException("Could not find DefaultDosageInstruction with id [${identifier}]")
         }
 
         def defaultDosageInstructionId = defaultDosageInstructionId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -84,7 +84,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     DefaultDosageInstructionId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(DEFAULT_DOSAGE_INSTRUCTION, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(DEFAULT_DOSAGE_INSTRUCTION, identifiers)
+        if (identifiable == null) {
+            throw new DefaultDosageInstructionNotFoundException("Could not find DefaultDosageInstruction with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

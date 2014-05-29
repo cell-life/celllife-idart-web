@@ -81,10 +81,9 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     OrganisationDto findByIdentifier(Identifier identifier) {
 
-        def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, [identifier] as Set)
-
+        def identifiable = identifiableService.findByIdentifiers(ORGANISATION, [identifier] as Set)
         if (identifiable == null) {
-            throw new OrganisationNotFoundException("Could not find null with id [${ identifier.value}]")
+            throw new OrganisationNotFoundException("Could not find Organisation with id [${identifier}]")
         }
 
         def organisationId = organisationId(identifiable.getIdentifierValue(IDART_WEB.id))
@@ -101,7 +100,10 @@ import org.springframework.transaction.annotation.Transactional
     @Transactional(readOnly = true)
     OrganisationId findByIdentifiers(Set<Identifier> identifiers) {
 
-        def identifiable = identifiableService.resolveIdentifiable(ORGANISATION, identifiers)
+        def identifiable = identifiableService.findByIdentifiers(ORGANISATION, identifiers)
+        if (identifiable == null) {
+            throw new OrganisationNotFoundException("Could not find Organisation with id [${identifiers}]")
+        }
 
         def idartIdentifierValue = getIdentifierValue(identifiable.identifiers, IDART_WEB.id)
 

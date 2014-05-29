@@ -36,28 +36,38 @@ public class Identifier implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Identifier that = (Identifier) o;
-
-        if (system != null ? !system.equals(that.system) : that.system != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
-
-        return true;
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((system == null) ? 0 : system.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        int result = system != null ? system.hashCode() : 0;
-        result = 31 * result + (value != null ? value.hashCode() : 0);
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Identifier other = (Identifier) obj;
+        if (system == null) {
+            if (other.system != null)
+                return false;
+        } else if (!system.equals(other.system))
+            return false;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!value.equals(other.value))
+            return false;
+        return true;
     }
 
     @Override
     public String toString() {
         return "Identifier [system=" + system + ", value=" + value + "]";
     }
-
 }
