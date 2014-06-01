@@ -41,6 +41,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 /**
  * PREHMIS implementation of the PrescriptionProvider related events
@@ -89,6 +90,7 @@ import org.springframework.stereotype.Service
 
     @Override
     @Loggable(LogLevel.INFO)
+    @Transactional
     void processEvent(PrescriptionEvent prescriptionEvent) {
         if (prescriptionEvent.type == PrescriptionEvent.EventType.SAVED) {
             save(prescriptionEvent)

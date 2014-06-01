@@ -31,7 +31,6 @@ import org.celllife.idart.domain.part.PartService
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.person.PersonService
 import org.celllife.idart.domain.practitioner.PractitionerService
-import org.celllife.idart.domain.prescription.PrescriptionEvent
 import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.product.ProductService
 import org.celllife.idart.framework.aspectj.LogLevel
@@ -40,6 +39,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 /**
  * The PREHMIS implementation for the DispensationProvider related events
@@ -88,6 +88,7 @@ import org.springframework.stereotype.Service
     
     @Override
     @Loggable(LogLevel.INFO)
+    @Transactional
     void processEvent(DispensationEvent dispensationEvent) {
         if (dispensationEvent.type == DispensationEvent.EventType.SAVED) {
             save(dispensationEvent)
