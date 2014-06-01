@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class OrganisationId implements Serializable {
 
+    private static final long serialVersionUID = -5146072357941965219L;
+
     /**
      * Value
      */

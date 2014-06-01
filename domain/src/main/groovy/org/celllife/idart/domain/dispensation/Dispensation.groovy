@@ -1,19 +1,19 @@
 package org.celllife.idart.domain.dispensation
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
 import org.celllife.idart.common.DispensationId
 import org.celllife.idart.common.FacilityId
 import org.celllife.idart.common.PatientId
-import org.celllife.idart.common.Period
 import org.celllife.idart.common.PractitionerId
 
 /**
  * Provision of a supply of a medication with the intention that it is subsequently consumed by a patient
  * (usually in response to a prescription).
- *
- * User: Kevin W. Sewell
- * Date: 2013-07-22
- * Time: 01h13
  */
+@ToString
+@EqualsAndHashCode
 class Dispensation implements Serializable {
 
     /**

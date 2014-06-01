@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class UnitOfMeasureTypeCode implements Serializable {
 
+    private static final long serialVersionUID = 7843395437068783496L;
+    
     /**
      * Value
      */

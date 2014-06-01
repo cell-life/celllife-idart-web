@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class FacilityId implements Serializable {
 
+    private static final long serialVersionUID = -8187269279025909233L;
+
     /**
      * Value
      */

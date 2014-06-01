@@ -1,5 +1,6 @@
 package org.celllife.idart.common;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,9 @@ import java.util.Date;
  * Date: 2013-06-17
  * Time: 21h33
  */
-public class Period {
+public class Period implements Serializable {
+
+    private static final long serialVersionUID = -6713183500610420645L;
 
     private Date fromDate;
 

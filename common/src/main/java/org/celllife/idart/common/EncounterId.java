@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class EncounterId implements Serializable {
 
+    private static final long serialVersionUID = 2171608665592285602L;
+
     /**
      * Value
      */

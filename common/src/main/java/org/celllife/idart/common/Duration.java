@@ -10,6 +10,8 @@ import java.math.BigDecimal;
  */
 public class Duration implements Serializable {
 
+    private static final long serialVersionUID = 4556006055520914973L;
+
     private BigDecimal value;
 
     private UnitOfMeasureCode unitOfMeasure;

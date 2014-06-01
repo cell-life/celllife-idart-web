@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class SystemId implements Serializable {
 
+    private static final long serialVersionUID = -2155209510605872227L;
+
     /**
      * Value
      */

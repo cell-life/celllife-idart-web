@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class LifeEventCode implements Serializable {
 
+    private static final long serialVersionUID = -1570881305574992950L;
+
     /**
      * Value
      */

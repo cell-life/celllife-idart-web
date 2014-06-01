@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class PatientId implements Serializable {
 
+    private static final long serialVersionUID = 299156160503092701L;
+    
     /**
      * Value
      */

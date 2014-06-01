@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class IndicationCode implements Serializable {
 
+    private static final long serialVersionUID = 4634039919627548739L;
+
     /**
      * Value
      */

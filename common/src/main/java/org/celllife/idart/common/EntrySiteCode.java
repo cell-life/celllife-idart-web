@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class EntrySiteCode implements Serializable {
 
+    private static final long serialVersionUID = 4003352343438202810L;
+
     /**
      * Value
      */

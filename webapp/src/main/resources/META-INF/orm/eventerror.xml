@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <access>FIELD</access>
+
+    <!-- EventError -->
+
+    <entity class="org.celllife.idart.domain.eventerror.EventError">
+
+        <attributes>
+            <id name="pk">
+                <generated-value strategy="TABLE"/>
+            </id>
+            <basic name="datetime"/>
+            <basic name="retryCount"/>
+            <basic name="errorMessage"/>
+            <basic name="eventType">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="eventUuid"/>
+            <basic name="eventObject"/>
+        </attributes>
+
+    </entity>
+
+</entity-mappings>

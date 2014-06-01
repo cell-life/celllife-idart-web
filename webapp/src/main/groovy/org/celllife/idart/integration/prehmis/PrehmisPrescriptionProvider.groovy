@@ -22,6 +22,8 @@ import org.celllife.idart.application.prescription.PrescriptionNotDeletedExcepti
 import org.celllife.idart.application.prescription.PrescriptionNotSavedException
 import org.celllife.idart.application.prescription.PrescriptionProvider
 import org.celllife.idart.domain.encounter.EncounterService
+import org.celllife.idart.domain.eventerror.EventError
+import org.celllife.idart.domain.eventerror.EventErrorService
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.domain.part.PartService
 import org.celllife.idart.domain.patient.PatientService
@@ -82,6 +84,8 @@ import org.springframework.stereotype.Service
     @Inject PartService partService
 
     @Inject PrescriptionService prescriptionService
+    
+    @Inject EventErrorService eventErrorService;
 
     @Override
     @Loggable(LogLevel.INFO)
@@ -91,7 +95,9 @@ import org.springframework.stereotype.Service
         } else if (prescriptionEvent.type == PrescriptionEvent.EventType.DELETED) {
             delete(prescriptionEvent)
         } else {
-            LOGGER.warn("Could not process PrescriptionEvent with type "+prescriptionEvent.type)
+            String errorMessage = "Could not process PrescriptionEvent with type "+prescriptionEvent.type
+            LOGGER.warn(errorMessage)
+            saveEventError(errorMessage, prescriptionEvent)
         }
     }
 
@@ -108,7 +114,9 @@ import org.springframework.stereotype.Service
         try {
             storePrescriptionRequest = buildStorePrescriptionRequest(prehmisFacilityIdentifier, prescriptionEvent.prescription)
         } catch (Exception e) {
-            throw new PrescriptionNotDeletedException("Unable to create PREHMIS storeprescription request for prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message, e)
+            String errorMessage = "Unable to create PREHMIS storeprescription request for prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message
+            saveEventError(errorMessage, prescriptionEvent)
+            throw new PrescriptionNotDeletedException(errorMessage, e)
         }
         
         def storePrescriptionResponse
@@ -130,7 +138,9 @@ import org.springframework.stereotype.Service
         def result = storePrescriptionResponse.data
         LOGGER.info("PREHMIS response: "+result)
         if (!result.equals("Prescription saved")) {
-            throw new PrescriptionNotSavedException("Unable to store prescription '"+prescriptionEvent.prescription.id+"' on PREHMIS. Error: "+result)
+            String errorMessage = "Unable to store prescription '"+prescriptionEvent.prescription.id+"' on PREHMIS. Error: "+result
+            saveEventError(errorMessage, prescriptionEvent)
+            throw new PrescriptionNotSavedException(errorMessage)
         }
     }
 
@@ -147,7 +157,9 @@ import org.springframework.stereotype.Service
         try {
             deletePrescriptionRequest = buildDeletePrescriptionRequest(prehmisFacilityIdentifier, prescriptionEvent.prescription)
         } catch (Exception e) {
-            throw new PrescriptionNotDeletedException("Unable to create deleteprescription request for prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message, e)
+            String errorMessage = "Unable to create deleteprescription request for prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message
+            saveEventError(errorMessage, prescriptionEvent)
+            throw new PrescriptionNotDeletedException(errorMessage, e)
         }
 
         try {
@@ -162,14 +174,31 @@ import org.springframework.stereotype.Service
                     ]
                     )
         } catch (Exception e) {
-            throw new PrescriptionNotDeletedException("Unable to communicate with PREHMIS while trying to delete prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message, e)
+            String errorMessage = "Unable to communicate with PREHMIS while trying to delete prescription '"+prescriptionEvent.prescription.id+"'. Error: "+e.message 
+            saveEventError(errorMessage, prescriptionEvent)
+            throw new PrescriptionNotDeletedException(errorMessage, e)
         }
 
         def result = deletePrescriptionResponse.data
         LOGGER.info("PREHMIS response: "+result)
         if (!result.equals("Prescription deleted")) {
-            throw new PrescriptionNotDeletedException("Unable to delete prescription '"+prescriptionEvent.prescription.id+"' on PREHMIS. Error: "+result)
+            String errorMessage = "Unable to delete prescription '"+prescriptionEvent.prescription.id+"' on PREHMIS. Error: "+result
+            saveEventError(errorMessage, prescriptionEvent)
+            throw new PrescriptionNotDeletedException(errorMessage)
         }
+    }
+
+    def saveEventError(String message, PrescriptionEvent event) {
+        EventError eventError = new EventError();
+        eventError.with {
+            datetime = new Date()
+            retryCount = 0
+            errorMessage = message
+            eventType = EventError.EventType.PRESCRIPTION_EVENT
+            eventUuid = event.uuid
+        }
+        eventError.setUnserializedEventObject(event)
+        eventErrorService.save(eventError)
     }
 
     String getFacilityIdentifiable(PrescriptionEvent prescriptionEvent) {

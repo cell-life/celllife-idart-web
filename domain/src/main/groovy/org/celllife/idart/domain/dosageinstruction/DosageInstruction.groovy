@@ -9,6 +9,8 @@ import org.celllife.idart.common.*
  */
 class DosageInstruction implements Serializable {
 
+    private static final long serialVersionUID = 530452930800313124L;
+
     Long pk
 
     /**

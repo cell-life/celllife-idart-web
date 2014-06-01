@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class UserId implements Serializable {
 
+    private static final long serialVersionUID = -2796499927755100078L;
+
     /**
      * Value
      */

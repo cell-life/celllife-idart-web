@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class PractitionerId implements Serializable {
 
+    private static final long serialVersionUID = 3974850397961656194L;
+
     /**
      * Value
      */

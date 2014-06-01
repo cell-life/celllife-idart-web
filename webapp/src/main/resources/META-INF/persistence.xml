@@ -13,6 +13,7 @@
         <mapping-file>META-INF/orm/dispensation.xml</mapping-file>
         <mapping-file>META-INF/orm/dosageinstruction.xml</mapping-file>
         <mapping-file>META-INF/orm/encounter.xml</mapping-file>
+        <mapping-file>META-INF/orm/eventerror.xml</mapping-file>
         <mapping-file>META-INF/orm/facility.xml</mapping-file>
         <mapping-file>META-INF/orm/facilityorganisation.xml</mapping-file>
         <mapping-file>META-INF/orm/identifiable.xml</mapping-file>
@@ -37,6 +38,7 @@
         <!--<mapping-file>META-INF/hbm/user.hbm.xml</mapping-file>-->
 
         <shared-cache-mode>ALL</shared-cache-mode>
+        
 
         <validation-mode>NONE</validation-mode>
 

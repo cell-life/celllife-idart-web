@@ -13,6 +13,8 @@ import org.celllife.idart.domain.dosageinstruction.DosageInstruction
  * Time: 20h52
  */
 class DispensedMedication implements Serializable {
+    
+    private static final long serialVersionUID = 530452930800313123L;
 
     /**
      * Medication

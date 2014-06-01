@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class PartId implements Serializable {
 
+    private static final long serialVersionUID = 3504082420288878223L;
+
     /**
      * Value
      */

@@ -15,6 +15,7 @@
     <include file="db.changelog-dispensation.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-dosageinstruction.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-encounter.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-eventerror.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-facility.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-facilityorganisation.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-identifiable.xml" relativeToChangelogFile="true"/>

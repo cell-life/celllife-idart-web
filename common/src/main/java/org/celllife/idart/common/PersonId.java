@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class PersonId implements Serializable {
 
+    private static final long serialVersionUID = 5067644053109894438L;
+
     /**
      * Value
      */

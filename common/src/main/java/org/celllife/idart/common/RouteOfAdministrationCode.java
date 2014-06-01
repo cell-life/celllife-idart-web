@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class RouteOfAdministrationCode implements Serializable {
 
+    private static final long serialVersionUID = -7775565262635332797L;
+
     /**
      * Value
      */

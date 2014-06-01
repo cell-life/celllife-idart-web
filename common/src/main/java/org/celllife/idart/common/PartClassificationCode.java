@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
  */
 public class PartClassificationCode implements Serializable {
 
+    private static final long serialVersionUID = -770603980799373490L;
+
     /**
      * Value
      */

@@ -1,11 +1,14 @@
 package org.celllife.idart.common;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Represents a measurable amount which comprises of a value and a measurement unit (e.g. mg)
  */
-public class Quantity {
+public class Quantity implements Serializable {
+
+    private static final long serialVersionUID = -443569848977214490L;
 
     private BigDecimal value;
 

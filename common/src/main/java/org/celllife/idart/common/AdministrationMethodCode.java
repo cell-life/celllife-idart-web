@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class AdministrationMethodCode implements Serializable {
 
+    private static final long serialVersionUID = 459142429213924377L;
+
     /**
      * Value
      */

@@ -24,11 +24,14 @@ import org.celllife.idart.datawarehouse.prescription.PrescriptionDataWarehouse
 import org.celllife.idart.domain.dispensation.Dispensation
 import org.celllife.idart.domain.dispensation.DispensationEvent
 import org.celllife.idart.domain.dispensation.DispensationService
+import org.celllife.idart.domain.eventerror.EventError
+import org.celllife.idart.domain.eventerror.EventErrorService
 import org.celllife.idart.domain.identifiable.IdentifiableService
 import org.celllife.idart.domain.part.PartService
 import org.celllife.idart.domain.patient.PatientService
 import org.celllife.idart.domain.person.PersonService
 import org.celllife.idart.domain.practitioner.PractitionerService
+import org.celllife.idart.domain.prescription.PrescriptionEvent
 import org.celllife.idart.domain.product.Medication
 import org.celllife.idart.domain.product.ProductService
 import org.celllife.idart.framework.aspectj.LogLevel
@@ -81,6 +84,8 @@ import org.springframework.stereotype.Service
     
     @Inject DispensationService dispensationService
     
+    @Inject EventErrorService eventErrorService
+    
     @Override
     @Loggable(LogLevel.INFO)
     void processEvent(DispensationEvent dispensationEvent) {
@@ -89,7 +94,9 @@ import org.springframework.stereotype.Service
         } else if (dispensationEvent.type == DispensationEvent.EventType.DELETED) {
             delete(dispensationEvent)
         } else {
-            LOGGER.warn("Could not process DispensationEvent with type "+dispensationEvent.type)
+            String errorMessage = "Could not process DispensationEvent with type "+dispensationEvent.type
+            LOGGER.warn(errorMessage)
+            saveEventError(errorMessage, dispensationEvent)
         }
     }
 
@@ -107,7 +114,9 @@ import org.springframework.stereotype.Service
         try {
             storeDispensationRequest = buildStoreDispensationRequest(prehmisFacilityIdentifier, dispensationEvent.dispensation)
         } catch (Exception e) {
-            throw new DispensationNotSavedException("Unable to create storedispensation request for dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
+            String errorMessage = "Unable to create storedispensation request for dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotSavedException(errorMessage, e)
         }
         
         try {
@@ -122,13 +131,17 @@ import org.springframework.stereotype.Service
                     ]
                     )
         } catch (Exception e) {
-            throw new DispensationNotSavedException("Unable to communicate with PREHMIS while trying to store dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
+            String errorMessage = "Unable to communicate with PREHMIS while trying to store dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotSavedException(errorMessage, e)
         }
 
         def result = storeDispensationResponse.data
         LOGGER.info("PREHMIS response: "+result)
         if (!result.equals("Dispensation saved")) {
-            throw new DispensationNotSavedException("Unable to store dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result)
+            String errorMessage = "Unable to store dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotSavedException(errorMessage)
         }
     }
     
@@ -145,7 +158,9 @@ import org.springframework.stereotype.Service
         try {
             deleteDispensationRequest = buildDeleteDispensationRequest(prehmisFacilityIdentifier, dispensationEvent.dispensation)
         } catch (Exception e) {
-            throw new DispensationNotDeletedException("Unable to create deletedispensation request for dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
+            String errorMessage = "Unable to create deletedispensation request for dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotDeletedException(errorMessage, e)
         }
 
         try {
@@ -160,14 +175,31 @@ import org.springframework.stereotype.Service
                     ]
                     )
         } catch (Exception e) {
-            throw new DispensationNotDeletedException("Unable to communicate with PREHMIS while trying to delete dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message, e)
+            String errorMessage = "Unable to communicate with PREHMIS while trying to delete dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotDeletedException(errorMessage, e)
         }
 
         def result = deleteDispensationResponse.data
         LOGGER.info("PREHMIS response: "+result)
         if (!result.equals("Dispensation deleted")) {
-            throw new DispensationNotDeletedException("Unable to delete dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result)
+            String errorMessage = "Unable to delete dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotDeletedException(errorMessage)
         }
+    }
+
+    def saveEventError(String message, DispensationEvent event) {
+        EventError eventError = new EventError();
+        eventError.with {
+            datetime = new Date()
+            retryCount = 0
+            errorMessage = message
+            eventType = EventError.EventType.DISPENSATION_EVENT
+            eventUuid = event.uuid
+        }
+        eventError.setUnserializedEventObject(event)
+        eventErrorService.save(eventError)
     }
     
     String buildStoreDispensationRequest(String facilityCode, Dispensation dispensation) {

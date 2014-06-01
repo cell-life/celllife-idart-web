@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class FormCode implements Serializable {
 
+    private static final long serialVersionUID = 8666806278581032535L;
+
     /**
      * Value
      */

@@ -1,5 +1,7 @@
 package org.celllife.idart.common;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
@@ -7,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Date: 2013-08-24
  * Time: 16h52
  */
-public class Label {
+public class Label implements Serializable {
+
+    private static final long serialVersionUID = 5654482526916119469L;
 
     private String value;
 

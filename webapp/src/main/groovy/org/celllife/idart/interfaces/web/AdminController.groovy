@@ -37,6 +37,18 @@ class AdminController {
 
     @RequestMapping(value="/ui/admin", method = RequestMethod.GET)
     def admin(Model model) {
+        return new ModelAndView("ui/admin", model);
+    }
+    
+    @RequestMapping(value="/ui/admin/eventerror", method = RequestMethod.GET)
+    def eventErrors(Model model) {
+        def eventErrors = client.get(externalBaseUrl+"/eventerrors")
+        model.put("eventErrors", eventErrors)
+        return new ModelAndView("ui/admin/eventerror", model);
+    }
+
+    @RequestMapping(value="/ui/admin/registration", method = RequestMethod.GET)
+    def registration(Model model) {
 
         def facilities = client.get(externalBaseUrl+"/facilities")
         def facilityMap = [] as Set
@@ -68,10 +80,10 @@ class AdminController {
         }
         model.put("organisations", organisationMap)
 
-        return new ModelAndView("ui/admin", model);
+        return new ModelAndView("ui/admin/registration", model);
     }
 
-    @RequestMapping(value="/ui/admin/user", method = RequestMethod.POST)
+    @RequestMapping(value="/ui/admin/registration/user", method = RequestMethod.POST)
     def createUser(@RequestParam("username") String username, @RequestParam("password") String password,
             Model model, Principal principal, HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -91,11 +103,10 @@ class AdminController {
             LOGGER.error("Error while saving User '"+username+"'", t);
             model.put("errorMessage", "Error while saving User '"+username+"'. Please check logs for more details.");
         }
-        //return new ModelAndView("ui/admin", model);
-        admin(model)
+        registration(model)
     }
 
-    @RequestMapping(value="/ui/admin/facility", method = RequestMethod.POST)
+    @RequestMapping(value="/ui/admin/registration/facility", method = RequestMethod.POST)
     def createFacility(@RequestParam("name") String name, @RequestParam("description") String description,
             @RequestParam("prehmisId") String prehmisId, @RequestParam("organisation") String organisation,
             Model model, Principal principal, HttpServletRequest request, HttpServletResponse response) {
@@ -121,12 +132,11 @@ class AdminController {
             LOGGER.error("Error while saving Facility '"+name+"'", t);
             model.put("errorMessage", "Error while saving Facility '"+name+"'. Please check logs for more details.");
         }
-        //return new ModelAndView("ui/admin", model);
-        admin(model)
+        registration(model)
     }
 
     @ResponseBody
-    @RequestMapping(value="/ui/admin/organisation", method = RequestMethod.POST)
+    @RequestMapping(value="/ui/admin/registration/organisation", method = RequestMethod.POST)
     def createOrganisation(@RequestParam("name") String name,
             Model model, Principal principal, HttpServletRequest request) {
         try {
@@ -145,12 +155,11 @@ class AdminController {
             model.put("errorMessage", "Error while saving Organisation '"+name+"'. Please check logs for more details.");
         }
 
-        //return new ModelAndView("ui/admin", model);
-        admin(model)
+        registration(model)
     }
 
     @ResponseBody
-    @RequestMapping(value="/ui/admin/system", method = RequestMethod.POST)
+    @RequestMapping(value="/ui/admin/registration/system", method = RequestMethod.POST)
     def createSystem(@RequestParam("applicationKey") String applicationKey, @RequestParam("facility") String facility,
             Model model, Principal principal, HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -174,8 +183,8 @@ class AdminController {
             LOGGER.error("Error while saving System", t);
             model.put("errorMessage", "Error while saving System. Please check logs for more details.");
         }
-        //return new ModelAndView("ui/admin", model);
-        admin(model)
+
+        registration(model)
     }
 
     private void createProducts(String systemId) {

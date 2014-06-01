@@ -1,11 +1,18 @@
 package org.celllife.idart.domain.prescription
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
 
 /**
  * Prescription Domain Event
  */
+@ToString
+@EqualsAndHashCode
 class PrescriptionEvent implements Serializable {
 
+    private static final long serialVersionUID = 530452930120313802L;
+    
     Date timestamp
 
     UUID uuid

@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class DefaultDosageInstructionId implements Serializable {
 
+    private static final long serialVersionUID = 512226931904513335L;
+
     /**
      * Value
      */

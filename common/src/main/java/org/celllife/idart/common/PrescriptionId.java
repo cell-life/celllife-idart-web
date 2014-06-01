@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class PrescriptionId implements Serializable {
 
+    private static final long serialVersionUID = 5237882055530079941L;
+
     /**
      * Value
      */

@@ -1,5 +1,6 @@
 package org.celllife.idart.common;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,9 @@ import java.util.Date;
  * Date: 2013-07-14
  * Time: 22h59
  */
-public class Repeat {
+public class Repeat  implements Serializable {
+
+    private static final long serialVersionUID = 994422709250171082L;
 
     /**
      * Event occurs frequency times per duration

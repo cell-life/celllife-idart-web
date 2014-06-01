@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class SubstitutionCode implements Serializable {
 
+    private static final long serialVersionUID = -910492682036506253L;
+
     /**
      * Value
      */

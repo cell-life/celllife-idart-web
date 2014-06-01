@@ -1,14 +1,15 @@
 package org.celllife.idart.domain.prescription
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
 import org.celllife.idart.common.*
 
 /**
  * An order for both supply of the medication and the instructions for administration of the medicine to a patient.
- *
- * User: Kevin W. Sewell
- * Date: 2013-06-17
- * Time: 20h49
  */
+@ToString
+@EqualsAndHashCode
 class Prescription implements Serializable {
 
     /**

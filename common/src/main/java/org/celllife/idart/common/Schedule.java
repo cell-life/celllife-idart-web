@@ -1,5 +1,6 @@
 package org.celllife.idart.common;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -18,7 +19,9 @@ import java.util.Set;
  * Date: 2013-06-17
  * Time: 21h33
  */
-public class Schedule {
+public class Schedule implements Serializable {
+
+    private static final long serialVersionUID = 2777875267080615075L;
 
     /**
      * When the event occurs
