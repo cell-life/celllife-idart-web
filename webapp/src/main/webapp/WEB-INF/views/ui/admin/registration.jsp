@@ -49,7 +49,7 @@
         </c:if>
 
         <h4>Create a User</h4>
-        <p>Register a new clinic so that they can login to iDARTweb.</p>
+        <p>Register a new user so that they can login to the iDARTweb site.</p>
         <form class="well" id="create-user" action="ui/admin/registration/user" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -63,7 +63,7 @@
         </form>
         
         <h4>Create an Organisation</h4>
-        <p>If required, register a new legal entity. Check the Facility form (below) if you are unsure</p>
+        <p>If required, register a new legal entity. Check the Facility form (that lists organisations below) if you are unsure.</p>
         <form class="well" id="create-organisation" action="ui/admin/registration/organisation" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -100,7 +100,7 @@
         </form>
     
         <h4>Create a System</h4>
-        <p>Creates a system login - registers an iDART client that will connect to iDARTweb. Note: if clients share a database, they should also share a system login.</p>
+        <p>Register an iDART client that will connect to iDARTweb. Note: if clients share a database, they should also share a system login.</p>
         <form class="well" id="create-system" action="ui/admin/registration/system" method="post">
             <div class="form-group">
                 <label for="applicationKey">Application Key</label>
