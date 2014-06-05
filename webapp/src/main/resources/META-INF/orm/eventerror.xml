@@ -6,7 +6,7 @@
 
     <!-- EventError -->
 
-    <entity class="org.celllife.idart.domain.eventerror.EventError">
+    <entity class="org.celllife.idart.domain.eventerror.EventError" cacheable="false">
 
         <attributes>
             <id name="pk">
