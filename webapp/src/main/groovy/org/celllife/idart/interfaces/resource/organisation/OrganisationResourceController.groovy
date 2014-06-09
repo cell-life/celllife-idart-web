@@ -14,6 +14,8 @@ import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.domain.organisation.OrganisationNotFoundException
 import org.celllife.idart.domain.organisation.OrganisationValidationException
 import org.celllife.idart.security.organisation.OrganisationSecurityAdapter
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 /**
  */
 @Controller class OrganisationResourceController {
+
+    static final Logger LOGGER = LoggerFactory.getLogger(OrganisationResourceController)
 
     @Inject OrganisationSecurityAdapter organisationSecurityAdapter
 
@@ -41,9 +45,8 @@ import org.springframework.web.bind.annotation.ResponseBody
             return organisationSecurityAdapter.findByOrganisationId(principal, organisationId)
 
         } catch (OrganisationNotFoundException ignore) {
-
+            LOGGER.error("Could not find Organisation with id "+organisationId, ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }
@@ -59,6 +62,7 @@ import org.springframework.web.bind.annotation.ResponseBody
             response.setStatus(SC_CREATED)
 
         } catch (OrganisationValidationException e) {
+            LOGGER.error("Could not save Organisation "+organisationDto, e)
             response.setStatus(SC_BAD_REQUEST)
         }
     }

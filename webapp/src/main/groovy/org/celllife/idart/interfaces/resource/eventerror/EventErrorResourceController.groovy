@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.ResponseBody
         try {
             return eventErrorService.findByEventErrorId(eventErrorId)
         } catch (EventErrorNotFoundException ignore) {
+            LOGGER.error("Could not find EventError with id "+eventErrorId, ignore)
             response.setStatus(SC_NOT_FOUND)
             return null
         }
@@ -56,6 +57,7 @@ import org.springframework.web.bind.annotation.ResponseBody
             ids.add(eventErrorId)
             return eventErrorService.reprocess(ids)
         } catch (EventErrorNotFoundException ignore) {
+            LOGGER.error("Could not find EventError with id "+eventErrorId, ignore)
             response.setStatus(SC_NOT_FOUND)
             return null
         }
@@ -76,6 +78,7 @@ import org.springframework.web.bind.annotation.ResponseBody
             eventErrorService.delete(eventErrorId)
             response.setStatus(SC_OK)
         } catch (EventErrorNotFoundException ignore) {
+            LOGGER.error("Could not find EventError with id "+eventErrorId, ignore)
             response.setStatus(SC_NOT_FOUND)
             return null
         }

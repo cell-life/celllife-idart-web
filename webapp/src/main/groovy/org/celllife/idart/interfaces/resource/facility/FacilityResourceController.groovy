@@ -14,6 +14,8 @@ import org.celllife.idart.common.FacilityId
 import org.celllife.idart.domain.facility.FacilityNotFoundException
 import org.celllife.idart.domain.facility.FacilityValidationException
 import org.celllife.idart.security.facility.FacilitySecurityAdapter
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 /**
  */
 @Controller class FacilityResourceController {
+
+    static final Logger LOGGER = LoggerFactory.getLogger(FacilityResourceController)
 
     @Inject FacilitySecurityAdapter facilitySecurityAdapter
 
@@ -41,9 +45,8 @@ import org.springframework.web.bind.annotation.ResponseBody
             return facilitySecurityAdapter.findByFacilityId(principal, facilityId)
 
         } catch (FacilityNotFoundException ignore) {
-
+            LOGGER.error("Could not find Facility with id "+facilityId, ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }
@@ -59,6 +62,7 @@ import org.springframework.web.bind.annotation.ResponseBody
             response.setStatus(SC_CREATED)
 
         } catch (FacilityValidationException e) {
+            LOGGER.error("Could not save Facility "+facilityDto, e)
             response.setStatus(SC_BAD_REQUEST)
         }
     }

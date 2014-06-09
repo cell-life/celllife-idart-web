@@ -46,9 +46,8 @@ import static javax.servlet.http.HttpServletResponse.SC_OK
             return dispensationSecurityAdapter.findByDispensationId(principal, dispensationId)
 
         } catch (DispensationNotFoundException ignore) {
-
+            LOGGER.error("Could not find dispensation with id "+dispensationId, ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }
@@ -64,6 +63,7 @@ import static javax.servlet.http.HttpServletResponse.SC_OK
             response.setStatus(SC_CREATED)
 
         } catch (DispensationValidationException e) {
+            LOGGER.error("Could not save dispensation "+dispensationDto, e)
             response.setStatus(SC_BAD_REQUEST)
         }
     }
@@ -80,9 +80,8 @@ import static javax.servlet.http.HttpServletResponse.SC_OK
             response.setStatus(SC_OK)
 
         } catch (DispensationNotFoundException ignore) {
-
+            LOGGER.error("Could not delete dispensation with identifier "+identifier, ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }
@@ -99,9 +98,8 @@ import static javax.servlet.http.HttpServletResponse.SC_OK
             response.setStatus(SC_OK)
 
         } catch (DispensationNotFoundException ignore) {
-
+            LOGGER.error("Could not delete dispensation with id "+dispensationId, ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }

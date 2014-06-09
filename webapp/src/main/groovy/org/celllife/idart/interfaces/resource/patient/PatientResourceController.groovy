@@ -1,10 +1,21 @@
 package org.celllife.idart.interfaces.resource.patient
 
-import org.celllife.idart.common.PatientId
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
+import static javax.servlet.http.HttpServletResponse.SC_CREATED
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
+
+import java.security.Principal
+
+import javax.inject.Inject
+import javax.servlet.http.HttpServletResponse
+
 import org.celllife.idart.application.patient.dto.PatientDto
+import org.celllife.idart.common.PatientId
 import org.celllife.idart.domain.patient.PatientNotFoundException
 import org.celllife.idart.domain.patient.PatientValidationException
 import org.celllife.idart.security.patient.PatientSecurityAdapter
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
@@ -14,17 +25,11 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 
-import javax.inject.Inject
-import javax.servlet.http.HttpServletResponse
-import java.security.Principal
-
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST
-import static javax.servlet.http.HttpServletResponse.SC_CREATED
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
-
 /**
  */
 @Controller class PatientResourceController {
+
+    static final Logger LOGGER = LoggerFactory.getLogger(PatientResourceController)
 
     @Inject PatientSecurityAdapter patientSecurityAdapter
 
@@ -48,9 +53,8 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
             return patientSecurityAdapter.findByPatientId(principal, patientId)
 
         } catch (PatientNotFoundException ignore) {
-
+            LOGGER.error("Could not find patient with id "+patientId, ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }
@@ -66,6 +70,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
             response.setStatus(SC_CREATED)
 
         } catch (PatientValidationException e) {
+            LOGGER.error("Could not save patient "+patientDto, e)
             response.setStatus(SC_BAD_REQUEST)
         }
     }

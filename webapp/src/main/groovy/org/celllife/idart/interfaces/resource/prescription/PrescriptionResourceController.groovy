@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 /**
  */
 @Controller class PrescriptionResourceController {
-    
+
     static final Logger LOGGER = LoggerFactory.getLogger(PrescriptionResourceController)
 
     @Inject PrescriptionSecurityAdapter prescriptionSecurityAdapter
@@ -40,17 +40,15 @@ import org.springframework.web.bind.annotation.ResponseBody
     @ResponseBody
     @RequestMapping(value = "/prescriptions/{prescriptionId}", method = RequestMethod.GET, produces = "application/json")
     PrescriptionDto findByPrescriptionId(@PathVariable("prescriptionId") PrescriptionId prescriptionId,
-                                              Principal principal,
-                                              HttpServletResponse response) {
+            Principal principal,
+            HttpServletResponse response) {
 
         try {
 
             return prescriptionSecurityAdapter.findByPrescriptionId(principal, prescriptionId)
-
         } catch (PrescriptionNotFoundException ignore) {
-
+            LOGGER.error("Could not find prescription with id "+prescriptionId+".",ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }
@@ -64,8 +62,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 
             response.setHeader("Location", "${baseUrl}/prescriptions/${prescriptionId}")
             response.setStatus(SC_CREATED)
-
         } catch (PrescriptionValidationException e) {
+            LOGGER.error("Could save prescription "+prescriptionDto+".",e)
             response.setStatus(SC_BAD_REQUEST)
         }
     }
@@ -73,40 +71,34 @@ import org.springframework.web.bind.annotation.ResponseBody
     @ResponseBody
     @RequestMapping(value = "/prescriptions/deleteByIdentifier", method = RequestMethod.DELETE)
     void deleteByIdentifier(@RequestParam("identifier") String identifier, Principal principal,
-                                              HttpServletResponse response) {
+            HttpServletResponse response) {
 
         try {
 
             LOGGER.info("About to delete prescription with identifier="+identifier);
             prescriptionSecurityAdapter.deleteByIdentifier(principal, identifier)
             response.setStatus(SC_OK)
-
         } catch (PrescriptionNotFoundException ignore) {
-
+            LOGGER.error("Could delete prescription with identifier "+identifier+".",ignore)
             response.setStatus(SC_NOT_FOUND)
-
             return null
         }
     }
-	
-	@ResponseBody
-	@RequestMapping(value = "/prescriptions/{prescriptionId}", method = RequestMethod.DELETE)
-	void delete(@PathVariable("prescriptionId") PrescriptionId prescriptionId,
-											  Principal principal,
-											  HttpServletResponse response) {
 
-		try {
+    @ResponseBody
+    @RequestMapping(value = "/prescriptions/{prescriptionId}", method = RequestMethod.DELETE)
+    void delete(@PathVariable("prescriptionId") PrescriptionId prescriptionId,
+            Principal principal,
+            HttpServletResponse response) {
 
-			prescriptionSecurityAdapter.deleteByPrescriptionId(principal, prescriptionId)
-			response.setStatus(SC_OK)
+        try {
 
-		} catch (PrescriptionNotFoundException ignore) {
-
-			response.setStatus(SC_NOT_FOUND)
-
-			return null
-		}
-	}
-
-                                              
+            prescriptionSecurityAdapter.deleteByPrescriptionId(principal, prescriptionId)
+            response.setStatus(SC_OK)
+        } catch (PrescriptionNotFoundException ignore) {
+            LOGGER.error("Could delete prescription with id "+prescriptionId+".",ignore)
+            response.setStatus(SC_NOT_FOUND)
+            return null
+        }
+    }
 }
