@@ -132,10 +132,10 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
-            // convert the specified dispensation id (linked to the facility) to an iDARTweb id
-            def identifiable = identifiableService.findByIdentifiers(DISPENSATION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            // convert the specified dispensation id to an iDARTweb id
+            def identifiable = identifiableService.findByIdentifiers(DISPENSATION, newIdentifiers(system, identifier))
             if (facilityIdentifiable == null) {
-                throw new DispensationNotFoundException("Could not find Dispensation with id [${identifier}]")
+                throw new DispensationNotFoundException("Could not find Dispensation with id [${system} - ${identifier}]")
             }
     
             def idartwebId = identifiable.getIdentifierValue(IDART_WEB.id)
