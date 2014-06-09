@@ -153,10 +153,10 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
 
         def patients = facilityIdentifiable.identifiers.collect() { facilityIdentifier ->
 
-            // convert the specified prescription id (linked to the facility) to an iDARTweb id
-            def identifiable = identifiableService.findByIdentifiers(PRESCRIPTION, newIdentifiers(SystemId.systemId(facility.value), identifier))
+            // convert the specified prescription id to an iDARTweb id
+            def identifiable = identifiableService.findByIdentifiers(PRESCRIPTION, newIdentifiers(system, identifier))
             if (identifiable == null) {
-                throw new PrescriptionNotFoundException("Could not find Prescription with id [${identifier}]")
+                throw new PrescriptionNotFoundException("Could not find Prescription with id [${system} - ${identifier}]")
             }
             def idartwebId = identifiable.getIdentifierValue(IDART_WEB.id)
             
