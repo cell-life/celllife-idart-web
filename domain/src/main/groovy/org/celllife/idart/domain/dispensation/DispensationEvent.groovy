@@ -34,6 +34,6 @@ class DispensationEvent implements Serializable {
     }
 
     enum EventType {
-        SAVED, DELETED
+        SAVED, DELETED, UPDATED
     }
 }

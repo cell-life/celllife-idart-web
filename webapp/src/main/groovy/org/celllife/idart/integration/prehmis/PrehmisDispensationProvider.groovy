@@ -9,6 +9,7 @@ import static org.celllife.idart.domain.part.PartClassificationApplications.getC
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildApiLoginRequest
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildDeleteDispensationRequest
 import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildStoreDispensationRequest
+import static org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder.buildUpdateDispensationRequest
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 
@@ -94,6 +95,8 @@ import org.springframework.transaction.annotation.Transactional
             save(dispensationEvent)
         } else if (dispensationEvent.type == DispensationEvent.EventType.DELETED) {
             delete(dispensationEvent)
+        } else if (dispensationEvent.type == DispensationEvent.EventType.UPDATED) {
+            update(dispensationEvent)
         } else {
             String errorMessage = "Could not process DispensationEvent with type "+dispensationEvent.type
             LOGGER.warn(errorMessage)
@@ -145,7 +148,52 @@ import org.springframework.transaction.annotation.Transactional
             throw new DispensationNotSavedException(errorMessage)
         }
     }
-    
+
+    void update(DispensationEvent dispensationEvent) {
+        
+        def prehmisFacilityIdentifier = getFacilityIdentifiable(dispensationEvent)
+        if (prehmisFacilityIdentifier == null) {
+            return
+        }
+
+        def prehmisRestClient = new RESTClient(prehmisEndpointUrl)
+        def updateDispensationRequest
+        def updateDispensationResponse
+
+        try {
+            updateDispensationRequest = buildUpdateDispensationRequest(prehmisFacilityIdentifier, dispensationEvent.dispensation)
+        } catch (Exception e) {
+            String errorMessage = "Unable to create updatedispensation request for dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotSavedException(errorMessage, e)
+        }
+
+        try {
+            apiLogin(prehmisRestClient, prehmisFacilityIdentifier)
+
+            updateDispensationResponse = prehmisRestClient.post(
+                    body: updateDispensationRequest,
+                    contentType: ContentType.XML,
+                    requestContentType: ContentType.XML,
+                    headers: [
+                        SOAPAction: prehmisEndpointBaseUrl + "/updateDispensation"
+                    ]
+                    )
+        } catch (Exception e) {
+            String errorMessage = "Unable to communicate with PREHMIS while trying to update dispensation '"+dispensationEvent.dispensation.id+"'. Error: "+e.message
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotSavedException(errorMessage, e)
+        }
+
+        def result = updateDispensationResponse.data
+        LOGGER.info("PREHMIS response: "+result)
+        if (!result.equals("Dispensation updated")) {
+            String errorMessage = "Unable to store dispensation '"+dispensationEvent.dispensation.id+"' on PREHMIS. Error: "+result
+            saveEventError(errorMessage, dispensationEvent)
+            throw new DispensationNotSavedException(errorMessage)
+        }
+    }        
+        
     void delete(DispensationEvent dispensationEvent) {
         def prehmisFacilityIdentifier = getFacilityIdentifiable(dispensationEvent)
         if (prehmisFacilityIdentifier == null) {
@@ -215,6 +263,20 @@ import org.springframework.transaction.annotation.Transactional
         ])
 
         storeDispensationRequest
+    }
+
+    String buildUpdateDispensationRequest(String facilityCode, Dispensation dispensation) {
+        
+        String updateDispensationRequest = buildUpdateDispensationRequest([
+            xmlnsPreh: prehmisNamespace,
+            username: prehmisUsername,
+            password: prehmisPassword,
+            applicationKey: prehmisApplicationKey,
+            facilityCode: facilityCode,
+            dispensation: getPrehmisDispensationMap(facilityCode, dispensation, true)
+        ])
+
+        updateDispensationRequest
     }
         
     String buildDeleteDispensationRequest(String facilityCode, Dispensation dispensation) {

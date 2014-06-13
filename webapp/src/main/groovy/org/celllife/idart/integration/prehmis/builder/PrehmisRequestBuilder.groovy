@@ -36,6 +36,10 @@ class PrehmisRequestBuilder {
         build("/templates/prehmis/storeDispensation.xml", args)
     }
 
+    static buildUpdateDispensationRequest(args) {
+        build("/templates/prehmis/updateDispensation.xml", args)
+    }
+
     static buildStorePrescriptionRequest(args) {
         build("/templates/prehmis/storePrescription.xml", args)
     }

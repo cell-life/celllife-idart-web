@@ -8,6 +8,7 @@ import javax.inject.Named
 
 import static org.celllife.idart.domain.dispensation.DispensationEvent.EventType.SAVED
 import static org.celllife.idart.domain.dispensation.DispensationEvent.EventType.DELETED
+import static org.celllife.idart.domain.dispensation.DispensationEvent.EventType.UPDATED
 import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispensationEvent
 
 /**
@@ -28,19 +29,24 @@ import static org.celllife.idart.domain.dispensation.DispensationEvent.newDispen
     @Override
     Dispensation save(Dispensation dispensation) {
 
+        def saveDispensation = dispensation
+
         def existingDispensation = dispensationRepository.findOne(dispensation.id)
 
-        if (existingDispensation == null) {
-            existingDispensation = dispensation
-        } else {
+        if (existingDispensation != null) {
             existingDispensation.merge(dispensation)
+            saveDispensation = existingDispensation
         }
 
-        dispensationValidator.validate(existingDispensation)
+        dispensationValidator.validate(saveDispensation)
 
-        dispensationEventPublisher.publish(newDispensationEvent(existingDispensation, SAVED))
+        if (existingDispensation == null) {
+            dispensationEventPublisher.publish(newDispensationEvent(saveDispensation, SAVED))
+        } else {
+            dispensationEventPublisher.publish(newDispensationEvent(saveDispensation, UPDATED))
+        }
 
-        dispensationRepository.save(existingDispensation)
+        dispensationRepository.save(saveDispensation)
     }
 
     @Override
