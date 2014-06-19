@@ -41,8 +41,6 @@ import org.springframework.stereotype.Service
     @Autowired
     PatientBuilder patientBuilder
 
-    RESTClient prehmisRestClient
-
     @Override
 	@Loggable(LogLevel.INFO)
     Set<PatientDto> findByIdentifier(String clinicIdentifierValue, String patientIdentifierValue) {
@@ -74,6 +72,7 @@ import org.springframework.stereotype.Service
                 patientIdentifierType: identifierType.toString().toLowerCase()
         )
 
+        RESTClient prehmisRestClient = new RESTClient(prehmisEndpointUrl)
         def getPatientResponse = prehmisRestClient.post(
                 body: getPatientRequest,
                 contentType: ContentType.XML,
@@ -96,8 +95,6 @@ import org.springframework.stereotype.Service
         notNull(prehmisPassword)
 
         notNull(prehmisApplicationKey)
-
-        prehmisRestClient = new RESTClient(prehmisEndpointUrl)
 
     }
 

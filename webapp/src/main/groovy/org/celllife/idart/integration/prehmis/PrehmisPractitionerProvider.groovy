@@ -43,8 +43,6 @@ import org.springframework.stereotype.Service
     @Autowired
     PractitionerBuilder practitionerBuilder
 
-    RESTClient prehmisRestClient
-
     @Override
 	@Loggable(LogLevel.INFO)
     Set<PractitionerDto> findAll(String clinicIdValue) {
@@ -57,6 +55,7 @@ import org.springframework.stereotype.Service
                 applicationKey: prehmisApplicationKey
         )
 
+        RESTClient prehmisRestClient = new RESTClient(prehmisEndpointUrl)
         def getPractionerListResponse = prehmisRestClient.post(
                 body: getPractitionerListRequest,
                 contentType: ContentType.XML,
@@ -79,8 +78,5 @@ import org.springframework.stereotype.Service
         notNull(prehmisPassword)
 
         notNull(prehmisApplicationKey)
-
-        prehmisRestClient = new RESTClient(prehmisEndpointUrl)
-
     }
 }
