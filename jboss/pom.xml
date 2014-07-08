@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.celllife.idart</groupId>
         <artifactId>celllife-idart-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <artifactId>celllife-idart-jboss</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
@@ -21,7 +19,7 @@
         <cargo.version>1.4.3</cargo.version>
         <commons-logging.version>1.1.1</commons-logging.version>
         <commons-discovery.version>0.4</commons-discovery.version>
-        <idart.version>1.0-SNAPSHOT</idart.version>
+        <idart.version>1.0</idart.version>
         <jdom.version>1.1.3</jdom.version>
         <jboss.version>7.2.0.iDART</jboss.version>
         <mysql.version>5.1.23</mysql.version>
