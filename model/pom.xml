@@ -6,11 +6,11 @@
     <parent>
         <groupId>org.celllife.idart</groupId>
         <artifactId>celllife-idart-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>celllife-idart-model</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>celllife-idart-model</name>
