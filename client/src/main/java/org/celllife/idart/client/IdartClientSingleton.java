@@ -1,18 +1,37 @@
 package org.celllife.idart.client;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.BasicScheme;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.DeleteMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.Authenticator;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
+import java.net.ProxySelector;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.List;
+
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.NTCredentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.config.AuthSchemes;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.ProxyAuthenticationStrategy;
+import org.apache.http.impl.conn.SystemDefaultRoutePlanner;
 import org.celllife.idart.client.dispensation.Dispensation;
 import org.celllife.idart.client.encounter.Encounter;
 import org.celllife.idart.client.part.Part;
@@ -23,10 +42,10 @@ import org.celllife.idart.client.product.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Default implementation if IdartClient
@@ -37,34 +56,111 @@ public final class IdartClientSingleton implements IdartClient {
 
     private static IdartClient instance;
 
-    private final HttpClient httpClient;
-
-    private final String authenticate;
+    private final CloseableHttpClient httpClient;
 
     private final ObjectMapper objectMapper;
 
     private String idartWebUrl;
 
-    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername,
-            String idartWebPassword) {
+    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword) {
 
         if (instance == null) {
-            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword);
+            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, 
+                    null, null, null, null, null);
         }
 
         return instance;
     }
 
-    private IdartClientSingleton(String idartWebUrl, String idartWebUsername, String idartWebPassword) {
+    public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword, 
+            String proxyUrl, Integer proxyPort, String proxyUser, String proxyPassword, String proxyDomain) {
+
+        if (instance == null) {
+            instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, 
+                    proxyUrl, proxyPort, proxyUser, proxyPassword, proxyDomain);
+        }
+
+        return instance;
+    }
+
+    private IdartClientSingleton(String idartWebUrl, String idartWebUsername, String idartWebPassword,
+            final String proxyUrl, final Integer proxyPort, 
+            final String proxyUser, final String proxyPassword, final String proxyDomain) {
 
         this.idartWebUrl = idartWebUrl;
-
-        this.httpClient = new HttpClient();
-
+        
+        // add authentication
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(idartWebUsername, idartWebPassword);
+        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        String idartWebHost;
+        try {
+            URL idartWebURL = new URL(idartWebUrl);
+            idartWebHost = idartWebURL.getHost();
+        } catch (MalformedURLException e) {
+            LOGGER.error("Terrible problem - idartwebUrl '" + idartWebUrl + "' is malformed. ", e);
+            idartWebHost = AuthScope.ANY_HOST;
+        }
+        AuthScope authScope = new AuthScope(idartWebHost, AuthScope.ANY_PORT);
+        credentialsProvider.setCredentials(authScope, credentials);
+        
+        LOGGER.info("PROXY: " + proxyUrl + ":" + proxyPort + " " + proxyUser + " " + proxyDomain);
+        if (proxyUrl != null && !proxyUrl.trim().isEmpty()) {
+            LOGGER.info("Creating iDARTweb client with proxy server");
+            
+            if (proxyUser != null && !proxyUser.trim().isEmpty()) {
+                // add authentication (assuming NTLM)
+                String workstation = null;
+                try {
+                    workstation = InetAddress.getLocalHost().getHostName();
+                } catch (UnknownHostException e) {
+                    LOGGER.error("Could not determine local host name", e);
+                }
+                LOGGER.info("Adding NTLM Credentials for workstation "+workstation);
+                NTCredentials proxyCredentials = new NTCredentials(proxyUser, proxyPassword, workstation, proxyDomain);
+                credentialsProvider.setCredentials(
+                        new AuthScope(proxyUrl, proxyPort, AuthScope.ANY_REALM, AuthSchemes.NTLM), 
+                        proxyCredentials);
+            }
 
-        this.authenticate = BasicScheme.authenticate(credentials, "US-ASCII");
+            // create http client
+            HttpHost proxy = new HttpHost(proxyUrl, proxyPort);
+            this.httpClient = HttpClients
+                    .custom()
+                    .useSystemProperties()
+                    .setDefaultCredentialsProvider(credentialsProvider)
+                    .setProxy(proxy)
+                    .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy())
+                    .build();
+        } else {
+            LOGGER.info("Creating (default) proxy aware iDARTweb client");
 
+            // add default proxy-aware
+            SystemDefaultRoutePlanner routePlanner = new SystemDefaultRoutePlanner(ProxySelector.getDefault());
+            
+            // add some authentication (note: for NTLM, include the domain in the username like DOMAIN\\USERNAME)
+            final String systemProxyUser = System.getProperty("http.proxyUser");
+            final String systemProxyPassword = System.getProperty("http.proxyPassword");
+            if (systemProxyUser != null && !systemProxyUser.trim().isEmpty() 
+                    && systemProxyPassword != null && !systemProxyPassword.trim().isEmpty()) {
+                LOGGER.info("Adding default proxy authentication for "+systemProxyUser);
+                Authenticator.setDefault(new Authenticator() {
+                    @Override
+                    public PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(systemProxyUser, systemProxyPassword.toCharArray());
+                    }
+                });
+            }
+            
+            // create http client
+            this.httpClient = HttpClients
+                    .custom()
+                    .useSystemProperties()
+                    .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy())
+                    .setDefaultCredentialsProvider(credentialsProvider)
+                    .setRoutePlanner(routePlanner)
+                    .build();
+        }
+        
         this.objectMapper = new ObjectMapper();
 
         this.objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -116,96 +212,105 @@ public final class IdartClientSingleton implements IdartClient {
 
     private void postToUrl(Object object, String url) {
 
-        PostMethod postMethod = new PostMethod(url);
-
-        postMethod.setRequestEntity(getStringRequestEntity(object));
-
-        decorateMethodWithAuth(postMethod);
-        decorateMethodWithContentType(postMethod);
-
-        int status = executeMethod(postMethod);
-
-        if (status != HttpStatus.SC_CREATED) {
-
-            try {
-                LOGGER.error(postMethod.getResponseBodyAsString());
-            } catch (IOException e) {
-                LOGGER.error(e.getMessage(), e);
+        HttpPost HttpPost = new HttpPost(url);
+        try {
+            HttpPost.setEntity(getStringEntity(object));
+    
+            decorateMethodWithContentType(HttpPost);
+    
+            HttpResponse response = executeMethod(HttpPost);
+            int status = response.getStatusLine().getStatusCode();
+            response.getEntity();
+    
+            if (status != HttpStatus.SC_CREATED) {
+    
+                try {
+                    LOGGER.error(getResponseBodyAsString(response));
+                } catch (IOException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+    
+                throw new RuntimeException(status + " error occurred while trying to call POST on "+url);
             }
-
-            throw new RuntimeException(status + " error occurred while trying to call POST on "+url);
+        } finally {
+            HttpPost.releaseConnection();
         }
     }
 
     private void deleteToUrl(String url) {
 
-        DeleteMethod deleteMethod = new DeleteMethod(url);
+        HttpDelete HttpDelete = new HttpDelete(url);
 
-        decorateMethodWithAuth(deleteMethod);
-        decorateMethodWithContentType(deleteMethod);
-
-        int status = executeMethod(deleteMethod);
-
-        if (status != HttpStatus.SC_OK) {
-
-            try {
-                LOGGER.error(deleteMethod.getResponseBodyAsString());
-            } catch (IOException e) {
-                LOGGER.error(e.getMessage(), e);
+        try {
+            decorateMethodWithContentType(HttpDelete);
+    
+            HttpResponse response = executeMethod(HttpDelete);
+            int status = response.getStatusLine().getStatusCode();
+    
+            if (status != HttpStatus.SC_OK) {
+                try {
+                    LOGGER.error(getResponseBodyAsString(response));
+                } catch (IOException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+                throw new RuntimeException(status+" error occurred while trying to call DELETE on "+url);
             }
-
-            throw new RuntimeException(status+" error occurred while trying to call DELETE on "+url);
+        } finally {
+            HttpDelete.releaseConnection();
         }
     }
 
-    private StringRequestEntity getStringRequestEntity(Object object) {
-
-        try {
-            String json = mapToJson(object);
-            LOGGER.info("JSON being sent to the webservice " + json);
-            return new StringRequestEntity(json, "application/json", "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    private StringEntity getStringEntity(Object object) {
+        String json = mapToJson(object);
+        LOGGER.info("JSON being sent to the webservice " + json);
+        return new StringEntity(json, ContentType.APPLICATION_JSON);
     }
 
     @Override
     public List<Patient> getPatients(String identifier) {
 
         String url = String.format("%s/patients/search/findByIdentifier?identifier=%s", idartWebUrl, identifier);
-        GetMethod getPatients = new GetMethod(url);
+        HttpGet getPatients = new HttpGet(url);
 
-        decorateMethodWithAuth(getPatients);
-        decorateMethodWithAccept(getPatients);
-
-        int status = executeMethod(getPatients);
-
-        InputStream body = getResponseBodyAsString(getPatients);
-
-        if (status != HttpStatus.SC_OK) {
-            throw new RuntimeException("" + status);
+        try {
+            decorateMethodWithAccept(getPatients);
+    
+            HttpResponse response = executeMethod(getPatients);
+    
+            int status = response.getStatusLine().getStatusCode();
+            if (status != HttpStatus.SC_OK) {
+                throw new RuntimeException("" + status);
+            }
+    
+            InputStream body = getResponseBodyAsInputStream(response);
+    
+            return mapJsonToPartyPatients(body);
+        } finally {
+            getPatients.releaseConnection();
         }
-
-        return mapJsonToPartyPatients(body);
     }
 
     @Override
     public List<Practitioner> getPractitioners() {
 
-        GetMethod getPractitioners = new GetMethod(String.format("%s/practitioners", idartWebUrl));
-
-        decorateMethodWithAuth(getPractitioners);
-        decorateMethodWithAccept(getPractitioners);
-
-        int status = executeMethod(getPractitioners);
-
-        InputStream body = getResponseBodyAsString(getPractitioners);
-
-        if (status != HttpStatus.SC_OK) {
-            throw new RuntimeException("" + status);
+        HttpGet getPractitioners = new HttpGet(String.format("%s/practitioners", idartWebUrl));
+        
+        try {
+            decorateMethodWithAccept(getPractitioners);
+    
+            HttpResponse response = executeMethod(getPractitioners);
+            int status = response.getStatusLine().getStatusCode();
+    
+            InputStream body = getResponseBodyAsInputStream(response);
+    
+            if (status != HttpStatus.SC_OK) {
+                throw new RuntimeException("" + status);
+            }
+    
+            return mapJsonToPartyPractitioners(body);
+        } finally {
+            getPractitioners.releaseConnection();
         }
-
-        return mapJsonToPartyPractitioners(body);
     }
 
     private List<Patient> mapJsonToPartyPatients(InputStream json) {
@@ -236,33 +341,49 @@ public final class IdartClientSingleton implements IdartClient {
             throw new RuntimeException(e);
         }
     }
-
-    private InputStream getResponseBodyAsString(GetMethod getPatient) {
+    
+    private InputStream getResponseBodyAsInputStream(HttpResponse httpResponse) {
+        InputStream in = null;
         try {
-            return getPatient.getResponseBodyAsStream();
+            in = httpResponse.getEntity().getContent();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return in;
+    }
+
+    private String getResponseBodyAsString(HttpResponse httpResponse) throws IOException {
+        StringBuilder inputStringBuilder = new StringBuilder();
+
+        InputStream in = httpResponse.getEntity().getContent();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            String line = bufferedReader.readLine();
+            while(line != null){
+                inputStringBuilder.append(line);inputStringBuilder.append('\n');
+                line = bufferedReader.readLine();
+            }
+        } finally {
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
+        }
+        return inputStringBuilder.toString();
+    }
+
+    private HttpResponse executeMethod(HttpRequestBase httpMethod) {
+        try {
+            return httpClient.execute(httpMethod);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private int executeMethod(HttpMethod httpMethod) {
-        try {
-            return httpClient.executeMethod(httpMethod);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private static void decorateMethodWithAccept(HttpRequestBase httpMethod) {
+        httpMethod.setHeader("Accept", "application/json; charset=UTF-8");
     }
 
-    private void decorateMethodWithAuth(HttpMethod httpMethod) {
-
-        httpMethod.setRequestHeader("Authorization", authenticate);
-    }
-
-    private static void decorateMethodWithAccept(HttpMethod httpMethod) {
-        httpMethod.setRequestHeader("Accept", "application/json; charset=UTF-8");
-    }
-
-    private static void decorateMethodWithContentType(HttpMethod httpMethod) {
-        httpMethod.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    private static void decorateMethodWithContentType(HttpRequestBase httpMethod) {
+        httpMethod.setHeader("Content-Type", "application/json; charset=UTF-8");
     }
 }
