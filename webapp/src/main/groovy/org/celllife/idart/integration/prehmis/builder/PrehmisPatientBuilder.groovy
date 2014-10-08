@@ -1,19 +1,25 @@
 package org.celllife.idart.integration.prehmis.builder
 
+import static org.celllife.idart.common.Identifiers.newIdentifier
+import groovy.util.slurpersupport.NodeChild
+import groovy.xml.XmlUtil
+
+import java.text.SimpleDateFormat
+
 import org.celllife.idart.application.patient.dto.PatientDto
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.common.Systems
 import org.celllife.idart.domain.contactmechanism.MobileTelephoneNumber
 import org.celllife.idart.integration.prehmis.PrehmisGender
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
-import java.text.SimpleDateFormat
-
-import static org.celllife.idart.common.Identifiers.newIdentifier
-
 @Service
 class PrehmisPatientBuilder implements PatientBuilder {
+    
+    static final Logger LOGGER = LoggerFactory.getLogger(PrehmisRequestBuilder)
 
     String soapNamesapce = 'http://schemas.xmlsoap.org/soap/envelope/'
 
@@ -28,6 +34,12 @@ class PrehmisPatientBuilder implements PatientBuilder {
         envelope.declareNamespace(soap: soapNamesapce, prehmis: prehmisNamespace)
 
         def prehmisPatient = envelope.'soap:Body'.'prehmis:getPatientResponse'.result
+        
+        try {
+            LOGGER.info("PREHMIS response: " + XmlUtil.serialize(prehmisPatient))
+        } catch (Throwable t) {
+            LOGGER.info("PREHMIS response: " + envelope)
+        }
 
         PatientDto patient = new PatientDto()
         PersonDto person = new PersonDto()

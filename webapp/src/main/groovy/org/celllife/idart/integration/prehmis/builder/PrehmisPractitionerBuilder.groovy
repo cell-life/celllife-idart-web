@@ -3,17 +3,23 @@ package org.celllife.idart.integration.prehmis.builder
 import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.celllife.idart.common.Identifiers.newIdentifiers
 import static org.celllife.idart.common.Systems.PREHMIS
+import groovy.util.slurpersupport.NodeChild
+import groovy.xml.XmlUtil
 
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.common.Systems
 import org.celllife.idart.integration.prehmis.PrehmisPractitionerType
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 
 @Service
 class PrehmisPractitionerBuilder implements PractitionerBuilder {
+    
+    static final Logger LOGGER = LoggerFactory.getLogger(PrehmisRequestBuilder)
 
     String soapNamespace = 'http://schemas.xmlsoap.org/soap/envelope/'
 
@@ -25,6 +31,12 @@ class PrehmisPractitionerBuilder implements PractitionerBuilder {
 
         def envelope = getPractionerListResponse.data
         envelope.declareNamespace(soap: soapNamespace, prehmis: prehmisNamespace)
+
+        try {
+            LOGGER.info("PREHMIS response: " + XmlUtil.serialize(envelope))
+        } catch (Throwable t) {
+            LOGGER.info("PREHMIS response: " + envelope)
+        }
 
         def practitioners = envelope.'soap:Body'.'prehmis:getPractitionerListResponse'.result.item
                 .collect { buildPractitioner(it) }
@@ -64,6 +76,8 @@ class PrehmisPractitionerBuilder implements PractitionerBuilder {
         }
 
         practitioner.person = person
+        
+        LOGGER.debug("Processed practitioner " + practitioner + " with type " + practitioner.getType())
 
         practitioner
     }
