@@ -61,10 +61,12 @@ public final class IdartClientSingleton implements IdartClient {
     private final ObjectMapper objectMapper;
 
     private String idartWebUrl;
+    
+    private static boolean useProxy = false;
 
     public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword) {
 
-        if (instance == null) {
+        if (instance == null || useProxy) {
             instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, 
                     null, null, null, null, null);
         }
@@ -75,7 +77,7 @@ public final class IdartClientSingleton implements IdartClient {
     public synchronized static IdartClient getInstance(String idartWebUrl, String idartWebUsername, String idartWebPassword, 
             String proxyUrl, Integer proxyPort, String proxyUser, String proxyPassword, String proxyDomain) {
 
-        if (instance == null) {
+        if (instance == null || !useProxy) {
             instance = new IdartClientSingleton(idartWebUrl, idartWebUsername, idartWebPassword, 
                     proxyUrl, proxyPort, proxyUser, proxyPassword, proxyDomain);
         }
@@ -107,6 +109,7 @@ public final class IdartClientSingleton implements IdartClient {
         if (proxyUrl != null && !proxyUrl.trim().isEmpty()) {
             LOGGER.info("Creating iDARTweb client with proxy server");
             
+            useProxy = true;
             if (proxyUser != null && !proxyUser.trim().isEmpty()) {
                 // add authentication (assuming NTLM)
                 String workstation = null;
@@ -133,6 +136,8 @@ public final class IdartClientSingleton implements IdartClient {
                     .build();
         } else {
             LOGGER.info("Creating (default) proxy aware iDARTweb client");
+            
+            useProxy = false; // we aren't manually specifying the proxy (as above)
 
             // add default proxy-aware
             SystemDefaultRoutePlanner routePlanner = new SystemDefaultRoutePlanner(ProxySelector.getDefault());
