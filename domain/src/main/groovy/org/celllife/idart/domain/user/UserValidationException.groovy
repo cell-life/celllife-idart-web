@@ -6,9 +6,7 @@ import javax.validation.ConstraintViolation
  */
 class UserValidationException extends RuntimeException {
 
-    Set<ConstraintViolation<User>> constraintViolations
-
     UserValidationException(Set<ConstraintViolation<User>> constraintViolations) {
-        this.constraintViolations = constraintViolations
+        super(constraintViolations);
     }
 }

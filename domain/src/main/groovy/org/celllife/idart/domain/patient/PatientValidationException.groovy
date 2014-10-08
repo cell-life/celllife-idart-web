@@ -2,13 +2,13 @@ package org.celllife.idart.domain.patient
 
 import javax.validation.ConstraintViolation
 
+import org.celllife.idart.domain.exception.ValidationException
+
 /**
  */
-class PatientValidationException extends RuntimeException {
-
-    Set<ConstraintViolation<Patient>> constraintViolations
+class PatientValidationException extends ValidationException {
 
     PatientValidationException(Set<ConstraintViolation<Patient>> constraintViolations) {
-        this.constraintViolations = constraintViolations
+        super(constraintViolations);
     }
 }

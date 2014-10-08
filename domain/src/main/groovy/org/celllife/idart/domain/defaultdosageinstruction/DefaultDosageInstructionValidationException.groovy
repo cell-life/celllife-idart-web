@@ -2,13 +2,13 @@ package org.celllife.idart.domain.defaultdosageinstruction
 
 import javax.validation.ConstraintViolation
 
+import org.celllife.idart.domain.exception.ValidationException
+
 /**
  */
-class DefaultDosageInstructionValidationException extends RuntimeException {
-
-    Set<ConstraintViolation<DefaultDosageInstruction>> constraintViolations
+class DefaultDosageInstructionValidationException extends ValidationException {
 
     DefaultDosageInstructionValidationException(Set<ConstraintViolation<DefaultDosageInstruction>> constraintViolations) {
-        this.constraintViolations = constraintViolations
+        super(constraintViolations);
     }
 }

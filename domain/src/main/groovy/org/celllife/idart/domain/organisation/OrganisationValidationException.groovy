@@ -2,13 +2,13 @@ package org.celllife.idart.domain.organisation
 
 import javax.validation.ConstraintViolation
 
+import org.celllife.idart.domain.exception.ValidationException
+
 /**
  */
-class OrganisationValidationException extends RuntimeException {
-
-    Set<ConstraintViolation<Organisation>> constraintViolations
+class OrganisationValidationException extends ValidationException {
 
     OrganisationValidationException(Set<ConstraintViolation<Organisation>> constraintViolations) {
-        this.constraintViolations = constraintViolations
+        super(constraintViolations);
     }
 }

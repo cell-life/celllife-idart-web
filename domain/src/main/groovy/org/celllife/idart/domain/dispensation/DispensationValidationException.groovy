@@ -2,13 +2,13 @@ package org.celllife.idart.domain.dispensation
 
 import javax.validation.ConstraintViolation
 
+import org.celllife.idart.domain.exception.ValidationException
+
 /**
  */
-class DispensationValidationException extends RuntimeException {
-
-    Set<ConstraintViolation<Dispensation>> constraintViolations
+class DispensationValidationException extends ValidationException {
 
     DispensationValidationException(Set<ConstraintViolation<Dispensation>> constraintViolations) {
-        this.constraintViolations = constraintViolations
+        super(constraintViolations);
     }
 }
