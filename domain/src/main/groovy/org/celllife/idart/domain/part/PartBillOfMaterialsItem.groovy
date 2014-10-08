@@ -1,6 +1,7 @@
 package org.celllife.idart.domain.part
 
-import groovy.transform.EqualsAndHashCode;
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 import org.celllife.idart.common.PartBillOfMaterialsType
 import org.celllife.idart.common.PartId
@@ -11,6 +12,7 @@ import org.celllife.idart.common.Quantity
  * Describes the compounds of a drug.
  */
 @EqualsAndHashCode
+@ToString
 class PartBillOfMaterialsItem implements Serializable {
 
     /**
@@ -67,10 +69,4 @@ class PartBillOfMaterialsItem implements Serializable {
                 (this.type == that.type) &&
                 (this.quantityUsed == that.quantityUsed)
     }*/
-
-    @Override
-    public String toString() {
-        return "PartBillOfMaterialsItem [type=" + type + ", valid=" + valid + ", part=" + part + ", quantityUsed="
-                + quantityUsed + ", instructions=" + instructions + ", comment=" + comment + "]";
-    }
 }

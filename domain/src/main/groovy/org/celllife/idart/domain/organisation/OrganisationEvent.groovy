@@ -1,9 +1,12 @@
 package org.celllife.idart.domain.organisation
 
+import groovy.transform.ToString
+
 
 /**
  * Organisation Domain Event
  */
+@ToString
 class OrganisationEvent implements Serializable {
 
     Date timestamp

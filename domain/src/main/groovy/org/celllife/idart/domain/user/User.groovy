@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.user
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.UserId
 
@@ -7,6 +9,7 @@ import org.celllife.idart.common.UserId
  * User 
  *
  */
+@ToString
 class User implements Serializable {
 
     /**

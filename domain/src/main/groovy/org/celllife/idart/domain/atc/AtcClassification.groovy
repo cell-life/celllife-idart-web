@@ -1,4 +1,7 @@
 package org.celllife.idart.domain.atc
+
+import groovy.transform.ToString
+
 /**
  * Anatomical Therapeutic Chemical Classification
  *
@@ -17,6 +20,7 @@ package org.celllife.idart.domain.atc
  * Date: 2013-06-17
  * Time: 13h23
  */
+@ToString
 class AtcClassification implements Serializable {
 
     /**

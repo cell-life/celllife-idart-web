@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.person
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.Gender
 import org.celllife.idart.common.MaritalStatus
 import org.celllife.idart.common.Measurement
@@ -11,6 +13,7 @@ import org.celllife.idart.domain.party.Party
  * Date: 2013-06-15
  * Time: 13h50
  */
+@ToString
 class Person extends Party {
 
     /**

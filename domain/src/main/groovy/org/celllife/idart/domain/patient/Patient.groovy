@@ -1,10 +1,11 @@
 package org.celllife.idart.domain.patient
 
+import static org.celllife.idart.common.Period.newPeriod
+import groovy.transform.ToString
+
 import org.celllife.idart.common.PatientId
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PersonId
-
-import static org.celllife.idart.common.Period.newPeriod
 
 /**
  * Party Role -> Person Role -> Patient
@@ -13,6 +14,7 @@ import static org.celllife.idart.common.Period.newPeriod
  * Date: 2013-06-16
  * Time: 09h14
  */
+@ToString
 class Patient implements Serializable {
 
     /**
@@ -36,7 +38,7 @@ class Patient implements Serializable {
             return
         }
 
-        if (that.valid != null) {
+        if (this.valid == null) {
             this.valid = that.valid
         }
 

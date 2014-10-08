@@ -1,9 +1,12 @@
 package org.celllife.idart.domain.practitioner
 
+import groovy.transform.ToString
+
 
 /**
  * Practitioner Domain Event
  */
+@ToString
 class PractitionerEvent implements Serializable {
 
     Date timestamp

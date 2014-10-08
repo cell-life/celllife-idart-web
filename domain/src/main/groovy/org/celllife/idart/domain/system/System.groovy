@@ -1,11 +1,14 @@
 package org.celllife.idart.domain.system
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.SystemId
 
 /**
  * System 
  *
  */
+@ToString
 class System implements Serializable {
 
     /**

@@ -1,9 +1,12 @@
 package org.celllife.idart.domain.part
 
+import groovy.transform.ToString
+
 
 /**
  * Part Domain Event
  */
+@ToString
 class PartEvent implements Serializable {
 
     Date timestamp

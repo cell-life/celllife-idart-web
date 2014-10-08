@@ -1,9 +1,12 @@
 package org.celllife.idart.domain.defaultdosageinstruction
 
+import groovy.transform.ToString
+
 
 /**
  * Default Dosage Instruction Domain Event
  */
+@ToString
 class DefaultDosageInstructionEvent implements Serializable {
 
     Date timestamp

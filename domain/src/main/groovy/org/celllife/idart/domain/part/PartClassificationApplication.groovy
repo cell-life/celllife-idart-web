@@ -1,6 +1,8 @@
 package org.celllife.idart.domain.part
 
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
 import org.celllife.idart.common.PartClassificationCode
 import org.celllife.idart.common.Period
 
@@ -8,6 +10,7 @@ import org.celllife.idart.common.Period
  * Classification code of a Part, and the validity of the code. An example of a code is ATC
  */
 @EqualsAndHashCode
+@ToString
 class PartClassificationApplication implements Serializable {
 
     /**
@@ -19,9 +22,4 @@ class PartClassificationApplication implements Serializable {
      * Valid during
      */
     Period valid
-
-    @Override
-    public String toString() {
-        return "PartClassificationApplication [classification=" + classification + ", valid=" + valid + "]";
-    }
 }

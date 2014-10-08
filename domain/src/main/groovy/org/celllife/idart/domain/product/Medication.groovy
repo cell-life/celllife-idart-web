@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.product
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.PartId
 
 /**
@@ -7,6 +9,7 @@ import org.celllife.idart.common.PartId
  * Date: 2013-07-23
  * Time: 19h42
  */
+@ToString
 class Medication extends Product {
 
     /**

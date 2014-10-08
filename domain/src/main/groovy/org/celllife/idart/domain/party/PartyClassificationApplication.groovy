@@ -1,6 +1,8 @@
 package org.celllife.idart.domain.party
 
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
 import org.celllife.idart.common.PartyClassificationCode
 import org.celllife.idart.common.Period
 
@@ -10,6 +12,7 @@ import org.celllife.idart.common.Period
  * Time: 10h23
  */
 @EqualsAndHashCode
+@ToString
 class PartyClassificationApplication implements Serializable {
 
     /**

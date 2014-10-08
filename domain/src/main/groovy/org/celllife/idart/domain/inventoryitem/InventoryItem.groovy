@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.inventoryitem
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.PartId
 
 /**
@@ -7,6 +9,7 @@ import org.celllife.idart.common.PartId
  * Date: 2013-06-16
  * Time: 18h47
  */
+@ToString
 abstract class InventoryItem implements Serializable {
 
     /**

@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.product
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.ProductId
 
 /**
@@ -7,6 +9,7 @@ import org.celllife.idart.common.ProductId
  * Date: 2013-06-16
  * Time: 18h13
  */
+@ToString
 abstract class Product implements Serializable {
 
     /**

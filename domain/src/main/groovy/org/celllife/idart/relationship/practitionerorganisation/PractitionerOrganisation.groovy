@@ -1,5 +1,7 @@
 package org.celllife.idart.relationship.practitionerorganisation
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.OrganisationId
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PractitionerId
@@ -9,6 +11,7 @@ import org.celllife.idart.common.PractitionerId
  * Date: 2013-09-04
  * Time: 14h59
  */
+@ToString
 class PractitionerOrganisation implements Serializable {
 
     enum Relationship {

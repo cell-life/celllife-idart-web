@@ -1,9 +1,12 @@
 package org.celllife.idart.domain.system
 
+import groovy.transform.ToString
+
 
 /**
  * System Domain Event
  */
+@ToString
 class SystemEvent implements Serializable {
 
     Date timestamp

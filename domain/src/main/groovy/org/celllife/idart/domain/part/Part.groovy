@@ -1,11 +1,14 @@
 package org.celllife.idart.domain.part
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.*
 
 /**
  * A Part is generally a Drug or Compound, but could be any medically related artifact. It is
  * something that can be dispensed to a patient as part of a medical treatment.
  */
+@ToString
 abstract class Part implements Serializable {
 
     /**
@@ -66,11 +69,5 @@ abstract class Part implements Serializable {
 
     def addClassification(PartClassificationType type, String code) {
         this.classifications.add(new PartClassificationApplication(classification: new PartClassificationCode(type: type, value: code)))
-    }
-
-    @Override
-    public String toString() {
-        return "Part [id=" + id + ", label=" + label + ", quantity=" + quantity + ", form=" + form
-                + ", classifications=" + classifications.toString() + "]";
     }
 }

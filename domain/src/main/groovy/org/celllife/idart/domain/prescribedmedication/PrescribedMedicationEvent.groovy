@@ -1,9 +1,12 @@
 package org.celllife.idart.domain.prescribedmedication
 
+import groovy.transform.ToString
+
 
 /**
  * PrescribedMedication Domain Event
  */
+@ToString
 class PrescribedMedicationEvent implements Serializable {
 
     Date timestamp

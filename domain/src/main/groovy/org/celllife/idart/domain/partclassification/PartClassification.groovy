@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.partclassification
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.PartClassificationCode
 
 /**
@@ -7,6 +9,7 @@ import org.celllife.idart.common.PartClassificationCode
  * Date: 2013-06-17
  * Time: 13h22
  */
+@ToString
 class PartClassification implements Serializable {
 
     /**

@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.dosageinstruction
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.*
 
 /**
@@ -7,6 +9,7 @@ import org.celllife.idart.common.*
  * Date: 2013-06-17
  * Time: 22h29
  */
+@ToString
 class DosageInstruction implements Serializable {
 
     private static final long serialVersionUID = 530452930800313124L;

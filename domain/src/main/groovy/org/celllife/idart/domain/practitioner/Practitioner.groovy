@@ -1,11 +1,12 @@
 package org.celllife.idart.domain.practitioner
 
+import static org.celllife.idart.common.Period.newPeriod
+import groovy.transform.ToString
+
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PersonId
 import org.celllife.idart.common.PractitionerId
 import org.celllife.idart.common.PractitionerType
-
-import static org.celllife.idart.common.Period.newPeriod
 
 /**
  * Party Role -> Person Role -> Practitioner
@@ -14,6 +15,7 @@ import static org.celllife.idart.common.Period.newPeriod
  * Date: 2013-06-16
  * Time: 09h14
  */
+@ToString
 class Practitioner implements Serializable {
 
     /**
@@ -46,7 +48,7 @@ class Practitioner implements Serializable {
             this.type = that.type
         }
 
-        if (that.valid != null) {
+        if (this.valid == null) {
             this.valid = that.valid
         }
 

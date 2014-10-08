@@ -1,5 +1,7 @@
 package org.celllife.idart.domain.prescribedmedication
 
+import groovy.transform.ToString
+
 import org.celllife.idart.common.*
 import org.celllife.idart.domain.dosageinstruction.DosageInstruction
 
@@ -8,6 +10,7 @@ import org.celllife.idart.domain.dosageinstruction.DosageInstruction
  * Date: 2013-06-17
  * Time: 20h52
  */
+@ToString
 class PrescribedMedication implements Serializable {
 
     /**
@@ -74,7 +77,9 @@ class PrescribedMedication implements Serializable {
         this.medication = that.medication
         this.reasonForPrescribing = that.reasonForPrescribing
         that.indications?.each { indication -> this.indications << indication }
-        this.valid = that.valid
+        if (this.valid == null) {
+            this.valid = that.valid
+        }
         this.numberOfRepeats = that.numberOfRepeats
         this.quantity = that.quantity
         this.expectedSupplyDuration = that.expectedSupplyDuration
