@@ -16,5 +16,9 @@
         </createTable>
 
     </changeSet>
+    
+    <changeSet id="practitioner-2" author="dagmar@cell-life.org">
+        <modifyDataType tableName="practitioner" columnName="type" newDataType="varchar(62)"/>
+    </changeSet>
 
 </databaseChangeLog>
