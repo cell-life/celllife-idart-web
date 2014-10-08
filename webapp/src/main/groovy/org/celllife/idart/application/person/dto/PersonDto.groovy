@@ -1,18 +1,20 @@
 package org.celllife.idart.application.person.dto
 
-import groovy.transform.EqualsAndHashCode;
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 import org.celllife.idart.common.Gender
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.MaritalStatus
 import org.celllife.idart.common.Measurement
 import org.celllife.idart.domain.contactmechanism.ContactMechanism
-import org.celllife.idart.common.Identifier
 import org.celllife.idart.domain.party.PartyContactMechanism
 
 /**
  * A Data Transfer Object for the Person entity
  */
 @EqualsAndHashCode
+@ToString
 class PersonDto {
 
     /**
@@ -93,15 +95,5 @@ class PersonDto {
 
     def addContactMechanism(ContactMechanism contactMechanism) {
         contactMechanisms << new PartyContactMechanism(contactMechanism: contactMechanism)
-    }
-
-    @Override
-    public String toString() {
-        return "PersonDto [identifiers=" + identifiers + ", firstName=" + firstName + ", middleNames=" + middleNames
-                + ", lastName=" + lastName + ", personalTitle=" + personalTitle + ", suffix=" + suffix + ", nickname="
-                + nickname + ", gender=" + gender + ", birthDate=" + birthDate + ", mothersMaidenName="
-                + mothersMaidenName + ", maritalStatus=" + maritalStatus + ", totalYearsWorkExperience="
-                + totalYearsWorkExperience + ", comment=" + comment + ", measurements=" + measurements
-                + ", contactMechanisms=" + contactMechanisms + "]";
     }
 }

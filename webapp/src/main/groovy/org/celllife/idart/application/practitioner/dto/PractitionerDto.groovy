@@ -1,11 +1,12 @@
 package org.celllife.idart.application.practitioner.dto
 
-import groovy.transform.EqualsAndHashCode;
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 import org.celllife.idart.application.person.dto.PersonDto
+import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.Period
 import org.celllife.idart.common.PractitionerType
-import org.celllife.idart.common.Identifier
 
 /**
  * User: Kevin W. Sewell
@@ -13,6 +14,7 @@ import org.celllife.idart.common.Identifier
  * Time: 13h00
  */
 @EqualsAndHashCode
+@ToString
 class PractitionerDto implements Serializable {
 
     /**
