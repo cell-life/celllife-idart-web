@@ -20,21 +20,21 @@
 
     <tx:advice id="transactionInterceptor" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="delete*" propagation="REQUIRES_NEW" read-only="false"/>
-            <tx:method name="exists*" propagation="REQUIRES_NEW" read-only="true"/>
-            <tx:method name="find*" propagation="REQUIRES_NEW" read-only="true"/>
-            <tx:method name="save*" propagation="REQUIRES_NEW" read-only="false"/>
-            <tx:method name="resolve*" propagation="REQUIRES_NEW" read-only="false"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="exists*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="resolve*" propagation="REQUIRED" read-only="false"/>
         </tx:attributes>
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="allDomainServices"
-                      expression="execution(public * org.celllife.idart.domain..*ServiceImpl.*(..))"/>
-        <aop:pointcut id="allRelationshipServices"
-                      expression="execution(public * org.celllife.idart.relationship..*ServiceImpl.*(..))"/>
+        <aop:pointcut id="allDomainServices" expression="execution(public * org.celllife.idart.domain..*ServiceImpl.*(..))"/>
+        <aop:pointcut id="allRelationshipServices" expression="execution(public * org.celllife.idart.relationship..*ServiceImpl.*(..))"/>
+        <aop:pointcut id="allApplicationServices" expression="execution(public * org.celllife.idart.application..*ServiceImpl.*(..)) &amp;&amp; !execution(public * org.celllife.idart.application.eventerror..*ServiceImpl.*(..))"/>
         <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allDomainServices"/>
         <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allRelationshipServices"/>
+        <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="allApplicationServices"/>
     </aop:config>
 
 </beans>
