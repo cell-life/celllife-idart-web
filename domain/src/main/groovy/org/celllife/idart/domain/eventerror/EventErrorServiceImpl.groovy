@@ -11,20 +11,7 @@ import javax.inject.Named
 
     @Override
     EventError save(EventError eventError) {
-        def saveEventError = eventError
-
-        // if there is an existing eventError object, then merge it (and increment the retry counter)
-        if (eventError.eventUuid != null) {
-            def existingEventError = eventErrorRepository.findOneByEventUuid(eventError.eventUuid)
-            if (existingEventError != null) {
-                Integer retryCount = existingEventError.retryCount + 1
-                existingEventError.merge(eventError)
-                saveEventError = existingEventError
-                saveEventError.retryCount = retryCount
-            }
-        }
-
-        eventErrorRepository.save(saveEventError)
+        eventErrorRepository.save(eventError)
     }
 
     @Override
