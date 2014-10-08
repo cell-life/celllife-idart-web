@@ -9,14 +9,14 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.transaction.annotation.Transactional
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-06-16
- * Time: 19h14
- */
+
 @ContextConfiguration(classes = TestConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@TransactionConfiguration(transactionManager="transactionManager",defaultRollback = true)
 class OrganisationServiceIntegrationTest {
 
     @Autowired OrganisationService organisationService

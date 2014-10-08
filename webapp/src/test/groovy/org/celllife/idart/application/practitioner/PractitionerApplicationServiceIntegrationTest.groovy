@@ -22,83 +22,62 @@ import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.practitioner.dto.PractitionerDto
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.Period
-import org.celllife.idart.domain.counter.CounterRepository
-import org.celllife.idart.domain.facility.FacilityRepository
-import org.celllife.idart.domain.identifiable.IdentifiableRepository
+import org.celllife.idart.domain.exception.ValidationException
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.organisation.OrganisationRepository
-import org.celllife.idart.domain.person.PersonRepository
 import org.celllife.idart.domain.practitioner.Practitioner
-import org.celllife.idart.domain.practitioner.PractitionerRepository
 import org.celllife.idart.domain.practitioner.PractitionerService
-import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationRepository
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
 import org.celllife.idart.test.TestConfiguration
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.transaction.annotation.Transactional
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-07-17
- * Time: 21h15
- */
+
 @ContextConfiguration(classes = TestConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@TransactionConfiguration(transactionManager="transactionManager",defaultRollback = true)
 class PractitionerApplicationServiceIntegrationTest {
 
     @Inject PractitionerApplicationService practitionerApplicationService
 
     @Inject PractitionerService practitionerService
 
-    @Inject PractitionerRepository practitionerRepository
-
     @Inject PersonApplicationService personApplicationService
-
-    @Inject PersonRepository personRepository
-
-    @Inject IdentifiableRepository identifiableRepository
 
     @Inject IdentifiableService identifiableService
 
-    @Inject CounterRepository counterRepository
-
     @Inject FacilityApplicationService facilityApplicationService
-
-    @Inject FacilityRepository facilityRepository
 
     @Inject OrganisationApplicationService organisationApplicationService
 
-    @Inject OrganisationRepository organisationRepository
-
     @Inject FacilityOrganisationService facilityOrganisationService
 
-    @Inject FacilityOrganisationRepository facilityOrganisationRepository
-
     @Inject ObjectMapper objectMapper
+    
+    @Test(expected=ValidationException)
+    public void shouldThrowValidationException() throws Exception {
 
-    /*@Before
-    public void setUp() throws Exception {
+        def practitionerDto = new PractitionerDto()
+        practitionerDto.with {
+            identifiers = [
+                    newIdentifier(systemId("00000001"), "00000002"),
+            ]
+            person = new PersonDto()
+            person.with {
+                identifiers = [
+                        newIdentifier(systemId("00000003"), "00000004"),
+                ]
+            }
+        }
 
-        ((SpringDataCounterRepository) counterRepository).deleteAll()
-
-        ((SpringDataIdentifiableRepository) identifiableRepository).deleteAll()
-
-        ((SpringDataPersonRepository) personRepository).deleteAll()
-
-        ((SpringDataPractitionerRepository) practitionerRepository).deleteAll()
-
-        ((SpringDataOrganisationRepository) organisationRepository).deleteAll()
-
-        ((SpringDataFacilityRepository) facilityRepository).deleteAll()
-
-        ((SpringDataFacilityOrganisationRepository) facilityOrganisationRepository).deleteAll()
-
-    }*/
+        practitionerApplicationService.save(practitionerDto)
+    }
 
     /**
      * Scenario 1 - Both Practitioner and Person exists
@@ -140,8 +119,7 @@ class PractitionerApplicationServiceIntegrationTest {
      *
      * @throws Exception
      */
-    @Ignore("This test only works if you keep clearing out the database....")
-    @Test(expected = PractitionerWithoutAPersonException)
+    @Test
     public void shouldSavePractitionerScenario2() throws Exception {
 
         def practitionerIdentifiers = [

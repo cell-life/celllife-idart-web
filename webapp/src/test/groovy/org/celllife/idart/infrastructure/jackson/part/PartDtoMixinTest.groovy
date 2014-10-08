@@ -1,21 +1,15 @@
 package org.celllife.idart.infrastructure.jackson.part
 
+import static org.junit.Assert.assertNotNull
+import static org.junit.Assert.assertTrue
+
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.PartDto
-import org.celllife.idart.domain.part.Compound
-import org.celllife.idart.domain.part.Part
 import org.celllife.idart.framework.json.IdartObjectMapper
 import org.junit.Before
 import org.junit.Test
 
-import static org.junit.Assert.assertNotNull
-import static org.junit.Assert.assertTrue
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-08-24
- * Time: 17h13
- */
 class PartDtoMixinTest {
 
     IdartObjectMapper objectMapper

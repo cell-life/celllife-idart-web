@@ -6,11 +6,7 @@ import org.celllife.idart.infrastructure.jackson.contactmechanism.ContactMechani
 import org.junit.Before
 import org.junit.Test
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-07-18
- * Time: 23h43
- */
+
 class TelecommunicationsNumberTest {
 
     private ObjectMapper objectMapper

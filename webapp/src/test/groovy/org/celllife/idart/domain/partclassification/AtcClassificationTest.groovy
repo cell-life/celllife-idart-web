@@ -1,15 +1,11 @@
 package org.celllife.idart.domain.partclassification
 
-import junit.framework.Assert
+
 import org.celllife.idart.domain.atc.AnatomicalMainGroup
 import org.celllife.idart.domain.atc.AtcClassification
+import org.junit.Assert
 import org.junit.Test
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-07-13
- * Time: 21h34
- */
 class AtcClassificationTest {
 
     @Test

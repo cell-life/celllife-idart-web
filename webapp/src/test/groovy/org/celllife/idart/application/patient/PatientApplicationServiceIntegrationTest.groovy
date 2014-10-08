@@ -21,101 +21,76 @@ import org.celllife.idart.application.person.PersonApplicationService
 import org.celllife.idart.application.person.dto.PersonDto
 import org.celllife.idart.application.system.SystemApplicationService
 import org.celllife.idart.application.system.dto.SystemDto
+import org.celllife.idart.common.IdentifiableType
 import org.celllife.idart.common.Identifier
 import org.celllife.idart.common.Period
-import org.celllife.idart.domain.counter.CounterRepository
-import org.celllife.idart.domain.facility.FacilityRepository
-import org.celllife.idart.domain.identifiable.IdentifiableRepository
+import org.celllife.idart.domain.exception.ValidationException
 import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.organisation.OrganisationRepository
 import org.celllife.idart.domain.patient.Patient
-import org.celllife.idart.domain.patient.PatientRepository
 import org.celllife.idart.domain.patient.PatientService
-import org.celllife.idart.domain.person.PersonRepository
-import org.celllife.idart.domain.system.SystemRepository
-import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationRepository
 import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
 import org.celllife.idart.relationship.systemfacility.SystemFacility
-import org.celllife.idart.relationship.systemfacility.SystemFacilityRepository
 import org.celllife.idart.relationship.systemfacility.SystemFacilityService
 import org.celllife.idart.test.TestConfiguration
-import org.junit.Ignore
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.transaction.annotation.Transactional
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-08-28
- * Time: 19h19
- */
+
 @RunWith(SpringJUnit4ClassRunner)
 @ContextConfiguration(classes = TestConfiguration)
+@Transactional
+@TransactionConfiguration(transactionManager="transactionManager",defaultRollback = true)
 class PatientApplicationServiceIntegrationTest {
 
     @Inject PatientApplicationService patientApplicationService
 
     @Inject PatientService patientService
 
-    @Inject PatientRepository patientRepository
-
     @Inject PersonApplicationService personApplicationService
-
-    @Inject PersonRepository personRepository
-
-    @Inject IdentifiableRepository identifiableRepository
 
     @Inject IdentifiableService identifiableService
 
-    @Inject CounterRepository counterRepository
-
     @Inject FacilityApplicationService facilityApplicationService
-
-    @Inject FacilityRepository facilityRepository
 
     @Inject OrganisationApplicationService organisationApplicationService
 
-    @Inject OrganisationRepository organisationRepository
-
     @Inject FacilityOrganisationService facilityOrganisationService
 
-    @Inject FacilityOrganisationRepository facilityOrganisationRepository
-
     @Inject SystemApplicationService systemApplicationService
-    
-    @Inject SystemRepository systemRepository
 
     @Inject SystemFacilityService systemFacilityService
-    
-    @Inject SystemFacilityRepository systemFacilityRepository
 
     @Inject ObjectMapper objectMapper
 
-    /*@Before
-    public void setUp() throws Exception {
-
-        ((SpringDataCounterRepository) counterRepository).deleteAll()
-
-        ((SpringDataIdentifiableRepository) identifiableRepository).deleteAll()
-
-        ((SpringDataPersonRepository) personRepository).deleteAll()
-
-        ((SpringDataPatientRepository) patientRepository).deleteAll()
-
-        ((SpringDataOrganisationRepository) organisationRepository).deleteAll()
-
-        ((SpringDataFacilityRepository) facilityRepository).deleteAll()
-
-        ((SpringDataFacilityOrganisationRepository) facilityOrganisationRepository).deleteAll()
-        
-        ((SpringDataSystemRepository) systemRepository).deleteAll()
-        
-        ((SpringDataSystemFacilityRepository) systemFacilityRepository).deleteAll()
-
-    }*/
+    @Test(expected=ValidationException)
+    public void testValidationError() {
+        def patientDto = new PatientDto()
+        patientDto.with {
+            identifiers = [
+                    newIdentifier(systemId("00000001"), "10000002"),
+            ]
+            person = new PersonDto()
+            person.with {
+                identifiers = [
+                        newIdentifier(systemId("00000003"), "00000004"),
+                ]
+            }
+        }
+        patientApplicationService.save(patientDto)
+    }
+    
+    @Test
+    public void testRollback() {
+        Set<Identifier> identifiers = [ newIdentifier(systemId("00000001"), "10000002") ]
+        Assert.assertFalse(identifiableService.exists(IdentifiableType.PATIENT, identifiers))
+    }
 
     /**
      * Scenario 1 - Both Patient and Person exists
@@ -155,8 +130,8 @@ class PatientApplicationServiceIntegrationTest {
      *
      * @throws Exception
      */
-    @Test(expected = PatientWithoutAPersonException)
-    @Ignore("This test messes up the database")
+    @Test
+    //@Ignore("This test messes up the database")
     public void shouldSavePatientScenario2() throws Exception {
 
         def patientIdentifiers = [

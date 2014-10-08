@@ -4,11 +4,7 @@ import org.celllife.idart.integration.prehmis.PrehmisPatientIdentifierType
 import org.junit.Assert
 import org.junit.Test
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-04-25
- * Time: 15h36
- */
+
 class GetPatientRequestBuilderTest {
 
     @Test

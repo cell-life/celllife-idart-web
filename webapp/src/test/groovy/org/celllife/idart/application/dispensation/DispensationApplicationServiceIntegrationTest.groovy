@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.application.facility.FacilityApplicationService
-import org.celllife.idart.application.facility.dto.FacilityDto
 import org.celllife.idart.application.part.PartApplicationService
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.DrugDto
@@ -27,83 +26,37 @@ import org.celllife.idart.application.prescription.dto.PrescriptionDto
 import org.celllife.idart.application.product.ProductApplicationService
 import org.celllife.idart.application.product.dto.MedicationDto
 import org.celllife.idart.common.*
-import org.celllife.idart.domain.counter.CounterRepository
-import org.celllife.idart.domain.dispensation.DispensationRepository
-import org.celllife.idart.domain.encounter.EncounterRepository
-import org.celllife.idart.domain.identifiable.IdentifiableRepository
-import org.celllife.idart.domain.part.PartRepository
-import org.celllife.idart.domain.patient.PatientRepository
-import org.celllife.idart.domain.person.PersonRepository
-import org.celllife.idart.domain.practitioner.PractitionerRepository
 import org.celllife.idart.domain.prescribedmedication.PrescribedMedicationRepository
-import org.celllife.idart.domain.prescription.PrescriptionRepository
-import org.celllife.idart.domain.product.ProductRepository
 import org.celllife.idart.test.TestConfiguration
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.springframework.data.repository.CrudRepository
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-06-22
- * Time: 20h00
- */
+
 @ContextConfiguration(classes = TestConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 class DispensationApplicationServiceIntegrationTest {
 
     @Inject ProductApplicationService productApplicationService
 
-    @Inject ProductRepository productRepository
-
     @Inject PartApplicationService partApplicationService
 
-    @Inject PartRepository partRepository
-
     @Inject PrescriptionApplicationService prescriptionApplicationService
-
-    @Inject PrescriptionRepository prescriptionRepository
 
     @Inject PrescribedMedicationRepository prescribedMedicationRepository
 
     @Inject DispensationApplicationService dispensationApplicationService
 
-    @Inject DispensationRepository dispensationRepository
-
     @Inject FacilityApplicationService facilityApplicationService
 
     @Inject PractitionerApplicationService practitionerApplicationService
 
-    @Inject PractitionerRepository practitionerRepository
-
     @Inject PatientApplicationService patientApplicationService
 
-    @Inject PatientRepository patientRepository
-
-    @Inject EncounterRepository encounterRepository
-
-    @Inject PersonRepository personRepository
-
-    @Inject IdentifiableRepository identifiableRepository
-
-    @Inject CounterRepository counterRepository
-
     @Inject ObjectMapper objectMapper
-
-    /*@Before
-    public void setUp() throws Exception {
-
-        [counterRepository, identifiableRepository, personRepository, patientRepository,
-                practitionerRepository, encounterRepository, prescriptionRepository, prescribedMedicationRepository,
-                dispensationRepository, productRepository, partRepository].each { repository ->
-            ((CrudRepository) repository).deleteAll()
-        }
-    }*/
 
     @Test
     void shouldUnmarshal() throws Exception {

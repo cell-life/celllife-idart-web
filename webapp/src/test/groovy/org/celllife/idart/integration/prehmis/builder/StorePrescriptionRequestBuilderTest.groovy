@@ -2,11 +2,7 @@ package org.celllife.idart.integration.prehmis.builder
 
 import org.junit.Test
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-07-28
- * Time: 13h24
- */
+
 class StorePrescriptionRequestBuilderTest {
 
     @Test

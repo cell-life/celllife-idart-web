@@ -1,6 +1,9 @@
 package org.celllife.idart.test
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import static org.celllife.idart.common.Identifiers.newIdentifiers
+
+import javax.inject.Inject
+
 import org.celllife.idart.application.dispensation.DispensationApplicationService
 import org.celllife.idart.application.dispensation.dto.DispensationDto
 import org.celllife.idart.application.facility.FacilityApplicationService
@@ -24,16 +27,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.transaction.annotation.Transactional
 
-import javax.inject.Inject
+import com.fasterxml.jackson.databind.ObjectMapper
 
-import static org.celllife.idart.common.Identifiers.newIdentifiers
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-10-09
- * Time: 19h15
- */
 @ContextConfiguration(classes = TestConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 class SmokeTest {

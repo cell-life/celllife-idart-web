@@ -13,40 +13,29 @@ import javax.inject.Inject
 import org.celllife.idart.application.facility.FacilityApplicationService
 import org.celllife.idart.application.facility.dto.FacilityDto
 import org.celllife.idart.application.part.dto.AtcCodeDto
-import org.celllife.idart.domain.facility.FacilityRepository
-import org.celllife.idart.infrastructure.springdata.facility.SpringDataFacilityRepository
 import org.celllife.idart.test.TestConfiguration
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.transaction.annotation.Transactional
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-09-17
- * Time: 20h40
- */
+
 @RunWith(SpringJUnit4ClassRunner)
 @ContextConfiguration(classes = TestConfiguration)
+@Transactional
+@TransactionConfiguration(transactionManager="transactionManager",defaultRollback = true)
 class AtcCodeApplicationServiceIntegrationTest {
 
 	@Inject FacilityApplicationService facilityApplicationService
-	
-	@Inject FacilityRepository facilityRepository
 
     @Inject AtcCodeApplicationService atcCodeApplicationService
 
 	@Inject ObjectMapper objectMapper
 
-	/*@Before
-	public void setUp() throws Exception {
-
-		((SpringDataFacilityRepository) facilityRepository).deleteAll()
-
-	}*/
 
 	@Test
 	public void shouldFindByFacility() throws Exception {

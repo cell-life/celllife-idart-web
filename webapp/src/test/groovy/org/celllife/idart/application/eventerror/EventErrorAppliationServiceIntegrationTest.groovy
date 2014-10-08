@@ -14,9 +14,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.transaction.annotation.Transactional
 
 @ContextConfiguration(classes = TestConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@TransactionConfiguration(transactionManager="transactionManager",defaultRollback = true)
 class EventErrorAppliationServiceIntegrationTest {
     
     @Inject EventErrorService eventErrorService
@@ -45,6 +49,7 @@ class EventErrorAppliationServiceIntegrationTest {
         ee.setUnserializedEventObject(event)
 
         EventError savedEe = eventErrorService.save(ee);
+        Integer retryCount = savedEe.retryCount
         
         List<Long> ids = new ArrayList<Long>()
         ids.add(savedEe.pk)
@@ -52,7 +57,7 @@ class EventErrorAppliationServiceIntegrationTest {
         
         EventError reprocessedEe = eventErrorService.findByEventErrorId(savedEe.pk)
         Assert.assertNotNull(reprocessedEe) // expecting it to fail again
-        Assert.assertEquals(savedEe.retryCount+1, reprocessedEe.retryCount)
+        Assert.assertEquals(retryCount+1, reprocessedEe.retryCount)
         Assert.assertNotNull(reprocessedEe.errorMessage)
     }
 
@@ -79,6 +84,7 @@ class EventErrorAppliationServiceIntegrationTest {
         ee.setUnserializedEventObject(event)
 
         EventError savedEe = eventErrorService.save(ee);
+        Integer retryCount = savedEe.retryCount
         
         List<Long> ids = new ArrayList<Long>()
         ids.add(savedEe.pk)
@@ -86,7 +92,7 @@ class EventErrorAppliationServiceIntegrationTest {
         
         EventError reprocessedEe = eventErrorService.findByEventErrorId(savedEe.pk)
         Assert.assertNotNull(reprocessedEe) // expecting it to fail again
-        Assert.assertEquals(savedEe.retryCount+1, reprocessedEe.retryCount)
+        Assert.assertEquals(retryCount+1, reprocessedEe.retryCount)
         Assert.assertNotNull(reprocessedEe.errorMessage)
     }
 }

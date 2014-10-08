@@ -16,11 +16,7 @@ import static org.celllife.idart.common.Identifiers.newIdentifier
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-08-25
- * Time: 10h04
- */
+
 class PatientDtoAssemblerTest {
 
     private PersonDtoAssembler personDtoAssembler = new PersonDtoAssembler()

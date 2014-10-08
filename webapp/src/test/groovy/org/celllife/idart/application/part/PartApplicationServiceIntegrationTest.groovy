@@ -12,34 +12,22 @@ import javax.inject.Inject
 import org.celllife.idart.application.part.dto.CompoundDto
 import org.celllife.idart.application.part.dto.DrugDto
 import org.celllife.idart.common.PartId
-import org.celllife.idart.domain.part.PartRepository
 import org.celllife.idart.test.TestConfiguration
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.transaction.annotation.Transactional
 
-/**
- * User: Kevin W. Sewell
- * Date: 2013-09-17
- * Time: 20h40
- */
+
 @RunWith(SpringJUnit4ClassRunner)
 @ContextConfiguration(classes = TestConfiguration)
+@Transactional
+@TransactionConfiguration(transactionManager="transactionManager",defaultRollback = true)
 class PartApplicationServiceIntegrationTest {
 
     @Inject PartApplicationService partApplicationService
-
-    @Inject PartRepository partRepository
-
-    /*@Before
-    public void setUp() throws Exception {
-
-        [partRepository].each { repository ->
-            ((CrudRepository) repository).deleteAll()
-        }
-
-    }*/
 
     @Test
     public void shouldFindByType() throws Exception {
