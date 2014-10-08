@@ -76,7 +76,7 @@ enum PrehmisPractitionerType {
             }
         }
 
-        return null
+        return PractitionerType.UNKNOWN
     }
 }
 

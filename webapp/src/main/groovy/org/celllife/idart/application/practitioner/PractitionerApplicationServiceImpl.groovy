@@ -67,19 +67,22 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             def practitioner = practitionerDtoAssembler.toPractitioner(practitionerDto)
             practitioner.id = practitionerId
 
-            def person = practitionerService.findPersonByPractitionerId(practitioner.id)
-            def personExists = personApplicationService.exists(person)
-            if (!personExists) {
-                // Scenario 2 - Practitioner exists but Person does not
-
-                // How did we manage to create a Practitioner without a Person... very very bad
-                throw new PractitionerWithoutAPersonException("Something bad happened")
+            def personId = practitionerService.findPersonByPractitionerId(practitioner.id)
+            if (personId == null) {
+                // Scenario 5 - The identifiers have been created, but not the person entity.
+                practitioner.person = personApplicationService.save(personDto)
+            } else {
+                def personExists = personApplicationService.exists(personId)
+                if (!personExists) {
+                    // Scenario 2 - Practitioner exists but Person does not
+                    practitioner.person = personApplicationService.save(personDto)
+                } else {
+                    // Scenario 1 - Both Practitioner and Person exists
+                    personDto.identifiers << newIdentifier(IDART_WEB.id, personId.value)
+                    practitioner.person = personApplicationService.save(personDto)
+                    practitioner = practitionerService.save(practitioner)
+                }
             }
-
-            // Scenario 1 - Both Practitioner and Person exists
-            personDto.identifiers << newIdentifier(IDART_WEB.id, person.value)
-            practitioner.person = personApplicationService.save(personDto)
-            practitioner = practitionerService.save(practitioner)
 
             practitioner.id
 

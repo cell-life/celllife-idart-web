@@ -12,6 +12,8 @@ import org.celllife.idart.framework.aspectj.LogLevel
 import org.celllife.idart.framework.aspectj.Loggable
 import org.celllife.idart.integration.prehmis.builder.PractitionerBuilder
 import org.celllife.idart.integration.prehmis.builder.PrehmisRequestBuilder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -64,7 +66,7 @@ import org.springframework.stereotype.Service
                         SOAPAction: prehmisEndpointBaseUrl + "/getPractitionerList"
                 ]
         )
-
+        
         return practitionerBuilder.buildPractitioners(getPractionerListResponse)
     }
 

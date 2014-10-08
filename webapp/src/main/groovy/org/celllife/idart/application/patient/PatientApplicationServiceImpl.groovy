@@ -1,22 +1,5 @@
 package org.celllife.idart.application.patient
 
-import org.celllife.idart.application.patient.dto.PatientDto
-import org.celllife.idart.application.patient.dto.PatientDtoAssembler
-import org.celllife.idart.application.person.PersonApplicationService
-import org.celllife.idart.common.*
-import org.celllife.idart.datawarehouse.patient.PatientDataWarehouse
-import org.celllife.idart.domain.identifiable.IdentifiableService
-import org.celllife.idart.domain.patient.PatientNotFoundException
-import org.celllife.idart.domain.patient.PatientService
-import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
-import org.celllife.idart.relationship.patientorganisation.PatientOrganisationService
-import org.celllife.idart.relationship.systemfacility.SystemFacilityService
-
-import javax.inject.Inject
-import javax.inject.Named
-
-import org.springframework.transaction.annotation.Transactional
-
 import static org.celllife.idart.common.IdentifiableType.FACILITY
 import static org.celllife.idart.common.IdentifiableType.PATIENT
 import static org.celllife.idart.common.Identifiers.getIdentifierValue
@@ -28,6 +11,22 @@ import static org.celllife.idart.common.Systems.PREHMIS
 import static org.celllife.idart.relationship.facilityorganisation.FacilityOrganisation.Relationship.OPERATED_BY
 import static org.celllife.idart.relationship.patientorganisation.PatientOrganisation.Relationship.REGISTERED_WITH
 import static org.celllife.idart.relationship.systemfacility.SystemFacility.Relationship.DEPLOYED_AT
+
+import javax.inject.Inject
+import javax.inject.Named
+
+import org.celllife.idart.application.patient.dto.PatientDto
+import org.celllife.idart.application.patient.dto.PatientDtoAssembler
+import org.celllife.idart.application.person.PersonApplicationService
+import org.celllife.idart.common.*
+import org.celllife.idart.datawarehouse.patient.PatientDataWarehouse
+import org.celllife.idart.domain.identifiable.IdentifiableService
+import org.celllife.idart.domain.patient.PatientNotFoundException
+import org.celllife.idart.domain.patient.PatientService
+import org.celllife.idart.relationship.facilityorganisation.FacilityOrganisationService
+import org.celllife.idart.relationship.patientorganisation.PatientOrganisationService
+import org.celllife.idart.relationship.systemfacility.SystemFacilityService
+import org.springframework.transaction.annotation.Transactional
 
 /**
  * User: Kevin W. Sewell
@@ -70,19 +69,22 @@ import static org.celllife.idart.relationship.systemfacility.SystemFacility.Rela
             def patient = patientDtoAssembler.toPatient(patientDto)
             patient.id = patientId
 
-            def person = patientService.findPersonByPatientId(patient.id)
-            def personExists = personApplicationService.exists(person)
-            if (!personExists) {
-                // Scenario 2 - Patient exists but Person does not
-
-                // How did we manage to create a Patient without a Person... very very bad
-                throw new PatientWithoutAPersonException("Something bad happened")
+            def personId = patientService.findPersonByPatientId(patient.id)
+            if (personId == null) {
+                // Scenario 5 - The identifiers have been created, but not the person entity.
+                patient.person = personApplicationService.save(personDto)
+            } else {
+                def personExists = personApplicationService.exists(personId)
+                if (!personExists) {
+                    // Scenario 2 - Patient exists but Person does not
+                    patient.person = personApplicationService.save(personDto)
+                } else {
+                    // Scenario 1 - Both Patient and Person exists
+                    personDto.identifiers << newIdentifier(IDART_WEB.id, personId.value)
+                    patient.person = personApplicationService.save(personDto)
+                    patient = patientService.save(patient)
+                }
             }
-
-            // Scenario 1 - Both Patient and Person exists
-            personDto.identifiers << newIdentifier(IDART_WEB.id, person.value)
-            patient.person = personApplicationService.save(personDto)
-            patient = patientService.save(patient)
 
             patient.id
 
